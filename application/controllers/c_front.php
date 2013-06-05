@@ -1,5 +1,5 @@
 <?php
-class C_Front extends CI_Controller {
+class C_Front extends MY_Controller {
 	var $data;
 	var $instructions;
 
@@ -12,7 +12,9 @@ class C_Front extends CI_Controller {
 
 	public function index() {
 		if(!$this -> session -> userdata('fCode')){
-			
+	    
+		 $data['facility']=$this ->selectFacility;
+			//echo $this ->selectFacility; die;
 		$data['form'] = '<p>User Login<p>';
 		$this -> load -> view('index', $data); //landing page
 	    }else{

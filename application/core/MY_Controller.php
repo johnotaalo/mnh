@@ -5,7 +5,7 @@ class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,
 	$selectCommodityType, $facilities, $selectCounties, 
-	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,
+	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectFacility,
 	$commodityAvailabilitySection,$signalFunctionsSection,$trainingGuidelineSection,$commodityUsageAndOutageSection;
 
 	function __construct() {
@@ -17,8 +17,9 @@ class  MY_Controller  extends  CI_Controller {
 		   
 		$this->em = $this->doctrine->em;
 		$this->response=$this->theForm=$this->data='';
-		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$this->selectCommoditySuppliers='';
+		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectCommoditySuppliers='';
 		$this->commodityAvailabilitySection=$this->signalFunctionsSection=$this->trainingGuidelineSection=$this->commodityUsageAndOutageSection='';
+		$this->getHealthFacilities();
 		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();$this->createBemoncSignalFunctionsSection();$this->createStaffTrainingGuidelinesSection();
@@ -114,6 +115,14 @@ class  MY_Controller  extends  CI_Controller {
 	    $this->data_found= $this->m_mnh_survey->getCommoditySupplierNames();
 		foreach($this->data_found as $value) {
 				$this ->selectCommoditySuppliers .= '<option value="' . $value['supplierName'] . '">' . $value['supplierName'] . '</option>' . '<br />';
+			}
+	}
+	
+	 public function getHealthFacilities(){
+		$this->load->model('m_mnh_survey');
+	    $this->data_found= $this->m_mnh_survey->getFacilityNames();
+		foreach($this->data_found as $value) {
+				$this ->selectFacility .= '<option value="' . $value['facilityName'] . '">' . $value['facilityName'] . '</option>' . '<br />';
 			}
 	}
 	

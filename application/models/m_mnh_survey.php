@@ -7,7 +7,7 @@ if (!defined('BASEPATH'))
 
 class M_MNH_Survey  extends MY_Model {
 	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,
-	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList;
+	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList;
 
 	function __construct() {
 		parent::__construct();
@@ -43,6 +43,12 @@ class M_MNH_Survey  extends MY_Model {
 		//var_dump($this->trainingGuidelinesList);die;
 		return $this->trainingGuidelinesList;
     }
+	
+	public function getFacilityNames(){
+		$this->facilityList=$this->getAllFacilityNames();
+		//var_dump($this->facilityList);die;
+		return $this->facilityList;
+	}
 
 	function addRecord() {
         $s=microtime(true); /*mark the timestamp at the beginning of the transaction*/
@@ -95,10 +101,10 @@ class M_MNH_Survey  extends MY_Model {
 			//exit;
 				
 		        //get the highest value of the array that will control the number of inserts to be done
-						$this->noOfInsertsBatch=1; //labour and delivery Qn5 to 8 will have a single response each
+				$this->noOfInsertsBatch=1; //labour and delivery Qn5 to 8 will have a single response each
 						 
 						 
-						 for($i=1; $i<=$this->noOfInsertsBatch;++$i){
+				for($i=1; $i<=$this->noOfInsertsBatch;++$i){
 			 	
 				//insert facility if new, else update the existing one
 			   $this -> theForm = new \models\Entities\E_Deliveries_No_Log; //create an object of the model
