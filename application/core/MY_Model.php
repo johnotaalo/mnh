@@ -30,6 +30,17 @@ function __construct() {
 			}
 	}
 	
+	public function getAllFacilityNames(){
+		$query = $this->em->createQuery('SELECT f.facilityName FROM models\Entities\e_facility f');
+		  //$query->setParameter('fname','%'.$options['keyword'].'%');
+          
+          $this->formRecords = $query->getArrayResult();
+		  
+		 
+      // die(var_dump($this->formRecords));
+        return $this->formRecords;
+	}
+	
 	function getAllCommodityNames(){
 		 /*using DQL*/
 		 try{

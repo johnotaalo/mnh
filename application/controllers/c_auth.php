@@ -32,7 +32,7 @@ class C_Auth extends MY_Controller {
 			
 			$this -> session -> set_userdata($newdata);
 		  
-		
+		   
 			redirect(base_url() . 'c_front/inventory', 'refresh');
 			$this -> load -> view('pages/inventory/index', $this->data);
 			

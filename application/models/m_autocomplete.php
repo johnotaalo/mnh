@@ -40,13 +40,7 @@ class M_Autocomplete extends MY_Model {
           
           $this->formRecords = $query->getArrayResult();
 		  
-		  
-		//$this->db->select('facilityName');
-
-        
-        //$this->db->like('facilityName', $options['keyword'], 'after');
-
-       // $query = $this->db->get('facility');
+		 
       // die(var_dump($this->formRecords));
         return $this->formRecords;
 	}
