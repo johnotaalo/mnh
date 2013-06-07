@@ -11,12 +11,19 @@ class C_Front extends MY_Controller {
 	}
 
 	public function index() {
+		$data['title']='MoH::Data Management Tool';
+		$this -> load -> view('home_view', $data); //landing page
+	   
+	}//End of index file
+	
+	
+	public function active_survey() {
 		if(!$this -> session -> userdata('fCode')){
 	    
 		 $data['facility']=$this ->selectFacility;
 			//echo $this ->selectFacility; die;
 		$data['form'] = '<p>User Login<p>';
-		$this -> load -> view('index', $data); //landing page
+		$this -> load -> view('index', $data); //login view
 	    }else{
 			$this->inventory();
 		}

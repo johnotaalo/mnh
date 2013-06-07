@@ -139,29 +139,29 @@ class  MY_Controller  extends  CI_Controller {
    		$this->commodityAvailabilitySection.='<tr>
 			<td style="width:200px;">'.$value['commodityName'].' </td>
 			<td> '.$value['commodityUnit'].'</td>
-			<td style="vertical-align: middle; margin: 0px;">
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;"/>
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Some Available" />
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" />
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Delivery Room" />
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Pharmacy" />
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Store" />
 			</td>
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Other" />
 			</td>
 
-			<td>
+			<td style ="text-align:center;">
 			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" />
 			</td>
 			<td width="50">
@@ -198,15 +198,15 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->signalFunctionsSection.='<tr>
-			<td>'.$value['signalName'].'</td><td>
+			<td>'.$value['signalName'].'</td><td style ="width:5px;">
 			<select name="bmsfSignalFunctionConducted_'.$counter.'" id="bmsfSignalFunctionConducted_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
+				<option value="" selected="selected">Select Signal Function</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select></td><td>
 			<select name="bmsfChallenge_'.$counter.'" id="bmsfChallenge_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
+				<option value="" selected="selected">Select Challenge</option>
 				<option value="Inadequate drugs">Inadequate drugs</option>
 				<option value="Inadequate training">Inadequate training</option>
 				<option value="Inadequate Supplies">Inadequate Supplies</option>
@@ -233,9 +233,9 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->trainingGuidelineSection.='<tr>
-			<TD colspan="2" >'.$value['guidelineName'].'</TD><td>
+			<TD colspan="2" style ="width=10;">'.$value['guidelineName'].'</TD><td>
 			<select name="gsLastTraining_'.$counter.'" id="gsLastTraining_'.$counter.'" >
-			    <option value="" selected="selected">Select One</option>
+			    <option value="" selected="selected">Select When Last Trained</option>
 				<option value="Never been trained">Never been trained</option>
 				<option value="6 months ago">6 months ago</option>
 				<option value="1 year ago">1 year ago</option>

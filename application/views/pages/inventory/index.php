@@ -14,11 +14,13 @@ $mfCode = $this -> session -> userdata('fCode');
 		<link rel="stylesheet" href="<?php echo base_url()?>css/styles.css"/>
 		<!--script src="http://code.jquery.com/jquery-latest.js"></script-->	
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/css-table.css" />	
-		
+		 <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
+		 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/menu_style.css" />
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
+		<script src="<?php echo base_url()?>js/IE-fix.js"</script>
 		<!--script to form client side validation functions-->
 		<!-- Run the TAB plugin -->
 		<script type="text/javascript">
@@ -188,13 +190,13 @@ $mfCode = $this -> session -> userdata('fCode');
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
-						$("#facilityName").val(facility.facilityName);
+						$("#facilityName").text(facility.facilityName);
 						
-						$("#facilityType").val(facility.facilityType);
-  						$("#facilityLevel").val(facility.facilityLevel);
-  						$("#facilityOwnedBy").val(facility.facilityOwnedBy);
-						$("#facilityDistrict").val(facility.facilityDistrict);
-						$("#facilityCounty").val(facility.facilityCounty);
+						$("#facilityType").text(facility.facilityType);
+  						$("#facilityLevel").text(facility.facilityLevel);
+  						$("#facilityOwnedBy").text(facility.facilityOwnedBy);
+						$("#facilityDistrict").text(facility.facilityDistrict);
+						$("#facilityCounty").text(facility.facilityCounty);
 						
 						/*$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
   						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
@@ -449,6 +451,7 @@ $mfCode = $this -> session -> userdata('fCode');
 		<div class="banner">
 		<!--header banner --->   
 		<?php $this -> load -> view('banner'); ?>
+		
 	
 					<div class="sessionUsers">
 						<div class="date">
@@ -461,6 +464,7 @@ $mfCode = $this -> session -> userdata('fCode');
 				
 		
 		</div>
+		<div><?php $this -> load -> view('menuu'); ?></div>
 		<!--profile data here -->
 		
 	
