@@ -85,40 +85,39 @@ class C_Load extends MY_Controller {
 
   				 <p id="data" style="display:none" class="message success"></p>
 		       <table class="center">
+
 		        <h3>COMMODITY ASSESSMENT FORM</h3>
-		       <thead><th colspan="6">FACILITY INFORMATION</th></thead>
-		<th colspan="2" >FACILITY </th><th colspan="2" >LEVEL</th><th colspan="2" >LOCATION </th></tr>
-		<tr>
+
+		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
+		       
+		
+			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" disabled="disabled" size="40"/>
+			<input type="text" id="facilityName" name="facilityName" class="cloned"  size="40"/>
 			</td> <TD  >Facility Level </TD><td>
-			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  disabled="disabled" size="40"/>
+			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
 			</td><TD  >County </TD><td>
-			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"  disabled="disabled" size="40"/>
+			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"   size="40"/>
 			</td>
 		</tr>
 		<tr>
 			<TD >Facility Type </TD><td>
-			<input type="text" id="facilityType" name="facilityType" class="cloned"  disabled="disabled" size="40"/>
+			<input type="text" id="facilityType" name="facilityType" class="cloned"   size="40"/>
+
 			</td>
 			<TD >Owned By </TD><td>
-			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  disabled="disabled" size="40"/>
+			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  size="40"/>
 			</td>
+
 			<TD >District </TD><td>
-			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  disabled="disabled" size="40"/>
+			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  size="40"/>
 			</td>
 			
 		</tr>
-		<tr>
-			 
-		</tr>
-		<tr>
+		
 			
 		</tr>
-		<tr>
-			
-		</tr>
-		<tr>
+		
 			
 		</tr>
 	</table>
@@ -252,17 +251,17 @@ class C_Load extends MY_Controller {
 			<th colspan="8" >PROVISION OF BEmONC SIGNAL FUNCTIONS  IN THE LAST THREE MONTHS </th>
 		</thead>
 		<tr >
-			<th scope="col" >SIGNAL FUNCTION</th>
-			<th  > CONDUCTED OR NOT CONDUCTED </th>
+			<th  width="15">SIGNAL FUNCTION</th>
+			<th  width="7"> CONDUCTED OR NOT CONDUCTED </th>
 			
-			<th >INDICATE CHALLENGE</th>
+			<th width="15">INDICATE CHALLENGE</th>
 
 		</tr>'.$this->signalFunctionsSection.'
 	</table>
 
 	<table  class="center" >
 		<thead>
-			<th colspan="12">STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="12">INDICATE THE NO. OF UNITS  AVAILABLE, lOCATION, MAIN SUPPLIER FOR EACH MONTH. INCLUDE REASON FOR UNAVAILABILITY</th>
 		</thead>
 
 		</tr>
@@ -302,7 +301,9 @@ class C_Load extends MY_Controller {
 	</table>
 
 	<table class="center">
-		<th colspan="4" >INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIDELINES </th>
+	<thead>
+		<th colspan="4"  >INDICATE THE NUMBER OF STAFF TRAINED ON THE FOLLOWING, AND WHEN THEY LAST HAD THE TRAINING  </th></thead>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th><th colspan ="2" style="text-align:left"> WHEN LAST TRAINED</th>
 		
 		'.$this->trainingGuidelineSection.'
 
@@ -350,7 +351,7 @@ class C_Load extends MY_Controller {
         '.$this->commodityUsageAndOutageSection.'
 	<tr id="buttonsPane" >
 	<td>
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Complete Survey"/>				
+		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Submit"/>				
 		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
 		
 		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->

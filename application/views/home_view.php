@@ -42,7 +42,7 @@
           <!--a class="brand" href="/c_front/"><img src="<?php echo base_url(); ?>/images/coat_of_arms-resized.png" width="40" height="40" alt="" /></a-->
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" width="70" height="50"/></li><li><a href="#">Home</a></li>
               <li><a href="<?php echo base_url(); ?>c_front/active_survey">Surveys</a></li>
               <li><a href="#results">Analysis</a></li>
               <li><a href="#contact"></a></li>
@@ -83,10 +83,12 @@
         <div class="span5">
         <div class="selector">
      
-          <h2>Take Survey <img src="<?php echo base_url(); ?>images/sur.PNG" alt="home" height="60" width="60" align="absmiddle"></h2>
+          <h2>Take Survey Assesment <img src="<?php echo base_url(); ?>images/sur.PNG" alt="home" height="60" width="60" align="absmiddle"></h2>
           </p></p>
           
+          
            <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Commodity Assessment</a></li>
+           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Supplies Assessment</a></li>
           
         </div>
         </div>
@@ -95,10 +97,11 @@
         
        <div class="selector">
       
-          <h2> Live Surveys <img src="<?php echo base_url(); ?>images/analysis.PNG" alt="home" height="60" width="60" align="absmiddle"></h2>
+          <h2>Surveys Analysis <img src="<?php echo base_url(); ?>images/analysis.PNG" alt="home" height="60" width="60" align="absmiddle"></h2>
           <p></p>
           
-           <p>Click here to access Live Surveys </p>
+           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Commodity Survey Analysis</a></li>
+           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Supplies Survey Analysis</a></li>
           
        </div>
         
