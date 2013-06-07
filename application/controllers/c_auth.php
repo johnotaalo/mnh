@@ -69,6 +69,7 @@ class C_Auth extends MY_Controller {
    
 	
 	public function logout(){
+		$data['facility']=$this ->selectFacility;
 		$data['form'] = '<p>You need to login.<p>';
 		$this -> load -> view('index', $data);
 		$this->session->sess_destroy();

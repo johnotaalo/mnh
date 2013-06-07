@@ -14,7 +14,7 @@ $mfCode = $this -> session -> userdata('fCode');
 		<link rel="stylesheet" href="<?php echo base_url()?>css/styles.css"/>
 		<!--script src="http://code.jquery.com/jquery-latest.js"></script-->	
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/css-table.css" />	
-		
+		 <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>

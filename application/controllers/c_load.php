@@ -76,48 +76,55 @@ class C_Load extends MY_Controller {
 	}
 
 	
-	public function get_new_form() {
+	public function get_new_form()
+	 {
 		$this -> combined_form.= 
 		         '<h5 id="status"></h5>
-
+                 
 				<form name="dcah_tool" id="dcah_tool" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
 
   				 <p id="data" style="display:none" class="message success"></p>
 		       <table class="center">
-		<th colspan="3" >FACILITY INFORMATION</th></tr>
+		        <h3>COMMODITY ASSESSMENT FORM</h3>
+		       <thead><th colspan="6">FACILITY INFORMATION</th></thead>
+		<th colspan="2" >FACILITY </th><th colspan="2" >LEVEL</th><th colspan="2" >LOCATION </th></tr>
 		<tr>
-			<TD colspan="2" >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" disabled="disabled" size="80"/>
+			<TD >Facility Name </TD><td>
+			<input type="text" id="facilityName" name="facilityName" class="cloned" disabled="disabled" size="40"/>
+			</td> <TD  >Facility Level </TD><td>
+			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  disabled="disabled" size="40"/>
+			</td><TD  >County </TD><td>
+			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"  disabled="disabled" size="40"/>
 			</td>
 		</tr>
 		<tr>
-			<TD colspan="2"  >Facility Type </TD><td>
-			<input type="text" id="facilityType" name="facilityType" class="cloned"  disabled="disabled" size="80"/>
+			<TD >Facility Type </TD><td>
+			<input type="text" id="facilityType" name="facilityType" class="cloned"  disabled="disabled" size="40"/>
 			</td>
+			<TD >Owned By </TD><td>
+			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  disabled="disabled" size="40"/>
+			</td>
+			<TD >District </TD><td>
+			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  disabled="disabled" size="40"/>
+			</td>
+			
 		</tr>
 		<tr>
-			<TD colspan="2" >Facility Level </TD><td>
-			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  disabled="disabled" size="80"/>
-			</td>
+			 
 		</tr>
 		<tr>
-			<TD colspan="2" >Owned By </TD><td>
-			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  disabled="disabled" size="80"/>
-			</td>
+			
 		</tr>
 		<tr>
-			<TD colspan="2" >County </TD><td>
-			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"  disabled="disabled" size="80"/>
-			</td>
+			
 		</tr>
 		<tr>
-			<TD colspan="2" >District </TD><td>
-			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  disabled="disabled" size="80"/>
-			</td>
+			
 		</tr>
 	</table>
 	<table class="center">
-		<th colspan="12" >FACILITY CONTACT INFORMATION</th></tr>
+	<thead>
+		<th colspan="12" >FACILITY CONTACT INFORMATION</th></thead>
 		<tr >
 			<th scope="col" colspan="2" >CADRE</th>
 			<th>NAME</th>
@@ -159,35 +166,35 @@ class C_Load extends MY_Controller {
 	</table>
 				<table class="center">
 		
-
-			<th colspan="10" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th>
+<thead>
+			<th colspan="10" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
 
 		
-		<tr>
-			<td> Months</td><td colspan ="2"></td><td> '.(date('Y')-1).'</TD> <td colspan ="1"> </td><TD>'.date("Y").'</td><td colspan ="2"> </td><td>Months</td><td> '.(date('Y')-1).'</TD>
-		</tr>
+		
+			<th> MONTH</th><th> '.(date('Y')-1).'</Th> <Th>'.date("Y").'</th><th>Months</th><th> '.(date('Y')-1).'</Th>
+		
 
 		 <tr>
-			<td>JANUARY</td><td colspan ="2"></td><td>
+			<td>JANUARY</td><td>
 			<input type="text" id="dnjanuary_12" name="dnjanuary_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			
 			<td>
 			<input type="text" id="dnjanuary_13" name="dnjanuary_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>JULY</td></td><td>
+			</td><td>JULY</td></td><td>
 			<input type="text" id="dnjuly_12" name="dnjuly_12" class="cloned numbers"/>
 			</td>
 
 		</tr>
 
 		<tr>
-			<td>FEBRUARY</td><td colspan ="2"></td><td>
+			<td>FEBRUARY</td><td>
 			<input type="text" id="dnfebruary_12" name="dnfebruary_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			
 			<td>
 			<input type="text" id="dnfebruary_13" name="dnfebruary_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>AUGUST</td><td>
+			</td></td><td>AUGUST</td><td>
 			<input type="text" id="dnaugust_12" name="dnaugust_12" class="cloned numbers"/>
 			</td>
 
@@ -195,45 +202,45 @@ class C_Load extends MY_Controller {
 		</tr>
 
 		<tr>
-			<td>MARCH</td><td colspan ="2"></td><td>
+			<td>MARCH</td><td>
 			<input type="text" id="dnmarch_12" name="dnmarch_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			
 			<td>
 			<input type="text" id="dnmarch_13" name="dnmarch_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>SEPTEMBER</td><td>
+			</td></td><td>SEPTEMBER</td><td>
 			<input type="text" id="dnseptember_12" name="dnseptember_12" class="cloned numbers"/>
 			</td>
 		</tr>
 		<tr>
-			<td>APRIL</td><td colspan ="2"></td><td>
+			<td>APRIL</td></td><td>
 			<input type="text" id="dnapril_12" name="dnapril_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			
 			<td>
 			<input type="text" id="dnapril_13" name="dnapril_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>OCTOBER</td><td>
+			</td></td><td>OCTOBER</td><td>
 			<input type="text" id="dnoctober_12" name="dnoctober_12" class="cloned numbers"/>
 		</tr>
 		<tr>
-			<td>MAY</td><td colspan ="2"></td><td>
+			<td>MAY</td></td><td>
 			<input type="text" id="dnmay_12" name="dnmay_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			</td>
 			<td>
 			<input type="text" id="dnmay_13" name="dnmay_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>NOVEMBER</td><td>
+			</td></td><td>NOVEMBER</td><td>
 			<input type="text" id="dnnovember_12" name="dnnovember_12" class="cloned numbers"/>
 			</td>
 		</tr>
 		<tr>
-			<td>JUNE</td><td colspan ="2"></td><td>
+			<td>JUNE</td><td>
 			<input type="text" id="dnjune_12" name="dnjune_12" class="cloned numbers"/>
 			</td>
-			<td colspan ="1"></td>
+			
 			<td>
 			<input type="text" id="dnjune_13" name="dnjune_13" class="cloned numbers"/>
-			</td><td colspan ="2"></td><td>DECEMBER</td><td>
+			</td><td>DECEMBER</td><td>
 			<input type="text" id="dndecember_12" name="dndecember_12" class="cloned numbers"/>
 			</td>
 		</tr>
@@ -246,7 +253,8 @@ class C_Load extends MY_Controller {
 		</thead>
 		<tr >
 			<th scope="col" >SIGNAL FUNCTION</th>
-			<th  >INDICATE CONDUCTED OR NOT</th>
+			<th  > CONDUCTED OR NOT CONDUCTED </th>
+			
 			<th >INDICATE CHALLENGE</th>
 
 		</tr>'.$this->signalFunctionsSection.'
