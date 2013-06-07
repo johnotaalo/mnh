@@ -347,10 +347,10 @@
 			</select>
 			</label>
 			
-			<label>
+			<!--label>
 			<strong class="label">Email</strong>
 			<input type="text" name="useremail" id="useremail" value="" placeholder="Your email address">
-			</label>
+			</label-->
 			 <input type="submit" class="    button " name="start" id="start" value="Login" style="margin-left:100px;">
 			<label style="display:inline">
 			 <!--input type="checkbox" name="remember"> <strong class="remember-label">  Stay signed in  </strong-->

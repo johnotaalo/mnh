@@ -190,13 +190,13 @@ $mfCode = $this -> session -> userdata('fCode');
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
-						$("#facilityName").text(facility.facilityName);
+						$("#facilityName").val(facility.facilityName);
 						
-						$("#facilityType").text(facility.facilityType);
-  						$("#facilityLevel").text(facility.facilityLevel);
-  						$("#facilityOwnedBy").text(facility.facilityOwnedBy);
-						$("#facilityDistrict").text(facility.facilityDistrict);
-						$("#facilityCounty").text(facility.facilityCounty);
+						$("#facilityType").val(facility.facilityType);
+  						$("#facilityLevel").val(facility.facilityLevel);
+  						$("#facilityOwnedBy").val(facility.facilityOwnedBy);
+						$("#facilityDistrict").val(facility.facilityDistrict);
+						$("#facilityCounty").val(facility.facilityCounty);
 						
 						/*$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
   						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);

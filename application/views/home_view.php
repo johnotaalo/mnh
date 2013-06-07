@@ -42,7 +42,7 @@
           <!--a class="brand" href="/c_front/"><img src="<?php echo base_url(); ?>/images/coat_of_arms-resized.png" width="40" height="40" alt="" /></a-->
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" width="70" height="50"/></li><li><a href="#">Home</a></li>
               <li><a href="<?php echo base_url(); ?>c_front/active_survey">Surveys</a></li>
               <li><a href="#results">Analysis</a></li>
               <li><a href="#contact"></a></li>

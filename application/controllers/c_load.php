@@ -91,29 +91,32 @@ class C_Load extends MY_Controller {
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
 		       
 		
-		<tfoot>
-			<TH >FACILITY NAME </Th><td>
-			<td id="facilityName" name="facilityName" class="cloned" disabled="disabled" > </td>
-			</td> <Th  >FACILITY LEVEL </Th><td>
-			<td id="facilityLevel" name="facilityLevel" class="cloned"  disabled="disabled" ></td>
-			</td><Th  >COUNTY </Th><td>
-			<td id="facilityCounty" name="facilityCounty" class="cloned"  disabled="disabled" ></td>
-			</td></tfoot>
-		
-		<tfoot>
-			<Th >FACILITY TYPE </Th><td>
-			<td id="facilityType" name="facilityType" class="cloned"  disabled="disabled" ></td>
+			<tr>
+			<TD >Facility Name </TD><td>
+			<input type="text" id="facilityName" name="facilityName" class="cloned"  size="40"/>
+			</td> <TD  >Facility Level </TD><td>
+			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
+			</td><TD  >County </TD><td>
+			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"   size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<TD >Facility Type </TD><td>
+			<input type="text" id="facilityType" name="facilityType" class="cloned"   size="40"/>
 
 			</td>
-			<Th>OWNED BY</Th><td>
-			<td id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  disabled="disabled" </td>
+			<TD >Owned By </TD><td>
+			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  size="40"/>
 			</td>
 
-			<Th>DISTRICT </TD><th>
-			<td id="facilityDistrict" name="facilityDistrict" class="cloned"  disabled="disabled" ></td>
+			<TD >District </TD><td>
+			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  size="40"/>
 			</td>
 			
-		</tfoot>
+		</tr>
+		
+			
+		</tr>
 		
 			
 		</tr>
@@ -258,7 +261,7 @@ class C_Load extends MY_Controller {
 
 	<table  class="center" >
 		<thead>
-			<th colspan="12">INDICATE THE NO. OF UNITS USED AND QUANTITIES AVAILABLE (LOCATION, MAIN SUPPLIER) FOR EACH MONTH INCLUDE REASON FOR UNAVAILABILITY</th>
+			<th colspan="12">INDICATE THE NO. OF UNITS  AVAILABLE, lOCATION, MAIN SUPPLIER FOR EACH MONTH. INCLUDE REASON FOR UNAVAILABILITY</th>
 		</thead>
 
 		</tr>
@@ -299,8 +302,8 @@ class C_Load extends MY_Controller {
 
 	<table class="center">
 	<thead>
-		<th colspan="4" >INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIDELINES </th></thead>
-		<th colspan ="2"> GUIDELINE</th><th colspan ="2"> WHEN LAST A TRAINING WAS CONNDUCTED</th>
+		<th colspan="4"  >INDICATE THE NUMBER OF STAFF TRAINED ON THE FOLLOWING, AND WHEN THEY LAST HAD THE TRAINING  </th></thead>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th><th colspan ="2" style="text-align:left"> WHEN LAST TRAINED</th>
 		
 		'.$this->trainingGuidelineSection.'
 
@@ -348,7 +351,7 @@ class C_Load extends MY_Controller {
         '.$this->commodityUsageAndOutageSection.'
 	<tr id="buttonsPane" >
 	<td>
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Complete Survey"/>				
+		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Submit"/>				
 		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
 		
 		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->

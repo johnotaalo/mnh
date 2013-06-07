@@ -200,7 +200,7 @@ class  MY_Controller  extends  CI_Controller {
    		$this->signalFunctionsSection.='<tr>
 			<td>'.$value['signalName'].'</td><td style ="width:5px;">
 			<select name="bmsfSignalFunctionConducted_'.$counter.'" id="bmsfSignalFunctionConducted_'.$counter.'" >
-				<option value="" selected="selected">Select Signal Function</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
@@ -235,7 +235,7 @@ class  MY_Controller  extends  CI_Controller {
    		$this->trainingGuidelineSection.='<tr>
 			<TD colspan="2" style ="width=10;">'.$value['guidelineName'].'</TD><td>
 			<select name="gsLastTraining_'.$counter.'" id="gsLastTraining_'.$counter.'" >
-			    <option value="" selected="selected">Select When Last Trained</option>
+			    <option value="" selected="selected">Select One</option>
 				<option value="Never been trained">Never been trained</option>
 				<option value="6 months ago">6 months ago</option>
 				<option value="1 year ago">1 year ago</option>
@@ -266,7 +266,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td >
 			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
@@ -278,7 +278,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td style="vertical-align: middle; margin: 0px;">
 			<select name="usoDecTimesUnavailable_'.$counter.'" id="usoDecTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
@@ -290,7 +290,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td style="vertical-align: middle; margin: 0px;">
 			<select name="usoJanTimesUnavailable_'.$counter.'" id="usoJanTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
@@ -302,7 +302,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td style="vertical-align: middle; margin: 0px;">
 			<select name="usoFebTimesUnavailable_'.$counter.'" id="usoFebTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
@@ -315,7 +315,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td width="50">
 			<select name="usoMarTimesUnavailable_'.$counter.'" id="usoMarTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
@@ -326,7 +326,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td width="50">
 			<select name="usoAprTimesUnavailable_'.$counter.'" id="usoAprTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select Times</option>
+				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
 				<option value="2-3">2-3 </option>
 				<option value="5-5">4-5 </option>
