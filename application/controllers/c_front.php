@@ -9,6 +9,9 @@ class C_Front extends MY_Controller {
 	    $this->data=array();
 
 	}
+	public function analysis(){
+		
+	}
 
 	public function index() {
 		$data['title']='MoH::Data Management Tool';

@@ -14,13 +14,11 @@ $mfCode = $this -> session -> userdata('fCode');
 		<link rel="stylesheet" href="<?php echo base_url()?>css/styles.css"/>
 		<!--script src="http://code.jquery.com/jquery-latest.js"></script-->	
 		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/css-table.css" />	
-		 <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
-		 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/menu_style.css" />
+		
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
-		<script src="<?php echo base_url()?>js/IE-fix.js"</script>
 		<!--script to form client side validation functions-->
 		<!-- Run the TAB plugin -->
 		<script type="text/javascript">
@@ -451,7 +449,6 @@ $mfCode = $this -> session -> userdata('fCode');
 		<div class="banner">
 		<!--header banner --->   
 		<?php $this -> load -> view('banner'); ?>
-		
 	
 					<div class="sessionUsers">
 						<div class="date">
@@ -464,7 +461,6 @@ $mfCode = $this -> session -> userdata('fCode');
 				
 		
 		</div>
-		<div><?php $this -> load -> view('menuu'); ?></div>
 		<!--profile data here -->
 		
 	
