@@ -21,7 +21,7 @@ class C_Front extends MY_Controller {
 		if(!$this -> session -> userdata('fCode')){
 	    
 		 $data['facility']=$this ->selectFacility;
-			//echo $this ->selectFacility; die;
+		$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>User Login<p>';
 		$this -> load -> view('index', $data); //login view
 	    }else{

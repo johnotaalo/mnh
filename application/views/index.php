@@ -4,7 +4,7 @@
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 	<head>
-
+        <title> <?php echo $title; ?></title>
 		<script href="<?php echo base_url(); ?>js/html5shiv.js"></script>
 		<script href="<?php echo base_url(); ?>js/modernizr-latest.js"></script>
 		<link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" />
@@ -13,9 +13,8 @@
         <!--script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script-->
 		<!-- -->
 		<!-- Attach CSS files -->
-	
+	    
 		<link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css"/>
-		 <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
 		
 		<style type="text/css">
 		

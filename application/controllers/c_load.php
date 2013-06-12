@@ -262,7 +262,7 @@ class C_Load extends MY_Controller {
 
 	<table  class="center" >
 		<thead>
-			<th colspan="12">STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</thead>
 
 		</tr>
