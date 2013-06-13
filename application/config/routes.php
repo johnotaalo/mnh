@@ -39,8 +39,17 @@
 */
 
 $route['default_controller'] = 'c_front';
+$route['home']='c_front/index';
 $route['404_override'] = '';
-//$route['c_auth/go']='c_front/inventory';
+$route['assesment/commodity']='c_front/active_survey';#active survey url, in this case: mnh commodities
+$route['assesment/supplies']='c_front/active_survey';#active survey url, in this case: mnh supplies
+$route['commodity/assessment']='c_front/inventory'; #active survey home page url
+
+$route['analysis/commodity']='c_analytics/active_results';#active results url, in this case: mnh commodities
+$route['analysis/supplies']='c_analytics/active_results';#active results url, in this case: mnh commodities
+
+$route['session/new']='c_auth/go';#log in url
+$route['session/close']='c_auth/logout';#log out url
 
 
 /* End of file routes.php */

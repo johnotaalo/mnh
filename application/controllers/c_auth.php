@@ -33,8 +33,8 @@ class C_Auth extends MY_Controller {
 			$this -> session -> set_userdata($newdata);
 		  
 		   
-			redirect(base_url() . 'c_front/inventory', 'refresh');
-			$this -> load -> view('pages/inventory/index', $this->data);
+			redirect(base_url() . 'commodity/assessment', 'refresh');
+			$this -> load -> view('survey/index', $this->data);
 			
 			
 			
@@ -50,7 +50,7 @@ class C_Auth extends MY_Controller {
 
    public function doCheckFacilityCode(){/**from the session data*/
 	if(!$this -> session -> userdata('fName')){
-		redirect(base_url() . 'c_front/inventory', 'refresh');
+		redirect(base_url() . 'commodity/assessment', 'refresh');
 		return true;
 		
 		}else{
@@ -70,6 +70,7 @@ class C_Auth extends MY_Controller {
 	
 	public function logout(){
 		$data['facility']=$this ->selectFacility;
+		$data['title']='MoH::Data Management Tool';
 		$data['form'] = '<p>You need to login.<p>';
 		$this -> load -> view('index', $data);
 		$this->session->sess_destroy();

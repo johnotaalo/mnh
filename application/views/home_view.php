@@ -10,7 +10,7 @@
 
     <!-- Le styles -->
     <link href="<?php echo base_url(); ?>css/bootstrap.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>css/example-fixed-layout.css" rel="stylesheet">
+	<link href="<?php echo base_url(); ?>css/fixed-layout.css" rel="stylesheet">
 	<!--link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" /-->
 		<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /-->
         
@@ -24,7 +24,7 @@
       <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- Le fav and touch icons -->
+    <!--fav and touch icons -->
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
     
   </head>
@@ -43,8 +43,8 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li class="active"><img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" width="70" height="50"/></li><li><a href="#">Home</a></li>
-              <li><a href="<?php echo base_url(); ?>c_front/active_survey">Surveys</a></li>
-              <li><a href="#results">Analysis</a></li>
+              <li><a href="<?php echo base_url(); ?>assesment/commodity">Surveys</a></li>
+              <li><a href="<?php echo base_url(); ?>analysis/commodity">Analysis</a></li>
               <li><a href="#contact"></a></li>
             </ul>
           </div><!--/.nav-collapse -->
@@ -87,8 +87,8 @@
           </p></p>
           
           
-           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Commodity Assessment</a></li>
-           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Supplies Assessment</a></li>
+           <li><a href="<?php echo base_url(); ?>assesment/commodity">MNH Commodity Assessment</a></li>
+           <li><a href="<?php echo base_url(); ?>assesment/supplies">MNH Supplies Assessment</a></li>
           
         </div>
         </div>
@@ -100,8 +100,8 @@
           <h2>Surveys Analysis <img src="<?php echo base_url(); ?>images/analysis.PNG" alt="home" height="60" width="60" align="absmiddle"></h2>
           <p></p>
           
-           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Commodity Survey Analysis</a></li>
-           <li><a href="<?php echo base_url(); ?>c_front/active_survey">MNH Supplies Survey Analysis</a></li>
+           <li><a href="<?php echo base_url(); ?>analysis/commodity">MNH Commodity Survey Analysis</a></li>
+           <li><a href="<?php echo base_url(); ?>analysis/commodity">MNH Supplies Survey Analysis</a></li>
           
        </div>
         
@@ -111,9 +111,7 @@
 
   <hr>
 
-      <footer>
-        <p align="center">&copy; Government of Kenya,Ministry Of Health <?php echo date('Y'); ?></p>
-      </footer>
+     <?php $this->load->view('segments/footer');?>
 
     </div> <!-- /container -->
 
@@ -121,18 +119,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-transition.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-alert.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-modal.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-dropdown.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-scrollspy.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-tab.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-tooltip.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-popover.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-button.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-collapse.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-carousel.js"></script>
-    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-typeahead.js"></script>
+    <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-combined.js"></script>
+   
 
   </body>
 </html>

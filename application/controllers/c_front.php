@@ -24,7 +24,7 @@ class C_Front extends MY_Controller {
 		if(!$this -> session -> userdata('fCode')){
 	    
 		 $data['facility']=$this ->selectFacility;
-			//echo $this ->selectFacility; die;
+		$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>User Login<p>';
 		$this -> load -> view('index', $data); //login view
 	    }else{
@@ -51,7 +51,7 @@ class C_Front extends MY_Controller {
 		$data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
 
 		$data['form_id']='';
-		$this -> load -> view('pages/inventory/index', $data);
+		$this -> load -> view('survey/index', $data);
 		}else{
 			redirect(base_url() . 'c_front', 'refresh');
 		}
