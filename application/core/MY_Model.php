@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines;
 
 function __construct() {
@@ -53,6 +53,32 @@ function __construct() {
 		 }
 		return $this->commodity;
 	}/*end of getAllCommodityNames*/
+	
+	function getAllSuppliesNames(){
+		 /*using DQL*/
+		 try{
+	      $query = $this->em->createQuery('SELECT s.suppliesID, s.suppliesCode, s.suppliesName, s.suppliesUnit FROM models\Entities\e_supplies s ORDER BY s.suppliesID ASC');
+          $this->supplies = $query->getResult();
+		 //die(var_dump($this->supplies));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->supplies;
+	}/*end of getAllSuppliesNames*/
+	
+	function getAllEquipmentNames(){
+		 /*using DQL*/
+		 try{
+	      $query = $this->em->createQuery('SELECT e.equipmentID, e.equipmentCode, e.equipmentName, e.equipmentUnit FROM models\Entities\e_equipment e ORDER BY e.equipmentID ASC');
+          $this->supplies = $query->getResult();
+		 //die(var_dump($this->equipment));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->equipment;
+	}/*end of getAllEquipmentNames*/
 	
 	function getAllCommoditySupplierNames(){
 		 /*using DQL*/

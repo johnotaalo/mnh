@@ -303,7 +303,7 @@ class C_Load extends MY_Controller {
 	<table class="center">
 	<thead>
 		<th colspan="4"  >INDICATE THE NUMBER OF STAFF TRAINED ON THE FOLLOWING, AND WHEN THEY LAST HAD THE TRAINING  </th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th><th colspan ="2" style="text-align:left"> WHEN LAST TRAINED</th>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">No.Trained</th><th colspan ="2" style="text-align:left"> WHEN LAST TRAINED</th>
 		
 		'.$this->trainingGuidelineSection.'
 
@@ -364,4 +364,210 @@ class C_Load extends MY_Controller {
 		$this->load->view('form',$data);
 	}
 
+	 public function get_table_supplies(){
+	 	$this -> combined_form_tables.= 
+		         '                 
+				<form name="sup" id="sup" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
+				
+				<table  class="center" >
+		<thead>
+			<th colspan="12">INDICATE THE NO. OF UNITS  AVAILABLE, lOCATION, MAIN SUPPLIER FOR EACH MONTH. INCLUDE REASON FOR UNAVAILABILITY</th>
+		</thead>
+
+		</tr>
+		<tr>
+			<th scope="col" >Commodity Name</th>
+			<th >Commodity Unit</th>
+			<th colspan="3" >Availability</th>
+			<th colspan="4">Location of Availability</th>
+			<th>Available Quantities</th>
+			<th scope="col">
+			<div style="width: 40px" >
+				Main Supplier
+			</div></th>
+			<th scope="col">
+			<div style="width: 40px" >
+				Main Reason For  Unavailability
+			</div></th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Unit</td>
+			<td >Available</td>
+			<td>Some Available</td>
+			<td>Never Available</td>
+			<td>Delivery room</td>
+			<td>Pharmacy</td>
+			<td>Store</td>
+			<td>Other</td>
+
+			<td>No.of Units</td>
+			<td>Supplier</td>
+			<td> Unavailability</td>
+
+		</tr>'.$this->commodityAvailabilitySection.'
+
+	</table>
+    <table  class="center" >
+		<thead>
+			<th colspan="13">INDICATE THE NUMBER OF UNITS USED AND THE NUMBER OF TIMES COMMODITIES WERE NOT AVAILABILE FOR MORE THAN 7 (SEVEN) DAYS. </th>
+		</thead>
+
+		</tr>
+		<tr >
+			<th scope="col" >Commodity Name</th>
+			<th colspan="2">November</th>
+			<th colspan="2" >December</th>
+			<th colspan="2">January</th>
+			<th colspan="2">February</th>
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				March
+			</div></th>
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				April
+			</div></th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Used Units</td>
+			<td >Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td> Used Units</td>
+			<td>Times Unavailable </td>
+
+		</tr>
+        '.$this->commodityUsageAndOutageSection.'
+	<tr id="buttonsPane" >
+	<td>
+		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Submit"/>				
+		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
+		
+		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
+		</td>
+	    </tr>
+	</table>
+				
+				</form>';
+	 	$data['form'] = $this -> combined_form_tables;
+		$data['form_id'] = 'sup';
+		$this->load->view('form',$data);
+		
+		}
+
+public function get_table_equip(){
+	 	$this -> combined_form_equip.= 
+		         '                 
+				<form name="equip" id="equip" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
+				<table  class="center" >
+		<thead>
+			<th colspan="12">INDICATE THE NO. OF UNITS  AVAILABLE, lOCATION, MAIN SUPPLIER FOR EACH MONTH. INCLUDE REASON FOR UNAVAILABILITY</th>
+		</thead>
+
+		</tr>
+		<tr>
+			<th scope="col" >Commodity Name</th>
+			<th >Commodity Unit</th>
+			<th colspan="3" >Availability</th>
+			<th colspan="4">Location of Availability</th>
+			<th>Available Quantities</th>
+			<th scope="col">
+			<div style="width: 40px" >
+				Main Supplier
+			</div></th>
+			<th scope="col">
+			<div style="width: 40px" >
+				Main Reason For  Unavailability
+			</div></th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Unit</td>
+			<td >Available</td>
+			<td>Some Available</td>
+			<td>Never Available</td>
+			<td>Delivery room</td>
+			<td>Pharmacy</td>
+			<td>Store</td>
+			<td>Other</td>
+
+			<td>No.of Units</td>
+			<td>Supplier</td>
+			<td> Unavailability</td>
+
+		</tr>'.$this->commodityAvailabilitySection.'
+
+	</table>
+    <table  class="center" >
+		<thead>
+			<th colspan="13">INDICATE THE NUMBER OF UNITS USED AND THE NUMBER OF TIMES COMMODITIES WERE NOT AVAILABILE FOR MORE THAN 7 (SEVEN) DAYS. </th>
+		</thead>
+
+		</tr>
+		<tr >
+			<th scope="col" >Commodity Name</th>
+			<th colspan="2">November</th>
+			<th colspan="2" >December</th>
+			<th colspan="2">January</th>
+			<th colspan="2">February</th>
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				March
+			</div></th>
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				April
+			</div></th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Used Units</td>
+			<td >Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+
+			<td>Used Units</td>
+			<td>Times Unavailable </td>
+			<td> Used Units</td>
+			<td>Times Unavailable </td>
+
+		</tr>
+        '.$this->commodityUsageAndOutageSection.'
+	<tr id="buttonsPane" >
+	<td>
+		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Submit"/>				
+		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
+		
+		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
+		</td>
+	    </tr>
+	</table>
+				
+				</form>';
+				
+		$data['form'] = $this -> combined_form_equip;
+		$data['form_id'] = 'equip';
+		$this->load->view('form',$data);
+		
+	 	
+		
+		}
+	 
 }

@@ -6,7 +6,7 @@ if (!defined('BASEPATH'))
  */
 
 class M_MNH_Survey  extends MY_Model {
-	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,
+	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,$suppliesList,
 	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList;
 
 	function __construct() {
@@ -21,6 +21,18 @@ class M_MNH_Survey  extends MY_Model {
     	$this->commodityList=$this->getAllCommodityNames();
 		//var_dump($this->commodityList);die;
 		return $this->commodityList;
+    }
+	
+	public function getEquipmentNames(){
+    	$this->equipmentList=$this->getAllEquipmentNames();
+		//var_dump($this->equipmentList);die;
+		return $this->equipmentList;
+    }
+	
+	public function getsuppliesNames(){
+    	$this->suppliesList=$this->getAllsuppliesNames();
+		//var_dump($this->suppliesList);die;
+		return $this->suppliesList;
     }
 	
 	/*calls the query defined in MY_Model*/
