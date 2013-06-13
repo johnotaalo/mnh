@@ -8,7 +8,7 @@
 		
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="<?php echo base_url();?>js/highcharts.js" type="text/javascript"></script>
-		<script src="<?php echo base_url();?>js/highcharts.src.js" type="text/javascript"></script>
+		<!--script src="<?php echo base_url();?>js/highcharts.src.js" type="text/javascript"></script-->
 		<script src="http://code.highcharts.com/modules/exporting.js"></script>
 		<script type="text/javascript">
 		$(function() {

@@ -84,9 +84,8 @@ class C_Load extends MY_Controller {
 				<form name="dcah_tool" id="dcah_tool" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
 
   				 <p id="data" style="display:none" class="message success"></p>
-		       <table class="center">
-
-		        <h3>COMMODITY ASSESSMENT FORM</h3>
+		         <h3>COMMODITY ASSESSMENT FORM</h3>
+<table class="center">
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
 		       
@@ -115,15 +114,11 @@ class C_Load extends MY_Controller {
 			
 		</tr>
 		
-			
-		</tr>
-		
-			
-		</tr>
 	</table>
 	<table class="center">
 	<thead>
-		<th colspan="12" >FACILITY CONTACT INFORMATION</th></thead>
+		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+	</thead>
 		<tr >
 			<th scope="col" colspan="2" >CADRE</th>
 			<th>NAME</th>

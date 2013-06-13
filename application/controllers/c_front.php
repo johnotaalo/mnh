@@ -51,7 +51,7 @@ class C_Front extends MY_Controller {
 		$data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
 
 		$data['form_id']='';
-		$this -> load -> view('pages/inventory/index', $data);
+		$this -> load -> view('survey/index', $data);
 		}else{
 			redirect(base_url() . 'c_front', 'refresh');
 		}

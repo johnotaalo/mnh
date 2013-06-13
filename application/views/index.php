@@ -336,7 +336,7 @@
 			<h1 class="banner_text" align="left">User Login</h1>
 			</div>
 			
-			<form id="form_verify" action="<?php echo base_url().'c_auth/go'?>" method="post" >
+			<form id="form_verify" action="<?php echo base_url().'session/new'?>" method="post" >
 			<label>
 			<strong class="label">Facility Name</strong>
 			<!--input type="text" name="username" id="username" placeholder="Facility Name"-->

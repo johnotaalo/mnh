@@ -459,12 +459,12 @@ $mfCode = $this -> session -> userdata('fCode');
 	</div>
 						
 						
-						<?php echo '<li>Facility Code :</li><li style="color:#AA1317">'.$mfCode.'</br></li>       <li>Facility:	</li><a style="color:#AA1317">'.$mfName.'</li>      </br><li title="click to sign out">'. anchor(base_url().'c_auth/logout','Logout').'</li>';?></div><br>
+						<?php echo '<li>Facility Code :</li><li style="color:#AA1317">'.$mfCode.'</br></li>       <li>Facility:	</li><a style="color:#AA1317">'.$mfName.'</li>      </br><li title="click to sign out">'. anchor(base_url().'session/close','Logout').'</li>';?></div><br>
 					
 				
 		
 		</div>
-		<div><?php $this -> load -> view('menuu'); ?></div>
+		<div><?php $this -> load -> view('survey/menu'); ?></div>
 		<!--profile data here -->
 		
 	
