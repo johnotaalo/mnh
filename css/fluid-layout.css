@@ -12,7 +12,8 @@
 	  .leaderboard {
   padding: 60px;
   margin-bottom: 30px;
-  background-image: url('/twitter-bootstrap/images/gridbg.gif');
+  background-color:#CCC;
+ 
   background-repeat:repeat;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -86,24 +87,27 @@ color:#FF9900;
 }
 .col1 {
     float:left;
-    width:26%;
-    position:relative;
-    left:72%;
-    overflow:hidden;
+    width:18%;
+    position:fixed;
+    left:1%;
+    overflow:visible;
+	
 }
 .col2 {
     float:left;
     width:36%;
-    position:relative;
-    left:76%;
+    position:fixed;
+    left:20%;
     overflow:hidden;
+	
 }
 .col3 {
     float:left;
-    width:26%;
-    position:relative;
-    left:80%;
+    width:36%;
+    position:fixed;
+    left:60%;
     overflow:hidden;
+	
 }
 
 .center-content {
@@ -113,6 +117,7 @@ color:#FF9900;
 	margin: 0 0 0 1.5%;
 	padding-bottom: 8%;
 	display: inline-block;
+	float:none;
 }
 
 .left-content {
@@ -132,7 +137,21 @@ color:#FF9900;
 }
 
 .column {
-	background: #80f26d;
+	background:#3C9;
+	width: 25%;
+	float: left;
+	margin-left: 1%;
+	height: inherit;
+}
+.column2 {
+	background:#00C;
+	width: 40%;
+	float:none;
+	margin-left: 0.5%;
+	height: inherit;
+}
+.column3 {
+	background:#333;
 	width: 32%;
 	float: left;
 	margin-left: 1%;

@@ -234,6 +234,8 @@ class  MY_Controller  extends  CI_Controller {
    		$counter++;
    		$this->trainingGuidelineSection.='<tr>
 			<TD colspan="2" style ="width=10;">'.$value['guidelineName'].'</TD><td>
+			<input name="noTrained'.$counter.'" type="text" size="10" />
+			</td><td>
 			<select name="gsLastTraining_'.$counter.'" id="gsLastTraining_'.$counter.'" >
 			    <option value="" selected="selected">Select One</option>
 				<option value="Never been trained">Never been trained</option>
