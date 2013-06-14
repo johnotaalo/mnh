@@ -32,10 +32,9 @@
         </div>
       </div>
     </div>
-   <div class="container-fluid"><!--begin container fluid-->
-      <div class="center-content">
+  
       		
-      	<div class="column">
+      	<div class="col1">
         <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
@@ -52,7 +51,7 @@
       </div><!--/.column-->
       
       
-       <div class="column">
+       <div class="col2">
       <div class="row" id="reponse_county_summary">
       
         <div class="span7" id="response_rate">
@@ -60,11 +59,25 @@
     
           <h2 class="charttiltle"> Response Rate</h2>
           </p></p>
-          
+           fegwsj</br>
+           asf</br>
+           sd</br>
+           dsf</br>
+           sdx</br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           d </br>
+           d </br>
+           df </br>
+           d </br>
         </div>
         
         </div> <!--/.response_rate-->    
-   
+   <div class="container-fluid">&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
         <div class="span7" id="county_summary" >
         
        <div class="selector">
@@ -72,17 +85,31 @@
           <h2 class="charttiltle"> County Summary</h2>
           <p></p>
           
-           
+           fegwsj</br>
+           asf</br>
+           sd</br>
+           dsf</br>
+           sdx</br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           d </br>
+           d </br>
+           df </br>
+           d </br>
           
        </div>
         
       </div><!--/.county_summary-->
     </div><!--/.reponse_county_summary-->
     
+  
     
     </div><!--/.column-->
      
-     <div class="column">
+     <div class="col3">
       <div class="row"><!--begin row 2-->
       
         <div class="span7" id="district_summary">
@@ -91,11 +118,26 @@
           <h2 class="charttiltle" style="">District Summary</h2>
           </p></p>
           
-           <p> </p>
+           fegwsj</br>
+           asf</br>
+           sd</br>
+           dsf</br>
+           sdx</br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           d </br>
+           d </br>
+           df </br>
+           d </br>
           
         </div>
-        </div><!--./district_summary-->   
-   
+                </div><!--./district_summary-->  
+                <div class="container-fluid">&nbsp;&nbsp;&nbsp;&nbsp;
+</div> 
+    
         <div class="span7" id="commodity_summary" >
         
        <div class="selector">
@@ -103,7 +145,20 @@
           <h2 class="charttiltle" style=""> Commodity Summary</h2>
           <p></p>
           
-           <p> </p>
+           fegwsj</br>
+           asf</br>
+           sd</br>
+           dsf</br>
+           sdx</br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           sd </br>
+           d </br>
+           d </br>
+           df </br>
+           d </br>
           
        </div>
         
@@ -111,15 +166,14 @@
    </div> <!--row 2-->
    </div><!--/.column-->
  
-
   
  
-   
-  </div><!--./center-content-->
+ 
+ </div><!--/.fluid-container-->
+     </div><!--./center-content-->  
 
-    <hr>
-    <?php $this->load->view('segments/footer');?>
-     </div><!--/.fluid-container-->
+    
+    
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -127,6 +181,8 @@
     <script src="<?php echo base_url(); ?>js/bootstrap/bootstrap-combined.js"></script>
     <script src="<?php echo base_url();?>js/highcharts.js" type="text/javascript"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+    
+
 
   </body>
 </html>

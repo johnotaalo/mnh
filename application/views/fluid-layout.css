@@ -97,6 +97,7 @@ color:#FF9900;
     position:relative;
     left:76%;
     overflow:hidden;
+	height:inherit;
 }
 .col3 {
     float:left;

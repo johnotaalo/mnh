@@ -161,11 +161,15 @@ a:hover {
 	-webkit-border-radius: 20px;
 	border-radius: 20px;
 	border: 1px solid #CCC;
-	height:150px;
+	height:inherit;
 	font-size:16px;
 	color:#999;
 	text-align: center;
 	margin: 0 0 0 30px;
+	max-height:inherit;
+	padding-bottom:30px;
+	position:static;
+	
 }
 .span6 {
   width: 460px;
@@ -419,10 +423,11 @@ dd {
   margin-left: 9px;
 }
 hr {
-  margin: 18px 0;
+  
   border: 0;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #ffffff;
+  margin:inherit;
 }
 strong {
   font-weight: bold;
