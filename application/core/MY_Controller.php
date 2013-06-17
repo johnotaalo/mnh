@@ -137,7 +137,7 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->commodityAvailabilitySection.='<tr>
-			<td style="width:200px;">'.$value['commodityName'].' </td>
+			<td> '.$value['commodityName'].' </td>
 			<td> '.$value['commodityUnit'].'</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;"/>

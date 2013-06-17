@@ -109,7 +109,7 @@ $mfCode = $this -> session -> userdata('fCode');
 				
 				
 				//load 1st section of the assessment on page load
-				$(".form-container").load('<?php echo base_url() . 'c_load/get_new_form'; ?>',function(){
+				$(".form-container").load('<?php echo base_url() . 'c_load/get_table_equip'; ?>',function(){
 
 					//include remote scripts
 					loadGlobalScript();renderFacilityInfo();select_option_changed();

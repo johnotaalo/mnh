@@ -12,7 +12,7 @@ class M_MNH_Survey  extends MY_Model {
 	function __construct() {
 		parent::__construct();
 		$this->isFacility='false';
-		$this->commodityList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList='';
+		$this->commodityList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList=$this->suppliesList='';
 		
 	}
 	
