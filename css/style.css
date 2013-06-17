@@ -16,10 +16,13 @@ http://templates.arcsin.se/license/
    Reset
 ------------------------------------------------------------------- */
 
-html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, textarea, input, select {margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;}
-table {border-collapse: collapse; border-spacing: 0;}
-caption, th, td {text-align: left; font-weight: normal;}
-table, td, th {vertical-align: middle;}
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption, textarea, input, select {margin: 0; padding: 0; border: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline;}
+table, caption, td, tr, th {
+	margin:0;
+	padding:0;
+	font-weight:normal;
+	font:13px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, sans-serif;
+	}
 blockquote:before, blockquote:after, q:before, q:after {content: "";}
 blockquote, q {quotes: "" "";}
 a img {border: none;}
@@ -39,6 +42,7 @@ body {
 	background: #FFF;
 	color: #334;
 	font: normal 75% sans-serif;
+	width:100%;
 	line-height: 1.5;
 }
 
@@ -147,34 +151,85 @@ ul.nice-list li .right {color: #999;}
 
 
 
-/* Tables */
+/* ---- Table ---- */
 
-table {margin-bottom: 1.4em; width: 100%;}
-th {font-weight: bold;}
-thead th {background: #C3D9FF;}
-th,td,caption {padding: 4px 10px 4px 5px;}
-tr.even td {background: #F2F6FA;}
-tfoot {font-style: italic;}
-caption {background: #EEE;}
+table {
+	border-collapse:collapse;
+	margin-bottom:15px;
+	width:70%;
+	
+	font-size:11px;
+	
+	}
+	
+	table.center {
+    width:90%; 
+    margin-left:auto; 
+    margin-right:auto;
+  }
 
-table.data-table {
-	border: 1px solid #CCB;
-	margin-bottom: 2em;
-	width: 100%;
-}
-table.data-table th {
-	background: #F0F0F0;
-	border: 1px solid #DDD;
-	color: #555;
-	text-align: left;
-}
-table.data-table tr {border-bottom: 1px solid #DDD;}
-table.data-table td, table th {padding: 10px;}
-table.data-table td {
-	background: #F6F6F6;
-	border: 1px solid #DDD;
-}
-table.data-table tr.even td {background: #FCFCFC;}
+	caption {
+		text-align:left;
+		font-size:15px;
+		padding-bottom:10px;
+		}
+	
+	table td,
+	table th {
+		padding:5px;
+		border:1px solid #fff;
+		border-width:0 1px 1px 0;
+		text-align: center;
+		
+		}
+		
+	thead th {
+		background:#DF0101;
+		text-align:center;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 15px;
+		}
+			
+		thead th[colspan],
+		thead th[rowspan] {
+			background:#FF6464; color:#ffffff ;
+			}
+		
+	tbody th,
+	tfoot th {
+		text-align:center;
+		background:#91c5d4;
+		}
+		
+	tbody td,
+	tfoot td {
+		text-align:left;
+		background:#d5eaf0;
+		
+		}
+		
+	tfoot th {
+		background:#ffffff;
+		font-weight:bold;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 13px;
+		text-align: left;
+		
+		}
+		
+	tfoot td {
+		background:#ffffff;
+		font-weight:lighter;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 13px;
+		text-align: left;
+		
+		}
+			
+	tbody tr.odd td { 
+		background:#bcd9e1;
+		}
 
 
 /* Misc classes */
@@ -353,7 +408,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 /* General */
 .center-wrapper {
 	margin: 0 auto;
-	width: 980px;
+	width: 1200px;
 }
 
 /* Network */
@@ -440,7 +495,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 
 /* Main */
 
-.main {margin-bottom: 18px;}
+.main {margin-bottom: 18px;width:100%}
 
 .main#main-three-columns {background: url('img/main-three-columns.gif') repeat-y right top;}
 .main#main-three-columns .sidebar {width: 193px;}
@@ -567,7 +622,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 
 .form-container {
 	margin: auto;
-	width: 90%;
+	width: 100%;
 	height: 700px;
 	overflow: auto;
 	padding: 1%;
@@ -585,5 +640,6 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 	font-size: 1.4em;
 	font-family: Linux Libertine-DR;
 	color: #039;
+	padding:5px;
 	border-bottom: solid 2px #039;
 }

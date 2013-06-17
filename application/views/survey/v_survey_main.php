@@ -11,7 +11,6 @@ $mfCode = $this -> session -> userdata('fCode');
 		
 		
 		<!-- Attach CSS files -->
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>css/css-table1.css" />	
 		
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
