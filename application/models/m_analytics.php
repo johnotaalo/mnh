@@ -9,7 +9,7 @@ if (!defined('BASEPATH'))
  * */
 
  //for the query builder
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class M_Analytics extends MY_Model {
 	/*user variables*/
@@ -20,15 +20,20 @@ class M_Analytics extends MY_Model {
 		parent::__construct();
 		//var initialization
 		$this -> dataSet = $this -> query = null;
-		$this -> rsm = new ResultSetMapping();
+		$this -> rsm = new ResultSetMappingBuilder($this -> em);
 	}
 
 	public function get_respondent_rate() {
 		try {
 			// build rsm here --native query
-			$this -> query = $this -> em -> createNativeQuery('SELECT er.E_Facility, ar.Respondents FROM (SELECT COUNT(f.facilityID)
-									 AS TotalRespondents FROM models\Entities\e_facility f) AS er,(SELECT COUNT(response_rate.facilityCode) AS Respondents FROM models\Entities\e_response_rate r 
-									 WHERE r.flagResponded=1) AS ar', $this -> rsm);
+			//$this->rsm->addRootEntityFromClassMetadata('models\Entities\e_response_rate', 'r'); 
+			$this -> query = $this -> em -> createQuery('SELECT COUNT(r.facilityCode) AS Respondents FROM models\Entities\e_response_rate r');
+			
+			/*$this->rsm->addRootEntityFromClassMetadata('models\Entities\e_facility', 'f');		
+			
+			$this -> query = $this -> em -> createNativeQuery('SELECT er.TotalRespondents, ar.Respondents FROM (SELECT COUNT(f.facilityID)
+									 AS TotalRespondents FROM facility f) AS er,(SELECT COUNT(r.facilityCode) AS Respondents FROM response_rate r 
+									 WHERE r.flagResponded=1) AS ar', $this -> rsm);*/
 			//$this->query->setParameter(1, 'romanb');
 			
 			echo $this->query->getSQL();

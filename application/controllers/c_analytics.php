@@ -11,7 +11,7 @@ class C_Analytics extends MY_Controller {
 	
 	public function active_results(){
 		$this->data['title']='MoH::Analytics';
-		$this->commodity_survey_response_rate();
+		//$this->commodity_survey_response_rate();
 		$this->load->view('analytics_view',$this->data);
 		
 	}
