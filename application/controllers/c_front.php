@@ -15,7 +15,8 @@ class C_Front extends MY_Controller {
 
 	public function index() {
 		$data['title']='MoH::Data Management Tool';
-		$this -> load -> view('home_view', $data); //landing page
+		$this -> load -> view('pages/v_home', $data); //landing page
+		#$this -> load -> view('home_view', $data); //landing page
 	   
 	}//End of index file
 	
@@ -27,6 +28,7 @@ class C_Front extends MY_Controller {
 		$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>User Login<p>';
 		$this -> load -> view('index', $data); //login view
+		//$this -> load -> view('pages/v_login', $data); //login view
 	    }else{
 			$this->inventory();
 		}
@@ -43,17 +45,14 @@ class C_Front extends MY_Controller {
 		if($this -> session -> userdata('fCode')){
 			
 		$data['hidden']="display:none";
-		$data['previousForm']="";	
-		$data['nextForm']="facility_registration_li";		
-			
 		$data['status']="";
 		$data['response']="";
 		$data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
-
+		$data['title']='MNH::Commodity Assessment';
 		$data['form_id']='';
-		$this -> load -> view('survey/index', $data);
+		$this -> load -> view('survey/v_survey_main', $data);
 		}else{
-			redirect(base_url() . 'c_front', 'refresh');
+			redirect(base_url() . 'home', 'refresh');
 		}
 		//echo 'inventory';
 	}

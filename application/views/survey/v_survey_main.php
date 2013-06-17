@@ -1,67 +1,25 @@
 <?php
-ob_start();
 $mfName = $this -> session -> userdata('fName');
 $mfCode = $this -> session -> userdata('fCode');
 ?>
-<!DOCTYPE HTML>
-<html class="no-js">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>MNH Online Survey</title>
-		<!-- -->
-		<script href="<?php echo base_url(); ?>js/modernizr-latest.js"></script>
+		
+		<?php $this->load->view('segments/meta'); ?>
+		
+		
 		<!-- Attach CSS files -->
-		<link rel="stylesheet" href="<?php echo base_url()?>css/styles.css"/>
-		<!--script src="http://code.jquery.com/jquery-latest.js"></script-->	
-		<link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/css-table.css" />	
-		 <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
-		 <link rel="stylesheet" type="text/css" media="screen" href="<?php echo base_url()?>css/menu_style.css" />
+		
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
-		<script src="<?php echo base_url()?>js/IE-fix.js"</script>
-		<!--script to form client side validation functions-->
-		<!-- Run the TAB plugin -->
-		<script type="text/javascript">
-			// Place all Javascript code here
-
-			$(document).ready(function() {
-				$("#showFancyModal").click(function() {
-					$("#profile-fancy").addClass("show");
-					return false;
-				});
-
-				$("#closeFancy").click(function() {
-					$("#profile-fancy").removeClass("show");
-					return false;
-				});
-	
-			});
-			/*end of doc ready*/
-
-		</script>
-	
-		<!--initialize all date pickers-->
+		
+		
 		<script>
-			$().ready(function() {
-
-			});
-			/*close ready doc*/
-		</script>
-		<script type="text/javascript">
-			$(function() {
-				/* For zebra striping */
-				$("table tr:nth-child(odd)").addClass("odd-row");
-				/* For cell text alignment */
-				$("table td:first-child, table th:first-child").addClass("first");
-				/* For removing the last border */
-				$("table td:last-child, table th:last-child").addClass("last");
-			});
-
-		</script>
-		<script>
-					$().ready(function(){
+		$().ready(function(){
 			/**
 			 * variables
 			 */
@@ -123,24 +81,6 @@ $mfCode = $this -> session -> userdata('fCode');
 					//check box/checked radio function was here
 
 					domLoaded();
-
-					/*----------------------------------------------------------------------------------------------------------------*/
-
-					/*submit form event*/
-					/*start of submit_form_data click event*/
-					//function triggerFormSubmit(){
-					$("#next").click(function() {
-
-					$("#facilityMFC").val('<?php echo $mfCode; ?>');
-					
-					if(form_id){
-						$("#q11equipCode_28").val($("#q1_1_equipCode_28").val());
-				
-					}
-
-					//$(form_id).submit();
-
-					});//}/*end of submit_form_data click event*/
 
 					/*----------------------------------------------------------------------------------------------------------------*/
 
@@ -437,76 +377,38 @@ $mfCode = $this -> session -> userdata('fCode');
 		</script>
 		
 		<style type="text/css">
-		#buttonsPane{
-			    margin-top : 0.5em;
-				margin-right : 1em;
-				text-align: right;
-			}
 		.ui-autocomplete-loading {
         		background: white url('<?php echo base_url(); ?>images/ui-anim_basic_16x16.gif') right center no-repeat;
+        		border-color: #ffffff;
+        		color:#FF0000;
     		}
 		</style>
+		
 	</head>
-	<body>
-		<div class="banner">
-		<!--header banner --->   
-		<?php $this -> load -> view('banner'); ?>
-		
-	
-					<div class="sessionUsers">
-						<div class="date">
-		Date: <?php echo "<div class='date-val'>".date("l F d, Y")."</div>"; ?>
-	</div>
-						
-						
-						<?php echo '<li>Facility Code :</li><li style="color:#AA1317">'.$mfCode.'</br></li>       <li>Facility:	</li><a style="color:#AA1317">'.$mfName.'</li>      </br><li title="click to sign out">'. anchor(base_url().'session/close','Logout').'</li>';?></div><br>
-					
-				
-		
-		</div>
-		<div><?php $this -> load -> view('survey/menu'); ?></div>
-		<!--profile data here -->
-		
-	
-		
-		<!--div class="form-sidebar">
-				<h3>Actions</h3>
-				<div class="buttons">					
-				<a title="To clear entire form" id="reset_current_form" class="awesome magenta medium">Save</a>
-				<a title="To Save entered info" id="submit_form_data" class="awesome blue medium">Submit</a>
-				<a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a>
-				</div>
-		</div--><!-- End of Form-SideBar -->
-		
-		
-			<div id="pageheader" >
-				<div class="links">
-					
-				</div>
-			
-			</div>
-			
-			
-									
-									
-				
-						
-				<div class="form-container ui-widget">
-					
-					<?php
+	<body id="top">
 
-					echo $form;
-					?>
-				</div><!-- End of Form-Container div-->							
+<div id="network">
+	<?php $this->load->view('segments/top-logged-in'); ?>
+</div>
+
+<div id="site">
+	<div class="center-wrapper">
+
+		<!--logo and main nav-->
+		<?php $this->load->view('segments/nav-public'); ?>
+
+		<div class="main form-container ui-widget" >
+             <?php echo $form; ?>
 			
-			<div id="accountSettings" class="reveal-modal">
-				<div>
-					
-				</div>
-				<a class="close-reveal-modal">&#215;</a>
-			</div>
-			<!--begin form wizard functions-->
-						
-		</body>
+
+		</div>
+
+		<!--footer-->
+		<?php $this->load->view('segments/footer'); ?>
+
+	</div>
+</div>
+
+</body>
 		</html>
-        <?php ob_end_flush(); ?>
+   

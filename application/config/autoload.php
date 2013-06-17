@@ -109,7 +109,7 @@ $autoload['language'] = array();
 |
 */
 
-$autoload['model'] = array('M_Zinc_Ors_Inventory','m_mnh_assessment');
+$autoload['model'] = array();
 
 
 /* End of file autoload.php */
