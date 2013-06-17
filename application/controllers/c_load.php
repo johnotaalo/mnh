@@ -84,12 +84,12 @@ class C_Load extends MY_Controller {
 				<form name="dcah_tool" id="dcah_tool" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
 
   				 <p id="data" style="display:none" class="message success"></p>
-		         <h3 align="center">COMMODITY ASSESSMENT FORM</h3>
-<table class="center">
+		         <h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3>
+		         <div id="section-1" style="display:none">
+				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
 		       
-		
 			<tr>
 			<TD >Facility Name </TD><td>
 			<input type="text" id="facilityName" name="facilityName" class="cloned"  size="40"/>
@@ -98,8 +98,8 @@ class C_Load extends MY_Controller {
 			</td><TD  >County </TD><td>
 			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"   size="40"/>
 			</td>
-		</tr>
-		<tr>
+			</tr>
+			<tr>
 			<TD >Facility Type </TD><td>
 			<input type="text" id="facilityType" name="facilityType" class="cloned"   size="40"/>
 
@@ -112,13 +112,13 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  size="40"/>
 			</td>
 			
-		</tr>
+			</tr>
 		
-	</table>
-	<table class="center">
-	<thead>
+		</table>
+		<table class="centre">
+		<thead>
 		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
-	</thead>
+		</thead>
 		<tr >
 			<th scope="col" colspan="2" >CADRE</th>
 			<th>NAME</th>
@@ -158,16 +158,15 @@ class C_Load extends MY_Controller {
 		</tr>
 
 	</table>
-				<table class="center">
+	</div><!--\.the section-1 -->
+	
+	<div id="section-2" style="display:none">
+	<table class="centre">
 		
-<thead>
-			<th colspan="10" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
+	<thead>
+	<th colspan="10" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
 
-		
-		
-			<th> MONTH</th><th> '.(date('Y')-1).'</Th> <Th>'.date("Y").'</th><th>Months</th><th> '.(date('Y')-1).'</Th>
-		
-
+	<th> MONTH</th><th> '.(date('Y')-1).'</th> <th>'.date("Y").'</th><th>Months</th><th> '.(date('Y')-1).'</th>
 		 <tr>
 			<td>JANUARY</td><td>
 			<input type="text" id="dnjanuary_12" name="dnjanuary_12" class="cloned numbers"/>
@@ -241,7 +240,7 @@ class C_Load extends MY_Controller {
 
 	</table>
 
-	<table class="center">
+	<table class="centre">
 		<thead>
 			<th colspan="8" >PROVISION OF BEmONC SIGNAL FUNCTIONS  IN THE LAST THREE MONTHS </th>
 		</thead>
@@ -253,8 +252,10 @@ class C_Load extends MY_Controller {
 
 		</tr>'.$this->signalFunctionsSection.'
 	</table>
+	</div><!--\.section 2-->
 
-	<table  class="center" >
+	<div id="section-3" style="display:true">
+	<table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</thead>
@@ -263,8 +264,10 @@ class C_Load extends MY_Controller {
 		<tr>
 			<th scope="col" >Commodity Name</th>
 			<th >Commodity Unit</th>
-			<th colspan="3" >Availability</th>
-			<th colspan="4">Location of Availability</th>
+			<th colspan="3" > <div style="width: 100px" >Availability  
+			 <strong>(Select One) </strong></div></th>
+			<th colspan="4">Location of Availability &nbsp;&nbsp;&nbsp;&nbsp; 
+			&nbsp;&nbsp; <strong> (Select Mutiple)</strong></th>
 			<th>Available Quantities</th>
 			<th scope="col">
 			<div style="width: 40px" >
@@ -294,8 +297,10 @@ class C_Load extends MY_Controller {
 		</tr>'.$this->commodityAvailabilitySection.'
 
 	</table>
+	</div><!--\.section-3-->
 
-	<table class="center">
+    <div id="section-4" style="display:none">
+	<table class="centre">
 	<thead>
 		<th colspan="4"  >INDICATE THE NUMBER OF STAFF TRAINED ON THE FOLLOWING, AND WHEN THEY LAST HAD THE TRAINING  </th></thead>
 		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">No.Trained</th><th colspan ="2" style="text-align:left"> WHEN LAST TRAINED</th>
@@ -303,8 +308,10 @@ class C_Load extends MY_Controller {
 		'.$this->trainingGuidelineSection.'
 
 	</table>
+    </div><!--\.section-4-->
 
-	<table  class="center" >
+	<div id="section-5" style="display:none">
+	<table  class="centre" >
 		<thead>
 			<th colspan="13">INDICATE THE NUMBER OF UNITS USED AND THE NUMBER OF TIMES COMMODITIES WERE NOT AVAILABILE FOR MORE THAN 7 (SEVEN) DAYS. </th>
 		</thead>
@@ -353,6 +360,7 @@ class C_Load extends MY_Controller {
 		</td>
 	    </tr>
 	</table>
+	</div><!--\.section-5-->
 </form>';
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';

@@ -162,10 +162,12 @@ table {
 	
 	}
 	
-	table.center {
+	table.centre {
     width:90%; 
-    margin-left:auto; 
-    margin-right:auto;
+    margin:auto;
+    margin-bottom:10px;
+    /*margin-left:0.5%; 
+    margin-right:auto;*/
   }
 
 	caption {
@@ -350,9 +352,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 .archive-separator {margin: 10px 0;}
 
 
-/* 
-   Posts 
-------------------------------------------------------------------- */
+/* Posts ------------------------------------------------------------------- */
 
 .post a {text-decoration: none;}
 .post a:hover {text-decoration: underline;}
@@ -408,7 +408,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 /* General */
 .center-wrapper {
 	margin: 0 auto;
-	width: 1200px;
+	width: 1248px;
 }
 
 /* Network */
@@ -642,4 +642,14 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 	color: #039;
 	padding:5px;
 	border-bottom: solid 2px #039;
+	width: 90%;
+    margin: auto;
+    margin-bottom: 3px;
 }
+
+/*form input:not([type=submit]), form textarea {
+	border: 1px solid #999;
+	outline: none;
+	padding: 5px 5px 5px 5px;
+	margin: 5px 0 5px 0;
+}*/
