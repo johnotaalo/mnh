@@ -6,7 +6,7 @@ class  MY_Controller  extends  CI_Controller {
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,
 	$selectCommodityType, $facilities, $selectCounties, 
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectFacility,
-	$commodityAvailabilitySection,$signalFunctionsSection,$trainingGuidelineSection,$commodityUsageAndOutageSection;
+	$commodityAvailabilitySection,$signalFunctionsSection,$trainingGuidelineSection,$commodityUsageAndOutageSection,$suppliesSection;
 
 	function __construct() {
 		parent::__construct();
@@ -24,6 +24,7 @@ class  MY_Controller  extends  CI_Controller {
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();$this->createBemoncSignalFunctionsSection();$this->createStaffTrainingGuidelinesSection();
 		$this->createCommodityUsageAndOutageSection();
+		$this->createSuppliesSection();
   
 	}
 
@@ -109,6 +110,7 @@ class  MY_Controller  extends  CI_Controller {
 		return $this -> selectFacilityOwner;
 
 	}
+	
 
     public function getCommoditySuppliers(){
 		$this->load->model('m_mnh_survey');
@@ -198,21 +200,21 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->signalFunctionsSection.='<tr>
-			<td>'.$value['signalName'].'</td><td style ="width:5px;">
+			<td colspan="7">'.$value['signalName'].'</td><td colspan="4">
 			<select name="bmsfSignalFunctionConducted_'.$counter.'" id="bmsfSignalFunctionConducted_'.$counter.'" >
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
-			</select></td><td>
+			</select></td><td colspan="5">
 			<select name="bmsfChallenge_'.$counter.'" id="bmsfChallenge_'.$counter.'" >
 				<option value="" selected="selected">Select Challenge</option>
-				<option value="Inadequate drugs">Inadequate drugs</option>
-				<option value="Inadequate training">Inadequate training</option>
-				<option value="Inadequate Supplies">Inadequate Supplies</option>
-				<option value="Inadequate Job aids">Inadequate Job aids</option>
-				<option value="Inadequate equipment">Inadequate equipment</option>
-				<option value="Case never presented">Case never presented</option>
+				<option value="Inadequate Drugs">1. Inadequate Drugs</option>
+				<option value="Inadequate Skill">2. Inadequate Skill</option>
+				<option value="Inadequate Supplies">3.Inadequate Supplies</option>
+				<option value="Inadequate Job aids">4. Inadequate Job aids</option>
+				<option value="Inadequate equipment">5.Inadequate Equipment</option>
+				<option value="Case never presented">6. Case never presented</option>
 
 			</select></td>
 			<input type="hidden"  name="bmsfSignalCode_'.$counter.'" id="bmsfSignalCode_'.$counter.'" value="'.$value['signalCode'].'" />
@@ -233,17 +235,11 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->trainingGuidelineSection.='<tr>
-			<TD colspan="2" style ="width=10;">'.$value['guidelineName'].'</TD><td>
+			<TD colspan="2" >'.$value['guidelineName'].'</TD><td>
 			<input name="noTrained'.$counter.'" type="text" size="10" />
 			</td><td>
-			<select name="gsLastTraining_'.$counter.'" id="gsLastTraining_'.$counter.'" >
-			    <option value="" selected="selected">Select One</option>
-				<option value="Never been trained">Never been trained</option>
-				<option value="6 months ago">6 months ago</option>
-				<option value="1 year ago">1 year ago</option>
-				<option value="2 years ago">2 years ago</option>
-				<option value="3-5 years ago">3-5 years ago</option>
-			</select></td>
+			<input name="noTrained'.$counter.'" type="text" size="10" />
+			</td>
 			<input type="hidden"  name="gsGuidelineCode_'.$counter.'" id="gsGuidelineCode_'.$counter.'" value="'.$value['guidelineCode'].'" />
 		</tr>';
 		
@@ -262,11 +258,11 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->commodityUsageAndOutageSection.='<tr>
-			<td style="width:200px;">'.$value['commodityName'].' ('.$value['commodityUnit'].') </td>
-			<td>
+			<td colspan="2" style="width:200px;">'.$value['commodityName'].' ('.$value['commodityUnit'].') </td>
+			<td colspan="2">
 			<input name="usoNovUsage_'.$counter.'" type="text" size="5" />
 			</td>
-			<td >
+			<td colspan="2">
 			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
 				<option value="" selected="selected">Select One</option>
 				<option value="Once">Once</option>
@@ -275,65 +271,24 @@ class  MY_Controller  extends  CI_Controller {
 				<option value="more than 5">more than 5 </option>
 
 			</select></td>
-			<td>
-			<input name="usoDecUsage_'.$counter.'" type="text" size="5" />
+						
+			
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Patient purchased the commodity privately" />
 			</td>
-			<td style="vertical-align: middle; margin: 0px;">
-			<select name="usoDecTimesUnavailable_'.$counter.'" id="usoDecTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-
-			</select></td>
-			<td>
-			<input name="usoJanUsage_'.$counter.'" type="text" size="5" />
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility purchased the commodity privately " />
 			</td>
-			<td style="vertical-align: middle; margin: 0px;">
-			<select name="usoJanTimesUnavailable_'.$counter.'" id="usoJanTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-
-			</select></td>
-			<td>
-			<input name="usoFebUsage_'.$counter.'" type="text" size="5" />
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility received the commodity from another facility" />
 			</td>
-			<td style="vertical-align: middle; margin: 0px;">
-			<select name="usoFebTimesUnavailable_'.$counter.'" id="usoFebTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-
-			</select></td>
-
-			<td>
-			<input name="usoMarUsage_'.$counter.'" type="text" size="5" />
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was not conducted " />
 			</td>
-			<td width="50">
-			<select name="usoMarTimesUnavailable_'.$counter.'" id="usoMarTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-
-			</select></td><td>
-			<input name="usoAprUsage_'.$counter.'" type="text" size="5" />
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was conducted without the commodity " />
 			</td>
-			<td width="50">
-			<select name="usoAprTimesUnavailable_'.$counter.'" id="usoAprTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-			</select></td>
+			
 			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usoCommodityCode_'.$counter.'" value="'.$value['commodityCode'].'" />
 		</tr>';
 		
@@ -342,5 +297,50 @@ class  MY_Controller  extends  CI_Controller {
    	return $this->commodityUsageAndOutageSection;
    }
 	
-	
+	public function createSuppliesSection(){
+    $this->load->model('m_mnh_survey');
+	 $this->data_found= $this->m_mnh_survey->getsuppliesNames();
+	//var_dump($this->data_found);die;
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+   		$this->suppliesSection.='<tr>
+			<td colspan="2" style="width:200px;">'.$value['suppliesName'].' ('.$value['suppliesUnit'].') </td>
+			<td colspan="2">
+			<input name="suppliesUsed_'.$counter.'" type="text" size="5" />
+			</td>
+			<td colspan="2">
+			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
+				<option value="" selected="selected">Select One</option>
+				<option value="Once">Once</option>
+				<option value="2-3">2-3 </option>
+				<option value="5-5">4-5 </option>
+				<option value="more than 5">more than 5 </option>
+
+			</select></td>
+						
+			
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Patient purchased the commodity privately" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility purchased the commodity privately " />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility received the commodity from another facility" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was not conducted " />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was conducted without the commodity " />
+			</td>
+			
+			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usoCommodityCode_'.$counter.'" value="'.$value['commodityCode'].'" />
+		</tr>';
+		
+   	}
+	//echo $this->commodityUsageAndOutageSection;die;
+   	return $this->suppliesSection;
+   }
 }
