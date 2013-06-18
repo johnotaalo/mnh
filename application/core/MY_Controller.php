@@ -306,19 +306,19 @@ class  MY_Controller  extends  CI_Controller {
    	foreach($this->data_found as $value){
    		$counter++;
    		$this->suppliesSection.='<tr>
-			<td colspan="2" style="width:200px;">'.$value['suppliesName'].' ('.$value['suppliesUnit'].') </td>
-			<td colspan="2">
-			<input name="suppliesUsed_'.$counter.'" type="text" size="5" />
+			<td  style="width:200px;">'.$value['suppliesName'].' ('.$value['suppliesUnit'].') </td>
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;"/>
 			</td>
-			<td colspan="2">
-			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
-				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
-
-			</select></td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Some Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" />
+			</td>
+			
+			
+			
 						
 			<td style ="text-align:center;">
 			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Patient purchased the commodity privately" />
@@ -333,10 +333,10 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was not conducted " />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was conducted without the commodity " />
+			<input name="noTrained'.$counter.'" type="text" size="10" />
 			</td>
 			
-			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usoCommodityCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
+			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usosuppliesCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
 		</tr>';
 		
    	}
