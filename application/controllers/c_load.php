@@ -85,7 +85,7 @@ class C_Load extends MY_Controller {
 
   				 <p id="data" style="display:none" class="message success"></p>
 		         <h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3>
-		         <div id="section-1" style="display:none">
+		         <div id="section-1" style="display:true">
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -254,13 +254,14 @@ class C_Load extends MY_Controller {
 	</table>
 	</div><!--\.section 2-->
 
-	<div id="section-3" style="display:true">
-	<table  class="centre" >
-		<thead>
+	<div id="section-3" style="display:none">
+	<table  class="centre persist-area" >
+	<thead>
+	    <tr class="persist-header">
+		
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
-		</thead>
-
 		</tr>
+		</thead>
 		<tr>
 			<th scope="col" >Commodity Name</th>
 			<th >Commodity Unit</th>
@@ -361,6 +362,15 @@ class C_Load extends MY_Controller {
 	    </tr>
 	</table>
 	</div><!--\.section-5-->
+	
+	<div id="buttonsPane"dsip>
+		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
+		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
+		
+		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
+		
+	</div>
+	
 </form>';
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';
@@ -562,8 +572,7 @@ public function get_table_equip(){
 		</td>
 	    </tr>
 	</table>
-				
-				</form>';
+	</form>';
 				
 		$data['form'] = $this -> combined_form_equip;
 		$data['form_id'] = 'equip';

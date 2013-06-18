@@ -27,8 +27,9 @@ class C_Front extends MY_Controller {
 		 $data['facility']=$this ->selectFacility;
 		$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>User Login<p>';
-		$this -> load -> view('index', $data); //login view
-		//$this -> load -> view('pages/v_login', $data); //login view
+		$data['login_message']='Login to Take Survey';
+		//$this -> load -> view('index', $data); //login view
+		$this -> load -> view('pages/v_login', $data); //login view
 	    }else{
 			$this->inventory();
 		}

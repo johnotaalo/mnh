@@ -353,7 +353,29 @@ $mfCode = $this -> session -> userdata('fCode');
 				$('#tableEquipmentList,#tableEquipmentList_2,#tableEquipmentList_3a,#tableEquipmentList_3b,#tableEquipmentList_4').find('select[class="cloned left-combo"]').prop('disabled', false);
 				});
 						}//end of select_option_changed
-						
+				
+				
+				
+
+					//     
+					$(function() {
+					
+					   var clonedHeaderRow;
+					
+					   $(".persist-area").each(function() {
+					       clonedHeaderRow = $(".persist-header", this);
+					       clonedHeaderRow
+					         .before(clonedHeaderRow.clone())
+					         .css("width", clonedHeaderRow.width())
+					         .addClass("floatingHeader");
+					         
+					   });
+					   
+					   $('.form-container')
+					    .scroll(UpdateTableHeaders)
+					    .trigger("scroll");
+					   
+					});		
 
 						}); /*close document ready*/
 								
@@ -369,6 +391,26 @@ $mfCode = $this -> session -> userdata('fCode');
 								 });
 								 
 								
+								//fixed heading function
+								function UpdateTableHeaders() {
+								   $(".persist-area").each(function() {
+								   
+								       var el             = $(this),
+								           offset         = el.offset(),
+								           scrollTop      = $(window).scrollTop(),
+								           floatingHeader = $(".floatingHeader", this)
+								       
+								       if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
+								           floatingHeader.css({
+								            "visibility": "visible"
+								           });
+								       } else {
+								           floatingHeader.css({
+								            "visibility": "hidden"
+								           });      
+								       };
+								   });
+								}
 			
 				  	
 				  	
@@ -382,6 +424,7 @@ $mfCode = $this -> session -> userdata('fCode');
         		border-color: #ffffff;
         		color:#FF0000;
     		}
+    	
 		</style>
 		
 	</head>
