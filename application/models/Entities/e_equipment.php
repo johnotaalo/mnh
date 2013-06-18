@@ -26,14 +26,11 @@ class E_Equipment{
 	private $equipmentName;
 	
 	/**
-	 * @Column(name="createdAt", type="datetime", nullable=true)
+	 * @Column(name="equipmentUnit", type="string", length=45, nullable=false)
 	 * */
-	private $createdAt;
+	private $equipmentUnit;
 	
-	/**
-	 * @Column(name="updatedAt", type="datetime", nullable=true)
-	 * */
-	private $updatedAt;
+	
 
     
 	public function getEquipmentID() {
@@ -61,19 +58,17 @@ class E_Equipment{
 		$this -> equipmentName = $equipmentName;
 	}
 	
-	public function getCreatedAt() {
-			return $this -> createdAt;
+	public function getEquipmentUnit() {
+		return $this -> equipmentUnit;
+	}
+
+	public function setEquipmentUnit($equipmentUnit) {
+		$this -> equipmentUnit = $equipmentUnit;
 	}
 	
-	public function setCreatedAt($createdAt) { $this ->createdAt = $createdAt;
-	}
 	
-	public function getUpdatedAt() {
-			return $this -> updatedAt;
-	}
 	
-	public function setUpdatedAt($updatedAt) { $this ->updatedAt = $updatedAt;
-	}
+	
 
 }
 ?>

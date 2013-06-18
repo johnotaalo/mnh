@@ -42,16 +42,19 @@
           <!--a class="brand" href="/c_front/"><img src="<?php echo base_url(); ?>/images/coat_of_arms-resized.png" width="40" height="40" alt="" /></a-->
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><img src="<?php echo base_url(); ?>images/coat_of_arms-resized.png" width="70" height="50"/></li><li><a href="#">Home</a></li>
-              <li><a href="<?php echo base_url(); ?>assesment/commodity">Surveys</a></li>
-              <li><a href="<?php echo base_url(); ?>analysis/commodity">Analysis</a></li>
-              <li><a href="#contact"></a></li>
+              <li class="active"></li><li><a href="#">Home</a></li>
+              
             </ul>
           </div><!--/.nav-collapse -->
+          
         </div>
       </div>
     </div>
     
+<div class="container" align="center">
+      <div align="center"><img src="<?php echo base_url(); ?>images/nscop.png" /></div>
+    <hr>
+  </div>
 
   <div class="container">
 

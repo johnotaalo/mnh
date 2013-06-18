@@ -59,7 +59,7 @@ function __construct() {
 		 try{
 	      $query = $this->em->createQuery('SELECT s.suppliesID, s.suppliesCode, s.suppliesName, s.suppliesUnit FROM models\Entities\e_supplies s ORDER BY s.suppliesID ASC');
           $this->supplies = $query->getResult();
-		 //die(var_dump($this->supplies));
+		// die(var_dump($this->supplies));
 		 }catch(exception $ex){
 		 	//ignore
 		 	//$ex->getMessage();

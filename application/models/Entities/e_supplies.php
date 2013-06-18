@@ -9,7 +9,7 @@ namespace models\Entities;
  	
    /**
 	* @Id
-	* @Column(name="idsupplies", type="integer", length=11, nullable=false)
+	* @Column(name="suppliesID", type="integer", length=11, nullable=false)
 	* @GeneratedValue(strategy="AUTO")
 	* */
 	private $suppliesID;
@@ -20,7 +20,7 @@ namespace models\Entities;
 	private $suppliesCode;
 	
 	/**
-	* @Column(name="unit", type="string",length=45, nullable=false)
+	* @Column(name="suppliesUnit", type="string",length=45, nullable=false)
 	* */
 	private $suppliesUnit;
 	

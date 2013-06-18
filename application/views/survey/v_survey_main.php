@@ -343,6 +343,20 @@ $mfCode = $this -> session -> userdata('fCode');
 						}
 					});
 					
+					//check if deliveries are conducted		
+					$('#cDeliveries').change(function(){
+						if($(this).val()=="Yes" || $(this).val()=="" ){
+							//show next section, hide this section
+							$('#delivery_centre').hide();
+							$('#delivery_centre').find('input').prop('disabled',false);
+							//alert('Y');
+						}else if($(this).val()=="No"){
+							//show the follow up qn
+							$('#delivery_centre').show();
+							//alert('N');
+						}
+					});
+					
 				
 					
 				
@@ -353,6 +367,8 @@ $mfCode = $this -> session -> userdata('fCode');
 				$('#tableEquipmentList,#tableEquipmentList_2,#tableEquipmentList_3a,#tableEquipmentList_3b,#tableEquipmentList_4').find('select[class="cloned left-combo"]').prop('disabled', false);
 				});
 						}//end of select_option_changed
+				
+				
 				
 				
 				

@@ -12,7 +12,7 @@ class M_MNH_Survey  extends MY_Model {
 	function __construct() {
 		parent::__construct();
 		$this->isFacility='false';
-		$this->commodityList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList='';
+		$this->commodityList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList=$this->suppliesList='';
 		
 	}
 	
@@ -29,8 +29,8 @@ class M_MNH_Survey  extends MY_Model {
 		return $this->equipmentList;
     }
 	
-	public function getsuppliesNames(){
-    	$this->suppliesList=$this->getAllsuppliesNames();
+	public function getSuppliesNames(){
+    	$this->suppliesList=$this->getAllSuppliesNames();
 		//var_dump($this->suppliesList);die;
 		return $this->suppliesList;
     }
