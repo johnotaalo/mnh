@@ -6,7 +6,7 @@ class  MY_Controller  extends  CI_Controller {
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,
 	$selectCommodityType, $facilities, $selectCounties, 
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectFacility,
-	$commodityAvailabilitySection,$signalFunctionsSection,$trainingGuidelineSection,$commodityUsageAndOutageSection,$suppliesSection;
+	$commodityAvailabilitySection,$signalFunctionsSection,$trainingGuidelineSection,$commodityUsageAndOutageSection,$suppliesSection,$equipmentsSection;
 
 	function __construct() {
 		parent::__construct();
@@ -18,12 +18,12 @@ class  MY_Controller  extends  CI_Controller {
 		$this->em = $this->doctrine->em;
 		$this->response=$this->theForm=$this->data='';
 		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectCommoditySuppliers='';
-		$this->commodityAvailabilitySection=$this->signalFunctionsSection=$this->trainingGuidelineSection=$this->commodityUsageAndOutageSection='';
+		$this->commodityAvailabilitySection=$this->signalFunctionsSection=$this->trainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->equipmentsSection='';
 		$this->getHealthFacilities();
 		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();$this->createBemoncSignalFunctionsSection();$this->createStaffTrainingGuidelinesSection();
-		$this->createSuppliesSection();
+		$this->createSuppliesSection();$this->createEquipmentSection();
 		$this->createCommodityUsageAndOutageSection();
 		
   
@@ -298,7 +298,7 @@ class  MY_Controller  extends  CI_Controller {
    	return $this->commodityUsageAndOutageSection;
    }
 	
-	public function createSuppliesSection(){
+	/*public function createSuppliesSection(){
     $this->load->model('m_mnh_survey');
 	 $this->data_found= $this->m_mnh_survey->getSuppliesNames();
 	//var_dump($this->data_found);die;
@@ -335,12 +335,103 @@ class  MY_Controller  extends  CI_Controller {
 			<td style ="text-align:center;">
 			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was conducted without the commodity " />
 			</td>
-			
 			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usoCommodityCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
 		</tr>';
 		
    	}
 	//echo $this->commodityUsageAndOutageSection;die;
    	return $this->suppliesSection;
+   }*/
+   
+   public function createSuppliesSection(){
+    $this->load->model('m_mnh_survey');
+	 $this->data_found= $this->m_mnh_survey->getSuppliesNames();
+	//var_dump($this->data_found);die;
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+   		$this->suppliesSection.='<tr>
+			<td colspan="2" style="width:200px;">'.$value['suppliesName'].' ('.$value['suppliesUnit'].') </td>
+			<td colspan="2">
+			<input name="suppliesUsed_'.$counter.'" type="text" size="5" />
+			</td>
+			<td colspan="2">
+			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
+				<option value="" selected="selected">Select One</option>
+				<option value="Once">Once</option>
+				<option value="2-3">2-3 </option>
+				<option value="5-5">4-5 </option>
+				<option value="more than 5">more than 5 </option>
+
+			</select></td>
+						
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Patient purchased the commodity privately" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility purchased the commodity privately " />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Facility received the commodity from another facility" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was not conducted " />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="The procedure was conducted without the commodity " />
+			</td>
+			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usoCommodityCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
+		</tr>';
+		
+   	}
+	//echo $this->commodityUsageAndOutageSection;die;
+   	return $this->suppliesSection;
+   }
+   
+    public function createEquipmentSection(){
+    $this->load->model('m_mnh_survey');
+	 $this->data_found= $this->m_mnh_survey->getEquipmentNames();
+	//var_dump($this->data_found);die;
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+   		$this->equipmentsSection.='<tr>
+			<td >'.$value['equipmentName'].' ('.$value['equipmentUnit'].') </td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Delivery room" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Store" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqHappened_'.$counter.'[]" type="checkbox" value="Other" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Functional" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Partially Functional" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Non-Functional" />
+			</td>
+			<input type="hidden"  name="usoEquimnentCode_'.$counter.'" id="usoEquimnentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
+		</tr>';
+		
+   	}
+	//echo $this->commodityUsageAndOutageSection;die;
+   	return $this->equipmentsSection;
    }
 }

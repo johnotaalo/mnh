@@ -448,7 +448,7 @@ class C_Load extends MY_Controller {
 	</div><!--\.section-5-->
 	<div id="section-6" style="display:true">
 	 <p style="display:true" class="message success">SECTION 6</p>
-		<table>
+		
 		<table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT.</th>
@@ -457,19 +457,16 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
 			<th scope="col" >Equipment Name</th>
-			<th >Equipment Unit</th>
+			
 			<th colspan="3" style="text-align:center">Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
 			<th colspan="3">Functionality</th>
-			
-			
-
 		</tr>
 		<tr >
 			<td>&nbsp;</td>
-			<td >Unit</td>
+			
 			<td >Available</td>
 			<td>Sometimes Available</td>
 			<td>Never Available</td>
@@ -477,13 +474,15 @@ class C_Load extends MY_Controller {
 			<td>Pharmacy</td>
 			<td>Store</td>
 			<td>Other</td>
-
 			<td>Functional</td>
             <td>Partially Functional</td>
 			<td>Non-Functional</td>
+			</tr>
+			'.$this->equipmentsSection.'
+
 			</table>
-			</tr>'.$this->suppliesSection.'
-		<table  class="centre" >
+			
+		 <table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.</th>
 		</thead>
