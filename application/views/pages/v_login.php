@@ -119,17 +119,22 @@
 			<form id="authenticate" name="authenticate" action="<?php echo base_url().'session/new'?>" method="post" accept-charset="utf-8">
 				<h2><?php echo $login_message; ?></h2>
 				
-				<p style="margin-bottom:5px"><label for="username">Facility Name</label</p><p><input id="username" name="username" type="text" placeholder="Facility Name"></p>
+				<!--p style="margin-bottom:5px"><label for="username">Facility Name</label</p><p><input id="username" name="username" type="text" placeholder="Facility Name"></p-->
+				<p style="margin-bottom:5px"><label for="username">District Name</label</p><p><select id="username" name="username" type="text" placeholder="Facility Name">
+					<option selected="selected" value="">Select District</option>
+					<option value="Dagoretti">Dagoretti</option>
+					</select>
+				</p>
 				
-				<!--p style="margin-bottom:5px"><label for="usercode">Email Address</label></p><p><input id="usercode" name="usercode" type="text" placeholder="Your Email Address"></p-->
+				<p style="margin-bottom:5px"><label for="usercode">Password</label></p><p><input id="usercode" name="usercode" type="password"/></p>
 				<!--label for="remember">
 				  <input type="checkbox" id="remember" value="remember" />
 				  <span>Remember me on this computer</span>
 				</label-->
+				<label style="color: #e34848;display:none" for="buttonsPane" >Invalid District and Password Combination!</label>
 				<div class="buttonsPane">
 					<button type="submit" class="awesome blue medium">Login</button>	
 				</div>
-				
 			</form>
 		</div>
 

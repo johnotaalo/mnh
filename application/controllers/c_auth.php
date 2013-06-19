@@ -41,8 +41,9 @@ class C_Auth extends MY_Controller {
 
 		} else {
 			#use an ajax request and not a whole refresh
-			$this->data['form'] = '<p>Facility Not Found!<p>';
-			$this -> load -> view('index', $this->data);
+			$data['title']='MoH::Data Management Tool';
+			$this->data['login_response'] = 'Invalid District and Password Combination!';
+			$this -> load -> view('pages/v_login', $this->data);
 		}
 	}
 
