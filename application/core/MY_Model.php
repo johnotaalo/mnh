@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines;
 
 function __construct() {
@@ -71,7 +71,7 @@ function __construct() {
 		 /*using DQL*/
 		 try{
 	      $query = $this->em->createQuery('SELECT e.equipmentID, e.equipmentCode, e.equipmentName, e.equipmentUnit FROM models\Entities\e_equipment e ORDER BY e.equipmentID ASC');
-          $this->supplies = $query->getResult();
+          $this->equipment = $query->getResult();
 		 //die(var_dump($this->equipment));
 		 }catch(exception $ex){
 		 	//ignore

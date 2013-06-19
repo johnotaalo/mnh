@@ -392,7 +392,7 @@ class C_Load extends MY_Controller {
 	 <p style="display:true" class="message success">SECTION 5</p>
 	<table  class="centre" >
 		<thead>
-			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE NUMBER OF TIMES THE COMMODITY WAS NOT AVAILABLE.</BR>
+			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE COMMODITY WAS NOT AVAILABLE.</BR>
 			WHEN THE COMMODITY WAS NOT AVAILABLE WHAT HAPPENED? </th>
 		</thead>
 
@@ -448,7 +448,7 @@ class C_Load extends MY_Controller {
 	</div><!--\.section-5-->
 	<div id="section-6" style="display:true">
 	 <p style="display:true" class="message success">SECTION 6</p>
-		<table>
+		
 		<table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT.</th>
@@ -457,19 +457,16 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
 			<th scope="col" >Equipment Name</th>
-			<th >Equipment Unit</th>
+			
 			<th colspan="3" style="text-align:center">Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
-			<th colspan="3">Functionality</th>
-			
-			
-
+			<th colspan="3">Available Quantities</th>
 		</tr>
 		<tr >
 			<td>&nbsp;</td>
-			<td >Unit</td>
+			
 			<td >Available</td>
 			<td>Sometimes Available</td>
 			<td>Never Available</td>
@@ -477,13 +474,17 @@ class C_Load extends MY_Controller {
 			<td>Pharmacy</td>
 			<td>Store</td>
 			<td>Other</td>
-
-			<td>Functional</td>
+			<td>Fully-Functional</td>
             <td>Partially Functional</td>
 			<td>Non-Functional</td>
+			</tr>
+			'.$this->equipmentsSection.'
+
 			</table>
-			</tr>'.$this->suppliesSection.'
-		<table  class="centre" >
+			<div id="section-6" style="display:true">
+	 <p style="display:true" class="message success">SECTION 7</p>
+			
+		 <table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.</th>
 		</thead>
@@ -497,7 +498,16 @@ class C_Load extends MY_Controller {
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
 			<th>Available Supplies</th>
+			<th scope="col">
 			
+				Main Supplier
+			</th>
+			<th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th>
+
+		</tr>
 			
 
 		</tr>
@@ -513,10 +523,62 @@ class C_Load extends MY_Controller {
 			<td>Other</td>
 
 			<td style="text-align:center">No.of Supplies</td>
+			<td></td>
+			<td></td>
+			
 			
 
 		</tr>'.$this->suppliesSection.'
 		</table>
+		<table  class="centre" >
+		<thead>
+			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</BR>
+			WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th>
+		</thead>
+
+		</tr>
+		<tr >
+			<th scope="col"  colspan="2"><div style="width: 1
+			00px" >Supply Name</div></th>
+			
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				Usage
+			</div></th>
+			<th scope="col" colspan="2">
+			<div style="width: 100px" >
+				Number Of Times the supply was unavailable
+			</div></th>
+			<th scope="col" colspan="5">
+			<div style="width: 600px" >
+				When the supply was not available what happened
+				</br>
+				(Mutiple Selections Allowed)
+			</div></th>
+
+		</tr>
+		<tr >
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2">Used Units</td>
+			<td colspan="2">Times Unavailable </td>
+			
+			<td colspan="1">
+			<div style="width: 100px" >
+			Patient purchased the supply privately</div></td>
+			<td colspan="1"> <div style="width: 100px" >
+			Facility purchased the supply privately
+			</div></td>
+			<td colspan="1"><div style="width: 100px" >
+			Facility received the supply from another facility</div></td>
+			<td colspan="1"><div style="width: 100px" >
+			The procedure was not conducted </div></td>
+			<td colspan="1"><div style="width: 100px" > The procedure was conducted without the supply
+			</div></td>
+
+		</tr>
+        '.$this->suppliesUsageAndOutageSection.'
+        </table>
+        </div>
 		<div id="suppliesEquipment" class="buttonsPane">
 		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
 		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->

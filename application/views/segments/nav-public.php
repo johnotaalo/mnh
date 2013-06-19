@@ -8,7 +8,7 @@
 
 			<div id="site-title">
 					<div align="center">
-					<h3><a href="#"><img src="<?php echo base_url()?>images/logo_combined.gif" /></a> </h3>
+					<h3><a href="#"><img src="<?php echo base_url()?>images/logo_combined.png" /></a> </h3>
 					</div>
 				
 			
