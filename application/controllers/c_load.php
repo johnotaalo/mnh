@@ -462,7 +462,7 @@ class C_Load extends MY_Controller {
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
-			<th colspan="3">Functionality</th>
+			<th colspan="3">Functionality </br> <strong>(One Selection Allowed)</strong></th>
 		</tr>
 		<tr >
 			<td>&nbsp;</td>
@@ -490,19 +490,19 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
 			<th scope="col" >Supplies Name</th>
-			<th >Supplies Unit</th>
+			
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
-			<th>Available Quantities</th>
+			<th>Available Supplies</th>
 			
 			
 
 		</tr>
 		<tr >
 			<td>&nbsp;</td>
-			<td >Unit</td>
+			
 			<td >Available</td>
 			<td>Sometimes Available</td>
 			<td>Never Available</td>
@@ -511,7 +511,7 @@ class C_Load extends MY_Controller {
 			<td>Store</td>
 			<td>Other</td>
 
-			<td>No.of Units</td>
+			<td style="text-align:center">No.of Supplies</td>
 			
 
 		</tr>'.$this->suppliesSection.'
