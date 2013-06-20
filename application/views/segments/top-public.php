@@ -5,8 +5,8 @@
 		<div class="right">
 
 			<ul class="tabbed" id="network-tabs">
-				<li class="current-tab"><a href="#">MNH Portal</a></li>
-				<li><a href="#">Ministry of Health</a></li>
+				<li class="current-tab"><a href="#">Ministry of Health, MNH Portal</a></li>
+				
 			</ul>
 
 			<div class="clearer">&nbsp;</div>

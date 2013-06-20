@@ -11,11 +11,11 @@ class C_Load extends MY_Controller {
 	}
 
 	public function getFacilityDetails() {
-		/*retrieve files under this form if any*/
-		$this -> load -> model('m_zinc_ors_inventory');
-		if (($this -> m_zinc_ors_inventory -> retrieveFacilityInfo($this -> session -> userdata('fCode'))) == true) {
+		/*retrieve facility info if any*/
+		$this -> load -> model('m_mnh_survey');
+		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input ->get_post('fcode',TRUE))) == true) {
 			//retrieve existing data..else just load a blank form
-			print $this -> m_zinc_ors_inventory -> formRecords;
+			print $this -> m_mnh_survey -> formRecords;
 		}
 	}
 
@@ -81,38 +81,50 @@ class C_Load extends MY_Controller {
 		$this -> combined_form.= 
 		         '<h5 id="status"></h5>
                  
-				<form name="dcah_tool" id="dcah_tool" method="POST" action="'.base_url().'submit/c_form/complete_commodity_survey">
+				<form class="bbq" name="mnh_too" id="mnh_tool" method="POST">
 
-  				 <p id="data" style="display:none" class="message success"></p>
+  				 <p id="data" class="feedback"></p>
 		         <!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
-		         <div id="section-1" style="display:true">
-		          <p style="display:true" class="message success">SECTION 1</p>
+		         <div id="section-1" class="step">
+		         <input type="hidden" name="step_name" value="section-1"/>
+		          <p style="display:true" class="message success">SECTION 1 of 7</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
 		       
 			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned"  size="40"/>
+			<input type="text" id="facilityName" name="facilityName" class="cloned" disabled="disabled"  size="40"/>
 			</td> <TD  >Facility Level </TD><td>
 			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
 			</td><TD  >County </TD><td>
-			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"   size="40"/>
+			<select name="facilityCounty" id="facilityCounty" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select One</option>
+							' . $this -> selectCounties . '
+						</select>
 			</td>
 			</tr>
 			<tr>
 			<TD >Facility Type </TD><td>
-			<input type="text" id="facilityType" name="facilityType" class="cloned"    size="40"/>
+			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select One</option>
+							' . $this -> selectFacilityType . '
+						</select>
 
 			</td>
 			<TD >Owned By </TD><td>
-			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  size="40"/>
+			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select One</option>
+							' . $this -> selectFacilityOwner . '
+						</select>
 			</td>
 
-			<TD >District </TD><td>
-			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  size="40"/>
+			<td>District </TD><td>
+			<select name="facilityDistrict" id="facilityDistrict" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select One</option>
+							' . $this -> selectDistricts . '
+						</select>
 			</td>
-			
 			</tr>
 		
 		</table>
@@ -133,7 +145,7 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="cloned numbers" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned" size="40"/>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 		<tr>
@@ -143,7 +155,7 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="cloned numbers" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned" size="40"/>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 		<tr>
@@ -154,7 +166,7 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="cloned numbers" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned numbers" size="40"/>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 
@@ -162,7 +174,7 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 	<thead>
 	<th colspan ="8"> DOES THIS FACILITY ROUTINELY CONDUCT DELIVERIES?</th> </thead>
-	<tr><th colspan ="8"><select name="cDeliveries" id="cDeliveries" >
+	<tr><th colspan ="8"><select name="cDeliveries" id="cDeliveries" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option></th></tr>
@@ -173,31 +185,24 @@ class C_Load extends MY_Controller {
 	<tr><th colspan ="2">Inadequate skill or staff</th><th colspan ="2"> Inadequate infrastructure (equipment)</th>
 	<th colspan ="2">  Inadequate commodities and supplies</th><th colspan ="2">  Other</th></tr>
 	<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries1" type="checkbox" value="Inadequate skill or staff" />
+			<input name="rsnDeliveries[]" type="checkbox" value="Inadequate skill or staff" class="cloned"/>
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries2" type="checkbox" value="Inadequate infrastructure (equipment)" />
+			<input name="rsnDeliveries[]" type="checkbox" value="Inadequate infrastructure (equipment)" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries3" type="checkbox" value=" Inadequate commodities and supplies" />
+			<input name="rsnDeliveries[]" type="checkbox" value=" Inadequate commodities and supplies" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries4" type="checkbox" value="Other" />
+			<input name="rsnDeliveries[]" type="checkbox" value="Other" />
 			</td>
 	
 	
 	</table>
-	<div id="deliveriesDone" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
-		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
 	</div><!--\.the section-1 -->
 	
-	<div id="section-2" style="display:true">
-	 <p style="display:true" class="message success">SECTION 2</p>
+	<div id="section-2" class="step">
+	 <p style="display:true" class="message success">SECTION 2 of 7</p>
 	<table class="centre">
 		
 	<thead>
@@ -304,17 +309,10 @@ class C_Load extends MY_Controller {
 
 		</tr>'.$this->signalFunctionsSection.'
 	</table>
-	<div id="deliveriesConducted" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
-		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
 	</div><!--\.section 2-->
 
-	<div id="section-3" style="display:true">
-	 <p style="display:true" class="message success">SECTION 3</p>
+	<div id="section-3" class="step">
+	 <p style="display:true" class="message success">SECTION 3 of 7</p>
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -358,17 +356,10 @@ class C_Load extends MY_Controller {
 		</tr>'.$this->commodityAvailabilitySection.'
 
 	</table>
-	<div id="commodityAvailability" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
-		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
 	</div><!--\.section-3-->
 
-    <div id="section-4" style="display:true">
-     <p style="display:true" class="message success">SECTION 4</p>
+    <div id="section-4" class="step">
+     <p style="display:true" class="message success">SECTION 4 of 7</p>
 	<table class="centre">
 	<thead>
 		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
@@ -379,20 +370,13 @@ class C_Load extends MY_Controller {
 		'.$this->trainingGuidelineSection.'
 
 	</table>
-	<div id="staffTraining" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
-		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
     </div><!--\.section-4-->
 
-	<div id="section-5" style="display:true">
-	 <p style="display:true" class="message success">SECTION 5</p>
+	<div id="section-5" class="step">
+	 <p style="display:true" class="message success">SECTION 5 of 7</p>
 	<table  class="centre" >
 		<thead>
-			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE NUMBER OF TIMES THE COMMODITY WAS NOT AVAILABLE.</BR>
+			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE COMMODITY WAS NOT AVAILABLE.</BR>
 			WHEN THE COMMODITY WAS NOT AVAILABLE WHAT HAPPENED? </th>
 		</thead>
 
@@ -438,16 +422,9 @@ class C_Load extends MY_Controller {
 		</tr>
         '.$this->commodityUsageAndOutageSection.'
         </table>
-	   <div id="commodityOutage" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
-		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
 	</div><!--\.section-5-->
-	<div id="section-6" style="display:true">
-	 <p style="display:true" class="message success">SECTION 6</p>
+	<div id="section-6" class="step">
+	 <p style="display:true" class="message success">SECTION 6 of 7</p>
 		
 		<table  class="centre" >
 		<thead>
@@ -462,7 +439,7 @@ class C_Load extends MY_Controller {
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
-			<th colspan="3">Functionality </br> <strong>(One Selection Allowed)</strong></th>
+			<th colspan="3">Available Quantities</th>
 		</tr>
 		<tr >
 			<td>&nbsp;</td>
@@ -474,13 +451,16 @@ class C_Load extends MY_Controller {
 			<td>Pharmacy</td>
 			<td>Store</td>
 			<td>Other</td>
-			<td>Functional</td>
+			<td>Fully-Functional</td>
             <td>Partially Functional</td>
 			<td>Non-Functional</td>
 			</tr>
 			'.$this->equipmentsSection.'
 
 			</table>
+           </div><!--\.section-6-->
+			<div id="section-7" class="step">
+	 <p style="display:true" class="message success">SECTION 7 of 7</p>
 			
 		 <table  class="centre" >
 		<thead>
@@ -496,7 +476,16 @@ class C_Load extends MY_Controller {
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
 			<th>Available Supplies</th>
+			<th scope="col">
 			
+				Main Supplier
+			</th>
+			<th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th>
+
+		</tr>
 			
 
 		</tr>
@@ -512,24 +501,93 @@ class C_Load extends MY_Controller {
 			<td>Other</td>
 
 			<td style="text-align:center">No.of Supplies</td>
+			<td></td>
+			<td></td>
+			
 			
 
 		</tr>'.$this->suppliesSection.'
 		</table>
-		<div id="suppliesEquipment" class="buttonsPane">
-		<input title="To save" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
-		<!--input title="To reset the form" id="back" class="awesome magenta medium" type="reset"/-->
+		<table  class="centre" >
+		<thead>
+			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</BR>
+			WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th>
+		</thead>
+
+		</tr>
+		<tr >
+			<th scope="col"  colspan="2"><div style="width: 1
+			00px" >Supply Name</div></th>
+			
+			<th scope="col" colspan="2">
+			<div style="width: 40px" >
+				Usage
+			</div></th>
+			<th scope="col" colspan="2">
+			<div style="width: 100px" >
+				Number Of Times the supply was unavailable
+			</div></th>
+			<th scope="col" colspan="5">
+			<div style="width: 600px" >
+				When the supply was not available what happened
+				</br>
+				(Mutiple Selections Allowed)
+			</div></th>
+
+		</tr>
+		<tr >
+			<td colspan="2">&nbsp;</td>
+			<td colspan="2">Used Units</td>
+			<td colspan="2">Times Unavailable </td>
+			
+			<td colspan="1">
+			<div style="width: 100px" >
+			Patient purchased the supply privately</div></td>
+			<td colspan="1"> <div style="width: 100px" >
+			Facility purchased the supply privately
+			</div></td>
+			<td colspan="1"><div style="width: 100px" >
+			Facility received the supply from another facility</div></td>
+			<td colspan="1"><div style="width: 100px" >
+			The procedure was not conducted </div></td>
+			<td colspan="1"><div style="width: 100px" > The procedure was conducted without the supply
+			</div></td>
+
+		</tr>
+        '.$this->suppliesUsageAndOutageSection.'
+        </table>
 		
-		<!--a title="To close the form." id="close_opened_form" class="awesome red medium">Close</a-->
-		
-	</div>
-	</div><!--\.section-6-->
+	 </div><!--\.section-7-->
+	 <div id="sectionNavigation" class="buttonsPane">
+		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
+		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
+		</div>
 	</form>';
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';
 		$this->load->view('form',$data);
 	}
 
+
+	public function get_facility_list(){
+		
+		$this->facilityList.='<table class="centre">
+		<thead>
+			<th colspan="22" >'.strtoupper($this -> session -> userdata('dName')).' DISTRICT FACILITIES</th>
+		</thead>
+		
+		    <th colspan="1"></th>
+			<th  colspan="7">MFL CODE</th>
+			<th   colspan="4"> FACILITY NAME </th>			
+			<th  colspan="5">SURVEY STATUS</th>
+			<th  colspan="5">ACTION</th>
+
+		</tr>'.$this->districtFacilityListSection.'
+		</table>';
+		$data['form'] = $this -> facilityList;
+		$data['form_id'] = '';
+		$this->load->view('form',$data);
+	}
 	
 
 	

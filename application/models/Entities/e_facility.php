@@ -105,6 +105,11 @@ namespace models\Entities;
 	* @Column(name="facilityMaternityTelephone", type="string", length=55, nullable=true)
 	* */
 	private $facilityMaternityTelephone;
+	
+	/**
+	* @Column(name="facilitySurveyStatus", type="string", length=15, nullable=false)
+	* */
+	private $facilitySurveyStatus;
 
 	/**
 	* @Column(name="createdAt", type="datetime", nullable=true)
@@ -238,6 +243,14 @@ namespace models\Entities;
 	}
 
 	public function setFacilityMaternityTelephone($facilityMaternityTelephone) { $this -> facilityMaternityTelephone = $facilityMaternityTelephone;
+	}
+	
+	
+	public function getFacilitySurveyStatus() {
+			return $this -> facilitySurveyStatus;
+	}
+
+	public function setFacilitySurveyStatus($facilitySurveyStatus) { $this -> facilitySurveyStatus = $facilitySurveyStatus;
 	}
 
 	public function getCreatedAt() {

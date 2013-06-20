@@ -105,44 +105,66 @@ $mfCode = $this -> session -> userdata('fCode');
 
 						}
 						/*----------------------------------------------------------------------------------------------------------------*/
+						
+						
 
 				
 				
 				//load 1st section of the assessment on page load
-				$(".form-container").load('<?php echo base_url() . 'c_load/get_new_form'; ?>',function(){
-
-					//include remote scripts
-					loadGlobalScript();renderFacilityInfo();select_option_changed();
-
+				$(".form-container").load('<?php echo base_url() . 'c_load/get_facility_list'; ?>',function(){
+					       // fcode=12864;
+							//loadGlobalScript();//renderFacilityInfo(fcode);
+							
+							//so which link was clicked?
+						  $('.action').on('click',function(){
+							link_id='#'+$(this).find('a').attr('id');
+							link_id=link_id.substr(link_id.indexOf('#')+1,link_id.length);
+							//linkSub=$(link_id).attr('class');
+							//linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
+							fcode=link_id;
+							
+							//alert(link_id);
+							if(link_id)
+							
+							$(".form-container").load('<?php echo base_url();?>c_load/get_new_form',function(){
+							//delegate events
+							//if(loaded==false)
+							//include remote scripts
+					        loadGlobalScript();renderFacilityInfo(fcode);break_form_to_steps(form_id);select_option_changed();
+							
+							 });
+							
+							})/*end of which link was clicked*/
+							/*----------------------------------------------------------------------------------------------------------------*/
 					});
 				
 				/*-----------------------------------------------------------------------------------------------------------------*/
 				/*start of ajax data requests*/
-				function renderFacilityInfo(){
+				function renderFacilityInfo(fcode){
     			 $.ajax({
 		            type: "GET",
 
 		            	url: "<?php echo base_url()?>c_load/getFacilityDetails",
 						dataType:"json",
 						cache:"true",
-						data:"",
+						data:"fcode="+fcode,
 						success: function(data){
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
 						$("#facilityName").val(facility.facilityName);
 						
-						$("#facilityType").val(facility.facilityType);
+						//$("#facilityType").val(facility.facilityType);
   						$("#facilityLevel").val(facility.facilityLevel);
-  						$("#facilityOwnedBy").val(facility.facilityOwnedBy);
-						$("#facilityDistrict").val(facility.facilityDistrict);
-						$("#facilityCounty").val(facility.facilityCounty);
+  						//$("#facilityOwnedBy").val(facility.facilityOwnedBy);
+						//$("#facilityDistrict").val(facility.facilityDistrict);
+						//$("#facilityCounty").val(facility.facilityCounty);
 						
-						/*$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
-  						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
+						$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
+  						//$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
   						$("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facilityOwnedBy;}).first().prop("selected", true);
 						$("#facilityDistrict option").filter(function() {return $(this).text() == facility.facilityDistrict;}).first().prop("selected", true);
-						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facilityCounty;}).first().prop("selected", true);*/
+						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facilityCounty;}).first().prop("selected", true);
 						
 						
 						$("#facilityInchargename").val(facility.facilityInchargeContactPerson);
@@ -343,22 +365,6 @@ $mfCode = $this -> session -> userdata('fCode');
 						}
 					});
 					
-					//check if deliveries are conducted		
-					$('#cDeliveries').change(function(){
-						if($(this).val()=="Yes" || $(this).val()=="" ){
-							//show next section, hide this section
-							$('#delivery_centre').hide();
-							$('#delivery_centre').find('input').prop('disabled',false);
-							//alert('Y');
-						}else if($(this).val()=="No"){
-							//show the follow up qn
-							$('#delivery_centre').show();
-							//alert('N');
-						}
-					});
-					
-				
-					
 				
 				});
 				
@@ -366,46 +372,92 @@ $mfCode = $this -> session -> userdata('fCode');
 				$('#editEquipmentListTopButton,#editEquipmentListTopButton_2,#editEquipmentListTopButton_3a,#editEquipmentListTopButton_3b,#editEquipmentListTopButton_4').click(function(){
 				$('#tableEquipmentList,#tableEquipmentList_2,#tableEquipmentList_3a,#tableEquipmentList_3b,#tableEquipmentList_4').find('select[class="cloned left-combo"]').prop('disabled', false);
 				});
+				
+				 
 						}//end of select_option_changed
 				
-				
-				
-				
-				
-
-					//     
-					$(function() {
-					
-					   var clonedHeaderRow;
-					
-					   $(".persist-area").each(function() {
-					       clonedHeaderRow = $(".persist-header", this);
-					       clonedHeaderRow
-					         .before(clonedHeaderRow.clone())
-					         .css("width", clonedHeaderRow.width())
-					         .addClass("floatingHeader");
-					         
-					   });
-					   
-					   $('.form-container')
-					    .scroll(UpdateTableHeaders)
-					    .trigger("scroll");
-					   
-					});		
+							
 
 						}); /*close document ready*/
 								
-								//disable or enable maternity contact information on check	
-								 $('#noMaternityContact').change(function(){
-								 	if($(this).is(':checked')){
-								 		$('#maternity_info').find('input').prop('disabled', true);
-								 		$('#maternity_info').hide();
-								 	}else{
-								 		$('#maternity_info').show();
-								 		$('#maternity_info').find('input').prop('disabled', false);
+								
+								function break_form_to_steps(form_id){
+							//form_id='#zinc_ors_inventory';
+						   //alert(form_id);	
+						   var end_url;
+								$(form_id).formwizard({ 
+								 	formPluginEnabled: false,
+								 	validationEnabled: false,
+								 	historyEnabled:true,
+								 	focusFirstInput : true,
+								 	formOptions :{
+										//success: function(data){$("#status").fadeTo(500,1,function(){ $(this).html("Thank you for completing this assessment! :) ").fadeTo(5000, 0); })},
+										//beforeSubmit: function(data){$("#data").html("Processing...");},
+										dataType: 'json',
+										resetForm: true,
+										disableUIStyles:true
 								 	}
 								 });
 								 
+								 //remove some jQueryUI styles
+								$(form_id).find('input,select,radio,form').removeClass('ui-helper-reset ui-state-default ui-helper-reset ui-wizard-content');
+								
+								  var remoteAjax = {}; // empty options object
+
+								$(form_id+" .step").each(function(){ // for each step in the wizard, add an option to the remoteAjax object...
+									remoteAjax[$(this).attr("id")] = {
+										url : "<?php echo base_url()?>submit/c_form/complete_commodity_survey", // the url which stores the stuff in db for each step
+										dataType : 'json',
+										beforeSubmit: function(data){$("#data").html("<div class='error ui-autocomplete-loading' style='width:auto;height:25px'>Processing...</div>")},
+										//beforeSubmit: function(data){$("#data").html("Saving the previous section's response")},
+										success : function(data){
+										 			if(data){ //data is either true or false (returned from store_in_database.html) simulating successful / failing store
+											 			//$("#data").show();
+											 			$("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
+											 		}else{
+											 			$("#data").html("");
+											 			alert("An internal error occurred, nothing was stored.");
+											 			return false;
+											 		}
+											 		
+										 			return data; //return true to make the wizard move to the next step, false will cause the wizard to stay on the CV step (change this in store_in_database.html)
+										 		}
+										};
+										
+										
+								});
+						
+								$(form_id).formwizard("option", "remoteAjax", remoteAjax); // set the remoteAjax option for the wizard
+								
+								$(form_id).bind("before_step_shown", function(event, data){
+									
+									if(data.previousStep=='beginMNH'){
+										//alert('yes');
+										if(data.currentStep=='No'){
+										$("#data").fadeTo(5000,0);
+										$('#buttonsPane').hide();
+										}
+									}else if(data.currentStep=='level_4_above'){
+										$('#'+data.backButton).prop('disabled',true);
+									}else{
+										$('#buttonsPane').show();
+									}
+								});
+								
+							 
+							 //check if deliveries are conducted		
+								$('#cDeliveries').change(function(){
+									if($(this).val()=="Yes" || $(this).val()=="" ){
+										//show next section, hide this section
+										$('#delivery_centre').hide();
+										$('#delivery_centre').find('input').prop('disabled',false);
+										//alert('Y');
+									}else if($(this).val()=="No"){
+										//show the follow up qn
+										$('#delivery_centre').show();
+										//alert('N');
+									}
+								});
 								
 								//fixed heading function
 								function UpdateTableHeaders() {
@@ -427,6 +479,29 @@ $mfCode = $this -> session -> userdata('fCode');
 								       };
 								   });
 								}
+								
+								 $(function() {
+					
+								   var clonedHeaderRow;
+								
+								   $(".persist-area").each(function() {
+								       clonedHeaderRow = $(".persist-header", this);
+								       clonedHeaderRow
+								         .before(clonedHeaderRow.clone())
+								         .css("width", clonedHeaderRow.width())
+								         .addClass("floatingHeader");
+								         
+								   });
+								   
+								   $(window)
+								    .scroll(UpdateTableHeaders())
+								    .trigger("scroll");
+								   
+								});
+								 
+								
+			
+				  	}//--end of function break_form_to_steps(form_id)
 			
 				  	
 				  	
@@ -454,7 +529,7 @@ $mfCode = $this -> session -> userdata('fCode');
 	<div class="center-wrapper">
 
 		<!--logo and main nav-->
-		<?php $this->load->view('segments/nav-public'); ?>
+		<?php $this->load->view('segments/nav-logged-in'); ?>
 
 		<div class="main form-container ui-widget" >
              <?php echo $form; ?>

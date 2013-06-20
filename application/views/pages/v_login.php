@@ -120,9 +120,10 @@
 				<h2><?php echo $login_message; ?></h2>
 				
 				<!--p style="margin-bottom:5px"><label for="username">Facility Name</label</p><p><input id="username" name="username" type="text" placeholder="Facility Name"></p-->
-				<p style="margin-bottom:5px"><label for="username">District Name</label</p><p><select id="username" name="username" type="text" placeholder="Facility Name">
+				<p style="margin-bottom:5px"><label for="username">District Name</label</p>
+					<p><select id="username" name="username">
 					<option selected="selected" value="">Select District</option>
-					<option value="Dagoretti">Dagoretti</option>
+					<?php echo $this->selectDistricts; ?>
 					</select>
 				</p>
 				

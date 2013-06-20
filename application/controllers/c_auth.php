@@ -9,48 +9,42 @@ class C_Auth extends MY_Controller {
 	}
 	
 	public function go(){
-		$this->load->model('m_zinc_ors_inventory');
-		$this->m_zinc_ors_inventory->verifyFacilityByName();
-	    if ($this->m_zinc_ors_inventory->isFacility=='true') {
-	    	$this->m_zinc_ors_inventory->retrieveMFLInformation();
+		$this->load->model('m_mnh_survey');
+		$this->m_mnh_survey->verifyRespondedByDistrict();
+	    if ($this->m_mnh_survey->isDistrict=='true') {
+	    	//$this->m_zinc_ors_inventory->retrieveMFLInformation();
+	    	
 			 
+			// $this->facilityInDistrict=$this->m_mnh_survey->districtFacilities;
 			 
-			$fType_array=array();
-			/*retrieve facility details*/
+			// $this->createFacilitiesListSection();
+			 
 			
 			/*create session data*/
-			$newdata = array('fName' => $this->m_zinc_ors_inventory->facility->getFacilityName(),
-							 'fCode'=>$this->m_zinc_ors_inventory->facility->getFacilityMFC(),
-							 'allDistricts'=>$this->m_zinc_ors_inventory->dbSessionValues[0],
-							 'allCounties'=>$this->m_zinc_ors_inventory->dbSessionValues[1],
-							 'allFacilityTypes'=>$this->m_zinc_ors_inventory->dbSessionValues[2],
-							 'allFacilityLevels'=>$this->m_zinc_ors_inventory->dbSessionValues[3],
-							 'allFacilityOwners'=>$this->m_zinc_ors_inventory->dbSessionValues[4],
-							 'allProvinces'=>$this->m_zinc_ors_inventory->dbSessionValues[5]
-							 );
+		/**/	$newdata = array('dName' => $this->m_mnh_survey->district->getDistrictName(),
+							 'dCode'=>$this->m_mnh_survey->district->getDistrictID());
            // var_dump($newdata); exit;
 			
-			$this -> session -> set_userdata($newdata);
-		  
+		   $this -> session -> set_userdata($newdata);
 		   
+		  
+		  
 			redirect(base_url() . 'commodity/assessment', 'refresh');
+			$data['title']='MoH::Data Management Tool';
 			$this -> load -> view('survey/index', $this->data);
 			
-			
-			
-
-		} else {
+		
+		}else {
 			#use an ajax request and not a whole refresh
 			$data['title']='MoH::Data Management Tool';
+			//die('Failed');
 			$this->data['login_response'] = 'Invalid District and Password Combination!';
 			$this -> load -> view('pages/v_login', $this->data);
 		}
 	}
 
-   
-
    public function doCheckFacilityCode(){/**from the session data*/
-	if(!$this -> session -> userdata('fName')){
+	if(!$this -> session -> userdata('dName')){
 		redirect(base_url() . 'commodity/assessment', 'refresh');
 		return true;
 		
@@ -63,17 +57,19 @@ class C_Auth extends MY_Controller {
    
    private function requestMFC(){
    	        #use an ajax request and not a whole refresh
-			$data['form'] = '<p>Facility Identification Required!<p>';
-			$this -> load -> view('index', $data);
+			$this->data['form'] = '<p>Facility Identification Required!<p>';
+			$this->data['title']='MoH Data Management Tool::Authentication';
+			$this -> load -> view('pages/v_login', $this->data);
    }
    
    
 	
 	public function logout(){
-		$data['facility']=$this ->selectFacility;
+		//$data['facility']=$this ->selectFacility;
 		$data['title']='MoH::Data Management Tool';
+		//$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>You need to login.<p>';
-		$this -> load -> view('index', $data);
+		$this -> load -> view('pages/v_home', $data);
 		$this->session->sess_destroy();
 		redirect(base_url(), 'refresh');
 		

@@ -7,12 +7,14 @@ if (!defined('BASEPATH'))
 
 class M_MNH_Survey  extends MY_Model {
 	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,$suppliesList,
-	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList;
+	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList,$countyList,$districtList,
+	$facilityOwnerList,$facilityLevelList,$facilityTypeList,$isDistrict;
 
 	function __construct() {
 		parent::__construct();
 		$this->isFacility='false';
-		$this->commodityList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList=$this->suppliesList='';
+		$this->isDistrict='false';
+		$this->commodityList=$this->countyList=$this->facilityTypeList=$this->districtList=$this->facilityLevelList=$this->facilityOwnerList=$this->signalFunctionList=$this->supplierList=$this->trainingGuidelinesList=$this->suppliesList='';
 		
 	}
 	
@@ -61,6 +63,97 @@ class M_MNH_Survey  extends MY_Model {
 		//var_dump($this->facilityList);die;
 		return $this->facilityList;
 	}
+	
+	public function getCountyNames(){
+		$this->countyList=$this->getAllCountyNames();
+		//var_dump($this->countyList);die;
+		return $this->countyList;
+	}
+	
+	public function getDistrictNames(){
+		$this->districtList=$this->getAllDistrictNames();
+		//var_dump($this->districtList);die;
+		return $this->districtList;
+	}
+	
+	public function getFacilityOwnerNames(){
+		$this->facilityOwnerList=$this->getAllFacilityOwnerNames();
+		//var_dump($this->facilityOwnerList);die;
+		return $this->facilityOwnerList;
+	}
+	
+	public function getFacilityLevelNames(){
+		$this->facilityLevelList=$this->getAllFacilityLevels();
+		//var_dump($this->facilityLevelList);die;
+		return $this->facilityLevelList;
+	}
+	
+	public function getFacilityTypeNames(){
+		$this->facilityTypeList=$this->getAllFacilityTypes();
+		//var_dump($this->facilityTypeList);die;
+		return $this->facilityTypeList;
+	}
+	
+	public function verifyRespondedByDistrict(){
+		if ($this -> input -> post()) {//check if a post was made
+		
+		//die(var_dump($this->input->post()));
+
+       //Working with an object of the entity
+       try{
+		$this->district = $this->em->getRepository('models\Entities\e_district')->findOneBy(array('districtID' => $this -> input -> post('username',TRUE),'districtAccessCode' => md5($this -> input -> post('usercode',TRUE))));
+
+	    if($this->district){
+			return $this->isDistrict='true';
+	    }else{
+	    	return $this->isDistrict='false';
+	    }
+		}catch(exception $ex){
+			//ignore
+				//die($ex->getMessage());
+		}
+		
+	
+	
+		
+		
+
+	}//close the this->input->post
+	}/*close verifyRespondedByDistrict*/
+	
+	 public function getFacilitiesByDistrict($district){
+			$this->getAllFacilitiesByDistrict($district);
+			
+			//echo count($this->districtFacilities);die;
+			
+		}
+	 
+	 
+	 /*retrieve facility mfl info*/
+	function retrieveFacilityInfo($mfc){
+	      /*using DQL*/
+	      try{
+	      //geting server side param: $store=$this->uri->segment(param_position_from_base_url);
+	      $query = $this->em->createQuery('SELECT f FROM models\Entities\e_facility f WHERE f.facilityMFC = :fcode');
+		  $query->setParameter('fcode',$mfc);
+          
+          $this->formRecords = $query->getArrayResult();
+
+		  if(max($this->formRecords) !=0)
+		  $this->response=array('rData'=>$this->formRecords);
+		 //json format
+		 $this->formRecords= json_encode($this->response);
+		 // var_dump($this->formRecords);
+
+		  }catch(exception $ex){
+		  	//ignore
+		    //die($ex->getMessage());
+		  	return false;
+		  }
+
+		   return true;
+
+	}/*close retrieveFacilityInfo($mfc)*/
 
 	function addRecord() {
         $s=microtime(true); /*mark the timestamp at the beginning of the transaction*/
@@ -640,4 +733,107 @@ class M_MNH_Survey  extends MY_Model {
 					 } //end of innner loop	
 					 	 
 	}//close addBemoncSignalFunctionsInfo
+	
+	function store_data(){
+		 /*check assessment tracker log*/
+		 if($this->input->post()){
+		 	 $step=$this->input->post('step_name',TRUE);
+			/**/switch($step){
+				case 'section-1':
+					return $this -> response = 'true';
+				/*if($this->updateFacilityInfo()==true){//Defined in MY_Model
+					//$this->writeAssessmentTrackerLog();
+				     	return $this -> response = 'true';
+				}else{
+						return $this -> response = 'false';
+				}*/
+				
+					break;
+				/*case 'diarrhoea_cases':
+                   if($this->addDiarrhoeaData()==true){//defined in this model
+                   	 $this->writeAssessmentTrackerLog();
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					break;
+				case 'childhealth_mch_tab':
+					 if($this->addUnitCommoditiesInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					
+					break;
+				case 'childhealth_peds_tab':
+					 if($this->addUnitCommoditiesInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					
+					break;
+				case 'childhealth_opd_tab':
+					 if($this->addUnitCommoditiesInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					
+					break;
+					
+				 case 'childhealth_store_tab':
+					if($this->addUnitCommoditiesInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					
+					break;
+				 
+				 case 'childhealth_other_tab':
+					if($this->addUnitCommoditiesInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+			
+				 case 'ort_part1':
+					if($this->addORTInfo()==true){//defined in this model
+                     
+				     	return $this -> response = 'true';
+                  }else{
+                   	   return $this -> response = 'false';
+                 }
+					   break;
+					   
+				 case 'ort_questions':
+					if($this->addORTInfo()==true){//defined in this model
+                   	
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					break;
+				 case 'ort_part2a':
+					 
+					 if($this->addEquipmentAssessmentInfo()==true){//defined in this model
+				     	return $this -> response = 'true';
+                   }else{
+                   	return $this -> response = 'false';
+                   }
+					break; */
+
+			}
+		 	//print var_dump($this->input->post());
+
+
+		return $this -> response = 'true';
+		 }
+	}
 }//end of class M_MNH_Survey

@@ -18,6 +18,11 @@ namespace models\Entities;
 	* @Column(name="districtName", type="string",length=45, nullable=true)
 	* */
 	private $districtName;
+	
+	/**
+	* @Column(name="districtAccessCode", type="string",length=255, nullable=false)
+	* */
+	private $districtAccessCode;
 	 
 	public function getDistrictID() {
 			return $this -> districtID;
@@ -31,6 +36,13 @@ namespace models\Entities;
 	}
 	
 	public function setDistrictName($districtName) { $this -> districtName = $districtName;
+	}
+	
+	public function getDistrictAccessCode() {
+			return $this -> districtAccessCode;
+	}
+	
+	public function setDistrictAccessCode($districtAccessCode) { $this -> districtAccessCode = $districtAccessCode;
 	}
 }
 ?>

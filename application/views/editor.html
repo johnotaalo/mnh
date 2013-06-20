@@ -1,74 +1,25 @@
-  <h3>COMMODITY ASSESSMENT FORM</h3>
-<table class="center">
 
-		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
-		       
+        
+
+	<table class="centre">
+		<thead>
+			<th colspan="14" >$DISTRICT DISTRICT FACILITIES SUMMARY </th>
+		</thead>
 		
-			<tr>
-			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned"  size="40"/>
-			</td> <TD  >Facility Level </TD><td>
-			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
-			</td><TD  >County </TD><td>
-			<input type="text" id="facilityCounty" name="facilityCounty" class="cloned"   size="40"/>
-			</td>
+		    <th colspan="2"></th>
+			<th  colspan="7">MFL CODE</th>
+			<th   colspan="4"> FACILITY NAME </th>			
+			<th  colspan="5">SURVEY STATUS</th>
+			<th  colspan="5">ACTION</th>
+
 		</tr>
-		<tr>
-			<TD >Facility Type </TD><td>
-			<input type="text" id="facilityType" name="facilityType" class="cloned"   size="40"/>
-
-			</td>
-			<TD >Owned By </TD><td>
-			<input type="text" id="facilityOwnedBy" name="facilityOwnedBy" class="cloned"  size="40"/>
-			</td>
-
-			<TD >District </TD><td>
-			<input type="text" id="facilityDistrict" name="facilityDistrict" class="cloned"  size="40"/>
-			</td>
+		
+       <tr> 
+       	<td colspan="2">$counter</td>
+			<td colspan="7" >'.$value['facilityCode'].'</td>
+			<td colspan="4">'.$value['facilityName'].'</td>
+			<td colspan="5">'.$value['facilitySurveyStatus'].'</td>
+			<td colspan="5" id="'.$value['facilityCode'].'"><a href="#">Begin Survey</a></td>
 			
 		</tr>
-		
-	</table>
-	<table class="center">
-	<thead>
-		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
-	</thead>
-		<tr >
-			<th scope="col" colspan="2" >CADRE</th>
-			<th>NAME</th>
-			<th >MOBILE</th>
-			<th >EMAIL</th>
-		</tr>
-		<tr>
-			<TD  colspan="2">Incharge </TD><td>
-			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
-			</td><td>
-			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="cloned numbers" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned" size="40"/>
-			</td>
-		</tr>
-		<tr>
-			<TD  colspan="2">MCH </TD><td>
-			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
-			</td><td>
-			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="cloned numbers" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned" size="40"/>
-			</td>
-		</tr>
-		<tr>
-			<TD  colspan="2">Maternity </TD><td>
-			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="cloned numbers" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned numbers" size="40"/>
-			</td>
-		</tr>
-
 	</table>

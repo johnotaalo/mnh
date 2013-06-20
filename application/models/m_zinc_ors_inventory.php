@@ -279,6 +279,8 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 
 	}//close the this->input->post
 	}/*close verifyFacilityByName*/
+	
+	
 
 	//checks if commodity name exists
 	 public function commodityExists($cName){

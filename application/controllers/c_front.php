@@ -22,9 +22,9 @@ class C_Front extends MY_Controller {
 	
 	
 	public function active_survey() {
-		if(!$this -> session -> userdata('fCode')){
+	/**/	if(!$this -> session -> userdata('dCode')){
 	    
-		 $data['facility']=$this ->selectFacility;
+		// $data['facility']=$this ->selectFacility;
 		$data['title']='MoH Data Management Tool::Authentication';
 		$data['form'] = '<p>User Login<p>';
 		$data['login_response'] = '';
@@ -34,6 +34,7 @@ class C_Front extends MY_Controller {
 	    }else{
 			$this->inventory();
 		}
+		//$this->inventory();
 		//dashboard
 		
 		//$this->inventory();
@@ -44,7 +45,7 @@ class C_Front extends MY_Controller {
 
 	public function inventory() {
 		//print 'sess val: '.var_dump($this->session->all_userdata()); die;
-		if($this -> session -> userdata('fCode')){
+	/**/	if($this -> session -> userdata('dCode')){
 			
 		$data['hidden']="display:none";
 		$data['status']="";
@@ -56,6 +57,13 @@ class C_Front extends MY_Controller {
 		}else{
 			redirect(base_url() . 'home', 'refresh');
 		}
+		/*$data['hidden']="display:none";
+		$data['status']="";
+		$data['response']="";
+		$data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
+		$data['title']='MNH::Commodity Assessment';
+		$data['form_id']='';
+		$this -> load -> view('survey/v_survey_main', $data);*/
 		//echo 'inventory';
 	}
 	

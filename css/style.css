@@ -78,6 +78,9 @@ a {
 	color: #357;
 	text-decoration: underline;
 }
+
+.action a:hover{color:#F33;cursor:default;}
+
 a.feed {
 	background: url('img/icon-feed.gif') no-repeat left center;
 	padding-left: 18px;
@@ -274,8 +277,13 @@ table {
 .notice {background: #FFF6BF; color: #514721; border-color: #FFD324;}
 .notice a {color: #514721;}
 
-.success {background: #E6EFC2; color: #264409; border-color: #C6D880;}
-.success a {color: #264409;}
+/*.success {background: #E6EFC2; color: #264409; border-color: #C6D880;}
+.success a {color: #264409;}*/
+
+.success {background: #cbc9c9; color: #000; border-color: #FFFFEE;font: bold 100% sans-serif;}
+.success a {color: #000;}
+
+.feedback {background: #FFFFEE; color: ##DF0101; border-color: #FFFFEE;font: bold 100% sans-serif;}
 
 
 /* 
@@ -630,7 +638,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 .form-container {
 	margin: auto;
 	width: 100%;
-	height: 700px;
+	height: auto;
 	overflow: auto;
 	padding: 1%;
 	margin-top: 3%;
@@ -1008,8 +1016,14 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 .buttonsPane{
 			    margin-top : 0.5em;
 				margin-right : 1em;
-				margin-left:40%;
+				margin-left:30%;
 				
 			}
+			
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+	opacity: .35;
+	filter: Alpha(Opacity=35);
+	background-image: none
+}
 			
 

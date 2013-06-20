@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines;
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines,$districtFacilities;
 
 function __construct() {
 		parent::__construct();
@@ -24,6 +24,20 @@ function __construct() {
 		try{
 			$this->centre=$this->em->getRepository('models\Entities\E_Facility')
 			                       ->findOneBy( array('facilityMFC'=>$id));
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getAllFacilitiesByDistrict($districtName){
+		try{
+								   
+			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
+		    $this->districtFacilities->setParameter('district',$districtName);
+          
+            $this->districtFacilities = $this->districtFacilities->getArrayResult();
 			}catch(exception $ex){
 				//ignore
 				//die($ex->getMessage());

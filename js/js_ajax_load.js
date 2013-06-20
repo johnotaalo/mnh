@@ -38,6 +38,9 @@ $().ready(function(){
     },
     numbers:{
     	digits:true
+    },
+    mail:{
+    	email:true
     }
     });
     
@@ -56,7 +59,9 @@ $().ready(function(){
 			facilityCounty: {required: true},
 			facilityTelephone:{required:true},
 			facilityAltTelephone:{required:true},
-			facilityEmail:{required: true,email:true},
+			facilityInchargeemail:{required: true,email:true},
+			facilityMchemail:{required: true,email:true},
+			facilityMaternityemail:{required: true,email:true},
 			ortQuestion1:{required:true},
 			ortQuestion2:{required:true},
 			ortDehydrationLocation:{required:true}
@@ -70,7 +75,9 @@ $().ready(function(){
 			facilityCounty: {required: "*Required"},
 			facilityTelephone:{required:"*Required"},
 			facilityAltTelephone:{required:"*Required"},
-			facilityEmail:{required: "*Required",email:"Not a valid email. Valid example: facility_name@dcah.or.ke"},
+			facilityInchargeemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
+			facilityMchemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
+			facilityMaternityemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			ortQuestion1:{required:"*Required"},
 			ortQuestion2:{required:"*Required"},
 			ortDehydrationLocation:{required:"*Required"}
@@ -120,7 +127,7 @@ $().ready(function(){
 		}
 	}); /*end of form_mnh_assessment*/
 	
-	$("#dcah_tool_").validate({/*combined tool*/
+	$("#mnh_tool").validate({/*combined tool*/
 		rules: {
 			facilityDateOfInventory:{required: true},
 			facilityName:{required: true},
@@ -135,7 +142,9 @@ $().ready(function(){
 			facilityDistrict: {required: true},
 			facilityTelephone:{required:true,digits:true},
 			facilityAltTelephone:{required:true,digits:true},
-			facilityEmail:{required: true,email:true},
+			facilityInchargeemail:{required: true,email:true},
+			facilityMchemail:{required: true,email:true},
+			facilityMaternityemail:{required: true,email:true},
 			ortQuestion1:{required:true},
 			ortQuestion2:{required:true},
 			ortDehydrationLocation:{required:true},
@@ -155,7 +164,9 @@ $().ready(function(){
 			facilityOwner: {required: "*Required"},
 			facilityTelephone:{required:"*Required",digits:"Only digits are allowed"},
 			facilityAltTelephone:{required:"*Required",digits:"Only digits are allowed"},
-			facilityEmail:{required: "*Required",email:"Not a valid email. Valid example: facility_name@dcah.or.ke"},
+			facilityInchargeemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
+			facilityMchemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
+			facilityMaternityemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			ortQuestion1:{required:"*Required"},
 			ortQuestion2:{required:"*Required"},
 			ortDehydrationLocation:{required:"*Required"},
@@ -2888,7 +2899,7 @@ function log() {
 				/*-----------------------------------start of hide/display OTR location field---------------------------------------------------*/
 				//hide/display OTR location field on the radio button selected
 					 $(function() {
-					 	if(form_id="#dcah_tool"){
+					 	if(form_id="#mnh_tool"){
 			    	$('.form-container').find('input[type="radio"]').click(function() {
 			        if($(this).attr('id') == 'ortQuestion2_y') {
 			            //$('#others-text').show();
