@@ -81,7 +81,7 @@ class  MY_Controller  extends  CI_Controller {
 				 $this->selectFacilityType.= '<option value="'.$value['facilityTypeID'].'">'.$value['facilityType'].'</option>'.'<br />';
 				}
 				
-				//var_dump($this -> session -> userdata('allFacilityTypes')); exit;
+				//var_dump($this->data_found); exit;
 				return $this->selectFacilityType;
 			
 		}

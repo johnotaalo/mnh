@@ -4,11 +4,15 @@ if (!defined('BASEPATH'))
 /**
  *model to persist data for mnh form
  */
+ 
+
 
 class M_MNH_Survey  extends MY_Model {
 	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,$suppliesList,
 	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList,$countyList,$districtList,
 	$facilityOwnerList,$facilityLevelList,$facilityTypeList,$isDistrict;
+	
+	
 
 	function __construct() {
 		parent::__construct();
@@ -89,7 +93,7 @@ class M_MNH_Survey  extends MY_Model {
 	}
 	
 	public function getFacilityTypeNames(){
-		$this->facilityTypeList=$this->getAllFacilityTypes();
+		$this->facilityTypeList=$this->getAllGovernmentFacilityTypes();
 		//var_dump($this->facilityTypeList);die;
 		return $this->facilityTypeList;
 	}
@@ -122,6 +126,7 @@ class M_MNH_Survey  extends MY_Model {
 	}/*close verifyRespondedByDistrict*/
 	
 	 public function getFacilitiesByDistrict($district){
+			//$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
 			$this->getAllFacilitiesByDistrict($district);
 			
 			//echo count($this->districtFacilities);die;

@@ -5,7 +5,7 @@ namespace models\Entities;
 	 * @Entity
 	 * @Table(name="supplies")
 	 */
- class E_supplies{
+ class E_Supplies{
  	
    /**
 	* @Id
