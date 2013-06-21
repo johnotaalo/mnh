@@ -114,8 +114,10 @@ class  MY_Controller  extends  CI_Controller {
 
     public function getCommoditySuppliers(){
 	    $this->data_found= $this->m_mnh_survey->getCommoditySupplierNames();
+		$counter=0;
 		foreach($this->data_found as $value) {
-				$this ->selectCommoditySuppliers .= '<option value="' . $value['supplierName'] . '">' . $value['supplierName'] . '</option>' . '<br />';
+			    $counter++;
+				$this ->selectCommoditySuppliers .= '<option value="' . $value['supplierName'] . '">'.$counter.'. '.$value['supplierName'] . '</option>' . '<br />';
 			}
 	}
 	
@@ -165,16 +167,15 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" >
-			<option value="" selected="selected">Select One</option>
-				'.$supplier_names.'
+			<option value="" selected="selected">Select One</option>'.$supplier_names.'
 			</select></td>
 			<td width="50">
 			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Not Ordered">Not Ordered</option>
-				<option value="Ordered but not yet Received">Ordered but not yet Received</option>
-				<option value="Expired">Expired</option>
-				<option value="All Used">All Used</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
 
 			</select></td>
 			<input type="hidden"  name="cqCommodityCode_'.$counter.'" id="cqCommodityCode_'.$counter.'" value="'.$value['commodityCode'].'" />
@@ -205,12 +206,12 @@ class  MY_Controller  extends  CI_Controller {
 			</select></td><td colspan="5">
 			<select name="bmsfChallenge_'.$counter.'" id="bmsfChallenge_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select Challenge</option>
-				<option value="Inadequate Drugs">1. Inadequate Drugs</option>
-				<option value="Inadequate Skill">2. Inadequate Skill</option>
+				<option value="Inadequate Drugs">1.Inadequate Drugs</option>
+				<option value="Inadequate Skill">2.Inadequate Skill</option>
 				<option value="Inadequate Supplies">3.Inadequate Supplies</option>
-				<option value="Inadequate Job aids">4. Inadequate Job aids</option>
+				<option value="Inadequate Job aids">4.Inadequate Job aids</option>
 				<option value="Inadequate equipment">5.Inadequate Equipment</option>
-				<option value="Case never presented">6. Case never presented</option>
+				<option value="Case never presented">6.Case never presented</option>
 
 			</select></td>
 			<input type="hidden"  name="bmsfSignalCode_'.$counter.'" id="bmsfSignalCode_'.$counter.'" value="'.$value['signalCode'].'" />
@@ -259,10 +260,10 @@ class  MY_Controller  extends  CI_Controller {
 			<td colspan="2">
 			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
+				<option value="Once">a. Once</option>
+				<option value="2-3">b. 2-3 </option>
+				<option value="5-5">c. 4-5 </option>
+				<option value="more than 5">d. more than 5 </option>
 
 			</select></td>
 						
@@ -327,19 +328,19 @@ class  MY_Controller  extends  CI_Controller {
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>
-				<option value="KEMSA/GoK">KEMSA/GoK</option>
-				<option value="Donor">Donor</option>
-				<option value="Purchase By Patient">Purchase By Patient</option>
-				<option value="Private purchase by Facility">Private purchase by Facility</option>
-				<option value="Other">Other</option>
+				<option value="KEMSA/GoK">1. KEMSA/GoK</option>
+				<option value="Donor">2. Donor</option>
+				<option value="Purchase By Patient">3. Purchase By Patient</option>
+				<option value="Private purchase by Facility">4. Private purchase by Facility</option>
+				<option value="Other">5. Other</option>
 			</select></td>
 			<td width="50">
 			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Not Ordered">Not Ordered</option>
-				<option value="Ordered but not yet Received">Ordered but not yet Received</option>
-				<option value="Expired">Expired</option>
-				<option value="All Used">All Used</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
 
 			</select></td>
 			<input type="hidden"  name="usoCommodityCode_'.$counter.'" id="usosuppliesCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
@@ -410,10 +411,10 @@ public function createSuppliesUsageAndOutageSection(){
 			<td colspan="2">
 			<select name="usoNovTimesUnavailable_'.$counter.'" id="usoNovTimesUnavailable_'.$counter.'" >
 				<option value="" selected="selected">Select One</option>
-				<option value="Once">Once</option>
-				<option value="2-3">2-3 </option>
-				<option value="5-5">4-5 </option>
-				<option value="more than 5">more than 5 </option>
+				<option value="Once">a. Once</option>
+				<option value="2-3">b. 2-3 </option>
+				<option value="5-5">c. 4-5 </option>
+				<option value="more than 5">d. more than 5 </option>
 			</select></td>
 						
 			<td style ="text-align:center;">

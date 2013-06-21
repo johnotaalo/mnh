@@ -126,8 +126,8 @@ class M_MNH_Survey  extends MY_Model {
 	}/*close verifyRespondedByDistrict*/
 	
 	 public function getFacilitiesByDistrict($district){
-			//$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
-			$this->getAllFacilitiesByDistrict($district);
+			$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
+			//$this->getAllFacilitiesByDistrict($district);
 			
 			//echo count($this->districtFacilities);die;
 			

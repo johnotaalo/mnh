@@ -94,7 +94,7 @@ class C_Load extends MY_Controller {
 		       
 			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" disabled="disabled"  size="40"/>
+			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/>
 			</td> <TD  >Facility Level </TD><td>
 			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
 			</td><TD  >County </TD><td>
@@ -269,24 +269,24 @@ class C_Load extends MY_Controller {
 			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" />
+			<!--input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/-->
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" disabled="disabled"/>
+			<!--input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" disabled/-->
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled="disabled"/>
+			<!--input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/-->
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled="disabled"/>
+			<!--input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled/-->
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled="disabled"/></td>
+			<!--input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled/--></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers" disabled="disabled"/></td>
+			<!--input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers" disabled/--></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled="disabled"/>
+			<!--input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/-->
 			</td>			
 			
 
@@ -326,7 +326,7 @@ class C_Load extends MY_Controller {
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div></th>
-			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
+			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Quantities</th>
 			<th scope="col">
 			
@@ -397,7 +397,7 @@ class C_Load extends MY_Controller {
 			<div style="width: 600px" >
 				When the commodity was not available what happened
 				</br>
-				(Mutiple Selections Allowed)
+				(Multiple Selections Allowed)
 			</div></th>
 
 		</tr>
@@ -438,7 +438,7 @@ class C_Load extends MY_Controller {
 			<th colspan="3" style="text-align:center">Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
-			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
+			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="3">Available Quantities</th>
 		</tr>
 		<tr >
@@ -474,7 +474,7 @@ class C_Load extends MY_Controller {
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
-			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Mutiple Selection Allowed)</strong></th>
+			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Supplies</th>
 			<th scope="col">
 			
@@ -531,7 +531,7 @@ class C_Load extends MY_Controller {
 			<div style="width: 600px" >
 				When the supply was not available what happened
 				</br>
-				(Mutiple Selections Allowed)
+				(Multiple Selections Allowed)
 			</div></th>
 
 		</tr>

@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,$query,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines,$districtFacilities;
 
 function __construct() {
@@ -50,17 +50,23 @@ function __construct() {
 	/*utilized in several models*/
 	public function getAllGovernmentOwnedFacilitiesByDistrict($districtName){
 		try{
-								   
+			
+			/*DQL					   
 			$this->districtFacilities = $this->em->createQuery("SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict=: district AND f.facilityOwnedBy IN (: condition) ORDER BY f.facilityName ASC");
 		    $this->districtFacilities->setParameter('district',$districtName);
-			$this->districtFacilities->setParameter('condition',"'Ministry of Health','Local Authority','Local Authority T Fund'");
+			$this->districtFacilities->setParameter('condition','Ministry of Health,Local Authority,Local Authority T Fund');
           
-            $this->districtFacilities = $this->districtFacilities->getArrayResult();
-			
+            $this->districtFacilities = $this->districtFacilities->getArrayResult();*/
+            
+            /*Using CI*/
+            $this->query="SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM facility f WHERE f.facilityDistrict='$districtName' 
+            			  AND f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund') ORDER BY f.facilityName ASC";
+			 $this->districtFacilities = $this->db->query($this->query);
+		     $this->districtFacilities=$this->districtFacilities->result_array();
 			//die(var_dump($this->districtFacilities));
 			}catch(exception $ex){
 				//ignore
-				die($ex->getMessage());
+				//die($ex->getMessage());
 			}
 	}
 	
@@ -212,14 +218,14 @@ function __construct() {
 	      			WHERE t.facilityType IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.facilityType ASC');*/
 	       $query = "SELECT DISTINCT(o.facilityOwner),t.facilityOwnerID FROM facility f,facility_type t
 			WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund') AND t.facilityType=f.facilityType ORDER BY f.facilityType ASC";
-          $this->type = $this->db->query($query);
-		$this->type=$this->type->result_array();
+          $this->owner = $this->db->query($query);
+		$this->owner=$this->type->result_array();
 		  //die(var_dump($this->type));
 		 }catch(exception $ex){
 		 	//ignore
 		 	//die($ex->getMessage());//exit;
 		 }
-		return $this->type;
+		return $this->owner;
 	}/*end of getAllGovernmentOwnedNames*/
 
 	function getAllFacilityTypes(){
