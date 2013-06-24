@@ -41,6 +41,9 @@ $().ready(function(){
     },
     mail:{
     	email:true
+    },
+    phone:{
+    	required:true,digits:true,minlength:10
     }
     });
     
@@ -48,84 +51,8 @@ $().ready(function(){
    
     //var form_id='#'+$(".form-container").find('form').attr('id');
    // alert('Found: '+form_id);
-	/*---------------------------------------start of validation to zinc_ors_inventory form------------------------------------------------------------*/
-	$("#zinc_ors_inventory1").validate({/*inventory module*/
-		rules: {
-			facilityDateOfInventory:{required: true},
-			facilityName:{required: true},
-			facilityContactPerson:{required: true},
-			facilityZincOrsDispensedFrom:{required: false},
-			facilityDistrict: {required: true},
-			facilityCounty: {required: true},
-			facilityTelephone:{required:true},
-			facilityAltTelephone:{required:true},
-			facilityInchargeemail:{required: true,email:true},
-			facilityMchemail:{required: true,email:true},
-			facilityMaternityemail:{required: true,email:true},
-			ortQuestion1:{required:true},
-			ortQuestion2:{required:true},
-			ortDehydrationLocation:{required:true}
-		},
-		messages: {
-			facilityDateOfInventory:{required: "*Required"},
-			facilityName:{required: "*Required"},
-			facilityContactPerson:{required: "*Required"},
-			facilityZincOrsDispensedFrom:{required: "*Required"},
-			facilityDistrict: {required:"*Required"},
-			facilityCounty: {required: "*Required"},
-			facilityTelephone:{required:"*Required"},
-			facilityAltTelephone:{required:"*Required"},
-			facilityInchargeemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
-			facilityMchemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
-			facilityMaternityemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
-			ortQuestion1:{required:"*Required"},
-			ortQuestion2:{required:"*Required"},
-			ortDehydrationLocation:{required:"*Required"}
-		}
-	}); /*end of zinc_ors_inventory*/
 	
-	/*---------------------------------------start of validation to form_mnh_assessment form------------------------------------------------------------*/
-	$("#form_mnh_assessment1").validate({/*inventory module*/
-		rules: {
-			facilityDateOfInventory:{required: true},
-			facilityName:{required: true},
-			facilityType:{required:true},
-			facilityLevel:{required:true},
-			facilityContactPerson:{required: true},
-			facilityZincOrsDispensedFrom:{required: false},
-			facilityProvince: {required: true},
-			facilityOwner: {required: true},
-			facilityDistrict: {required: true},
-			facilityCounty: {required: true},
-			facilityTelephone:{required:true,digits:true},
-			facilityAltTelephone:{required:false,digits:true},
-			facilityEmail:{required: true,email:true},
-
-			'q18equipAType_81[]':{required:true},
-			'q6bSkilledProviders[]':{required:true,},
-
-			ortDehydrationLocation:{minlength:1}
-		},
-		messages: {
-			facilityDateOfInventory:{required: "*Required"},
-			facilityName:{required: "*Required"},
-			facilityType:{required:"*Required"},
-			facilityLevel:{required:"*Required"},
-			facilityContactPerson:{required: "*Required"},
-			facilityProvince: {required: "*Required"},
-			facilityOwner: {required: "*Required"},
-			facilityDistrict: {required:"*Required"},
-			facilityCounty: {required: "*Required"},
-			facilityTelephone:{required:"*Required",digits:"Only digits are allowed"},
-			facilityAltTelephone:{required:"*Required",digits:"Only digits are allowed"},
-			facilityEmail:{required: "*Required",email:"Not a valid email. Valid example: facility_name@dcah.or.ke"},
-
-			'q18equipAType_81[]':{required:"Select at least 1 type of size"},
-			'q6bSkilledProviders[]':{required:"Select at least 1 skilled provider"},
-
-			ortDehydrationLocation:{minlength:"*Required"}
-		}
-	}); /*end of form_mnh_assessment*/
+	/*---------------------------------------start of validation to mnh_tool form------------------------------------------------------------*/
 	
 	$("#mnh_tool").validate({/*combined tool*/
 		rules: {
@@ -145,11 +72,7 @@ $().ready(function(){
 			facilityInchargeemail:{required: true,email:true},
 			facilityMchemail:{required: true,email:true},
 			facilityMaternityemail:{required: true,email:true},
-			ortQuestion1:{required:true},
-			ortQuestion2:{required:true},
-			ortDehydrationLocation:{required:true},
-			'q18equipAType_81[]':{required:true},
-			'q6bSkilledProviders[]':{required:true}
+			'rsnDeliveries[]':{minlength:1,required:true}
 		},
 		messages: {
 			facilityDateOfInventory:{required: "*Required"},
@@ -167,23 +90,19 @@ $().ready(function(){
 			facilityInchargeemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			facilityMchemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			facilityMaternityemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
-			ortQuestion1:{required:"*Required"},
-			ortQuestion2:{required:"*Required"},
-			ortDehydrationLocation:{required:"*Required"},
-			'q18equipAType_81[]':{required:"Select at least 1 type of size"},
-			'q6bSkilledProviders[]':{required:"Select at least 1 skilled provider"}
+			'rsnDeliveries[]':{minlength:"Select at least 1",required:"Required"}
 		}
-	});
+	});/*end of mnh_tool validation rules*/
 	
 	/*---------------------------------------start of form-verify validation rules------------------------------------------------------------*/
-	$("form_verify").validate({/*authentication form*/
+	$("#authenticate").validate({/*authentication form*/
 		rules: {
-			useremail:{required:true,email:true},
+			usercode:{required:true},
 			username:{required:true}
 		},
 		messages:{
-			useremail:{required:"Your email is required!",email:"Invalid email address. Valid email example: johndoe@dcah.go.ke"},
-			username:{required:"Facility Name is required!"}
+			usercode:{required:"Password cannot be blank"},
+			username:{required:"District Name is required!"}
 		}
 	});/*end of form-verify validation rules*/
 	

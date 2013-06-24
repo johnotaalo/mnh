@@ -110,6 +110,16 @@ namespace models\Entities;
 	* @Column(name="facilitySurveyStatus", type="string", length=15, nullable=false)
 	* */
 	private $facilitySurveyStatus;
+	
+	/**
+	* @Column(name="deliveriesDone", type="string", length=1, nullable=false)
+	* */
+	private $deliveriesDone;
+	
+	/**
+	* @Column(name="reasonDeliveryNotDone", type="string", length=255, nullable=false)
+	* */
+	private $reasonDeliveryNotDone;
 
 	/**
 	* @Column(name="createdAt", type="datetime", nullable=true)
@@ -252,6 +262,22 @@ namespace models\Entities;
 
 	public function setFacilitySurveyStatus($facilitySurveyStatus) { $this -> facilitySurveyStatus = $facilitySurveyStatus;
 	}
+	
+	public function getDeliveriesDone() {
+			return $this -> deliveriesDone;
+	}
+
+	public function setDeliveriesDone($deliveriesDone) { $this -> deliveriesDone = $deliveriesDone;
+	}
+	
+	
+	public function getReasonNotDeliveryDone() {
+			return $this -> reasonNotDeliveryDone;
+	}
+
+	public function setReasonNotDeliveryDone($reasonNotDeliveryDone) { $this -> reasonNotDeliveryDone = $reasonNotDeliveryDone;
+	}
+	
 
 	public function getCreatedAt() {
 			return $this -> createdAt;

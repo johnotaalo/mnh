@@ -156,7 +156,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
-						$("#facilityName").val(facility.facilityName);
+						$("#facilityName").val(facility.facilityName).prop('disabled', true);
 						
 						//$("#facilityType").val(facility.facilityType);
   						$("#facilityLevel").val(facility.facilityLevel);
@@ -349,16 +349,7 @@ $mfCode = $this -> session -> userdata('fCode');
 					}//for enabling/disabling rows
 					} //close if($(this).attr('class')=='cloned left-combo')
 					
-					//hide or show qn18 on facility's level
-					$('#facilityLevel').change(function(){
-						if($(this).val()<3){
-						$('hide-level').find('input,select[class="cloned"]').prop('disabled', true);
-						$('hide-level').hide();
-						}else{
-						$('hide-level').show();	
-						$('hide-level').find('input,select[class="cloned"]').prop('disabled', false);
-						}
-					});
+					
 					
 					//specify ort supplier if other or partner is selected
 					$('#ortSupplier').change(function(){
@@ -390,8 +381,8 @@ $mfCode = $this -> session -> userdata('fCode');
 						   //alert(form_id);	
 						   var end_url;
 								$(form_id).formwizard({ 
-								 	formPluginEnabled: true,
-								 	validationEnabled: false,
+								 	formPluginEnabled: false,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	formOptions :{
@@ -435,30 +426,32 @@ $mfCode = $this -> session -> userdata('fCode');
 								
 								$(form_id).bind("before_step_shown", function(event, data){
 									
-									if(data.previousStep=='beginMNH'){
+									if(data.previousStep=='section-1'){
 										//alert('yes');
 										if(data.currentStep=='No'){
 										$("#data").fadeTo(5000,0);
-										$('#buttonsPane').hide();
+										$('#sectionNavigation').hide();
 										}
-									}else if(data.currentStep=='level_4_above'){
+									}else if(data.currentStep=='section-2'){
 										$('#'+data.backButton).prop('disabled',true);
 									}else{
-										$('#buttonsPane').show();
+										$('#sectionNavigation').show();
 									}
 								});
 								
-							 
 							 //check if deliveries are conducted		
 								$('#cDeliveries').change(function(){
 									if($(this).val()=="Yes" || $(this).val()=="" ){
 										//show next section, hide this section
+										$('#delivery_centre').find('input').prop('disabled',true);
 										$('#delivery_centre').hide();
-										$('#delivery_centre').find('input').prop('disabled',false);
+										
 										//alert('Y');
 									}else if($(this).val()=="No"){
 										//show the follow up qn
+										$('#delivery_centre').find('input').prop('disabled',false);
 										$('#delivery_centre').show();
+										
 										//alert('N');
 									}
 								});

@@ -81,7 +81,7 @@ class C_Load extends MY_Controller {
 		$this -> combined_form.= 
 		         '<h5 id="status"></h5>
                  
-				<form class="bbq" name="mnh_too" id="mnh_tool" method="POST">
+				<form class="bbq" name="mnh_tool" id="mnh_tool" method="POST">
 
   				 <p id="data" class="feedback"></p>
 		         <!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
@@ -94,7 +94,7 @@ class C_Load extends MY_Controller {
 		       
 			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/>
+			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled="disabled"/>
 			</td> <TD  >Facility Level </TD><td>
 			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
 			</td><TD  >County </TD><td>
@@ -142,7 +142,7 @@ class C_Load extends MY_Controller {
 			<TD  colspan="2">Incharge </TD><td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
-			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="cloned numbers" size="40"/>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
 			</td>
 			<td>
 			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
@@ -152,7 +152,7 @@ class C_Load extends MY_Controller {
 			<TD  colspan="2">MCH </TD><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
-			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="cloned numbers" size="40"/>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
 			</td>
 			<td>
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
@@ -163,7 +163,7 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="cloned numbers" size="40"/>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
 			</td>
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
@@ -174,34 +174,46 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 	<thead>
 	<th colspan ="8"> DOES THIS FACILITY ROUTINELY CONDUCT DELIVERIES?</th> </thead>
-	<tr><th colspan ="8"><select name="cDeliveries" id="cDeliveries" class="cloned">
+	<tr><th colspan ="8"><select name="cDeliveries" id="cDeliveries" class="cloned link">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option></th></tr>
 	</table>
-	<table class="centre" style="display:none" id="delivery_centre">
+	<div  style="display:none" id="delivery_centre" class="cloned">
+	<table class="centre">
 	
 	<thead><th colspan ="8">WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th></thead>
 	<tr><th colspan ="2">Inadequate skill or staff</th><th colspan ="2"> Inadequate infrastructure (equipment)</th>
 	<th colspan ="2">  Inadequate commodities and supplies</th><th colspan ="2">  Other</th></tr>
+	<tr>
 	<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries[]" type="checkbox" value="Inadequate skill or staff" class="cloned"/>
+			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesSkill" value="1" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries[]" type="checkbox" value="Inadequate infrastructure (equipment)" />
+			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesInfra" value="2" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries[]" type="checkbox" value=" Inadequate commodities and supplies" />
+			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesCommo" value="3" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input name="rsnDeliveries[]" type="checkbox" value="Other" />
+			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesOther" value="4" />
 			</td>
 	
-	
+	</tr>
 	</table>
+	</div><!--\.delivery_cenre-->
 	</div><!--\.the section-1 -->
 	
-	<div id="section-2" class="step">
+	<div id="No" class="step"><!--end of assessment message section-->
+	<input type="hidden" name="step_name" value="end_of_assessment"/>
+	<div class="block">
+	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
+			<p id="data" class="message success">Thanks for your participation.<br></p><br>
+			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			</div>
+	</div><!--\.end of assessment message section-->
+	
+	<div id="Yes" class="step">
 	 <p style="display:true" class="message success">SECTION 2 of 7</p>
 	<table class="centre">
 		

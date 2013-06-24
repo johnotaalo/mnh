@@ -309,6 +309,9 @@ input.button {
 }
 input.button:active {border-style: inset;}
 
+input:disabled, isindex:disabled, textarea:disabled{
+	color:#333333;
+}
 .form-error {border-color: #F00;}
 
 
