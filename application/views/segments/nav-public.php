@@ -20,7 +20,7 @@
 
 					<ul class="tabbed">
 						<li><a href="<?php echo base_url() ?>home">Surveys</a></li>
-						<li><a href="#">Analysis</a></li>
+						<!--li><a href="#">Analysis</a></li-->
 					</ul>
 
 					<div class="clearer">&nbsp;</div>

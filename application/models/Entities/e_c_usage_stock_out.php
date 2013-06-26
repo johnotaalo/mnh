@@ -3,9 +3,9 @@ namespace models\Entities;
 
 	/**
 	 * @Entity
-	 * @Table(name="usage_stock_out")
+	 * @Table(name="c_usage_stock_out")
 	 */
- class E_Usage_stock_out{
+ class E_C_Usage_stock_out{
  	
    /**
 	* @Id

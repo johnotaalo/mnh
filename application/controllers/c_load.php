@@ -1,6 +1,6 @@
 <?php
 class C_Load extends MY_Controller {
-	var $rows, $combined_form;
+	var $rows, $combined_form,$message;
 
 	public function __construct() {
 		parent::__construct();
@@ -94,7 +94,9 @@ class C_Load extends MY_Controller {
 		       
 			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled="disabled"/>
+			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/>
+			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
+			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> <TD  >Facility Level </TD><td>
 			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
 			</td><TD  >County </TD><td>
@@ -174,7 +176,7 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 	<thead>
 	<th colspan ="8"> DOES THIS FACILITY ROUTINELY CONDUCT DELIVERIES?</th> </thead>
-	<tr><th colspan ="8"><select name="cDeliveries" id="cDeliveries" class="cloned link">
+	<tr><th colspan ="8"><select name="facDeliveriesDone" id="facDeliveriesDone" class="cloned link">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option></th></tr>
@@ -187,16 +189,16 @@ class C_Load extends MY_Controller {
 	<th colspan ="2">  Inadequate commodities and supplies</th><th colspan ="2">  Other</th></tr>
 	<tr>
 	<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesSkill" value="1" />
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="1" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesInfra" value="2" />
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="2" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesCommo" value="3" />
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="3" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="rsnDeliveries[]" id="rsnDeliveriesOther" value="4" />
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="4" />
 			</td>
 	
 	</tr>
@@ -214,6 +216,7 @@ class C_Load extends MY_Controller {
 	</div><!--\.end of assessment message section-->
 	
 	<div id="Yes" class="step">
+	<input type="hidden" name="step_name" value="section-2"/>
 	 <p style="display:true" class="message success">SECTION 2 of 7</p>
 	<table class="centre">
 		
@@ -324,6 +327,7 @@ class C_Load extends MY_Controller {
 	</div><!--\.section 2-->
 
 	<div id="section-3" class="step">
+	<input type="hidden" name="step_name" value="section-3"/>
 	 <p style="display:true" class="message success">SECTION 3 of 7</p>
 	<table  class="centre persist-area" >
 	<thead>
@@ -371,11 +375,12 @@ class C_Load extends MY_Controller {
 	</div><!--\.section-3-->
 
     <div id="section-4" class="step">
+    <input type="hidden" name="step_name" value="section-4"/>
      <p style="display:true" class="message success">SECTION 4 of 7</p>
 	<table class="centre">
 	<thead>
 		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained</th>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
 		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
 		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
 		
@@ -385,6 +390,7 @@ class C_Load extends MY_Controller {
     </div><!--\.section-4-->
 
 	<div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
 	 <p style="display:true" class="message success">SECTION 5 of 7</p>
 	<table  class="centre" >
 		<thead>
@@ -407,9 +413,9 @@ class C_Load extends MY_Controller {
 			</div></th>
 			<th scope="col" colspan="5">
 			<div style="width: 600px" >
-				When the commodity was not available what happened
+				When the commodity was not available what happened?
 				</br>
-				(Multiple Selections Allowed)
+				<strong>(Multiple Selections Allowed)</strong>
 			</div></th>
 
 		</tr>
@@ -436,6 +442,7 @@ class C_Load extends MY_Controller {
         </table>
 	</div><!--\.section-5-->
 	<div id="section-6" class="step">
+	<input type="hidden" name="step_name" value="section-6"/>
 	 <p style="display:true" class="message success">SECTION 6 of 7</p>
 		
 		<table  class="centre" >
@@ -472,11 +479,12 @@ class C_Load extends MY_Controller {
 			</table>
            </div><!--\.section-6-->
 			<div id="section-7" class="step">
+			<input type="hidden" name="step_name" value="section-7"/>
 	 <p style="display:true" class="message success">SECTION 7 of 7</p>
 			
 		 <table  class="centre" >
 		<thead>
-			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.</th>
+			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
 		</thead>
 
 		</tr>
@@ -541,9 +549,9 @@ class C_Load extends MY_Controller {
 			</div></th>
 			<th scope="col" colspan="5">
 			<div style="width: 600px" >
-				When the supply was not available what happened
+				When the supply was not available what happened?
 				</br>
-				(Multiple Selections Allowed)
+				<strong>(Multiple Selections Allowed)</strong>
 			</div></th>
 
 		</tr>
@@ -578,6 +586,20 @@ class C_Load extends MY_Controller {
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';
 		$this->load->view('form',$data);
+	}
+
+	public function survey_complete(){
+		$this->message.='<div id="No" class="step"><!--end of assessment message section-->
+	<input type="hidden" name="step_name" value="end_of_assessment"/>
+	<div class="block">
+	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
+			<p id="data" class="message success">Thanks for your participation.<br></p><br>
+			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			</div>
+	</div><!--\.end of assessment message section-->';
+	    $data['form'] = $this->message;
+		$this->load->view('form',$data);
+	
 	}
 
 

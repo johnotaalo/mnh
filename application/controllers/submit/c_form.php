@@ -58,6 +58,7 @@ class C_Form extends MY_Controller{
 	}//close form_mnh_equipment_assessment()
 	
 	public function complete_commodity_survey(){
+		
 		$this->load->model('m_mnh_survey');
 		$this->m_mnh_survey->store_data();
 

@@ -271,11 +271,11 @@ namespace models\Entities;
 	}
 	
 	
-	public function getReasonNotDeliveryDone() {
-			return $this -> reasonNotDeliveryDone;
+	public function getReasonDeliveryNotDone() {
+			return $this -> reasonDeliveryNotDone;
 	}
 
-	public function setReasonNotDeliveryDone($reasonNotDeliveryDone) { $this -> reasonNotDeliveryDone = $reasonNotDeliveryDone;
+	public function setReasonDeliveryNotDone($reasonDeliveryNotDone) { $this -> reasonDeliveryNotDone = $reasonDeliveryNotDone;
 	}
 	
 

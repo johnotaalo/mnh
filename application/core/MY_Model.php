@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines,$districtFacilities;
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines,$districtFacilities,$fCode;
 
 function __construct() {
 		parent::__construct();
@@ -15,7 +15,7 @@ function __construct() {
 		$this->em = $this->doctrine->em;
 		$this->load->database();
 		$this->response='';
-		$this->theForm='';
+		$this->theForm=$this->fCode='';
 		$this->facilityFound=false;
 		$this->sectionExists=false;
 	}
@@ -382,11 +382,29 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 
 	/*update the MFL data*/
 	protected function updateFacilityInfo(){
+		
+		   //pick facility name and code for temp session use
+          if($this->input->post() && $this->input->post('facilityHName',TRUE)){
+		   $new_data=array('fName'=>$this->input->post('facilityHName',TRUE),'fCode'=>$this->input->post('facilityMFLCode',TRUE));
+		//   $this -> session -> set_flashdata('fName',$this->input->post('facilityHName',TRUE));
+		 //  $this -> session -> set_flashdata('fCode',$this->input->post('facilityMFLCode',TRUE));
+		     $this->session->set_userdata($new_data);
+		//$this->session->keep_flashdata('fCode');
+		//$this->session->keep_flashdata('fName');
+		   }
+		  
+	       //analyse all posted vals and collect them
 			foreach ($this -> input -> post() as $key => $val) {//For every posted values
-
-
-		   if(strpos($key,'fac')!==FALSE){//get the fields carrying cadre info only
+           
+		   if(strpos($key,'fac')!==FALSE){//get the fields carrying facility info only
+		   
 			     $this->attr = $key;//the attribute name
+			     
+			     //stringify any array value
+					if(is_array($val)){
+			     	    $val=implode(',',$val);
+					}
+			     
 				 if (!empty($val)) {
 					//We then store the value of this attribute for this element.
 					// $this->elements[$this->id][$this->attr]=htmlentities($val);
@@ -405,21 +423,17 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 			//exit;
 
 			//check if facility exists
-			$this->facility=$this->facilityExists($this -> session -> userdata('fName'));
+			//$this->facility=$this->facilityExists($this -> session -> userdata('fName'));
 
 			//print var_dump($this->facility);
 
 		   //get county name,district name,level name by id
 			//$this->getCountyName($this->input->post('facilityCounty'));/*method defined in MY_Model*/
 			//$this->getDistrictName($this->input->post('facilityDistrict'));/*method defined in MY_Model*/
-			//$this->getLevelName($this->input->post('facilityLevel'));/*method defined in MY_Model*/
+			
+			//$this->getLevelName($this->input->post('facilityLevel',TRUE));/*method defined in MY_Model*/
+			
 			//$this->getProvinceName($this->input->post('facilityProvince'));/*method defined in MY_Model*/
-
-		    //get the highest value of the array that will control the number of inserts to be done
-						$this->noOfInsertsBatch=1; /*only 1 facility record is expected*/
-
-						// print "max rows: ".$this->noOfInsertsBatch; exit;
-						 for($i=1; $i<=$this->noOfInsertsBatch;++$i){
 
 				//insert facility if new, else update the existing one
 			/*	if(!$this->facility){
@@ -431,9 +445,11 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 				}else{*/
 				//$this -> theForm = new \models\Entities\E_Facility(); //create an object of the model
 				//die('Duplicate entry, so update');
+				
+			//  echo 'Name: '. $this -> session -> userdata('fName');die;
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\E_Facility')
-					                       ->findOneBy( array('facilityName'=>$this -> session -> userdata('fName')));
+					                       ->findOneBy( array('facilityName'=>$this -> session -> userdata('fName'),'facilityMFC'=>$this -> session -> userdata('fCode')));
 					}catch(exception $ex){
 						//ignore
 						//die($ex->getMessage());
@@ -445,7 +461,7 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 				$this -> theForm -> setUpdatedAt(new DateTime()); /*timestamp option*/
 
 				//$this -> theForm -> setFacilityDistrict($this->district->getDistrictName());
-				//$this -> theForm -> setFacilityLevel($this->level->getFacilityLevel());
+				$this -> theForm -> setFacilityLevel($this->input->post('facilityLevel',TRUE));
 				//$this -> theForm -> setFacilityProvince($this->province->getProvinceName());
 				//$this -> theForm -> setFacilityCounty($this->county->getCountyName());
 				$this -> theForm -> setFacilityInchargeContactPerson($this->input->post('facilityInchargename',TRUE));
@@ -461,6 +477,16 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 				(isset($this->elements['facilityMaternityname']) && $this->elements['facilityMaternityname']!='')?$this -> theForm -> setFacilityMaternityContactPerson($this->input->post('facilityMaternityname',TRUE)):$this -> theForm -> setFacilityMaternityContactPerson('n/a');
 				(isset($this->elements['facilityMaternitymobile']) && $this->elements['facilityMaternitymobile']!='')?$this -> theForm -> setFacilityMaternityTelephone($this->input->post('facilityMaternitymobile',TRUE)):'n/a';
 				(isset($this->elements['facilityMaternityemail']) && $this->elements['facilityMaternityemail']!='' )?$this -> theForm -> setFacilityMaternityEmail($this->input->post('facilityMaternityemail',TRUE)):$this -> theForm -> setFacilityMaternityEmail('n/a');
+				
+				if($this->elements['facDeliveriesDone']=='No'){
+					(isset($this->elements['facRsnNoDeliveries']) )?$this -> theForm -> setReasonDeliveryNotDone($this->elements['facRsnNoDeliveries']):$this -> theForm -> setReasonDeliveryNotDone('n/a');
+					$this -> theForm -> setFacilitySurveyStatus('complete');
+				}else{
+					$this -> theForm -> setReasonDeliveryNotDone('n/a');
+				}
+				
+				$this -> theForm -> setDeliveriesDone($this->elements['facDeliveriesDone']);
+				
 				$this -> em -> persist($this -> theForm);
                 
 				try{
@@ -477,12 +503,87 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 
 				}//end of catch
 
-        	
-
-					 } //end of innner loop
 
 	} //close updateFacilityInfo
 
+	//assuming mnh assessment is taken, every facility has exactly 7 entries for each active survey
+	protected function writeAssessmentTrackerLog(){
+		 //check if entry exists
+			$this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+
+			//print var_dump($this->section);
+
+				//insert log entry if new, else update the existing one
+				if($this->sectionExists==false){
+					//die('New entry, enter new one');
+			   $this -> theForm = new \models\Entities\e_assessment_tracker(); //create an object of the model
+			   $this -> theForm -> setTrackerSection($this->input->post('step_name',TRUE));
+			   $this -> theForm -> setLastActivity(new DateTime()); /*timestamp option*/
+			   $this -> theForm -> setFacilityCode($this->session->userdata('fCode'));//obtain facility code from current temp session val
+				}else{
+                 // die('Update log');
+				try{
+					$this -> theForm=$this->em->getRepository('models\Entities\e_assessment_tracker')
+					                       ->findOneBy( array('facilityCode'=>$this->session->userdata('fCode'),'trackerSection'=>$this->input->post('step_name',TRUE)));
+
+				}catch(exception $ex){
+						//ignore
+						//die($ex->getMessage());
+					}	
+				}
+
+			 	$this -> theForm -> setLastActivity(new DateTime()); /*timestamp option*/	
+
+				$this -> em -> persist($this -> theForm);
+                
+				try{
+
+				$this -> em -> flush();
+				$this->em->clear(); //detaches all objects from doctrine
+				//print 'true';
+				}catch(Exception $ex){
+				   // die($ex->getMessage());
+				    //print 'false';
+					/*display user friendly message*/
+
+				}//end of catch
+
+        	
+
+					
+	}
+
+   protected function markSurveyStatusAsComplete(){
+				try{
+					$this -> theForm=$this->em->getRepository('models\Entities\e_facility')
+					                       ->findOneBy( array('facilityCode'=>$this->session->userdata('fCode')));
+
+				}catch(exception $ex){
+						//ignore
+						//die($ex->getMessage());
+					}	
+				
+
+			 	$this -> theForm -> setFacilitySurveyStatus('complete');
+
+				$this -> em -> persist($this -> theForm);
+                
+				try{
+
+				$this -> em -> flush();
+				$this->em->clear(); //detaches all objects from doctrine
+				//print 'true';
+				}catch(Exception $ex){
+				   // die($ex->getMessage());
+				    //print 'false';
+					/*display user friendly message*/
+
+				}//end of catch
+
+        	
+
+					
+	}
 
 
 }

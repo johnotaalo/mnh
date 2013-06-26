@@ -157,6 +157,8 @@ $mfCode = $this -> session -> userdata('fCode');
 						$.each(info , function(i,facility) {
 						//render found data
 						$("#facilityName").val(facility.facilityName).prop('disabled', true);
+						$('#facilityMFLCode').val(facility.facilityMFC);
+						$('#facilityHName').val(facility.facilityName);
 						
 						//$("#facilityType").val(facility.facilityType);
   						$("#facilityLevel").val(facility.facilityLevel);
@@ -381,10 +383,12 @@ $mfCode = $this -> session -> userdata('fCode');
 						   //alert(form_id);	
 						   var end_url;
 								$(form_id).formwizard({ 
-								 	formPluginEnabled: false,
-								 	validationEnabled: true,
+								 	formPluginEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
+								 	textNext : 'Save and Go to the Next Section',
+		                            textBack : 'View Previous Section',
 								 	formOptions :{
 										//success: function(data){$("#status").fadeTo(500,1,function(){ $(this).html("Thank you for completing this assessment! :) ").fadeTo(5000, 0); })},
 										//beforeSubmit: function(data){$("#data").html("Processing...");},
@@ -409,13 +413,23 @@ $mfCode = $this -> session -> userdata('fCode');
 										 			if(data){ //data is either true or false (returned from store_in_database.html) simulating successful / failing store
 											 			//$("#data").show();
 											 			$("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
+																$(form_id).bind("after_remote_ajax", function(event, fdata){
+																  if(fdata.currentStep=='section-7'){
+																  //	alert('Yes');
+																   //$(form_id).formwizard('reset');
+																  	//$(form_id).formwizard('show','No');
+																  	 console.log($(form_id).formwizard('state'));
+																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){ });
+																  	
+																  }
+																});
 											 		}else{
 											 			$("#data").html("");
 											 			alert("An internal error occurred, nothing was stored.");
 											 			return false;
 											 		}
 											 		
-										 			return data; //return true to make the wizard move to the next step, false will cause the wizard to stay on the CV step (change this in store_in_database.html)
+										 			return data; //return true to make the wizard move to the next step, false will cause the wizard to stay on the current step
 										 		}
 										};
 										
@@ -424,23 +438,29 @@ $mfCode = $this -> session -> userdata('fCode');
 						
 								$(form_id).formwizard("option", "remoteAjax", remoteAjax); // set the remoteAjax option for the wizard
 								
+								
+								
 								$(form_id).bind("before_step_shown", function(event, data){
 									
+									
+																		
 									if(data.previousStep=='section-1'){
 										//alert('yes');
 										if(data.currentStep=='No'){
 										$("#data").fadeTo(5000,0);
 										$('#sectionNavigation').hide();
+										
 										}
-									}else if(data.currentStep=='section-2'){
-										$('#'+data.backButton).prop('disabled',true);
+									}else if(data.currentStep=='section-6'){
+										//$(form_id).formwizard("destroy");
+										$('#back').prop('disabled',true);
 									}else{
 										$('#sectionNavigation').show();
 									}
 								});
 								
 							 //check if deliveries are conducted		
-								$('#cDeliveries').change(function(){
+								$('#facDeliveriesDone').change(function(){
 									if($(this).val()=="Yes" || $(this).val()=="" ){
 										//show next section, hide this section
 										$('#delivery_centre').find('input').prop('disabled',true);

@@ -20,9 +20,14 @@ namespace models\Entities;
 	private $guidelineCode;
 	 
 	/**
-	* @Column(name="lastTrained", type="string",length=55, nullable=false)
+	* @Column(name="lastTrained", type="integer",length=4, nullable=false)
 	* */
 	private $lastTrained;
+	
+	/**
+	* @Column(name="trainedAndWorking", type="integer",length=4, nullable=false)
+	* */
+	private $trainedAndWorking;
 	
 	/**
 	* @Column(name="facilityID", type="string",length=11, nullable=false)
@@ -53,6 +58,15 @@ namespace models\Entities;
 	
 	public function setLastTrained($lastTrained) { $this -> lastTrained = $lastTrained;
 	}
+	
+	public function getTrainedAndWorking() {
+			return $this -> trainedAndWorking;
+	}
+	
+	public function setTrainedAndWorking($trainedAndWorking) { $this -> trainedAndWorking = $trainedAndWorking;
+	}
+	
+	
 	
 	public function getFacilityCode() {
 			return $this -> facilityID;

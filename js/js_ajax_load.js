@@ -72,7 +72,7 @@ $().ready(function(){
 			facilityInchargeemail:{required: true,email:true},
 			facilityMchemail:{required: true,email:true},
 			facilityMaternityemail:{required: true,email:true},
-			'rsnDeliveries[]':{minlength:1,required:true}
+			'facRsnNoDeliveries[]':{minlength:1,required:true}
 		},
 		messages: {
 			facilityDateOfInventory:{required: "*Required"},
@@ -90,7 +90,7 @@ $().ready(function(){
 			facilityInchargeemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			facilityMchemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
 			facilityMaternityemail:{required: "*Required",email:"Not a valid email. Valid example: name@moh.or.ke"},
-			'rsnDeliveries[]':{minlength:"Select at least 1",required:"Required"}
+			'facRsnNoDeliveries[]':{minlength:"Select at least 1",required:"Required"}
 		}
 	});/*end of mnh_tool validation rules*/
 	

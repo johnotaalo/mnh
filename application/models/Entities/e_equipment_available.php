@@ -3,7 +3,7 @@ namespace models\Entities;
 
 	/**
 	 * @Entity
-	 * @Table(name="equipment_available")
+	 * @Table(name="equipments_available")
 	 */
  class E_Equipment_Available{
  	
@@ -15,30 +15,34 @@ namespace models\Entities;
 	private $idEquipmentsAvailable;
 	
    /**
-	* @Column(name="supequipAvailability", type="string",length=55, nullable=false)
+	* @Column(name="equipAvailability", type="string",length=55, nullable=false)
 	* */
 	private $equipAvailability;
 	
-	   /**
-	* @Column(name="equipmentID", type="integer",length=55)
-	* */
-	private $equipmentID;
-	 
-	 
 	/**
-	* @Column(name="SupplierID", type="varchar",length=55)
-	* */
-	private $SupplierID;
-	 
-	/**
-	* @Column(name="equipLocation", type="string",length=55, nullable=false)
+	* @Column(name="equipLocation", type="string",length=255, nullable=false)
 	* */
 	private $equipLocation;
 	
 	/**
-	* @Column(name="supQuantityAvailable", type="integer",length=11,nullable=false)
+	* @Column(name="equipmentID", type="integer",length=55)
 	* */
-	private $supQuantityAvailable;
+	private $equipmentID;
+	
+	/**
+	* @Column(name="qtyFullyFunctional", type="integer",length=11,nullable=false)
+	* */
+	private $qtyFullyFunctional;
+	
+	/**
+	* @Column(name="qtyPartiallyFunctional", type="integer",length=11,nullable=false)
+	* */
+	private $qtyPartiallyFunctional;
+	
+	/**
+	* @Column(name="qtyNonFunctional", type="integer",length=11,nullable=false)
+	* */
+	private $qtyNonFunctional;
 	
 	/**
 	* @Column(name="facilityID", type="string",length=15)
@@ -51,46 +55,54 @@ namespace models\Entities;
 	private $createdAt;
 	 
 	 
-	/**
-	* @Column(name="functionality", type="string",length=55, nullable=false)
-	* */
-	private $functionality;
-	 
-	public function getidEquipmentsAvailable() {
+	public function getIdEquipmentsAvailable() {
 			return $this -> idEquipmentsAvailable;
 	}
 	
-	public function setidEquipmentsAvailable($idEquipmentsAvailable) { $this -> idEquipmentsAvailable= $idEquipmentsAvailable;}
+	public function setIdEquipmentsAvailable($idEquipmentsAvailable) { $this -> idEquipmentsAvailable= $idEquipmentsAvailable;}
 	
 	 
-	public function getequipAvailability() {
+	public function getEquipAvailability() {
 			return $this -> equipAvailability;
 	}
 	
-	public function setequipAvailability($equipAvailability) { $this -> equipAvailability = $equipAvailability;
+	public function setEquipAvailability($equipAvailability) { $this -> equipAvailability = $equipAvailability;
 	}
 	
-	public function getequipmentID() {
-			return $this -> equipmentID;
-	}
-	
-	public function setequipmentID($equipmentID) { $this -> equipmentID = $equipmentID;
-	}
-	
-	
-	public function getequipLocation() {
+	public function getEquipLocation() {
 			return $this -> equipLocation;
 	}
 	
-	public function setequipLocation($equipLocation) { $this -> equipLocation = $equipLocation;
+	public function setEquipLocation($equipLocation) { $this -> equipLocation = $equipLocation;
+	}
+	
+	public function getEquipmentID() {
+			return $this -> equipmentID;
+	}
+	
+	public function setEquipmentID($equipmentID) { $this -> equipmentID = $equipmentID;
 	}
 	
 
-	public function getfunctionality() {
-			return $this -> functionality;
+	public function getQuantityFullyFunctional() {
+			return $this ->qtyFullyFunctional;
 	}
 	
-	public function setfunctionality($functionality) { $this -> functionality = $functionality;
+	public function setQuantityFullyFunctional($qtyFullyFunctional) { $this -> qtyFullyFunctional = $qtyFullyFunctional;
+	}
+	
+	public function getQuantityPartiallyFunctional() {
+			return $this ->qtyPartiallyFunctional;
+	}
+	
+	public function setQuantityPartiallyFunctional($qtyPartiallyFunctional) { $this -> qtyPartiallyFunctional = $qtyPartiallyFunctional;
+	}
+	
+	public function getQuantityNonFunctional() {
+			return $this ->qtyNonFunctional;
+	}
+	
+	public function setQuantityNonFunctional($qtyNonFunctional) { $this -> qtyNonFunctional = $qtyNonFunctional;
 	}
 	
 	public function getFacilityCode() {

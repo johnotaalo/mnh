@@ -26,7 +26,7 @@
 					
 					<p><img src="<?php echo base_url()?>images/survey.png" alt="" width="150" height="120" class="bordered" /></p>
 
-					<div class="post-title"><h2><a>Take Survey</a></h2></div>
+					<!--div class="post-title"><h2><a>Take Survey</a></h2></div-->
 					<p></p>
 
 					<!--div class="post-date">Last Update 23:22, Saturday, June 15, 2013 by Admin</div-->

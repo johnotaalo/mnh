@@ -102,7 +102,7 @@ namespace models\Entities;
 	/**
 	* @Column(name="june13", type="integer",length=11, nullable=false)
 	* */
-	private $jun13;
+	#private $jun13;
 	
 	 
 	
@@ -244,12 +244,12 @@ namespace models\Entities;
 			return $this -> may13;
 	}
 	
-	public function setJun13($jun13) { $this -> jun13= $jun13;
+/*	public function setJun13($jun13) { $this -> jun13= $jun13;
 	}
 	 
 	public function getJun13() {
 			return $this -> jun13;
-	}
+	}*/
 	
 	public function getFacilityID() {
 			return $this -> facilityID;
