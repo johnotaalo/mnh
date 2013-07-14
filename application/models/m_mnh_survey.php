@@ -252,7 +252,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				return true;
 				}catch(Exception $ex){
-				    die($ex->getMessage());
+				    //die($ex->getMessage());
 					return false;
 					/*display user friendly message*/
 					
@@ -338,7 +338,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -354,7 +354,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this->em->clear(); //detactes all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 					
 					/*display user friendly message*/
@@ -1122,7 +1122,7 @@ class M_MNH_Survey  extends MY_Model {
 				}
 				
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -1144,7 +1144,7 @@ class M_MNH_Survey  extends MY_Model {
 				}
 				
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 					
 					/*display user friendly message*/

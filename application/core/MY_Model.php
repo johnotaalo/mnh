@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$ortAspect,$trainingGuidelines,$districtFacilities,$fCode;
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchTreatment,$ortAspect,$trainingGuidelines,$districtFacilities,$fCode;
 
 function __construct() {
 		parent::__construct();
@@ -166,6 +166,32 @@ function __construct() {
 		 }
 		return $this->ortAspect;
 	}/*end of getAllOrtAspects*/
+	
+	function getAllMCHIndicators(){
+		 /*using DQL*/
+		 try{
+	      $query = $this->em->createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\e_mch_indicators i ORDER BY i.indicatorCode ASC');
+          $this->mchIndicator = $query->getResult();
+		 //die(var_dump($this->mchIndicator));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->mchIndicator;
+	}/*end of getAllMCHIndicators*/
+	
+	function getAllMCHTreatments(){
+		 /*using DQL*/
+		 try{
+	      $query = $this->em->createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\e_mch_treatments t ORDER BY t.treatmentCode ASC');
+          $this->mchTreatment = $query->getResult();
+		 //die(var_dump($this->mchTreatment));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->mchTreatment;
+	}/*end of getAllMCHTreatments*/
 	
 	function getAllTrainingGuidelines($surveyName){
 		 /*using DQL*/

@@ -22,11 +22,8 @@ class C_Load extends MY_Controller {
 	public function suggestFacilityName() {
 		$this -> load -> model('m_autocomplete');
 		$facilityName = strtolower($this -> input -> get_post('term', TRUE));
-		//term is obtained from the ajax call
+		//term is obtained from an ajax call
 
-		//echo $facilityName; exit;
-
-		//$facilityName='Keri';
 
 		if (!strlen($facilityName) < 2)
 
@@ -616,7 +613,7 @@ public function get_mch_form()
 		         <p style="color:#488214">You are currently taking '.strtoupper($this->session->userdata('survey')).' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 6</p>
+		          <p style="display:true" class="message success">SECTION 1 of 6: FACILITY INFORMATION</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -720,7 +717,7 @@ public function get_mch_form()
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 6</p>
+	 <p style="display:true" class="message success">SECTION 2 of 6: GUIDELINES, STAFF TRAINING AND COMMODITY AVAILABILITY</p>
 
      <table class="centre">
 		<thead>
@@ -746,11 +743,7 @@ public function get_mch_form()
 		'.$this->mchTrainingGuidelineSection.'
 
 	</table>
-	</div><!--\.section 2-->
-
-	<div id="section-3" class="step">
-	<input type="hidden" name="step_name" value="section-3"/>
-	 <p style="display:true" class="message success">SECTION 3 of 6</p>
+	
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -797,15 +790,89 @@ public function get_mch_form()
 		</tr>'.$this->mchCommodityAvailabilitySection.'
 
 	</table>
+	</div><!--\.section 2-->
+
+	<div id="section-3" class="step">
+	<input type="hidden" name="step_name" value="section-3"/>
+	 <p style="display:true" class="message success">SECTION 3 of 6: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
+
+     <table class="centre">
+		<thead>
+			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">SERVICE</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchIndicatorsSection['svc'].'
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">DANGER SIGN</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchIndicatorsSection['sgn'].'
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >DO HEALTH WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ACTION</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchIndicatorsSection['dgn'].'
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >DO HEALTH WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ACTION</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchIndicatorsSection['cns'].'
+	</table>
+		
 	</div><!--\.section-3-->
 
     <div id="section-4" class="step">
     <input type="hidden" name="step_name" value="section-4"/>
-     <p style="display:true" class="message success">SECTION 4 of 6</p>
-    <table class="centre">
+     <p style="display:true" class="message success">SECTION 4 of 6: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
+    
+	
+	<table class="centre">
+		
+		<thead>
+			<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
+		</thead>
+		
+		     
+			<th  style="width:35%">TOOL</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchIndicatorsSection['ror'].'
+	</table>
+	
+	<table class="centre">
 		
 	<thead>
-	<th colspan="13" >INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
+	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
 
 	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th><th> JULY</th><th> AUGUST</th>
 	<th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
@@ -889,11 +956,34 @@ public function get_mch_form()
 			</td>	
 		</tr>
 	</table>
+	
+	<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
+		</thead>
+		<tr>
+		     
+			<th  style="width:35%">TREATMENT</th>
+			<th colspan="5" style="text-align:center"> Classification</th>
+			
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Severe Dehydration</td>
+			<td>Some Dehydration</td>
+			<td>No Dehydration</td>
+			<td>Dysentry</td>
+			<td>No Classification</td>
+		</tr>
+		'.$this->treatmentMCHSection.'
+	</table>
+	
     </div><!--\.section-4-->
     
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 6</p>
+	 <p style="display:true" class="message success">SECTION 5 of 6: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
 		
 		<table class="centre">
 		<thead>
@@ -945,13 +1035,11 @@ public function get_mch_form()
 
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
-	 <p style="display:true" class="message success">SECTION 6 of 6</p>
+	 <p style="display:true" class="message success">SECTION 6 of 6: SUPPLIES AVAILABILITY</p>
 		 <table  class="centre" >
 		<thead>
 			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
 		</thead>
-
-		</tr>
 		<tr>
 			<th scope="col" >Supplies Name</th>
 			
@@ -968,9 +1056,6 @@ public function get_mch_form()
 			<div style="width: 100px" >
 				Main Reason For  Unavailability
 			</div></th>
-
-		</tr>
-			
 
 		</tr>
 		<tr >

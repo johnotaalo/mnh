@@ -6,8 +6,8 @@ class  MY_Controller  extends  CI_Controller {
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
 	$selectCommodityType, $facilities, $selectCounties, 
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHCommoditySuppliers,$selectFacility,
-	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$signalFunctionsSection,$ortCornerAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
-	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$equipmentsSection,$equipmentsMCHSection;
+	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
+	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$equipmentsSection,$equipmentsMCHSection,$treatmentMCHSection;
 
 
 	function __construct() {
@@ -22,7 +22,8 @@ class  MY_Controller  extends  CI_Controller {
 		$this->load->model('m_mch_survey');
 		$this->response=$this->theForm=$this->data=$this->facilityInDistrict='';
 		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectMCHCommoditySuppliers=$this->selectCommoditySuppliers='';
-		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
+		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->treatmentMCHSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
+		$this->mchIndicatorsSection=array();
 		$this->getHealthFacilities();
 		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
@@ -32,8 +33,8 @@ class  MY_Controller  extends  CI_Controller {
 		$this->createSuppliesSection();$this->createSuppliesMCHSection();
 		$this->createEquipmentSection();$this->createEquipmentMCHSection();
 		$this->createCommodityUsageAndOutageSection();
-		$this->createSuppliesUsageAndOutageSection();
-		$this->createFacilitiesListSection();
+		$this->createSuppliesUsageAndOutageSection();$this->createTreatmentsMCHSection();
+		$this->createFacilitiesListSection();$this->createMCHIndicatorsSection();
 		$this->createORTCornerAspectsSection();$this->createMCHGuidelineAvailabilitySection();
 		
   
@@ -230,7 +231,7 @@ class  MY_Controller  extends  CI_Controller {
 			<td width="50">
 			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Not Applicable">1.Not Applicable</option>
+				<option value="Not Applicable">1. Not Applicable</option>
 				<option value="Not Ordered">2. Not Ordered</option>
 				<option value="Ordered but not yet Received">3. Ordered but not yet Received</option>
 				<option value="Expired">4. Expired</option>
@@ -409,9 +410,98 @@ class  MY_Controller  extends  CI_Controller {
 		</tr>';
 		
    	}
+
+}
+
+/**Function to create various sections based on the indicator type * */
+ public function createMCHIndicatorsSection(){
+	 $this->data_found= $this->m_mch_survey->getIndicatorNames();
+	//var_dump($this->data_found);die;
+	$counter=0;$section='';
+	$svc=$dgn=$cns=$ror=$sgn='';
+	$svcn=$dgnn=$cnsn=$rorn=$sgnn=0;
+	$numbering=array('a','b','c','d','e','f','g','h','i','j');
+   	foreach($this->data_found as $value){
+   		$counter++;
+		$section=$value['indicatorFor'];
+		
+		if($section=='svc'){
+			$svc.='<tr>
+			<td colspan="1"><strong>('.$numbering[$svcn].')</strong> '.$value['indicatorName'].'</td>
+			<td colspan="1">
+			<select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<input type="hidden"  name="mchIndicatorCode_'.$counter.'" id="mchIndicatorCode_'.$counter.'" value="'.$value['indicatorCode'].'" />
+		</tr>';
+		$svcn++;
+		}else if($section=='dgn'){
+			$dgn.='<tr>
+			<td colspan="1"><strong>('.$numbering[$dgnn].')</strong> '.$value['indicatorName'].'</td>
+			<td colspan="1">
+			<select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<input type="hidden"  name="mchIndicatorCode_'.$counter.'" id="mchIndicatorCode_'.$counter.'" value="'.$value['indicatorCode'].'" />
+		</tr>';
+		$dgnn++;
+		}else if($section=='cns'){
+			$cns.='<tr>
+			<td colspan="1"><strong>('.$numbering[$cnsn].')</strong> '.$value['indicatorName'].'</td>
+			<td colspan="1">
+			<select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<input type="hidden"  name="mchIndicatorCode_'.$counter.'" id="mchIndicatorCode_'.$counter.'" value="'.$value['indicatorCode'].'" />
+		</tr>';
+		$cnsn++;
+		}else if($section=='ror'){
+		  $ror.='<tr>
+			<td colspan="1"><strong>('.$numbering[$rorn].')</strong> '.$value['indicatorName'].'</td>
+			<td colspan="1">
+			<select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<input type="hidden"  name="mchIndicatorCode_'.$counter.'" id="mchIndicatorCode_'.$counter.'" value="'.$value['indicatorCode'].'" />
+		</tr>';
+		$rorn++;
+		}else if($section=='sgn'){
+		    $sgn.='<tr>
+			<td colspan="1"><strong>('.$numbering[$sgnn].')</strong>  '.$value['indicatorName'].'</td>
+			<td colspan="1">
+			<select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<input type="hidden"  name="mchIndicatorCode_'.$counter.'" id="mchIndicatorCode_'.$counter.'" value="'.$value['indicatorCode'].'" />
+		</tr>';
+		$sgnn++;
+		}
+		
+   	}
+	
+	$this->mchIndicatorsSection['svc']=$svc;
+	$this->mchIndicatorsSection['dgn']=$dgn;
+	$this->mchIndicatorsSection['cns']=$cns;
+	$this->mchIndicatorsSection['ror']=$ror;
+	$this->mchIndicatorsSection['sgn']=$sgn;
    
-	//echo $this->mchGuidelineAvailabilitySection;die;
-   	return $this->mchGuidelineAvailabilitySection;
+	//echo $this->mchIndicatorsSection;die;
+   	return $this->mchIndicatorsSection;
    }
    
    /**Function to create the section: INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIDELINES
@@ -762,6 +852,62 @@ public function createEquipmentMCHSection(){
 	//echo $this->equipmentsMCHSection;die;
    	return $this->equipmentsMCHSection;
    }
+
+public function createTreatmentsMCHSection(){
+	 $this->data_found= $this->m_mch_survey->getTreatmentNames();
+	//var_dump($this->data_found);die;
+	$unit="";
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+		
+		if($value['treatmentCode']=='TRM05'){
+			$this->treatmentMCHSection.='<tr>
+			<td >'.$value['treatmentName'].' '.$unit.'<input name="mchTreatmentOther_'.$counter.'" type="text"  size="64" placeholder="please specify"/> </td>
+			<td style ="text-align:center;">
+			<input name="mchSevereDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchSomeDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchNoDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchDysentry_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchNoClassification_'.$counter.'" type="text"  size="8" />
+			</td>
+			<input type="hidden"  name="mchTreatmentCode_'.$counter.'" id="mchTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
+		</tr>';
+		}else{
+			$this->treatmentMCHSection.='<tr>
+			<td >'.$value['treatmentName'].' '.$unit.' </td>
+			<td style ="text-align:center;">
+			<input name="mchSevereDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchSomeDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchNoDehydration_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchDysentry_'.$counter.'" type="text"  size="8" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="mchNoClassification_'.$counter.'" type="text"  size="8" />
+			</td>
+			<input type="hidden"  name="mchTreatmentCode_'.$counter.'" id="mchTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
+		</tr>';
+		}
+		
+   	}
+	//echo $this->equipmentsMCHSection;die;
+   	return $this->treatmentMCHSection;
+   }
+
 
 public function createSuppliesUsageAndOutageSection(){
 	 $this->data_found= $this->m_mnh_survey->getSuppliesNames();

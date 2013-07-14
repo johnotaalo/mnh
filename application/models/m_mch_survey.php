@@ -8,7 +8,8 @@ if (!defined('BASEPATH'))
 
 class M_MCH_Survey  extends MY_Model {
 	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,
-	$facility,$commodity, $isFacility,$ortAspectsList,$mchGuidelineAvailabilityList,$commodityList,$trainingGuidelinesList,$equipmentList,$suppliesList;
+	$facility,$commodity, $isFacility,$ortAspectsList,$mchGuidelineAvailabilityList,$commodityList
+	,$trainingGuidelinesList,$equipmentList,$suppliesList,$indicatorList,$treatmentList;
 
 	function __construct() {
 		parent::__construct();
@@ -62,6 +63,18 @@ class M_MCH_Survey  extends MY_Model {
     	$this->suppliesList=$this->getAllSuppliesNames('mch');
 		//var_dump($this->suppliesList);die;
 		return $this->suppliesList;
+    }
+	
+	public function getIndicatorNames(){
+    	$this->indicatorList=$this->getAllMCHIndicators();
+		//var_dump($this->indicatorList);die;
+		return $this->indicatorList;
+    }
+	
+	public function getTreatmentNames(){
+    	$this->treatmentList=$this->getAllMCHTreatments();
+		//var_dump($this->treatmentList);die;
+		return $this->treatmentList;
     }
 
 	function addRecord() {
