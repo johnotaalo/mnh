@@ -18,6 +18,11 @@ namespace models\Entities;
 	* @Column(name="countyName", type="string",length=45, nullable=false)
 	* */
 	private $countyName;
+	
+	/**
+	* @Column(name="countyFusionMapId", type="integer",length=2, nullable=false)
+	* */
+	private $countyFusionMapId;
 	 
 	public function getCountyID() {
 			return $this -> countyID;
@@ -31,6 +36,13 @@ namespace models\Entities;
 	}
 	
 	public function setCountyName($countyName) { $this -> countyName = $countyName;
+	}
+	
+	public function getCountyFusionMapId() {
+			return $this -> countyFusionMapId;
+	}
+	
+	public function setCountyFusionMapId($countyFusionMapId) { $this -> countyFusionMapId = $countyFusionMapId;
 	}
 }
 ?>

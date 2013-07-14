@@ -24,10 +24,16 @@ namespace models\Entities;
 	* */
 	private $commodityUnit;
 	
+	
 	/**
 	* @Column(name="commodityName", type="string",length=45, nullable=false)
 	* */
 	private $commodityName;
+	
+	/**
+	* @Column(name="commodityFor", type="string",length=3, nullable=false)
+	* */
+	private $commodityFor;
 	 
 	public function getCommodityID() {
 			return $this -> commodityID;
@@ -55,6 +61,13 @@ namespace models\Entities;
 	}
 	
 	public function setCommodityUnit($commodityUnit) { $this -> commodityUnit = $commodityUnit;
+	}
+	
+	public function getCommodityFor() {
+			return $this -> commodityFor;
+	}
+	
+	public function setCommodityFor($commodityFor) { $this -> commodityFor = $commodityFor;
 	}
 }
 ?>

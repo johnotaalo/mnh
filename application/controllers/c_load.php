@@ -76,7 +76,7 @@ class C_Load extends MY_Controller {
 	}
 
 	
-	public function get_new_form()
+	public function get_mnh_form()
 	 {
 		$this -> combined_form.= 
 		         '<h5 id="status"></h5>
@@ -85,6 +85,7 @@ class C_Load extends MY_Controller {
 
   				 <p id="data" class="feedback"></p>
 		         <!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
+		         <p style="color:#488214">You are currently taking '.strtoupper($this->session->userdata('survey')).' Survey.</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
 		          <p style="display:true" class="message success">SECTION 1 of 7</p>
@@ -94,14 +95,19 @@ class C_Load extends MY_Controller {
 		       
 			<tr>
 			<TD >Facility Name </TD><td>
-			<input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/>
+			<!--input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/-->
+			<label id="facilityName"  size="40" ></label>
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> <TD  >Facility Level </TD><td>
-			<input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/>
+			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Level</option>
+							'.$this -> selectFacilityLevel.'
+						</select>
 			</td><TD  >County </TD><td>
 			<select name="facilityCounty" id="facilityCounty" class="cloned" style="width:85%">
-							<option value="" selected="selected">Select One</option>
+							<option value="" selected="selected">Select County</option>
 							' . $this -> selectCounties . '
 						</select>
 			</td>
@@ -109,21 +115,21 @@ class C_Load extends MY_Controller {
 			<tr>
 			<TD >Facility Type </TD><td>
 			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
-							<option value="" selected="selected">Select One</option>
+							<option value="" selected="selected">Select Type</option>
 							' . $this -> selectFacilityType . '
 						</select>
 
 			</td>
 			<TD >Owned By </TD><td>
 			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
-							<option value="" selected="selected">Select One</option>
+							<option value="" selected="selected">Select Owner</option>
 							' . $this -> selectFacilityOwner . '
 						</select>
 			</td>
 
-			<td>District </TD><td>
+			<td>District/Sub-District </TD><td>
 			<select name="facilityDistrict" id="facilityDistrict" class="cloned" style="width:85%">
-							<option value="" selected="selected">Select One</option>
+							<option value="" selected="selected">Select District/Sub-District</option>
 							' . $this -> selectDistricts . '
 						</select>
 			</td>
@@ -184,8 +190,8 @@ class C_Load extends MY_Controller {
 	<div  style="display:none" id="delivery_centre" class="cloned">
 	<table class="centre">
 	
-	<thead><th colspan ="8">WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th></thead>
-	<tr><th colspan ="2">Inadequate skill or staff</th><th colspan ="2"> Inadequate infrastructure (equipment)</th>
+	<thead><th colspan ="10">WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th></thead>
+	<tr><th colspan ="2">Inadequate skill or staff</th><th colspan ="2"> Inadequate infrastructure </th><th colspan="2">Inadequate Equipment</th>
 	<th colspan ="2">  Inadequate commodities and supplies</th><th colspan ="2">  Other</th></tr>
 	<tr>
 	<td style ="text-align:center;" colspan ="2">
@@ -196,6 +202,9 @@ class C_Load extends MY_Controller {
 			</td>
 			<td style ="text-align:center;" colspan ="2">
 			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="3" />
+			</td>
+			<td style ="text-align:center;" colspan ="2">
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="5" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
 			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="4" />
@@ -284,10 +293,10 @@ class C_Load extends MY_Controller {
 			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
 			</td>
 			<td style ="text-align:center;">
-			<!--input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/-->
+			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
 			</td>
 			<td style ="text-align:center;">
-			<!--input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" disabled/-->
+			<!--input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" /-->
 			</td>
 			<td style ="text-align:center;">
 			<!--input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/-->
@@ -302,7 +311,8 @@ class C_Load extends MY_Controller {
 			
 			<td style ="text-align:center;">
 			<!--input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/-->
-			</td>			
+			</td>	
+					
 			
 
 			
@@ -333,7 +343,7 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -342,13 +352,13 @@ class C_Load extends MY_Controller {
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div></th>
-			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Quantities</th>
 			<th scope="col">
 			
 				Main Supplier
 			</th>
-			<th scope="col">
+			<th colspan="2">
 			<div style="width: 100px" >
 				Main Reason For  Unavailability
 			</div></th>
@@ -364,6 +374,7 @@ class C_Load extends MY_Controller {
 			<td>Pharmacy</td>
 			<td>Store</td>
 			<td>Other</td>
+			<td>Not Applicable</td>
 
 			<td>No.of Units</td>
 			<td>Supplier</td>
@@ -402,8 +413,11 @@ class C_Load extends MY_Controller {
 		<tr >
 			<th scope="col"  colspan="2"><div style="width: 1
 			00px" >Commodity Name</div></th>
-			
-			<th scope="col" colspan="2">
+			<th scope="col" >
+			<div style="width: 40px" >
+				Unit Size
+			</div></th>
+			<th scope="col" >
 			<div style="width: 40px" >
 				Usage
 			</div></th>
@@ -421,7 +435,8 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr >
 			<td colspan="2">&nbsp;</td>
-			<td colspan="2">Used Units</td>
+			<td colspan="1">Unit Size</td>
+			<td colspan="1">Total Units Used</td>
 			<td colspan="2">Times Unavailable </td>
 			
 			<td colspan="1">
@@ -539,10 +554,11 @@ class C_Load extends MY_Controller {
 			<th scope="col"  colspan="2"><div style="width: 1
 			00px" >Supply Name</div></th>
 			
-			<th scope="col" colspan="2">
+			<!--th scope="col" colspan="2">
 			<div style="width: 40px" >
 				Usage
-			</div></th>
+			</div></th-->
+			
 			<th scope="col" colspan="2">
 			<div style="width: 100px" >
 				Number Of Times the supply was unavailable
@@ -557,7 +573,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr >
 			<td colspan="2">&nbsp;</td>
-			<td colspan="2">Used Units</td>
+			<!--td colspan="2">Total Units Used</td -->
 			<td colspan="2">Times Unavailable </td>
 			
 			<td colspan="1">
@@ -578,6 +594,409 @@ class C_Load extends MY_Controller {
         </table>
 		
 	 </div><!--\.section-7-->
+	 <div id="sectionNavigation" class="buttonsPane">
+		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
+		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
+		</div>
+	</form>';
+		$data['form'] = $this -> combined_form;
+		$data['form_id'] = 'form_dcah';
+		$this->load->view('form',$data);
+	}
+
+
+public function get_mch_form()
+	 {
+		$this -> combined_form.= 
+		         '<h5 id="status"></h5>
+                 
+				<form class="bbq" name="mch_tool" id="mch_tool" method="POST">
+
+  				 <p id="data" class="feedback"></p>
+		         <p style="color:#488214">You are currently taking '.strtoupper($this->session->userdata('survey')).' Survey</p>
+		         <div id="section-1" class="step">
+		         <input type="hidden" name="step_name" value="section-1"/>
+		          <p style="display:true" class="message success">SECTION 1 of 6</p>
+				<table class="centre" >
+
+		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
+		       
+			<tr>
+			<TD >Facility Name </TD><td>
+			<!--input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/-->
+			<label id="facilityName"  size="40" ></label>
+			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
+			<input type="hidden" name="facilityHName" id="facilityHName" />
+			</td> <TD  >Facility Level </TD><td>
+			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Level</option>
+							'.$this -> selectFacilityLevel.'
+						</select>
+			</td><TD  >County </TD><td>
+			<select name="facilityCounty" id="facilityCounty" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select County</option>
+							' . $this -> selectCounties . '
+						</select>
+			</td>
+			</tr>
+			<tr>
+			<TD >Facility Type </TD><td>
+			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Type</option>
+							' . $this -> selectFacilityType . '
+						</select>
+
+			</td>
+			<TD >Owned By </TD><td>
+			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Owner</option>
+							' . $this -> selectFacilityOwner . '
+						</select>
+			</td>
+
+			<td>District/Sub-District </TD><td>
+			<select name="facilityDistrict" id="facilityDistrict" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select District/Sub-District</option>
+							' . $this -> selectDistricts . '
+						</select>
+			</td>
+			</tr>
+		
+		</table>
+		<table class="centre">
+		<thead>
+		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+		</thead>
+		<tr >
+			<th scope="col" colspan="2" >CADRE</th>
+			<th>NAME</th>
+			<th >MOBILE</th>
+			<th >EMAIL</th>
+		</tr>
+		<tr>
+			<TD  colspan="2">Incharge </TD><td>
+			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<TD  colspan="2">MCH </TD><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<TD  colspan="2">Maternity </TD><td>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+
+	</table>
+	</div><!--\.the section-1 -->
+	
+	<!--div id="No" class="step"--><!--end of assessment message section-->
+	<!--input type="hidden" name="step_name" value="end_of_assessment"/>
+	<div class="block">
+	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
+			<p id="data" class="message success">Thanks for your participation.<br></p><br>
+			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			</div>
+	</div--><!--\.end of assessment message section-->
+	
+	<div id="section-2" class="step">
+	<input type="hidden" name="step_name" value="section-2"/>
+	 <p style="display:true" class="message success">SECTION 2 of 6</p>
+
+     <table class="centre">
+		<thead>
+			<th colspan="2" >GUIDELINES AVAILABILITY </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchGuidelineAvailabilitySection.'
+	</table>
+	
+     <table class="centre">
+	<thead>
+		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th>
+		<th style="text-align:left">Number Trained in the Last 2 Years</th>
+		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
+		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
+		
+		'.$this->mchTrainingGuidelineSection.'
+
+	</table>
+	</div><!--\.section 2-->
+
+	<div id="section-3" class="step">
+	<input type="hidden" name="step_name" value="section-3"/>
+	 <p style="display:true" class="message success">SECTION 3 of 6</p>
+	<table  class="centre persist-area" >
+	<thead>
+	    <tr class="persist-header">
+		
+			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+		</tr>
+		</thead>
+		<tr>
+			<th scope="col" >Commodity Name</th>
+			<!--th >Commodity Unit</th-->
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></div>
+			</th>
+			<th colspan="1">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div>
+			</th>
+			<th colspan="6" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Quantities</th-->
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<!--td >Unit</td-->
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td> Unavailability</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+			<td>Not Applicable</td>
+			<!--td>No.of Units</td-->
+			<td>Supplier</td>
+
+		</tr>'.$this->mchCommodityAvailabilitySection.'
+
+	</table>
+	</div><!--\.section-3-->
+
+    <div id="section-4" class="step">
+    <input type="hidden" name="step_name" value="section-4"/>
+     <p style="display:true" class="message success">SECTION 4 of 6</p>
+    <table class="centre">
+		
+	<thead>
+	<th colspan="13" >INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
+
+	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th><th> JULY</th><th> AUGUST</th>
+	<th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
+		 <!--tr>
+			<td>'.(date('Y')-1).'</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnjanuary_12" name="dnjanuary_12"  size="8" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnfebruary_12" name="dnfebruary_12" size="8" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnmarch_12" size="8" name="dnmarch_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnapril_12" size="8" name="dnapril_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnmay_12" size="8" name="dnmay_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnjune_12" size="8" name="dnjune_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnjuly_12" size="8" name="dnjuly_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnaugust_12" size="8" name="dnaugust_12" class="cloned numbers"/>
+			</td>
+			<td  style ="text-align:center;">
+			<input type="text" id="dnseptember_12" size="8" name="dnseptember_12" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnoctober_12" size="8" name="dnoctober_12" class="cloned numbers"/></td>
+			<td style ="text-align:center;" width="15">
+			<input type="text" id="dnnovember_12" size="8" name="dnnovember_12" class="cloned numbers"/></td>
+			
+			<td style ="text-align:center;">
+			<input type="text" id="dndecember_12" size="8" name="dndecember_12" class="cloned numbers"/>
+			</td>			
+			
+
+		</tr-->
+
+		<tr>
+			<td>'.date("Y").'</td>			
+			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
+			</td>
+			
+			<td style ="text-align:center;">
+			<input type="text" id="dnfebruary_13" name="dnfebruary_13" size="8"class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnmarch_13" name="dnmarch_13" size="8"class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnapril_13" name="dnapril_13" size="8"class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
+			</td>
+			<td style ="text-align:center;">
+			<!--input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" /-->
+			</td>
+			<td style ="text-align:center;">
+			<!--input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/-->
+			</td>
+			<td  style ="text-align:center;">
+			<!--input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled/-->
+			</td>
+			<td style ="text-align:center;">
+			<!--input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled/--></td>
+			<td style ="text-align:center;" width="15">
+			<!--input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers" disabled/--></td>
+			
+			<td style ="text-align:center;">
+			<!--input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/-->
+			</td>	
+		</tr>
+	</table>
+    </div><!--\.section-4-->
+    
+    <div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
+	 <p style="display:true" class="message success">SECTION 5 of 6</p>
+		
+		<table class="centre">
+		<thead>
+			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->ortCornerAspectsSection.'
+	</table>
+		
+		<table  class="centre" >
+		<thead>
+			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
+		</thead>
+
+		</tr>
+		<tr>
+			<th scope="col" >Equipment Name</th>
+			
+			<th colspan="3" style="text-align:center">Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="3">Available Quantities</th>
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+			<td>Fully-Functional</td>
+            <td>Partially Functional</td>
+			<td>Non-Functional</td>
+			</tr>
+			'.$this->equipmentsMCHSection.'
+
+			</table>
+           </div><!--\.section-5-->
+
+	<div id="section-6" class="step">
+	<input type="hidden" name="step_name" value="section-6"/>
+	 <p style="display:true" class="message success">SECTION 6 of 6</p>
+		 <table  class="centre" >
+		<thead>
+			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
+		</thead>
+
+		</tr>
+		<tr>
+			<th scope="col" >Supplies Name</th>
+			
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th>Available Supplies</th>
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+			<th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th>
+
+		</tr>
+			
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+
+			<td style="text-align:center">No.of Supplies</td>
+			<td></td>
+			<td></td>
+			
+			
+
+		</tr>'.$this->suppliesMCHSection.'
+		</table>
+		
+	
+	</div><!--\.section-6-->
+	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
 		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				

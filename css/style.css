@@ -471,6 +471,7 @@ img.alignright, img.right {margin: 0 0 1em 1.5em;}
 	font: normal 1.6em serif;
 	border-bottom: 1px solid #CCC;
 	padding-bottom: 24px;
+	width:1440px;
 }
 #site-title span {color: #999;}
 #site-title a {

@@ -24,26 +24,26 @@ class M_MNH_Survey  extends MY_Model {
 	
 	/*calls the query defined in MY_Model*/
 	public function getCommodityNames(){
-    	$this->commodityList=$this->getAllCommodityNames();
+    	$this->commodityList=$this->getAllCommodityNames('mnh');
 		//var_dump($this->commodityList);die;
 		return $this->commodityList;
     }
 	
 	public function getEquipmentNames(){
-    	$this->equipmentList=$this->getAllEquipmentNames();
+    	$this->equipmentList=$this->getAllEquipmentNames('mnh');
 		//var_dump($this->equipmentList);die;
 		return $this->equipmentList;
     }
 	
 	public function getSuppliesNames(){
-    	$this->suppliesList=$this->getAllSuppliesNames();
+    	$this->suppliesList=$this->getAllSuppliesNames('mnh');
 		//var_dump($this->suppliesList);die;
 		return $this->suppliesList;
     }
 	
 	/*calls the query defined in MY_Model*/
 	public function getCommoditySupplierNames(){
-    	$this->supplierList=$this->getAllCommoditySupplierNames();
+    	$this->supplierList=$this->getAllCommoditySupplierNames('mnh');
 		//var_dump($this->supplierList);die;
 		return $this->supplierList;
     }
@@ -57,7 +57,7 @@ class M_MNH_Survey  extends MY_Model {
 	
 	/*calls the query defined in MY_Model*/
 	public function getTrainingGuidelines(){
-    	$this->trainingGuidelinesList=$this->getAllTrainingGuidelines();
+    	$this->trainingGuidelinesList=$this->getAllTrainingGuidelines('mnh');
 		//var_dump($this->trainingGuidelinesList);die;
 		return $this->trainingGuidelinesList;
     }
@@ -81,7 +81,8 @@ class M_MNH_Survey  extends MY_Model {
 	}
 	
 	public function getFacilityOwnerNames(){
-		$this->facilityOwnerList=$this->getAllFacilityOwnerNames();
+		//$this->facilityOwnerList=$this->getAllFacilityOwnerNames();
+		$this->facilityOwnerList=$this->getAllGovernmentOwnedNames();
 		//var_dump($this->facilityOwnerList);die;
 		return $this->facilityOwnerList;
 	}
@@ -1163,14 +1164,14 @@ class M_MNH_Survey  extends MY_Model {
 			
 		 	 $step=$this->input->post('step_name',TRUE);
 			/**/switch($step){
-			/*	case 'section-1':
+			/*case 'section-1':
 			//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
 
 			//print var_dump($this->section);
 
 				//insert log entry if new, else update the existing one
-				if($this->sectionExists==false){
+			if($this->sectionExists==false){
 				if($this->updateFacilityInfo()==true){//Defined in MY_Model
 					$this->writeAssessmentTrackerLog();
 				
@@ -1182,9 +1183,9 @@ class M_MNH_Survey  extends MY_Model {
 					//die('Entry exsits');
 					return $this -> response = 'true';
 				}
-				
+				//return $this -> response = 'true';
 					break;
-				case 'section-2':
+			case 'section-2':
 					//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
 
@@ -1279,7 +1280,7 @@ class M_MNH_Survey  extends MY_Model {
 					//die('Entry exsits');
 					return $this -> response = 'true';
 				}
-					break;*/
+					break;
 				case 'section-7':
 						//check if entry exists
 				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
@@ -1301,13 +1302,13 @@ class M_MNH_Survey  extends MY_Model {
 					//die('Entry exsits');
 					return $this -> response = 'true';
 				}
-					break;
+					break;*/
 
 			}//close switch
 		 	//print var_dump($this->input->post());
 
 
-	   //return $this -> response = 'true';
+	   return $this -> response = 'true';
 		 }
  
 	}

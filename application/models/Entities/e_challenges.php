@@ -33,4 +33,3 @@ namespace models\Entities;
 	public function setchallenge_name($challenge_name) { $this -> challenge_name = $challenge_name;
 	}
 }
-?>

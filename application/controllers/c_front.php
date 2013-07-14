@@ -1,6 +1,6 @@
 <?php
 class C_Front extends MY_Controller {
-	var $data;
+	var $data,$survey;
 	var $instructions;
 
 	public function __construct() {
@@ -22,15 +22,20 @@ class C_Front extends MY_Controller {
 	
 	
 	public function active_survey() {
-	/**/	if(!$this -> session -> userdata('dCode')){
+	/**/
+	    $this->survey=$this->uri->segment(1);
+		$new_data=array('survey'=>$this->survey);
+		$this->session->set_userdata($new_data);
+		if(!$this -> session -> userdata('dCode')){
 	    
 		// $data['facility']=$this ->selectFacility;
-		$data['title']='MoH Data Management Tool::Authentication';
-		$data['form'] = '<p>User Login<p>';
-		$data['login_response'] = '';
-		$data['login_message']='Login to Take Survey';
-		//$this -> load -> view('index', $data); //login view
-		$this -> load -> view('pages/v_login', $data); //login view
+		$this->data['title']='MoH Data Management Tool::Authentication';
+		$this->data['form'] = '<p>User Login<p>';
+		$this->data['login_response'] = '';
+		$this->data['login_message']='Login to Take '.strtoupper($this->survey).' Survey';
+		$this->data['survey']=strtoupper($this->survey);
+		//$this -> load -> view('index', $this->data); //login view
+		$this -> load -> view('pages/v_login', $this->data); //login view
 	    }else{
 			$this->inventory();
 		}
@@ -46,14 +51,19 @@ class C_Front extends MY_Controller {
 	public function inventory() {
 		//print 'sess val: '.var_dump($this->session->all_userdata()); die;
 	/**/	if($this -> session -> userdata('dCode')){
-			
-		$data['hidden']="display:none";
-		$data['status']="";
-		$data['response']="";
-		$data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
-		$data['title']='MNH::Commodity Assessment';
-		$data['form_id']='';
-		$this -> load -> view('survey/v_survey_main', $data);
+	    $this->data['survey']=$this->survey;
+		$this->data['hidden']="display:none";
+		$this->data['status']="";
+		$this->data['response']="";
+		$this->data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
+		if($this->session->userdata('survey')=='mnh'){
+			$this->data['title']=strtoupper($this->session->userdata('survey')).'::Commodity, Equipment and Supplies Assessment';
+		}else{
+			$this->data['title']=strtoupper($this->session->userdata('survey')).'::Diarrhoea Treatment Scale Up Baseline Assessment';
+		}
+		
+		$this->data['form_id']='';
+		$this -> load -> view('survey/v_survey_main', $this->data);
 		}else{
 			redirect(base_url() . 'home', 'refresh');
 		}

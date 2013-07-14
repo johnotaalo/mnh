@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$trainingGuidelines,$districtFacilities,$fCode;
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$ortAspect,$trainingGuidelines,$districtFacilities,$fCode;
 
 function __construct() {
 		parent::__construct();
@@ -60,7 +60,7 @@ function __construct() {
             
             /*Using CI*/
             $this->query="SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM facility f WHERE f.facilityDistrict='$districtName' 
-            			  AND f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund') ORDER BY f.facilityName ASC";
+            			  AND f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY f.facilityName ASC";
 			 $this->districtFacilities = $this->db->query($this->query);
 		     $this->districtFacilities=$this->districtFacilities->result_array();
 			//die(var_dump($this->districtFacilities));
@@ -81,11 +81,12 @@ function __construct() {
         return $this->formRecords;
 	}
 	
-	function getAllCommodityNames(){
+	function getAllCommodityNames($surveyName){
 		 /*using DQL*/
 		 try{
-	      $query = $this->em->createQuery('SELECT c.commodityID, c.commodityCode, c.commodityName, c.commodityUnit FROM models\Entities\e_commodity c ORDER BY c.commodityID ASC');
-          $this->commodity = $query->getResult();
+	      $this->commodity = $this->em->createQuery('SELECT c.commodityID, c.commodityCode, c.commodityName, c.commodityUnit FROM models\Entities\e_commodity c WHERE c.commodityFor= :surveyName ORDER BY c.commodityID ASC');
+          $this->commodity->setParameter('surveyName',$surveyName);
+          $this->commodity = $this->commodity->getResult();
 		 //die(var_dump($this->commodity));
 		 }catch(exception $ex){
 		 	//ignore
@@ -94,11 +95,12 @@ function __construct() {
 		return $this->commodity;
 	}/*end of getAllCommodityNames*/
 	
-	function getAllSuppliesNames(){
+	function getAllSuppliesNames($surveyName){
 		 /*using DQL*/
 		 try{
-	      $query = $this->em->createQuery('SELECT s.suppliesID, s.suppliesCode, s.suppliesName, s.suppliesUnit FROM models\Entities\e_supplies s ORDER BY s.suppliesID ASC');
-          $this->supplies = $query->getResult();
+	      $this->supplies = $this->em->createQuery('SELECT s.suppliesID, s.suppliesCode, s.suppliesName, s.suppliesUnit FROM models\Entities\e_supplies s WHERE s.suppliesFor= :survey ORDER BY s.suppliesID ASC');
+          $this->supplies->setParameter('survey',$surveyName);
+          $this->supplies = $this->supplies->getResult();
 		// die(var_dump($this->supplies));
 		 }catch(exception $ex){
 		 	//ignore
@@ -107,11 +109,12 @@ function __construct() {
 		return $this->supplies;
 	}/*end of getAllSuppliesNames*/
 	
-	function getAllEquipmentNames(){
+	function getAllEquipmentNames($surveyName){
 		 /*using DQL*/
 		 try{
-	      $query = $this->em->createQuery('SELECT e.equipmentID, e.equipmentCode, e.equipmentName, e.equipmentUnit FROM models\Entities\e_equipment e ORDER BY e.equipmentID ASC');
-          $this->equipment = $query->getResult();
+	      $this->equipment= $this->em->createQuery('SELECT e.equipmentID, e.equipmentCode, e.equipmentName, e.equipmentUnit FROM models\Entities\e_equipment e WHERE e.equipmentFor= :survey ORDER BY e.equipmentID ASC');
+          $this->equipment->setParameter('survey',$surveyName);
+          $this->equipment = $this->equipment->getResult();
 		 //die(var_dump($this->equipment));
 		 }catch(exception $ex){
 		 	//ignore
@@ -120,11 +123,14 @@ function __construct() {
 		return $this->equipment;
 	}/*end of getAllEquipmentNames*/
 	
-	function getAllCommoditySupplierNames(){
+	function getAllCommoditySupplierNames($surveyName){
 		 /*using DQL*/
 		 try{
-	      $query = $this->em->createQuery('SELECT s.supplierID, s.supplierCode, s.supplierName FROM models\Entities\e_supplier s ORDER BY s.supplierCode ASC');
-          $this->supplier = $query->getResult();
+	      $this->supplier = $this->em->createQuery('SELECT s.supplierID, s.supplierCode, s.supplierName FROM models\Entities\e_supplier s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+          $this->supplier->setParameter('survey',$surveyName);
+		// echo $this->supplier->getSQL();die;
+		  $this->supplier = $this->supplier->getResult();
+		 
 		 //die(var_dump($this->supplier));
 		 }catch(exception $ex){
 		 	//ignore
@@ -146,11 +152,27 @@ function __construct() {
 		return $this->signalFunction;
 	}/*end of getAllSignalFunctions*/
 	
-	function getAllTrainingGuidelines(){
+	function getAllOrtAspects($for){
 		 /*using DQL*/
 		 try{
-	      $query = $this->em->createQuery('SELECT g.guidelineCode, g.guidelineName FROM models\Entities\e_guideline g ORDER BY g.guidelineCode ASC');
-          $this->trainingGuidelines = $query->getResult();
+	      $this->ortAspect= $this->em->createQuery('SELECT q.questionCode, q.mchQuestion FROM models\Entities\e_mch_questions q WHERE q.mchQuestionFor= :for ORDER BY q.questionCode ASC');
+          $this->ortAspect->setParameter('for',$for);
+          $this->ortAspect = $this->ortAspect->getResult();
+		  
+		 //die(var_dump($this->ortAspect));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->ortAspect;
+	}/*end of getAllOrtAspects*/
+	
+	function getAllTrainingGuidelines($surveyName){
+		 /*using DQL*/
+		 try{
+	      $this->trainingGuidelines = $this->em->createQuery('SELECT g.guidelineCode, g.guidelineName FROM models\Entities\e_guideline g WHERE g.guidelineFor= :survey ORDER BY g.guidelineCode ASC');
+          $this->trainingGuidelines->setParameter('survey',$surveyName);
+		  $this->trainingGuidelines = $this->trainingGuidelines->getResult();
 		 //die(var_dump($this->trainingGuidelines));
 		 }catch(exception $ex){
 		 	//ignore
@@ -216,11 +238,15 @@ function __construct() {
 		 try{
 	     /* $query = $this->em->createQuery('SELECT t.facilityTypeID,t.facilityType FROM models\Entities\e_facility_type t 
 	      			WHERE t.facilityType IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.facilityType ASC');*/
-	       $query = "SELECT DISTINCT(o.facilityOwner),t.facilityOwnerID FROM facility f,facility_type t
-			WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund') AND t.facilityType=f.facilityType ORDER BY f.facilityType ASC";
+	      if($this->session->userdata('survey')=='ch'){
+			$query = "SELECT o.facilityOwnerID,o.facilityOwner FROM facility_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') OR o.facilityOwnerFor='mch' ORDER BY o.facilityOwner ASC";
+	      }else{
+	      	$query = "SELECT o.facilityOwnerID,o.facilityOwner FROM facility_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY o.facilityOwner ASC";
+	      }
+	      
           $this->owner = $this->db->query($query);
-		$this->owner=$this->type->result_array();
-		  //die(var_dump($this->type));
+		  $this->owner=$this->owner->result_array();
+		 // die(var_dump($this->owner));
 		 }catch(exception $ex){
 		 	//ignore
 		 	//die($ex->getMessage());//exit;
@@ -248,8 +274,7 @@ function __construct() {
 		 try{
 	     /* $query = $this->em->createQuery('SELECT t.facilityTypeID,t.facilityType FROM models\Entities\e_facility_type t 
 	      			WHERE t.facilityType IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.facilityType ASC');*/
-	       $query = "SELECT DISTINCT(f.facilityType),t.facilityTypeID FROM facility f,facility_type t
-WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund') AND t.facilityType=f.facilityType ORDER BY f.facilityType ASC";
+	       $query = "SELECT DISTINCT(f.facilityType),t.facilityTypeID FROM facility f,facility_type t WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') AND t.facilityType=f.facilityType ORDER BY f.facilityType ASC";
           $this->type = $this->db->query($query);
 		$this->type=$this->type->result_array();
 		  //die(var_dump($this->type));
@@ -574,7 +599,7 @@ WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Author
 				$this->em->clear(); //detaches all objects from doctrine
 				//print 'true';
 				}catch(Exception $ex){
-				   // die($ex->getMessage());
+				   die($ex->getMessage());
 				    //print 'false';
 					/*display user friendly message*/
 

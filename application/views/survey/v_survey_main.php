@@ -130,7 +130,12 @@ $mfCode = $this -> session -> userdata('fCode');
 							//alert(link_id);
 							if(link_id)
 							
-							$(".form-container").load('<?php echo base_url();?>c_load/get_new_form',function(){
+							<?php if($this->session->userdata('survey')=='mnh'){?>
+								$(".form-container").load('<?php echo base_url();?>c_load/get_mnh_form',function(){
+							<?php }else{?>
+								$(".form-container").load('<?php echo base_url();?>c_load/get_mch_form',function(){
+							<?php }?>
+							
 							//delegate events
 							//if(loaded==false)
 							//include remote scripts
@@ -156,18 +161,19 @@ $mfCode = $this -> session -> userdata('fCode');
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
-						$("#facilityName").val(facility.facilityName).prop('disabled', true);
+						//$("#facilityName").val(facility.facilityName).prop('disabled', true);
+						$("#facilityName").text(facility.facilityName);
 						$('#facilityMFLCode').val(facility.facilityMFC);
 						$('#facilityHName').val(facility.facilityName);
 						
 						//$("#facilityType").val(facility.facilityType);
-  						$("#facilityLevel").val(facility.facilityLevel);
+  						//$("#facilityLevel").val(facility.facilityLevel);
   						//$("#facilityOwnedBy").val(facility.facilityOwnedBy);
 						//$("#facilityDistrict").val(facility.facilityDistrict);
 						//$("#facilityCounty").val(facility.facilityCounty);
 						
 						$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
-  						//$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
+  						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
   						$("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facilityOwnedBy;}).first().prop("selected", true);
 						$("#facilityDistrict option").filter(function() {return $(this).text() == facility.facilityDistrict;}).first().prop("selected", true);
 						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facilityCounty;}).first().prop("selected", true);
@@ -414,7 +420,18 @@ $mfCode = $this -> session -> userdata('fCode');
 											 			//$("#data").show();
 											 			$("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
 																$(form_id).bind("after_remote_ajax", function(event, fdata){
-																  if(fdata.currentStep=='section-7'){
+																  if(form_id="#mnh_tool"){
+																  	 if(fdata.currentStep=='section-7'){
+																  //	alert('Yes');
+																   //$(form_id).formwizard('reset');
+																  	//$(form_id).formwizard('show','No');
+																  	 console.log($(form_id).formwizard('state'));
+																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
+																  		window.location='<?php echo base_url();?>commodity/assessment'; });
+																  	
+																  }
+																  }else{
+																  	 if(fdata.currentStep=='section-6'){
 																  //	alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
@@ -422,6 +439,8 @@ $mfCode = $this -> session -> userdata('fCode');
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){ });
 																  	
 																  }
+																  }
+																 
 																});
 											 		}else{
 											 			$("#data").html("");
@@ -442,9 +461,9 @@ $mfCode = $this -> session -> userdata('fCode');
 								
 								$(form_id).bind("before_step_shown", function(event, data){
 									
-									
-																		
-									if(data.previousStep=='section-1'){
+									//alert(form_id);
+										if(form_id="#mch_tool"){						
+									if(data.previousStep=='section-6'){
 										//alert('yes');
 										if(data.currentStep=='No'){
 										$("#data").fadeTo(5000,0);
@@ -456,6 +475,22 @@ $mfCode = $this -> session -> userdata('fCode');
 										$('#back').prop('disabled',true);
 									}else{
 										$('#sectionNavigation').show();
+									}
+									
+									}else{
+										if(data.previousStep=='section-1'){
+										//alert('yes');
+										if(data.currentStep=='No'){
+										$("#data").fadeTo(5000,0);
+										$('#sectionNavigation').hide();
+										
+										}
+									}else if(data.currentStep=='section-6'){
+										//$(form_id).formwizard("destroy");
+										$('#back').prop('disabled',true);
+									}else{
+										$('#sectionNavigation').show();
+									}
 									}
 								});
 								
@@ -516,7 +551,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								
+								//$(form_id).formwizard('show','section-6');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

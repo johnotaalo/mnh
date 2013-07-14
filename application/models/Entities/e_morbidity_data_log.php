@@ -3,16 +3,16 @@ namespace models\Entities;
 
 	/**
 	 * @Entity
-	 * @Table(name="deliveries_no_log")
+	 * @Table(name="morbidity_data_log")
 	 */
- class E_Deliveries_No_Log{
+ class E_Morbidity_Data_Log{
  	
    /**
 	* @Id
-	* @Column(name="idDeliveriesNo", type="integer", length=11, nullable=false)
+	* @Column(name="idDiarrhoeaCases", type="integer", length=11, nullable=false)
 	* @GeneratedValue(strategy="AUTO")
 	* */
-	private $idDeliveriesNo;
+	private $idDiarrhoeaCases;
 	
    /**
 	* @Column(name="jan12", type="integer",length=11, nullable=false)
@@ -118,11 +118,11 @@ namespace models\Entities;
 	
 	
 	
-	public function getIdDeliveriesNo() {
-			return $this -> idDeliveriesNo;
+	public function getIdDiarrhoeaCases() {
+			return $this -> idDiarrhoeaCases;
 	}
 	
-	public function setIdDeliveriesNo($idDeliveriesNo) { $this -> idDeliveriesNo= $idDeliveriesNo;
+	public function setIdDiarrhoeaCases($idDiarrhoeaCases) { $this -> idDiarrhoeaCases= $idDiarrhoeaCases;
 	}
 	
 	public function setJan12($jan12) { $this -> jan12= $jan12;

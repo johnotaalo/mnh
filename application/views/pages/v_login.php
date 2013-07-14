@@ -134,7 +134,7 @@
 				</label-->
 				<label style="color: #e34848;display:none" for="buttonsPane" >Invalid District and Password Combination!</label>
 				<div class="buttonsPane">
-					<button type="submit" class="awesome blue medium">Login</button>	
+					<button type="submit" class="awesome blue medium" style="width:inherit">Begin <?php echo $survey ?> Survey</button>	
 				</div>
 			</form>
 		</div>
@@ -146,7 +146,7 @@
 	</div><!-- container -->
 
 		<!--footer-->
-		<div style="margin-left:20%;margin-top:5%">
+		<div style="margin-left:0;margin-top:5%">
 			<?php $this->load->view('segments/footer'); ?>
 		</div>
 		

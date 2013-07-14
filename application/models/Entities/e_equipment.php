@@ -30,7 +30,10 @@ class E_Equipment{
 	 * */
 	private $equipmentUnit;
 	
-	
+	/**
+	 * @Column(name="equipmentFor", type="string", length=3, nullable=false)
+	 * */
+	private $equipmentFor;
 
     
 	public function getEquipmentID() {
@@ -66,6 +69,14 @@ class E_Equipment{
 		$this -> equipmentUnit = $equipmentUnit;
 	}
 	
+	public function getEquipmentFor() {
+		return $this -> equipmentFor;
+	}
+	
+	public function setEquipmentFor($equipmentFor) {
+		$this -> equipmentFor = $equipmentFor;
+	}
+
 	
 	
 	

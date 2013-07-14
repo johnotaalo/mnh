@@ -24,6 +24,11 @@ namespace models\Entities;
 	* */
 	private $guidelineName;
 	
+	/**
+	* @Column(name="guidelineFor", type="string",length=3, nullable=false)
+	* */
+	private $guidelineFor;
+	
 	 
 	public function getGuidelineId() {
 			return $this -> idGuidelines;
@@ -43,6 +48,13 @@ namespace models\Entities;
 	}
 	
 	public function setGuidelineName($guidelineName) { $this -> guidelineName = $guidelineName;
+	}
+	
+	public function getGuidelineFor() {
+			return $this -> guidelineFor;
+	}
+	
+	public function setGuidelineFor($guidelineFor) { $this -> guidelineFor = $guidelineFor;
 	}
 	
 }

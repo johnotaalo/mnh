@@ -28,6 +28,12 @@ namespace models\Entities;
 	* @Column(name="suppliesName", type="string",length=45, nullable=false)
 	* */
 	private $suppliesName;
+	
+	/**
+	* @Column(name="suppliesFor", type="string",length=3, nullable=false)
+	* */
+	private $suppliesFor;
+	
 	 
 	public function getsuppliesID() {
 			return $this -> suppliesID;
@@ -55,6 +61,13 @@ namespace models\Entities;
 	}
 	
 	public function setsuppliesUnit($suppliesUnit) { $this -> suppliesUnit = $suppliesUnit;
+	}
+	
+	public function getSuppliesFor() {
+			return $this -> suppliesFor;
+	}
+	
+	public function setSuppliesFor($suppliesFor) { $this -> suppliesFor = $suppliesFor;
 	}
 }
 ?>

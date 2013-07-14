@@ -23,6 +23,11 @@ namespace models\Entities;
 	* @Column(name="supplierCode", type="string",length=55, nullable=false)
 	* */
 	private $supplierCode;
+	
+	/**
+	* @Column(name="supplierFor", type="string",length=3, nullable=false)
+	* */
+	private $supplierFor;
 	 
 	public function getSupplierId() {
 			return $this -> idSupplier;
@@ -43,6 +48,13 @@ namespace models\Entities;
 	}
 	
 	public function setSupplierCode($supplierCode) { $this -> supplierCode = $supplierCode;
+	}
+	
+	public function getSupplierFor() {
+			return $this -> supplierFor;
+	}
+	
+	public function setSupplierFor($supplierFor) { $this -> supplierFor = $supplierFor;
 	}
 }
 ?>

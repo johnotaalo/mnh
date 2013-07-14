@@ -41,8 +41,8 @@
 $route['default_controller'] = 'c_front';
 $route['home']='c_front/index';
 $route['404_override'] = '';
-$route['assesment/commodity']='c_front/active_survey';#active survey url, in this case: mnh commodities
-$route['assesment/supplies']='c_front/active_survey';#active survey url, in this case: mnh supplies
+$route['mnh/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh commodities
+$route['ch/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh supplies
 $route['commodity/assessment']='c_front/inventory'; #active survey home page url
 
 $route['analysis/commodity']='c_analytics/active_results';#active results url, in this case: mnh commodities
