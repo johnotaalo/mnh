@@ -191,11 +191,11 @@ class  MY_Controller  extends  CI_Controller {
 			<td width="50">
 			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Not Applicable">1.Not Applicable</option>
-				<option value="Not Ordered">2. Not Ordered</option>
-				<option value="Ordered but not yet Received">3. Ordered but not yet Received</option>
-				<option value="Expired">4. Expired</option>
-				<option value="All Used">5. All Used</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				<option value="Not Applicable">5. Not Applicable</option>
 				
 
 			</select></td>
@@ -231,12 +231,11 @@ class  MY_Controller  extends  CI_Controller {
 			<td width="50">
 			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
-				<option value="Not Applicable">1. Not Applicable</option>
-				<option value="Not Ordered">2. Not Ordered</option>
-				<option value="Ordered but not yet Received">3. Ordered but not yet Received</option>
-				<option value="Expired">4. Expired</option>
-				<option value="All Used">5. All Used</option>
-				
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				<option value="Not Applicable">5. Not Applicable</option>
 
 			</select></td>
 			<td style ="text-align:center;">
@@ -338,7 +337,7 @@ class  MY_Controller  extends  CI_Controller {
 			
 		}else{
 			
-			if($value['questionCode']=='QUC02'){
+			if($value['questionCode']=='QUC02b'){
 				$ort_location='<tr id="ort_location" style="display:true">
 			<td colspan="1">'.$value['mchQuestion'].'</td>
 			<td colspan="2">
@@ -712,9 +711,9 @@ public function createSuppliesMCHSection(){
 			<td style ="text-align:center;">
 			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Other" />
 			</td>
-			<td style ="text-align:center;">
+			<!--td style ="text-align:center;">
 			<input name="sqNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
-			</td>
+			</td-->
 			<td width="50">
 			<select name="sqSupplier_'.$counter.'" id="sqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>
@@ -722,7 +721,7 @@ public function createSuppliesMCHSection(){
 				<option value="Privately Supplied">2. Privately Supplied</option>
 				<option value="Own Initiave">3. Own Initiave</option>
 			</select></td>
-			<td width="50">
+			<!--td width="50">
 			<select name="sqReason_'.$counter.'" id="sqReason_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Not Ordered">1. Not Ordered</option>
@@ -731,7 +730,7 @@ public function createSuppliesMCHSection(){
 				<option value="All Used">4. All Used</option>
 				
 
-			</select></td>
+			</select></td-->
 			<input type="hidden"  name="sqSuppliesCode_'.$counter.'" id="sqSuppliesCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
 		</tr>';
 		
@@ -861,7 +860,7 @@ public function createTreatmentsMCHSection(){
    	foreach($this->data_found as $value){
    		$counter++;
 		
-		if($value['treatmentCode']=='TRM05'){
+		if($value['treatmentName']=='Others'){
 			$this->treatmentMCHSection.='<tr>
 			<td >'.$value['treatmentName'].' '.$unit.'<input name="mchTreatmentOther_'.$counter.'" type="text"  size="64" placeholder="please specify"/> </td>
 			<td style ="text-align:center;">

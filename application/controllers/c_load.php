@@ -82,7 +82,7 @@ class C_Load extends MY_Controller {
 
   				 <p id="data" class="feedback"></p>
 		         <!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
-		         <p style="color:#488214">You are currently taking '.strtoupper($this->session->userdata('survey')).' Survey.</p>
+		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking '.(((strtoupper($this->session->userdata('survey')))=='CH')?'Child Health':'Maternal and Newborn Health').' Survey.</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
 		          <p style="display:true" class="message success">SECTION 1 of 7</p>
@@ -610,7 +610,7 @@ public function get_mch_form()
 				<form class="bbq" name="mch_tool" id="mch_tool" method="POST">
 
   				 <p id="data" class="feedback"></p>
-		         <p style="color:#488214">You are currently taking '.strtoupper($this->session->userdata('survey')).' Survey</p>
+		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking '.(((strtoupper($this->session->userdata('survey')))=='CH')?'Child Health':'Maternal and Newborn Health').' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
 		          <p style="display:true" class="message success">SECTION 1 of 6: FACILITY INFORMATION</p>
@@ -691,7 +691,7 @@ public function get_mch_form()
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
-		<tr>
+		<!--tr>
 			<TD  colspan="2">Maternity </TD><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
@@ -701,7 +701,7 @@ public function get_mch_form()
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
-		</tr>
+		</tr-->
 
 	</table>
 	</div><!--\.the section-1 -->
@@ -738,7 +738,7 @@ public function get_mch_form()
 		<th colspan ="2" style="text-align:left"> TRAININGS</th>
 		<th style="text-align:left">Number Trained in the Last 2 Years</th>
 		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
-		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
+		Trained in the Last 2 Years are still Working in Child Health?</div></th>
 		
 		'.$this->mchTrainingGuidelineSection.'
 
@@ -1038,7 +1038,7 @@ public function get_mch_form()
 	 <p style="display:true" class="message success">SECTION 6 of 6: SUPPLIES AVAILABILITY</p>
 		 <table  class="centre" >
 		<thead>
-			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 		</thead>
 		<tr>
 			<th scope="col" >Supplies Name</th>
@@ -1047,15 +1047,15 @@ public function get_mch_form()
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th>Available Supplies</th>
+			<!--th>Available Supplies</th-->
 			<th scope="col">
 			
 				Main Supplier
 			</th>
-			<th scope="col">
+			<!--th scope="col">
 			<div style="width: 100px" >
 				Main Reason For  Unavailability
-			</div></th>
+			</div></th-->
 
 		</tr>
 		<tr >
@@ -1070,8 +1070,8 @@ public function get_mch_form()
 			<td>Ward</td>
 			<td>Other</td>
 
-			<td style="text-align:center">No.of Supplies</td>
-			<td></td>
+			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td></td-->
 			<td></td>
 			
 			

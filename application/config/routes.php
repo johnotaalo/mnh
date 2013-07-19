@@ -45,8 +45,8 @@ $route['mnh/takesurvey']='c_front/active_survey';#active survey url, in this cas
 $route['ch/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh supplies
 $route['commodity/assessment']='c_front/inventory'; #active survey home page url
 
-$route['analysis/commodity']='c_analytics/active_results';#active results url, in this case: mnh commodities
-$route['analysis/supplies']='c_analytics/active_results';#active results url, in this case: mnh commodities
+$route['mnh/analytics']='c_analytics/active_results';#active results url, in this case: mnh commodities
+$route['ch/analytics']='c_analytics/active_results';#active results url, in this case: mnh commodities
 
 $route['session/new']='c_auth/go';#log in url
 $route['session/close']='c_auth/logout';#log out url

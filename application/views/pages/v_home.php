@@ -100,8 +100,8 @@
 
 						<p> 
 							<ul class="nice-list">
-					           <!--li><a href="<?php echo base_url(); ?>assesment/commodity"> 1. MNH Commodity,Equipment and Supplies Assessment</a></li-->
-					           <li><a href="#"> The page is under construction. Link will be available soon. </a></li>
+					           <li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li>
+					           <!--li><a href="#"> The page is under construction. Link will be available soon. </a></li-->
 					           <!--li>Post surveys online for easy access</li>
 					            <li>Conduct timely Analysis</li-->
 					        </ul>

@@ -22,64 +22,6 @@
 	<script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
 	<script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
 	
-	<script>
-		$().ready(function(){
-				var foundNames;
-				$(function(){
-					//load json data
-					 var cache = {},lastXhr;
-				    $( "#username" ).autocomplete({
-				    	 	delay: 500,
-				    	 	minLength: 2,
-				            source: function( request, response ) {
-				                var term = request.term;
-				                if ( term in cache ) {
-				                    response( cache[ term ] );
-				                    return;
-				                }
-				 
-				                $.getJSON( '<?php echo base_url();?>c_load/suggestFacilityName', request, function( data, status, xhr ) {
-				                    cache[ term ] = data;
-				                    response( data );
-				                });
-				            }
-				    });
-		
-				});//end of $(function(){
-				
-				
-			});
-	</script>
-	
-	<style type="text/css">
-		/*auto complete styling*/
-		.ui-autocomplete {
-		    max-height: 100px;
-		    overflow-y: auto;
-		    /* prevent horizontal scrollbar */
-		    overflow-x: hidden;
-		    background:#FFFFFF;
-		    border:1px solid #999;
-		    width:25%;
-		}
-		.ui-menu-item{
-			cursor:pointer;
-		}
-		.ui-menu-item:hover{
-			color:#3333FF;
-			cursor:hand;
-		}
-		/* IE 6 doesn't support max-height
-		 * we use height instead, but this forces the menu to always be this tall
-		 */
-		html .ui-autocomplete {
-		    height: 100px;
-		}
-		.ui-autocomplete-loading {
-			background: white url('<?php echo base_url(); ?>images/ui-anim_basic_16x16.gif') right center no-repeat;
-		}
-	</style>
-	
 </head>
 <body>
 	
