@@ -167,8 +167,8 @@ $mfCode = $this -> session -> userdata('fCode');
 						$('#facilityHName').val(facility.facilityName);
 						
 						//$("#facilityType").val(facility.facilityType);
-  						//$("#facilityLevel").val(facility.facilityLevel);
-  						//$("#facilityOwnedBy").val(facility.facilityOwnedBy);
+  						$("#facilityLevel").val(facility.facilityLevel);
+  						$("#facilityOwnedBy").val(facility.facilityOwnedBy);
 						//$("#facilityDistrict").val(facility.facilityDistrict);
 						//$("#facilityCounty").val(facility.facilityCounty);
 						
@@ -390,7 +390,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: false,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -411,7 +411,11 @@ $mfCode = $this -> session -> userdata('fCode');
 
 								$(form_id+" .step").each(function(){ // for each step in the wizard, add an option to the remoteAjax object...
 									remoteAjax[$(this).attr("id")] = {
-										url : "<?php echo base_url()?>submit/c_form/complete_commodity_survey", // the url which stores the stuff in db for each step
+										<?php if($this->session->userdata('survey')=='mnh'){?>
+											url : "<?php echo base_url()?>submit/c_form/complete_mnh_survey", // the url which stores the stuff in db for each step
+										<?php }else{?>
+											url : "<?php echo base_url()?>submit/c_form/complete_ch_survey", // the url which stores the stuff in db for each step
+										<?php }?>
 										dataType : 'json',
 										beforeSubmit: function(data){$("#data").html("<div class='error ui-autocomplete-loading' style='width:auto;height:25px'>Processing...</div>")},
 										//beforeSubmit: function(data){$("#data").html("Saving the previous section's response")},
@@ -420,23 +424,25 @@ $mfCode = $this -> session -> userdata('fCode');
 											 			//$("#data").show();
 											 			$("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
 																$(form_id).bind("after_remote_ajax", function(event, fdata){
-																  if(form_id="#mnh_tool"){
+																	//console.log($(form_id).formwizard('state'));
+																  if(form_id=="#mnh_tool"){
 																  	 if(fdata.currentStep=='section-7'){
 																  //	alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
-																  	 console.log($(form_id).formwizard('state'));
+																  	// console.log($(form_id).formwizard('state'));
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
 																  		window.location='<?php echo base_url();?>commodity/assessment'; });
 																  	
 																  }
 																  }else{
 																  	 if(fdata.currentStep=='section-6'){
-																  //	alert('Yes');
+																    //alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
-																  	 console.log($(form_id).formwizard('state'));
-																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){ });
+																  	// console.log($(form_id).formwizard('state'));
+																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
+																  		window.location='<?php echo base_url();?>commodity/assessment'; });
 																  	
 																  }
 																  }
@@ -444,7 +450,7 @@ $mfCode = $this -> session -> userdata('fCode');
 																});
 											 		}else{
 											 			$("#data").html("");
-											 			alert("An internal error occurred, nothing was stored.");
+											 			alert("An unknown error occurred, try retaking the survey later on. Kindly report this incidence.");
 											 			return false;
 											 		}
 											 		

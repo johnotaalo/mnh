@@ -25,6 +25,11 @@ namespace models\Entities;
 	* @Column(name="lastActivity", type="datetime", nullable=false)
 	* */
 	private $lastActivity;
+	
+	/**
+	* @Column(name="survey", type="string",length=4, nullable=false)
+	* */
+	private $survey;
 
 	/**
 	* @ManyToOne(targetEntity="facility",inversedBy="facilityMFC")
@@ -51,6 +56,13 @@ namespace models\Entities;
 	}
 
 	public function setLastActivity($lastActivity) { $this -> lastActivity = $lastActivity;
+	}
+	
+	public function getSurvey() {
+			return $this -> survey;
+	}
+
+	public function setSurvey($survey) { $this -> survey = $survey;
 	}
 
 	public function getFacilityCode() {

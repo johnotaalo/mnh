@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$level,$supplies,$equipment,$query,
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$supplies,$equipment,$query,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchTreatment,$ortAspect,$trainingGuidelines,$districtFacilities,$fCode;
 
 function __construct() {
@@ -358,6 +358,17 @@ function __construct() {
 				//die($ex->getMessage());
 			}
 	}
+	
+	/*utilized in several models*/
+	public function getFacilityOwnerNameById($id){
+		try{
+			$this->ownerName=$this->em->getRepository('models\Entities\e_facility_owner')
+			                       ->findOneBy( array('facilityOwnerID'=>$id));
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
 
 	/*utilized in several models*/
 	public function getProvinceName($id){
@@ -387,10 +398,10 @@ function __construct() {
 	}/*close facilityExists($mfc)*/
 
 	//check if tracker entry has already been done
-   public function sectionEntryExists($mfc,$section){
+   public function sectionEntryExists($mfc,$section,$survey){
 	     try{
 			$this->section=$this->em->getRepository('models\Entities\e_assessment_tracker')
-			                       ->findOneBy( array('facilityCode'=>$mfc,'trackerSection'=>$section));
+			                       ->findOneBy( array('facilityCode'=>$mfc,'trackerSection'=>$section,'survey'=>$survey));
 			if($this->section){
 				$this->sectionExists=true;
 			}
@@ -400,7 +411,7 @@ function __construct() {
 			}
 			return $this->section;
 
-	}/*close sectionEntryExists($mfc,$section)*/
+	}/*close sectionEntryExists($mfc,$section,$survey)*/
 	
 	//used in m_zinc_ors_inventory
    public function findOrtCodeByFacility($mfc){
@@ -482,7 +493,10 @@ function __construct() {
 			//$this->getCountyName($this->input->post('facilityCounty'));/*method defined in MY_Model*/
 			//$this->getDistrictName($this->input->post('facilityDistrict'));/*method defined in MY_Model*/
 			
-			//$this->getLevelName($this->input->post('facilityLevel',TRUE));/*method defined in MY_Model*/
+			$this->getLevelName($this->input->post('facilityLevel',TRUE));/*method defined in MY_Model*/
+			
+			//get owner name by id passed
+			$this->getFacilityOwnerNameById($this->input->post('facilityOwnedBy',TRUE));
 			
 			//$this->getProvinceName($this->input->post('facilityProvince'));/*method defined in MY_Model*/
 
@@ -513,6 +527,7 @@ function __construct() {
 
 				//$this -> theForm -> setFacilityDistrict($this->district->getDistrictName());
 				$this -> theForm -> setFacilityLevel($this->input->post('facilityLevel',TRUE));
+				$this -> theForm -> setFacilityOwnedBy($this->ownerName->getFacilityOwner());
 				//$this -> theForm -> setFacilityProvince($this->province->getProvinceName());
 				//$this -> theForm -> setFacilityCounty($this->county->getCountyName());
 				$this -> theForm -> setFacilityInchargeContactPerson($this->input->post('facilityInchargename',TRUE));
@@ -525,9 +540,12 @@ function __construct() {
 
 				($this->elements['facilityMchemail']=='')?$this -> theForm -> setFacilityMCHEmail('n/a'):$this -> theForm -> setFacilityMCHEmail($this->input->post('facilityMchemail',TRUE));
 
-				(isset($this->elements['facilityMaternityname']) && $this->elements['facilityMaternityname']!='')?$this -> theForm -> setFacilityMaternityContactPerson($this->input->post('facilityMaternityname',TRUE)):$this -> theForm -> setFacilityMaternityContactPerson('n/a');
+               //facility data specific to mnh survey only
+               if($this -> session -> userdata('fName')=='mnh'){
+               	(isset($this->elements['facilityMaternityname']) && $this->elements['facilityMaternityname']!='')?$this -> theForm -> setFacilityMaternityContactPerson($this->input->post('facilityMaternityname',TRUE)):$this -> theForm -> setFacilityMaternityContactPerson('n/a');
 				(isset($this->elements['facilityMaternitymobile']) && $this->elements['facilityMaternitymobile']!='')?$this -> theForm -> setFacilityMaternityTelephone($this->input->post('facilityMaternitymobile',TRUE)):'n/a';
 				(isset($this->elements['facilityMaternityemail']) && $this->elements['facilityMaternityemail']!='' )?$this -> theForm -> setFacilityMaternityEmail($this->input->post('facilityMaternityemail',TRUE)):$this -> theForm -> setFacilityMaternityEmail('n/a');
+				
 				
 				if($this->elements['facDeliveriesDone']=='No'){
 					(isset($this->elements['facRsnNoDeliveries']) )?$this -> theForm -> setReasonDeliveryNotDone($this->elements['facRsnNoDeliveries']):$this -> theForm -> setReasonDeliveryNotDone('n/a');
@@ -537,6 +555,8 @@ function __construct() {
 				}
 				
 				$this -> theForm -> setDeliveriesDone($this->elements['facDeliveriesDone']);
+               }//close if statement
+				
 				
 				$this -> em -> persist($this -> theForm);
                 
@@ -557,10 +577,10 @@ function __construct() {
 
 	} //close updateFacilityInfo
 
-	//assuming mnh assessment is taken, every facility has exactly 7 entries for each active survey
+	//assuming mnh/mch assessment is taken, every facility has exactly 6 and 7 entries respectively, for each active survey
 	protected function writeAssessmentTrackerLog(){
-		 //check if entry exists
-			$this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+		    //check if entry exists
+			$this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
 			//print var_dump($this->section);
 
@@ -569,13 +589,14 @@ function __construct() {
 					//die('New entry, enter new one');
 			   $this -> theForm = new \models\Entities\e_assessment_tracker(); //create an object of the model
 			   $this -> theForm -> setTrackerSection($this->input->post('step_name',TRUE));
+			   $this -> theForm -> setSurvey($this->session->userdata('survey'));//obtain facility code from current survey session val
 			   $this -> theForm -> setLastActivity(new DateTime()); /*timestamp option*/
 			   $this -> theForm -> setFacilityCode($this->session->userdata('fCode'));//obtain facility code from current temp session val
 				}else{
                  // die('Update log');
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_assessment_tracker')
-					                       ->findOneBy( array('facilityCode'=>$this->session->userdata('fCode'),'trackerSection'=>$this->input->post('step_name',TRUE)));
+					                       ->findOneBy( array('facilityCode'=>$this->session->userdata('fCode'),'trackerSection'=>$this->input->post('step_name',TRUE),'survey'=>$this->session->userdata('survey')));
 
 				}catch(exception $ex){
 						//ignore
@@ -607,11 +628,11 @@ function __construct() {
    protected function markSurveyStatusAsComplete(){
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_facility')
-					                       ->findOneBy( array('facilityCode'=>$this->session->userdata('fCode')));
+					                       ->findOneBy( array('facilityMFC'=>$this->session->userdata('fCode')));
 
 				}catch(exception $ex){
 						//ignore
-						//die($ex->getMessage());
+						die($ex->getMessage());
 					}	
 				
 

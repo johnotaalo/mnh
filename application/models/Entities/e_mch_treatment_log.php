@@ -29,6 +29,11 @@ namespace models\Entities;
 	private $someDehydrationNo;
 	
 	/**
+	* @Column(name="noDehydrationNo", type="integer",length=11, nullable=false)
+	* */
+	private $noDehydrationNo;
+	
+	/**
 	* @Column(name="dysentryNo", type="integer",length=11, nullable=false)
 	* */
 	private $dysentryNo;
@@ -85,6 +90,13 @@ namespace models\Entities;
 	}
 	
 	public function setSomeDehydrationNo($someDehydrationNo) { $this -> someDehydrationNo = $someDehydrationNo;
+	}
+	
+	public function getNoDehydrationNo() {
+			return $this -> noDehydrationNo;
+	}
+	
+	public function setNoDehydrationNo($noDehydrationNo) { $this -> noDehydrationNo = $noDehydrationNo;
 	}
 	
 	public function getDysentryNo() {

@@ -15,62 +15,62 @@ namespace models\Entities;
 	private $idDiarrhoeaCases;
 	
    /**
-	* @Column(name="jan12", type="integer",length=11, nullable=false)
+	* @Column(name="jan12", type="integer",length=11, nullable=true)
 	* */
 	private $jan12;
 	
 	/**
-	* @Column(name="feb12", type="integer",length=11, nullable=false)
+	* @Column(name="feb12", type="integer",length=11, nullable=true)
 	* */
 	private $feb12;
 	
 	/**
-	* @Column(name="mar12", type="integer",length=11, nullable=false)
+	* @Column(name="mar12", type="integer",length=11, nullable=true)
 	* */
 	private $mar12;
 	
 	/**
-	* @Column(name="apr12", type="integer",length=11, nullable=false)
+	* @Column(name="apr12", type="integer",length=11, nullable=true)
 	* */
 	private $apr12;
 	
 	/**
-	* @Column(name="may12", type="integer",length=11, nullable=false)
+	* @Column(name="may12", type="integer",length=11, nullable=true)
 	* */
 	private $may12;
 	
 	/**
-	* @Column(name="jun12", type="integer",length=11, nullable=false)
+	* @Column(name="jun12", type="integer",length=11, nullable=true)
 	* */
 	private $jun12;
 	
 	/**
-	* @Column(name="jul12", type="integer",length=11, nullable=false)
+	* @Column(name="jul12", type="integer",length=11, nullable=true)
 	* */
 	private $jul12;
 	
 	/**
-	* @Column(name="aug12", type="integer",length=11, nullable=false)
+	* @Column(name="aug12", type="integer",length=11, nullable=true)
 	* */
 	private $aug12;
 	
 	/**
-	* @Column(name="sep12", type="integer",length=11, nullable=false)
+	* @Column(name="sep12", type="integer",length=11, nullable=true)
 	* */
 	private $sep12;
 	
 	/**
-	* @Column(name="oct12", type="integer",length=11, nullable=false)
+	* @Column(name="oct12", type="integer",length=11, nullable=true)
 	* */
 	private $oct12;
 	
 	/**
-	* @Column(name="nov12", type="integer",length=11, nullable=false)
+	* @Column(name="nov12", type="integer",length=11, nullable=true)
 	* */
 	private $nov12;
 	
 	/**
-	* @Column(name="dec12", type="integer",length=11, nullable=false)
+	* @Column(name="dec12", type="integer",length=11, nullable=true)
 	* */
 	private $dec12;
 	

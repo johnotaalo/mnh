@@ -24,8 +24,9 @@ namespace models\Entities;
 	* */
 	private $equipLocation;
 	
+	
 	/**
-	* @Column(name="equipmentID", type="integer",length=55)
+	* @Column(name="equipmentID", type="string",length=55)
 	* */
 	private $equipmentID;
 	

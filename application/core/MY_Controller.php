@@ -262,7 +262,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
 			</td-->
 			<td width="50">
-			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" >
+			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>'.$supplier_names.'
 			</select></td>
 			<input type="hidden"  name="cqCommodityCode_'.$counter.'" id="cqCommodityCode_'.$counter.'" value="'.$value['commodityCode'].'" />
@@ -862,43 +862,43 @@ public function createTreatmentsMCHSection(){
 		
 		if($value['treatmentName']=='Others'){
 			$this->treatmentMCHSection.='<tr>
-			<td >'.$value['treatmentName'].' '.$unit.'<input name="mchTreatmentOther_'.$counter.'" type="text"  size="64" placeholder="please specify"/> </td>
+			<td >'.$value['treatmentName'].' '.$unit.'<input name="mchtTreatmentOther_'.$counter.'" type="text"  size="64" placeholder="please specify"/> </td>
 			<td style ="text-align:center;">
-			<input name="mchSevereDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtSevereDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchSomeDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtSomeDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchNoDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtNoDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchDysentry_'.$counter.'" type="text"  size="8" />
+			<input name="mchtDysentry_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchNoClassification_'.$counter.'" type="text"  size="8" />
+			<input name="mchtNoClassification_'.$counter.'" type="text"  size="8" />
 			</td>
-			<input type="hidden"  name="mchTreatmentCode_'.$counter.'" id="mchTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
+			<input type="hidden"  name="mchtTreatmentCode_'.$counter.'" id="mchtTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
 		</tr>';
 		}else{
 			$this->treatmentMCHSection.='<tr>
 			<td >'.$value['treatmentName'].' '.$unit.' </td>
 			<td style ="text-align:center;">
-			<input name="mchSevereDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtSevereDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchSomeDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtSomeDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchNoDehydration_'.$counter.'" type="text"  size="8" />
+			<input name="mchtNoDehydration_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchDysentry_'.$counter.'" type="text"  size="8" />
+			<input name="mchtDysentry_'.$counter.'" type="text"  size="8" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="mchNoClassification_'.$counter.'" type="text"  size="8" />
+			<input name="mchtNoClassification_'.$counter.'" type="text"  size="8" />
 			</td>
-			<input type="hidden"  name="mchTreatmentCode_'.$counter.'" id="mchTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
+			<input type="hidden"  name="mchtTreatmentCode_'.$counter.'" id="mchtTreatmentCode_'.$counter.'" value="'.$value['treatmentCode'].'" />
 		</tr>';
 		}
 		

@@ -861,7 +861,6 @@ public function get_mch_form()
 			<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
 		</thead>
 		
-		     
 			<th  style="width:35%">TOOL</th>
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
@@ -1096,9 +1095,9 @@ public function get_mch_form()
 		$this->message.='<div id="No" class="step"><!--end of assessment message section-->
 	<input type="hidden" name="step_name" value="end_of_assessment"/>
 	<div class="block">
-	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
+	        <p align="left" style="font-size:20px;color:#AA1317; font-weight:bold">Assessment Complete</p>
 			<p id="data" class="message success">Thanks for your participation.<br></p><br>
-			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			<!--p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p-->
 			</div>
 	</div><!--\.end of assessment message section-->';
 	    $data['form'] = $this->message;

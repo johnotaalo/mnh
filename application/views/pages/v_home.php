@@ -90,18 +90,13 @@
 
 					<div class="post-body">
 
-						
-
 						<!--p class="large">This is the Ministry of Health, Online Data Management tool.</p-->
 						
 						<p class="large"></p>
-									
-						
-
 						<p> 
 							<ul class="nice-list">
-					           <li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li>
-					           <!--li><a href="#"> The page is under construction. Link will be available soon. </a></li-->
+					           <!--li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li-->
+					           <li><a href="#"> The page is under construction. Link will be available soon. </a></li>
 					           <!--li>Post surveys online for easy access</li>
 					            <li>Conduct timely Analysis</li-->
 					        </ul>

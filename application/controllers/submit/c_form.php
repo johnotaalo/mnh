@@ -57,7 +57,7 @@ class C_Form extends MY_Controller{
 
 	}//close form_mnh_equipment_assessment()
 	
-	public function complete_commodity_survey(){
+	public function complete_mnh_survey(){
 		
 		$this->load->model('m_mnh_survey');
 		$this->m_mnh_survey->store_data();
@@ -79,5 +79,29 @@ class C_Form extends MY_Controller{
 			print 'false';
 		}
 
-	}//close complete_commodity_survey()
+	}//close complete_mnh_survey()
+	
+	public function complete_ch_survey(){
+		
+		$this->load->model('m_mch_survey');
+		$this->m_mch_survey->store_data();
+
+		if($this->m_mch_survey->response=='true'){
+			//notify user of success
+		/*	$data['form_id']="";
+			$data['form']='<p><b>Maternal & Newborn Commodity Assessment</b> data submitted successfully in 
+			approximately <b>'.$this->m_mnh_survey->executionTime.'</b> seconds.</p>';
+			redirect(base_url() . 'c_front/', 'location');
+			$this -> load -> view('pages/inventory/index', $data);*/
+           print 'true';
+
+		}else{
+			/*$data['form_id']="";
+			$data['form']='<p>Encountered an error. Data has not been submitted.</p>';
+			redirect(base_url() . 'c_front/', 'location');
+			$this -> load -> view('pages/inventory/index', $data);*/
+			print 'false';
+		}
+
+	}//close complete_mch_survey()
 }

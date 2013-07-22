@@ -127,8 +127,8 @@ class M_MNH_Survey  extends MY_Model {
 	}/*close verifyRespondedByDistrict*/
 	
 	 public function getFacilitiesByDistrict($district){
-			$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
-			//$this->getAllFacilitiesByDistrict($district);
+			//$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
+			$this->getAllFacilitiesByDistrict($district);
 			
 			//echo count($this->districtFacilities);die;
 			
@@ -1164,9 +1164,9 @@ class M_MNH_Survey  extends MY_Model {
 			
 		 	 $step=$this->input->post('step_name',TRUE);
 			/**/switch($step){
-			/*case 'section-1':
+			case 'section-1':
 			//check if entry exists
-			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
 			//print var_dump($this->section);
 
@@ -1185,7 +1185,7 @@ class M_MNH_Survey  extends MY_Model {
 				}
 				//return $this -> response = 'true';
 					break;
-			case 'section-2':
+			/*case 'section-2':
 					//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
 
@@ -1300,6 +1300,7 @@ class M_MNH_Survey  extends MY_Model {
                    }
 				   }else{
 					//die('Entry exsits');
+			         $this->markSurveyStatusAsComplete();
 					return $this -> response = 'true';
 				}
 					break;*/
