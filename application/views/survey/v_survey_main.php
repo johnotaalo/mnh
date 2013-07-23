@@ -468,7 +468,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								$(form_id).bind("before_step_shown", function(event, data){
 									
 									//alert(form_id);
-										if(form_id="#mch_tool"){						
+										if(form_id=="#mch_tool"){						
 									if(data.previousStep=='section-6'){
 										//alert('yes');
 										if(data.currentStep=='No'){
@@ -488,7 +488,9 @@ $mfCode = $this -> session -> userdata('fCode');
 										//alert('yes');
 										if(data.currentStep=='No'){
 										$("#data").fadeTo(5000,0);
-										$('#sectionNavigation').hide();
+										//$('#sectionNavigation').hide();
+										$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
+										window.location='<?php echo base_url();?>commodity/assessment'; });
 										
 										}
 									}else if(data.currentStep=='section-6'){
@@ -557,7 +559,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								//$(form_id).formwizard('show','section-6');
+								//$(form_id).formwizard('show','section-7');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

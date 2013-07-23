@@ -241,7 +241,7 @@ class M_MNH_Survey  extends MY_Model {
 				($this->elements['dnmarch_13']=='')?$this -> theForm -> setMar13(-1):$this -> theForm -> setMar13($this->elements['dnmarch_13']);
 				($this->elements['dnapril_13']=='')?$this -> theForm -> setApr13(-1):$this -> theForm -> setApr13($this->elements['dnapril_13']);
 				($this->elements['dnmay_13']=='')?$this -> theForm -> setMay13(-1):$this -> theForm -> setMay13($this->elements['dnmay_13']);
-				//($this->elements['dnjune_13']=='' || !isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
+				($this->elements['dnjune_13']=='' || !isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
 				
 				//$this -> theForm -> setDateOfAssessment(new DateTime()); //date set today's
 				$this -> em -> persist($this -> theForm);
@@ -1185,9 +1185,9 @@ class M_MNH_Survey  extends MY_Model {
 				}
 				//return $this -> response = 'true';
 					break;
-			/*case 'section-2':
+			/**/case 'section-2':
 					//check if entry exists
-			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
 			//print var_dump($this->section);
 
@@ -1207,7 +1207,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-3':
 						//check if entry exists
-				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
 				//print var_dump($this->section);
 	
@@ -1226,7 +1226,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-4':
 						//check if entry exists
-				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+				   $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
 				//print var_dump($this->section);
 	
@@ -1245,7 +1245,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-5':
 					//check if entry exists
-				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
 				//print var_dump($this->section);
 	
@@ -1264,7 +1264,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-6':
 					//check if entry exists
-				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
 				//print var_dump($this->section);
 	
@@ -1283,7 +1283,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-7':
 						//check if entry exists
-				  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE));
+				   $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
 				//print var_dump($this->section);
 	
@@ -1303,13 +1303,13 @@ class M_MNH_Survey  extends MY_Model {
 			         $this->markSurveyStatusAsComplete();
 					return $this -> response = 'true';
 				}
-					break;*/
+					break;/**/
 
 			}//close switch
 		 	//print var_dump($this->input->post());
 
 
-	   return $this -> response = 'true';
+	  // return $this -> response = 'true';
 		 }
  
 	}

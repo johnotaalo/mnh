@@ -192,7 +192,7 @@ class C_Load extends MY_Controller {
 	<th colspan ="2">  Inadequate commodities and supplies</th><th colspan ="2">  Other</th></tr>
 	<tr>
 	<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="1" />
+			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="1" class="cloned" />
 			</td>
 			<td style ="text-align:center;" colspan ="2">
 			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="2" />

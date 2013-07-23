@@ -112,6 +112,11 @@ namespace models\Entities;
 	private $facilitySurveyStatus;
 	
 	/**
+	* @Column(name="facilityCHSurveyStatus", type="string", length=15, nullable=false)
+	* */
+	private $facilityCHSurveyStatus;
+	
+	/**
 	* @Column(name="deliveriesDone", type="string", length=1, nullable=false)
 	* */
 	private $deliveriesDone;
@@ -263,6 +268,15 @@ namespace models\Entities;
 	public function setFacilitySurveyStatus($facilitySurveyStatus) { $this -> facilitySurveyStatus = $facilitySurveyStatus;
 	}
 	
+	
+	public function getFacilityCHSurveyStatus() {
+			return $this -> facilityCHSurveyStatus;
+	}
+
+	public function setFacilityCHSurveyStatus($facilityCHSurveyStatus) { $this -> facilityCHSurveyStatus = $facilityCHSurveyStatus;
+	}
+	
+
 	public function getDeliveriesDone() {
 			return $this -> deliveriesDone;
 	}

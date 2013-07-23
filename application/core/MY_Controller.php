@@ -185,7 +185,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
 			</td>
 			<td width="50">
-			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" >
+			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>'.$supplier_names.'
 			</select></td>
 			<td width="50">
@@ -344,6 +344,9 @@ class  MY_Controller  extends  CI_Controller {
 			<label>Multiple Selections Allowed</label><br/>
 			<input type="checkbox" name="ortcAspectLocResponse_'.$counter.'[]" id="ortcAspectLocResponse_'.$counter.'"  value="MCH"/>
 			<label for="" style="font-weight:normal">MCH</label><br/>
+			
+			<input type="checkbox" name="ortcAspectLocResponse_'.$counter.'[]" id="ortcAspectLocResponse_'.$counter.'"  value="U5 Clinic"/>
+			<label for="" style="font-weight:normal">U5 Clinic</label><br/>
 			
 			<input type="checkbox" name="ortcAspectLocResponse_'.$counter.'[]" id="ortcAspectLocResponse_'.$counter.'"  value="OPD"/>
 			<label for="" style="font-weight:normal">OPD</label><br/>
@@ -927,7 +930,7 @@ public function createSuppliesUsageAndOutageSection(){
 			<input name="usosUsage_'.$counter.'" type="text" size="5" />
 			</td -->
 			<td colspan="2">
-			<select name="usosTimesUnavailable_'.$counter.'" id="usosTimesUnavailable_'.$counter.'" >
+			<select name="usosTimesUnavailable_'.$counter.'" id="usosTimesUnavailable_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Once">a. Once</option>
 				<option value="2-3">b. 2-3 </option>
@@ -936,7 +939,7 @@ public function createSuppliesUsageAndOutageSection(){
 			</select></td>
 						
 			<td style ="text-align:center;">
-			<input name="usosWhatHappened_'.$counter.'[]" type="checkbox" value="1" />
+			<input name="usosWhatHappened_'.$counter.'[]" type="checkbox" value="1" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="usosWhatHappened_'.$counter.'[]" type="checkbox" value="2" />
@@ -964,6 +967,7 @@ public function createFacilitiesListSection(){
 	$this->m_mnh_survey->getFacilitiesByDistrict($this -> session -> userdata('dName'));
 	$counter=0;
 	$link='';
+	$surveyCompleteFlag='';
 	if(count($this->m_mnh_survey->districtFacilities)>0){
 		
 		//set session data
@@ -971,12 +975,20 @@ public function createFacilitiesListSection(){
 		//print 'true'; die;
 		foreach($this->m_mnh_survey->districtFacilities as $value){
    		$counter++;
-			
-		if($value['facilitySurveyStatus']=='complete'){
-			$link='<td colspan="5"><strong>'.$value['facilitySurveyStatus'].'</strong></td><td colspan="5" id="facility_2" class="no-action"><a id="'.$value['facilityMFC'].'" class="begin">Pending Analysis</a></td>';
+		
+		if($this -> session -> userdata('survey')=='mnh'){
+			$surveyCompleteFlag=$value['facilitySurveyStatus'];
 		}else{
-			$link='<td colspan="5">'.$value['facilitySurveyStatus'].'</td><td colspan="5" id="facility_1" class="action"><a id="'.$value['facilityMFC'].'" class="begin">Begin Survey</a></td>';
+			$surveyCompleteFlag=$value['facilityCHSurveyStatus'];
 		}
+		
+		if($surveyCompleteFlag=='complete'){
+			$link='<td colspan="5"><strong>'.$surveyCompleteFlag.'</strong></td><td colspan="5" id="facility_2" class="no-action"><a id="'.$value['facilityMFC'].'" class="begin">Pending Analysis</a></td>';
+		}else{
+			$link='<td colspan="5">'.$surveyCompleteFlag.'</td><td colspan="5" id="facility_1" class="action"><a id="'.$value['facilityMFC'].'" class="begin">Begin Survey</a></td>';
+		}
+		
+		
 		$this->districtFacilityListSection.='<tr> 
        	<td colspan="1">'.$counter.'</td>
 			<td colspan="7" >'.$value['facilityMFC'].'</td>

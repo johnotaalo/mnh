@@ -37,7 +37,7 @@ function __construct() {
 			
 			#Using DQL
 								   
-			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
+			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
 		    $this->districtFacilities->setParameter('district',$districtName);
           
             $this->districtFacilities = $this->districtFacilities->getArrayResult();
@@ -541,7 +541,7 @@ function __construct() {
 				($this->elements['facilityMchemail']=='')?$this -> theForm -> setFacilityMCHEmail('n/a'):$this -> theForm -> setFacilityMCHEmail($this->input->post('facilityMchemail',TRUE));
 
                //facility data specific to mnh survey only
-               if($this -> session -> userdata('fName')=='mnh'){
+               if($this -> session -> userdata('survey')=='mnh'){
                	(isset($this->elements['facilityMaternityname']) && $this->elements['facilityMaternityname']!='')?$this -> theForm -> setFacilityMaternityContactPerson($this->input->post('facilityMaternityname',TRUE)):$this -> theForm -> setFacilityMaternityContactPerson('n/a');
 				(isset($this->elements['facilityMaternitymobile']) && $this->elements['facilityMaternitymobile']!='')?$this -> theForm -> setFacilityMaternityTelephone($this->input->post('facilityMaternitymobile',TRUE)):'n/a';
 				(isset($this->elements['facilityMaternityemail']) && $this->elements['facilityMaternityemail']!='' )?$this -> theForm -> setFacilityMaternityEmail($this->input->post('facilityMaternityemail',TRUE)):$this -> theForm -> setFacilityMaternityEmail('n/a');
@@ -555,7 +555,7 @@ function __construct() {
 				}
 				
 				$this -> theForm -> setDeliveriesDone($this->elements['facDeliveriesDone']);
-               }//close if statement
+               } //close if statement
 				
 				
 				$this -> em -> persist($this -> theForm);
@@ -632,11 +632,16 @@ function __construct() {
 
 				}catch(exception $ex){
 						//ignore
-						die($ex->getMessage());
+						//die($ex->getMessage());
 					}	
 				
 
-			 	$this -> theForm -> setFacilitySurveyStatus('complete');
+               if($this -> session -> userdata('survey')=='mnh'){
+			   $this -> theForm -> setFacilitySurveyStatus('complete');
+               }else{
+               	$this -> theForm -> setFacilityCHSurveyStatus('complete');
+               }
+			 	
 
 				$this -> em -> persist($this -> theForm);
                 
@@ -646,7 +651,7 @@ function __construct() {
 				$this->em->clear(); //detaches all objects from doctrine
 				//print 'true';
 				}catch(Exception $ex){
-				   die($ex->getMessage());
+				   //die($ex->getMessage());
 				    //print 'false';
 					/*display user friendly message*/
 
