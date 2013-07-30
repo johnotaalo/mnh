@@ -44,6 +44,13 @@ class M_MCH_Survey  extends MY_Model {
 		//var_dump($this->supplierList);die;
 		return $this->supplierList;
     }
+	
+	/*calls the query defined in MY_Model*/
+	public function getOtherSupplierNames(){
+    	$this->supplierList=$this->getAllCommoditySupplierNames('mch');
+		//var_dump($this->supplierList);die;
+		return $this->supplierList;
+    }
 
    /*calls the query defined in MY_Model*/
 	public function getTrainingGuidelines(){
@@ -153,7 +160,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -169,7 +176,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this->em->clear(); //detactes all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 					
 					/*display user friendly message*/
@@ -273,7 +280,7 @@ class M_MCH_Survey  extends MY_Model {
 				
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -411,7 +418,7 @@ class M_MCH_Survey  extends MY_Model {
 				}
 				
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -523,7 +530,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -539,7 +546,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this->em->clear(); //detactes all objects from doctrine
 				//return true;
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 					
 					/*display user friendly message*/
@@ -623,7 +630,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				return true;
 				}catch(Exception $ex){
-				    die($ex->getMessage());
+				    //die($ex->getMessage());
 					return false;
 					/*display user friendly message*/
 					
@@ -984,7 +991,7 @@ class M_MCH_Survey  extends MY_Model {
 				}
 				
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 				   
 					/*display user friendly message*/
@@ -1006,7 +1013,7 @@ class M_MCH_Survey  extends MY_Model {
 				}
 				
 				}catch(Exception $ex){
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 					
 					/*display user friendly message*/
@@ -1152,14 +1159,142 @@ class M_MCH_Survey  extends MY_Model {
 					 	 
 	}//close addSuppliesQuantityAvailabilityInfo
 	
+	private function addResourceAvailabilityInfo(){
+		$count=$finalCount=1;
+		foreach ($this -> input -> post() as $key => $val) {//For every posted values
+		    if(strpos($key,'hw')!==FALSE){//select data for availability of commodities
+			   //we separate the attribute name from the number
+					
+				  $this->frags = explode("_", $key);
+				   
+				  //$this->id = $this->frags[1];  // the id
+				
+				 $this->id = $count;  // the id
+				    
+				   $this->attr = $this->frags[0];//the attribute name
+				 
+				//stringify any array value
+					if(is_array($val)){
+			     	    $val=implode(',',$val);
+					}
+			//	print $key.' ='.$val.' <br />';
+				//print 'ids: '.$this->id.'<br />';
+				
+				     //mark the end of 1 row...for record count
+				if($this->attr=="hwEquipmentCode"){
+					//print 'count at:'.$count.'<br />';
+					
+					$finalCount=$count;
+					$count++;
+					//print 'count at:'.$count.'<br />';
+					//print 'final count at:'.$finalCount.'<br />';
+					//print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+				}
+				  
+				  //collect key and value to an array
+				 if (!empty($val)) {
+					//We then store the value of this attribute for this element.
+					 $this->elements[$this->id][$this->attr]=htmlentities($val);
+					
+					//$this->elements[$this->attr]=htmlentities($val);
+				   }else{
+				   $this->elements[$this->id][$this->attr]='';
+					//$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+				   }
+				   
+			 }
+			
+			 }//close foreach ($this -> input -> post() as $key => $val)
+			//print var_dump($this->elements);
+			
+			//exit;
+		    
+		          //get the highest value of the array that will control the number of inserts to be done
+				  $this->noOfInsertsBatch=$finalCount;
+				  
+				//  print 'Found :'.$this->noOfInsertsBatch;die;
+						 
+						 
+				 for($i=1; $i<=$this->noOfInsertsBatch+1;++$i){
+				 	
+					
+			 	
+				//go ahead and persist data posted
+			   $this -> theForm = new \models\Entities\E_MCH_Resource_Available(); //create an object of the model
+			   
+			   //die(print 'Code: '.$this -> session -> userdata('fCode'));
+			   
+				$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+				$this -> theForm -> setResourceCode($this->elements[$i]['hwEquipmentCode']);
+				
+				//check if that key exists, else set it to some default value
+				//(isset($this->elements[$i]['hwNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['hwNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
+				(isset($this->elements[$i]['hwSupplier']) || $this->elements[$i]['hwSupplier']=='')?$this -> theForm -> setSupplierID($this->elements[$i]['hwSupplier']):$this -> theForm -> setSupplierID("Other");
+				//(isset($this->elements[$i]['hwReason']) || $this->elements[$i]['hwReason']=='')?$this -> theForm -> setReason4Unavailability($this->elements[$i]['hwReason']):$this -> theForm -> setReason4Unavailability("N/A");
+				(isset($this->elements[$i]['hwAvailability']))?$this -> theForm -> setAvailability($this->elements[$i]['hwAvailability']):$this -> theForm -> setAvailability("N/A");
+				(isset($this->elements[$i]['hwLocation']))?$this -> theForm -> setLocation($this->elements[$i]['hwLocation']):$this -> theForm -> setLocation("N/A");
+				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
+				$this -> em -> persist($this -> theForm);
+						
+						//now do a batched insert, default at 5
+			  $this->batchSize=5;
+			if($i % $this->batchSize==0){
+			try{
+					
+				$this -> em -> flush();
+				$this->em->clear(); //detaches all objects from doctrine
+				
+				//on the last record to be inserted, log the process and return true;
+				if($i==$this->noOfInsertsBatch){
+				//die(print 'Limit: '.$this->noOfInsertsBatch);
+				 //$this->writeAssessmentTrackerLog();
+				 return true;
+				}
+				
+				}catch(Exception $ex){
+					//die($ex->getMessage());
+					return false;
+				   
+					/*display user friendly message*/
+					
+				}//end of catch
+				
+			} else if($i<$this->batchSize || $i>$this->batchSize || $i==$this->noOfInsertsBatch && $this->noOfInsertsBatch-$i<$this->batchSize){
+				 //total records less than a batch, insert all of them
+				try{
+					
+				$this -> em -> flush();
+				$this->em->clear(); //detactes all objects from doctrine
+				
+				//on the last record to be inserted, log the process and return true;
+				if($i==$this->noOfInsertsBatch){
+				//die(print 'Limit: '.$this->noOfInsertsBatch);
+				 //$this->writeAssessmentTrackerLog();
+				 return true;
+				}
+				
+				}catch(Exception $ex){
+					//die($ex->getMessage());
+					return false;
+					
+					/*display user friendly message*/
+					
+				}//end of catch
+			
+					
+			}//end of batch condition
+					 } //end of innner loop	
+					 	 
+	}//close addResourceAvailabilityInfo
+	
 	function store_data(){
 		 /*check assessment tracker log*/
 		 if($this->input->post()){
 		 	
 			
 		 	 $step=$this->input->post('step_name',TRUE);
-			/**/switch($step){
-			case 'section-1':
+			switch($step){
+			/**/case 'section-1':
 			//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1261,11 +1396,12 @@ class M_MCH_Survey  extends MY_Model {
 					//check if entry exists
 				   $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
+	               //die($this->session->userdata('fCode').':'.$this->session->userdata('survey'));
 				//print var_dump($this->section);
 	
 					//insert log entry if new, else update the existing one
 					if($this->sectionExists==false){
-					 if($this->addSuppliesQuantityAvailabilityInfo()==true){//defined in this model
+					 if($this->addSuppliesQuantityAvailabilityInfo()==true && $this->addResourceAvailabilityInfo()==true){//defined in this model
                    	  $this->writeAssessmentTrackerLog();
 					  //update facility survey status
 					  $this->markSurveyStatusAsComplete();
@@ -1279,13 +1415,13 @@ class M_MCH_Survey  extends MY_Model {
 					 $this->markSurveyStatusAsComplete();
 					return $this -> response = 'true';
 				}
-					break;
+					break;/**/
 
 			}//close switch
 		 	//print var_dump($this->input->post());
 
 
-	 // return $this -> response = 'true';
+	//return $this -> response = 'true';
 		 }
  
 	}

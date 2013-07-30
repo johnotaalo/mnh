@@ -5,9 +5,9 @@ class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
 	$selectCommodityType, $facilities, $selectCounties, 
-	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHCommoditySuppliers,$selectFacility,
+	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
 	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
-	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$equipmentsSection,$equipmentsMCHSection,$treatmentMCHSection;
+	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$equipmentsSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
 
 
 	function __construct() {
@@ -22,15 +22,15 @@ class  MY_Controller  extends  CI_Controller {
 		$this->load->model('m_mch_survey');
 		$this->response=$this->theForm=$this->data=$this->facilityInDistrict='';
 		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectMCHCommoditySuppliers=$this->selectCommoditySuppliers='';
-		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->treatmentMCHSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
+		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->treatmentMCHSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->hardwareMCHSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
 		$this->mchIndicatorsSection=array();
 		$this->getHealthFacilities();
-		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();
+		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();$this->getMCHOtherSuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();
 		$this->createMCHOrtCommodityAvailabilitySection();
 		$this->createBemoncSignalFunctionsSection();$this->createStaffTrainingGuidelinesSection();$this->createMCHStaffTrainingGuidelinesSection();
-		$this->createSuppliesSection();$this->createSuppliesMCHSection();
+		$this->createSuppliesSection();$this->createSuppliesMCHSection();$this->createHardwareResourcesMCHSection();
 		$this->createEquipmentSection();$this->createEquipmentMCHSection();
 		$this->createCommodityUsageAndOutageSection();
 		$this->createSuppliesUsageAndOutageSection();$this->createTreatmentsMCHSection();
@@ -127,12 +127,23 @@ class  MY_Controller  extends  CI_Controller {
 			}
 	}
 
+
+
     public function getMCHCommoditySuppliers(){
 	    $this->data_found= $this->m_mch_survey->getCommoditySupplierNames();
 		$counter=0;
 		foreach($this->data_found as $value) {
 			    $counter++;
 				$this ->selectMCHCommoditySuppliers .= '<option value="' . $value['supplierName'] . '">'.$counter.'. '.$value['supplierName'] . '</option>' . '<br />';
+			}
+	}
+	
+	public function getMCHOtherSuppliers(){
+	    $this->data_found= $this->m_mch_survey->getOtherSupplierNames();
+		$counter=0;
+		foreach($this->data_found as $value) {
+			    $counter++;
+				$this ->selectMCHOtherSuppliers .= '<option value="' . $value['supplierName'] . '">'.$counter.'. '.$value['supplierName'] . '</option>' . '<br />';
 			}
 	}
 	
@@ -258,9 +269,9 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			
 
-			<!--td style ="text-align:center;">
+			<td style ="text-align:center;">
 			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
-			</td-->
+			</td>
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>'.$supplier_names.'
@@ -675,6 +686,7 @@ class  MY_Controller  extends  CI_Controller {
    }
 
 public function createSuppliesMCHSection(){
+	$ch_supplier_names=$this->selectMCHOtherSuppliers;
 	 $this->data_found= $this->m_mch_survey->getSuppliesNames();
 	//var_dump($this->data_found);die;
 	$unit="";
@@ -719,10 +731,7 @@ public function createSuppliesMCHSection(){
 			</td-->
 			<td width="50">
 			<select name="sqSupplier_'.$counter.'" id="sqSupplier_'.$counter.'" class="cloned">
-			<option value="" selected="selected">Select One</option>
-				<option value="Government/City Council">1. Government/City Council</option>
-				<option value="Privately Supplied">2. Privately Supplied</option>
-				<option value="Own Initiave">3. Own Initiave</option>
+			<option value="" selected="selected">Select One</option>'.$ch_supplier_names.'
 			</select></td>
 			<!--td width="50">
 			<select name="sqReason_'.$counter.'" id="sqReason_'.$counter.'" class="cloned">
@@ -740,6 +749,72 @@ public function createSuppliesMCHSection(){
    	}
 	//echo $this->createSuppliesMCHSection;die;
    	return $this->suppliesMCHSection;
+   }
+
+public function createHardwareResourcesMCHSection(){
+	$ch_supplier_names=$this->selectMCHOtherSuppliers;
+	 $this->data_found= $this->m_mch_survey->getEquipmentNames('hwr');
+	//var_dump($this->data_found);die;
+	$unit="";
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+		
+		if ($value['equipmentUnit']!=null){
+			$unit='('.$value['equipmentUnit'].')';
+				
+			}else{
+				$unit='';
+			}
+   		$this->hardwareMCHSection.='<tr>
+			<td  style="width:200px;">'.$value['equipmentName'].' '.$unit.' </td>
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
+			<input name="hwAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwAvailability_'.$counter.'" type="radio" value="Some Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwAvailability_'.$counter.'" type="radio" value="Never Available" />
+			</td>		
+			<td style ="text-align:center;">
+			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="OPD" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="MCH" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="U5 Clinic" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="Ward" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			</td>
+			<!--td style ="text-align:center;">
+			<input name="hwNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
+			</td-->
+			<td width="50">
+			<select name="hwSupplier_'.$counter.'" id="hwSupplier_'.$counter.'" class="cloned">
+			<option value="" selected="selected">Select One</option>'.$ch_supplier_names.'
+			</select></td>
+			<!--td width="50">
+			<select name="hwReason_'.$counter.'" id="hwReason_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				
+
+			</select></td-->
+			<input type="hidden"  name="hwEquipmentCode_'.$counter.'" id="hwEquipmentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
+		</tr>';
+		
+   	}
+	
+   	return $this->hardwareMCHSection;
    }
    
     public function createEquipmentSection(){

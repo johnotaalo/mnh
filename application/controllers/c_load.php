@@ -613,7 +613,7 @@ public function get_mch_form()
 		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking '.(((strtoupper($this->session->userdata('survey')))=='CH')?'Child Health':'Maternal and Newborn Health').' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 6: FACILITY INFORMATION</p>
+		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -717,7 +717,7 @@ public function get_mch_form()
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 6: GUIDELINES, STAFF TRAINING AND COMMODITY AVAILABILITY</p>
+	 <p style="display:true" class="message success">SECTION 2 of 7: GUIDELINES, STAFF TRAINING AND COMMODITY AVAILABILITY</p>
 
      <table class="centre">
 		<thead>
@@ -748,7 +748,7 @@ public function get_mch_form()
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -764,7 +764,7 @@ public function get_mch_form()
 			</div>
 			</th>
 			<th colspan="6" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<!--th>Available Quantities</th-->
+			<th>Available Quantities</th>
 			<th scope="col">
 			
 				Main Supplier
@@ -784,7 +784,7 @@ public function get_mch_form()
 			<td>Ward</td>
 			<td>Other</td>
 			<td>Not Applicable</td>
-			<!--td>No.of Units</td-->
+			<td>No.of Units</td>
 			<td>Supplier</td>
 
 		</tr>'.$this->mchCommodityAvailabilitySection.'
@@ -794,7 +794,7 @@ public function get_mch_form()
 
 	<div id="section-3" class="step">
 	<input type="hidden" name="step_name" value="section-3"/>
-	 <p style="display:true" class="message success">SECTION 3 of 6: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
+	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
 
      <table class="centre">
 		<thead>
@@ -852,7 +852,7 @@ public function get_mch_form()
 
     <div id="section-4" class="step">
     <input type="hidden" name="step_name" value="section-4"/>
-     <p style="display:true" class="message success">SECTION 4 of 6: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
+     <p style="display:true" class="message success">SECTION 4 of 7: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
     
 	
 	<table class="centre">
@@ -982,7 +982,7 @@ public function get_mch_form()
     
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 6: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
+	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
 		
 		<table class="centre">
 		<thead>
@@ -1034,7 +1034,7 @@ public function get_mch_form()
 
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
-	 <p style="display:true" class="message success">SECTION 6 of 6: SUPPLIES AVAILABILITY</p>
+	 <p style="display:true" class="message success">SECTION 6 of 7: SUPPLIES AVAILABILITY</p>
 		 <table  class="centre" >
 		<thead>
 			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
@@ -1078,8 +1078,52 @@ public function get_mch_form()
 		</tr>'.$this->suppliesMCHSection.'
 		</table>
 		
+		 <p style="display:true" class="message success">SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES</p>
+		 <table  class="centre" >
+		<thead>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+		</thead>
+		<tr>
+			<th scope="col" >Resource Name</th>
+			
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+			<!--th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th-->
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+
+			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+			
+			
+
+		</tr>'.$this->hardwareMCHSection.'
+		</table>
+		
 	
-	</div><!--\.section-6-->
+	</div><!--\.section-6 & 7-->
 	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
