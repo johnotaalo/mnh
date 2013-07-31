@@ -147,6 +147,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
 				//check if that key exists, else set it to some default value
 				(isset($this->elements[$i]['ortcAspect']))?$this -> theForm -> setResponse($this->elements[$i]['ortcAspect']):$this -> theForm -> setResponse("N/A");
+				(isset($this->elements[$i]['ortcGuidesCount']) || $this->elements[$i]['ortcGuidesCount']!='')?$this -> theForm -> setNoOfGuides($this->elements[$i]['ortcGuidesCount']):$this -> theForm -> setNoOfGuides(-1);
 				$this -> theForm -> setIndicatorID($this->elements[$i]['ortcAspectCode']);
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 				$this -> em -> persist($this -> theForm);
@@ -1228,9 +1229,9 @@ class M_MCH_Survey  extends MY_Model {
 				$this -> theForm -> setResourceCode($this->elements[$i]['hwEquipmentCode']);
 				
 				//check if that key exists, else set it to some default value
-				//(isset($this->elements[$i]['hwNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['hwNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
-				(isset($this->elements[$i]['hwSupplier']) || $this->elements[$i]['hwSupplier']=='')?$this -> theForm -> setSupplierID($this->elements[$i]['hwSupplier']):$this -> theForm -> setSupplierID("Other");
-				//(isset($this->elements[$i]['hwReason']) || $this->elements[$i]['hwReason']=='')?$this -> theForm -> setReason4Unavailability($this->elements[$i]['hwReason']):$this -> theForm -> setReason4Unavailability("N/A");
+				(isset($this->elements[$i]['hwNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['hwNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
+				(isset($this->elements[$i]['hwSupplier']) || $this->elements[$i]['hwSupplier']!='')?$this -> theForm -> setSupplierID($this->elements[$i]['hwSupplier']):$this -> theForm -> setSupplierID("Other");
+				(isset($this->elements[$i]['hwReason']))?$this -> theForm -> setReason4Unavailability($this->elements[$i]['hwReason']):$this -> theForm -> setReason4Unavailability("N/A");
 				(isset($this->elements[$i]['hwAvailability']))?$this -> theForm -> setAvailability($this->elements[$i]['hwAvailability']):$this -> theForm -> setAvailability("N/A");
 				(isset($this->elements[$i]['hwLocation']))?$this -> theForm -> setLocation($this->elements[$i]['hwLocation']):$this -> theForm -> setLocation("N/A");
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
@@ -1396,7 +1397,7 @@ class M_MCH_Survey  extends MY_Model {
 					//check if entry exists
 				   $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 	
-	               //die($this->session->userdata('fCode').':'.$this->session->userdata('survey'));
+	              // die($this->session->userdata('fCode').':'.$this->session->userdata('survey'));
 				//print var_dump($this->section);
 	
 					//insert log entry if new, else update the existing one

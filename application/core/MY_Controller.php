@@ -412,13 +412,14 @@ class  MY_Controller  extends  CI_Controller {
 			$this->mchGuidelineAvailabilitySection.='<tr>
 			<td colspan="1">'.$value['mchQuestion'].'</td>
 			<td colspan="1">
-			<select name="ortcAspect_'.$counter.'" id="ortcAspect_'.$counter.'" class="cloned">
+			<select name="ortcAspect_'.$counter.'" id="ortcAspect_'.$counter.'" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select>
 			</td>
+			<td><input type="text" name="ortcGuidesCount_'.$counter.'" id="ortcGuidesCount_'.$counter.'" size="6" class="numbers" disabled/></td>
 			<input type="hidden"  name="ortcAspectCode_'.$counter.'" id="ortcAspectCode_'.$counter.'" value="'.$value['questionCode'].'" />
 		</tr>';
 		

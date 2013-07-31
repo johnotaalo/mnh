@@ -19,6 +19,11 @@ namespace models\Entities;
 	* */
 	private $response;
 	
+	/**
+	* @Column(name="noOfGuides", type="integer",length=11, nullable=false)
+	* */
+	private $noOfGuides;
+	
 	  
 	/**
 	* @ManyToOne(targetEntity="mch_indicators", inversedBy="indicatorCode")
@@ -50,6 +55,13 @@ namespace models\Entities;
 	}
 	
 	public function setResponse($response) { $this -> response = $response;
+	}
+	
+	public function getNoOfGuides() {
+			return $this -> noOfGuides;
+	}
+	
+	public function setNoOfGuides($noOfGuides) { $this -> noOfGuides = $noOfGuides;
 	}
 	
 	public function getIndicatorID() {

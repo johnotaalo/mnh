@@ -207,51 +207,22 @@ $mfCode = $this -> session -> userdata('fCode');
 			
 			//equipment availability change detectors			
 			function select_option_changed(){
-								
+				
 				/*
 				 * Checking for all SELECT inputs
 				 */
 				$(form_id).find('select').on("change",function() {
-                     
-					var cb_id;
 					/*
 					 * Identify the class of the SELECT input
 					 * 
-					 * IF(class matches 'cloned left-combo')
+					 * IF(class matches 'cloned is-guideline')
 					 * Then
 					 *  ->Get the SELECT's ID
 					 * 
 					 */
-					if($(this).hasClass('cloned left-combo')){
-
+					if($(this).attr('class')=='cloned is-guideline'){
 					cb_id='#'+$(this).attr('id');
-					//alert(cb_id);
-					
-					/*
-					 * display q5 comment on NO option
-					 */
-					if(cb_id=='#lndq4FacilityDelivery'){
-						//alert(cb_id);
-						if($(cb_id).val() == 'No'){
-						$("#q4comm").show();
-						}else{
-							$("#q4comm").hide();
-						}
-					}
-					
-					/*
-					 * display q6b on q6a YES option
-					 */
-					if(cb_id=='#lndq6aConductingDelivery'){
-						if($(cb_id).val() == 'Yes'){
-						$("#q6ay").show();
-						}else{
-							$("#q6ay").hide();
-						}
-					}
-					
-					if(cb_id.indexOf('_')>0 && $(cb_id).val() !=""){
-						
+			
 						//alert(cb_id);
 					cb_no=cb_id.substr(cb_id.indexOf('_')+1,(cb_id.length))//for the numerical part of the id
 					
@@ -261,112 +232,26 @@ $mfCode = $this -> session -> userdata('fCode');
 					/*
 					 * Checking if the user selected 'No'
 					 */
-					if(($(cb_id).val() == 0)||($(cb_id).val() == "No")) {
+					if(($(cb_id).val() == "No")) {
+
 						//alert(cb_no);
-						//$('#tr_'+cb_no+':input').attr('disabled', true);
-						//$('#tr_'+cb_no).hide();
-						$('#tr_'+cb_no+',#mtr_'+cb_no).find('input,select').prop('disabled', true);
+						//$('#ortcGuidesCount_'+cb_no).hide();
+						//$('#ortcGuidesCount_'+cb_no).removeClass('label.error');
+						$('#ortcGuidesCount_'+cb_no).val(0);
+						//$('#ortcGuidesCount_'+cb_no).prop('disabled', true);
 						}
 						/*
 						 * Else leave activated
 						 */
 						else{
 							
-							//$('#tr_'+cb_no).find('input,select[class="cloned"]').removeClass('.label.error');
-							$('#tr_'+cb_no+',#mtr_'+cb_no).find('input,select[class="cloned"]').prop('disabled', false);
-					       // $('.cloned').removeClass('error');
+							//$('#ortcGuidesCount_'+cb_no).prop('disabled', false);
+							$('#ortcGuidesCount_'+cb_no).val('');
+							//$('#ortcGuidesCount_'+cb_no).show();
+					     //  $('#ortcGuidesCount_'+cb_no).siblings('label').removeClass('error');
 						}
-					}
+					} //close if($(this).attr('class')=='cloned is-guideline')
 					
-				}
-				});
-				
-				//enable equipment availability option
-				$('#editEquipmentListTopButton_3a,#editEquipmentListTopButton_3b,#editEquipmentListTopButton_2i,#editEquipmentListTopButton_2ii,#editEquipmentListTopButton_2a,#editEquipmentListTopButton_2b,#editEquipmentListTopButton_1a,#editEquipmentListTopButton_1b').click(function(){
-					                $('#tableEquipmentList_3a,#tableEquipmentList_3b,#tableEquipmentList_2i,#tableEquipmentList_2ii,#tableEquipmentList_2a,#tableEquipmentList_2b,#tableEquipmentList_1a,#tableEquipmentList_1b').find('select:disabled').each(function(){
-                	if($(this).hasClass('cloned left-combo'))
-                	$(this).prop('disabled', false);
-                	
-                });
-				//$('#tableEquipmentList').find('select[class="cloned left-combo"]').prop('disabled', false);
-				});
-				
-			     //hide/show  input field on Specify(other) selected
-			     
-				$('#sterilizationMethod,#nbcgqBloodTransfusionsDone').change(function(){
-					
-					method=$('#sterilizationMethod').val();
-					csDone=$('#nbcgqCSDone').val();
-					btDone=$('#nbcgqBloodTransfusionsDone').val();
-					if(method=="other"){
-						
-						$("#sterilizationMethodOther").show();
-					}else{
-						$("#sterilizationMethodOther").hide();
-					}
-
-					if(btDone=='Yes'){
-							$("#bloodBankAvailable").show();
-					}else{
-							$("#bloodBankAvailable").hide();
-					}
-					
-				});
-				
-				/*
-				 * Checking for all SELECT inputs
-				 */
-				$(form_id).find('select').on("change",function() {
-					/*
-					 * Identify the class of the SELECT input
-					 * 
-					 * IF(class matches 'cloned left-combo')
-					 * Then
-					 *  ->Get the SELECT's ID
-					 * 
-					 */
-					if($(this).attr('class')=='cloned left-combo'){
-					cb_id='#'+$(this).attr('id');
-					if(cb_id.indexOf(0,'_')>0 && $(cb_id).val() !=""){
-						
-						//alert(cb_id);
-					cb_no=cb_id.substr(cb_id.indexOf('_')+1,(cb_id.length))//for the numerical part of the id
-					
-					//substr(id.indexOf('_')+1,id.length)
-					//cb_id=cb_id.substr(cb_id.indexOf('#'),(cb_id.indexOf('_')))//for the trimmed id
-					//alert(cb_no);
-					/*
-					 * Checking if the user selected 'No'
-					 */
-					if(($(cb_id).val() == 0)||($(cb_id).val() == "No")||($(cb_id).val() == "Never Available")) {
-
-						//alert(cb_no);
-						//$('#tr_'+cb_no+':input').attr('disabled', true);
-						//$('#tr_'+cb_no).hide();
-						$('#tr_'+cb_no+',#mtr_'+cb_no).find('input,select').prop('disabled', true);
-						}
-						/*
-						 * Else leave activated
-						 */
-						else{
-							
-							//$('#tr_'+cb_no).find('input,select[class="cloned"]').removeClass('.label.error');
-							$('#tr_'+cb_no+',#mtr_'+cb_no).find('input,select[class="cloned"]').prop('disabled', false);
-					       // $('.cloned').removeClass('error');
-						}
-					}//for enabling/disabling rows
-					} //close if($(this).attr('class')=='cloned left-combo')
-					
-					
-					
-					//specify ort supplier if other or partner is selected
-					$('#ortSupplier').change(function(){
-						if($(this).val()=="Partners" || $(this).val()=="Others"){
-						$('#partner').show();
-						}else{
-							$('#partner').hide();
-						}
-					});
 					
 				
 				});
@@ -390,7 +275,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -559,7 +444,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								//$(form_id).formwizard('show','section-7');
+								//$(form_id).formwizard('show','section-6');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

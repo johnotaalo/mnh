@@ -721,12 +721,13 @@ public function get_mch_form()
 
      <table class="centre">
 		<thead>
-			<th colspan="2" >GUIDELINES AVAILABILITY </th>
+			<th colspan="3" >GUIDELINES AVAILABILITY </th>
 		</thead>
 		
 		
 			<th  style="width:35%">ASPECT</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			<th   style="width:10.5%;text-align:left"> RESPONSE </th>	
+			<th   style="width:52.5%;text-align:left"> INDICATE QUANTITY AVAILABLE (If Yes) </th>		
 			
 
 		</tr>'.$this->mchGuidelineAvailabilitySection.'
