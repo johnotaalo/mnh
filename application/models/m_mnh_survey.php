@@ -224,24 +224,24 @@ class M_MNH_Survey  extends MY_Model {
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 				$this -> theForm -> setFacilityID($this -> session -> userdata('fCode'));
 				/*if no value set, then set to -1*/
-				($this->elements['dnjanuary_12']=='')?$this -> theForm -> setJan12(-1):$this -> theForm -> setJan12($this->elements['dnjanuary_12']);
-				($this->elements['dnfebruary_12']=='')?$this -> theForm -> setFeb12(-1):$this -> theForm -> setFeb12($this->elements['dnfebruary_12']);
-				($this->elements['dnmarch_12']=='')?$this -> theForm -> setMar12(-1):$this -> theForm -> setMar12($this->elements['dnmarch_12']);
-				($this->elements['dnapril_12']=='')?$this -> theForm -> setApr12(-1):$this -> theForm -> setApr12($this->elements['dnapril_12']);
-				($this->elements['dnmay_12']=='')?$this -> theForm -> setMay12(-1):$this -> theForm -> setMay12($this->elements['dnmay_12']);
-				($this->elements['dnjune_12']=='')?$this -> theForm -> setJun12(-1):$this -> theForm -> setJun12($this->elements['dnjune_12']);
-				($this->elements['dnjuly_12']=='')?$this -> theForm -> setJul12(-1):$this -> theForm -> setJul12($this->elements['dnjuly_12']);
-				($this->elements['dnaugust_12']=='')?$this -> theForm -> setAug12(-1):$this -> theForm -> setAug12($this->elements['dnaugust_12']);
-				($this->elements['dnseptember_12']=='')?$this -> theForm -> setSep12(-1):$this -> theForm -> setSep12($this->elements['dnseptember_12']);
-				($this->elements['dnoctober_12']=='')?$this -> theForm -> setOct12(-1):$this -> theForm -> setOct12($this->elements['dnoctober_12']);
-				($this->elements['dnnovember_12']=='')?$this -> theForm -> setNov12(-1):$this -> theForm -> setNov12($this->elements['dnnovember_12']);
-				($this->elements['dndecember_12']=='')?$this -> theForm -> setDec12(-1):$this -> theForm -> setDec12($this->elements['dndecember_12']); 
-				($this->elements['dnjanuary_13']=='')?$this -> theForm -> setJan13(-1):$this -> theForm -> setJan13($this->elements['dnjanuary_13']);
-				($this->elements['dnfebruary_13']=='')?$this -> theForm -> setFeb13(-1):$this -> theForm -> setFeb13($this->elements['dnfebruary_13']);
-				($this->elements['dnmarch_13']=='')?$this -> theForm -> setMar13(-1):$this -> theForm -> setMar13($this->elements['dnmarch_13']);
-				($this->elements['dnapril_13']=='')?$this -> theForm -> setApr13(-1):$this -> theForm -> setApr13($this->elements['dnapril_13']);
-				($this->elements['dnmay_13']=='')?$this -> theForm -> setMay13(-1):$this -> theForm -> setMay13($this->elements['dnmay_13']);
-				($this->elements['dnjune_13']=='' || !isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
+				/**/(isset($this->elements['dnjanuary_12']))?$this -> theForm -> setJan12(-1):$this -> theForm -> setJan12($this->elements['dnjanuary_12']);
+				(isset($this->elements['dnfebruary_12']))?$this -> theForm -> setFeb12(-1):$this -> theForm -> setFeb12($this->elements['dnfebruary_12']);
+				(isset($this->elements['dnmarch_12']))?$this -> theForm -> setMar12(-1):$this -> theForm -> setMar12($this->elements['dnmarch_12']);
+				(isset($this->elements['dnapril_12']))?$this -> theForm -> setApr12(-1):$this -> theForm -> setApr12($this->elements['dnapril_12']);
+				(isset($this->elements['dnmay_12']))?$this -> theForm -> setMay12(-1):$this -> theForm -> setMay12($this->elements['dnmay_12']);
+				(isset($this->elements['dnjune_12']))?$this -> theForm -> setJun12(-1):$this -> theForm -> setJun12($this->elements['dnjune_12']);
+				(isset($this->elements['dnjuly_12']))?$this -> theForm -> setJul12(-1):$this -> theForm -> setJul12($this->elements['dnjuly_12']);
+				(isset($this->elements['dnaugust_12']))?$this -> theForm -> setAug12(-1):$this -> theForm -> setAug12($this->elements['dnaugust_12']);
+				(isset($this->elements['dnseptember_12']))?$this -> theForm -> setSep12(-1):$this -> theForm -> setSep12($this->elements['dnseptember_12']);
+				(isset($this->elements['dnoctober_12']))?$this -> theForm -> setOct12(-1):$this -> theForm -> setOct12($this->elements['dnoctober_12']);
+				(isset($this->elements['dnnovember_12']))?$this -> theForm -> setNov12(-1):$this -> theForm -> setNov12($this->elements['dnnovember_12']);
+				(isset($this->elements['dndecember_12']))?$this -> theForm -> setDec12(-1):$this -> theForm -> setDec12($this->elements['dndecember_12']); /**/
+				(isset($this->elements['dnjanuary_13']))?$this -> theForm -> setJan13(-1):$this -> theForm -> setJan13($this->elements['dnjanuary_13']);
+				(isset($this->elements['dnfebruary_13']))?$this -> theForm -> setFeb13(-1):$this -> theForm -> setFeb13($this->elements['dnfebruary_13']);
+				(isset($this->elements['dnmarch_13']))?$this -> theForm -> setMar13(-1):$this -> theForm -> setMar13($this->elements['dnmarch_13']);
+				(isset($this->elements['dnapril_13']))?$this -> theForm -> setApr13(-1):$this -> theForm -> setApr13($this->elements['dnapril_13']);
+				(isset($this->elements['dnmay_13']))?$this -> theForm -> setMay13(-1):$this -> theForm -> setMay13($this->elements['dnmay_13']);
+				(isset($this->elements['dnjune_13']) || !isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
 				
 				//$this -> theForm -> setDateOfAssessment(new DateTime()); //date set today's
 				$this -> em -> persist($this -> theForm);
@@ -252,7 +252,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				return true;
 				}catch(Exception $ex){
-				    //die($ex->getMessage());
+				    die($ex->getMessage());
 					return false;
 					/*display user friendly message*/
 					
@@ -452,6 +452,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this -> theForm -> setCommodityID($this->elements[$i]['cqCommodityCode']);
 				
 				//check if that key exists, else set it to some default value
+				(isset($this->elements[$i]['cqExpiryDate']))?$this -> theForm -> setCommodityExpiryDate($this->elements[$i]['cqExpiryDate']):$this -> theForm -> setCommodityExpiryDate('n/a');
 				(isset($this->elements[$i]['cqNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['cqNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
 				(isset($this->elements[$i]['cqSupplier']) || $this->elements[$i]['cqSupplier']=='')?$this -> theForm -> setSupplierID($this->elements[$i]['cqSupplier']):$this -> theForm -> setSupplierID("Other");
 				(isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason']=='')?$this -> theForm -> setReason4Unavailability($this->elements[$i]['cqReason']):$this -> theForm -> setReason4Unavailability("N/A");
@@ -725,7 +726,7 @@ class M_MNH_Survey  extends MY_Model {
 				(isset($this->elements[$i]['eqAvailability']))?$this -> theForm -> setEquipAvailability($this->elements[$i]['eqAvailability']):$this -> theForm -> setEquipAvailability("N/A");
 				(isset($this->elements[$i]['eqLocation']))?$this -> theForm -> setEquipLocation($this->elements[$i]['eqLocation']):$this -> theForm -> setEquipLocation("N/A");
 				(isset($this->elements[$i]['eqQtyFullyFunctional']) || $this->elements[$i]['eqQtyFullyFunctional']!='')?$this -> theForm -> setQuantityFullyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityFullyFunctional(-1);
-				(isset($this->elements[$i]['eqQtyPartiallyFunctional']) || $this->elements[$i]['eqQtyPartiallyFunctional']!='')?$this -> theForm -> setQuantityPartiallyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityPartiallyFunctional(-1);
+				(isset($this->elements[$i]['eqQtyPartiallyFunctional']))?$this -> theForm -> setQuantityPartiallyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityPartiallyFunctional(-1);
 				(isset($this->elements[$i]['eqQtyNonFunctional']) || $this->elements[$i]['eqQtyNonFunctional']!='')?$this -> theForm -> setQuantityNonFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityNonFunctional(-1);
 				
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
@@ -1163,8 +1164,8 @@ class M_MNH_Survey  extends MY_Model {
 		 	
 			
 		 	 $step=$this->input->post('step_name',TRUE);
-			/**/switch($step){
-			case 'section-1':
+			switch($step){
+			/**/case 'section-1':
 			//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1185,7 +1186,7 @@ class M_MNH_Survey  extends MY_Model {
 				}
 				//return $this -> response = 'true';
 					break;
-			/**/case 'section-2':
+			case 'section-2':
 					//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1309,7 +1310,7 @@ class M_MNH_Survey  extends MY_Model {
 		 	//print var_dump($this->input->post());
 
 
-	  // return $this -> response = 'true';
+	 //return $this -> response = 'true';
 		 }
  
 	}

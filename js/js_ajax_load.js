@@ -2920,18 +2920,14 @@ function log() {
 				
 				/*start of datetime functions*/
 				$(function() {
-				var dates= ['.autoDate','.futureDate'];
+				var dates= ['.autoDate','.futureDate','.expiryDate'];
 				
 				
 				//initialize all datepickers
-				for ( var i=0, iLen=dates.length ; i<iLen ; i++){
-					if(dates[i]=='.futureDate'){
-				$(dates[i]).datepicker({defaultDate:new Date(), changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '0y', maxDate: "2y"});
-				}else{
-					
-					$(dates[i]).datepicker({defaultDate:new Date(),changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '-10y', maxDate: "0D"});
-				}
-				}
+				$('.futureDate').datepicker({defaultDate:new Date(), changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '0y', maxDate: "2y"});
+				//$('.expiryDate').datepicker({defaultDate:new Date(), changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '-5y', maxDate: "5y"});	
+				$('.autoDate').datepicker({defaultDate:new Date(),changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '-10y', maxDate: "0D"});
+				
 				
 				for(i=new Date().getFullYear();i>1990; i--)// year picker
 				{

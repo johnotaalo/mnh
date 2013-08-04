@@ -447,12 +447,16 @@ function __construct() {
 		
 		   //pick facility name and code for temp session use
           if($this->input->post() && $this->input->post('facilityHName',TRUE)){
-		   $new_data=array('fName'=>$this->input->post('facilityHName',TRUE),'fCode'=>$this->input->post('facilityMFLCode',TRUE));
+          	
+			if(!$this -> session -> userdata('fCode')){
+		     $new_data=array('fName'=>$this->input->post('facilityHName',TRUE),'fCode'=>$this->input->post('facilityMFLCode',TRUE));
 		//   $this -> session -> set_flashdata('fName',$this->input->post('facilityHName',TRUE));
 		 //  $this -> session -> set_flashdata('fCode',$this->input->post('facilityMFLCode',TRUE));
 		     $this->session->set_userdata($new_data);
 		//$this->session->keep_flashdata('fCode');
 		//$this->session->keep_flashdata('fName');
+			}
+		  
 		   }
 		  
 	       //analyse all posted vals and collect them
@@ -542,6 +546,7 @@ function __construct() {
 
                //facility data specific to mnh survey only
                if($this -> session -> userdata('survey')=='mnh'){
+               //	print 'yes,true'; die;
                	(isset($this->elements['facilityMaternityname']) && $this->elements['facilityMaternityname']!='')?$this -> theForm -> setFacilityMaternityContactPerson($this->input->post('facilityMaternityname',TRUE)):$this -> theForm -> setFacilityMaternityContactPerson('n/a');
 				(isset($this->elements['facilityMaternitymobile']) && $this->elements['facilityMaternitymobile']!='')?$this -> theForm -> setFacilityMaternityTelephone($this->input->post('facilityMaternitymobile',TRUE)):'n/a';
 				(isset($this->elements['facilityMaternityemail']) && $this->elements['facilityMaternityemail']!='' )?$this -> theForm -> setFacilityMaternityEmail($this->input->post('facilityMaternityemail',TRUE)):$this -> theForm -> setFacilityMaternityEmail('n/a');

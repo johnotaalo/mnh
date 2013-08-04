@@ -19,10 +19,15 @@ namespace models\Entities;
 	* */
 	private $Availability;
 	
-	   /**
+	/**
 	* @Column(name="CommodityID", type="integer",length=55)
 	* */
 	private $CommodityID;
+	
+	/**
+	* @Column(name="commodityExpiryDate", type="string",length=10)
+	* */
+	private $commodityExpiryDate;
 	 
 	 
 	/**
@@ -75,6 +80,13 @@ namespace models\Entities;
 	}
 	
 	public function setCommodityID($CommodityID) { $this -> CommodityID = $CommodityID;
+	}
+	
+	public function getCommodityExpiryDate() {
+			return $this -> commodityExpiryDate;
+	}
+	
+	public function setCommodityExpiryDate($commodityExpiryDate) { $this -> commodityExpiryDate = $commodityExpiryDate;
 	}
 	
 	public function getSupplierID() {

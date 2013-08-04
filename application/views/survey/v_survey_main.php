@@ -252,9 +252,53 @@ $mfCode = $this -> session -> userdata('fCode');
 						}
 					} //close if($(this).attr('class')=='cloned is-guideline')
 					
-					
-				
 				});
+				
+				$(form_id).find(':radio').on('change',function(){
+					r_id='#'+$(this).attr('name');
+					r_no=r_id.substr(r_id.indexOf('_')+1,(r_id.length))//for the numerical part of the name
+					if($(this).val()=='Never Available'){
+					$('#cqNumberOfUnits_'+r_no).val(0);
+					$('#cqExpiryDate_'+r_no).val('n/a');
+					$('#cqLocNA_'+r_no).prop('checked', true);
+					
+					$('#eqQtyFullyFunctional_'+r_no).val(0);
+					$('#eqQtyNonFunctional_'+r_no).val(0);
+					$('#eqLocOther_'+r_no).prop('checked', true);
+					
+					if($(this).attr('name')=='sqAvailability_'+r_no){
+						$('#sqLocOther_'+r_no).prop('checked', true);
+						$('#sqNumberOfUnits_'+r_no).val(0);
+					   // $("#sqSupplier_"+r_no+" option").filter(function() {return $('#sqSupplier_'+r_no).val() == 'Not Applicable';}).first().prop("selected", true);
+					}else if($(this).attr('name')=='hwAvailability_'+r_no){
+						$('#hwLocOther_'+r_no).prop('checked', true);
+					    //$("#hwSupplier_"+r_no+" option").filter(function() {return $('#hwSupplier_'+r_no).val() == 'Not Applicable';}).first().prop("selected", true);
+					}
+					
+					}else{
+						$('#cqNumberOfUnits_'+r_no).val('');
+					    $('#cqExpiryDate_'+r_no).val('');
+					    $('#cqLocNA_'+r_no).prop('checked', false);
+					    
+					    $('#eqQtyFullyFunctional_'+r_no).val('');
+					    $('#eqQtyNonFunctional_'+r_no).val('');
+					    $('#eqLocOther_'+r_no).prop('checked', false);
+					    
+					    if($(this).attr('name')=='sqAvailability_'+r_no){
+					    	$('#sqLocOther_'+r_no).prop('checked', false);
+					    	$('#sqNumberOfUnits_'+r_no).val('');
+					    	//$("#sqSupplier_"+r_no+" option").filter(function() {return $('#sqSupplier_'+r_no).val() == 'Select One';}).first().prop("selected", true);
+					    }else if($(this).attr('name')=='hwAvailability_'+r_no){
+					    	$('#hwLocOther_'+r_no).prop('checked', false);
+						    //$("#hwSupplier_"+r_no+" option").filter(function() {return $('#hwSupplier_'+r_no).val() == 'Select One';}).first().prop("selected", true);
+					    }
+					    
+					}
+				});
+				
+			  //date picker
+			  $('.expiryDate').datepicker({defaultDate:new Date(), changeMonth: true,changeYear: true,dateFormat:"yy-mm-dd",minDate: '-5y', maxDate: "5y"});
+				
 				
 				//to review equipment assessment--enables the disabled select options
 				$('#editEquipmentListTopButton,#editEquipmentListTopButton_2,#editEquipmentListTopButton_3a,#editEquipmentListTopButton_3b,#editEquipmentListTopButton_4').click(function(){
@@ -275,7 +319,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: false,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -450,7 +494,7 @@ $mfCode = $this -> session -> userdata('fCode');
 			
 				  	
 				  	
-						/*---------------------end form wizard functions----------------------------------------------------------------*/
+					/*---------------------end form wizard functions----------------------------------------------------------------*/
 						
 		</script>
 		

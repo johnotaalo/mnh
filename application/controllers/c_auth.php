@@ -29,7 +29,7 @@ class C_Auth extends MY_Controller {
 		   
 		  
 		  
-			redirect(base_url() . 'commodity/assessment', 'refresh');
+			redirect(base_url().$this -> session -> userdata('survey'). '/assessment', 'refresh');
 			$data['title']='MoH::Data Management Tool';
 			$this -> load -> view('survey/index', $this->data);
 			
@@ -45,7 +45,7 @@ class C_Auth extends MY_Controller {
 
    public function doCheckFacilityCode(){/**from the session data*/
 	if(!$this -> session -> userdata('dName')){
-		redirect(base_url() . 'commodity/assessment', 'refresh');
+		redirect(base_url() . $this -> session -> userdata('survey'). '/assessment', 'refresh');
 		return true;
 		
 		}else{

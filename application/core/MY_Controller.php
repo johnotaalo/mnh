@@ -185,22 +185,22 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Store" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="cqLocation_'.$counter.'[]" id="cqLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Not Applicable" />
+			<input name="cqLocation_'.$counter.'[]" id="cqLocNA_'.$counter.'" type="checkbox" value="Not Applicable" />
 			</td>
 			
 
 			<td style ="text-align:center;">
-			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
+			<input name="cqNumberOfUnits_'.$counter.'" id="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
 			</td>
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>'.$supplier_names.'
 			</select></td>
-			<td width="50">
-			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
+			<td width="60">
+			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" style="width:110px" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Not Ordered">1. Not Ordered</option>
 				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
@@ -229,7 +229,7 @@ class  MY_Controller  extends  CI_Controller {
    		$counter++;
    		$this->mchCommodityAvailabilitySection.='<tr>
 			<td> '.$value['commodityName'].' </td>
-			<!--td> '.$value['commodityUnit'].'</td-->
+			<td> '.$value['commodityUnit'].'</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
@@ -239,8 +239,8 @@ class  MY_Controller  extends  CI_Controller {
 			<td style ="text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" class="cloned"/>
 			</td>
-			<td width="50">
-			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" class="cloned">
+			<td width="60">
+			<select name="cqReason_'.$counter.'" id="cqReason_'.$counter.'" style="width:110px" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Not Ordered">1. Not Ordered</option>
 				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
@@ -265,12 +265,15 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_'.$counter.'[]" type="checkbox" value="Not Applicable" />
+			<input name="cqLocation_'.$counter.'[]" id="cqLocNA_'.$counter.'" type="checkbox" value="Not Applicable" />
 			</td>
 			
 
 			<td style ="text-align:center;">
-			<input name="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
+			<input name="cqNumberOfUnits_'.$counter.'" id="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqExpiryDate_'.$counter.'" id="cqExpiryDate_'.$counter.'" type="text" size="11" class="cloned expiryDate"/>
 			</td>
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
@@ -654,10 +657,10 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Store" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="sqLocation_'.$counter.'[]" id="sqLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
+			<input name="sqNumberOfUnits_'.$counter.'" id="sqNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
 			</td>
 			<td width="50">
 			<select name="sqSupplier_'.$counter.'" id="sqSupplier_'.$counter.'" class="cloned">
@@ -704,7 +707,7 @@ public function createSuppliesMCHSection(){
    		$this->suppliesMCHSection.='<tr>
 			<td  style="width:200px;">'.$value['suppliesName'].' '.$unit.' </td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
-			<input name="sqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			<input name="sqAvailability_'.$counter.'" id="sqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="sqAvailability_'.$counter.'" type="radio" value="Some Available" />
@@ -725,7 +728,7 @@ public function createSuppliesMCHSection(){
 			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="sqLocation_'.$counter.'[]" id="sqLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
 			<!--td style ="text-align:center;">
 			<input name="sqNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
@@ -773,7 +776,7 @@ public function createHardwareResourcesMCHSection(){
 			<input name="hwAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="hwAvailability_'.$counter.'" type="radio" value="Some Available" />
+			<input name="hwAvailability_'.$counter.'" id="hwAvailability_'.$counter.'" type="radio" value="Some Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="hwAvailability_'.$counter.'" type="radio" value="Never Available" />
@@ -791,7 +794,7 @@ public function createHardwareResourcesMCHSection(){
 			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="hwLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="hwLocation_'.$counter.'[]" id="hwLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
 			<!--td style ="text-align:center;">
 			<input name="hwNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
@@ -854,16 +857,16 @@ public function createHardwareResourcesMCHSection(){
 			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Store" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="eqLocation_'.$counter.'[]" id="eqLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" />
+			<input name="eqQtyFullyFunctional_'.$counter.'" id="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" class="numbers" />
 			</td>
+			<!--td style ="text-align:center;">
+			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" class="numbers"/>
+			</td-->
 			<td style ="text-align:center;">
-			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" />
-			</td>
-			<td style ="text-align:center;">
-			<input name="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" />
+			<input name="eqQtyNonFunctional_'.$counter.'" id="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" class="numbers"/>
 			</td>
 			<input type="hidden"  name="eqEquipmentCode_'.$counter.'" id="eqEquipmentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
 		</tr>';
@@ -878,6 +881,11 @@ public function createEquipmentMCHSection(){
 	//var_dump($this->data_found);die;
 	$unit="";
 	$counter=0;
+	
+	$qtyIndicator=''; #to determine if the equipment needs to be assessed as fully-functioning and not functioning or just quantity (fully-functioning) available only
+	
+	$equipmentWithFN=array('','EQP38','EQP28','EQP34','EQP37'); #equipment whose quantity must indicate the functioning and non-functioning ones
+	
    	foreach($this->data_found as $value){
    		$counter++;
 		
@@ -887,17 +895,42 @@ public function createEquipmentMCHSection(){
 			}else{
 				$unit='';
 			}
+
+        if(array_search($value['equipmentCode'], $equipmentWithFN)==TRUE){
+        	
+        	 $qtyIndicator='<td style ="text-align:center;">
+			<input name="eqQtyFullyFunctional_'.$counter.'" id="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" class="numbers" />
+			</td>
+			<!--td style ="text-align:center;">
+			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" />
+			</td-->
+			<td style ="text-align:center;">
+			<input name="eqQtyNonFunctional_'.$counter.'" id="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" class="numbers" />
+			</td>'; 
+        }else{
+        	 $qtyIndicator='<td style ="text-align:center;">
+			<input name="eqQtyFullyFunctional_'.$counter.'" id="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" class="numbers" />
+			</td>
+			<td></td>
+			<!--td style ="text-align:center;">
+			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" />
+			</td-->
+			<!--td style ="text-align:center;">
+			<input name="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" />
+			</td-->'; 
+        }
+        
 		
    		$this->equipmentsMCHSection.='<tr>
 			<td >'.$value['equipmentName'].' '.$unit.' </td>
 			<td style ="text-align:center;">
-			<input name="eqAvailability_'.$counter.'" type="radio" value="Available" class="cloned"/>
+			<input name="eqAvailability_'.$counter.'" id="eqAvailable_'.$counter.'" type="radio" value="Available" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="eqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
+			<input name="eqAvailability_'.$counter.'" id="eqSometimesAvailable_'.$counter.'" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="eqAvailability_'.$counter.'" type="radio" value="Never Available" />
+			<input name="eqAvailability_'.$counter.'" id="eqNeverAvailable_'.$counter.'" type="radio" value="Never Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="OPD" class="cloned"/>
@@ -912,17 +945,9 @@ public function createEquipmentMCHSection(){
 			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Other" />
+			<input name="eqLocation_'.$counter.'[]" id="eqLocOther_'.$counter.'" type="checkbox" value="Other" />
 			</td>
-			<td style ="text-align:center;">
-			<input name="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" />
-			</td>
-			<td style ="text-align:center;">
-			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" />
-			</td>
-			<td style ="text-align:center;">
-			<input name="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" />
-			</td>
+			'.$qtyIndicator.'
 			<input type="hidden"  name="eqEquipmentCode_'.$counter.'" id="eqEquipmentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
 		</tr>';
 		

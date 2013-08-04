@@ -62,9 +62,9 @@
 				<h2><?php echo $login_message; ?></h2>
 				
 				<!--p style="margin-bottom:5px"><label for="username">Facility Name</label</p><p><input id="username" name="username" type="text" placeholder="Facility Name"></p-->
-				<p style="margin-bottom:5px"><label for="username">District Name</label</p>
+				<p style="margin-bottom:5px"><label for="username">District/Sub County Name</label</p>
 					<p><select id="username" name="username">
-					<option selected="selected" value="">Select District</option>
+					<option selected="selected" value="">Select District/Sub County</option>
 					<?php echo $this->selectDistricts; ?>
 					</select>
 				</p>
@@ -74,7 +74,7 @@
 				  <input type="checkbox" id="remember" value="remember" />
 				  <span>Remember me on this computer</span>
 				</label-->
-				<label style="color: #e34848;display:none" for="buttonsPane" >Invalid District and Password Combination!</label>
+				<label style="color: #e34848;display:none" for="buttonsPane" >Invalid District/Sub County and Password Combination!</label>
 				<div class="buttonsPane">
 					<button type="submit" class="awesome blue medium" style="width:inherit">Begin <?php echo $survey ?> Survey</button>	
 				</div>

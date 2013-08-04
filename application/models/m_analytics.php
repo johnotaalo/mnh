@@ -23,28 +23,20 @@ class M_Analytics extends MY_Model {
 		$this -> rsm = new ResultSetMappingBuilder($this -> em);
 	}
 
-	public function get_respondent_rate() {
+	public function get_response_count($survey) {
 		try {
-			// build rsm here --native query
-			//$this->rsm->addRootEntityFromClassMetadata('models\Entities\e_response_rate', 'r'); 
-			$this -> query = $this -> em -> createQuery('SELECT COUNT(r.facilityCode) AS Respondents FROM models\Entities\e_response_rate r');
-			
-			/*$this->rsm->addRootEntityFromClassMetadata('models\Entities\e_facility', 'f');		
-			
-			$this -> query = $this -> em -> createNativeQuery('SELECT er.TotalRespondents, ar.Respondents FROM (SELECT COUNT(f.facilityID)
-									 AS TotalRespondents FROM facility f) AS er,(SELECT COUNT(r.facilityCode) AS Respondents FROM response_rate r 
-									 WHERE r.flagResponded=1) AS ar', $this -> rsm);*/
-			//$this->query->setParameter(1, 'romanb');
-			
-			echo $this->query->getSQL();
-
-			$this -> dataSet = $this -> query -> getResult();
-
-			die(var_dump($this -> dataSet));
-
-			$this -> dataSet = json_encode($this -> dataSet);
-
-			//echo $this->dataSet;exit;
+			 /*using CI Database Active Record*/
+		 try{
+	       $query = "SELECT DISTINCT(facilityCode),trackerID,lastActivity FROM assessment_tracker WHERE survey=? AND trackerSection='section-6' 
+					 ORDER BY lastActivity DESC";
+          $this->dataSet = $this->db->query($query,array($survey));
+		$this->dataSet=$this->dataSet->result_array();
+		  //die(var_dump($this->dataSet));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//die($ex->getMessage());//exit;
+		 }
+		return $this->dataSet;
 
 		} catch(exception $ex) {
 			//ignore

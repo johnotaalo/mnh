@@ -395,6 +395,7 @@ class M_MCH_Survey  extends MY_Model {
 				$this -> theForm -> setCommodityID($this->elements[$i]['cqCommodityCode']);
 				
 				//check if that key exists, else set it to some default value
+				(isset($this->elements[$i]['cqExpiryDate']) && $this->elements[$i]['cqExpiryDate']!='')?$this -> theForm -> setCommodityExpiryDate($this->elements[$i]['cqExpiryDate']):$this -> theForm -> setCommodityExpiryDate('n/a');
 				(isset($this->elements[$i]['cqNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['cqNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
 				(isset($this->elements[$i]['cqSupplier']) || $this->elements[$i]['cqSupplier']=='')?$this -> theForm -> setSupplierID($this->elements[$i]['cqSupplier']):$this -> theForm -> setSupplierID("Other");
 				(isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason']=='')?$this -> theForm -> setReason4Unavailability($this->elements[$i]['cqReason']):$this -> theForm -> setReason4Unavailability("N/A");
@@ -841,6 +842,7 @@ class M_MCH_Survey  extends MY_Model {
 				}
 				
 				$this -> theForm -> setIndicatorID($this->elements[$i]['ortcAspectCode']);
+				(isset($this->elements[$i]['ortcGuidesCount']))?$this -> theForm -> setNoOfGuides($this->elements[$i]['ortcGuidesCount']):$this -> theForm -> setNoOfGuides(-1);
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 				$this -> em -> persist($this -> theForm);
 						
@@ -970,7 +972,7 @@ class M_MCH_Survey  extends MY_Model {
 				(isset($this->elements[$i]['eqAvailability']))?$this -> theForm -> setEquipAvailability($this->elements[$i]['eqAvailability']):$this -> theForm -> setEquipAvailability("N/A");
 				(isset($this->elements[$i]['eqLocation']))?$this -> theForm -> setEquipLocation($this->elements[$i]['eqLocation']):$this -> theForm -> setEquipLocation("N/A");
 				(isset($this->elements[$i]['eqQtyFullyFunctional']) || $this->elements[$i]['eqQtyFullyFunctional']!='')?$this -> theForm -> setQuantityFullyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityFullyFunctional(-1);
-				(isset($this->elements[$i]['eqQtyPartiallyFunctional']) || $this->elements[$i]['eqQtyPartiallyFunctional']!='')?$this -> theForm -> setQuantityPartiallyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityPartiallyFunctional(-1);
+				(isset($this->elements[$i]['eqQtyPartiallyFunctional']))?$this -> theForm -> setQuantityPartiallyFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityPartiallyFunctional(-1);
 				(isset($this->elements[$i]['eqQtyNonFunctional']) || $this->elements[$i]['eqQtyNonFunctional']!='')?$this -> theForm -> setQuantityNonFunctional($this->elements[$i]['eqQtyFullyFunctional']):$this -> theForm -> setQuantityNonFunctional(-1);
 				
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/

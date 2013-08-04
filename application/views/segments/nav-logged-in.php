@@ -19,7 +19,7 @@
 				<div id="main-nav">
 
 					<ul class="tabbed">
-						<li><a id="li_facilities" href="<?php echo base_url().'commodity/assessment';?>"> <?php echo $this -> session -> userdata('dName');?> Facilities</a></li-->
+						<li><a id="li_facilities" href="<?php echo base_url().$this -> session -> userdata('survey').'/assessment';?>"> <?php echo $this -> session -> userdata('dName');?> Facilities</a></li-->
 						<li><a id="li_survey"href="<?php echo base_url() ?>home">Surveys</a></li>
 						<!--li><a id="li_analysis"href="#">Analysis</a></li-->
 					</ul>
