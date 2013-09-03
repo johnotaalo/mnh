@@ -3,8 +3,9 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchTreatment,$ortAspect,$trainingGuidelines,$districtFacilities,$fCode;
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mnhIndicator,$mchTreatment,
+$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode;
 
 function __construct() {
 		parent::__construct();
@@ -165,6 +166,21 @@ function __construct() {
 		 	//$ex->getMessage();
 		 }
 		return $this->ortAspect;
+	}/*end of getAllOrtAspects*/
+	
+	function getMNHQuestionsBySection($for){
+		 /*using DQL*/
+		 try{
+	      $this->mnhIndicator= $this->em->createQuery('SELECT q.questionCode, q.mnhQuestion FROM models\Entities\e_mnh_questions q WHERE q.mnhQuestionFor= :for ORDER BY q.questionCode ASC');
+          $this->mnhIndicator->setParameter('for',$for);
+          $this->mnhIndicator = $this->mnhIndicator->getResult();
+		  
+		 //die(var_dump($this->mnhIndicator));
+		 }catch(exception $ex){
+		 	//ignore
+		 	//$ex->getMessage();
+		 }
+		return $this->mnhIndicator;
 	}/*end of getAllOrtAspects*/
 	
 	function getAllMCHIndicators(){
@@ -353,6 +369,55 @@ function __construct() {
 		try{
 			$this->level=$this->em->getRepository('models\Entities\e_facility_level')
 			                       ->findOneBy( array('facilityLevelID'=>$id));
+								   
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getLevelNameById($id){
+		try{
+			$this->level=$this->em->getRepository('models\Entities\e_facility_level')
+			                       ->findOneBy( array('facilityLevelID'=>$id));
+				if($this->level){
+					$this->levelName=$this->level->getfacilityLevel();
+					return $this->levelName;
+				}
+								   
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getStaffTrainingGuidelineById($id){
+		try{
+			$this->trainingGuideline=$this->em->getRepository('models\Entities\e_guideline')
+			                       ->findOneBy( array('guidelineCode'=>$id));
+				if($this->trainingGuideline){
+					$this->trainingGuideline=$this->trainingGuideline->getGuidelineName();
+					return $this->trainingGuideline;
+				}
+								   
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getCommodityNameById($id){
+		try{
+			$this->commodityName=$this->em->getRepository('models\Entities\e_commodity')
+			                       ->findOneBy( array('commodityCode'=>$id));
+				if($this->commodityName){
+					$this->commodityName=$this->commodityName->getCommodityName();
+					return $this->commodityName;
+				}
+								   
 			}catch(exception $ex){
 				//ignore
 				//die($ex->getMessage());
@@ -447,14 +512,10 @@ function __construct() {
 		
 		   //pick facility name and code for temp session use
           if($this->input->post() && $this->input->post('facilityHName',TRUE)){
-          	
+          	//print $this -> session -> userdata('fCode'); die;
 			if(!$this -> session -> userdata('fCode')){
 		     $new_data=array('fName'=>$this->input->post('facilityHName',TRUE),'fCode'=>$this->input->post('facilityMFLCode',TRUE));
-		//   $this -> session -> set_flashdata('fName',$this->input->post('facilityHName',TRUE));
-		 //  $this -> session -> set_flashdata('fCode',$this->input->post('facilityMFLCode',TRUE));
 		     $this->session->set_userdata($new_data);
-		//$this->session->keep_flashdata('fCode');
-		//$this->session->keep_flashdata('fName');
 			}
 		  
 		   }
@@ -518,7 +579,7 @@ function __construct() {
 			//  echo 'Name: '. $this -> session -> userdata('fName');die;
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\E_Facility')
-					                       ->findOneBy( array('facilityName'=>$this -> session -> userdata('fName'),'facilityMFC'=>$this -> session -> userdata('fCode')));
+					                       ->findOneBy( array('facilityName'=>$this->input->post('facilityHName',TRUE),'facilityMFC'=>$this -> session -> userdata('fCode')));
 					}catch(exception $ex){
 						//ignore
 						//die($ex->getMessage());

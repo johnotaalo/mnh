@@ -3,6 +3,8 @@
 
 <head>
 	<?php $this->load->view('segments/meta'); ?>
+	<!--main style-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
 	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
 </head>
 

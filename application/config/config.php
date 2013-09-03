@@ -246,8 +246,8 @@ $config['encryption_key'] = '34edder345tg7d573dew5323509593b1e2f258ee-ke';
 |
 */
 $config['sess_cookie_name']		= 'bg_info';
-$config['sess_expiration']		= 7200;
-$config['sess_expire_on_close']	= FALSE;
+$config['sess_expiration']		= 28800;
+$config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'mnh_sessions_log';
@@ -295,7 +295,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_expire' = The number in seconds the token should expire.
 */
 $config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
+$config['csrf_token_name'] = 'csrf_token_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 

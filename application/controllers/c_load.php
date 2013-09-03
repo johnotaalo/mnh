@@ -342,6 +342,19 @@ class C_Load extends MY_Controller {
 
 		</tr>'.$this->signalFunctionsSection.'
 	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="12" >PROVISION OF CEOC SERVICES </th>
+		</thead>
+		
+		
+			<th style="width:35%">QUESTION</th>
+			<th style="width:65%;text-align:left">RESPONSE</th>			
+			
+
+		</tr>'.$this->mnhCEOCAspectsSection.'
+	</table>
 	</div><!--\.section 2-->
 
 	<div id="section-3" class="step">
@@ -465,7 +478,7 @@ class C_Load extends MY_Controller {
 	</div><!--\.section-5-->
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
-	 <p style="display:true" class="message success">SECTION 6 of 7: EQUIPMENT AVAILABILITY AND FUNCTIONALITY</p>
+	 <p style="display:true" class="message success">SECTION 6 of 7: I. EQUIPMENT AVAILABILITY AND FUNCTIONALITY</p>
 		
 		<table  class="centre" >
 		<thead>
@@ -496,9 +509,92 @@ class C_Load extends MY_Controller {
             <!--td>Partially Functional</td-->
 			<td>Non-Functional</td>
 			</tr>
-			'.$this->equipmentsSection.'
+			'.$this->equipmentsSection.
+			'<tr>
+			<th scope="col" >Delivery Equipment Name</th>
+			
+			<th colspan="3" style="text-align:center">Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="2">Available Quantities</th>
+		</tr>
+		<tr></tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td>Delivery room</td>
+			<td>Pharmacy</td>
+			<td>Store</td>
+			<td>Other</td>
+			<td>Fully-Functional</td>
+            <!--td>Partially Functional</td-->
+			<td>Non-Functional</td>
+			</tr>'.$this->deliveryEquipmentSection.'
 
 			</table>
+			
+			 <p style="display:true" class="message success">SECTION 6 of 7: II. AVAILABILITY OF WATER</p>
+			 
+			 <table  class="centre" >
+		<thead>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND MAIN SOURCE OF THE FOLLOWING.</th>
+		</thead>
+		<tr>
+			<th scope="col" >Resource Name</th>
+			
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+			<th scope="col">
+			
+				Main Source
+			</th>
+			<!--th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th-->
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+
+			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+			
+			
+
+		</tr>'.$this->suppliesMNHOtherSection.'
+		</table>
+		
+		<table class="centre">
+		<thead>
+			<th colspan="3" >INDICATE THE STORAGE AND ACCESS TO WATER BY THE COMMUNITY </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:12.5%;text-align:left"> RESPONSE </th>			
+			<th   style="width:52.5%;text-align:left"> SPECIFY </th>	
+
+		</tr>'.$this->mnhWaterAspectsSection.'
+	</table>
+			
            </div><!--\.section-6-->
 			<div id="section-7" class="step">
 			<input type="hidden" name="step_name" value="section-7"/>
@@ -723,6 +819,20 @@ public function get_mch_form()
 		</tr-->
 
 	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >COMMUNITY STRATEGY </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>'.$this->mchCommunityStrategySection.'
+	</table>
+	
 	</div><!--\.the section-1 -->
 	
 	<!--div id="No" class="step"--><!--end of assessment message section-->

@@ -5,9 +5,9 @@ class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
 	$selectCommodityType, $facilities, $selectCounties, 
-	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
-	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
-	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$equipmentsSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
+	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMNHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
+	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchCommunityStrategySection,$mnhWaterAspectsSection,$mnhCEOCAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
+	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$suppliesMNHOtherSection,$equipmentsSection,$deliveryEquipmentSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
 
 
 	function __construct() {
@@ -25,17 +25,17 @@ class  MY_Controller  extends  CI_Controller {
 		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->treatmentMCHSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->hardwareMCHSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
 		$this->mchIndicatorsSection=array();
 		$this->getHealthFacilities();
-		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();$this->getMCHOtherSuppliers();
+		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();$this->getMCHOtherSuppliers();$this->getMNHOtherSuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();
 		$this->createMCHOrtCommodityAvailabilitySection();
 		$this->createBemoncSignalFunctionsSection();$this->createStaffTrainingGuidelinesSection();$this->createMCHStaffTrainingGuidelinesSection();
-		$this->createSuppliesSection();$this->createSuppliesMCHSection();$this->createHardwareResourcesMCHSection();
-		$this->createEquipmentSection();$this->createEquipmentMCHSection();
+		$this->createSuppliesSection();$this->createSuppliesMCHSection();$this->createHardwareResourcesMCHSection();$this->createSuppliesMNHOtherSection();
+		$this->createEquipmentSection();$this->createEquipmentMCHSection();$this->createDeliveryEquipmentSection();
 		$this->createCommodityUsageAndOutageSection();
 		$this->createSuppliesUsageAndOutageSection();$this->createTreatmentsMCHSection();
 		$this->createFacilitiesListSection();$this->createMCHIndicatorsSection();
-		$this->createORTCornerAspectsSection();$this->createMCHGuidelineAvailabilitySection();
+		$this->createORTCornerAspectsSection();$this->createMCHGuidelineAvailabilitySection();$this->createMNHWaterAspectsSection();$this->createMNHCEOCAspectsSection();$this->createMCHCommunityStrategySection();
 		
   
 	}
@@ -147,6 +147,15 @@ class  MY_Controller  extends  CI_Controller {
 			}
 	}
 	
+	public function getMNHOtherSuppliers(){
+	    $this->data_found= $this->m_mnh_survey->getOtherSupplierNames();
+		$counter=0;
+		foreach($this->data_found as $value) {
+			    $counter++;
+				$this ->selectMNHOtherSuppliers .= '<option value="' . $value['supplierName'] . '">'.$counter.'. '.$value['supplierName'] . '</option>' . '<br />';
+			}
+	}
+	
 	 public function getHealthFacilities(){
 	    $this->data_found= $this->m_mnh_survey->getFacilityNames();
 		foreach($this->data_found as $value) {
@@ -170,7 +179,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_'.$counter.'" type="radio" value="Some Available" class="cloned"/>
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Sometimes Available" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" class="cloned"/>
@@ -234,7 +243,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_'.$counter.'" type="radio" value="Some Available" class="cloned"/>
+			<input name="cqAvailability_'.$counter.'" type="radio" value="Sometimes Available" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="cqAvailability_'.$counter.'" type="radio" value="Never Available" class="cloned"/>
@@ -273,7 +282,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqNumberOfUnits_'.$counter.'" id="cqNumberOfUnits_'.$counter.'" type="text" size="5" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqExpiryDate_'.$counter.'" id="cqExpiryDate_'.$counter.'" type="text" size="11" class="cloned expiryDate"/>
+			<input name="cqExpiryDate_'.$counter.'" id="cqExpiryDate_'.$counter.'" type="text" size="15" class="cloned expiryDate"/>
 			</td>
 			<td width="50">
 			<select name="cqSupplier_'.$counter.'" id="cqSupplier_'.$counter.'" class="cloned">
@@ -402,6 +411,143 @@ class  MY_Controller  extends  CI_Controller {
    
 	//echo $this->ortCornerAspectsSection;die;
    	return $this->ortCornerAspectsSection;
+   }
+   
+   /**Function to create the section: Child Health--Community Strategy
+	 * */
+	public function createMCHCommunityStrategySection(){
+	 $this->data_found= $this->m_mch_survey->getOrtAspectQuestions('cms');
+	//var_dump($this->data_found);die;
+	$counter=0;
+	$aspect='';
+   	foreach($this->data_found as $value){
+   		$counter++;
+		
+
+			$this->mchCommunityStrategySection.='<tr>
+			<td colspan="1">(<strong>'.$counter.'</strong>) '.$value['mchQuestion'].'</td>
+			<td colspan="1">
+			<input type="text"  name="mchCommunityStrategy_'.$counter.'" id="mchCommunityStrategy_'.$counter.'" value="" class="numbers cloned"/>
+			</td>
+			<input type="hidden"  name="mchCommunityStrategyQCode_'.$counter.'" id="mchCommunityStrategyQCode_'.$counter.'" value="'.$value['questionCode'].'" />
+		</tr>';
+	}
+   
+	//echo $this->mchCommunityStrategySection;die;
+   	return $this->mchCommunityStrategySection;
+   }
+   
+   
+   /**Function to create the section: mnh water availability follow up questions in Section 6 of 7 ii
+	 * */
+	public function createMNHWaterAspectsSection(){
+	 $this->data_found= $this->m_mnh_survey->getMnhWaterAspectQuestions();
+	//var_dump($this->data_found);die;
+	$counter=0;
+	$aspect='';
+	$mh_supplier_names=$this->selectMNHOtherSuppliers;
+   	foreach($this->data_found as $value){
+   		$counter++;
+		$aspect_response_on_yes='';
+		
+		if($value['questionCode']=='QMNH01'){
+			$aspect_response_on_yes='<label>Water Storage Point</label><br/>
+			<input type="text"  name="mnhwAspectResponse_'.$counter.'[]" id="mnhwStoragePoint_'.$counter.'" value="" size="45" placeholder="specify"/>';
+		}else{
+			$aspect_response_on_yes='<label>Main Source</label><br/>
+			<select name="mnhwAspectResponse_'.$counter.'[]" id="sqSupplier_'.$counter.'" class="cloned">
+			<option value="" selected="selected">Select One</option>'.$mh_supplier_names.'
+			</select>';
+		}
+			$this->mnhWaterAspectsSection.='<tr>
+			<td colspan="1">'.$value['mnhQuestion'].'</td>
+			<td colspan="1">
+			<select name="mnhwAspectResponse_'.$counter.'[]" id="mnhwAspectResponse_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+			</td>
+			<td>
+			'.$aspect_response_on_yes.'
+			</td>
+			<input type="hidden"  name="mnhwAspectCode_'.$counter.'" id="mnhwAspectCode_'.$counter.'" value="'.$value['questionCode'].'" />
+		</tr>';
+		}
+		
+	//echo $this->mnhWaterAspectsSection;die;
+   	return $this->mnhWaterAspectsSection;
+   }
+
+   /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii	 * */
+	public function createMNHCEOCAspectsSection(){
+	 $this->data_found= $this->m_mnh_survey->getMnhCeocAspectQuestions();
+	//var_dump($this->data_found);die;
+	$counter=0;
+	$aspect='';
+   	foreach($this->data_found as $value){
+   		$counter++;
+		$follow_up_question='';
+		
+		if($value['questionCode']=='QMNH03'){
+			$follow_up_question='<tr id="transfusion_y" style="display:none">
+			<td>If blood transfusion is performed, indicate <strong>main source</strong> of blood</td>
+			<td>
+			<select name="mnhceocFollowUp_'.$counter.'" id="mnhceocFollowUp_'.$counter.'" class="cloned" disabled>
+			<option value="" selected="selected">Select One</option>
+			<option value="Blood bank available">Blood bank available</option>
+			<option value="Transfusion done, no blood blank">Transfusions done but no blood bank</option>
+			<option value="Other">Other</option>
+			</select><br/>
+			<label id="label_followup_other_'.$counter.'">Provide Other</label> <br/>
+			<input type="text"  name="mnhceocFollowUpOther_'.$counter.'" id="mnhceocFollowUpOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			</td>
+			</tr>
+			<tr id="transfusion_n" style="display:none">
+			<td>Give a reason why blood transfusion is <strong>not</strong> performed</td>
+			<td>
+			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" disabled>
+			<option value="" selected="selected">Select One</option>
+			<option value="Blood not available">Blood not available</option>
+			<option value="No supplies & equipment">Supplies and equipment NOT available</option>
+			<option value="Other">Other</option>
+			</select><br/>
+			<label id="label_reason_other_'.$counter.'">Other Reason</label><br/>
+			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			</td>
+			</tr>';
+		}else{
+			$follow_up_question='<tr id="csdone_n" style="display:none">
+			<td>Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
+			<td>
+			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" disabled>
+			<option value="" selected="selected">Select One</option>
+			<option value="No supplies & equipment">Supplies and equipment NOT available</option>
+			<option value="No theatre space">Theatre space NOT available</option>
+			<option value="No human resource">Human Resource (surgeon/anaesthetist) NOT available</option>
+			<option value="Other">Other</option><br/>
+			</select><br/>
+			<label id="label_reason_other_'.$counter.'">Other Reason</label><br/>
+			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			</td>
+			</tr>';
+		}
+		    
+		$this->mnhCEOCAspectsSection.='<tr>
+		<td colspan="1"><strong>('.$counter.').</strong> '.$value['mnhQuestion'].'</td>
+		<td colspan="1">
+		<select name="mnhceocAspectResponse_'.$counter.'" id="mnhceocAspectResponse_'.$counter.'" class="cloned ceoc">
+			<option value="" selected="selected">Select One</option>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
+		</select>
+		</td>
+		<input type="hidden"  name="mnhceocAspectCode_'.$counter.'" id="mnhceocAspectCode_'.$counter.'" value="'.$value['questionCode'].'" />
+	</tr>'.$follow_up_question;
+		}
+		
+	//echo $this->mnhCEOCAspectsSection;die;
+   	return $this->mnhCEOCAspectsSection;
    }
    
    /**Function to create the section: CH Guideline Availability
@@ -642,7 +788,7 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="sqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqAvailability_'.$counter.'" type="radio" value="Some Available" />
+			<input name="sqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="sqAvailability_'.$counter.'" type="radio" value="Never Available" />
@@ -689,6 +835,72 @@ class  MY_Controller  extends  CI_Controller {
    	return $this->suppliesSection;
    }
 
+public function createSuppliesMNHOtherSection(){
+	$mh_supplier_names=$this->selectMNHOtherSuppliers;
+	 $this->data_found= $this->m_mnh_survey->getOtherSuppliesNames();
+	//var_dump($this->data_found);die;
+	$unit="";
+	$counter=0;
+   	foreach($this->data_found as $value){
+   		$counter++;
+		
+		if ($value['suppliesUnit']!=null){
+			$unit='('.$value['suppliesUnit'].')';
+				
+			}else{
+				$unit='';
+			}
+   		$this->suppliesMNHOtherSection.='<tr>
+			<td  style="width:200px;">'.$value['suppliesName'].' '.$unit.' </td>
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
+			<input name="sqAvailability_'.$counter.'" id="sqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqAvailability_'.$counter.'" type="radio" value="Never Available" />
+			</td>		
+			<td style ="text-align:center;">
+			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="OPD" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="MCH" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="U5 Clinic" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Ward" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="sqLocation_'.$counter.'[]" id="sqLocOther_'.$counter.'" type="checkbox" value="Other" />
+			</td>
+			<!--td style ="text-align:center;">
+			<input name="sqNumberOfUnits_'.$counter.'" type="text" size="10" class="cloned numbers"/>
+			</td-->
+			<td width="50">
+			<select name="sqSupplier_'.$counter.'" id="sqSupplier_'.$counter.'" class="cloned">
+			<option value="" selected="selected">Select One</option>'.$mh_supplier_names.'
+			</select></td>
+			<!--td width="50">
+			<select name="sqReason_'.$counter.'" id="sqReason_'.$counter.'" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				
+
+			</select></td-->
+			<input type="hidden"  name="sqSuppliesCode_'.$counter.'" id="sqSuppliesCode_'.$counter.'" value="'.$value['suppliesCode'].'" />
+		</tr>';
+		
+   	}
+	//echo $this->createSuppliesMCHSection;die;
+   	return $this->suppliesMNHOtherSection;
+   }
+
 public function createSuppliesMCHSection(){
 	$ch_supplier_names=$this->selectMCHOtherSuppliers;
 	 $this->data_found= $this->m_mch_survey->getSuppliesNames();
@@ -710,7 +922,7 @@ public function createSuppliesMCHSection(){
 			<input name="sqAvailability_'.$counter.'" id="sqAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqAvailability_'.$counter.'" type="radio" value="Some Available" />
+			<input name="sqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="sqAvailability_'.$counter.'" type="radio" value="Never Available" />
@@ -776,7 +988,7 @@ public function createHardwareResourcesMCHSection(){
 			<input name="hwAvailability_'.$counter.'" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="hwAvailability_'.$counter.'" id="hwAvailability_'.$counter.'" type="radio" value="Some Available" />
+			<input name="hwAvailability_'.$counter.'" id="hwAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="hwAvailability_'.$counter.'" type="radio" value="Never Available" />
@@ -822,7 +1034,7 @@ public function createHardwareResourcesMCHSection(){
    }
    
     public function createEquipmentSection(){
-	 $this->data_found= $this->m_mnh_survey->getEquipmentNames();
+	 $this->data_found= $this->m_mnh_survey->getEquipmentNames('mnh');
 	//var_dump($this->data_found);die;
 	$unit="";
 	$counter=0;
@@ -874,6 +1086,61 @@ public function createHardwareResourcesMCHSection(){
    	}
 	//echo $this->commodityUsageAndOutageSection;die;
    	return $this->equipmentsSection;
+   }
+   
+   public function createDeliveryEquipmentSection(){
+	 $this->data_found= $this->m_mnh_survey->getEquipmentNames('dke');
+	//var_dump($this->data_found);die;
+	$unit="";
+	$counter=10;#pick up from the gen mnh equipment's list 
+   	foreach($this->data_found as $value){
+   		$counter++;
+		
+		if ($value['equipmentUnit']!=null){
+			$unit='('.$value['equipmentUnit'].')';
+				
+			}else{
+				$unit='';
+			}
+		
+   		$this->deliveryEquipmentSection.='<tr>
+			<td >'.$value['equipmentName'].' '.$unit.' </td>
+			<td style ="text-align:center;">
+			<input name="eqAvailability_'.$counter.'" type="radio" value="Available" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqAvailability_'.$counter.'" type="radio" value="Sometimes Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqAvailability_'.$counter.'" type="radio" value="Never Available" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Delivery room" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqLocation_'.$counter.'[]" type="checkbox" value="Store" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqLocation_'.$counter.'[]" id="eqLocOther_'.$counter.'" type="checkbox" value="Other" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="eqQtyFullyFunctional_'.$counter.'" id="eqQtyFullyFunctional_'.$counter.'" type="text"  size="8" class="numbers" />
+			</td>
+			<!--td style ="text-align:center;">
+			<input name="eqQtyPartiallyFunctional_'.$counter.'" type="text"  size="8" class="numbers"/>
+			</td-->
+			<td style ="text-align:center;">
+			<input name="eqQtyNonFunctional_'.$counter.'" id="eqQtyNonFunctional_'.$counter.'" type="text"  size="8" class="numbers"/>
+			</td>
+			<input type="hidden"  name="eqEquipmentCode_'.$counter.'" id="eqEquipmentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
+		</tr>';
+		
+   	}
+	//echo $this->deliveryEquipmentSection;die;
+   	return $this->deliveryEquipmentSection;
    }
 
 public function createEquipmentMCHSection(){

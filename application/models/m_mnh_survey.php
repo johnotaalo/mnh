@@ -10,7 +10,7 @@ if (!defined('BASEPATH'))
 class M_MNH_Survey  extends MY_Model {
 	var $id, $attr, $frags, $elements, $noOfInserts, $batchSize,$mfcCode,$suppliesList,
 	$facility,$commodity, $isFacility,$commodityList,$supplierList,$signalFunctionList,$trainingGuidelinesList,$facilityList,$countyList,$districtList,
-	$facilityOwnerList,$facilityLevelList,$facilityTypeList,$isDistrict;
+	$facilityOwnerList,$facilityLevelList,$facilityTypeList,$isDistrict,$mnhWaterAspectList,$mnhCeocQuestionsList;
 	
 	
 
@@ -29,8 +29,8 @@ class M_MNH_Survey  extends MY_Model {
 		return $this->commodityList;
     }
 	
-	public function getEquipmentNames(){
-    	$this->equipmentList=$this->getAllEquipmentNames('mnh');
+	public function getEquipmentNames($for){
+    	$this->equipmentList=$this->getAllEquipmentNames($for);
 		//var_dump($this->equipmentList);die;
 		return $this->equipmentList;
     }
@@ -39,6 +39,33 @@ class M_MNH_Survey  extends MY_Model {
     	$this->suppliesList=$this->getAllSuppliesNames('mnh');
 		//var_dump($this->suppliesList);die;
 		return $this->suppliesList;
+    }
+	
+	public function getOtherSuppliesNames(){
+    	$this->suppliesList=$this->getAllSuppliesNames('mh');
+		//var_dump($this->suppliesList);die;
+		return $this->suppliesList;
+    }
+	
+	/*calls the query defined in MY_Model*/
+	public function getOtherSupplierNames(){
+    	$this->supplierList=$this->getAllCommoditySupplierNames('mh');
+		//var_dump($this->supplierList);die;
+		return $this->supplierList;
+    }
+	
+	/*calls the query defined in MY_Model*/
+	public function getMnhWaterAspectQuestions(){
+    	$this->mnhWaterAspectList=$this->getMNHQuestionsBySection('mnhw');
+		//var_dump($this->mnhWaterAspectList);die;
+		return $this->mnhWaterAspectList;
+    }
+	
+	/*calls the query defined in MY_Model*/
+	public function getMnhCeocAspectQuestions(){
+    	$this->mnhCeocQuestionsList=$this->getMNHQuestionsBySection('ceoc');
+		//var_dump($this->mnhCeocQuestionsList);die;
+		return $this->mnhCeocQuestionsList;
     }
 	
 	/*calls the query defined in MY_Model*/
@@ -224,24 +251,24 @@ class M_MNH_Survey  extends MY_Model {
 				$this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 				$this -> theForm -> setFacilityID($this -> session -> userdata('fCode'));
 				/*if no value set, then set to -1*/
-				/**/(isset($this->elements['dnjanuary_12']))?$this -> theForm -> setJan12(-1):$this -> theForm -> setJan12($this->elements['dnjanuary_12']);
-				(isset($this->elements['dnfebruary_12']))?$this -> theForm -> setFeb12(-1):$this -> theForm -> setFeb12($this->elements['dnfebruary_12']);
-				(isset($this->elements['dnmarch_12']))?$this -> theForm -> setMar12(-1):$this -> theForm -> setMar12($this->elements['dnmarch_12']);
-				(isset($this->elements['dnapril_12']))?$this -> theForm -> setApr12(-1):$this -> theForm -> setApr12($this->elements['dnapril_12']);
-				(isset($this->elements['dnmay_12']))?$this -> theForm -> setMay12(-1):$this -> theForm -> setMay12($this->elements['dnmay_12']);
-				(isset($this->elements['dnjune_12']))?$this -> theForm -> setJun12(-1):$this -> theForm -> setJun12($this->elements['dnjune_12']);
-				(isset($this->elements['dnjuly_12']))?$this -> theForm -> setJul12(-1):$this -> theForm -> setJul12($this->elements['dnjuly_12']);
-				(isset($this->elements['dnaugust_12']))?$this -> theForm -> setAug12(-1):$this -> theForm -> setAug12($this->elements['dnaugust_12']);
-				(isset($this->elements['dnseptember_12']))?$this -> theForm -> setSep12(-1):$this -> theForm -> setSep12($this->elements['dnseptember_12']);
-				(isset($this->elements['dnoctober_12']))?$this -> theForm -> setOct12(-1):$this -> theForm -> setOct12($this->elements['dnoctober_12']);
-				(isset($this->elements['dnnovember_12']))?$this -> theForm -> setNov12(-1):$this -> theForm -> setNov12($this->elements['dnnovember_12']);
-				(isset($this->elements['dndecember_12']))?$this -> theForm -> setDec12(-1):$this -> theForm -> setDec12($this->elements['dndecember_12']); /**/
-				(isset($this->elements['dnjanuary_13']))?$this -> theForm -> setJan13(-1):$this -> theForm -> setJan13($this->elements['dnjanuary_13']);
-				(isset($this->elements['dnfebruary_13']))?$this -> theForm -> setFeb13(-1):$this -> theForm -> setFeb13($this->elements['dnfebruary_13']);
-				(isset($this->elements['dnmarch_13']))?$this -> theForm -> setMar13(-1):$this -> theForm -> setMar13($this->elements['dnmarch_13']);
-				(isset($this->elements['dnapril_13']))?$this -> theForm -> setApr13(-1):$this -> theForm -> setApr13($this->elements['dnapril_13']);
-				(isset($this->elements['dnmay_13']))?$this -> theForm -> setMay13(-1):$this -> theForm -> setMay13($this->elements['dnmay_13']);
-				(isset($this->elements['dnjune_13']) || !isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
+				/**/(!isset($this->elements['dnjanuary_12']))?$this -> theForm -> setJan12(-1):$this -> theForm -> setJan12($this->elements['dnjanuary_12']);
+				(!isset($this->elements['dnfebruary_12']))?$this -> theForm -> setFeb12(-1):$this -> theForm -> setFeb12($this->elements['dnfebruary_12']);
+				(!isset($this->elements['dnmarch_12']))?$this -> theForm -> setMar12(-1):$this -> theForm -> setMar12($this->elements['dnmarch_12']);
+				(!isset($this->elements['dnapril_12']))?$this -> theForm -> setApr12(-1):$this -> theForm -> setApr12($this->elements['dnapril_12']);
+				(!isset($this->elements['dnmay_12']))?$this -> theForm -> setMay12(-1):$this -> theForm -> setMay12($this->elements['dnmay_12']);
+				(!isset($this->elements['dnjune_12']))?$this -> theForm -> setJun12(-1):$this -> theForm -> setJun12($this->elements['dnjune_12']);
+				(!isset($this->elements['dnjuly_12']))?$this -> theForm -> setJul12(-1):$this -> theForm -> setJul12($this->elements['dnjuly_12']);
+				(!isset($this->elements['dnaugust_12']))?$this -> theForm -> setAug12(-1):$this -> theForm -> setAug12($this->elements['dnaugust_12']);
+				(!isset($this->elements['dnseptember_12']))?$this -> theForm -> setSep12(-1):$this -> theForm -> setSep12($this->elements['dnseptember_12']);
+				(!isset($this->elements['dnoctober_12']))?$this -> theForm -> setOct12(-1):$this -> theForm -> setOct12($this->elements['dnoctober_12']);
+				(!isset($this->elements['dnnovember_12']))?$this -> theForm -> setNov12(-1):$this -> theForm -> setNov12($this->elements['dnnovember_12']);
+				(!isset($this->elements['dndecember_12']))?$this -> theForm -> setDec12(-1):$this -> theForm -> setDec12($this->elements['dndecember_12']); /**/
+				(!isset($this->elements['dnjanuary_13']))?$this -> theForm -> setJan13(-1):$this -> theForm -> setJan13($this->elements['dnjanuary_13']);
+				(!isset($this->elements['dnfebruary_13']))?$this -> theForm -> setFeb13(-1):$this -> theForm -> setFeb13($this->elements['dnfebruary_13']);
+				(!isset($this->elements['dnmarch_13']))?$this -> theForm -> setMar13(-1):$this -> theForm -> setMar13($this->elements['dnmarch_13']);
+				(!isset($this->elements['dnapril_13']))?$this -> theForm -> setApr13(-1):$this -> theForm -> setApr13($this->elements['dnapril_13']);
+				(!isset($this->elements['dnmay_13']))?$this -> theForm -> setMay13(-1):$this -> theForm -> setMay13($this->elements['dnmay_13']);
+				(!isset($this->elements['dnjune_13']))?$this -> theForm -> setJun13(-1):$this -> theForm -> setJun13($this->elements['dnjune_13']);
 				
 				//$this -> theForm -> setDateOfAssessment(new DateTime()); //date set today's
 				$this -> em -> persist($this -> theForm);
@@ -252,7 +279,7 @@ class M_MNH_Survey  extends MY_Model {
 				$this->em->clear(); //detaches all objects from doctrine
 				return true;
 				}catch(Exception $ex){
-				    die($ex->getMessage());
+				    //die($ex->getMessage());
 					return false;
 					/*display user friendly message*/
 					
@@ -373,6 +400,143 @@ class M_MNH_Survey  extends MY_Model {
 					 } //end of innner loop	
 					 	 
 	}//close addBemoncSignalFunctionsInfo
+	
+	private function addCEOCServicesInfo() {
+
+		$count = $finalCount = 1;
+		foreach ($this -> input -> post() as $key => $val) {//For every posted values
+			if (strpos($key, 'mnhceoc') !== FALSE) {//select data for mch community strategy
+				//we separate the attribute name from the number
+
+				$this -> frags = explode("_", $key);
+
+				//$this->id = $this->frags[1];  // the id
+
+				$this -> id = $count;
+				// the id
+
+				$this -> attr = $this -> frags[0];
+				//the attribute name
+
+				//print $key.' ='.$val.' <br />';
+				//print 'ids: '.$this->id.'<br />';
+
+				//mark the end of 1 row...for record count
+				if ($this -> attr == "mnhceocAspectCode") {
+					// print 'count at:'.$count.'<br />';
+
+					$finalCount = $count;
+					$count++;
+					// print 'count at:'.$count.'<br />';
+					//print 'final count at:'.$finalCount.'<br />';
+					//print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+				}
+
+				//collect key and value to an array
+				if (!empty($val)) {
+					//We then store the value of this attribute for this element.
+					$this -> elements[$this -> id][$this -> attr] = htmlentities($val);
+
+					//$this->elements[$this->attr]=htmlentities($val);
+				} else {
+					$this -> elements[$this -> id][$this -> attr] = '';
+					//$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+				}
+
+			}
+
+		}//close foreach ($this -> input -> post() as $key => $val)
+		//print var_dump($this->elements);
+
+		//exit;
+
+		//get the highest value of the array that will control the number of inserts to be done
+		$this -> noOfInsertsBatch = $finalCount;
+
+		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
+
+			//go ahead and persist data posted
+			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			//create an object of the model
+
+			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhceocAspectCode']);
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			//check if that key exists, else set it to some default value
+			(isset($this -> elements[$i]['mnhceocAspectResponse']) && $this -> elements[$i]['mnhceocAspectResponse'] != '') ? $this -> theForm -> setResponse($this -> elements[$i]['mnhceocAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			
+			//check if there's a reason
+			if(isset($this -> elements[$i]['mnhceocReason']) && $this -> elements[$i]['mnhceocReason'] != ''){
+				//check if reason is 'Other'
+				($this -> elements[$i]['mnhceocReason']=='Other')?$this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhceocReasonOther']) : $this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhceocReason']);
+			}else{
+				//check if there's a follow up qn
+				if(isset($this -> elements[$i]['mnhceocFollowUp']) && $this -> elements[$i]['mnhceocFollowUp'] != ''){
+					//check if reason is 'Other'
+					($this -> elements[$i]['mnhceocFollowUp']=='Other')?$this -> theForm -> setSpecifedOrFollowUp($this -> elements[$i]['mnhceocFollowUpOther']) : $this -> theForm -> setSpecifedOrFollowUp($this -> elements[$i]['mnhceocFollowUp']);
+				}else{
+					//set default value
+					$this -> theForm -> setSpecifedOrFollowUp('n/a');
+				}
+			}
+			
+			
+			$this -> theForm -> setCreatedAt(new DateTime());
+			/*timestamp option*/
+			$this -> em -> persist($this -> theForm);
+
+			//now do a batched insert, default at 5
+			$this -> batchSize = 5;
+			if ($i % $this -> batchSize == 0) {
+				try {
+
+					$this -> em -> flush();
+					$this -> em -> clear();
+					//detaches all objects from doctrine
+
+					//on the last record to be inserted, log the process and return true;
+					if ($i == $this -> noOfInsertsBatch) {
+						//die(print 'Limit: '.$this->noOfInsertsBatch);
+						//$this->writeAssessmentTrackerLog();
+						return true;
+					}
+
+					//return true;
+				} catch(Exception $ex) {
+					die($ex -> getMessage());
+					return false;
+
+					/*display user friendly message*/
+
+				}//end of catch
+
+			} else if ($i < $this -> batchSize || $i > $this -> batchSize || $i == $this -> noOfInsertsBatch && $this -> noOfInsertsBatch - $i < $this -> batchSize) {
+				//total records less than a batch, insert all of them
+				try {
+
+					$this -> em -> flush();
+					$this -> em -> clear();
+					//detactes all objects from doctrine
+
+					//on the last record to be inserted, log the process and return true;
+					if ($i == $this -> noOfInsertsBatch) {
+						//die(print 'Limit: '.$this->noOfInsertsBatch);
+						//$this->writeAssessmentTrackerLog();
+						return true;
+					}
+
+					//return true;
+				} catch(Exception $ex) {
+					die($ex->getMessage());
+					return false;
+
+					/*display user friendly message*/
+
+				}//end of catch
+
+			}
+			//end of batch condition
+		} //end of innner loop
+	}//close addCEOCServicesInfo()
 	
    private function addCommodityQuantityAvailabilityInfo(){
 		$count=$finalCount=1;
@@ -1165,7 +1329,7 @@ class M_MNH_Survey  extends MY_Model {
 			
 		 	 $step=$this->input->post('step_name',TRUE);
 			switch($step){
-			/**/case 'section-1':
+			/*case 'section-1':
 			//check if entry exists
 			  $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1194,7 +1358,7 @@ class M_MNH_Survey  extends MY_Model {
 
 				//insert log entry if new, else update the existing one
 				if($this->sectionExists==false){
-                   if($this->addDeliveryByMonthInfo()==true && $this->addBemoncSignalFunctionsInfo()==true){//defined in this model
+                   if($this->addDeliveryByMonthInfo()==true && $this->addBemoncSignalFunctionsInfo()==true && $this->addCEOCServicesInfo()==true){//defined in this model
                     $this->writeAssessmentTrackerLog();
 				   return $this -> response = 'true';
                     
@@ -1304,13 +1468,13 @@ class M_MNH_Survey  extends MY_Model {
 			         $this->markSurveyStatusAsComplete();
 					return $this -> response = 'true';
 				}
-					break;/**/
+					break;*/
 
 			}//close switch
 		 	//print var_dump($this->input->post());
 
 
-	 //return $this -> response = 'true';
+	return $this -> response = 'true';
 		 }
  
 	}

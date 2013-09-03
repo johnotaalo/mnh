@@ -15,7 +15,8 @@ $mfCode = $this -> session -> userdata('fCode');
 		
 		
 		<!-- Attach CSS files -->
-		
+		<!--main style-->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
 		<!-- Attach JavaScript files -->
 		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
@@ -252,6 +253,86 @@ $mfCode = $this -> session -> userdata('fCode');
 						}
 					} //close if($(this).attr('class')=='cloned is-guideline')
 					
+					//mnh section 2 follow up questions
+					//if($(this).attr('class')=='cloned ceoc'){
+						//transfusion
+						if($(this).attr('id')=='mnhceocAspectResponse_1' && $(this).val()=='Yes'){
+								//show yes follow up qn
+								$('#transfusion_n').hide();
+								$('#transfusion_n').prop('disabled',true);
+								
+								$('#transfusion_y').prop('disabled',false);
+								$('#transfusion_y').show();
+							
+						}else if($(this).attr('id')=='mnhceocAspectResponse_1' && $(this).val()=='No'){
+							
+								//show no follow up qn, and hide yes one
+								$('#transfusion_y').hide();
+								$('#transfusion_y').prop('disabled',true);
+								
+								$('#transfusion_n').prop('disabled',false);
+								$('#transfusion_n').show();
+						}
+						
+						if($(this).attr('id')=='mnhceocAspectResponse_2' && $(this).val()=='Yes'){
+						//CS conduction
+								//hide follow up qn
+								$('#csdone_n').hide();
+								$('#csdone_n').prop('disabled',true);
+							
+						}else if($(this).attr('id')=='mnhceocAspectResponse_2' && $(this).val()=='No'){
+								//show no follow up qn
+								$('#csdone_n').prop('disabled',false);
+								$('#csdone_n').show();
+						}
+						
+						
+						if($(this).attr('id')=='mnhceocFollowUp_1' && $(this).val()=='Other'){
+								//show input field on other
+								
+								$('#mnhceocFollowUpOther_1').prop('disabled',false);
+								$('#mnhceocFollowUpOther_1').show();
+								$('#label_followup_other_1').show();
+							
+						}else if($(this).attr('id')=='mnhceocFollowUp_1' && $(this).val()!='Other'){
+							
+							 //hide other input field
+							 $('#mnhceocFollowUpOther_1').prop('disabled',true);
+							 $('#mnhceocFollowUpOther_1').hide();
+							 $('#label_followup_other_1').hide();
+						}
+						
+						if($(this).attr('id')=='mnhceocReason_1' && $(this).val()=='Other'){
+								//show input field on other
+								
+								$('#mnhceocReasonOther_1').prop('disabled',false);
+								$('#mnhceocReasonOther_1').show();
+								$('#label_reason_other_1').show();
+							
+						}else if($(this).attr('id')=='mnhceocReason_1' && $(this).val()!='Other'){
+							
+							 //hide other input field
+							 $('#mnhceocReasonOther_1').prop('disabled',true);
+							 $('#mnhceocReasonOther_1').hide();
+							 $('#label_reason_other_1').hide();
+						}
+						
+						if($(this).attr('id')=='mnhceocReason_2' && $(this).val()=='Other'){
+								//show input field on other
+								
+								$('#mnhceocReasonOther_2').prop('disabled',false);
+								$('#mnhceocReasonOther_2').show();
+								$('#label_reason_other_2').show();
+							
+						}else if($(this).attr('id')=='mnhceocReason_2' && $(this).val()!='Other'){
+							
+							 //hide other input field
+							 $('#mnhceocReasonOther_2').prop('disabled',true);
+							 $('#mnhceocReasonOther_2').hide();
+							 $('#label_reason_other_2').hide();
+						}
+						
+				//	}//close if class is ceoc
 				});
 				
 				$(form_id).find(':radio').on('change',function(){
@@ -319,7 +400,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -361,7 +442,7 @@ $mfCode = $this -> session -> userdata('fCode');
 																  	//$(form_id).formwizard('show','No');
 																  	// console.log($(form_id).formwizard('state'));
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
-																  		window.location='<?php echo base_url();?>commodity/assessment'; });
+																  		window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 																  	
 																  }
 																  }else{
@@ -371,7 +452,7 @@ $mfCode = $this -> session -> userdata('fCode');
 																  	//$(form_id).formwizard('show','No');
 																  	// console.log($(form_id).formwizard('state'));
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
-																  		window.location='<?php echo base_url();?>commodity/assessment'; });
+																  		window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 																  	
 																  }
 																  }
@@ -488,7 +569,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								//$(form_id).formwizard('show','section-6');
+								//$(form_id).formwizard('show','section-2');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

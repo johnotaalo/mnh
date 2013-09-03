@@ -46,8 +46,16 @@ $route['ch/takesurvey']='c_front/active_survey';#active survey url, in this case
 $route['mnh/assessment']='c_front/inventory'; #active survey home page url
 $route['ch/assessment']='c_front/inventory'; #active survey home page url
 
-$route['mnh/analytics']='c_analytics/active_results';#active results url, in this case: mnh commodities
-$route['ch/analytics']='c_analytics/active_results';#active results url, in this case: mnh commodities
+$route['mnh/analytics']='c_analytics/active_results';#active results url, survey:mnh
+$route['ch/analytics']='c_analytics/active_results';#active results url, survey:ch
+$route['analytics/facility/loc']='c_analytics/analytics_facility_info_levels_of_care';
+$route['analytics/facility/ownership']='c_analytics/analytics_facility_info_ownership';
+$route['analytics/facility/types']='c_analytics/analytics_facility_info_types';
+
+$route['analytics/section2/guidelines-availability']='c_analytics/analytics_section_2_guidelines';
+$route['analytics/section2/staff-training']='c_analytics/analytics_section_2_staff_training';
+$route['analytics/section2/commodity-availability']='c_analytics/analytics_section_2_commodity_availability';
+$route['analytics/section2/commodity-supplier']='c_analytics/analytics_section_2_commodity_supplier';
 
 $route['session/new']='c_auth/go';#log in url
 $route['session/close']='c_auth/logout';#log out url

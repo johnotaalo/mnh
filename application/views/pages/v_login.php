@@ -16,6 +16,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
 	
 	<!-- Stylesheets -->
+	<!--main style-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
 	<link rel="stylesheet" href="<?php echo base_url()?>css/base.css">
 	<link rel="stylesheet" href="<?php echo base_url()?>css/skeleton.css">
 	<link rel="stylesheet" href="<?php echo base_url()?>css/form/layout.css">

@@ -21,7 +21,7 @@ class E_Equipment{
 	private $equipmentCode;
 
 	/**
-	 * @Column(name="equipmentName", type="string", length=45, nullable=false)
+	 * @Column(name="equipmentName", type="string", length=100, nullable=false)
 	 * */
 	private $equipmentName;
 	
