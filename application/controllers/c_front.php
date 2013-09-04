@@ -59,9 +59,10 @@ class C_Front extends MY_Controller {
 		}else{
 			$this->data['title']=strtoupper($this->session->userdata('survey')).'::Diarrhoea Treatment Scale Up Baseline Assessment';
 		}
-		
+		$this->data['logged']=1;
 		$this->data['form_id']='';
-		$this -> load -> view('survey/v_survey_main', $this->data);
+		$this->data['content'] = 'survey/v_survey_main';
+		$this -> load -> view('template', $this->data);
 		}else{
 			redirect(base_url() . 'home', 'refresh');
 		}

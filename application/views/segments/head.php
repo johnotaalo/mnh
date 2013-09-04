@@ -10,10 +10,13 @@
     <title><?php echo $title; ?></title>
 
     <!-- Le styles -->
+    <link href="<?php echo base_url(); ?>css/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo base_url(); ?>css/fixed-layout.css" rel="stylesheet">
 	 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
+	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>
 	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
+	<script src="<?php echo base_url()?>/js/Merged-JS.js"></script>
 	<!--link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" /-->
 		<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /-->
         

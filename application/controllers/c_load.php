@@ -1285,7 +1285,7 @@ public function get_mch_form()
 		
 		$this->facilityList.='<table class="centre">
 		<thead>
-			<th colspan="22" >'.strtoupper($this -> session -> userdata('dName')).' DISTRICT FACILITIES</th>
+			<th colspan="22" >'.strtoupper($this -> session -> userdata('dName')).' DISTRICT/SUB-COUNTY FACILITIES</th>
 		</thead>
 		
 		    <th colspan="1"></th>

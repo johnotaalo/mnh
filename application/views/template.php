@@ -8,7 +8,17 @@
 	<head>
 		<?php $this -> load->view('segments/head') ?>
 		<div id="network">
-	<?php $this->load->view('segments/top-public'); ?>
+	<?php 
+	
+	if(isset($logged)){
+		$this->load->view('segments/top-logged-in'); 
+	}
+	else{
+		$this->load->view('segments/top-public'); 
+	}
+	
+	?>
+	
 </div>
 	</head>
 	<body>
@@ -19,7 +29,14 @@
 			<?php $this -> load->view($content); ?>
 		</div>
 		<div id="footer">
-			<?php $this -> load->view('segments/footer'); ?>
+			<?php 
+			if(isset($logged)){
+				$this -> load->view('segments/footer'); 
+			}
+			else{
+				$this->load->view('segments/footer-public');
+			}
+			?>
 		</div>
 	</body>
 </html>

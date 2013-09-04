@@ -2,23 +2,7 @@
 $mfName = $this -> session -> userdata('fName');
 $mfCode = $this -> session -> userdata('fCode');
 ?>
-<!doctype html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> 	<html lang="en"> <!--<![endif]-->
-<head>
 
-	<head>
-		
-		<?php $this->load->view('segments/meta'); ?>
-		
-		
-		<!-- Attach CSS files -->
-		<!--main style-->
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
-		<!-- Attach JavaScript files -->
-		<!--script src="http://code.jquery.com/jquery-latest.min.js" charset="utf-8"></script-->
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
 		
@@ -591,9 +575,6 @@ $mfCode = $this -> session -> userdata('fCode');
 	</head>
 	<body id="top">
 
-<div id="network">
-	<?php $this->load->view('segments/top-logged-in'); ?>
-</div>
 
 <div id="site">
 	<div class="center-wrapper">
@@ -607,12 +588,8 @@ $mfCode = $this -> session -> userdata('fCode');
 
 		</div>
 
-		<!--footer-->
-		<?php $this->load->view('segments/footer'); ?>
+	
 
 	</div>
 </div>
 
-</body>
-		</html>
-   
