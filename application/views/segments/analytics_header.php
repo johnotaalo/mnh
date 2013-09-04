@@ -18,7 +18,7 @@
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<li class="dropdown user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						Logged on as:<img alt="" src="<?php echo base_url()?>assets/img/avatar.png" />
+						Logged on as:<i class="icon-user"></i>
 						<span class="username">Admin User</span>
 						<i class="icon-angle-down"></i>
 						</a>

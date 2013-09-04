@@ -85,7 +85,7 @@ function __construct() {
 	function getAllCommodityNames($surveyName){
 		 /*using DQL*/
 		 try{
-	      $this->commodity = $this->em->createQuery('SELECT c.commodityID, c.commodityCode, c.commodityName, c.commodityUnit FROM models\Entities\e_commodity c WHERE c.commodityFor= :surveyName ORDER BY c.commodityName ASC');
+	      $this->commodity = $this->em->createQuery('SELECT c.commodityID, c.commodityCode, c.commodityName, c.commodityUnit FROM models\Entities\e_commodity c WHERE c.commodityFor= :surveyName ORDER BY c.commodityID ASC');
           $this->commodity->setParameter('surveyName',$surveyName);
           $this->commodity = $this->commodity->getResult();
 		 //die(var_dump($this->commodity));

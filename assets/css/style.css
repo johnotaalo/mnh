@@ -2355,6 +2355,9 @@ Users
   font-weight: 300;
   font-size: 11px;
 }
+.user-info i{
+	font-size:1.5em;
+}
 
 /***
 Accordions
