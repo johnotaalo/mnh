@@ -1,31 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  
-    <meta charset="utf-8">
-    <title><?php echo $title ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Online Data Management Tool">
-    <meta name="author" content="Ministry of Health, Government of Kenya">
 
-    <!-- Le styles -->
-    <link href="<?php echo base_url(); ?>css/bootstrap.css" rel="stylesheet">
-	<link href="<?php echo base_url(); ?>css/fixed-layout.css" rel="stylesheet">
-	<!--link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" /-->
-		<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /-->
-        
-        <!--script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script-->
-		<!-- -->
-		<!-- Attach CSS files -->
-	
-		<!--link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css"/-->
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!--fav and touch icons -->
-    <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
     
   </head>
 
