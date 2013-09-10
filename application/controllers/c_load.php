@@ -1004,7 +1004,9 @@ public function get_mch_form()
 	<thead>
 	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
 
+
 	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
+
 		 <!--tr>
 			<td>'.(date('Y')-1).'</td>
 			<td style ="text-align:center;">
@@ -1066,6 +1068,7 @@ public function get_mch_form()
 			<td style ="text-align:center;">
 			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
 			</td>
+
 			
 		</tr>
 		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
@@ -1086,6 +1089,7 @@ public function get_mch_form()
 			
 			<td style ="text-align:center;">
 			<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/>
+
 			</td>	
 		</tr>
 	</table>

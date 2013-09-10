@@ -82,6 +82,7 @@ function __construct() {
         return $this->formRecords;
 	}
 	
+
 		public function getSpecificFacilityNames($mfc){
 		$query = $this->em->createQuery('SELECT f.facilityName FROM models\Entities\e_facility f where f.facilityMFC='.$mfc);
 		  //$query->setParameter('fname','%'.$options['keyword'].'%');
@@ -92,7 +93,7 @@ function __construct() {
       // die(var_dump($this->formRecords));
         return $this->facility;
 	}
-	
+
 	function getAllCommodityNames($surveyName){
 		 /*using DQL*/
 		 try{

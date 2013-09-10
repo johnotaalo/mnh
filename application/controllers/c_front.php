@@ -35,6 +35,7 @@ class C_Front extends MY_Controller {
 		$this->data['content'] = 'pages/v_login';
 		//$this -> load -> view('index', $this->data); //login view
 		$this -> load -> view('template', $this->data); //login view
+
 	    }else{
 			$this->inventory();
 		}

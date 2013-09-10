@@ -8,11 +8,14 @@
 	<script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
 	<script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
 
+
 <div id="site-title">
+
 					<div align="center">
 					<h3><a href="#"><img src="<?php echo base_url()?>images/logo_combined.png" /></a> </h3>
 					</div>
 			</div>
+
 	<div class="container">
 		
 		<div class="form-bg">
@@ -43,4 +46,6 @@
 		<!--p class="forgot">Forgot your password? <a href="">Click here to reset it.</a></p-->
 
 
+
 	</div><!-- container -->
+

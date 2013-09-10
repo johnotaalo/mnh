@@ -7,6 +7,7 @@
 	-->
 	<head>
 		<?php $this -> load->view('segments/head') ?>
+
 	</head>
 	<body>
 		<div id="header">

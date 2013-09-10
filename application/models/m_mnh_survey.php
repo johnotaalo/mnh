@@ -95,12 +95,14 @@ class M_MNH_Survey  extends MY_Model {
 		return $this->facilityList;
 	}
 	
+
 	public function getSpecificFacilityNames($mfc){
 		$this->facilityList=$this->getSpecificFacilityNames($mfc);
 		//var_dump($this->facilityList);die;
 		return $this->facilityList;
 	}
 	
+
 	public function getCountyNames(){
 		$this->countyList=$this->getAllCountyNames();
 		//var_dump($this->countyList);die;

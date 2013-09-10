@@ -216,6 +216,7 @@ ul.nice-list {
 ul.nice-list li {
 	list-style: none;
 	border-top: 1px solid #EEE;
+
 }
 ul.nice-list li:first-child {
 	border-top: none;
