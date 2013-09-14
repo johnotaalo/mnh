@@ -139,7 +139,65 @@ class M_Analytics extends MY_Model {
 	/*
 	 * Tasks performed in Ongoing Sessions
 	 */
-	public function getOngoingSessions() {
+	public function getActionsPerformed() {
+
+	}
+
+	/*
+	 * Counsel on Ongoing Sessions
+	 */
+	public function getCounselGiven() {
+
+	}
+
+	/*
+	 * Get Tools in Units
+	 */
+
+	public function getTools() {
+
+	}
+
+	/*
+	 * Diarrhoea case numbers per Month
+	 */
+	public function getDiarrhoeaCaseNumbers() {
+
+	}
+
+	/*
+	 * Diarrhoea case treatments
+	 */
+
+	public function getDiarrhoeaCaseTreatment() {
+
+	}
+
+	/*
+	 * ORT Corner Assessment
+	 */
+	public function getORTCornerAssessment() {
+
+	}
+
+	/*
+	 * Availability, Location and Functionality of Equipement at ORT Corner
+	 */
+	public function getORTCornerEquipmemnt() {
+
+	}
+
+	/*
+	 * Availability, Location and Functionality of Supplies at ORT Corner
+	 */
+	public function getORTCornerSupplies() {
+
+	}
+
+	/*
+	 *  Availability, Location and Functionality of Electricity and Hardware Resources
+	 */
+	public function getResources() {
 
 	}
 
