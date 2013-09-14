@@ -175,9 +175,9 @@ class C_Analytics extends MY_Controller {
 		//var_dump($this -> m_analytics->get_facility_levels_of_care_by('district','Kasarani','complete','ch'));
 	}
 
-	public function test_query(){
+	public function test_query() {
 		$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
-		var_dump( $results[1]);
+		var_dump($results[1]);
 		//var_dump($results);
 	}
 
@@ -214,13 +214,16 @@ class C_Analytics extends MY_Controller {
 		}
 	}
 
+	/*
+	 * Community Strategy
+	 */
 	public function getCommunityStrategy() {
 		$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
-		
-		foreach($results as $result){
-			$resultArray[]=array('name'=>$result[0],'data'=>array((int)$result[1]));
+
+		foreach ($results as $result) {
+			$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
 		}
-		$datas=array();
+		$datas = array();
 		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
@@ -231,8 +234,73 @@ class C_Analytics extends MY_Controller {
 		$datas['chartTitle'] = 'Expired Drugs';
 		$datas['categories'] = json_encode(array('Quantity'));
 		$datas['yAxis'] = 'Drugs';
-		$datas['resultArray'] = json_encode($resultArray);		
-		$this -> load -> view('charts/chart_v',$datas);
+		$datas['resultArray'] = json_encode($resultArray);
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/*
+	 * Guidelines Availability
+	 */
+	public function getGuidelinesAvailability() {
+		$results = $this -> m_analytics -> getGuidelinesAvailability('facility', '17052', 'complete', 'ch');
+
+		$yes = $results['yes_values'];
+		$no = $results['no_values'];
+		$yCount = 4;
+		$nCount = 4;
+		//var_dump($yes);
+
+		//var_dump($result);
+		foreach ($yes as $value) {
+			$category[] = $value[0];
+			$yesData[] = (int)$value[1];
+			$yCount--;
+			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		}
+		foreach ($no as $value) {
+			$category[] = $value[0];
+			$noData[] = (int)$value[1];
+			$nCount--;
+			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		}
+
+		#Fill up Arrays
+		for ($x = 0; $x < $yCount; $x++) {
+			$yesData[] = 0;
+		}
+		for ($x = 0; $x < $nCount; $x++) {
+			array_unshift($noData,0);
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_expiry';
+		$datas['chartType'] = 'bar';
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Availability';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+
+	}
+
+	/*
+	 * Get Trained Stuff
+	 */
+	public function getTrainedStaff() {
+		$results = $this -> m_analytics -> getTrainedStaff('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	public function getCommodityAvailability() {
+		$results = $this -> m_analytics -> getCommodityAvailability('facility', '17052', 'complete', 'ch');
+		var_dump($results);
 	}
 
 }

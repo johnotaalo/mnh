@@ -109,10 +109,10 @@ class M_Analytics extends MY_Model {
 	 * Guidelines Availability
 	 */
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
-       /*using CI Database Active Record*/
+		/*using CI Database Active Record*/
 		$data = array();
-		$data_prefix_y = "name:'Yes',data:";
-		$data_prefix_n = "name:'No',data:";
+		$data_prefix_y ='';
+		$data_prefix_n = '';
 		$data_y = $data_n = $data_categories = array();
 
 		if ($survey == 'ch') {
@@ -151,18 +151,33 @@ class M_Analytics extends MY_Model {
 				//get a set of the 4 guidelines
 				$data_categories = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
 
-				$data['categories'] = json_encode($data_categories);
+				//$data['categories'] = json_encode($data_categories);
 
 				foreach ($this->dataSet as $value) {
+					switch($this -> getTrainingGuidelineName($value['guideline'])) {
+						case 'Does the facility have updated 2012 IMCI guidelines?' :
+							$guideline = '2012 IMCI';
+							break;
+						case 'Does the facility have updated ORT Corner guidelines?' :
+							$guideline = 'ORT Corner';
+							break;
+						case 'Does the facility have an updated Paediatric Protocol?' :
+							$guideline = 'Paediatric Protocol';
+							break;
+						case 'Does the facility have updated ICCM guidelines?' :
+							$guideline = 'ICCM';
+							break;
+					}
+
 					if ($value['availability'] == 'Yes') {
-						$data_y[] = intval($value['total_facilities']);
+						$data_y[] = array($guideline, (int)$value['total_facilities']);
 					} else {
-						$data_n[] = intval($value['total_facilities']);
+						$data_n[] = array($guideline, (int)$value['total_facilities']);
 					}
 				}
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
@@ -177,8 +192,6 @@ class M_Analytics extends MY_Model {
 			//die($ex->getMessage());//exit;
 		}
 	}
-	
-	
 
 	/*
 	 * Trained Staff
@@ -348,13 +361,12 @@ class M_Analytics extends MY_Model {
 
 				//do more with less :)
 				$count = 0;
-				if(isset($analytic_var[0]) && isset($data_set[0])){
+				if (isset($analytic_var[0]) && isset($data_set[0])) {
 					foreach ($analytic_var as $val) {
-					$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-					$count++;
+						$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
+						$count++;
+					}
 				}
-				}
-				
 
 				$this -> final_data_set['frequency'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -427,23 +439,23 @@ class M_Analytics extends MY_Model {
 
 				//do more with less :)
 				$count = 0;
-				if(isset($analytic_var[0]) && isset($data_set[0])){
-				foreach ($analytic_var as $val) {
-					$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-					$count++;
-				}
+				if (isset($analytic_var[0]) && isset($data_set[0])) {
+					foreach ($analytic_var as $val) {
+						$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
+						$count++;
+					}
 				}
 
 				$this -> final_data_set['unavailability'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
-				}
-			} catch(exception $ex) {
+			}
+		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}
-				/*--------------------end commodity reason for unavailability----------------------------------------------*/
-				
+		/*--------------------end commodity reason for unavailability----------------------------------------------*/
+
 		/*--------------------begin commodity location of availability----------------------------------------------*/
 		$query = "SELECT count(ca.Location) AS total_response,ca.CommodityID as commodity,ca.Location AS location FROM cquantity_available ca
 					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
@@ -468,13 +480,11 @@ class M_Analytics extends MY_Model {
 
 					//2. collect the analytic variables
 					//$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
-					
-					
 
 					//collect the data_sets
 					if (strpos($value['location'], 'OPD') !== FALSE) {
 						$data_set[0][] = intval($value['total_response']);
-						}
+					}
 					if (strpos($value['location'], 'MCH') !== FALSE) {
 						$data_set[1][] = intval($value['total_response']);
 					}
@@ -497,7 +507,7 @@ class M_Analytics extends MY_Model {
 				//expected 5
 
 				//get a unique set of analytic variables
-				$analytic_var = array('OPD','MCH','U5 Clinic','Ward','Other');
+				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
 				//expected to be 4 in this particular context
 
 				//prep final dataset
@@ -522,14 +532,14 @@ class M_Analytics extends MY_Model {
 				$this -> final_data_set['location'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
-				}
-			} catch(exception $ex) {
+			}
+		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}
-				/*--------------------end commodity location of availability----------------------------------------------*/
-				
-				/*--------------------begin commodity availability by quantity----------------------------------------------*/
+		/*--------------------end commodity location of availability----------------------------------------------*/
+
+		/*--------------------begin commodity availability by quantity----------------------------------------------*/
 		$query = "SELECT SUM(ca.quantityAvailable) AS total_quantity,ca.CommodityID as commodity FROM cquantity_available ca
 				WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
 				AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
@@ -556,19 +566,17 @@ class M_Analytics extends MY_Model {
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//collect the data_sets
-					    if($value['commodity']=='CMD26'){ #zinc sulphate
-					    	$data_set[0][] = intval($value['total_quantity']);
-					    }elseif($value['commodity']=='CMD27'){ #Low Osmorality ORS
-					    	$data_set[1][] = intval($value['total_quantity']);
-					    }elseif($value['commodity']=='CMD28'){#Ciprofloxacin
-					    	$data_set[2][] = intval($value['total_quantity']);
-					    }elseif($value['commodity']=='CMD29'){ #Metronidazole (Flagyl)
-					    	$data_set[3][] = intval($value['total_quantity']);
-					    }elseif($value['commodity']=='CMD30'){ #Vitamin A
-					    	$data_set[4][] = intval($value['total_quantity']);
-					    }
-						
-					
+					if ($value['commodity'] == 'CMD26') {#zinc sulphate
+						$data_set[0][] = intval($value['total_quantity']);
+					} elseif ($value['commodity'] == 'CMD27') {#Low Osmorality ORS
+						$data_set[1][] = intval($value['total_quantity']);
+					} elseif ($value['commodity'] == 'CMD28') {#Ciprofloxacin
+						$data_set[2][] = intval($value['total_quantity']);
+					} elseif ($value['commodity'] == 'CMD29') {#Metronidazole (Flagyl)
+						$data_set[3][] = intval($value['total_quantity']);
+					} elseif ($value['commodity'] == 'CMD30') {#Vitamin A
+						$data_set[4][] = intval($value['total_quantity']);
+					}
 
 				}
 
@@ -584,26 +592,23 @@ class M_Analytics extends MY_Model {
 
 				//prep final dataset
 				//$data_series[0] = "name: '" . $analytic_var[0] . "',data:" . json_encode($data_set[0]);
-				
-				if (isset($analytic_var[0])) {
-				//do more with less :)
-				$count = 0;
-				foreach ($analytic_var as $val) {
-					$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-					$count++;
-				}
-				}
 
-				
+				if (isset($analytic_var[0])) {
+					//do more with less :)
+					$count = 0;
+					foreach ($analytic_var as $val) {
+						$data[$val] = array("name" => $analytic_var[$count], "data:" => $data_set[$count]);
+						$count++;
+					}
+				}
 
 				$this -> final_data_set['quantities'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
-		
+
 				/*--------------------end commodity availability by quantity----------------------------------------------*/
 
 				// /var_dump($this -> final_data_set['quantities']);die;
-				
 
 				return $this -> final_data_set;
 			} else {
@@ -620,7 +625,7 @@ class M_Analytics extends MY_Model {
 	 * Services to Children with Diarrhoea
 	 */
 	public function getChildrenServices($criteria, $value, $status, $survey) {
- 		/*using CI Database Active Record*/
+		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
@@ -648,7 +653,7 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT COUNT(gt.facilityID) AS facilities,gt.guidelineCode AS training,sum(gt.lastTrained) AS trained,sum(gt.trainedAndWorking) AS working
 		  	FROM guideline_training gt WHERE gt.guidelineCode IN 
 		 	(SELECT guidelineCode FROM guidelines WHERE guidelineFor='mch') 
@@ -690,8 +695,7 @@ class M_Analytics extends MY_Model {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}
-		
-		
+
 	}
 
 	/*

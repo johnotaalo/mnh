@@ -396,11 +396,11 @@ function __construct() {
 	/*utilized in several models*/
 	public function getTrainingGuidelineName($id){
 		try{
-			$this->guideline=$this->em->getRepository('models\Entities\e_mch_indicators')
-			                       ->findOneBy( array('indicatorCode'=>$id));
+			$this->guideline=$this->em->getRepository('models\Entities\e_mch_questions')
+			                       ->findOneBy( array('questionCode'=>$id));
 								   
-			if($this->strategy){
-					$this->guideline=$this->guideline->getIndicatorName();
+			if($this->guideline){
+					$this->guideline=$this->guideline->getMCHQuestion();
 					return $this->guideline;
 				}
 			}catch(exception $ex){
