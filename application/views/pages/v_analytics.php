@@ -75,218 +75,36 @@
 	<script>
 		$().ready(function(){
 			var chart,div;
+			var subID,parentDiv;
+			$('ul.sub li').click(function(){
+				subID = $(this).attr('id');
+				parentDiv = $('#'+subID+' a').parents('ul');
+				//alert(parentDiv);
+				$('ul.sub li').removeClass('active');
+				$('#'+subID).addClass('active');
+				switch(subID){
+					case 'communityStrategy':
+					$('span.statistic').text('Community Strategy');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/17052/complete/ch');
+						break;
+					case 'guidelines':
+					$('span.statistic').text('Guidelines');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getGuidelinesAvailability');
+						break;
+					case 'training':
+					$('span.statistic').text('Training');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTrainedStaff');
+						break;
+					case 'childrenServices':
+					$('span.statistic').text('Children Services');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getChildrenServices');
+						break;
+				}
+				
+			});
+			$('#graph_comm').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/17052/complete/ch');
 			// Build the charts
-			<?php if($data_pie!=null){?>
-				draw_pie('#graph_1');draw_pie('#graph_3');
-			<?php }if(isset($data_column['categories'])){?>
-				 draw_section2_stacked_column('#graph_1');draw_section2_stacked_column('#graph_3');
-		    <?php }if(isset($data_column_combined['frequency']['categories'])){?>
-		    	 draw_section2_commodity_frquency_availability_stacked_column('#graph_1');
-		    	 draw_section2_commodity_frquency_availability_stacked_column('#graph_3');
-		     <?php }if(isset($data_column_combined['unavailability']['categories'])){?>
-		    	 draw_section2_commodity_unavailability_stacked_column('#graph_2');
-		    	 draw_section2_commodity_unavailability_stacked_column('#graph_4');
-		    <?php }if(isset($data_column_combined['location']['categories'])){?>
-		    	 draw_section2_commodity_location_stacked_column('#graph_5');
-		    	 draw_section2_commodity_location_stacked_column('#graph_7');
-	    	 <?php }if(isset($data_column_combined['quantities']['categories'])){?>
-		    	 draw_section2_commodity_availability_by_qty_stacked_column('#graph_6');
-		    	 draw_section2_commodity_availability_by_qty_stacked_column('#graph_8');
-		    	<?php }?>
-    });
-    
-    function draw_pie(div){
-			$(div).highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: 1,
-                plotShadow: true
-            },
-            title: {
-                text: null
-            },
-            tooltip: {
-        	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                    enabled: true,
-                    color: '#000000',
-                    connectorColor: '#000000',
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: '<?php echo $analytics_mini_title; ?>',
-                data: [<?php if($data_pie!=null)echo $data_pie; ?>]
-            }]
-        });
-		}//end of draw_pie()
-		
-		function draw_section2_stacked_column(div){
-			 $(div).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: <?php if(isset($data_column['categories'])){echo $data_column['categories'];}else{print 'null';}; ?>,
-                title:{text:'Guidelines'}
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '<?php echo $analytics_mini_title; ?>'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent'
-                }
-            },
-                series: [{<?php if(isset($data_column))if($data_column!=null){echo $data_column['yes_values'];}?>},{<?php if(isset($data_column))if($data_column!=null){echo $data_column['no_values']; };?>}]
-        });
-		}
-		
-		function draw_section2_commodity_frquency_availability_stacked_column(div){
-			 $(div).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: <?php if(isset($data_column_combined['frequency']['categories'])){echo $data_column_combined['frequency']['categories'];}else{print 'null';}; ?>,
-                title:{text:'Essential Commodities'}
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: '<?php echo $analytics_mini_title; ?>'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent'
-                }
-            },
-                series: [{<?php if($data_column_combined!=null){echo $data_column_combined['frequency']['Available'];};?>},{<?php if($data_column_combined!=null){echo $data_column_combined['frequency']['Sometimes Available']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['frequency']['Never Available']; }?>}]
-        });
-		}
-		
-		function draw_section2_commodity_unavailability_stacked_column(div){
-			 $(div).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: <?php if(isset($data_column_combined['unavailability']['categories'])){echo $data_column_combined['unavailability']['categories'];}else{print 'null';}; ?>,
-                title:{text:'Essential Commodities'}
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Reason for Unavailability'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent'
-                }
-            },
-                series: [{<?php if($data_column_combined!=null){echo $data_column_combined['unavailability']['All Used'];};?>},{<?php if($data_column_combined!=null){echo $data_column_combined['unavailability']['Expired']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['unavailability']['Not Ordered']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['unavailability']['Ordered but not yet Received']; }?>}]
-        });
-		}
-		
-		function draw_section2_commodity_location_stacked_column(div){
-			 $(div).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: <?php if(isset($data_column_combined['location']['categories'])){echo $data_column_combined['location']['categories'];}else{print 'null';}; ?>,
-                title:{text:'Essential Commodities'}
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Location of Availability'
-                }
-            },
-            tooltip: {
-                pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
-                shared: true
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'percent'
-                }
-            },
-                series: [{<?php if($data_column_combined!=null){echo $data_column_combined['location']['OPD'];};?>},{<?php if($data_column_combined!=null){echo $data_column_combined['location']['MCH']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['location']['U5 Clinic']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['location']['Ward']; }?>},{<?php if($data_column_combined!=null){echo $data_column_combined['location']['Other']; }?>}]
-        });
-		}
-		
-		function draw_section2_commodity_availability_by_qty_stacked_column(div){
-			 $(div).highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: null
-            },
-            xAxis: {
-                categories: <?php if(isset($data_column_combined['quantities']['categories'])){echo $data_column_combined['quantities']['categories'];}else{print 'null';}; ?>,
-                title:{text:'Essential Commodities'}
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Availbility by Quantity'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.0f} units</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                pointPadding: 0.2,
-                    borderWidth: 0
-            },
-                series: [{<?php if($data_column_combined!=null){echo $data_column_combined['quantities']['Zinc Sulphate'].'},{'.$data_column_combined['quantities']['Low Osmolarity Oral Rehydration Salts (ORS)'].'},{'.$data_column_combined['quantities']['Ciprofloxacin'].'},{'.$data_column_combined['quantities']['Metronidazole (Flagyl)'].'},{'.$data_column_combined['quantities']['Vitamin A'];}?>}]
-        });
-		}
-
+});
 
 	</script>
 	<!-- END JAVASCRIPTS -->

@@ -99,7 +99,7 @@
 					           <select id="mnh-level2" class="level2">
 					           		<?php echo $this->selectDistricts; ?>
 					           </select>
-					           <a class="btn" id="mnh-btn">View</a>
+					           <a class="btn" id="mnh-btn" href="<?php echo base_url();?>mnh/analytics">View</a>
 
 					           <li id="ch-link" class="anal-link"><a href="<?php //echo base_url(); ?>#" > 2. CH - Diarrhoea, Treatment Scale Up Baseline Assessment</a></li>
 

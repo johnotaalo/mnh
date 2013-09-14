@@ -1,5 +1,5 @@
 <?php
-$this->load->view('segments/head');
+//$this->load->view('segments/head');
 $chartSize=0;
 if($resultArraySize<=6){
 	$chartSize='300';
@@ -66,15 +66,22 @@ if($resultArraySize>25){
 		plotOptions: {
 		bar: {
 		dataLabels: {
-		enabled: true
+		enabled: true,
+		formatter: function() {
+                            if (this.y != 0) {
+                              return this.y;
+                            } else {
+                              return '';
+                            }
+                        }
 		}
 		}
 		},
 		legend: {
-		layout: 'vertical',
-		align: 'right',
-		verticalAlign: 'middle',
-		floating: false,
+		layout: 'horizontal',
+		align: 'left',
+		verticalAlign: 'bottom',
+		floating: true,
 		borderWidth: 1,
 		backgroundColor: '#FFFFFF',
 		shadow: true
