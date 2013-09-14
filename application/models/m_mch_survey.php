@@ -1436,7 +1436,7 @@ class M_MCH_Survey  extends MY_Model {
 
 			$step = $this -> input -> post('step_name', TRUE);
 			switch($step) {
-				/**case 'section-1' :
+				/*case 'section-1' :
 					//check if entry exists
 					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 

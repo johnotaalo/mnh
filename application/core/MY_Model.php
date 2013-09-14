@@ -30,6 +30,7 @@ function __construct() {
 				//ignore
 				//die($ex->getMessage());
 			}
+			return $this->centre->getFacilityName();
 	}
 	
 	/*utilized in several models*/
