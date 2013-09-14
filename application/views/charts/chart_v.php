@@ -66,7 +66,14 @@ if($resultArraySize>25){
 		plotOptions: {
 		bar: {
 		dataLabels: {
-		enabled: true
+		enabled: true,
+		formatter: function() {
+                            if (this.y != 0) {
+                              return this.y;
+                            } else {
+                              return '';
+                            }
+                        }
 		}
 		}
 		},

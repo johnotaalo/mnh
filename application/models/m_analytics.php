@@ -111,7 +111,7 @@ class M_Analytics extends MY_Model {
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = array();
-		$data_prefix_y ='';
+		$data_prefix_y = '';
 		$data_prefix_n = '';
 		$data_y = $data_n = $data_categories = array();
 
@@ -199,8 +199,10 @@ class M_Analytics extends MY_Model {
 	public function getTrainedStaff($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = array();
-		$data_prefix_y = "name:'Trained (Last 2 years)',data:";
-		$data_prefix_n = "name:'Trained & Working in CH',data:";
+		$data_prefix_y = '';
+		//"name:'Trained (Last 2 years)',data:";
+		$data_prefix_n = '';
+		//"name:'Trained & Working in CH',data:";
 		$data_y = $data_n = $data_categories = array();
 
 		if ($survey == 'ch') {
@@ -238,19 +240,19 @@ class M_Analytics extends MY_Model {
 
 				foreach ($this->dataSet as $value) {
 					//if(isset($value['trained'])){
-					$data_y[] = intval($value['trained']);
+					$data_y[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['trained']));
 					//}else if(isset($value['working'])){
-					$data_n[] = intval($value['working']);
+					$data_n[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['working']));
 					//}
 
 					//get a set of the 3 staff trainings
-					$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
+					//$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
 				}
 
 				$data['categories'] = json_encode($data_categories);
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
@@ -627,6 +629,8 @@ class M_Analytics extends MY_Model {
 	public function getChildrenServices($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -654,11 +658,10 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		
 		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='svc') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
 
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
@@ -667,22 +670,26 @@ class M_Analytics extends MY_Model {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
-
+				$yesCount = 0;
+				$noCount = 0;
+				#Forced One Values
 				foreach ($this->dataSet as $value) {
-					if(isset($value['response'])=='Yes'){
-					$data_y[] = intval($value['response']);
-					}else if(isset($value['response'])=='No'){
-					$data_n[] = intval($value['response']);
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+						$yesCount++;
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+						$noCount++;
 					}
 
 					//get a set of the 5 services offered
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+
 				}
 
-				$data['categories'] = json_encode($data_categories);
+				//$data['categories'] = json_encode($data_categories);
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
@@ -705,6 +712,8 @@ class M_Analytics extends MY_Model {
 	public function getDangerSigns($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -731,11 +740,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='sgn') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -745,20 +754,20 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					if(isset($value['response'])=='Yes'){
-					$data_y[] = intval($value['response']);
-					}else if(isset($value['response'])=='No'){
-					$data_n[] = intval($value['response']);
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					}
 
 					//get a set of the 5 services offered
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+					//$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
 				}
 
-				$data['categories'] = json_encode($data_categories);
+				//$data['categories'] = json_encode($data_categories);
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
@@ -806,11 +815,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -820,10 +829,10 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					if(isset($value['response'])=='Yes'){
-					$data_y[] = intval($value['response']);
-					}else if(isset($value['response'])=='No'){
-					$data_n[] = intval($value['response']);
+					if (isset($value['response']) == 'Yes') {
+						$data_y[] = intval($value['response']);
+					} else if (isset($value['response']) == 'No') {
+						$data_n[] = intval($value['response']);
 					}
 
 					//get a set of the 5 services offered
@@ -881,11 +890,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -895,10 +904,10 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					if(isset($value['response'])=='Yes'){
-					$data_y[] = intval($value['response']);
-					}else if(isset($value['response'])=='No'){
-					$data_n[] = intval($value['response']);
+					if (isset($value['response']) == 'Yes') {
+						$data_y[] = intval($value['response']);
+					} else if (isset($value['response']) == 'No') {
+						$data_n[] = intval($value['response']);
 					}
 
 					//get a set of the 5 services offered
