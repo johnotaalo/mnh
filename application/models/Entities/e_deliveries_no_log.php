@@ -104,7 +104,35 @@ namespace models\Entities;
 	* */
 	private $jun13;
 	
-	 
+	/**
+	* @Column(name="jul13", type="integer",length=11, nullable=false)
+	* */
+	private $jul13;
+	
+	/**
+	* @Column(name="aug13", type="integer",length=11, nullable=false)
+	* */
+	private $aug13;
+	
+	/**
+	* @Column(name="sept13", type="integer",length=11, nullable=false)
+	* */
+	private $sept13;
+	
+	/**
+	* @Column(name="oct13", type="integer",length=11, nullable=false)
+	* */
+	private $oct13;
+	
+	/**
+	* @Column(name="nov13", type="integer",length=11, nullable=false)
+	* */
+	private $nov13;
+	
+	/**
+	* @Column(name="dec13", type="integer",length=11, nullable=false)
+	* */
+	private $dec13;
 	
 	/**
 	* @Column(name="facilityID", type="string",length=55)
@@ -249,6 +277,48 @@ namespace models\Entities;
 	 
 	public function getJun13() {
 			return $this -> jun13;
+	}
+	
+	public function setJuly13($jul13) { $this -> jul13= $jul13;
+	}
+	 
+	public function getJuly13() {
+			return $this -> jul13;
+	}
+	
+	public function setAug13($aug13) { $this -> aug13= $aug13;
+	}
+	 
+	public function getAug13() {
+			return $this -> aug13;
+	}
+	
+	public function setSept13($sept13) { $this -> sept13= $sept13;
+	}
+	 
+	public function getSept13() {
+			return $this -> sept13;
+	}
+	
+	public function setOct13($oct13) { $this -> oct13= $oct13;
+	}
+	 
+	public function getOct13() {
+			return $this -> oct13;
+	}
+	
+	public function setNov13($nov13) { $this -> nov13= $nov13;
+	}
+	 
+	public function getNov13() {
+			return $this -> nov13;
+	}
+	
+	public function setDec13($dec13) { $this -> dec13= $dec13;
+	}
+	 
+	public function getDec13() {
+			return $this -> dec13;
 	}
 	
 	public function getFacilityID() {

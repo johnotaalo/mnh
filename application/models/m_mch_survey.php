@@ -753,6 +753,12 @@ class M_MCH_Survey  extends MY_Model {
 			($this -> elements['dnapril_13'] == '') ? $this -> theForm -> setApr13(-1) : $this -> theForm -> setApr13($this -> elements['dnapril_13']);
 			($this -> elements['dnmay_13'] == '') ? $this -> theForm -> setMay13(-1) : $this -> theForm -> setMay13($this -> elements['dnmay_13']);
 			($this -> elements['dnjune_13'] == '' || !isset($this -> elements['dnjune_13'])) ? $this -> theForm -> setJun13(-1) : $this -> theForm -> setJun13($this -> elements['dnjune_13']);
+			($this -> elements['dnjuly_13'] == '' || !isset($this -> elements['dnjuly_13'])) ? $this -> theForm -> setJuly13(-1) : $this -> theForm -> setJuly13($this -> elements['dnjuly_13']);
+			($this -> elements['dnaugust_13'] == '' || !isset($this -> elements['dnaugust_13'])) ? $this -> theForm -> setAug13(-1) : $this -> theForm -> setAug13($this -> elements['dnaugust_13']);
+			($this -> elements['dnseptember_13'] == '' || !isset($this -> elements['dnseptember_13'])) ? $this -> theForm -> setSept13(-1) : $this -> theForm -> setSept13($this -> elements['dnseptember_13']);
+			($this -> elements['dnoctober_13'] == '' || !isset($this -> elements['dnoctober_13'])) ? $this -> theForm -> setOct13(-1) : $this -> theForm -> setOct13($this -> elements['dnoctober_13']);
+			($this -> elements['dnnovember_13'] == '' || !isset($this -> elements['dnnovember_13'])) ? $this -> theForm -> setNov13(-1) : $this -> theForm -> setNov13($this -> elements['dnnovember_13']);
+			($this -> elements['dndecember_13'] == '' || !isset($this -> elements['dndecember_13'])) ? $this -> theForm -> setDec13(-1) : $this -> theForm -> setDec13($this -> elements['dndecember_13']);
 
 			//$this -> theForm -> setDateOfAssessment(new DateTime()); //date set today's
 			$this -> em -> persist($this -> theForm);

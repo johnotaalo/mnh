@@ -923,8 +923,76 @@ class M_Analytics extends MY_Model {
 	 * Get Tools in Units
 	 */
 
-	public function getTools() {
+	public function getTools($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT t.indicatorID AS tool,t.response as response
+				  FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror') 
+				  AND t.facilityID IN (SELECT facilityMFC FROM facility 
+				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY t.indicatorID ORDER BY t.indicatorID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					if(isset($value['response'])=='Yes'){
+					$data_y[] = intval($value['response']);
+					}else if(isset($value['response'])=='No'){
+					$data_n[] = intval($value['response']);
+					}
+
+					//get a set of the 5 tools available
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+				}
+
+				$data['categories'] = json_encode($data_categories);
+
+				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
+				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*
