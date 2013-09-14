@@ -35,15 +35,17 @@
 				<?php echo $active_link['s2']?>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i> 
-					<span class="title">Section 2</span>
+					<span class="title">Facility Statistics</span>
 					<?php echo $span_selected['s2'];?>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub">
-						<li ><a href="<?php echo base_url() ?>analytics/section2/guidelines-availability">Guidelines Availability</a></li>
-						<li ><a href="<?php echo base_url() ?>analytics/section2/staff-training">Staff Trainings</a></li>
+						<li id="communityStrategy"><a href="#" >Community Strategy</a></li>
+						<li id="guidelines"><a href="#">Guidelines Availability</a></li>
+						<li id="training"><a href="#">Staff Trainings</a></li>
 						<li ><a href="<?php echo base_url() ?>analytics/section2/commodity-availability">Commodity Availability</a></li>
 						<li ><a href="<?php echo base_url() ?>analytics/section2/commodity-supplier">Commodity Supplier</a></li>
+						<li id="childrenServices"><a href="#">Children Services</a></li>
 					</ul>
 				</li>
 				<li class="has-sub ">

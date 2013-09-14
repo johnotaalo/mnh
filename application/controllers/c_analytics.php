@@ -22,7 +22,8 @@ class C_Analytics extends MY_Controller {
 		$this -> data['data_pie'] = null;
 		$this -> data['data_column'] = null;
 		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_content_to_load'] = 'analytics/content_dashboard';
+		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts_commodity_availability';
+		//$this -> data['analytics_content_to_load'] = 'analytics/content_dashboard';
 		$this -> ch_survey_response_rate();
 		$this -> load -> view('pages/v_analytics', $this -> data);
 
@@ -139,7 +140,7 @@ class C_Analytics extends MY_Controller {
 	private function get_chart_data($case) {
 		$results = null;
 		switch($case) {
-			case 'loc' :
+			/*case 'loc' :
 				$results = $this -> m_analytics -> get_facility_levels_of_care_by('none', null, 'complete', 'ch');
 				//$results=$this -> m_analytics->get_facility_levels_of_care_by('county',null,'complete','ch');
 				//$results=$this -> m_analytics->get_facility_levels_of_care_by('district',null,'complete','ch');
@@ -168,7 +169,7 @@ class C_Analytics extends MY_Controller {
 				$results = $this -> m_analytics -> get_section_2_commodity_availability_by('none', null, 'complete', 'ch');
 				//$results=$this -> m_analytics->get_section_2_commodity_availability_by('county',null,'complete','ch');
 				//$results=$this -> m_analytics->get_section_2_commodity_availability_by('district',null,'complete','ch');
-				break;
+				break;*/
 		}
 
 		return $results;
@@ -217,8 +218,9 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy() {
-		$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
+	public function getCommunityStrategy($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
+		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
 		foreach ($results as $result) {
 			$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
@@ -231,7 +233,7 @@ class C_Analytics extends MY_Controller {
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Expired Drugs';
+		$datas['chartTitle'] = 'Community Strategy';
 		$datas['categories'] = json_encode(array('Quantity'));
 		$datas['yAxis'] = 'Drugs';
 		$datas['resultArray'] = json_encode($resultArray);

@@ -43,30 +43,25 @@
 	var selectLink;
 	$('.level2').click(function(){
 		selectClicked2  = $(this).attr('id');
-		selectValue2 = $('#'+selectClicked).attr('value');
-		
+		selectValue2 = $('#'+selectClicked2).attr('value');
 		//alert(selectValue);
 		//if(selectValue==2){
 			switch(selectClicked2){
 				case 'mnh-level2':
-					alert(' ');
-					selectLink = '<?php echo base_url(); ?>
-						'+'
-						mnh / analytics';
+					selectLink = '<?php echo base_url(); ?>'+'mnh/analytics';
 						break;
 						case 'ch-level2' :
-						alert(' ');
-						selectLink = '
-<?php echo base_url(); ?>
-						'+'
-						ch / analytics';
+						selectLink = '<?php echo base_url(); ?>'+'ch/analytics';
 						break;
 						}
 						//}
 
 						});
 						$('#mnh-btn').click(function(){
-						alert(selectLink);
+						//$('body').load(selectLink);
+						});
+						$('#ch-btn').click(function(){
+						//$('body').load(selectLink);
 						});
 						});
 	</script>

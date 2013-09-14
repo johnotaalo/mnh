@@ -832,12 +832,11 @@ class M_Analytics extends MY_Model {
 
 				foreach ($this->dataSet as $value) {
 					if ($value['response'] == 'Yes') {
-						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					} else if ($value['response'] == 'No') {
-						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					}
 
-			
 				}
 
 				//$data['categories'] = json_encode($data_categories);
@@ -906,14 +905,14 @@ class M_Analytics extends MY_Model {
 				$size = count($this -> dataSet);
 				$i = 0;
 
-					foreach ($this->dataSet as $value) {
+				foreach ($this->dataSet as $value) {
 					if ($value['response'] == 'Yes') {
-						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					} else if ($value['response'] == 'No') {
-						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					}
 
-			echo $value['indicator'];
+					echo $value['indicator'];
 				}
 
 				$data['yes_values'] = $data_y;
@@ -982,6 +981,29 @@ class M_Analytics extends MY_Model {
 	 */
 	public function getResources() {
 
+	}
+
+	public function get_response_count($survey) {
+		try {
+			/*using CI Database Active Record*/
+			try {
+				$query = "SELECT DISTINCT(facilityCode),trackerID,lastActivity FROM assessment_tracker WHERE survey=? AND trackerSection='section-6' 
+					 ORDER BY lastActivity DESC";
+				$this -> dataSet = $this -> db -> query($query, array($survey));
+				$this -> dataSet = $this -> dataSet -> result_array();
+				//die(var_dump($this->dataSet));
+			} catch(exception $ex) {
+				//ignore
+				//die($ex->getMessage());//exit;
+			}
+			return $this -> dataSet;
+
+		} catch(exception $ex) {
+			//ignore
+			//die($ex -> getMessage());
+		}
+
+		return $this -> dataSet;
 	}
 
 }

@@ -1,5 +1,5 @@
 <?php
-$this->load->view('segments/head');
+//$this->load->view('segments/head');
 $chartSize=0;
 if($resultArraySize<=6){
 	$chartSize='300';
@@ -78,10 +78,10 @@ if($resultArraySize>25){
 		}
 		},
 		legend: {
-		layout: 'vertical',
+		layout: 'horizontal',
 		align: 'left',
 		verticalAlign: 'bottom',
-		floating: false,
+		floating: true,
 		borderWidth: 1,
 		backgroundColor: '#FFFFFF',
 		shadow: true
