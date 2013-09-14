@@ -1566,7 +1566,7 @@ class M_MCH_Survey  extends MY_Model {
 				 break;
 			}//close switch
 
-			return $this -> response = 'true';
+			//return $this -> response = 'true';
 		}
 
 	}
