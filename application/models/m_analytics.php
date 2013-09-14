@@ -22,7 +22,7 @@ class M_Analytics extends MY_Model {
 		$this -> dataSet = $this -> query = null;
 
 	}
-	
+
 	public function get_facility_reporting_summary($survey) {
 
 		/*using CI Database Active Record*/
@@ -44,7 +44,6 @@ class M_Analytics extends MY_Model {
 		}
 
 	}
-	
 
 	/**
 	 * Community Strategy
@@ -88,9 +87,9 @@ class M_Analytics extends MY_Model {
 				$size = count($this -> dataSet);
 				foreach ($this->dataSet as $value) {
 					if ($i == $size) {
-						$data .= "['" . $this -> getCommunityStrategyName($value['strategy']) . "'," . $value['strategy_number'] . "]";
+						$data[] = array($this -> getCommunityStrategyName($value['strategy']), $value['strategy_number']);
 					} else {
-						$data .= "['" . $this -> getCommunityStrategyName($value['strategy']) . "'," . $value['strategy_number'] . "],";
+						$data[] = array($this -> getCommunityStrategyName($value['strategy']), $value['strategy_number']);
 						$i++;
 					}
 				}

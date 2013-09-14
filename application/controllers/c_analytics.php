@@ -176,8 +176,9 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function test_query(){
-		$results = $this -> m_analytics -> getCommunityStrategy('facility', '15830', 'complete', 'ch');
-		var_dump($results);
+		$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
+		var_dump( $results[1]);
+		//var_dump($results);
 	}
 
 	private function ch_survey_response_rate() {
@@ -213,19 +214,24 @@ class C_Analytics extends MY_Controller {
 		}
 	}
 
-	public function chartShow() {
+	public function getCommunityStrategy() {
+		$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
+		
+		foreach($results as $result){
+			$resultArray[]=array('name'=>$result[0],'data'=>array((int)$result[1]));
+		}
 		$datas=array();
 		$resultArraySize = 5;
-		$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Expired Drugs';
-		$datas['categories'] = json_encode(array('One'));
+		$datas['categories'] = json_encode(array('Quantity'));
 		$datas['yAxis'] = 'Drugs';
-		$datas['resultArray'] = json_encode($result);		
+		$datas['resultArray'] = json_encode($resultArray);		
 		$this -> load -> view('charts/chart_v',$datas);
 	}
 

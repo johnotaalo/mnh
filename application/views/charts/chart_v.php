@@ -72,8 +72,8 @@ if($resultArraySize>25){
 		},
 		legend: {
 		layout: 'vertical',
-		align: 'right',
-		verticalAlign: 'middle',
+		align: 'left',
+		verticalAlign: 'bottom',
 		floating: false,
 		borderWidth: 1,
 		backgroundColor: '#FFFFFF',
