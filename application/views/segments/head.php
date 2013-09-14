@@ -13,9 +13,11 @@
     <link href="<?php echo base_url(); ?>css/font-awesome/css/font-awesome.css" rel="stylesheet">
 
 	<link href="<?php echo base_url(); ?>css/fixed-layout.css" rel="stylesheet">
-	 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>css/style.css" media="screen" />
+	 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css" media="screen" />
 	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>
 	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
+		<script src="<?php echo base_url()?>/js/highcharts.js"></script>
+		<script src="<?php echo base_url()?>/js/exporting.js"></script>
 	<script src="<?php echo base_url()?>/js/Merged-JS.js"></script>
 	<!--link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" /-->
 		<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /-->
@@ -35,7 +37,7 @@
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
     
 	<script>
-	$(document).ready(function(){
+			$(document).ready(function(){
 	var selectClicked2;
 	var selectValue2;
 	var selectLink;
@@ -48,20 +50,25 @@
 			switch(selectClicked2){
 				case 'mnh-level2':
 					alert(' ');
-					selectLink = '<?php echo base_url();?>'+'mnh/analytics';
-				break;
-				case 'ch-level2' :
-					alert(' ');
-			  	 	selectLink = '<?php echo base_url();?>'+'ch/analytics';
-				break;
-			}
-		//}
-		
-	});
-	$('#mnh-btn').click(function(){
-		alert(selectLink);
-	});
-	});
+					selectLink = '<?php echo base_url(); ?>
+						'+'
+						mnh / analytics';
+						break;
+						case 'ch-level2' :
+						alert(' ');
+						selectLink = '
+<?php echo base_url(); ?>
+						'+'
+						ch / analytics';
+						break;
+						}
+						//}
+
+						});
+						$('#mnh-btn').click(function(){
+						alert(selectLink);
+						});
+						});
 	</script>
 
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
