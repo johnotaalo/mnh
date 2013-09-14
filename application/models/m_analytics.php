@@ -789,6 +789,8 @@ class M_Analytics extends MY_Model {
 	public function getActionsPerformed($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -829,20 +831,19 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					if (isset($value['response']) == 'Yes') {
-						$data_y[] = intval($value['response']);
-					} else if (isset($value['response']) == 'No') {
-						$data_n[] = intval($value['response']);
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
 					}
 
-					//get a set of the 5 services offered
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+			
 				}
 
-				$data['categories'] = json_encode($data_categories);
+				//$data['categories'] = json_encode($data_categories);
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
@@ -864,6 +865,8 @@ class M_Analytics extends MY_Model {
 	public function getCounselGiven($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -903,21 +906,18 @@ class M_Analytics extends MY_Model {
 				$size = count($this -> dataSet);
 				$i = 0;
 
-				foreach ($this->dataSet as $value) {
-					if (isset($value['response']) == 'Yes') {
-						$data_y[] = intval($value['response']);
-					} else if (isset($value['response']) == 'No') {
-						$data_n[] = intval($value['response']);
+					foreach ($this->dataSet as $value) {
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']),1);
 					}
 
-					//get a set of the 5 services offered
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+			echo $value['indicator'];
 				}
 
-				$data['categories'] = json_encode($data_categories);
-
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
