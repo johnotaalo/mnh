@@ -371,20 +371,20 @@ $mfCode = $this -> session -> userdata('fCode');
 				});
 				
 				 
-						}//end of select_option_changed
+						}//end of select_option_changed 
 				
 							
 
 						}); /*close document ready*/
 								
 								
-								function break_form_to_steps(form_id){
+				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
 						   //alert(form_id);	
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
