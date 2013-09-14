@@ -38,36 +38,37 @@ if($resultArraySize>25){
 		'#a6c96a'
 		],
 		chart: {            
-                zoomType: 'x',            
+            zoomType: 'x',            
 			height:<?php echo $chartSize;?>,
-		type: '<?php echo $chartType ?>'
+			type: '<?php echo $chartType ?>',
+			 marginBottom: <?php echo $chartMargin ?>
 		},
 		title: {
-		text: '<?php echo $chartTitle; ?>'
+			text: '<?php echo $chartTitle; ?>'
 		},
 		xAxis:
 		{
-		categories:  <?php echo $categories; ?>,
+			categories:  <?php echo $categories; ?>,
 	
 	},
 	yAxis: {
-	min: 0,
-	title: {
-	text: '<?php echo $yAxis; ?>',
-		align: 'high'
+		min: 0,
+		title: {
+			text: '<?php echo $yAxis; ?>',
+			align: 'high'
 		},
 		labels: {
-		overflow: 'justify'
+			overflow: 'justify'
 		}
 		},
 		tooltip: {
-		valueSuffix: ''
+			valueSuffix: ''
 		},
 		plotOptions: {
-		bar: {
-		dataLabels: {
-		enabled: true,
-		formatter: function() {
+			bar: {
+				dataLabels: {
+					enabled: true,
+					formatter: function() {
                             if (this.y != 0) {
                               return this.y;
                             } else {
@@ -78,16 +79,15 @@ if($resultArraySize>25){
 		}
 		},
 		legend: {
-		layout: 'horizontal',
-		align: 'left',
-		verticalAlign: 'bottom',
-		floating: true,
-		borderWidth: 1,
-		backgroundColor: '#FFFFFF',
-		shadow: true
+			layout: 'horizontal',
+			align: 'left',
+			floating: true,
+			borderWidth: 1,
+			backgroundColor: '#FFFFFF',
+			shadow: true
 		},
 		credits: {
-		enabled: false
+			enabled: false
 		},
 		series:<?php echo$resultArray?>
 		});

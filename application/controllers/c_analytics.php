@@ -139,37 +139,36 @@ class C_Analytics extends MY_Controller {
 	//private function get_chart_data($case,$criteria,$value){
 	private function get_chart_data($case) {
 		$results = null;
-		switch($case) {
-			/*case 'loc' :
-				$results = $this -> m_analytics -> get_facility_levels_of_care_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_facility_levels_of_care_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_facility_levels_of_care_by('district',null,'complete','ch');
-				break;
-			case 'ownership' :
-				$results = $this -> m_analytics -> get_facility_ownership_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_facility_ownership_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_facility_ownership_by('district',null,'complete','ch');
-				break;
-			case 'types' :
-				$results = $this -> m_analytics -> get_facility_types_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_facility_types_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_facility_types_by('district',null,'complete','ch');
-				break;
-			case 'guidelines' :
-				$results = $this -> m_analytics -> get_section_2_guidelines_availability_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
-				break;
-			case 'staff-training' :
-				$results = $this -> m_analytics -> get_section_2_staff_training_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
-				break;
-			case 'commodity-availability' :
-				$results = $this -> m_analytics -> get_section_2_commodity_availability_by('none', null, 'complete', 'ch');
-				//$results=$this -> m_analytics->get_section_2_commodity_availability_by('county',null,'complete','ch');
-				//$results=$this -> m_analytics->get_section_2_commodity_availability_by('district',null,'complete','ch');
-				break;*/
+		switch($case) {/*case 'loc' :
+			 $results = $this -> m_analytics -> get_facility_levels_of_care_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_facility_levels_of_care_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_facility_levels_of_care_by('district',null,'complete','ch');
+			 break;
+			 case 'ownership' :
+			 $results = $this -> m_analytics -> get_facility_ownership_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_facility_ownership_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_facility_ownership_by('district',null,'complete','ch');
+			 break;
+			 case 'types' :
+			 $results = $this -> m_analytics -> get_facility_types_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_facility_types_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_facility_types_by('district',null,'complete','ch');
+			 break;
+			 case 'guidelines' :
+			 $results = $this -> m_analytics -> get_section_2_guidelines_availability_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
+			 break;
+			 case 'staff-training' :
+			 $results = $this -> m_analytics -> get_section_2_staff_training_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
+			 break;
+			 case 'commodity-availability' :
+			 $results = $this -> m_analytics -> get_section_2_commodity_availability_by('none', null, 'complete', 'ch');
+			 //$results=$this -> m_analytics->get_section_2_commodity_availability_by('county',null,'complete','ch');
+			 //$results=$this -> m_analytics->get_section_2_commodity_availability_by('district',null,'complete','ch');
+			 break;*/
 		}
 
 		return $results;
@@ -232,6 +231,7 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Community Strategy';
 		$datas['categories'] = json_encode(array('Quantity'));
@@ -253,32 +253,32 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-		if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
@@ -290,6 +290,7 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Guidelines';
 		$datas['categories'] = json_encode($category);
@@ -312,32 +313,32 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-		if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Trained', 'data' => $yesData), array('name' => 'Working', 'data' => $noData));
@@ -350,6 +351,7 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Trained vs Working Staff';
 		$datas['categories'] = json_encode($category);
@@ -372,32 +374,32 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-	if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
@@ -410,6 +412,7 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Services to Children with Diarrhoea';
 		$datas['categories'] = json_encode($category);
@@ -427,32 +430,32 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-		if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
@@ -465,6 +468,7 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Danger Signs';
 		$datas['categories'] = json_encode($category);
@@ -472,7 +476,8 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_v', $datas);
 	}
-public function getActionsPerformed() {
+
+	public function getActionsPerformed() {
 		$results = $this -> m_analytics -> getActionsPerformed('facility', '17052', 'complete', 'ch');
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
@@ -481,32 +486,32 @@ public function getActionsPerformed() {
 		//var_dump($yes);
 
 		//var_dump($result);
-	if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
@@ -519,6 +524,7 @@ public function getActionsPerformed() {
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Action Performed';
 		$datas['categories'] = json_encode($category);
@@ -527,8 +533,8 @@ public function getActionsPerformed() {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-public function getCounselGiven(){
-	$results = $this -> m_analytics -> getCounselGiven('facility', '19314', 'complete', 'ch');
+	public function getCounselGiven() {
+		$results = $this -> m_analytics -> getCounselGiven('facility', '19314', 'complete', 'ch');
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 3;
@@ -536,32 +542,32 @@ public function getCounselGiven(){
 		//var_dump($yes);
 
 		//var_dump($result);
-		if($yes!=null){
-		foreach ($yes as $value) {
-			$category[] = $value[0];
-			$yesData[] = (int)$value[1];
-			$yCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
 		}
-		if($no!=null){
-		foreach ($no as $value) {
-			$category[] = $value[0];
-			$noData[] = (int)$value[1];
-			$nCount--;
-			//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-		}}
 
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
 		}
 		for ($x = 0; $x < $nCount; $x++) {
-			if($no!=null){
-			array_unshift($noData, 0);
-			}
-			else{
-				$noData[]=0;
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
 			}
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
@@ -574,11 +580,119 @@ public function getCounselGiven(){
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_expiry';
 		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Action Performed';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_v', $datas);
-}
+	}
+
+	public function getTools() {
+		$results = $this -> m_analytics -> getTools('facility', '17052', 'complete', 'ch');
+		//var_dump($results);
+		$yes = $results['yes_values'];
+		$no = $results['no_values'];
+		$yCount = 3;
+		$nCount = 3;
+		//var_dump($yes);
+
+		//var_dump($result);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				$category[] = $value[0];
+				$yesData[] = (int)$value[1];
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
+		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				$category[] = $value[0];
+				$noData[] = (int)$value[1];
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
+		}
+
+		#Fill up Arrays
+		for ($x = 0; $x < $yCount; $x++) {
+			$yesData[] = 0;
+		}
+		for ($x = 0; $x < $nCount; $x++) {
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
+			}
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_expiry';
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Action Performed';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/*
+	 * Diarrhoea case numbers per Month
+	 */
+	public function getDiarrhoeaCaseNumbers() {
+		$results = $this -> m_analytics -> getDiarrhoeaCaseNumbers('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	/*
+	 * Diarrhoea case treatments
+	 */
+
+	public function getDiarrhoeaCaseTreatment() {
+		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	/*
+	 * ORT Corner Assessment
+	 */
+	public function getORTCornerAssessment() {
+		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	/*
+	 * Availability, Location and Functionality of Equipement at ORT Corner
+	 */
+	public function getORTCornerAssessment() {
+		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	/*
+	 * Availability, Location and Functionality of Supplies at ORT Corner
+	 */
+	public function getORTCornerSupplies() {
+		$results = $this -> m_analytics -> getORTCornerSupplies('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
+	/*
+	 *  Availability, Location and Functionality of Electricity and Hardware Resources
+	 */
+	public function getResources() {
+		$results = $this -> m_analytics -> getResources('facility', '17052', 'complete', 'ch');
+		var_dump($results);
+	}
+
 }

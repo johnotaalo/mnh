@@ -9,7 +9,7 @@
 		<li class="has-sub start">
 			<a href="<?php echo base_url() ?>ch/analytics"> <i class="icon-home"></i> <span class="title">Analytics Summary</span> </a>
 		</li>
-		<li id="facility-info-parent" class="has-sub start">
+		<!--li id="facility-info-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bookmark-empty"></i> <span class="title">Facility Information</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li >
@@ -22,12 +22,9 @@
 					<a href="<?php echo base_url() ?>analytics/facility/types">Types</a>
 				</li>
 			</ul>
-		</li>
-		<li class="">
-			<a href="#"> <i class="icon-th-list"></i> <span class="title">Demographics</span> </a>
-		</li>
+		</li-->
 		<li id="facility-statistics-parent" class="has-sub start">
-			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
+			<a href="javascript:;"> <i class="icon-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="communityStrategy">
 					<a href="#" >Community Strategy</a>
@@ -56,10 +53,13 @@
 				<li id="counselGiven">
 					<a href="#">Counsel Given</a>
 				</li>
+				<li id="tools">
+					<a href="#">Tools</a>
+				</li>
 			</ul>
 		</li>
 		<li class="has-sub ">
-			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Section 3</span> <span class="arrow "></span> </a>
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li >
 					<a href="#">Service Delivery</a>

@@ -122,6 +122,12 @@
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCounselGiven');
 						break;	
+					case 'tools':
+					$('span.statistic').text('Tools');
+					$('#facility-statistics-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools');
+						break;	
+						
 				}
 				
 			});
