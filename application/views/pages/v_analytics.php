@@ -78,27 +78,50 @@
 			var subID,parentDiv;
 			$('ul.sub li').click(function(){
 				subID = $(this).attr('id');
-				parentDiv = $('#'+subID+' a').parents('ul');
+				//parentDiv = $('#'+subID+' a').parents('ul');
 				//alert(parentDiv);
 				$('ul.sub li').removeClass('active');
-				$('#'+subID).addClass('active');
+				$('#'+subID).addClass('active');				
+				$('.has-sub.start').removeClass('active');
 				switch(subID){
 					case 'communityStrategy':
 					$('span.statistic').text('Community Strategy');
+					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/17052/complete/ch');
 						break;
+						
 					case 'guidelines':
 					$('span.statistic').text('Guidelines');
+					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getGuidelinesAvailability');
 						break;
+						
 					case 'training':
 					$('span.statistic').text('Training');
+					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTrainedStaff');
 						break;
+						
 					case 'childrenServices':
 					$('span.statistic').text('Children Services');
+					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getChildrenServices');
 						break;
+					case 'dangerSigns':
+					$('span.statistic').text('Danger Signs');
+					$('#facility-statistics-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDangerSigns');
+						break;	
+					case 'actionsPerformed':
+					$('span.statistic').text('Actions Performed');
+					$('#facility-statistics-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getActionsPerformed');
+						break;	
+					case 'counselGiven':
+					$('span.statistic').text('Counsel Given');
+					$('#facility-statistics-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCounselGiven');
+						break;	
 				}
 				
 			});

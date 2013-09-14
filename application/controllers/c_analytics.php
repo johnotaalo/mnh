@@ -529,7 +529,6 @@ public function getActionsPerformed() {
 
 public function getCounselGiven(){
 	$results = $this -> m_analytics -> getCounselGiven('facility', '19314', 'complete', 'ch');
-	var_dump($results);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 3;
