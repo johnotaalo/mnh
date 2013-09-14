@@ -654,11 +654,12 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(gt.facilityID) AS facilities,gt.guidelineCode AS training,sum(gt.lastTrained) AS trained,sum(gt.trainedAndWorking) AS working
-		  	FROM guideline_training gt WHERE gt.guidelineCode IN 
-		 	(SELECT guidelineCode FROM guidelines WHERE guidelineFor='mch') 
-			AND gt.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
-			GROUP BY gt.guidelineCode ORDER BY gt.guidelineCode ASC";
+		
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
+				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='svc') 
+				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
+				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -668,14 +669,14 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					//if(isset($value['trained'])){
-					$data_y[] = intval($value['trained']);
-					//}else if(isset($value['working'])){
-					$data_n[] = intval($value['working']);
-					//}
+					if(isset($value['response'])=='Yes'){
+					$data_y[] = intval($value['response']);
+					}else if(isset($value['response'])=='No'){
+					$data_n[] = intval($value['response']);
+					}
 
-					//get a set of the 3 staff trainings
-					$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
+					//get a set of the 5 services offered
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
 				}
 
 				$data['categories'] = json_encode($data_categories);
@@ -701,22 +702,226 @@ class M_Analytics extends MY_Model {
 	/*
 	 * Danger Signs assessed in Ongoing Sessions
 	 */
-	public function getDangerSigns() {
+	public function getDangerSigns($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
+				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='sgn') 
+				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
+				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					if(isset($value['response'])=='Yes'){
+					$data_y[] = intval($value['response']);
+					}else if(isset($value['response'])=='No'){
+					$data_n[] = intval($value['response']);
+					}
+
+					//get a set of the 5 services offered
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+				}
+
+				$data['categories'] = json_encode($data_categories);
+
+				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
+				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*
 	 * Tasks performed in Ongoing Sessions
 	 */
-	public function getActionsPerformed() {
+	public function getActionsPerformed($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
+				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn') 
+				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
+				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					if(isset($value['response'])=='Yes'){
+					$data_y[] = intval($value['response']);
+					}else if(isset($value['response'])=='No'){
+					$data_n[] = intval($value['response']);
+					}
+
+					//get a set of the 5 services offered
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+				}
+
+				$data['categories'] = json_encode($data_categories);
+
+				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
+				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*
 	 * Counsel on Ongoing Sessions
 	 */
-	public function getCounselGiven() {
+	public function getCounselGiven($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
+				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns') 
+				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
+				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					if(isset($value['response'])=='Yes'){
+					$data_y[] = intval($value['response']);
+					}else if(isset($value['response'])=='No'){
+					$data_n[] = intval($value['response']);
+					}
+
+					//get a set of the 5 services offered
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+				}
+
+				$data['categories'] = json_encode($data_categories);
+
+				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
+				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*

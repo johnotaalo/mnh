@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mnhIndicator,$mchTreatment,
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchIndicatorName,$mnhIndicator,$mchTreatment,
 $ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName,$guideline;
 
 function __construct() {
@@ -408,6 +408,23 @@ function __construct() {
 				//die($ex->getMessage());
 			}
 	}
+	
+	/*utilized in several models*/
+	public function getChildHealthIndicatorName($id){
+		try{
+			$this->mchIndicatorName=$this->em->getRepository('models\Entities\e_mch_indicators')
+			                       ->findOneBy( array('indicatorCode'=>$id));
+								   
+			if($this->mchIndicatorName){
+					$this->mchIndicatorName=$this->mchIndicatorName->getIndicatorName();
+					return $this->mchIndicatorName;
+				}
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
 
 	/*utilized in several models*/
 	public function getLevelName($id){
