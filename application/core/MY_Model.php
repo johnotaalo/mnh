@@ -5,7 +5,7 @@ class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mnhIndicator,$mchTreatment,
-$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName;
+$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName,$guideline;
 
 function __construct() {
 		parent::__construct();
@@ -386,6 +386,22 @@ function __construct() {
 			if($this->strategy){
 					$this->strategyName=$this->strategy->getMCHQuestion();
 					return $this->strategyName;
+				}
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getTrainingGuidelineName($id){
+		try{
+			$this->guideline=$this->em->getRepository('models\Entities\e_mch_indicators')
+			                       ->findOneBy( array('indicatorCode'=>$id));
+								   
+			if($this->strategy){
+					$this->guideline=$this->guideline->getIndicatorName();
+					return $this->guideline;
 				}
 			}catch(exception $ex){
 				//ignore
