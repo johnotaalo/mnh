@@ -674,7 +674,7 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Availability, Location and Functionality of Equipement at ORT Corner
 	 */
-	public function getORTCornerAssessment() {
+	public function getORTCornerEquipmemnt() {
 		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
 		var_dump($results);
 	}

@@ -58,77 +58,57 @@
 				</li>
 			</ul>
 		</li>
-		<li class="has-sub ">
+		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li >
-					<a href="#">Service Delivery</a>
+				<li id="availability">
+					<a href="#">Availability</a>
 				</li>
-				<li >
+				<li id="diagnosisQuality">
 					<a href="#">Quality of Diagnosis</a>
 				</li>
 			</ul>
 		</li>
-		<li class="has-sub ">
-			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Section 4</span> <span class="arrow "></span> </a>
+		<li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li >
-					<a href="#">Necessary Tools</a>
+				<li id="caseNumbers">
+					<a href="#">Case Numbers</a>
 				</li>
-				<li >
-					<a href="#">Diarrhoea Cases</a>
+				<li id="caseTreatment">
+					<a href="#">Case Treatment</a>
 				</li>
-				<li >
+				<!--li >
 					<a href="#">Treatment of Records</a>
-				</li>
+				</li-->
 			</ul>
 		</li>
-		<li class="has-sub ">
-			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Section 5</span> <span class="arrow "></span> </a>
+		<li id="ORT-Corner-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">ORT Corner</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li >
+				<li id="ORTAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li >
+				<li id="ORTAssessment">
 					<a href="#">ORT Corner Equipment</a>
 				</li>
+				<li id="ORTAssessment">
+					<a href="#">ORT Corner Supplies</a>
+				</li>
 			</ul>
 		</li>
-		<li class="has-sub ">
-			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Section 6</span> <span class="arrow "></span> </a>
+		<li id="resources-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li >
+				<li id="safeWater">
 					<a href="#">Safe Water Source</a>
 				</li>
-				<li >
+				<li id="hardwareResources">
 					<a href="#">Electricity and Hardware Resources</a>
 				</li>
-				<li >
+				<!--li >
 					<a href="#">Treatment of Records</a>
-				</li>
-			</ul>
-		</li>
-		<li class="has-sub ">
-			<a href="javascript:;"> <i class="icon-table"></i> <span class="title">Raw Data</span> <span class="arrow "></span> </a>
-			<ul class="sub">
-				<li >
-					<a href="#">Section 1</a>
-				</li>
-				<li >
-					<a href="#">Section 2</a>
-				</li>
-				<li >
-					<a href="#">Section 3</a>
-				</li>
-				<li >
-					<a href="#">Section 4</a>
-				</li>
-				<li >
-					<a href="#">Section 5</a>
-				</li>
-				<li >
-					<a href="#">Section 6</a>
-				</li>
+				</li-->
 			</ul>
 		</li>
 		<!--li class="">

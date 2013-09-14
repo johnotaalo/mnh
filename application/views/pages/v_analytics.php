@@ -84,6 +84,9 @@
 				$('#'+subID).addClass('active');				
 				$('.has-sub.start').removeClass('active');
 				switch(subID){
+					/*
+					 * Facility Statistics
+					 */
 					case 'communityStrategy':
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
@@ -107,32 +110,104 @@
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getChildrenServices');
 						break;
+						
 					case 'dangerSigns':
 					$('span.statistic').text('Danger Signs');
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDangerSigns');
 						break;	
+						
 					case 'actionsPerformed':
 					$('span.statistic').text('Actions Performed');
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getActionsPerformed');
 						break;	
+						
 					case 'counselGiven':
 					$('span.statistic').text('Counsel Given');
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCounselGiven');
 						break;	
+						
 					case 'tools':
 					$('span.statistic').text('Tools');
 					$('#facility-statistics-parent').addClass('active');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools');
 						break;	
 						
+					/*
+					 * ------End of Facility Statistics
+					 */
+					/*
+					 * Commodities
+					 */
+					case 'availability':
+					$('span.statistic').text('Availability');
+					$('#commodities-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools');
+						break;	
+					/*
+					 * ------End of Commodities
+					 */
+					/*
+					 * Diarrhoea Cases
+					 */	
+					case 'caseNumbers':
+					$('span.statistic').text('Case Numbers');
+					$('#diarrhoea-cases-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers');
+						break;	
+						
+					case 'caseTreatment':
+					$('span.statistic').text('Case Treatment');
+					('#diarrhoea-cases-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment');
+						break;	
+					/*
+					 * ------End of Diarrhoea Cases
+					 */
+					/*
+					 * ORT Corner
+					 */	
+					case 'ORTAssessment':
+					$('span.statistic').text('ORT Assessment');
+					$('#ORT-Corner-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerAssessment');
+						break;	
+						
+					case 'ORTEquipment':
+					$('span.statistic').text('ORT Equipment');
+					$('#ORT-Corner-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmemnt');
+						break;	
+						
+					case 'ORTSupplies':
+					$('span.statistic').text('ORT Supplies');
+					$('#ORT-Corner-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerSupplies');
+						break;
+					/*
+					 * ------End of ORT Corner
+					 */
+					/*
+					 * Resources
+					 */	
+					case 'safeWater':
+					$('span.statistic').text('Safe Water');
+					$('#resources-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources');
+						break;	
+						
+					case 'hardwareResources':
+					$('span.statistic').text('Hardware Resources');
+					$('#resources-parent').addClass('active');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources');
+						break;	
+					
 				}
 				
 			});
-			$('#graph_comm').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/17052/complete/ch');
-			// Build the charts
+				// Build the charts
 });
 
 	</script>
