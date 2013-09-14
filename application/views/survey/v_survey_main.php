@@ -384,7 +384,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: false,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
