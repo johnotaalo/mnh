@@ -86,10 +86,27 @@ class M_Analytics extends MY_Model {
 				$i = 1;
 				$size = count($this -> dataSet);
 				foreach ($this->dataSet as $value) {
+					switch($this -> getCommunityStrategyName($value['strategy'])) {
+						case 'Total number of Community Units established and functional' :
+							$strategy = 'CU established and functional';
+							break;
+						case 'Total number of Community Units regularly supervised and provided feedback' :
+							$strategy = 'CU regularly supervised';
+							break;
+						case 'Total number of CHWs and CHEWs trained on Integrated Community Case Management (ICCM)' :
+							$strategy = 'CHWs & CHEWs on ICCM';
+							break;
+						case 'Total number of Community Units supported by incentives for CHWs' :
+							$strategy = 'CU supported by incentives for CHW';
+							break;
+						case 'Total number of cases treated with Zinc and ORS co-pack under Community Case Management of diarrhoea' :
+							$strategy = 'Cases treated with Zinc & ORS';
+							break;
+					}
 					if ($i == $size) {
-						$data[] = array($this -> getCommunityStrategyName($value['strategy']), $value['strategy_number']);
+						$data[] = array($strategy, $value['strategy_number']);
 					} else {
-						$data[] = array($this -> getCommunityStrategyName($value['strategy']), $value['strategy_number']);
+						$data[] = array($strategy, $value['strategy_number']);
 						$i++;
 					}
 				}
@@ -939,6 +956,8 @@ class M_Analytics extends MY_Model {
 	public function getTools($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -979,20 +998,16 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					if(isset($value['response'])=='Yes'){
-					$data_y[] = intval($value['response']);
-					}else if(isset($value['response'])=='No'){
-					$data_n[] = intval($value['response']);
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthIndicatorName($value['tool']), 1);
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthIndicatorName($value['tool']), 1);
 					}
-
-					//get a set of the 5 tools available
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['tool']);
+					//echo $value['indicator'];
 				}
 
-				$data['categories'] = json_encode($data_categories);
-
-				//$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				//$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
 
 				$this -> dataSet = $data;
 
