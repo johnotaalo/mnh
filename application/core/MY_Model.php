@@ -4,7 +4,7 @@
 class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
-$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchIndicatorName,$mnhIndicator,$mchTreatment,
+$type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchIndicatorName,$mnhIndicator,$mchTreatment,$mchTreatmentName,
 $ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName,$guideline;
 
 function __construct() {
@@ -418,6 +418,23 @@ function __construct() {
 			if($this->mchIndicatorName){
 					$this->mchIndicatorName=$this->mchIndicatorName->getIndicatorName();
 					return $this->mchIndicatorName;
+				}
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	
+	/*utilized in several models*/
+	public function getChildHealthTreatmentName($id){
+		try{
+			$this->mchTreatmentName=$this->em->getRepository('models\Entities\e_mch_treatments')
+			                       ->findOneBy( array('treatmentCode'=>$id));
+								   
+			if($this->mchTreatmentName){
+					$this->mchTreatmentName=$this->mchTreatmentName->getTreatmentName();
+					return $this->mchTreatmentName;
 				}
 			}catch(exception $ex){
 				//ignore

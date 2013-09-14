@@ -986,13 +986,13 @@ class M_Analytics extends MY_Model {
 					}
 
 					//get a set of the 5 tools available
-					$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+					$data_categories[] = $this -> getChildHealthIndicatorName($value['tool']);
 				}
 
 				$data['categories'] = json_encode($data_categories);
 
-				$data['yes_values'] = $data_prefix_y . json_encode($data_y);
-				$data['no_values'] = $data_prefix_n . json_encode($data_n);
+				//$data['yes_values'] = $data_prefix_y . json_encode($data_y);
+				//$data['no_values'] = $data_prefix_n . json_encode($data_n);
 
 				$this -> dataSet = $data;
 
@@ -1011,16 +1011,143 @@ class M_Analytics extends MY_Model {
 	/*
 	 * Diarrhoea case numbers per Month
 	 */
-	public function getDiarrhoeaCaseNumbers() {
+	public function getDiarrhoeaCaseNumbers($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT d.jan13 AS jan, d.feb13 AS feb, d.mar13 AS mar, d.apr13 AS apr, 
+		d.may13 AS may, d.june13 AS june, d.july13 AS july, d.aug13 AS aug, 
+		d.sept13 AS sept, d.oct13 AS oct, d.nov13 AS nov, d.dec13 AS december 
+		FROM morbidity_data_log d WHERE d.facilityID IN (SELECT facilityMFC FROM facility 
+		WHERE ".$status_condition."  ".$criteria_condition.")";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value=>$key) {
+				$data['num_of_diarrhoea_cases'][]=$key;
+				}
+
+				//fixed set of 12 months in a year..not an option but to hard code.. :)
+				$data_categories = array('January','February','March','April','May','June','July','August','September','October','November','December');
+
+				$data['categories'] = json_encode($data_categories);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*
 	 * Diarrhoea case treatments
 	 */
 
-	public function getDiarrhoeaCaseTreatment() {
+	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT tl.treatmentID AS treatment,tl.severeDehydrationNo AS severe_dehydration, tl.someDehydrationNo AS some_dehydration, 
+		          tl.noDehydrationNo AS no_dehydration, tl.dysentryNo AS dysentry, tl.noClassificationNo AS no_classification 
+		          FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
+				  WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE ".$status_condition."  ".$criteria_condition.")
+				  GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+				   //get a set of the 5 diarrhoea treatment types available
+					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatment']);
+					
+					//get the responses by classification per given treatment type
+					$data[$this -> getChildHealthTreatmentName($value['treatment'])]=array('severe_dehydration'=>intval($value['severe_dehydration']),
+					'some_dehydration'=>intval($value['some_dehydration']),'no_dehydration'=>intval($value['no_dehydration']),'dysentry'=>intval($value['dysentry']),'no_classification'=>intval($value['no_classification']));
+				}
+
+
+				$data['categories'] = json_encode($data_categories);
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*

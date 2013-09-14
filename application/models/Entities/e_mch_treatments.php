@@ -28,32 +28,32 @@ namespace models\Entities;
 	* */
 	private $treatmentFor;
 	 
-	public function getIndicatorID() {
+	public function getTreatmentID() {
 			return $this -> treatmentID;
 	}
 	
-	public function setIndicatorID($treatmentID) { $this -> treatmentID= $treatmentID;
+	public function setTreatmentID($treatmentID) { $this -> treatmentID= $treatmentID;
 	}
 	 
-	public function getIndicatorName() {
+	public function getTreatmentName() {
 			return $this -> treatmentName;
 	}
 	
-	public function setIndicatorName($treatmentName) { $this -> treatmentName = $treatmentName;
+	public function setTreatmentName($treatmentName) { $this -> treatmentName = $treatmentName;
 	}
 	
-	public function getIndicatorCode() {
+	public function getTreatmentCode() {
 			return $this -> treatmentCode;
 	}
 	
-	public function setIndicatorCode($treatmentCode) { $this -> treatmentCode = $treatmentCode;
+	public function setTreatmentCode($treatmentCode) { $this -> treatmentCode = $treatmentCode;
 	}
 	
-	public function getIndicatorFor() {
+	public function getTreatmentFor() {
 			return $this -> treatmentFor;
 	}
 	
-	public function setIndicatorFor($treatmentFor) { $this -> treatmentFor = $treatmentFor;
+	public function setTreatmentFor($treatmentFor) { $this -> treatmentFor = $treatmentFor;
 	}
 }
 ?>
