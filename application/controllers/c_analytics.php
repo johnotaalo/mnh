@@ -179,6 +179,11 @@ class C_Analytics extends MY_Controller {
 		//var_dump($this -> m_analytics->get_facility_levels_of_care_by('district','Kasarani','complete','ch'));
     }
 
+	public function test_query(){
+		$results = $this -> m_analytics -> getCommunityStrategy('facility', '15830', 'complete', 'ch');
+		var_dump($results);
+	}
+
 	private function ch_survey_response_rate() {
 		$this -> data['response_count'] = $this -> m_analytics -> get_response_count('ch');
 	}

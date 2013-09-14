@@ -67,13 +67,18 @@ class M_Analytics extends MY_Model {
 			case 'district' :
 				$criteria_condition = 'AND facilityDistrict=?';
 				break;
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 
-		$query = "SELECT COUNT(facilityMFC) AS total_facilities,facilityLevel AS level 
-	                FROM facility WHERE  " . $status_condition . "  " . $criteria_condition . " GROUP BY(facilityLevel) ORDER BY facilityLevel ASC";
+		$query = "SELECT cs.strategyID AS strategy,cs.strategyResponse AS strategy_number FROM mch_community_strategy cs WHERE cs.strategyID IN
+                   (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='cms') 
+                   AND cs.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
+                   GROUP BY cs.strategyID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -83,9 +88,9 @@ class M_Analytics extends MY_Model {
 				$size = count($this -> dataSet);
 				foreach ($this->dataSet as $value) {
 					if ($i == $size) {
-						$data .= "['" . $this -> getLevelNameById($value['level']) . "'," . $value['total_facilities'] . "]";
+						$data .= "['" . $this -> getCommunityStrategyName($value['strategy']) . "'," . $value['strategy_number'] . "]";
 					} else {
-						$data .= "['" . $this -> getLevelNameById($value['level']) . "'," . $value['total_facilities'] . "],";
+						$data .= "['" . $this -> getCommunityStrategyName($value['strategy']) . "'," . $value['strategy_number'] . "],";
 						$i++;
 					}
 				}
@@ -95,7 +100,7 @@ class M_Analytics extends MY_Model {
 				return $this -> dataSet = null;
 			}
 			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
+		} catch(Exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}

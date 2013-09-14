@@ -5,7 +5,7 @@ class  MY_Model  extends  CI_Model{
 
 public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mnhIndicator,$mchTreatment,
-$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode;
+$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName;
 
 function __construct() {
 		parent::__construct();
@@ -371,6 +371,22 @@ function __construct() {
 		try{
 			$this->county=$this->em->getRepository('models\Entities\E_County')
 			                       ->findOneBy( array('countyID'=>$id));
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getCommunityStrategyName($id){
+		try{
+			$this->strategy=$this->em->getRepository('models\Entities\e_mch_questions')
+			                       ->findOneBy( array('questionCode'=>$id));
+								   
+			if($this->strategy){
+					$this->strategyName=$this->strategy->getMCHQuestion();
+					return $this->strategyName;
+				}
 			}catch(exception $ex){
 				//ignore
 				//die($ex->getMessage());
