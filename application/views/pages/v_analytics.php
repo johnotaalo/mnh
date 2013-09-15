@@ -83,6 +83,7 @@
 				$('ul.sub li').removeClass('active');
 				$('#'+subID).addClass('active');				
 				$('.has-sub.start').removeClass('active');
+				$('.has-sub.start a').remove('span');
 				switch(subID){
 					/*
 					 * Facility Statistics
@@ -90,48 +91,56 @@
 					case 'communityStrategy':
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/17052/complete/ch');
 						break;
 						
 					case 'guidelines':
 					$('span.statistic').text('Guidelines');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getGuidelinesAvailability');
 						break;
 						
 					case 'training':
 					$('span.statistic').text('Training');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTrainedStaff');
 						break;
 						
 					case 'childrenServices':
 					$('span.statistic').text('Children Services');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getChildrenServices');
 						break;
 						
 					case 'dangerSigns':
 					$('span.statistic').text('Danger Signs');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDangerSigns');
 						break;	
 						
 					case 'actionsPerformed':
 					$('span.statistic').text('Actions Performed');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getActionsPerformed');
 						break;	
 						
 					case 'counselGiven':
 					$('span.statistic').text('Counsel Given');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCounselGiven');
 						break;	
 						
 					case 'tools':
 					$('span.statistic').text('Tools');
 					$('#facility-statistics-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools');
 						break;	
 						
@@ -144,6 +153,7 @@
 					case 'availability':
 					$('span.statistic').text('Availability');
 					$('#commodities-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools');
 						break;	
 					/*
@@ -155,12 +165,14 @@
 					case 'caseNumbers':
 					$('span.statistic').text('Case Numbers');
 					$('#diarrhoea-cases-parent').addClass('active');
+					$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers');
 						break;	
 						
 					case 'caseTreatment':
 					$('span.statistic').text('Case Treatment');
-					('#diarrhoea-cases-parent').addClass('active');
+					$('#diarrhoea-cases-parent').addClass('active');
+					$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment');
 						break;	
 					/*
@@ -172,18 +184,21 @@
 					case 'ORTAssessment':
 					$('span.statistic').text('ORT Assessment');
 					$('#ORT-Corner-parent').addClass('active');
+					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerAssessment');
 						break;	
 						
 					case 'ORTEquipment':
 					$('span.statistic').text('ORT Equipment');
 					$('#ORT-Corner-parent').addClass('active');
+					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmemnt');
 						break;	
 						
 					case 'ORTSupplies':
 					$('span.statistic').text('ORT Supplies');
 					$('#ORT-Corner-parent').addClass('active');
+					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerSupplies');
 						break;
 					/*
@@ -195,12 +210,14 @@
 					case 'safeWater':
 					$('span.statistic').text('Safe Water');
 					$('#resources-parent').addClass('active');
+					$('#resources-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources');
 						break;	
 						
 					case 'hardwareResources':
 					$('span.statistic').text('Hardware Resources');
 					$('#resources-parent').addClass('active');
+					$('#resources-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources');
 						break;	
 					

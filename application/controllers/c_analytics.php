@@ -660,7 +660,41 @@ class C_Analytics extends MY_Controller {
 
 	public function getDiarrhoeaCaseTreatment() {
 		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+		$categories = $results['categories'];
+		$categoriesCount = 0;
+
+		foreach ($results as $result => $val) {
+			
+			if ($categoriesCount < 6) {
+				$index = $categories[$categoriesCount];
+				if ($result == $index) {
+					$severe_dehydration[] = (int)$val['severe_dehydration'];
+					$some_dehydration[] = (int)$val['some_dehydration'];
+					$no_dehydration[] = (int)$val['no_dehydration'];
+					$dysentry[] = (int)$val['dysentry'];
+					$no_classification[] = (int)$val['no_classification'];
+
+					$categoriesCount++;
+				}
+			}
+		}
+		$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		 $resultArraySize = 5;
+		 //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		 //$resultArray = 5;
+		 //var_dump($category);
+		 $datas['resultArraySize'] = $resultArraySize;
+		 $datas['container'] = 'chart_expiry';
+		 $datas['chartType'] = 'bar';
+		 $datas['chartMargin'] = 70;
+		 $datas['title'] = 'Chart';
+		 $datas['chartTitle'] = 'Case Treatment';
+		 $datas['categories'] = json_encode($categories);
+		 $datas['yAxis'] = 'Occurence';
+		 $datas['resultArray'] = $resultArray;
+		 $this -> load -> view('charts/chart_v', $datas);
 	}
 
 	/*

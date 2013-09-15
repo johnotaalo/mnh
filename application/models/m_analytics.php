@@ -1149,7 +1149,7 @@ class M_Analytics extends MY_Model {
 				}
 
 
-				$data['categories'] = json_encode($data_categories);
+				$data['categories'] = $data_categories;
 
 				$this -> dataSet = $data;
 
