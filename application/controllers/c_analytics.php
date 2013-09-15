@@ -1,10 +1,11 @@
 <?php
 class C_Analytics extends MY_Controller {
 	var $data;
-
+	var $chartCount;
 	public function __construct() {
 		parent::__construct();
 		$this -> data = '';
+		$this -> chartCount = 0;
 		$this -> load -> model('m_analytics');
 
 	}
@@ -229,7 +230,9 @@ class C_Analytics extends MY_Controller {
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
@@ -243,8 +246,8 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability() {
-		$results = $this -> m_analytics -> getGuidelinesAvailability('facility', '17052', 'complete', 'ch');
+	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
 
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
@@ -288,7 +291,9 @@ class C_Analytics extends MY_Controller {
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -303,8 +308,8 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Get Trained Stuff
 	 */
-	public function getTrainedStaff() {
-		$results = $this -> m_analytics -> getTrainedStaff('facility', '17052', 'complete', 'ch');
+	public function getTrainedStaff($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
 		//var_dump($results);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
@@ -349,7 +354,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -360,13 +367,13 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-	public function getCommodityAvailability() {
-		$results = $this -> m_analytics -> getCommodityAvailability('facility', '17052', 'complete', 'ch');
+	public function getCommodityAvailability($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
 		var_dump($results);
 	}
 
-	public function getChildrenServices() {
-		$results = $this -> m_analytics -> getChildrenServices('facility', '17052', 'complete', 'ch');
+	public function getChildrenServices($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 5;
@@ -410,7 +417,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -421,8 +430,8 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-	public function getDangerSigns() {
-		$results = $this -> m_analytics -> getDangerSigns('facility', '17052', 'complete', 'ch');
+	public function getDangerSigns($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 2;
@@ -466,7 +475,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -477,8 +488,8 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-	public function getActionsPerformed() {
-		$results = $this -> m_analytics -> getActionsPerformed('facility', '17052', 'complete', 'ch');
+	public function getActionsPerformed($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 6;
@@ -522,7 +533,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -533,8 +546,8 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-	public function getCounselGiven() {
-		$results = $this -> m_analytics -> getCounselGiven('facility', '19314', 'complete', 'ch');
+	public function getCounselGiven($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 3;
@@ -578,7 +591,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -589,8 +604,8 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
-	public function getTools() {
-		$results = $this -> m_analytics -> getTools('facility', '17052', 'complete', 'ch');
+	public function getTools($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey);
 		//var_dump($results);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
@@ -635,7 +650,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -649,16 +666,16 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Diarrhoea case numbers per Month
 	 */
-	public function getDiarrhoeaCaseNumbers() {
-		$results = $this -> m_analytics -> getDiarrhoeaCaseNumbers('facility', '17052', 'complete', 'ch');
+	public function getDiarrhoeaCaseNumbers($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getDiarrhoeaCaseNumbers($criteria, $value, $status, $survey);
 		$resultData = $results['num_of_diarrhoea_cases'];
 		$category = $results['categories'];
-		
-		$monthArray=array('jan','feb','mar','apr','may','june','july','aug','sept','oct','nov','december');
-        $monthCounter =0;
+
+		$monthArray = array('jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'december');
+		$monthCounter = 0;
 		foreach ($monthArray as $value) {
 			//echo $value;
-			$dataArray[]=(int)$resultData[0][$value];
+			$dataArray[] = (int)$resultData[0][$value];
 			$monthCounter++;
 		}
 		$resultArray = array( array('name' => 'Cases', 'data' => $dataArray));
@@ -666,12 +683,14 @@ class C_Analytics extends MY_Controller {
 		//var_dump($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
-		
+
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -686,8 +705,8 @@ class C_Analytics extends MY_Controller {
 	 * Diarrhoea case treatments
 	 */
 
-	public function getDiarrhoeaCaseTreatment() {
-		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment('facility', '13246', 'complete', 'ch');
+	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey);
 		$categories = $results['categories'];
 		$categoriesCount = 0;
 
@@ -714,7 +733,9 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_expiry';
+		$this -> chartCount=rand(1,100000);	
+		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
