@@ -1610,7 +1610,7 @@ class M_Analytics extends MY_Model {
 			$query= $this -> em -> createQuery('SELECT DISTINCT(f.facilityDistrict) FROM  models\Entities\e_facility f WHERE f.facilityCounty = :county ORDER BY f.facilityDistrict ASC');
 			$query->setParameter('county',$county);
 			$this -> districtName = $query -> getResult();
-			die(var_dump($this->districtName));
+			//die(var_dump($this->districtName));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
