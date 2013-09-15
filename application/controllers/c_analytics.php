@@ -754,16 +754,73 @@ $this->county = $this->session->userdata('county_analytics');
 	/*
 	 * ORT Corner Assessment
 	 */
-	public function getORTCornerAssessment() {
-		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+	public function getORTCornerAssessment($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value, $status, $survey);
+		$yes = $results['yes_values'];
+		$no = $results['no_values'];
+		$category[] = $results['categories'][0];
+		$category[] = $results['categories'][1];
+		$yCount = 2;
+		$nCount = 2;
+		//var_dump($no);
+
+		//var_dump($results);
+		if ($yes != null) {
+			foreach ($yes as $value) {
+				echo $value;
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
+				$yCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
+		}
+		if ($no != null) {
+			foreach ($no as $value) {
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
+				$nCount--;
+				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			}
+		}
+
+		#Fill up Arrays
+		for ($x = 0; $x < $yCount; $x++) {
+			$yesData[] = 0;
+		}
+		for ($x = 0; $x < $nCount; $x++) {
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
+			}
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		//var_dump($resultArray);
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria;
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Action Performed';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
 	}
 
 	/*
 	 * Availability, Location and Functionality of Equipement at ORT Corner
 	 */
-	public function getORTCornerEquipmemnt() {
-		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
+	public function getORTCornerEquipmement() {
+		$results = $this -> m_analytics -> getORTCornerEquipmement('facility', '17052', 'complete', 'ch');
 		var_dump($results);
 	}
 
