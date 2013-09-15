@@ -1,11 +1,10 @@
 <?php
 class C_Analytics extends MY_Controller {
 	var $data;
-	var $chartCount;
+
 	public function __construct() {
 		parent::__construct();
 		$this -> data = '';
-		$this -> chartCount = 0;
 		$this -> load -> model('m_analytics');
 
 	}
@@ -230,8 +229,8 @@ class C_Analytics extends MY_Controller {
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 100;
@@ -291,8 +290,8 @@ class C_Analytics extends MY_Controller {
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -354,8 +353,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -417,8 +416,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -475,8 +474,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -533,8 +532,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -591,8 +590,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -650,8 +649,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -688,8 +687,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -733,8 +732,8 @@ class C_Analytics extends MY_Controller {
 		//$resultArray = 5;
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$this -> chartCount=rand(1,100000);	
-		$datas['container'] = 'chart_expiry' . $this -> chartCount;
+
+		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -778,4 +777,11 @@ class C_Analytics extends MY_Controller {
 		var_dump($results);
 	}
 
+	/**
+	 * Get Specific Districts Filter
+	 */
+	 public function getSpecificDistrictNames(){
+	 	$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
+		var_dump($results);
+	 }
 }

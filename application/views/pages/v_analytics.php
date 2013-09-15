@@ -47,9 +47,9 @@
 								<a href="<?php echo base_url() ?>ch/analytics">Home</a> 
 								<i class="icon-angle-right"></i>
 							</li>
-							<li><a href="#"><?php echo $analytics_main_title; ?></a></li>
+							<li><a href="#" id="breadcrumb-title"></a></li>
 							<i class="icon-angle-right"></i>
-							<li><a href="#"><?php echo $analytics_mini_title; ?></a></li>
+							<li><a href="#" id="breadcrumb-sub-title"></a></li>
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
@@ -76,7 +76,7 @@
 		$().ready(function(){
 			var chart,div;
 			var subID,parentDiv;
-			var county,facility;
+			var county,facility,smallText;
 			/**
 			 *Assign County and Facility 
 			 */
@@ -86,10 +86,17 @@
 				subID = $(this).attr('id');
 				//parentDiv = $('#'+subID+' a').parents('ul');
 				//alert(parentDiv);
+				//alert();
+				
 				$('ul.sub li').removeClass('active');
 				$('#'+subID).addClass('active');				
 				$('.has-sub.start').removeClass('active');
 				$('.has-sub.start a').remove('span');
+				smallText=$('ul.sub li.active a').text();
+				$('h3.page-title').text($('li.has-sub.start.open a span.title').text());
+				$('h3.page-title').append('<small>'+smallText+'</small>');
+				$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
+				$('#breadcrumb-sub-title').text(smallText);
 				switch(subID){
 					/*
 					 * Facility Statistics
@@ -98,6 +105,7 @@
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
+					
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/county/'+county+'/complete/ch');
 					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/facility/'+facility+'/complete/ch');
 						break;

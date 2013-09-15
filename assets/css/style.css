@@ -736,6 +736,7 @@ Page title
 }
 
 .page-title small {
+	margin-left:10px;
   font-size: 14px;
   letter-spacing: 0px;
   font-weight: 300;

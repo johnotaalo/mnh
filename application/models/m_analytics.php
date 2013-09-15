@@ -398,7 +398,7 @@ class M_Analytics extends MY_Model {
 		/*--------------------end commodity availability by frequency----------------------------------------------*/
 
 		/*--------------------begin commodity reason for unavailability----------------------------------------------*/
-		 $query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason FROM cquantity_available ca
+		$query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason FROM cquantity_available ca
 					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
 					AND ca.reason4Unavailability !='Not Applicable'
@@ -928,8 +928,6 @@ class M_Analytics extends MY_Model {
 					} else if ($value['response'] == 'No') {
 						$data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
 					}
-
-					echo $value['indicator'];
 				}
 
 				$data['yes_values'] = $data_y;
@@ -984,11 +982,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT t.indicatorID AS tool,t.response as response
 				  FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror') 
 				  AND t.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE ".$status_condition."  ".$criteria_condition.") GROUP BY t.indicatorID ORDER BY t.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY t.indicatorID ORDER BY t.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1055,12 +1053,12 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT d.jan13 AS jan, d.feb13 AS feb, d.mar13 AS mar, d.apr13 AS apr, 
 		d.may13 AS may, d.june13 AS june, d.july13 AS july, d.aug13 AS aug, 
 		d.sept13 AS sept, d.oct13 AS oct, d.nov13 AS nov, d.dec13 AS december 
 		FROM morbidity_data_log d WHERE d.facilityID IN (SELECT facilityMFC FROM facility 
-		WHERE ".$status_condition."  ".$criteria_condition.")";
+		WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1069,12 +1067,12 @@ class M_Analytics extends MY_Model {
 				$size = count($this -> dataSet);
 				$i = 0;
 
-				foreach ($this->dataSet as $value=>$key) {
-				$data['num_of_diarrhoea_cases'][]=$key;
+				foreach ($this->dataSet as $value => $key) {
+					$data['num_of_diarrhoea_cases'][] = $key;
 				}
 
 				//fixed set of 12 months in a year..not an option but to hard code.. :)
-				$data_categories = array('January','February','March','April','May','June','July','August','September','October','November','December');
+				$data_categories = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
 
 				$data['categories'] = $data_categories;
 
@@ -1125,11 +1123,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT tl.treatmentID AS treatment,tl.severeDehydrationNo AS severe_dehydration, tl.someDehydrationNo AS some_dehydration, 
 		          tl.noDehydrationNo AS no_dehydration, tl.dysentryNo AS dysentry, tl.noClassificationNo AS no_classification 
 		          FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
-				  WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE ".$status_condition."  ".$criteria_condition.")
+				  WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . "  " . $criteria_condition . ")
 				  GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
@@ -1140,14 +1138,12 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-				   //get a set of the 5 diarrhoea treatment types available
+					//get a set of the 5 diarrhoea treatment types available
 					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatment']);
-					
-					//get the responses by classification per given treatment type
-					$data[$this -> getChildHealthTreatmentName($value['treatment'])]=array('severe_dehydration'=>intval($value['severe_dehydration']),
-					'some_dehydration'=>intval($value['some_dehydration']),'no_dehydration'=>intval($value['no_dehydration']),'dysentry'=>intval($value['dysentry']),'no_classification'=>intval($value['no_classification']));
-				}
 
+					//get the responses by classification per given treatment type
+					$data[$this -> getChildHealthTreatmentName($value['treatment'])] = array('severe_dehydration' => intval($value['severe_dehydration']), 'some_dehydration' => intval($value['some_dehydration']), 'no_dehydration' => intval($value['no_dehydration']), 'dysentry' => intval($value['dysentry']), 'no_classification' => intval($value['no_classification']));
+				}
 
 				$data['categories'] = $data_categories;
 
@@ -1199,11 +1195,11 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		
+
 		$query = "SELECT oa.indicatorID AS assessment_item,oa.response as response
 			FROM mch_questions_log oa WHERE oa.indicatorID IN (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='ort') 
 			AND oa.facilityID IN (SELECT facilityMFC FROM facility 
-			WHERE ".$status_condition."  ".$criteria_condition.")";
+			WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1218,8 +1214,7 @@ class M_Analytics extends MY_Model {
 					} else if ($value['response'] == 'No') {
 						$data_n[] = array($this -> getChildHealthQuestionName($value['assessment_item']), 1);
 					}
-					
-					
+
 					//get a set of the 3 items for ORT assessment
 					$data['categories'][] = $this -> getChildHealthQuestionName($value['assessment_item']);
 				}
@@ -1279,9 +1274,9 @@ class M_Analytics extends MY_Model {
 				WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort') 
 				GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 		try {
-			
+
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-        
+
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
@@ -1296,7 +1291,7 @@ class M_Analytics extends MY_Model {
 
 					//2. collect the analytic variables
 					if ($value_['frequency'] == 'Some Available') {//a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
-						
+
 						$frequency = 'Sometimes Available';
 					} else {
 						$frequency = $value_['frequency'];
@@ -1318,24 +1313,27 @@ class M_Analytics extends MY_Model {
 				//var_dump($data_set);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
-				$data['categories'] = (array_values(array_unique($data_categories))); //expected 28
-				
+				$data['categories'] = (array_values(array_unique($data_categories)));
+				//expected 28
 
 				//get a unique set of analytic variables
-				$analytic_var = array_unique($analytic_var); //expected to be 3 in this particular context
-				$data['analytic_variables']=$analytic_var;
-				
-				//get the data sets
-				$data['responses']=$data_set;//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
+				$analytic_var = array_unique($analytic_var);
+				//expected to be 3 in this particular context
+				$data['analytic_variables'] = $analytic_var;
 
-				$this -> final_data_set['frequency'] = $data; #note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-				
+				//get the data sets
+				$data['responses'] = $data_set;
+				//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
+
+				$this -> final_data_set['frequency'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
 				//unset the arrays for reuse in the next query
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
-				
+
 				return $this -> final_data_set;
-				
-			}else{
+
+			} else {
 				return null;
 			}
 		} catch(exception $ex) {
@@ -1343,7 +1341,7 @@ class M_Analytics extends MY_Model {
 			//die($ex->getMessage());//exit;
 		}
 		/*--------------------end ort equipment availability by frequency----------------------------------------------*/
-		
+
 		/*--------------------begin ort equipment location of availability----------------------------------------------*/
 		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location 
 					FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility 
@@ -1354,7 +1352,7 @@ class M_Analytics extends MY_Model {
 			//echo $query;die;
 			//die(print $status.$value);
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-              //var_dump($this->dataSet);die;
+			//var_dump($this->dataSet);die;
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
@@ -1392,23 +1390,26 @@ class M_Analytics extends MY_Model {
 				//var_dump($data_set);die;
 
 				//make array unique if we got duplicates and set to $data array
-				$data['categories'] = array_values(array_unique($data_categories));//expected 28
-				
+				$data['categories'] = array_values(array_unique($data_categories));
+				//expected 28
 
 				//get a unique set of analytic variables
-				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');//expected to be 5 in this particular context, again we know they r just these 5 :)
-				$data['analytic_variables']=$analytic_var;
-				
-				//get the data sets
-				$data['responses']=$data_set;//sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
+				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+				//expected to be 5 in this particular context, again we know they r just these 5 :)
+				$data['analytic_variables'] = $analytic_var;
 
-				$this -> final_data_set['location'] = $data; #note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-				
+				//get the data sets
+				$data['responses'] = $data_set;
+				//sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
+
+				$this -> final_data_set['location'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
-				
+
 				return $this -> final_data_set;
-			}else{
+			} else {
 				return null;
 			}
 		} catch(exception $ex) {
@@ -1416,7 +1417,7 @@ class M_Analytics extends MY_Model {
 			//die($ex->getMessage());//exit;
 		}
 		/*--------------------end ort equipment location of availability----------------------------------------------*/
-		
+
 		/*--------------------begin ort equipment availability by quantity----------------------------------------------*/
 		$query = "SELECT ea.equipmentID as equipment,SUM(ea.qtyFullyFunctional) AS total_functional,SUM(ea.qtyNonFunctional) AS total_non_functional FROM equipments_available ea
 				  WHERE ea.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
@@ -1440,24 +1441,23 @@ class M_Analytics extends MY_Model {
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//data set by each equipment
-					$data_set[$this -> getCHEquipmentName($value_['equipment'])][]=array('Fully-functional'=>intval($value_['total_functional']),'Non-functional'=>intval($value_['total_non_functional']));
-
+					$data_set[$this -> getCHEquipmentName($value_['equipment'])][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
 
 				}
 
 				//var_dump($analytic_var);die;
 
 				//make cat array unique if we got duplicates and set to $data array
-				$data['categories'] = array_values(array_unique($data_categories));//expected 28
-				
+				$data['categories'] = array_values(array_unique($data_categories));
+				//expected 28
 
 				//get a unique set of analytic variables
-				$analytic_var = array('Fully-functional','Non-functional');//expected to be 2 in this particular context
-				
-				//assign data set to $data
-				$data['responses']=$data_set;
+				$analytic_var = array('Fully-functional', 'Non-functional');
+				//expected to be 2 in this particular context
 
-                
+				//assign data set to $data
+				$data['responses'] = $data_set;
+
 				//assign $data to $final_data_set
 				$this -> final_data_set['quantities'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -1476,7 +1476,6 @@ class M_Analytics extends MY_Model {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}
-		
 
 	}
 
@@ -1516,5 +1515,20 @@ class M_Analytics extends MY_Model {
 
 		return $this -> dataSet;
 	}
+
+	function getSpecificDistrictNames($county) {
+		/*using DQL*/
+		try {
+			$query = $this -> em -> createQuery('SELECT  f.facilityDistrict FROM  models\Entities\e_facility facility WHERE facility.facilityCounty = "Nairobi"');
+			//var_dump ($query);
+			//$query = $this -> em -> createQuery('SELECT d.districtID,d.districtName FROM models\Entities\e_district d ORDER BY d.districtName ASC');
+			$this -> district = $query -> getResult();
+			//die(var_dump($this->district));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> district;
+	}/*end of getDistrictNames*/
 
 }
