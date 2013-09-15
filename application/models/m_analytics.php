@@ -398,7 +398,7 @@ class M_Analytics extends MY_Model {
 		/*--------------------end commodity availability by frequency----------------------------------------------*/
 
 		/*--------------------begin commodity reason for unavailability----------------------------------------------*/
-		$query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason FROM cquantity_available ca
+		 $query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason FROM cquantity_available ca
 					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
 					AND ca.reason4Unavailability !='Not Applicable'
@@ -1168,14 +1168,315 @@ class M_Analytics extends MY_Model {
 	/*
 	 * ORT Corner Assessment
 	 */
-	public function getORTCornerAssessment() {
+	public function getORTCornerAssessment($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data_y = array();
+		$data_n = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		
+		$query = "SELECT oa.indicatorID AS assessment_item,oa.response as response
+			FROM mch_questions_log oa WHERE oa.indicatorID IN (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='ort') 
+			AND oa.facilityID IN (SELECT facilityMFC FROM facility 
+			WHERE ".$status_condition."  ".$criteria_condition.")";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					if ($value['response'] == 'Yes') {
+						$data_y[] = array($this -> getChildHealthQuestionName($value['assessment_item']), 1);
+					} else if ($value['response'] == 'No') {
+						$data_n[] = array($this -> getChildHealthQuestionName($value['assessment_item']), 1);
+					}
+					
+					
+					//get a set of the 3 items for ORT assessment
+					$data['categories'][] = $this -> getChildHealthQuestionName($value['assessment_item']);
+				}
+
+				$data['yes_values'] = $data_y;
+				$data['no_values'] = $data_n;
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
 	}
 
 	/*
-	 * Availability, Location and Functionality of Equipement at ORT Corner
+	 * Availability, Location and Functionality of Equipment at ORT Corner
 	 */
-	public function getORTCornerEquipmemnt() {
+	public function getORTCornerEquipmemnt($criteria, $value, $status, $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		/*--------------------begin ort equipment availability by frequency----------------------------------------------*/
+		$query = "SELECT count(ea.equipAvailability) AS total_response,ea.equipmentID as equipment,ea.equipAvailability AS frequency FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility 
+				WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort') 
+				GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
+		try {
+			
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+        
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo($this->db->last_query());die;
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
+					//incase of duplicates--do an array_unique outside the foreach()
+
+					//2. collect the analytic variables
+					if ($value_['frequency'] == 'Some Available') {//a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
+						
+						$frequency = 'Sometimes Available';
+					} else {
+						$frequency = $value_['frequency'];
+					}
+					$analytic_var[] = $frequency;
+					//includes duplicates--so we'll array_unique outside the foreach()
+
+					//collect the data_sets for the 3 analytic variables under availability
+					if ($frequency == 'Available') {
+						$data_set['Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Sometimes Available') {
+						$data_set['Sometimes Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Never Available') {
+						$data_set['Never Available'][] = intval($value_['total_response']);
+					}
+
+				}
+
+				//var_dump($data_set);die;
+
+				//make cat array unique if we got duplicates then json_encode and set to $data array
+				$data['categories'] = (array_values(array_unique($data_categories))); //expected 28
+				
+
+				//get a unique set of analytic variables
+				$analytic_var = array_unique($analytic_var); //expected to be 3 in this particular context
+				$data['analytic_variables']=$analytic_var;
+				
+				//get the data sets
+				$data['responses']=$data_set;//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
+
+				$this -> final_data_set['frequency'] = $data; #note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+				
+				//unset the arrays for reuse in the next query
+				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+				
+				return $this -> final_data_set;
+				
+			}else{
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		/*--------------------end ort equipment availability by frequency----------------------------------------------*/
+		
+		/*--------------------begin ort equipment location of availability----------------------------------------------*/
+		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location 
+					FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility 
+					WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN 
+					(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
+				    AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
+		try {
+			//echo $query;die;
+			//die(print $status.$value);
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+              //var_dump($this->dataSet);die;
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo($this->db->last_query());die;
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
+					//incase of duplicates--do an array_unique outside the foreach()
+
+					//2. collect the analytic variables
+					//$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
+
+					//collect the data_sets from the coma separated responses
+					if (strpos($value_['location'], 'OPD') !== FALSE) {
+						$data_set['OPD'][] = intval($value_['total_response']);
+					}
+					if (strpos($value_['location'], 'MCH') !== FALSE) {
+						$data_set['MCH'][] = intval($value_['total_response']);
+					}
+					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
+						$data_set['U5 Clinic'][] = intval($value_['total_response']);
+					}
+					if (strpos($value_['location'], 'Ward') !== FALSE) {
+						$data_set['Ward'][] = intval($value_['total_response']);
+					}
+					if (strpos($value_['location'], 'Other') !== FALSE) {
+						$data_set['Other'][] = intval($value_['total_response']);
+					}
+
+				}
+
+				//var_dump($data_set);die;
+
+				//make array unique if we got duplicates and set to $data array
+				$data['categories'] = array_values(array_unique($data_categories));//expected 28
+				
+
+				//get a unique set of analytic variables
+				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');//expected to be 5 in this particular context, again we know they r just these 5 :)
+				$data['analytic_variables']=$analytic_var;
+				
+				//get the data sets
+				$data['responses']=$data_set;//sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
+
+				$this -> final_data_set['location'] = $data; #note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+				
+				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+				//unset the arrays for reuse
+				
+				return $this -> final_data_set;
+			}else{
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		/*--------------------end ort equipment location of availability----------------------------------------------*/
+		
+		/*--------------------begin ort equipment availability by quantity----------------------------------------------*/
+		$query = "SELECT ea.equipmentID as equipment,SUM(ea.qtyFullyFunctional) AS total_functional,SUM(ea.qtyNonFunctional) AS total_non_functional FROM equipments_available ea
+				  WHERE ea.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
+                  AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
+				  AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
+				  GROUP BY ea.equipmentID
+				  ORDER BY ea.equipmentID ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+
+			$this -> dataSet = $this -> dataSet -> result_array();
+			// echo($this->db->last_query());die;
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $this -> getCHEquipmentName($value['equipment']);
+					//includes duplicates--so we'll array_unique outside the foreach()
+
+					//data set by each equipment
+					$data_set[$this -> getCHEquipmentName($value_['equipment'])][]=array('Fully-functional'=>intval($value_['total_functional']),'Non-functional'=>intval($value_['total_non_functional']));
+
+
+				}
+
+				//var_dump($analytic_var);die;
+
+				//make cat array unique if we got duplicates and set to $data array
+				$data['categories'] = array_values(array_unique($data_categories));//expected 28
+				
+
+				//get a unique set of analytic variables
+				$analytic_var = array('Fully-functional','Non-functional');//expected to be 2 in this particular context
+				
+				//assign data set to $data
+				$data['responses']=$data_set;
+
+                
+				//assign $data to $final_data_set
+				$this -> final_data_set['quantities'] = $data;
+				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+				//unset the arrays for reuse
+
+				/*--------------------end ort equipment availability by quantity----------------------------------------------*/
+
+				// /var_dump($this -> final_data_set['quantities']);die;
+
+				return $this -> final_data_set;
+			} else {
+				return null;
+			}
+			//die(var_dump($this->final_data_set));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		
 
 	}
 

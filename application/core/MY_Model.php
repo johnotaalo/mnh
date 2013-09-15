@@ -3,9 +3,9 @@
 
 class  MY_Model  extends  CI_Model{
 
-public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$query,
+public $em, $response, $theForm,$district,$commodity,$supplier,$county,$province,$owner,$ownerName,$level,$levelName,$supplies,$equipment,$equipmentName,$query,
 $type,$formRecords,$facilityFound,$facility,$section,$ort,$sectionExists,$signalFunction,$mchIndicator,$mchIndicatorName,$mnhIndicator,$mchTreatment,$mchTreatmentName,
-$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName,$guideline;
+$ortAspect,$trainingGuidelines,$trainingGuideline,$commodityName,$districtFacilities,$fCode,$strategy,$strategyName,$guideline,$chQuestion;
 
 function __construct() {
 		parent::__construct();
@@ -410,6 +410,22 @@ function __construct() {
 	}
 	
 	/*utilized in several models*/
+	public function getChildHealthQuestionName($id){
+		try{
+			$this->chQuestion=$this->em->getRepository('models\Entities\e_mch_questions')
+			                       ->findOneBy( array('questionCode'=>$id));
+								   
+			if($this->chQuestion){
+					$this->chQuestion=$this->chQuestion->getMCHQuestion();
+					return $this->chQuestion;
+				}
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
 	public function getChildHealthIndicatorName($id){
 		try{
 			$this->mchIndicatorName=$this->em->getRepository('models\Entities\e_mch_indicators')
@@ -435,6 +451,22 @@ function __construct() {
 			if($this->mchTreatmentName){
 					$this->mchTreatmentName=$this->mchTreatmentName->getTreatmentName();
 					return $this->mchTreatmentName;
+				}
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
+	
+	/*utilized in several models*/
+	public function getCHEquipmentName($id){
+		try{
+			$this->equipmentName=$this->em->getRepository('models\Entities\e_equipment')
+			                       ->findOneBy( array('equipmentCode'=>$id));
+								   
+			if($this->equipmentName){
+					$this->equipmentName=$this->equipmentName->getEquipmentName();
+					return $this->equipmentName;
 				}
 			}catch(exception $ex){
 				//ignore
