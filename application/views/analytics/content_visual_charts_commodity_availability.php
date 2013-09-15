@@ -48,14 +48,15 @@
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
-					<!--div class="clearfix">
+					<div class="clearfix">
 					<div class="control-group pull-right">
 						Filter
-						<select name="fi_county" id="fi_county">
+						<select name="fi_district" id="fi_district">
 							<option value="all" selected="">Viewing All</option>
+							
 						</select>
 					</div>
-				</div-->
+				</div>
 				</div>
 				<div id="graph_3" class="chart"></div>
 			</div>

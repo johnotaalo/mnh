@@ -4,9 +4,7 @@
 class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
-
 	$selectCommodityType, $facilities,$facility, $selectCounties, 
-
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMNHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
 	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchCommunityStrategySection,$mnhWaterAspectsSection,$mnhCEOCAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
 	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$suppliesMNHOtherSection,$equipmentsSection,$deliveryEquipmentSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
@@ -82,19 +80,17 @@ class  MY_Controller  extends  CI_Controller {
 				return $this->selectCounties;
 			
 		}
-
 		public function getSpecificFacilities($mfc=13001){/*obtained from the session data*/
 	         $this->data_found= $this->m_mnh_survey->getSpecificFacilityNames($mfc);
 		     foreach($this->data_found as $value) {
 				// $this->selectFacilityType.= '<option value="'.$value['facilityTypeID'].'">'.$value['facilityType'].'</option>'.'<br />';
-			$this->facility.='<p>'.$value['facilityName'].'</p>';	
+			$this->selectFacilityType.='<p>'.$value['facilityName'].'</p>';	
 			 }
 				
 				//var_dump($this->data_found); exit;
-				return $this->facility;
+				return $this->selectFacilityType;
 			
 		}
-
 	public function getFacilityTypes(){/*obtained from the session data*/
 	         $this->data_found= $this->m_mnh_survey->getFacilityTypeNames();
 		     foreach($this->data_found as $value) {
