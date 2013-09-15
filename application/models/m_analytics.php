@@ -1076,7 +1076,7 @@ class M_Analytics extends MY_Model {
 				//fixed set of 12 months in a year..not an option but to hard code.. :)
 				$data_categories = array('January','February','March','April','May','June','July','August','September','October','November','December');
 
-				$data['categories'] = json_encode($data_categories);
+				$data['categories'] = $data_categories;
 
 				$this -> dataSet = $data;
 
