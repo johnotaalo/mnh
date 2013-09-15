@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class M_Analytics extends MY_Model {
 	/*user variables*/
-	var $dataSet, $final_data_set, $query, $rsm;
+	var $dataSet, $final_data_set, $query, $rsm,$districtName;
 
 	/*constructor*/
 	function __construct() {
@@ -1607,16 +1607,15 @@ class M_Analytics extends MY_Model {
 	function getSpecificDistrictNames($county) {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT  f.facilityDistrict FROM  models\Entities\e_facility facility WHERE facility.facilityCounty = "Nairobi"');
-			//var_dump ($query);
-			//$query = $this -> em -> createQuery('SELECT d.districtID,d.districtName FROM models\Entities\e_district d ORDER BY d.districtName ASC');
-			$this -> district = $query -> getResult();
-			//die(var_dump($this->district));
+			$query= $this -> em -> createQuery('SELECT DISTINCT(f.facilityDistrict) FROM  models\Entities\e_facility f WHERE f.facilityCounty = :county ORDER BY f.facilityDistrict ASC');
+			$query->setParameter('county',$county);
+			$this -> districtName = $query -> getResult();
+			die(var_dump($this->districtName));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
 		}
-		return $this -> district;
-	}/*end of getDistrictNames*/
+		return $this -> districtName;
+	}/*end of getSpecificDistrictNames*/
 
 }

@@ -180,6 +180,11 @@ class C_Analytics extends MY_Controller {
 		//var_dump($results[1]);
 		var_dump($results);
 	}
+	
+	public function test_query_2(){
+		$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
+		var_dump($results);
+	}
 
 	private function ch_survey_response_rate() {
 		$this -> data['response_count'] = $this -> m_analytics -> get_response_count('ch');
