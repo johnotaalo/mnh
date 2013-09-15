@@ -640,6 +640,94 @@ class M_Analytics extends MY_Model {
 		}
 	}
 
+     public function getCHCommoditySupplier($criteria, $value, $status, $survey){
+     	/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		/*--------------------begin equipment main supplier----------------------------------------------*/
+		$query = "SELECT count(ca.SupplierID) AS total_response,ca.CommodityID as commodity,ca.SupplierID AS supplier FROM cquantity_available ca
+				 WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
+				 AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
+				GROUP BY ca.CommodityID,ca.SupplierID
+				ORDER BY ca.CommodityID";
+		try {
+			
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+        
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo($this->db->last_query());die;
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $value_['supplier'];
+					//incase of duplicates--do an array_unique outside the foreach()
+
+					//2. collect the analytic variables
+					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']);
+					//includes duplicates--so we'll array_unique outside the foreach()
+
+					//data set by each analytic variable
+					$data_set[$value_['supplier']][]=array($this -> getCommodityNameById($value_['commodity'])=>intval($value_['total_response']));
+					
+
+				}
+
+				//var_dump($data_set);die;
+
+				//make cat array unique if we got duplicates then json_encode and set to $data array
+				$data['categories'] = (array_values(array_unique($data_categories))); //expected 28
+				
+
+				//get a unique set of analytic variables
+				$analytic_var = array_unique($analytic_var); //expected to be 3 in this particular context
+				$data['analytic_variables']=$analytic_var;
+				
+				//get the data sets
+				$data['responses']=$data_set;//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
+
+				$this -> dataSet = $data;
+				
+				return $this -> dataSet;
+				
+			}else{
+				return $this -> dataSet=null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+	 }
+
 	/*
 	 * Services to Children with Diarrhoea
 	 */
