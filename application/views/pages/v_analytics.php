@@ -91,6 +91,7 @@
 			facility='';
 			$('select#fi_district').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
 			$('select#fi_district').change(function(){
+				$('#graph_2').empty();
 				district=$('select#fi_district option:selected').text();
 				//alert(currentChart+district+'/complete/ch');
 				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch');
@@ -250,6 +251,8 @@
 					 * ORT Corner
 					 */	
 					case 'ORTAssessment':
+					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerAssessment/';
+					currentDiv = '#graph_3';
 					$('span.statistic').text('ORT Assessment');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
