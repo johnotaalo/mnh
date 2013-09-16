@@ -774,6 +774,7 @@ class M_Analytics extends MY_Model {
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -1188,9 +1189,9 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT d.jan13 AS jan, d.feb13 AS feb, d.mar13 AS mar, d.apr13 AS apr, 
-		d.may13 AS may, d.june13 AS june, d.july13 AS july, d.aug13 AS aug, 
-		d.sept13 AS sept, d.oct13 AS oct, d.nov13 AS nov, d.dec13 AS december 
+		$query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr, 
+		SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug, 
+		SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december 
 		FROM morbidity_data_log d WHERE d.facilityID IN (SELECT facilityMFC FROM facility 
 		WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
@@ -1258,14 +1259,15 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT tl.treatmentID AS treatment,tl.severeDehydrationNo AS severe_dehydration, tl.someDehydrationNo AS some_dehydration, 
-		          tl.noDehydrationNo AS no_dehydration, tl.dysentryNo AS dysentry, tl.noClassificationNo AS no_classification 
+		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration, 
+		          SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification 
 		          FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
 				  WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . "  " . $criteria_condition . ")
 				  GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -1335,10 +1337,11 @@ class M_Analytics extends MY_Model {
 		$query = "SELECT oa.indicatorID AS assessment_item,oa.response as response
 			FROM mch_questions_log oa WHERE oa.indicatorID IN (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='ort') 
 			AND oa.facilityID IN (SELECT facilityMFC FROM facility 
-			WHERE " . $status_condition . "  " . $criteria_condition . ")";
+			WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
