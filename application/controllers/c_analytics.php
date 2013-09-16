@@ -258,6 +258,7 @@ class C_Analytics extends MY_Controller {
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
 
+		$cat = $results['categories'];
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 4;
@@ -265,23 +266,55 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
+		
+		
+		$categoryCounter=0;
+		$yesCounter=$noCounter=0;
+		
+		foreach($cat as $categories){
+			if($yes[$yesCounter][0]==$categories){
+				$yesDataF[]=$yes[$yesCounter];
+				$yesCounter++;
+				//echo $categories;
+			}
+			else{
+				
+				$yesDataF[]=array($categories,0);
+				//$yes = $this->insert($yes,$categories, 0);
+			}
+			
+		}
+		foreach($cat as $categories){
+			if($no[$noCounter][0]==$categories){
+				$noDataF[]=$no[$noCounter];
+				$noCounter++;
+				//echo $categories;
+			}
+			else{
+				
+				$noDataF[]=array($categories,0);
+				//$yes = $this->insert($yes,$categories, 0);
+			}
+			
+		}
+		if ($yesDataF != null) {
+			foreach ($yesDataF as $value) {
 				$category[] = $value[0];
 				$yesData[] = (int)$value[1];
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
-		if ($no != null) {
-			foreach ($no as $value) {
+		if ($noDataF != null) {
+			foreach ($noDataF as $value) {
 				$category[] = $value[0];
 				$noData[] = (int)$value[1];
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
-
+		//var_dump($noDataF[1]);
+		
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
@@ -295,6 +328,7 @@ class C_Analytics extends MY_Controller {
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
@@ -310,7 +344,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Availability';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 
 	}
 
@@ -324,7 +358,7 @@ class C_Analytics extends MY_Controller {
 		$no = $results['no_values'];
 		$yCount = 3;
 		$nCount = 3;
-		$category=array();
+		$category = array();
 		//var_dump($yes);
 
 		//var_dump($result);
@@ -389,7 +423,7 @@ class C_Analytics extends MY_Controller {
 		$no = $results['no_values'];
 		$yCount = 5;
 		$nCount = 5;
-		$category=$results['categories'];
+		$category = $results['categories'];
 		//var_dump($yes);
 
 		//var_dump($result);
@@ -441,7 +475,25 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_v', $datas);
 	}
+private function insert($array, $index, $val) { //function decleration
+    $temp = array(); // this temp array will hold the value 
+    $size = count($array); //because I am going to use this more than one time
+    // just validate if index value is proper
+    if (@$index)
+        if ($index < 0 || $index > $size) {
+            echo "Error: Wrong index at Insert. Index: " . $index . " Current Size: " . $size;
+            echo "<br/>";
+            return false;
+        }
 
+    //here is the actual insertion code
+    $temp = array_slice($array, 0, $index);//slice from 0 to index
+    array_push($temp, $val);//add the value at the end of the array
+    $temp = array_merge($temp, array_slice($array, $index, $size)); //reconnect the remaining of the array to the current temp
+    $array = $temp;//swap// no need for this if you pass the array cuz you can simply return $temp, but, if u r using a class array for example, this is useful. 
+
+     return $array; // you can return $temp instead if you don't use class array
+}
 	public function getDangerSigns($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
@@ -765,7 +817,7 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
-		$category=array();
+		$category = array();
 		$category[] = $results['categories'][0];
 		$category[] = $results['categories'][1];
 		$yCount = 2;

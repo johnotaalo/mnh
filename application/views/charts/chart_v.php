@@ -26,7 +26,7 @@ if($resultArraySize>25){
 		$(function () {
 	$('<?php echo "#" . $container; ?>').highcharts({
 		colors: [
-		'#66aaf7',
+		'#35aa47',
 		'#f66c6f',
 		'#8bbc21',
 		'#910000',
@@ -65,6 +65,7 @@ if($resultArraySize>25){
 			valueSuffix: ''
 		},
 		plotOptions: {
+			
 			bar: {
 				dataLabels: {
 					enabled: true,

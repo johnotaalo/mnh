@@ -166,7 +166,7 @@ class M_Analytics extends MY_Model {
 				$i = 0;
 
 				//get a set of the 4 guidelines
-				$data_categories = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
+				$data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
 
 				//$data['categories'] = json_encode($data_categories);
 
@@ -191,6 +191,7 @@ class M_Analytics extends MY_Model {
 					} else {
 						$data_n[] = array($guideline, (int)$value['total_facilities']);
 					}
+					//$data['categories'][]=$guideline;
 				}
 
 				$data['yes_values'] = $data_y;
