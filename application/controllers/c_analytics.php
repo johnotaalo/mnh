@@ -1,12 +1,13 @@
 <?php
 class C_Analytics extends MY_Controller {
 	var $data;
-
+var $county;
 	public function __construct() {
 		parent::__construct();
 		$this -> data = '';
 		$this -> load -> model('m_analytics');
-
+		$this->session->set_userdata('county_analytics','Nairobi');
+$this->county = $this->session->userdata('county_analytics');
 	}
 
 	public function active_results() {
@@ -786,7 +787,15 @@ class C_Analytics extends MY_Controller {
 	 * Get Specific Districts Filter
 	 */
 	 public function getSpecificDistrictNames(){
-	 	$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
-		var_dump($results);
+	 	$county=$this->county;
+		$options='';
+	 	$results = $this -> m_analytics -> getSpecificDistrictNames($county);
+		$options='<option selected=selected>Viewing All</option>';
+		foreach($results as $result){
+			$options.='<option>'.$result['facilityDistrict'].'</option>';
+			//$dataArray.='<option>'.$result['facilityDistrict'].'</option>';
+		}
+		//return $dataArray;
+		echo($options);
 	 }
 }

@@ -54,7 +54,7 @@
                 <div class="post" id="kenya_county_map">
 				 <script type="text/javascript"><!--         
 
-			      var myMap = new FusionCharts( "<?php echo base_url()?>js/FusionMaps/Maps/FCMap_KenyaCounty.swf", 
+			      var myMap = new FusionCharts( "<?php echo base_url()?>js/FusionMaps/Maps/FCMap_KenyaDistrict.swf", 
 
 			                   "myMapId", "150%", "220%", "0");
 
@@ -94,7 +94,7 @@
 
 					           	<select id="mnh-level1" class="level1">
 					           		<option value="1">National</option>
-					           		<option value = "2">County</option>
+					           		<option value = "2">District</option>
 					           </select>
 					           <select id="mnh-level2" class="level2">
 					           		<?php echo $this->selectDistricts; ?>
@@ -105,7 +105,7 @@
 
 					           	<select id="ch-level1" class="level1">
 					           		<option value="1">National</option>
-					           		<option value="2">County</option>
+					           		<option value="2">District</option>
 					           </select>
 					           <select id="ch-level2" class="level2">
 					           		<?php echo $this->selectDistricts; ?>
