@@ -946,7 +946,8 @@ class M_Analytics extends MY_Model {
 				$data['categories'] = $data_categories;
 
 				$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-				$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+				$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+				;
 
 				$this -> dataSet = $data;
 
@@ -1156,12 +1157,12 @@ class M_Analytics extends MY_Model {
 							}
 							break;
 					}
-					
+
 				}
 				$data_categories = array('On giving extra feeding', 'On home care', 'On when to return for follow up');
 				$data['categories'] = $data_categories;
-				$data['yes_values'] = array($extraY,$homeY,$followY);
-				$data['no_values'] = array($extraN,$homeN,$followN);
+				$data['yes_values'] = array($extraY, $homeY, $followY);
+				$data['no_values'] = array($extraN, $homeN, $followN);
 
 				$this -> dataSet = $data;
 
@@ -1186,6 +1187,7 @@ class M_Analytics extends MY_Model {
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
 		$data_n = array();
+		$under5Y = $under5N = $ORTY = $ORTN = $bookY = $bookN = 0;
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -1217,7 +1219,7 @@ class M_Analytics extends MY_Model {
 		$query = "SELECT t.indicatorID AS tool,t.response as response
 				  FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror') 
 				  AND t.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY t.indicatorID ORDER BY t.indicatorID ASC";
+				  WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1225,18 +1227,38 @@ class M_Analytics extends MY_Model {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
-
+				//var_dump($this -> dataSet);
 				foreach ($this->dataSet as $value) {
-					if ($value['response'] == 'Yes') {
-						$data_y[] = array($this -> getChildHealthIndicatorName($value['tool']), 1);
-					} else if ($value['response'] == 'No') {
-						$data_n[] = array($this -> getChildHealthIndicatorName($value['tool']), 1);
+					switch($this->getChildHealthIndicatorName($value['tool'])) {
+						case 'Under 5 register' :
+							if ($value['response'] == 'Yes') {
+								$under5Y++;
+							} else if ($value['response'] == 'No') {
+								$under5N++;
+							}
+							break;
+						case 'ORT Corner register(improvised)' :
+							if ($value['response'] == 'Yes') {
+								$ORTY++;
+							} else if ($value['response'] == 'No') {
+								$ORTN++;
+							}
+							break;
+						case 'Mother Child Booklet' :
+							if ($value['response'] == 'Yes') {
+								$bookY++;
+							} else if ($value['response'] == 'No') {
+								$bookN++;
+							}
+							break;
 					}
+
 					//echo $value['indicator'];
 				}
-
-				$data['yes_values'] = $data_y;
-				$data['no_values'] = $data_n;
+				$data_categories = array('Under 5 register', 'ORT Corner register(improvised)', 'Mother Child Booklet');
+				$data['categories'] = $data_categories;
+				$data['yes_values'] = array($under5Y, $ORTY, $bookY);
+				$data['no_values'] = array($under5N, $ORTN, $bookN);
 
 				$this -> dataSet = $data;
 

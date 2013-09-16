@@ -162,6 +162,19 @@ class M_MNH_Survey  extends MY_Model {
 
 	}
 
+	public function getFacilitiesByDistrictOptions($district) {
+		$myOptions='';
+		//$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
+		$options = $this -> getAllFacilitiesByDistrictOptions($district);
+		//var_dump($options);
+		foreach ($options as $option) {
+			$myOptions .= '<option value='.$option['facilityMFC'].'>' . $option['facilityName'] . '</option>';
+		}
+		return $myOptions;
+		//echo count($this->districtFacilities);die;
+
+	}
+
 	/*retrieve facility mfl info*/
 	function retrieveFacilityInfo($mfc) {
 		/*using DQL*/

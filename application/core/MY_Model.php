@@ -48,6 +48,21 @@ function __construct() {
 				//die($ex->getMessage());
 			}
 	}
+	public function getAllFacilitiesByDistrictOptions($districtName){
+		try{
+			
+			#Using DQL
+								   
+			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
+		    $this->districtFacilities->setParameter('district',$districtName);
+          
+            $this->districtFacilities = $this->districtFacilities->getArrayResult();
+			return $this->districtFacilities;
+			}catch(exception $ex){
+				//ignore
+				//die($ex->getMessage());
+			}
+	}
 	
 	/*utilized in several models*/
 	public function getAllGovernmentOwnedFacilitiesByDistrict($districtName){
