@@ -336,63 +336,59 @@ class M_Analytics extends MY_Model {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
-				foreach ($this->dataSet as $value) {
+					foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value['commodity']);
-					//includes duplicates--so we'll array_unique outside the foreach()
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					if ($value['frequency'] == 'Some Available') {
-						//hard twick...for Nairobi County...good fix be done in the html
+					if ($value_['frequency'] == 'Some Available') {//a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
+
 						$frequency = 'Sometimes Available';
 					} else {
-						$frequency = $value['frequency'];
+						$frequency = $value_['frequency'];
 					}
 					$analytic_var[] = $frequency;
 					//includes duplicates--so we'll array_unique outside the foreach()
 
-					//collect the data_sets
-					if ($value['frequency'] == 'Available') {
-						$data_set[0][] = intval($value['total_response']);
-					} else if ($value['frequency'] == 'Some Available') {
-						$data_set[1][] = intval($value['total_response']);
-					} else if ($value['frequency'] == 'Never Available') {
-						$data_set[2][] = intval($value['total_response']);
+					//collect the data_sets for the 3 analytic variables under availability
+					if ($frequency == 'Available') {
+						$data_set['Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Sometimes Available') {
+						$data_set['Sometimes Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Never Available') {
+						$data_set['Never Available'][] = intval($value_['total_response']);
 					}
 
 				}
 
-				//var_dump($data_set[2]);die;
+				//var_dump($data_set);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
-				$data['categories'] = json_encode(array_values(array_unique($data_categories)));
-				//expected 5
+				$data['categories'] = (array_values(array_unique($data_categories)));
+				//expected 28
 
 				//get a unique set of analytic variables
 				$analytic_var = array_unique($analytic_var);
 				//expected to be 3 in this particular context
+				$data['analytic_variables'] = $analytic_var;
 
-				//prep final dataset
-				if (isset($data_series[0])) {$data_series[0] = "name: '" . $analytic_var[0] . "',data:" . json_encode($data_set[0]);
-				}
-				if (isset($data_series[1])) {$data_series[1] = "name: '" . $analytic_var[1] . "',data:" . json_encode($data_set[1]);
-				}
-				if (isset($data_series[2])) {$data_series[2] = "name: '" . $analytic_var[2] . "',data:" . json_encode($data_set[2]);
-				}
-
-				//do more with less :)
-				$count = 0;
-				if (isset($analytic_var[0]) && isset($data_set[0])) {
-					foreach ($analytic_var as $val) {
-						$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-						$count++;
-					}
-				}
+				//get the data sets
+				$data['responses'] = $data_set;
+				//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
 
 				$this -> final_data_set['frequency'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
+				//unset the arrays for reuse in the next query
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
-				//unset the arrays for reuse
+
+				//return $this -> final_data_set;
+				//var_dump($this -> final_data_set);die;
+
+			} else {
+				return null;
 			}
 		} catch(exception $ex) {
 			//ignore
@@ -411,66 +407,60 @@ class M_Analytics extends MY_Model {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
-			// echo($this->db->last_query());die;
+			  //echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
-				foreach ($this->dataSet as $value) {
+				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value['commodity']);
-					//includes duplicates--so we'll array_unique outside the foreach()
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $value['reason'];
+					$analytic_var[] = $value_['reason'];
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//collect the data_sets
-					if ($value['reason'] == 'All Used') {
-						$data_set[0][] = intval($value['total_response']);
-					} else if ($value['reason'] == 'Expired') {
-						$data_set[1][] = intval($value['total_response']);
-					} else if ($value['reason'] == 'Not Ordered') {
-						$data_set[2][] = intval($value['total_response']);
-					} else if ($value['reason'] == 'Ordered but not yet Received') {
-						$data_set[3][] = intval($value['total_response']);
+					if ($value_['reason'] == 'All Used') {
+						$data_set[$value_['reason']][] = intval($value_['total_response']);
+					} else if ($value_['reason'] == 'Expired') {
+						$data_set[$value_['reason']][] = intval($value_['total_response']);
+					} else if ($value_['reason'] == 'Not Ordered') {
+						$data_set[$value_['reason']][] = intval($value_['total_response']);
+					} else if ($value_['reason'] == 'Ordered but not yet Received') {
+						$data_set[$value_['reason']][] = intval($value_['total_response']);
 					}
 
 				}
 
-				//var_dump($data_set[2]);die;
+				//var_dump($data_set);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
-				$data['categories'] = json_encode(array_values(array_unique($data_categories)));
-				//expected 5
+				$data['categories'] = (array_values(array_unique($data_categories)));
+				
 
 				//get a unique set of analytic variables
 				$analytic_var = array_unique($analytic_var);
-				//expected to be 4 in this particular context
+				//expected to be 3 in this particular context
+				$data['analytic_variables'] = $analytic_var;
 
-				//prep final dataset
-				if (isset($data_series[0])) {$data_series[0] = "name: '" . $analytic_var[0] . "',data:" . json_encode($data_set[0]);
-				}
-				if (isset($data_series[1])) {$data_series[1] = "name: '" . $analytic_var[1] . "',data:" . json_encode($data_set[1]);
-				}
-				if (isset($data_series[2])) {$data_series[2] = "name: '" . $analytic_var[2] . "',data:" . json_encode($data_set[2]);
-				}
-				if (isset($data_series[3]) && isset($analytic_var[3])) {$data_series[3] = "name: '" . $analytic_var[3] . "',data:" . json_encode($data_set[3]);
-				}
-
-				//do more with less :)
-				$count = 0;
-				if (isset($analytic_var[0]) && isset($data_set[0])) {
-					foreach ($analytic_var as $val) {
-						$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-						$count++;
-					}
-				}
+				//get the data sets
+				$data['responses'] = $data_set;
+				
 
 				$this -> final_data_set['unavailability'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
+				//unset the arrays for reuse in the next query
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
-				//unset the arrays for reuse
+
+				//return $this -> final_data_set;
+				//var_dump($this -> final_data_set);die;
+
+			} else {
+				return null;
 			}
 		} catch(exception $ex) {
 			//ignore
@@ -489,35 +479,36 @@ class M_Analytics extends MY_Model {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
-			// echo($this->db->last_query());die;
+			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
-				foreach ($this->dataSet as $value) {
+				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value['commodity']);
-					//includes duplicates--so we'll array_unique outside the foreach()
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					//$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
-
+					$analytic_var[] = $value_['location'];
+					//includes duplicates--so we'll array_unique outside the foreach()
+					
 					//collect the data_sets
-					if (strpos($value['location'], 'OPD') !== FALSE) {
-						$data_set[0][] = intval($value['total_response']);
+					if (strpos($value_['location'], 'OPD') !== FALSE) {
+						$data_set['OPD'][] = intval($value_['total_response']);
 					}
-					if (strpos($value['location'], 'MCH') !== FALSE) {
-						$data_set[1][] = intval($value['total_response']);
+					if (strpos($value_['location'], 'MCH') !== FALSE) {
+						$data_set['MCH'][] = intval($value_['total_response']);
 					}
-					if (strpos($value['location'], 'U5 Clinic') !== FALSE) {
-						$data_set[2][] = intval($value['total_response']);
+					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
+						$data_set['U5 Clinic'][] = intval($value_['total_response']);
 					}
-					if (strpos($value['location'], 'Ward') !== FALSE) {
-						$data_set[3][] = intval($value['total_response']);
+					if (strpos($value_['location'], 'Ward') !== FALSE) {
+						$data_set['Ward'][] = intval($value_['total_response']);
 					}
-					if (strpos($value['location'], 'Other') !== FALSE) {
-						$data_set[4][] = intval($value['total_response']);
+					if (strpos($value_['location'], 'Other') !== FALSE) {
+						$data_set['Other'][] = intval($value_['total_response']);
 					}
 
 				}
@@ -525,35 +516,27 @@ class M_Analytics extends MY_Model {
 				//var_dump($data_set[2]);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
-				$data['categories'] = json_encode(array_values(array_unique($data_categories)));
+				$data['categories'] = array_values(array_unique($data_categories));
 				//expected 5
 
 				//get a unique set of analytic variables
-				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-				//expected to be 4 in this particular context
+				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');//we know of these 5 in this particular context
 
-				//prep final dataset
-				if (isset($data_series[0])) {$data_series[0] = "name: '" . $analytic_var[0] . "',data:" . json_encode($data_set[0]);
-				}
-				if (isset($data_series[1])) {$data_series[1] = "name: '" . $analytic_var[1] . "',data:" . json_encode($data_set[1]);
-				}
-				if (isset($data_series[2])) {$data_series[2] = "name: '" . $analytic_var[2] . "',data:" . json_encode($data_set[2]);
-				}
-				if (isset($data_series[3]) && isset($analytic_var[3])) {$data_series[3] = "name: '" . $analytic_var[3] . "',data:" . json_encode($data_set[3]);
-				}
-				if (isset($data_series[4]) && isset($analytic_var[4])) {$data_series[4] = "name: '" . $analytic_var[4] . "',data:" . json_encode($data_set[4]);
-				}
-
-				//do more with less :)
-				$count = 0;
-				foreach ($analytic_var as $val) {
-					$data[$val] = "name: '" . $analytic_var[$count] . "',data:" . json_encode($data_set[$count]);
-					$count++;
-				}
+				//get the data sets
+				$data['responses'] = $data_set;
+				
 
 				$this -> final_data_set['location'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
+				//unset the arrays for reuse in the next query
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
-				//unset the arrays for reuse
+
+				//return $this -> final_data_set;
+				//var_dump($this -> final_data_set);die;
+
+			} else {
+				return null;
 			}
 		} catch(exception $ex) {
 			//ignore
@@ -572,57 +555,37 @@ class M_Analytics extends MY_Model {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
-			// echo($this->db->last_query());die;
+			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
-				foreach ($this->dataSet as $value) {
+				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value['commodity']);
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $this -> getCommodityNameById($value['commodity']);
+					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']);
 					//includes duplicates--so we'll array_unique outside the foreach()
 
-					//collect the data_sets
-					if ($value['commodity'] == 'CMD26') {#zinc sulphate
-						$data_set[0][] = intval($value['total_quantity']);
-					} elseif ($value['commodity'] == 'CMD27') {#Low Osmorality ORS
-						$data_set[1][] = intval($value['total_quantity']);
-					} elseif ($value['commodity'] == 'CMD28') {#Ciprofloxacin
-						$data_set[2][] = intval($value['total_quantity']);
-					} elseif ($value['commodity'] == 'CMD29') {#Metronidazole (Flagyl)
-						$data_set[3][] = intval($value['total_quantity']);
-					} elseif ($value['commodity'] == 'CMD30') {#Vitamin A
-						$data_set[4][] = intval($value['total_quantity']);
-					}
-
+					//collect the data_sets by commodity
+					$data_set[$this -> getCommodityNameById($value_['commodity'])] = intval($value_['total_quantity']);
+					
 				}
 
 				//var_dump($analytic_var);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
-				$data['categories'] = json_encode(array_values(array_unique($data_categories)));
+				$data['categories'] = array_values(array_unique($data_categories));
 				//expected 5
 
 				//get a unique set of analytic variables
 				$analytic_var = array_unique($analytic_var);
-				//expected to be 1 in this particular context
-
-				//prep final dataset
-				//$data_series[0] = "name: '" . $analytic_var[0] . "',data:" . json_encode($data_set[0]);
-
-				if (isset($analytic_var[0])) {
-					//do more with less :)
-					$count = 0;
-					foreach ($analytic_var as $val) {
-						$data[$val] = array("name" => $analytic_var[$count], "data:" => $data_set[$count]);
-						$count++;
-					}
-				}
+				
+				//get the data sets
+				$data['responses'] = $data_set;
 
 				$this -> final_data_set['quantities'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -630,13 +593,12 @@ class M_Analytics extends MY_Model {
 
 				/*--------------------end commodity availability by quantity----------------------------------------------*/
 
-				// /var_dump($this -> final_data_set['quantities']);die;
 
 				return $this -> final_data_set;
 			} else {
 				return $this -> final_data_set = null;
 			}
-			//die(var_dump($this->final_data_set));
+			die(var_dump($this->final_data_set));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;

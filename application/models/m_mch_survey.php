@@ -1104,14 +1104,13 @@ class M_MCH_Survey  extends MY_Model {
 			(isset($this -> elements[$i]['eqLocation'])) ? $this -> theForm -> setEquipLocation($this -> elements[$i]['eqLocation']) : $this -> theForm -> setEquipLocation("N/A");
 			(isset($this -> elements[$i]['eqQtyFullyFunctional']) || $this -> elements[$i]['eqQtyFullyFunctional'] != '') ? $this -> theForm -> setQuantityFullyFunctional($this -> elements[$i]['eqQtyFullyFunctional']) : $this -> theForm -> setQuantityFullyFunctional(-1);
 			(isset($this -> elements[$i]['eqQtyPartiallyFunctional'])) ? $this -> theForm -> setQuantityPartiallyFunctional($this -> elements[$i]['eqQtyFullyFunctional']) : $this -> theForm -> setQuantityPartiallyFunctional(-1);
-			
-			if(isset($this -> elements[$i]['eqQtyNonFunctional']) ){
+
+			if (isset($this -> elements[$i]['eqQtyNonFunctional'])) {
 				($this -> elements[$i]['eqQtyNonFunctional'] != '') ? $this -> theForm -> setQuantityNonFunctional($this -> elements[$i]['eqQtyFullyFunctional']) : $this -> theForm -> setQuantityNonFunctional(-1);
-			}else{
+			} else {
 				//non-functional not element not found, still set default val
 				$this -> theForm -> setQuantityNonFunctional(-1);
 			}
-			
 
 			$this -> theForm -> setCreatedAt(new DateTime());
 			/*timestamp option*/
@@ -1450,7 +1449,7 @@ class M_MCH_Survey  extends MY_Model {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						if ($this -> updateFacilityInfo() == true && $this -> addMchCommunityStrategyInfo()==true) {//Defined in MY_Model
+						if ($this -> updateFacilityInfo() == true && $this -> addMchCommunityStrategyInfo() == true) {//Defined in MY_Model
 							$this -> writeAssessmentTrackerLog();
 
 							return $this -> response = 'true';

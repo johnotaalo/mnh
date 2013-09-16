@@ -1,13 +1,13 @@
 <?php
 class C_Analytics extends MY_Controller {
 	var $data;
-var $county;
+	var $county;
 	public function __construct() {
 		parent::__construct();
 		$this -> data = '';
 		$this -> load -> model('m_analytics');
-		$this->session->set_userdata('county_analytics','Nairobi');
-$this->county = $this->session->userdata('county_analytics');
+		$this -> session -> set_userdata('county_analytics', 'Nairobi');
+		$this -> county = $this -> session -> userdata('county_analytics');
 	}
 
 	public function active_results() {
@@ -30,159 +30,19 @@ $this->county = $this->session->userdata('county_analytics');
 
 	}
 
-	public function analytics_facility_info_levels_of_care() {
-		$this -> data['title'] = 'MoH::Analytics:Facility Information';
-		$this -> data['analytics_main_title'] = 'Facility Information';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['fi'] = '<span class="selected"></span>';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['s2'] = '';
-		$this -> data['data_pie'] = $this -> get_chart_data('loc');
-		$this -> data['data_column'] = null;
-		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_mini_title'] = 'Levels of Care';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
-	public function analytics_facility_info_ownership() {
-		$this -> data['title'] = 'MoH::Analytics:Facility Information';
-		$this -> data['analytics_main_title'] = 'Facility Information';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['fi'] = '<span class="selected"></span>';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['s2'] = '';
-		$this -> data['data_pie'] = $this -> get_chart_data('ownership');
-		$this -> data['data_column'] = null;
-		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_mini_title'] = 'Ownership';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
-	public function analytics_facility_info_types() {
-		$this -> data['title'] = 'MoH::Analytics:Facility Information';
-		$this -> data['analytics_main_title'] = 'Facility Information';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['fi'] = '<span class="selected"></span>';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['s2'] = '';
-		$this -> data['data_pie'] = $this -> get_chart_data('types');
-		$this -> data['data_column'] = null;
-		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_mini_title'] = 'Types';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
-	public function analytics_section_2_guidelines() {
-		$this -> data['title'] = 'MoH::Analytics:Guidelines,Staff Training and Commodity Availability';
-		$this -> data['analytics_main_title'] = 'Section 2';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['fi'] = '';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['s2'] = '<span class="selected"></span>';
-		$this -> data['data_column'] = $this -> get_chart_data('guidelines');
-		$this -> data['data_pie'] = null;
-		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_mini_title'] = 'Guidelines Availability';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
-	public function analytics_section_2_staff_training() {
-		$this -> data['title'] = 'MoH::Analytics:Guidelines,Staff Training and Commodity Availability';
-		$this -> data['analytics_main_title'] = 'Section 2';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['fi'] = '';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['s2'] = '<span class="selected"></span>';
-		$this -> data['data_column'] = $this -> get_chart_data('staff-training');
-		$this -> data['data_pie'] = null;
-		$this -> data['data_column_combined'] = null;
-		$this -> data['analytics_mini_title'] = 'Staff Training';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
-	public function analytics_section_2_commodity_availability() {
-		$this -> data['title'] = 'MoH::Analytics:Guidelines,Staff Training and Commodity Availability';
-		$this -> data['analytics_main_title'] = 'Section 2';
-		$this -> data['active_link']['as'] = '<li class="start">';
-		$this -> data['span_selected']['as'] = '';
-		$this -> data['active_link']['fi'] = '<li class="has-sub start">';
-		$this -> data['span_selected']['fi'] = '';
-		$this -> data['active_link']['s2'] = '<li class="has-sub start active">';
-		$this -> data['span_selected']['s2'] = '<span class="selected"></span>';
-		$this -> data['data_column_combined'] = $this -> get_chart_data('commodity-availability');
-		$this -> data['data_pie'] = null;
-		$this -> data['analytics_mini_title'] = 'Commodity Availability';
-		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts_commodity_availability';
-		$this -> load -> view('pages/v_analytics', $this -> data);
-	}
-
 	public function facility_reporting() {
 		$this -> data['title'] = 'MoH::Facility Reporting Summary';
 		$this -> data['summary'] = $this -> facility_reporting_summary();
 		$this -> load -> view('pages/v_temporary_report', $this -> data);
 	}
 
-	//private function get_chart_data($case,$criteria,$value){
-	private function get_chart_data($case) {
-		$results = null;
-		switch($case) {/*case 'loc' :
-			 $results = $this -> m_analytics -> get_facility_levels_of_care_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_facility_levels_of_care_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_facility_levels_of_care_by('district',null,'complete','ch');
-			 break;
-			 case 'ownership' :
-			 $results = $this -> m_analytics -> get_facility_ownership_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_facility_ownership_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_facility_ownership_by('district',null,'complete','ch');
-			 break;
-			 case 'types' :
-			 $results = $this -> m_analytics -> get_facility_types_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_facility_types_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_facility_types_by('district',null,'complete','ch');
-			 break;
-			 case 'guidelines' :
-			 $results = $this -> m_analytics -> get_section_2_guidelines_availability_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
-			 break;
-			 case 'staff-training' :
-			 $results = $this -> m_analytics -> get_section_2_staff_training_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_section_2_guidelines_availability_by('district',null,'complete','ch');
-			 break;
-			 case 'commodity-availability' :
-			 $results = $this -> m_analytics -> get_section_2_commodity_availability_by('none', null, 'complete', 'ch');
-			 //$results=$this -> m_analytics->get_section_2_commodity_availability_by('county',null,'complete','ch');
-			 //$results=$this -> m_analytics->get_section_2_commodity_availability_by('district',null,'complete','ch');
-			 break;*/
-		}
-
-		return $results;
-		//var_dump($this -> m_analytics->get_facility_levels_of_care_by('district','Kasarani','complete','ch'));
-	}
-
 	public function test_query() {
-		$results = $this -> m_analytics -> getChildrenServices('county', 'Nairobi', 'complete', 'ch');
+		$results = $this -> m_analytics -> getCommodityAvailability('county', 'Nairobi', 'complete', 'ch');
 		//var_dump($results[1]);
 		var_dump($results);
 	}
-	
-	public function test_query_2(){
+
+	public function test_query_2() {
 		$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
 		var_dump($results);
 	}
@@ -227,8 +87,12 @@ $this->county = $this->session->userdata('county_analytics');
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
-		foreach ($results as $result) {
-			$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
+		if ($results != null) {
+			foreach ($results as $result) {
+				$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
+			}
+		} else {
+			$resultArray = 'No Data';
 		}
 		$datas = array();
 		$resultArraySize = 5;
@@ -254,6 +118,7 @@ $this->county = $this->session->userdata('county_analytics');
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
 
+		$cat = $results['categories'];
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 4;
@@ -261,23 +126,55 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($yes);
 
 		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
+		
+		
+		$categoryCounter=0;
+		$yesCounter=$noCounter=0;
+		
+		foreach($cat as $categories){
+			if($yes[$yesCounter][0]==$categories){
+				$yesDataF[]=$yes[$yesCounter];
+				$yesCounter++;
+				//echo $categories;
+			}
+			else{
+				
+				$yesDataF[]=array($categories,0);
+				//$yes = $this->insert($yes,$categories, 0);
+			}
+			
+		}
+		foreach($cat as $categories){
+			if($no[$noCounter][0]==$categories){
+				$noDataF[]=$no[$noCounter];
+				$noCounter++;
+				//echo $categories;
+			}
+			else{
+				
+				$noDataF[]=array($categories,0);
+				//$yes = $this->insert($yes,$categories, 0);
+			}
+			
+		}
+		if ($yesDataF != null) {
+			foreach ($yesDataF as $value) {
 				$category[] = $value[0];
 				$yesData[] = (int)$value[1];
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
-		if ($no != null) {
-			foreach ($no as $value) {
+		if ($noDataF != null) {
+			foreach ($noDataF as $value) {
 				$category[] = $value[0];
 				$noData[] = (int)$value[1];
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
-
+		//var_dump($noDataF[1]);
+		
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
@@ -291,6 +188,7 @@ $this->county = $this->session->userdata('county_analytics');
 		}
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
@@ -306,7 +204,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Availability';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 
 	}
 
@@ -320,6 +218,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$no = $results['no_values'];
 		$yCount = 3;
 		$nCount = 3;
+		$category = array();
 		//var_dump($yes);
 
 		//var_dump($result);
@@ -369,7 +268,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getCommodityAvailability($criteria, $value, $status, $survey) {
@@ -379,25 +278,27 @@ $this->county = $this->session->userdata('county_analytics');
 
 	public function getChildrenServices($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey);
+		//var_dump($results);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 5;
 		$nCount = 5;
+		$category = $results['categories'];
 		//var_dump($yes);
 
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -420,7 +321,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
-		//var_dump($category);
+		//var_dump($resultArray);
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_' . $criteria;
@@ -432,30 +333,50 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
+private function insert($array, $index, $val) { //function decleration
+    $temp = array(); // this temp array will hold the value 
+    $size = count($array); //because I am going to use this more than one time
+    // just validate if index value is proper
+    if (@$index)
+        if ($index < 0 || $index > $size) {
+            echo "Error: Wrong index at Insert. Index: " . $index . " Current Size: " . $size;
+            echo "<br/>";
+            return false;
+        }
 
+    //here is the actual insertion code
+    $temp = array_slice($array, 0, $index);//slice from 0 to index
+    array_push($temp, $val);//add the value at the end of the array
+    $temp = array_merge($temp, array_slice($array, $index, $size)); //reconnect the remaining of the array to the current temp
+    $array = $temp;//swap// no need for this if you pass the array cuz you can simply return $temp, but, if u r using a class array for example, this is useful. 
+
+     return $array; // you can return $temp instead if you don't use class array
+}
 	public function getDangerSigns($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category = $results['categories'];
 		$yCount = 2;
 		$nCount = 2;
 		//var_dump($yes);
 
-		//var_dump($result);
+		//var_dump($results);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				//echo (int)$value;
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -490,13 +411,14 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getActionsPerformed($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category=$results['categories'];
 		$yCount = 6;
 		$nCount = 6;
 		//var_dump($yes);
@@ -504,16 +426,16 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -548,13 +470,14 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getCounselGiven($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category=$results['categories'];
 		$yCount = 3;
 		$nCount = 3;
 		//var_dump($yes);
@@ -562,16 +485,16 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -606,14 +529,15 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getTools($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey);
-		//var_dump($results);
+		//var_dump($results);die;
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category = $results['categories'];
 		$yCount = 3;
 		$nCount = 3;
 		//var_dump($yes);
@@ -621,16 +545,16 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -665,7 +589,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/*
@@ -754,16 +678,76 @@ $this->county = $this->session->userdata('county_analytics');
 	/*
 	 * ORT Corner Assessment
 	 */
-	public function getORTCornerAssessment() {
-		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+	public function getORTCornerAssessment($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value, $status, $survey);
+		$yes = $results['yes_values'];
+		$no = $results['no_values'];
+		$category = array();
+		$category[] = $results['categories'][0];
+		$category[] = $results['categories'][1];
+		$yCount = 2;
+		$nCount = 2;
+		//var_dump($no);
+
+		//var_dump($results);
+		if ($results != null) {
+			if ($yes != null) {
+				foreach ($yes as $value) {
+					//echo $value;
+					//$category[] = $value[0];
+					$yesData[] = (int)$value;
+					$yCount--;
+					//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+				}
+			}
+			if ($no != null) {
+				foreach ($no as $value) {
+					//$category[] = $value[0];
+					$noData[] = (int)$value;
+					$nCount--;
+					//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+				}
+			}
+		}
+
+		#Fill up Arrays
+		for ($x = 0; $x < $yCount; $x++) {
+			$yesData[] = 0;
+		}
+		for ($x = 0; $x < $nCount; $x++) {
+			if ($no != null) {
+				array_unshift($noData, 0);
+			} else {
+				$noData[] = 0;
+			}
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		//var_dump($resultArray);
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria;
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Action Performed';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
 	}
 
 	/*
 	 * Availability, Location and Functionality of Equipement at ORT Corner
 	 */
-	public function getORTCornerEquipmemnt() {
-		$results = $this -> m_analytics -> getORTCornerAssessment('facility', '17052', 'complete', 'ch');
+	public function getORTCornerEquipmement() {
+		$results = $this -> m_analytics -> getORTCornerEquipmement('facility', '17052', 'complete', 'ch');
 		var_dump($results);
 	}
 
@@ -786,16 +770,17 @@ $this->county = $this->session->userdata('county_analytics');
 	/**
 	 * Get Specific Districts Filter
 	 */
-	 public function getSpecificDistrictNames(){
-	 	$county=$this->county;
-		$options='';
-	 	$results = $this -> m_analytics -> getSpecificDistrictNames($county);
-		$options='<option selected=selected>Viewing All</option>';
-		foreach($results as $result){
-			$options.='<option>'.$result['facilityDistrict'].'</option>';
+	public function getSpecificDistrictNames() {
+		$county = $this -> county;
+		$options = '';
+		$results = $this -> m_analytics -> getSpecificDistrictNames($county);
+		$options = '<option selected=selected>Viewing All</option>';
+		foreach ($results as $result) {
+			$options .= '<option>' . $result['facilityDistrict'] . '</option>';
 			//$dataArray.='<option>'.$result['facilityDistrict'].'</option>';
 		}
 		//return $dataArray;
 		echo($options);
-	 }
+	}
+
 }
