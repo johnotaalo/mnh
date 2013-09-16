@@ -674,9 +674,10 @@ private function insert($array, $index, $val) { //function decleration
 
 	public function getTools($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey);
-		//var_dump($results);
+		//var_dump($results);die;
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category = $results['categories'];
 		$yCount = 3;
 		$nCount = 3;
 		//var_dump($yes);
@@ -684,16 +685,16 @@ private function insert($array, $index, $val) { //function decleration
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -728,7 +729,7 @@ private function insert($array, $index, $val) { //function decleration
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/*
