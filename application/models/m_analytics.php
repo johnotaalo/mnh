@@ -763,7 +763,7 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(il.indicatorID) AS indicator,il.response as response
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='svc') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
@@ -771,6 +771,7 @@ class M_Analytics extends MY_Model {
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -846,7 +847,7 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(il.indicatorID) AS indicator,il.response as response
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='sgn') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
@@ -923,7 +924,7 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(il.indicatorID) AS indicator,il.response as response
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
@@ -998,7 +999,7 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(il.indicatorID) AS indicator,il.response as response
+		$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY il.indicatorID ORDER BY il.indicatorID ASC";
@@ -1071,7 +1072,7 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(t.indicatorID) AS tool,t.response as response
+		$query = "SELECT t.indicatorID AS tool,t.response as response
 				  FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror') 
 				  AND t.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") GROUP BY t.indicatorID ORDER BY t.indicatorID ASC";
