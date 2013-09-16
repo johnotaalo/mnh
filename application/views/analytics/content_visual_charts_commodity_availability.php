@@ -28,7 +28,7 @@
 				<div class="clearfix">
 					<div class="control-group pull-right">
 						Filter
-						<select name="fi_county" id="fi_county">
+						<select style="width:300px" name="fi_facility" id="fi_facility">
 							<option value="all" selected="">Viewing All</option>
 						</select>
 					</div>

@@ -126,36 +126,33 @@ class C_Analytics extends MY_Controller {
 		//var_dump($yes);
 
 		//var_dump($result);
-		
-		
-		$categoryCounter=0;
-		$yesCounter=$noCounter=0;
-		
-		foreach($cat as $categories){
-			if($yes[$yesCounter][0]==$categories){
-				$yesDataF[]=$yes[$yesCounter];
+
+		$categoryCounter = 0;
+		$yesCounter = $noCounter = 0;
+
+		foreach ($cat as $categories) {
+			if ($yes[$yesCounter][0] == $categories) {
+				$yesDataF[] = $yes[$yesCounter];
 				$yesCounter++;
 				//echo $categories;
-			}
-			else{
-				
-				$yesDataF[]=array($categories,0);
+			} else {
+
+				$yesDataF[] = array($categories, 0);
 				//$yes = $this->insert($yes,$categories, 0);
 			}
-			
+
 		}
-		foreach($cat as $categories){
-			if($no[$noCounter][0]==$categories){
-				$noDataF[]=$no[$noCounter];
+		foreach ($cat as $categories) {
+			if ($no[$noCounter][0] == $categories) {
+				$noDataF[] = $no[$noCounter];
 				$noCounter++;
 				//echo $categories;
-			}
-			else{
-				
-				$noDataF[]=array($categories,0);
+			} else {
+
+				$noDataF[] = array($categories, 0);
 				//$yes = $this->insert($yes,$categories, 0);
 			}
-			
+
 		}
 		if ($yesDataF != null) {
 			foreach ($yesDataF as $value) {
@@ -174,7 +171,7 @@ class C_Analytics extends MY_Controller {
 			}
 		}
 		//var_dump($noDataF[1]);
-		
+
 		#Fill up Arrays
 		for ($x = 0; $x < $yCount; $x++) {
 			$yesData[] = 0;
@@ -335,25 +332,34 @@ class C_Analytics extends MY_Controller {
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
-private function insert($array, $index, $val) { //function decleration
-    $temp = array(); // this temp array will hold the value 
-    $size = count($array); //because I am going to use this more than one time
-    // just validate if index value is proper
-    if (@$index)
-        if ($index < 0 || $index > $size) {
-            echo "Error: Wrong index at Insert. Index: " . $index . " Current Size: " . $size;
-            echo "<br/>";
-            return false;
-        }
 
-    //here is the actual insertion code
-    $temp = array_slice($array, 0, $index);//slice from 0 to index
-    array_push($temp, $val);//add the value at the end of the array
-    $temp = array_merge($temp, array_slice($array, $index, $size)); //reconnect the remaining of the array to the current temp
-    $array = $temp;//swap// no need for this if you pass the array cuz you can simply return $temp, but, if u r using a class array for example, this is useful. 
+	private function insert($array, $index, $val) {//function decleration
+		$temp = array();
+		// this temp array will hold the value
+		$size = count($array);
+		//because I am going to use this more than one time
+		// just validate if index value is proper
+		if (@$index)
+			if ($index < 0 || $index > $size) {
+				echo "Error: Wrong index at Insert. Index: " . $index . " Current Size: " . $size;
+				echo "<br/>";
+				return false;
+			}
 
-     return $array; // you can return $temp instead if you don't use class array
-}
+		//here is the actual insertion code
+		$temp = array_slice($array, 0, $index);
+		//slice from 0 to index
+		array_push($temp, $val);
+		//add the value at the end of the array
+		$temp = array_merge($temp, array_slice($array, $index, $size));
+		//reconnect the remaining of the array to the current temp
+		$array = $temp;
+		//swap// no need for this if you pass the array cuz you can simply return $temp, but, if u r using a class array for example, this is useful.
+
+		return $array;
+		// you can return $temp instead if you don't use class array
+	}
+
 	public function getDangerSigns($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
@@ -418,7 +424,7 @@ private function insert($array, $index, $val) { //function decleration
 		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
-		$category=$results['categories'];
+		$category = $results['categories'];
 		$yCount = 6;
 		$nCount = 6;
 		//var_dump($yes);
@@ -477,7 +483,7 @@ private function insert($array, $index, $val) { //function decleration
 		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
-		$category=$results['categories'];
+		$category = $results['categories'];
 		$yCount = 3;
 		$nCount = 3;
 		//var_dump($yes);
@@ -740,7 +746,7 @@ private function insert($array, $index, $val) { //function decleration
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/*
@@ -781,6 +787,12 @@ private function insert($array, $index, $val) { //function decleration
 		}
 		//return $dataArray;
 		echo($options);
+	}
+
+	public function getFacilitiesByDistrictOptions($district) {
+		$options = $this -> m_mnh_survey -> getFacilitiesByDistrictOptions($district);
+		//var_dump($options);
+		echo $options;
 	}
 
 }
