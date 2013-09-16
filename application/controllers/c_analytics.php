@@ -177,7 +177,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function test_query() {
-		$results = $this -> m_analytics -> getORTCornerEquipmemnt('county', 'Nairobi', 'complete', 'ch');
+		$results = $this -> m_analytics -> getDangerSigns('district', 'Makadara', 'complete', 'ch');
 		//var_dump($results[1]);
 		var_dump($results);
 	}
@@ -408,7 +408,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getCommodityAvailability($criteria, $value, $status, $survey) {
@@ -473,7 +473,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 private function insert($array, $index, $val) { //function decleration
     $temp = array(); // this temp array will hold the value 
@@ -498,23 +498,25 @@ private function insert($array, $index, $val) { //function decleration
 		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category = $results['categories'];
 		$yCount = 2;
 		$nCount = 2;
 		//var_dump($yes);
 
-		//var_dump($result);
+		//var_dump($results);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				//echo (int)$value;
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -549,13 +551,14 @@ private function insert($array, $index, $val) { //function decleration
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getActionsPerformed($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category=$results['categories'];
 		$yCount = 6;
 		$nCount = 6;
 		//var_dump($yes);
@@ -563,16 +566,16 @@ private function insert($array, $index, $val) { //function decleration
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -607,7 +610,7 @@ private function insert($array, $index, $val) { //function decleration
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getCounselGiven($criteria, $value, $status, $survey) {

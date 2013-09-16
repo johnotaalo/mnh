@@ -62,18 +62,19 @@ if($resultArraySize>25){
 		}
 		},
 		tooltip: {
-			valueSuffix: ''
+			valueSuffix: '',
+			pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} )<br/>',
 		},
 		plotOptions: {
 			series: {
-                    stacking: 'normal'
+                    stacking: 'percent'
               },
 			bar: {
 				dataLabels: {
 					enabled: true,
 					formatter: function() {
                             if (this.y != 0) {
-                              return this.y;
+                              return Math.round(this.percentage)+'%';
                             } else {
                               return '';
                             }
