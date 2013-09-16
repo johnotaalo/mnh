@@ -1,7 +1,7 @@
 <!-- BEGIN CHART PORTLET 1-->
 <div class="row-fluid">
 	<div class="span6">
-		<div class="portlet box red">
+		<div class="portlet box green">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span>  By County</h4>
 				<div class="tools">
@@ -22,7 +22,7 @@
 		</div>
 		<div class="portlet box blue">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> By County</h4>
+				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="span6">
-		<div class="portlet box red">
+		<div class="portlet box green">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span>  By District</h4>
 				<div class="tools">

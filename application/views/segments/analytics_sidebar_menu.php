@@ -6,10 +6,10 @@
 			<div class="sidebar-toggler hidden-phone"></div>
 			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
 		</li>
-		<li class="has-sub start">
+		<!--li class="has-sub start">
 			<a href="<?php echo base_url() ?>ch/analytics"> <i class="icon-home"></i> <span class="title">Analytics Summary</span> </a>
 		</li>
-		<!--li id="facility-info-parent" class="has-sub start">
+		<li id="facility-info-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bookmark-empty"></i> <span class="title">Facility Information</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li >
@@ -58,7 +58,7 @@
 				</li>
 			</ul>
 		</li>
-		<li id="commodities-parent" class="has-sub start">
+		<!--li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="availability">
@@ -68,7 +68,7 @@
 					<a href="#">Quality of Diagnosis</a>
 				</li>
 			</ul>
-		</li>
+		</li-->
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">

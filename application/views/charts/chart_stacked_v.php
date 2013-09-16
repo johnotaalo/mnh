@@ -1,5 +1,5 @@
 <?php
-
+//$this->load->view('segments/head');
 $chartSize=0;
 if($resultArraySize<=6){
 	$chartSize='300';
@@ -17,15 +17,17 @@ if($resultArraySize>20){
 	$chartSize='1500';
 }
 if($resultArraySize>25){
-	$chartSize='2100';
+	$chartSize='3000';
 }
+
 ?>
+
 <script>
 		$(function () {
 	$('<?php echo "#" . $container; ?>').highcharts({
 		colors: [
-		'#66aaf7',
-		'#f66c6f',
+		'#28b779',
+		'#fb4347',
 		'#8bbc21',
 		'#910000',
 		'#1aadce',
@@ -35,50 +37,62 @@ if($resultArraySize>25){
 		'#c42525',
 		'#a6c96a'
 		],
-		chart: {
-		height:<?php echo $chartSize;?>,
-		type: '<?php echo $chartType ?>'
+		chart: {            
+            zoomType: 'x',            
+			height:<?php echo $chartSize;?>,
+			type: '<?php echo $chartType ?>',
+			 marginBottom: <?php echo $chartMargin ?>
 		},
 		title: {
-		text: '<?php echo $chartTitle; ?>'
+			text: '<?php echo $chartTitle; ?>'
 		},
-		
 		xAxis:
 		{
-		categories:  <?php echo $categories; ?>,
-	title: {
-	text: null
-	}
+			categories:  <?php echo $categories; ?>,
+	
 	},
 	yAxis: {
-	min: 0,
-	title: {
-	text: '<?php echo $yAxis; ?>',
-		align: 'high'
+		min: 0,
+		title: {
+			text: '<?php echo $yAxis; ?>',
+			align: 'high'
 		},
 		labels: {
-		overflow: 'justify'
+			overflow: 'justify'
 		}
 		},
 		tooltip: {
-		valueSuffix: ''
+			valueSuffix: '',
+			pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.percentage:.1f}%</b> ({point.y:,.0f} )<br/>',
 		},
 		plotOptions: {
 			series: {
-                    stacking: 'normal'
-               }
+                    stacking: 'percent'
+              },
+			bar: {
+				dataLabels: {
+					enabled: true,
+					formatter: function() {
+                            if (this.y != 0) {
+                              return Math.round(this.percentage)+'%';
+                            } else {
+                              return '';
+                            }
+                        },
+                        color:'white'
+		}
+		}
 		},
 		legend: {
-		layout: 'vertical',
-		align: 'right',
-		verticalAlign: 'top',
-		floating: false,
-		borderWidth: 1,
-		backgroundColor: '#FFFFFF',
-		shadow: true
+			layout: 'horizontal',
+			align: 'left',
+			floating: true,
+			borderWidth: 1,
+			backgroundColor: '#FFFFFF',
+			shadow: true
 		},
 		credits: {
-		enabled: false
+			enabled: false
 		},
 		series:<?php echo$resultArray?>
 		});
@@ -90,5 +104,4 @@ if($resultArraySize>25){
 	<div id="<?php echo $container;?>"  style="width:98%"  '>
 </div>
 </div>
-
 

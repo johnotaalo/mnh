@@ -165,7 +165,7 @@
 						break;	
 						
 					case 'actionsPerformed':
-						currentChart = '<?php echo base_url();?>c_analytics/getActionsPerformed/district/';
+					currentChart = '<?php echo base_url();?>c_analytics/getActionsPerformed/district/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Actions Performed');
 					$('#facility-statistics-parent').addClass('active');
@@ -225,6 +225,8 @@
 						break;	
 						
 					case 'caseTreatment':
+					currentChart = '<?php echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/district/';
+					currentDiv = '#graph_3';
 					$('span.statistic').text('Case Treatment');
 					$('#diarrhoea-cases-parent').addClass('active');
 					$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');

@@ -65,6 +65,7 @@ if($resultArraySize>25){
 			valueSuffix: ''
 		},
 		plotOptions: {
+			
 			bar: {
 				dataLabels: {
 					enabled: true,
