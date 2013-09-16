@@ -1492,7 +1492,7 @@ class M_Analytics extends MY_Model {
 				//unset the arrays for reuse in the next query
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 
-				return $this -> final_data_set;
+				//return $this -> final_data_set;
 
 			} else {
 				return null;
@@ -1569,7 +1569,7 @@ class M_Analytics extends MY_Model {
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
 
-				return $this -> final_data_set;
+				//return $this -> final_data_set;
 			} else {
 				return null;
 			}
@@ -1598,7 +1598,7 @@ class M_Analytics extends MY_Model {
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCHEquipmentName($value['equipment']);
+					$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//data set by each equipment
