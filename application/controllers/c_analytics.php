@@ -1,13 +1,13 @@
 <?php
 class C_Analytics extends MY_Controller {
 	var $data;
-var $county;
+	var $county;
 	public function __construct() {
 		parent::__construct();
 		$this -> data = '';
 		$this -> load -> model('m_analytics');
-		$this->session->set_userdata('county_analytics','Nairobi');
-$this->county = $this->session->userdata('county_analytics');
+		$this -> session -> set_userdata('county_analytics', 'Nairobi');
+		$this -> county = $this -> session -> userdata('county_analytics');
 	}
 
 	public function active_results() {
@@ -181,8 +181,8 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($results[1]);
 		var_dump($results);
 	}
-	
-	public function test_query_2(){
+
+	public function test_query_2() {
 		$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
 		var_dump($results);
 	}
@@ -227,8 +227,12 @@ $this->county = $this->session->userdata('county_analytics');
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
-		foreach ($results as $result) {
-			$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
+		if ($results != null) {
+			foreach ($results as $result) {
+				$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
+			}
+		} else {
+			$resultArray = 'No Data';
 		}
 		$datas = array();
 		$resultArraySize = 5;
@@ -320,6 +324,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$no = $results['no_values'];
 		$yCount = 3;
 		$nCount = 3;
+		$category=array();
 		//var_dump($yes);
 
 		//var_dump($result);
@@ -379,25 +384,27 @@ $this->county = $this->session->userdata('county_analytics');
 
 	public function getChildrenServices($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey);
+		//var_dump($results);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 5;
 		$nCount = 5;
+		$category=$results['categories'];
 		//var_dump($yes);
 
 		//var_dump($result);
 		if ($yes != null) {
 			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$yesData[] = (int)$value;
 				$yCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
 		if ($no != null) {
 			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
+				//$category[] = $value[0];
+				$noData[] = (int)$value;
 				$nCount--;
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
@@ -420,7 +427,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
-		//var_dump($category);
+		//var_dump($resultArray);
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_' . $criteria;
@@ -758,6 +765,7 @@ $this->county = $this->session->userdata('county_analytics');
 		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value, $status, $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
+		$category=array();
 		$category[] = $results['categories'][0];
 		$category[] = $results['categories'][1];
 		$yCount = 2;
@@ -765,21 +773,23 @@ $this->county = $this->session->userdata('county_analytics');
 		//var_dump($no);
 
 		//var_dump($results);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				echo $value;
-				//$category[] = $value[0];
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+		if ($results != null) {
+			if ($yes != null) {
+				foreach ($yes as $value) {
+					//echo $value;
+					//$category[] = $value[0];
+					$yesData[] = (int)$value;
+					$yCount--;
+					//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+				}
 			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+			if ($no != null) {
+				foreach ($no as $value) {
+					//$category[] = $value[0];
+					$noData[] = (int)$value;
+					$nCount--;
+					//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+				}
 			}
 		}
 
@@ -843,16 +853,17 @@ $this->county = $this->session->userdata('county_analytics');
 	/**
 	 * Get Specific Districts Filter
 	 */
-	 public function getSpecificDistrictNames(){
-	 	$county=$this->county;
-		$options='';
-	 	$results = $this -> m_analytics -> getSpecificDistrictNames($county);
-		$options='<option selected=selected>Viewing All</option>';
-		foreach($results as $result){
-			$options.='<option>'.$result['facilityDistrict'].'</option>';
+	public function getSpecificDistrictNames() {
+		$county = $this -> county;
+		$options = '';
+		$results = $this -> m_analytics -> getSpecificDistrictNames($county);
+		$options = '<option selected=selected>Viewing All</option>';
+		foreach ($results as $result) {
+			$options .= '<option>' . $result['facilityDistrict'] . '</option>';
 			//$dataArray.='<option>'.$result['facilityDistrict'].'</option>';
 		}
 		//return $dataArray;
 		echo($options);
-	 }
+	}
+
 }
