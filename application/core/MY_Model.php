@@ -53,8 +53,9 @@ function __construct() {
 			
 			#Using DQL
 								   
-			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
+			$this->districtFacilities = $this->em->createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district AND f.facilityCHSurveyStatus=:status ORDER BY f.facilityName ASC ');
 		    $this->districtFacilities->setParameter('district',$districtName);
+			$this->districtFacilities->setParameter('status','complete');
           
             $this->districtFacilities = $this->districtFacilities->getArrayResult();
 			return $this->districtFacilities;
