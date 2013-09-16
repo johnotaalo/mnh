@@ -598,7 +598,7 @@ class M_Analytics extends MY_Model {
 			} else {
 				return $this -> final_data_set = null;
 			}
-			die(var_dump($this->final_data_set));
+			//die(var_dump($this->final_data_set));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;
