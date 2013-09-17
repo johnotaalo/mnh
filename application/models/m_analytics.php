@@ -336,7 +336,7 @@ class M_Analytics extends MY_Model {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
-					foreach ($this->dataSet as $value_) {
+				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
 					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
@@ -407,7 +407,7 @@ class M_Analytics extends MY_Model {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
-			  //echo($this->db->last_query());die;
+			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -439,7 +439,6 @@ class M_Analytics extends MY_Model {
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
 				$data['categories'] = (array_values(array_unique($data_categories)));
-				
 
 				//get a unique set of analytic variables
 				$analytic_var = array_unique($analytic_var);
@@ -448,7 +447,6 @@ class M_Analytics extends MY_Model {
 
 				//get the data sets
 				$data['responses'] = $data_set;
-				
 
 				$this -> final_data_set['unavailability'] = $data;
 				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
@@ -493,7 +491,7 @@ class M_Analytics extends MY_Model {
 					//2. collect the analytic variables
 					$analytic_var[] = $value_['location'];
 					//includes duplicates--so we'll array_unique outside the foreach()
-					
+
 					//collect the data_sets
 					if (strpos($value_['location'], 'OPD') !== FALSE) {
 						$data_set['OPD'][] = intval($value_['total_response']);
@@ -520,11 +518,11 @@ class M_Analytics extends MY_Model {
 				//expected 5
 
 				//get a unique set of analytic variables
-				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');//we know of these 5 in this particular context
+				$analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+				//we know of these 5 in this particular context
 
 				//get the data sets
 				$data['responses'] = $data_set;
-				
 
 				$this -> final_data_set['location'] = $data;
 				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
@@ -572,7 +570,7 @@ class M_Analytics extends MY_Model {
 
 					//collect the data_sets by commodity
 					$data_set[$this -> getCommodityNameById($value_['commodity'])] = intval($value_['total_quantity']);
-					
+
 				}
 
 				//var_dump($analytic_var);die;
@@ -583,7 +581,7 @@ class M_Analytics extends MY_Model {
 
 				//get a unique set of analytic variables
 				$analytic_var = array_unique($analytic_var);
-				
+
 				//get the data sets
 				$data['responses'] = $data_set;
 
@@ -592,7 +590,6 @@ class M_Analytics extends MY_Model {
 				//unset the arrays for reuse
 
 				/*--------------------end commodity availability by quantity----------------------------------------------*/
-
 
 				return $this -> final_data_set;
 			} else {
@@ -1779,5 +1776,47 @@ class M_Analytics extends MY_Model {
 		}
 		return $this -> districtName;
 	}/*end of getSpecificDistrictNames*/
+
+	public function getFacilitiesByDistrictOptions($district) {
+		$myOptions='<option>Viewing All</option>';
+		/*using CI Database Active Record*/
+		try {
+			$query = "SELECT DISTINCT
+    						facility.facilityMFC, facility.facilityName
+FROM
+    facility,
+    mnh.mch_indicator_log
+WHERE
+    facilityDistrict = '" . $district . "'
+        AND facility.facilityMFC = mch_indicator_log.facilityID
+ORDER BY facilityName;";
+			$this -> dataSet = $this -> db -> query($query);
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//die(var_dump($this->dataSet));
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+					$myOptions .= '<option value=' . $value_['facilityMFC'] . '>' . $value_['facilityName'] . '</option>';
+					//1. collect the categories
+					//$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
+					//incase of duplicates--do an array_unique outside the foreach()
+
+				}
+
+				//unset the arrays for reuse
+
+				//return $this -> final_data_set;
+			} else {
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		return $myOptions;
+
+	}
 
 }

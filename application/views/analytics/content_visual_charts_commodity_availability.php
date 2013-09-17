@@ -26,9 +26,15 @@
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
+					<div class="control-group pull-left">
+						
+						<select name="fi_district2" id="fi_district2">
+							<option value="all" selected="">Viewing All</option>
+						</select>
+					</div>
 					<div class="control-group pull-right">
-						Filter
-						<select style="width:300px" name="fi_facility" id="fi_facility">
+						
+						<select style="width:280px" name="fi_facility" id="fi_facility">
 							<option value="all" selected="">Viewing All</option>
 						</select>
 					</div>
@@ -63,7 +69,7 @@
 		</div>
 		<div class="portlet box blue">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> By District</h4>
+				<h4><i class="icon-reorder"></i><span class="statistic"></span> </h4>
 			</div>
 			<div class="portlet-body">
 				<!--div class="clearfix">

@@ -82,6 +82,7 @@
 			var county,facility,smallText;
 			var district;
 			var currentChart,currentDiv;
+			var selectedOption;
 			/**
 			 *Assign County and Facility 
 			 */
@@ -90,11 +91,23 @@
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
 			facility='';
 			$('select#fi_district').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
+			$('select#fi_district2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
 			$('select#fi_district').change(function(){
 				$('#graph_2').empty();
+				$('#graph_3').empty();
 				district=$('select#fi_district option:selected').text();
 				//alert(currentChart+district+'/complete/ch');
 				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch');
+				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
+			});
+			
+			$('select#fi_district2').change(function(){
+				$('#graph_2').empty();
+				$('#graph_3').empty();
+				district=$('select#fi_district2 option:selected').text();
+				//alert(currentChart+district+'/complete/ch');
+				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch');
+				$('select#fi_district').val(district);
 				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
 			});
 			
