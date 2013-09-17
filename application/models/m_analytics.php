@@ -1778,7 +1778,7 @@ class M_Analytics extends MY_Model {
 	}/*end of getSpecificDistrictNames*/
 
 	public function getFacilitiesByDistrictOptions($district) {
-		$myOptions='';
+		$myOptions='<option>Viewing All</option>';
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT DISTINCT

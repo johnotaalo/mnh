@@ -790,7 +790,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getFacilitiesByDistrictOptions($district) {
-		$options = $this -> m_mnh_survey -> getFacilitiesByDistrictOptions($district);
+		$options = $this -> m_analytics -> getFacilitiesByDistrictOptions($district);
 		//var_dump($options);
 		echo $options;
 	}
