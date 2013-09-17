@@ -1679,7 +1679,7 @@ class M_Analytics extends MY_Model {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
-			// echo($this->db->last_query());die;
+			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
