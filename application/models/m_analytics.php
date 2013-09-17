@@ -1605,7 +1605,7 @@ class M_Analytics extends MY_Model {
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
-
+				$count_instances=array('MCH'=>0,'OPD'=>0,'U5 Clinic'=>0,'Ward'=>0,'Other'=>0);//to hold the location instances
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
@@ -1617,23 +1617,28 @@ class M_Analytics extends MY_Model {
 
 					//collect the data_sets from the coma separated responses
 					if (strpos($value_['location'], 'OPD') !== FALSE) {
-						$data_set['OPD'][] = intval($value_['total_response']);
+						$count_instances['OPD'] +=intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['OPD'] = $count_instances['OPD'];
 					}
 					if (strpos($value_['location'], 'MCH') !== FALSE) {
-						$data_set['MCH'][] = intval($value_['total_response']);
+						$count_instances['MCH'] +=intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['MCH'] = $count_instances['MCH'];
 					}
 					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-						$data_set['U5 Clinic'][] = intval($value_['total_response']);
+						$count_instances['U5 Clinic'] +=intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['U5 Clinic'] = $count_instances['U5 Clinic'];
 					}
 					if (strpos($value_['location'], 'Ward') !== FALSE) {
-						$data_set['Ward'][] = intval($value_['total_response']);
+						$count_instances['Ward'] +=intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['Ward'] = $count_instances['Ward'];
 					}
 					if (strpos($value_['location'], 'Other') !== FALSE) {
-						$data_set['Other'][] = intval($value_['total_response']);
+						$count_instances['Other'] +=intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['Other'] =$count_instances['Other'];
 					}
 
 				}
-
+                 //var_dump($count_instances);die;
 				//var_dump($data_set);die;
 
 				//make array unique if we got duplicates and set to $data array
