@@ -1,3 +1,8 @@
+<style>
+	.chart{
+		overflow:auto;
+	}
+</style>
 <!-- BEGIN CHART PORTLET 1-->
 <div class="row-fluid">
 	<div class="span6">

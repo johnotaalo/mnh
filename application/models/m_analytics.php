@@ -1595,6 +1595,7 @@ class M_Analytics extends MY_Model {
 					WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN 
 					(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
 				    AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
+		
 		try {
 			//echo $query;die;
 			//die(print $status.$value);
@@ -1672,6 +1673,7 @@ class M_Analytics extends MY_Model {
 				  AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
 				  GROUP BY ea.equipmentID
 				  ORDER BY ea.equipmentID ASC";
+				  //echo $query; die;
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 

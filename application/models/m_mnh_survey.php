@@ -1365,7 +1365,7 @@ class M_MNH_Survey  extends MY_Model {
 		if ($this -> input -> post()) {
 
 			$step = $this -> input -> post('step_name', TRUE);
-			switch($step) {/*case 'section-1':
+			switch($step) {case 'section-1':
 				 //check if entry exists
 				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1504,11 +1504,11 @@ class M_MNH_Survey  extends MY_Model {
 				 $this->markSurveyStatusAsComplete();
 				 return $this -> response = 'true';
 				 }
-				 break;*/
+				 break;
 			}//close switch
 			//print var_dump($this->input->post());
 
-			return $this -> response = 'true';
+			//return $this -> response = 'true';
 		}
 
 	}

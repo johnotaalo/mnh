@@ -261,9 +261,9 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Trained vs Working Staff';
+		$datas['chartTitle'] = 'Trained Staff vs Working with Children';
 		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
+		$datas['yAxis'] = 'Ratio';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
@@ -752,9 +752,87 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Availability, Location and Functionality of Equipement at ORT Corner
 	 */
-	public function getORTCornerEquipmement() {
-		$results = $this -> m_analytics -> getORTCornerEquipmement('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+
+	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'frequency',30);
+
+	}
+
+	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'availability',30);
+
+	}
+
+	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'location',100);
+
+	}
+
+	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice,$resultSize) {
+		$results = $this -> m_analytics -> getORTCornerEquipmement('county', 'Nairobi', 'complete', 'ch');
+		$frequency = $results['frequency'];
+		$location = $results['location']['responses'];
+		$quantities = $results['quantities']['responses'];
+		//var_dump($results['location']);die;
+		$resultArray = array();
+		$frequencyCategories = $frequency['categories'];
+		$locationCategories = $results['location']['categories'];
+		$counter = 0;
+		$frequencyAlways = $frequency['responses']['Available'];
+		$frequencySometimes = $frequency['responses']['Sometimes Available'];
+		$frequencyNever = $frequency['responses']['Never Available'];
+		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
+		$mch = $other = $opd = $ward = $clinic = array();
+		$category = $frequencyCategories;
+		switch($choice) {
+			case 'frequency' :
+				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				break;
+			case 'availability' :
+				foreach ($quantities as $quantity) {
+					$arr = $quantity[$counter];
+					//[0]['Fully-functional'];
+					$quantitiesFullyFunctional[] = $arr['Fully-functional'];
+					$quantitiesNonFunctional[] = $arr['Non-functional'];
+					//$counter++;
+				}
+				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
+				break;
+			case 'location' :
+				//var_dump ($location);die;
+				$mch = $location['MCH'];
+				$other = $location['Other'];
+				$opd = $location['OPD'];
+				$ward = $location['Ward'];
+				$clinic = $location['U5 Clinic'];
+				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+				$category = $locationCategories;
+				//var_dump($resultArray);
+
+				break;
+		}
+		//var_dump($quantitiesFullyFunctional);
+		//die;
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = $resultSize;
+		
+		//var_dump($resultArray);die;
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria;
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'ORT Assessment Functional';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
 	}
 
 	/*

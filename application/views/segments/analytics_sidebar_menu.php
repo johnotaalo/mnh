@@ -89,10 +89,16 @@
 				<li id="ORTAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li id="ORTAssessment">
-					<a href="#">ORT Corner Equipment</a>
+				<li id="ORTEquipmentFreq">
+					<a href="#">ORT Corner Equipment Frequency</a>
 				</li>
-				<li id="ORTAssessment">
+				<li id="ORTEquipmentAva">
+					<a href="#">ORT Corner Equipment Availability</a>
+				</li>
+				<li id="ORTEquipmentLoc">
+					<a href="#">ORT Corner Equipment Location</a>
+				</li>
+				<li id="ORTSupplies">
 					<a href="#">ORT Corner Supplies</a>
 				</li>
 			</ul>

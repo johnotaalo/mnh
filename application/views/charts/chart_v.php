@@ -19,6 +19,10 @@ if($resultArraySize>20){
 if($resultArraySize>25){
 	$chartSize='3000';
 }
+if($resultArraySize>30){
+	$chartSize='11000';
+}
+
 
 ?>
 
