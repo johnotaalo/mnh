@@ -37,7 +37,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function test_query() {
-		$results = $this -> m_analytics -> getCommodityAvailability('county', 'Nairobi', 'complete', 'ch');
+		$results = $this -> m_analytics -> getORTCornerEquipmement('county', 'Nairobi', 'complete', 'ch');
 		//var_dump($results[1]);
 		var_dump($results);
 	}
