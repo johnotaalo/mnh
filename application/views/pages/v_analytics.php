@@ -276,7 +276,7 @@
 					case 'ORTEquipmentFreq':
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('ORT Equipment');
+					$('span.statistic').text('ORT Equipment Frequency');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/county/'+county+'/complete/ch');
@@ -286,7 +286,7 @@
 					case 'ORTEquipmentLoc':
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentLocation/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('ORT Equipment');
+					$('span.statistic').text('ORT Equipment Location');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmentLocation/county/'+county+'/complete/ch');
@@ -296,7 +296,7 @@
 					case 'ORTEquipmentAva':
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('ORT Equipment');
+					$('span.statistic').text('ORT Equipment Availability');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/county/'+county+'/complete/ch');

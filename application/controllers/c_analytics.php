@@ -118,7 +118,7 @@ class C_Analytics extends MY_Controller {
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
 
-		$cat = $results['categories'];
+		$categories = $results['categories'];
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$yCount = 4;
@@ -128,32 +128,38 @@ class C_Analytics extends MY_Controller {
 		//var_dump($result);
 
 		$categoryCounter = 0;
-		$yesCounter = $noCounter = 0;
+		$yCounter = $nCounter = 0;
+//var_dump($yes);
+	//	var_dump($no);
+		//die ;
 
-		foreach ($cat as $categories) {
-			if ($yes[$yesCounter][0] == $categories) {
-				$yesDataF[] = $yes[$yesCounter];
-				$yesCounter++;
-				//echo $categories;
-			} else {
-
-				$yesDataF[] = array($categories, 0);
-				//$yes = $this->insert($yes,$categories, 0);
+		if ($yes != null) {
+			foreach ($categories as $cat) {
+				if ($yes[$yCounter][0] = $cat) {
+					$yesDataF[] = $yes[$yCounter][1];
+					$yCounter++;
+				} else {
+					$yesDataF[] = 0;
+				}
+				
 			}
-
+		} else {
+			$yesDataF = array(0, 0, 0, 0, );
 		}
-		foreach ($cat as $categories) {
-			if ($no[$noCounter][0] == $categories) {
-				$noDataF[] = $no[$noCounter];
-				$noCounter++;
-				//echo $categories;
-			} else {
-
-				$noDataF[] = array($categories, 0);
-				//$yes = $this->insert($yes,$categories, 0);
+		if ($no != null) {
+			foreach ($categories as $cat) {
+				if ($no[$nCounter][0] = $cat) {
+					$noDataF[] = $no[$nCounter][1];
+					$nCounter++;
+				} else {
+					$noDataF[] = 0;
+				}
+				
 			}
-
+		} else {
+			$noDataF = array(0, 0, 0, 0, );
 		}
+		
 		if ($yesDataF != null) {
 			foreach ($yesDataF as $value) {
 				$category[] = $value[0];
@@ -170,6 +176,8 @@ class C_Analytics extends MY_Controller {
 				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
 			}
 		}
+		var_dump($yesDataF);
+		var_dump($noDataF);
 		//var_dump($noDataF[1]);
 
 		#Fill up Arrays
@@ -198,7 +206,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Guidelines';
-		$datas['categories'] = json_encode($category);
+		$datas['categories'] = json_encode($categories);
 		$datas['yAxis'] = 'Availability';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_stacked_v', $datas);
@@ -754,38 +762,40 @@ class C_Analytics extends MY_Controller {
 	 */
 
 	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'frequency',30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'frequency', 30);
 
 	}
 
 	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'availability',30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'availability', 30);
 
 	}
 
 	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'location',100);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'location', 30);
 
 	}
 
-	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice,$resultSize) {
-		$results = $this -> m_analytics -> getORTCornerEquipmement('county', 'Nairobi', 'complete', 'ch');
+	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice, $resultSize) {
+		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value, $status, $survey);
+		//var_dump($results);die;
 		$frequency = $results['frequency'];
-		$location = $results['location']['responses'];
+		$categories = $results['frequency']['categories'];
 		$quantities = $results['quantities']['responses'];
 		//var_dump($results['location']);die;
 		$resultArray = array();
-		$frequencyCategories = $frequency['categories'];
-		$locationCategories = $results['location']['categories'];
+
 		$counter = 0;
-		$frequencyAlways = $frequency['responses']['Available'];
-		$frequencySometimes = $frequency['responses']['Sometimes Available'];
-		$frequencyNever = $frequency['responses']['Never Available'];
+
 		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
 		$mch = $other = $opd = $ward = $clinic = array();
-		$category = $frequencyCategories;
+		//$category = $frequencyCategories;
 		switch($choice) {
 			case 'frequency' :
+				$frequencyCategories = $frequency['categories'];
+				$frequencyNever = $frequency['responses']['Never Available'];
+				$frequencyAlways = $frequency['responses']['Available'];
+				$frequencySometimes = $frequency['responses']['Sometimes Available'];
 				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
 				break;
 			case 'availability' :
@@ -799,24 +809,54 @@ class C_Analytics extends MY_Controller {
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
 			case 'location' :
-				//var_dump ($location);die;
-				$mch = $location['MCH'];
-				$other = $location['Other'];
-				$opd = $location['OPD'];
-				$ward = $location['Ward'];
-				$clinic = $location['U5 Clinic'];
+				//var_dump($location['Table spoons']);die;
+				$location = $results['location']['responses'];
+				$locationCategories = $results['location']['categories'];
+				foreach ($location as $key => $loc) {
+
+					if (array_key_exists('MCH', $loc) == true) {
+						$mch[] = $loc['MCH'];
+					} else {
+						$mch[] = 0;
+					}
+					if (array_key_exists('Other', $loc) == true) {
+						$other[] = $loc['Other'];
+					} else {
+						$other[] = 0;
+					}
+					if (array_key_exists('OPD', $loc) == true) {
+						$opd[] = $loc['OPD'];
+					} else {
+						$opd[] = 0;
+					}
+					if (array_key_exists('Ward', $loc) == true) {
+						$ward[] = $loc['Ward'];
+					} else {
+						$ward[] = 0;
+					}
+					if (array_key_exists('U5 Clinic', $loc) == true) {
+						$clinic[] = $loc['U5 Clinic'];
+					} else {
+						$clinic[] = 0;
+
+					}
+					//var_dump ($location);die;
+
+				}
+				//var_dump($other);
 				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-				$category = $locationCategories;
-				//var_dump($resultArray);
+
+				//var_dump($resultArray);die;
 
 				break;
 		}
+		$category = $categories;
 		//var_dump($quantitiesFullyFunctional);
 		//die;
 		$resultArray = json_encode($resultArray);
 		$datas = array();
 		$resultArraySize = $resultSize;
-		
+
 		//var_dump($resultArray);die;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
