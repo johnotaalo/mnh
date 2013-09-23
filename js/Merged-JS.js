@@ -2,9 +2,15 @@
  * Parent Custom JS File
  */
 $(document).ready(function(){
+	runLinks();
+	
+	
+	
+	
+	function runLinks(){	
 	$('.level1').hide();
 	$('.level2').hide();
-	$('.tile .btn').hide();
+	$('.tile button').hide();
 	/**
 	 * HomePage Links
 	 * 
@@ -52,4 +58,5 @@ $(document).ready(function(){
 		}
 	});
 	
+	}
 });

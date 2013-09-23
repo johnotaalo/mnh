@@ -6,8 +6,16 @@ class C_Analytics extends MY_Controller {
 		parent::__construct();
 		$this -> data = '';
 		$this -> load -> model('m_analytics');
-		$this -> session -> set_userdata('county_analytics', 'Nairobi');
+
+		//$this -> county = $this -> session -> userdata('county_analytics');
+	}
+
+	public function setActive($county) {
+		$county=urldecode($county);
+		$this -> session -> unset_userdata('county_analytics');
+		$this -> session -> set_userdata('county_analytics', $county);
 		$this -> county = $this -> session -> userdata('county_analytics');
+		redirect('ch/analytics');
 	}
 
 	public function active_results() {
@@ -51,7 +59,7 @@ class C_Analytics extends MY_Controller {
 		$this -> data['response_count'] = $this -> m_analytics -> get_response_count('ch');
 	}
 
-	private function facility_reporting_summary() {
+	public function facility_reporting_summary() {
 		$results = $this -> m_analytics -> get_facility_reporting_summary('ch');
 		if ($results) {
 			$dyn_table = "<table width='100%' id='facility_report' class='dataTables'>
@@ -75,8 +83,8 @@ class C_Analytics extends MY_Controller {
 				$dyn_table .= "<tr><td>" . $result['facilityMFC'] . "</td><td>" . $result['facilityName'] . "</td><td>" . $result['facilityDistrict'] . "</td><td>" . $result['facilityCounty'] . "</td><td>" . $result['facilityInchargeContactPerson'] . "</td><td>" . $result['facilityInchargeEmail'] . "</td><td>" . $dbdate . "</td></tr>";
 			}
 			$dyn_table .= "</tbody></table>";
-			//echo $dyn_table;
-			return $dyn_table;
+			echo $dyn_table;
+			//return $dyn_table;
 		}
 	}
 
@@ -85,6 +93,7 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getCommunityStrategy($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
+		var_dump($results);die;
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
 		if ($results != null) {
@@ -117,81 +126,50 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
-
+		//var_dump($results);
+		//die ;
 		$categories = $results['categories'];
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
-		$yCount = 4;
-		$nCount = 4;
+		$yCount = 0;
+		$nCount = 0;
+		$yesSize = sizeof($yes);
+		$noSize = sizeof($no);
 		//var_dump($yes);
-
-		//var_dump($result);
-
-		$categoryCounter = 0;
-		$yCounter = $nCounter = 0;
-//var_dump($yes);
-	//	var_dump($no);
-		//die ;
-
-		if ($yes != null) {
-			foreach ($categories as $cat) {
-				if ($yes[$yCounter][0] = $cat) {
-					$yesDataF[] = $yes[$yCounter][1];
-					$yCounter++;
-				} else {
-					$yesDataF[] = 0;
-				}
-				
-			}
+		if ($yes == null) {
+			$yesF = array(0, 0, 0, 0);
 		} else {
-			$yesDataF = array(0, 0, 0, 0, );
+			foreach ($categories as $category) {
+				if ($yCount < $yesSize) {
+					if (array_key_exists($category, $yes[$yCount])) {
+						$yesF[] = $yes[$yCount][$category];
+						$yCount++;
+					} else {
+						$yesF[] = 0;
+					}
+				} else {
+					$yesF[] = 0;
+				}
+			}
 		}
-		if ($no != null) {
-			foreach ($categories as $cat) {
-				if ($no[$nCounter][0] = $cat) {
-					$noDataF[] = $no[$nCounter][1];
-					$nCounter++;
-				} else {
-					$noDataF[] = 0;
-				}
-				
-			}
+		if ($no == null) {
+			$noF = array(0, 0, 0, 0);
 		} else {
-			$noDataF = array(0, 0, 0, 0, );
+			foreach ($categories as $category) {
+				if ($nCount < $noSize) {
+					if (array_key_exists($category, $no[$nCount])) {
+						$noF[] = $no[$nCount][$category];
+						$nCount++;
+					} else {
+						$noF[] = 0;
+					}
+				} else {
+					$noF[] = 0;
+				}
+			}
 		}
 		
-		if ($yesDataF != null) {
-			foreach ($yesDataF as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($noDataF != null) {
-			foreach ($noDataF as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		var_dump($yesDataF);
-		var_dump($noDataF);
-		//var_dump($noDataF[1]);
-
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+		$resultArray = array( array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		$datas = array();
@@ -895,7 +873,7 @@ class C_Analytics extends MY_Controller {
 	 * Get Specific Districts Filter
 	 */
 	public function getSpecificDistrictNames() {
-		$county = $this -> county;
+		$county = $this -> session -> userdata('county_analytics');
 		$options = '';
 		$results = $this -> m_analytics -> getSpecificDistrictNames($county);
 		$options = '<option selected=selected>Viewing All</option>';

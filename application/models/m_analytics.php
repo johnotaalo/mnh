@@ -187,9 +187,9 @@ class M_Analytics extends MY_Model {
 					}
 
 					if ($value['availability'] == 'Yes') {
-						$data_y[] = array($guideline, (int)$value['total_facilities']);
+						$data_y[] = array($guideline=> (int)$value['total_facilities']);
 					} else {
-						$data_n[] = array($guideline, (int)$value['total_facilities']);
+						$data_n[] = array($guideline=> (int)$value['total_facilities']);
 					}
 					//$data['categories'][]=$guideline;
 				}
