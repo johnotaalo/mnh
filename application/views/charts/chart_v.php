@@ -53,8 +53,16 @@ if($resultArraySize>30){
 		xAxis:
 		{
 			categories:  <?php echo $categories; ?>,
+			labels : {
+				rotation:-45,
+				style: {
+					fontFamily:'Helvetica Nue'
+				}
+			}
 	
 	},
+	
+                
 	yAxis: {
 		min: 0,
 		title: {

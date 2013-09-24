@@ -11,7 +11,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function setActive($county) {
-		$county=urldecode($county);
+		$county = urldecode($county);
 		$this -> session -> unset_userdata('county_analytics');
 		$this -> session -> set_userdata('county_analytics', $county);
 		$this -> county = $this -> session -> userdata('county_analytics');
@@ -93,7 +93,8 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getCommunityStrategy($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
-		var_dump($results);die;
+		var_dump($results);
+		die ;
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
 		if ($results != null) {
@@ -168,7 +169,7 @@ class C_Analytics extends MY_Controller {
 				}
 			}
 		}
-		
+
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
@@ -883,6 +884,61 @@ class C_Analytics extends MY_Controller {
 		}
 		//return $dataArray;
 		echo($options);
+	}
+
+	#Get Facilities per County
+	public function getCountyFacilities($criteria) {
+		$result = $this -> m_analytics -> getCountyFacilities();
+
+		foreach ($result as $result) {
+			$county[] = $result['facilityCounty'];
+			$facilities[] = (int)$result['COUNT(facility.facilityName)'];
+		}
+		$category = $county;
+		$resultArray[] = array('type' => 'column', 'name' => 'Facilities', 'data' => $facilities);
+		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria;
+		$datas['chartType'] = 'column';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+		//var_dump($resultArray);
+		//var_dump($result);
+	}
+
+	public function getCountyFacilitiesByOwner($criteria) {
+		$result = $this -> m_analytics -> getCountyFacilitiesByOwner($criteria);
+		//var_dump($result);die;
+		foreach ($result as $result) {
+			$owners[] = $result['facilityOwnedBy'];
+			$facilities[] = (int)$result['COUNT(facilityOwnedBy)'];
+		}
+		$category = $owners;
+		$resultArray[] = array('type' => 'column', 'name' => 'Facility Owners', 'data' => $facilities);
+		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria;
+		$datas['chartType'] = 'column';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+		//var_dump($resultArray);
+		//var_dump($result);
 	}
 
 	public function getFacilitiesByDistrictOptions($district) {

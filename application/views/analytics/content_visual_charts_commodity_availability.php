@@ -5,7 +5,7 @@
 </style>
 <!-- BEGIN CHART PORTLET 1-->
 <div class="row-fluid">
-	<div class="span6">
+	<div class="span6" id="span1">
 		<div class="portlet box green">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span>  By County</h4>
@@ -25,7 +25,7 @@
 				<div id="graph_1" class="chart"></div>
 			</div>
 		</div>
-		<div class="portlet box blue">
+		<div class="portlet box blue" id="port2">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
 			</div>

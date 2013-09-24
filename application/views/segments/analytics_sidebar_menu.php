@@ -23,6 +23,18 @@
 				</li>
 			</ul>
 		</li-->
+		<li id="overview-statistics-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-building"></i> <span class="title">Overview Statistics</span><span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="facilities">
+					<a href="#" >Facilities</a>
+				</li>
+				<li id="guidelines">
+					<a href="#">Guidelines Availability</a>
+				</li>
+			
+			</ul>
+		</li>
 		<li id="facility-statistics-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
 			<ul class="sub">

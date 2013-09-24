@@ -13,7 +13,7 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class M_Analytics extends MY_Model {
 	/*user variables*/
-	var $dataSet, $final_data_set, $query, $rsm, $districtName;
+	var $dataSet, $final_data_set, $query, $rsm, $districtName, $countyFacilities;
 
 	/*constructor*/
 	function __construct() {
@@ -187,9 +187,9 @@ class M_Analytics extends MY_Model {
 					}
 
 					if ($value['availability'] == 'Yes') {
-						$data_y[] = array($guideline=> (int)$value['total_facilities']);
+						$data_y[] = array($guideline => (int)$value['total_facilities']);
 					} else {
-						$data_n[] = array($guideline=> (int)$value['total_facilities']);
+						$data_n[] = array($guideline => (int)$value['total_facilities']);
 					}
 					//$data['categories'][]=$guideline;
 				}
@@ -1595,7 +1595,7 @@ class M_Analytics extends MY_Model {
 					WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN 
 					(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
 				    AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
-		
+
 		try {
 			//echo $query;die;
 			//die(print $status.$value);
@@ -1606,7 +1606,8 @@ class M_Analytics extends MY_Model {
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
-				$count_instances=array('MCH'=>0,'OPD'=>0,'U5 Clinic'=>0,'Ward'=>0,'Other'=>0);//to hold the location instances
+				$count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
+				//to hold the location instances
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
@@ -1618,28 +1619,28 @@ class M_Analytics extends MY_Model {
 
 					//collect the data_sets from the coma separated responses
 					if (strpos($value_['location'], 'OPD') !== FALSE) {
-						$count_instances['OPD'] +=intval($value_['total_response']);
+						$count_instances['OPD'] += intval($value_['total_response']);
 						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['OPD'] = $count_instances['OPD'];
 					}
 					if (strpos($value_['location'], 'MCH') !== FALSE) {
-						$count_instances['MCH'] +=intval($value_['total_response']);
+						$count_instances['MCH'] += intval($value_['total_response']);
 						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['MCH'] = $count_instances['MCH'];
 					}
 					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-						$count_instances['U5 Clinic'] +=intval($value_['total_response']);
+						$count_instances['U5 Clinic'] += intval($value_['total_response']);
 						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['U5 Clinic'] = $count_instances['U5 Clinic'];
 					}
 					if (strpos($value_['location'], 'Ward') !== FALSE) {
-						$count_instances['Ward'] +=intval($value_['total_response']);
+						$count_instances['Ward'] += intval($value_['total_response']);
 						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['Ward'] = $count_instances['Ward'];
 					}
 					if (strpos($value_['location'], 'Other') !== FALSE) {
-						$count_instances['Other'] +=intval($value_['total_response']);
-						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['Other'] =$count_instances['Other'];
+						$count_instances['Other'] += intval($value_['total_response']);
+						$data_set[$this -> getCHEquipmentName($value_['equipment'])]['Other'] = $count_instances['Other'];
 					}
 
 				}
-                 //var_dump($count_instances);die;
+				//var_dump($count_instances);die;
 				//var_dump($data_set);die;
 
 				//make array unique if we got duplicates and set to $data array
@@ -1678,7 +1679,7 @@ class M_Analytics extends MY_Model {
 				  AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
 				  GROUP BY ea.equipmentID
 				  ORDER BY ea.equipmentID ASC";
-				  //echo $query; die;
+		//echo $query; die;
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
@@ -1784,19 +1785,47 @@ class M_Analytics extends MY_Model {
 		return $this -> districtName;
 	}/*end of getSpecificDistrictNames*/
 
+	function getCountyFacilities() {
+		/*using DQL*/
+		try {
+			$query = "SELECT COUNT(facility.facilityName),facilityCounty FROM mnh.facility GROUP BY facility.facilityCounty ORDER BY COUNT(facility.facilityName) DESC;";
+			$this -> countyFacilities = $this -> db -> query($query);
+			$this -> countyFacilities = $this -> countyFacilities -> result_array();
+			//die(var_dump($this->districtName));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> countyFacilities;
+	}/*end of getSpecificDistrictNames*/
+	
+	function getCountyFacilitiesByOwner($county) {
+		/*using DQL*/
+		try {
+			$query = "SELECT COUNT(facilityOwnedBy),facilityOwnedBy FROM mnh.facility WHERE facilityCounty='Nairobi' GROUP BY facilityOwnedBy ORDER BY COUNT(facilityOwnedBy) DESC;";
+			$this -> countyFacilities = $this -> db -> query($query);
+			$this -> countyFacilities = $this -> countyFacilities -> result_array();
+			//die(var_dump($this->districtName));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> countyFacilities;
+	}/*end of getSpecificDistrictNames*/
+
 	public function getFacilitiesByDistrictOptions($district) {
-		$myOptions='<option>Viewing All</option>';
+		$myOptions = '<option>Viewing All</option>';
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT DISTINCT
     						facility.facilityMFC, facility.facilityName
-FROM
-    facility,
-    mnh.mch_indicator_log
-WHERE
-    facilityDistrict = '" . $district . "'
-        AND facility.facilityMFC = mch_indicator_log.facilityID
-ORDER BY facilityName;";
+								FROM
+    							facility,
+  								  mnh.mch_indicator_log
+								WHERE
+   									 facilityDistrict = '" . $district . "'
+   								     AND facility.facilityMFC = mch_indicator_log.facilityID
+								ORDER BY facilityName;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//die(var_dump($this->dataSet));

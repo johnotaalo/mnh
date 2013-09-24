@@ -134,8 +134,47 @@
 				$('h3.page-title').append('<small>'+smallText+'</small>');
 				$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
 				$('#breadcrumb-sub-title').text(smallText);
+				
+				if(subID=='facilities'){
+					$('.span6').hide();
+					$('#span1').show();
+					$('#span1').animate({
+						height:'200%',
+						width:'100%'
+					});
+					$('#graph_1').animate({
+						width:'2000px'
+					});
+					$('#port2').animate({
+						height:'400px',
+						width:'100%'
+					});
+				}
+				else{
+					$('.span6').animate({
+						height:'100%',
+						width:'48.717948717948715%'
+					});
+					$('#graph_1').animate({
+						width:'100%'
+					});
+					$('.span6').show();
+					
+				}
 				switch(subID){
 					/*
+					 * Overview Statistics
+					 */
+					case 'facilities':
+					
+					$('span.statistic').text('Facilities');
+					$('#overview-statistics-parent').addClass('active');
+					$('#overview-statistics-parent a').append('<span class="selected"></span>');
+					
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCountyFacilities/1');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCountyFacilitiesByOwner/'+county);
+						break;
+							/*
 					 * Facility Statistics
 					 */
 					case 'communityStrategy':
