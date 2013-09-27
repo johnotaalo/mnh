@@ -650,7 +650,7 @@ class C_Analytics extends MY_Controller {
 		$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize =5;
+		$resultArraySize = 5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		//var_dump($category);
@@ -847,7 +847,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'ORT Assessment '.$choice;
+		$datas['chartTitle'] = 'ORT Assessment ' . $choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -946,15 +946,16 @@ class C_Analytics extends MY_Controller {
 		//var_dump($options);
 		echo $options;
 	}
-//Load PDF
-public function loadPDF() {
+
+	#Load PDF
+	public function loadPDF() {
 		$stylesheet = ('');
 		$html = ('Test');
 		$this -> load -> library('mpdf');
 		$this -> mpdf = new mPDF('', 'A4-L', 0, '', 15, 15, 16, 16, 9, 9, '');
 		$this -> mpdf -> SetTitle('DCAH Assessment Tool');
 		$this -> mpdf -> SetHTMLHeader('<em>DCAH Assessment Tool</em>');
-        $this -> mpdf -> SetHTMLFooter('<em>DCAH Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLFooter('<em>DCAH Assessment Tool</em>');
 		$this -> mpdf -> simpleTables = true;
 		$this -> mpdf -> WriteHTML($stylesheet, 1);
 		$this -> mpdf -> WriteHTML($html, 2);
@@ -962,4 +963,5 @@ public function loadPDF() {
 		$this -> mpdf -> Output($report_name, 'D');
 
 	}
+
 }

@@ -54,6 +54,10 @@
 			<div class="portlet-body">
 				<div class="clearfix">
 					<div class="clearfix">
+						<div class="control-group pull-left">
+						
+						<button class="btn red" id="facilityList"><i class="icon-list" style="margin-right:5px"></i>Download Facility List</button>
+					</div>
 					<div class="control-group pull-right">
 						Filter
 						<select name="fi_district" id="fi_district">
