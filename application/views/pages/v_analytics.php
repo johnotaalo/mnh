@@ -83,6 +83,7 @@
 			var district;
 			var currentChart,currentDiv;
 			var selectedOption;
+			var appendToTitle;
 			/**
 			 *Assign County and Facility 
 			 */
@@ -124,16 +125,10 @@
 				//parentDiv = $('#'+subID+' a').parents('ul');
 				//alert(parentDiv);
 				//alert();
-				
 				$('ul.sub li').removeClass('active');
 				$('#'+subID).addClass('active');				
 				$('.has-sub.start').removeClass('active');
 				$('.has-sub.start a').remove('span');
-				smallText=$('ul.sub li.active a').text();
-				$('h3.page-title').text($('li.has-sub.start.open a span.title').text());
-				$('h3.page-title').append('<small>'+smallText+'</small>');
-				$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
-				$('#breadcrumb-sub-title').text(smallText);
 				
 				if(subID=='facilities'){
 					$('.span6').hide();
@@ -151,17 +146,21 @@
 					});
 				}
 				else{
-					$('.span6').animate({
-						height:'100%',
-						width:'48.717948717948715%'
+					$('.span6').css({
+						'height':'100%',
+						'width':'48.717948717948715%'
 					});
-					$('#graph_1').animate({
-						width:'100%'
+					$('#graph_1').css({
+						'width':'100%'
 					});
 					$('.span6').show();
 					
 				}
+				$('#graph_1').empty();
+					$('#graph_2').empty();
+					$('#graph_3').empty();
 				switch(subID){
+					
 					/*
 					 * Overview Statistics
 					 */
@@ -198,6 +197,7 @@
 						break;
 						
 					case 'training':
+					appendToTitle = ' in the last 2 years';
 					currentChart = '<?php echo base_url();?>c_analytics/getTrainedStaff/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Training');
@@ -208,9 +208,10 @@
 						break;
 						
 					case 'childrenServices':
+					appendToTitle=' to children with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getChildrenServices/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('Children Services');
+					$('span.statistic').text('Services Offered');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getChildrenServices/county/'+county+'/complete/ch');
@@ -218,6 +219,7 @@
 						break;
 						
 					case 'dangerSigns':
+					appendToTitle=' assessed in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getDangerSigns/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Danger Signs');
@@ -228,6 +230,7 @@
 						break;	
 						
 					case 'actionsPerformed':
+					appendToTitle = ' in ongoing sessions for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getActionsPerformed/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Actions Performed');
@@ -239,6 +242,7 @@
 						break;	
 						
 					case 'counselGiven':
+					appendToTitle=' in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getCounselGiven/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Counsel Given');
@@ -249,9 +253,10 @@
 						break;	
 						
 					case 'tools':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getTools/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('Tools');
+					$('span.statistic').text('Tools in a given Unit');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTools/county/'+county+'/complete/ch');
@@ -373,6 +378,13 @@
 					
 				}
 				
+				//Set Title Text
+				
+				smallText=$('ul.sub li.active a').text();
+				//$('h3.page-title').text($('li.has-sub.start.open a span.title').text());
+				$('h3.page-title').text(smallText+appendToTitle);
+				$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
+				$('#breadcrumb-sub-title').text(smallText);
 			});
 				// Build the charts
 });

@@ -54,7 +54,6 @@ if($resultArraySize>30){
 		{
 			categories:  <?php echo $categories; ?>,
 			labels : {
-				rotation:-45,
 				style: {
 					fontFamily:'Helvetica Nue'
 				}

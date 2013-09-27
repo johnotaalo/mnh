@@ -23,7 +23,7 @@
 				</li>
 			</ul>
 		</li-->
-		<li id="overview-statistics-parent" class="has-sub start">
+		<!--li id="overview-statistics-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-building"></i> <span class="title">Overview Statistics</span><span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="facilities">
@@ -34,7 +34,7 @@
 				</li>
 			
 			</ul>
-		</li>
+		</li-->
 		<li id="facility-statistics-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
 			<ul class="sub">
@@ -54,7 +54,7 @@
 					<a href="<?php echo base_url() ?>analytics/section2/commodity-supplier">Commodity Supplier</a>
 				</li-->
 				<li id="childrenServices">
-					<a href="#">Children Services</a>
+					<a href="#">Services Offered</a>
 				</li>
 				<li id="dangerSigns">
 					<a href="#">Danger Signs</a>
@@ -66,7 +66,7 @@
 					<a href="#">Counsel Given</a>
 				</li>
 				<li id="tools">
-					<a href="#">Tools</a>
+					<a href="#">Tools in a given Unit</a>
 				</li>
 			</ul>
 		</li>
@@ -101,13 +101,13 @@
 				<li id="ORTAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li id="ORTEquipmentFreq">
-					<a href="#">ORT Corner Equipment Frequency</a>
-				</li>
-				<li id="ORTEquipmentAva">
+				<li id="ORTEquipmentAvailability">
 					<a href="#">ORT Corner Equipment Availability</a>
 				</li>
-				<li id="ORTEquipmentLoc">
+				<li id="ORTEquipmentFunctionality">
+					<a href="#">ORT Corner Equipment Functionality</a>
+				</li>
+				<li id="ORTEquipmentLocation">
 					<a href="#">ORT Corner Equipment Location</a>
 				</li>
 				<li id="ORTSupplies">

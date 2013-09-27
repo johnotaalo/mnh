@@ -313,7 +313,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Services to Children with Diarrhoea';
+		$datas['chartTitle'] = 'Services Offered to Children with Diarrhoea';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -518,7 +518,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Action Performed';
+		$datas['chartTitle'] = 'Counsel Given';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -578,7 +578,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Action Performed';
+		$datas['chartTitle'] = 'Tools in a given Unit';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -650,7 +650,7 @@ class C_Analytics extends MY_Controller {
 		$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize =5;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		//var_dump($category);
@@ -729,7 +729,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Action Performed';
+		$datas['chartTitle'] = 'ORT Corner Assessment';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -741,17 +741,17 @@ class C_Analytics extends MY_Controller {
 	 */
 
 	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'frequency', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency', 30);
 
 	}
 
 	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'availability', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability', 30);
 
 	}
 
 	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'location', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location', 30);
 
 	}
 
@@ -770,14 +770,14 @@ class C_Analytics extends MY_Controller {
 		$mch = $other = $opd = $ward = $clinic = array();
 		//$category = $frequencyCategories;
 		switch($choice) {
-			case 'frequency' :
+			case 'Frequency' :
 				$frequencyCategories = $frequency['categories'];
 				$frequencyNever = $frequency['responses']['Never Available'];
 				$frequencyAlways = $frequency['responses']['Available'];
 				$frequencySometimes = $frequency['responses']['Sometimes Available'];
 				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
 				break;
-			case 'availability' :
+			case 'Availability' :
 				foreach ($quantities as $quantity) {
 					$arr = $quantity[$counter];
 					//[0]['Fully-functional'];
@@ -787,7 +787,7 @@ class C_Analytics extends MY_Controller {
 				}
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
-			case 'location' :
+			case 'Location' :
 				//var_dump($location['Table spoons']);die;
 				$location = $results['location']['responses'];
 				$locationCategories = $results['location']['categories'];
@@ -847,7 +847,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'ORT Assessment Functional';
+		$datas['chartTitle'] = 'ORT Assessment '.$choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
