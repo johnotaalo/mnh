@@ -31,12 +31,6 @@
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
-					<div class="control-group pull-left">
-						
-						<select name="fi_district2" id="fi_district2">
-							<option value="all" selected="">Viewing All</option>
-						</select>
-					</div>
 					<div class="control-group pull-right">
 						
 						<select style="width:280px" name="fi_facility" id="fi_facility">

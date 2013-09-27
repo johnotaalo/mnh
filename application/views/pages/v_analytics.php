@@ -101,17 +101,7 @@
 				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch');
 				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
 			});
-			
-			$('select#fi_district2').change(function(){
-				$('#graph_2').empty();
-				$('#graph_3').empty();
-				district=$('select#fi_district2 option:selected').text();
-				//alert(currentChart+district+'/complete/ch');
-				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch');
-				$('select#fi_district').val(district);
-				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
-			});
-			
+						
 			$('select#fi_facility').change(function(){
 				//alert('change');
 				facility=$('select#fi_facility option:selected').attr('value');
@@ -177,6 +167,7 @@
 					 * Facility Statistics
 					 */
 					case 'communityStrategy':
+					appendToTitle = ' ';
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -186,6 +177,7 @@
 						break;
 						
 					case 'guidelines':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getGuidelinesAvailability/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Guidelines');
@@ -270,6 +262,7 @@
 					 * Commodities
 					 */
 					case 'availability':
+					appendToTitle = ' ';
 					$('span.statistic').text('Availability');
 					$('#commodities-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -283,6 +276,7 @@
 					 * Diarrhoea Cases
 					 */	
 					case 'caseNumbers':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Case Numbers');
@@ -293,6 +287,7 @@
 						break;	
 						
 					case 'caseTreatment':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Case Treatment');
@@ -308,6 +303,7 @@
 					 * ORT Corner
 					 */	
 					case 'ORTAssessment':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerAssessment/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('ORT Assessment');
@@ -318,6 +314,7 @@
 						break;	
 						
 					case 'ORTEquipmentFreq':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('ORT Equipment Frequency');
@@ -328,6 +325,7 @@
 						break;	
 						
 					case 'ORTEquipmentLoc':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentLocation/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('ORT Equipment Location');
@@ -338,6 +336,7 @@
 						break;	
 						
 					case 'ORTEquipmentAva':
+					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('ORT Equipment Availability');
@@ -348,6 +347,7 @@
 						break;	
 						
 					case 'ORTSupplies':
+					appendToTitle = ' ';
 					$('span.statistic').text('ORT Supplies');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
@@ -361,6 +361,7 @@
 					 * Resources
 					 */	
 					case 'safeWater':
+					appendToTitle = ' ';
 					$('span.statistic').text('Safe Water');
 					$('#resources-parent').addClass('active');
 					$('#resources-parent a').append('<span class="selected"></span>');
@@ -369,6 +370,7 @@
 						break;	
 						
 					case 'hardwareResources':
+					appendToTitle = ' ';
 					$('span.statistic').text('Hardware Resources');
 					$('#resources-parent').addClass('active');
 					$('#resources-parent a').append('<span class="selected"></span>');
