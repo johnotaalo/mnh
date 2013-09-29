@@ -293,13 +293,59 @@
 					/*
 					 * Commodities
 					 */
-					case 'availability':
+					case 'commodityFrequency':
 					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/';
+					currentDiv = '#graph_3';
 					$('span.statistic').text('Availability');
 					$('#commodities-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
-					$('#graph_1').load('<?php echo base_url();?>c_analytics/getDangerSigns/county/'+county+'/complete/ch');
-					$('#graph_3').load('<?php echo base_url();?>c_analytics/getDangerSigns/county/'+county+'/complete/ch');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/complete/ch');
+					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/complete/ch');
+						break;	
+						
+					case 'commodityUnavailability':
+					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Availability');
+					$('#commodities-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/ch');
+					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/ch');
+						break;	
+						
+					case 'commodityLocation':
+					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Availability');
+					$('#commodities-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/complete/ch');
+					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/complete/ch');
+						break;	
+						
+					case 'commodityQuantities':
+					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Availability');
+					$('#commodities-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/complete/ch');
+					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/complete/ch');
+						break;	
+						
+					case 'commoditySuppliers':
+					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCHCommoditySupplier/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Availability');
+					$('#commodities-parent').addClass('active');
+					$('#facility-statistics-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/complete/ch');
+					$('#graph_3').load('<?php echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/complete/ch');
 						break;	
 					/*
 					 * ------End of Commodities

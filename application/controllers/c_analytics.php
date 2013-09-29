@@ -305,8 +305,93 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getCommodityAvailability($criteria, $value, $status, $survey) {
+	public function getCommodityAvailabilityFrequency($criteria, $value, $status, $survey) {
+		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Frequency',5);
+	}
+	public function getCommodityAvailabilityUnavailability($criteria, $value, $status, $survey) {
+		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Unavailability',5);
+	}
+	public function getCommodityAvailabilityLocation($criteria, $value, $status, $survey) {
+		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Location',25);
+	}
+	public function getCommodityAvailabilityQuantities($criteria, $value, $status, $survey) {
+		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Quantities',5);
+	}
+	public function getCommodityAvailability($criteria, $value, $status, $survey,$choice,$resultSize) {
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
+
+		$resultArray = array();
+
+		$counter = 0;
+
+		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
+		$mch = $other = $opd = $ward = $clinic = array();
+		//$category = $frequencyCategories;
+		switch($choice) {
+			case 'Frequency' :
+				$frequency = $results['frequency'];
+				$categories = $frequency['categories'];
+				$frequencyNever = $frequency['responses']['Never Available'];
+				$frequencyAlways = $frequency['responses']['Available'];
+				$frequencySometimes = $frequency['responses']['Sometimes Available'];
+				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				break;
+			case 'Unavailability' :
+				$unavailability = $results['unavailability'];
+				$analytics = $unavailability['responses'];
+				$categories = $unavailability['categories'];
+				foreach ($analytics as $key => $val) {
+					$resultArray[]=array('name'=>$key,'data'=>$val);
+				}
+				
+				break;
+			case 'Location' :
+				//var_dump($location['Table spoons']);die;
+				$location = $results['location']['responses'];
+				$categories = $results['location']['categories'];
+				
+				$mch = $location['MCH'];
+				$other = $location['Other'];
+				$opd=$location['OPD'];
+				$ward = $location['Ward'];
+				$clinic = $location['U5 Clinic'];
+				//var_dump($other);
+				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+
+				//var_dump($resultArray);die;
+
+				break;
+			case 'Quantities' :
+				$quantities = $results['quantities']['responses'];
+				$categories = $results['quantities']['categories'];
+				foreach($quantities as $val){
+					$currentData[]=$val;
+				}
+				
+				$resultArray = array('name'=>'Quantities','data'=>$currentData);
+				break;
+		}
+		$category = $categories;
+		
+		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
+		//die;
+		$datas = array();
+		$resultArraySize = $resultSize;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria;
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'ORT Assessment ' . $choice;
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	public function getCHCommoditySupplier($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
 		var_dump($results);
 	}
 
@@ -1058,15 +1143,8 @@ class C_Analytics extends MY_Controller {
 		$resultArray = json_encode($resultArray);
 		$datas = array();
 		$resultArraySize = $resultSize;
-
-		//var_dump($resultArray);die;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
-
 		$datas['container'] = 'chart_' . $criteria;
-
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';

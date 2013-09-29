@@ -70,17 +70,26 @@
 				</li>
 			</ul>
 		</li>
-		<!--li id="commodities-parent" class="has-sub start">
+		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="availability">
-					<a href="#">Availability</a>
+				<li id="commodityFrequency">
+					<a href="#">Commodity Frequency</a>
 				</li>
-				<li id="diagnosisQuality">
-					<a href="#">Quality of Diagnosis</a>
+				<li id="commodityUnavailability">
+					<a href="#">Commodity Unavailability</a>
+				</li>
+				<li id="commodityLocation">
+					<a href="#">Commodity Location</a>
+				</li>
+				<li id="commodityQuantities">
+					<a href="#">Commodity Quantities</a>
+				</li>
+				<li id="commoditySuppliers">
+					<a href="#">Commodity Suppliers</a>
 				</li>
 			</ul>
-		</li-->
+		</li>
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">
