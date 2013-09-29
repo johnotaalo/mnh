@@ -117,6 +117,14 @@
 				//alert(currentChart+district+'/complete/ch');
 				$('#graph_2').load(currentChart+'facility/'+facility+'/complete/ch/chart');
 			});
+			$('#facility_list').click(function(){
+				$.ajax({
+  						url: currentChart+'district/'+district+'/complete/ch/list',
+  						success: function(data) {
+  							alert( 'done');
+ 						 }
+					});
+			});
 			
 			$('ul.sub li').click(function(){
 				subID = $(this).attr('id');

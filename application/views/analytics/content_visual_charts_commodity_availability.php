@@ -67,7 +67,7 @@
 		<div class="portlet box green">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span> By District</h4>
-				<button class="btn red" id="facilityList" style="float:right;padding:2px 5px 2px 5px">
+				<button class="btn red" id="facility_list" style="float:right;padding:2px 5px 2px 5px">
 					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
 				</button>
 
