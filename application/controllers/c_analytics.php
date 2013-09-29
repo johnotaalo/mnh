@@ -63,16 +63,16 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> get_facility_reporting_summary('ch');
 		if ($results) {
 			$dyn_table = "<table width='100%' id='facility_report' class='dataTables'>
-			<thead>
 			<tr>
-			<th>MFL Code</th>
-			<th>Name</th>
-			<th>District/Sub County</th>
-			<th>County</th>
-			<th>Contact Person</th>
-			<th>Contact Person Email</th>
-			<th>Date/Time Taken</th>
-			</tr></thead>
+			<tr>
+			<tr><th>MFL Code</th></tr>
+			<tr><th>Name</th></tr>
+			<tr><th>District/Sub County</th></tr>
+			<tr><th>County</th></tr>
+			<tr><th>Contact Person</th></tr>
+			<tr><th>Contact Person Email</th></tr>
+			<tr><th>Date/Time Taken</th></tr>
+			</tr></tr>
 			<tbody>";
 			foreach ($results as $result) {
 
@@ -91,8 +91,8 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
+	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
 		var_dump($results);
 		die ;
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
@@ -125,134 +125,184 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey);
-		//var_dump($results);
-		//die ;
-		$categories = $results['categories'];
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$yCount = 0;
-		$nCount = 0;
-		$yesSize = sizeof($yes);
-		$noSize = sizeof($no);
-		//var_dump($yes);
-		if ($yes == null) {
-			$yesF = array(0, 0, 0, 0);
-		} else {
-			foreach ($categories as $category) {
-				if ($yCount < $yesSize) {
-					if (array_key_exists($category, $yes[$yCount])) {
-						$yesF[] = $yes[$yCount][$category];
-						$yCount++;
-					} else {
-						$yesF[] = 0;
-					}
+	public function getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist);
+
+		switch($chartorlist) {
+			#When Chart is chosen
+			case 'chart' :
+				$categories = $results['categories'];
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$yCount = 0;
+				$nCount = 0;
+				$yesSize = sizeof($yes);
+				$noSize = sizeof($no);
+				//var_dump($yes);
+				if ($yes == null) {
+					$yesF = array(0, 0, 0, 0);
 				} else {
-					$yesF[] = 0;
-				}
-			}
-		}
-		if ($no == null) {
-			$noF = array(0, 0, 0, 0);
-		} else {
-			foreach ($categories as $category) {
-				if ($nCount < $noSize) {
-					if (array_key_exists($category, $no[$nCount])) {
-						$noF[] = $no[$nCount][$category];
-						$nCount++;
-					} else {
-						$noF[] = 0;
+					foreach ($categories as $category) {
+						if ($yCount < $yesSize) {
+							if (array_key_exists($category, $yes[$yCount])) {
+								$yesF[] = $yes[$yCount][$category];
+								$yCount++;
+							} else {
+								$yesF[] = 0;
+							}
+						} else {
+							$yesF[] = 0;
+						}
 					}
-				} else {
-					$noF[] = 0;
 				}
-			}
+				if ($no == null) {
+					$noF = array(0, 0, 0, 0);
+				} else {
+					foreach ($categories as $category) {
+						if ($nCount < $noSize) {
+							if (array_key_exists($category, $no[$nCount])) {
+								$noF[] = $no[$nCount][$category];
+								$nCount++;
+							} else {
+								$noF[] = 0;
+							}
+						} else {
+							$noF[] = 0;
+						}
+					}
+				}
+
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
+				$resultArray = json_encode($resultArray);
+				//var_dump($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				$datas['resultArraySize'] = $resultArraySize;
+
+				$datas['container'] = 'chart_' . $criteria;
+
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Guidelines';
+				$datas['categories'] = json_encode($categories);
+				$datas['yAxis'] = 'Availability';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			#When List is chosen
+			case 'list' :
+				$IMCI = $results['IMCI'];
+				$ORT = $results['ORT'];
+				$ICCM = $results['ICCM'];
+				$PAED = $results['PAED'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Does the facility have updated 2012 IMCI guidelines?</th></tr>';
+				foreach ($IMCI as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Does the facility have updated ORT Corner guidelines?</th></tr>';
+				foreach ($ORT as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Does the facility have updated ICCM guidelines?</th></tr>';
+				foreach ($ICCM as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Does the facility have an updated Paediatric Protocol?</th></tr>';
+				foreach ($PAED as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+
+				break;
 		}
-
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
-		$resultArray = json_encode($resultArray);
-		//var_dump($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Guidelines';
-		$datas['categories'] = json_encode($categories);
-		$datas['yAxis'] = 'Availability';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 
 	}
 
 	/*
 	 * Get Trained Stuff
 	 */
-	public function getTrainedStaff($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
+	public function getTrainedStaff($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey, $chartorlist);
 		//var_dump($results);
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$yCount = 3;
-		$nCount = 3;
-		$category = array();
-		//var_dump($yes);
 
-		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				$category[] = $value[0];
-				$yesData[] = (int)$value[1];
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				$category[] = $value[0];
-				$noData[] = (int)$value[1];
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$yCount = 3;
+				$nCount = 3;
+				$category = array();
+				//var_dump($yes);
+
+				//var_dump($result);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						$category[] = $value[0];
+						$yesData[] = (int)$value[1];
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						$category[] = $value[0];
+						$noData[] = (int)$value[1];
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Trained', 'data' => $yesData), array('name' => 'Working', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
+
+				$datas['container'] = 'chart_' . $criteria;
+
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Trained Staff vs Working with Children';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Ratio';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				break;
 		}
 
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Trained', 'data' => $yesData), array('name' => 'Working', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Trained Staff vs Working with Children';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Ratio';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	public function getCommodityAvailability($criteria, $value, $status, $survey) {
@@ -260,329 +310,483 @@ class C_Analytics extends MY_Controller {
 		var_dump($results);
 	}
 
-	public function getChildrenServices($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey);
-		//var_dump($results);
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$yCount = 5;
-		$nCount = 5;
-		$category = $results['categories'];
-		//var_dump($yes);
+	public function getChildrenServices($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey, $chartorlist);
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$yCount = 5;
+				$nCount = 5;
+				$category = $results['categories'];
+				//var_dump($yes);
 
-		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				//$category[] = $value[0];
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
+				//var_dump($result);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						//$category[] = $value[0];
+						$yesData[] = (int)$value;
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						//$category[] = $value[0];
+						$noData[] = (int)$value;
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($resultArray);
+				$datas['resultArraySize'] = $resultArraySize;
+
+				$datas['container'] = 'chart_' . $criteria;
+
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Services Offered to Children with Diarrhoea';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				$temp = $results['temp'];
+				$weight = $results['weight'];
+				$height = $results['height'];
+				$mch = $results['mch'];
+				$muac = $results['muac'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Temperature Taken</th></tr>';
+				foreach ($temp as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Weight taken</th></tr>';
+				foreach ($weight as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Height taken</th></tr>';
+				foreach ($height as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>MCH taken</th></tr>';
+				foreach ($mch as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>MUAC taken</th></tr>';
+				foreach ($muac as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+				break;
 		}
 
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($resultArray);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Services Offered to Children with Diarrhoea';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	private function insert($array, $index, $val) {//function decleration
-		$temp = array();
-		// this temp array will hold the value
-		$size = count($array);
-		//because I am going to use this more than one time
-		// just validate if index value is proper
-		if (@$index)
-			if ($index < 0 || $index > $size) {
-				echo "Error: Wrong index at Insert. Index: " . $index . " Current Size: " . $size;
-				echo "<br/>";
-				return false;
-			}
+	public function getDangerSigns($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey, $chartorlist);
 
-		//here is the actual insertion code
-		$temp = array_slice($array, 0, $index);
-		//slice from 0 to index
-		array_push($temp, $val);
-		//add the value at the end of the array
-		$temp = array_merge($temp, array_slice($array, $index, $size));
-		//reconnect the remaining of the array to the current temp
-		$array = $temp;
-		//swap// no need for this if you pass the array cuz you can simply return $temp, but, if u r using a class array for example, this is useful.
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$category = $results['categories'];
+				$yCount = 2;
+				$nCount = 2;
+				//var_dump($yes);
 
-		return $array;
-		// you can return $temp instead if you don't use class array
+				//var_dump($results);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						//$category[] = $value[0];
+						//echo (int)$value;
+						$yesData[] = (int)$value;
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						//$category[] = $value[0];
+						$noData[] = (int)$value;
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
+
+				$datas['container'] = 'chart_' . $criteria;
+
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Danger Signs';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				$breastfeed = $results['breastfeed'];
+				$lethargy = $results['lethargy'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Inability to drink or breastfeed</th></tr>';
+				foreach ($breastfeed as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Lethargy and unconsciousness</th></tr>';
+				foreach ($lethargy as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+				break;
+		}
+
 	}
 
-	public function getDangerSigns($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey);
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$category = $results['categories'];
-		$yCount = 2;
-		$nCount = 2;
-		//var_dump($yes);
+	public function getActionsPerformed($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey, $chartorlist);
 
-		//var_dump($results);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				//$category[] = $value[0];
-				//echo (int)$value;
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$category = $results['categories'];
+				$yCount = 6;
+				$nCount = 6;
+				//var_dump($yes);
+
+				//var_dump($result);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						//$category[] = $value[0];
+						$yesData[] = (int)$value;
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						//$category[] = $value[0];
+						$noData[] = (int)$value;
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
+				$datas['container'] = 'chart_' . $criteria;
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Action Performed';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				$diarrhoea = $results['diarrhoea'];
+				$fluid = $results['fluid'];
+				$pinch = $results['pinch'];
+				$dehydration = $results['dehydration'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Ask about the duration of diarrhoea</th></tr>';
+				foreach ($diarrhoea as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Offer the child fluid to drink</th></tr>';
+				foreach ($fluid as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Perform skin pinch</th></tr>';
+				foreach ($pinch as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Correctly assess and classify diarrhoea and dehydration</th></tr>';
+				foreach ($dehydration as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+				break;
 		}
 
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	public function getActionsPerformed($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey);
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$category = $results['categories'];
-		$yCount = 6;
-		$nCount = 6;
-		//var_dump($yes);
+	public function getCounselGiven($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey, $chartorlist);
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$category = $results['categories'];
+				$yCount = 3;
+				$nCount = 3;
+				//var_dump($yes);
 
-		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				//$category[] = $value[0];
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
+				//var_dump($result);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						//$category[] = $value[0];
+						$yesData[] = (int)$value;
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						//$category[] = $value[0];
+						$noData[] = (int)$value;
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
+
+				$datas['container'] = 'chart_' . $criteria;
+
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Counsel Given';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				$extra = $results['extra'];
+				$home = $results['home'];
+				$follow = $results['follow'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>On giving extra feeding</th></tr>';
+				foreach ($extra as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>On home care</th></tr>';
+				foreach ($home as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>On when to return for follow up</th></tr>';
+				foreach ($follow as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+				break;
 		}
 
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Action Performed';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	public function getCounselGiven($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey);
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$category = $results['categories'];
-		$yCount = 3;
-		$nCount = 3;
-		//var_dump($yes);
-
-		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				//$category[] = $value[0];
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Counsel Given';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
-	}
-
-	public function getTools($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey);
+	public function getTools($criteria, $value, $status, $survey, $chartorlist) {
+		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey, $chartorlist);
 		//var_dump($results);die;
-		$yes = $results['yes_values'];
-		$no = $results['no_values'];
-		$category = $results['categories'];
-		$yCount = 3;
-		$nCount = 3;
-		//var_dump($yes);
+		switch($chartorlist) {
+			case 'chart' :
+				$yes = $results['yes_values'];
+				$no = $results['no_values'];
+				$category = $results['categories'];
+				$yCount = 3;
+				$nCount = 3;
+				//var_dump($yes);
 
-		//var_dump($result);
-		if ($yes != null) {
-			foreach ($yes as $value) {
-				//$category[] = $value[0];
-				$yesData[] = (int)$value;
-				$yCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
-		}
-		if ($no != null) {
-			foreach ($no as $value) {
-				//$category[] = $value[0];
-				$noData[] = (int)$value;
-				$nCount--;
-				//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-			}
+				//var_dump($result);
+				if ($yes != null) {
+					foreach ($yes as $value) {
+						//$category[] = $value[0];
+						$yesData[] = (int)$value;
+						$yCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+				if ($no != null) {
+					foreach ($no as $value) {
+						//$category[] = $value[0];
+						$noData[] = (int)$value;
+						$nCount--;
+						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
+					}
+				}
+
+				#Fill up Arrays
+				for ($x = 0; $x < $yCount; $x++) {
+					$yesData[] = 0;
+				}
+				for ($x = 0; $x < $nCount; $x++) {
+					if ($no != null) {
+						array_unshift($noData, 0);
+					} else {
+						$noData[] = 0;
+					}
+				}
+				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
+				$datas['container'] = 'chart_' . $criteria;
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = 'Tools in a given Unit';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+				$this -> load -> view('charts/chart_stacked_v', $datas);
+				break;
+			case 'list' :
+				$under5 = $results['under5'];
+				$ORT = $results['ORT'];
+				$book = $results['book'];
+
+				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Under 5 register</th></tr>';
+				foreach ($under5 as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>ORT Corner register(improvised)</th></tr>';
+				foreach ($ORT as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Mother Child Booklet</th></tr>';
+				foreach ($book as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+
+				#End of List
+				#Generate PDF
+				$this -> loadPDF($pdf);
+				break;
 		}
 
-		#Fill up Arrays
-		for ($x = 0; $x < $yCount; $x++) {
-			$yesData[] = 0;
-		}
-		for ($x = 0; $x < $nCount; $x++) {
-			if ($no != null) {
-				array_unshift($noData, 0);
-			} else {
-				$noData[] = 0;
-			}
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-		$resultArray = json_encode($resultArray);
-		$datas = array();
-		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
-		//var_dump($category);
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria;
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Tools in a given Unit';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/*
@@ -629,6 +833,7 @@ class C_Analytics extends MY_Controller {
 
 	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey);
+		//var_dump($results);die;
 		$categories = $results['categories'];
 		$categoriesCount = 0;
 
@@ -637,17 +842,35 @@ class C_Analytics extends MY_Controller {
 			if ($categoriesCount < 6) {
 				$index = $categories[$categoriesCount];
 				if ($result == $index) {
-					$severe_dehydration[] = (int)$val['severe_dehydration'];
-					$some_dehydration[] = (int)$val['some_dehydration'];
-					$no_dehydration[] = (int)$val['no_dehydration'];
-					$dysentry[] = (int)$val['dysentry'];
-					$no_classification[] = (int)$val['no_classification'];
+					$severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
+					$some_dehydration[] = array($result, (int)$val['some_dehydration']);
+					$no_dehydration[] = array($result, (int)$val['no_dehydration']);
+					$dysentry[] = array($result, (int)$val['dysentry']);
+					$no_classification[] = array($result, (int)$val['no_classification']);
 					$category[] = $index;
 					$categoriesCount++;
 				}
 			}
 		}
-		$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
+		switch($filter) {
+			case 'Severe Dehydration' :
+				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
+				break;
+			case 'Some Dehydration' :
+				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
+				break;
+			case 'No Dehydration' :
+				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
+				break;
+			case 'Dysentry' :
+				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
+				break;
+			case 'No Classification' :
+				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
+				break;
+		}
+
+		//$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
 		$resultArray = json_encode($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
@@ -658,11 +881,11 @@ class C_Analytics extends MY_Controller {
 
 		$datas['container'] = 'chart_' . $criteria;
 
-		$datas['chartType'] = 'bar';
+		$datas['chartType'] = 'pie';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = 'Case Treatment';
-		$datas['categories'] = json_encode($category);
+		$datas['categories'] = '';
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_v', $datas);
@@ -947,19 +1170,31 @@ class C_Analytics extends MY_Controller {
 		echo $options;
 	}
 
+	#Generate Facility List
+	public function generateFacilityList() {
+
+	}
+
 	#Load PDF
-	public function loadPDF() {
-		$stylesheet = ('');
-		$html = ('Test');
+	public function loadPDF($pdf) {
+		$stylesheet = ('
+		th{
+			border-bottom:2px solid #000;
+		}
+		h3 em {
+			color:red;
+		}
+		');
+		$html = ($pdf);
 		$this -> load -> library('mpdf');
 		$this -> mpdf = new mPDF('', 'A4-L', 0, '', 15, 15, 16, 16, 9, 9, '');
-		$this -> mpdf -> SetTitle('DCAH Assessment Tool');
-		$this -> mpdf -> SetHTMLHeader('<em>DCAH Assessment Tool</em>');
-		$this -> mpdf -> SetHTMLFooter('<em>DCAH Assessment Tool</em>');
+		$this -> mpdf -> SetTitle('Maternal Newborn and Child Health Assessment');
+		$this -> mpdf -> SetHTMLHeader('<em>Child Health Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLFooter('<em>Child Health Assessment Tool</em>');
 		$this -> mpdf -> simpleTables = true;
 		$this -> mpdf -> WriteHTML($stylesheet, 1);
 		$this -> mpdf -> WriteHTML($html, 2);
-		$report_name = 'DCAH Assessment Tool' . ".pdf";
+		$report_name = 'CH Assessment Tool_Facility List' . ".pdf";
 		$this -> mpdf -> Output($report_name, 'D');
 
 	}

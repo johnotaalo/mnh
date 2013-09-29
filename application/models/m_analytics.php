@@ -48,7 +48,7 @@ class M_Analytics extends MY_Model {
 	/**
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value, $status, $survey) {
+	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		//$data=array();
 		$data = '';
@@ -73,59 +73,65 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-
-		$query = "SELECT cs.strategyID AS strategy,cs.strategyResponse AS strategy_number FROM mch_community_strategy cs WHERE cs.strategyID IN
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT cs.strategyID AS strategy,cs.strategyResponse AS strategy_number FROM mch_community_strategy cs WHERE cs.strategyID IN
                    (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='cms') 
                    AND cs.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
                    GROUP BY cs.strategyID ASC";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$i = 1;
-				$size = count($this -> dataSet);
-				foreach ($this->dataSet as $value) {
-					switch($this -> getCommunityStrategyName($value['strategy'])) {
-						case 'Total number of Community Units established and functional' :
-							$strategy = 'CU established and functional';
-							break;
-						case 'Total number of Community Units regularly supervised and provided feedback' :
-							$strategy = 'CU regularly supervised';
-							break;
-						case 'Total number of CHWs and CHEWs trained on Integrated Community Case Management (ICCM)' :
-							$strategy = 'CHWs & CHEWs on ICCM';
-							break;
-						case 'Total number of Community Units supported by incentives for CHWs' :
-							$strategy = 'CU supported by incentives for CHW';
-							break;
-						case 'Total number of cases treated with Zinc and ORS co-pack under Community Case Management of diarrhoea' :
-							$strategy = 'Cases treated with Zinc & ORS';
-							break;
-					}
-					if ($i == $size) {
-						$data[] = array($strategy, $value['strategy_number']);
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$i = 1;
+						$size = count($this -> dataSet);
+						foreach ($this->dataSet as $value) {
+							switch($this -> getCommunityStrategyName($value['strategy'])) {
+								case 'Total number of Community Units established and functional' :
+									$strategy = 'CU established and functional';
+									break;
+								case 'Total number of Community Units regularly supervised and provided feedback' :
+									$strategy = 'CU regularly supervised';
+									break;
+								case 'Total number of CHWs and CHEWs trained on Integrated Community Case Management (ICCM)' :
+									$strategy = 'CHWs & CHEWs on ICCM';
+									break;
+								case 'Total number of Community Units supported by incentives for CHWs' :
+									$strategy = 'CU supported by incentives for CHW';
+									break;
+								case 'Total number of cases treated with Zinc and ORS co-pack under Community Case Management of diarrhoea' :
+									$strategy = 'Cases treated with Zinc & ORS';
+									break;
+							}
+							if ($i == $size) {
+								$data[] = array($strategy, $value['strategy_number']);
+							} else {
+								$data[] = array($strategy, $value['strategy_number']);
+								$i++;
+							}
+						}
+						$this -> dataSet = $data;
+						return $this -> dataSet;
 					} else {
-						$data[] = array($strategy, $value['strategy_number']);
-						$i++;
+						return $this -> dataSet = null;
 					}
+					//die(var_dump($this->dataSet));
+				} catch(Exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-				$this -> dataSet = $data;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(Exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+				break;
+			case 'line' :
+				break;
 		}
+
 	}
 
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability($criteria, $value, $status, $survey) {
+	public function getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = array();
 		$data_prefix_y = '';
@@ -152,69 +158,116 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-
-		$query = "SELECT COUNT(ql.facilityID) AS total_facilities,ql.indicatorID AS guideline,ql.response AS availability FROM mch_questions_log ql WHERE ql.indicatorID IN 
+		#Check whether a graph or a list is required
+		switch($chartorlist) {
+			#initial query
+			case 'chart' :
+				$query = "SELECT COUNT(ql.facilityID) AS total_facilities,ql.indicatorID AS guideline,ql.response AS availability FROM mch_questions_log ql WHERE ql.indicatorID IN 
                    (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='gp') 
                    AND ql.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
                    GROUP BY ql.response,ql.indicatorID ORDER BY ql.response ASC";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				//get a set of the 4 guidelines
-				$data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
+						//get a set of the 4 guidelines
+						$data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
 
-				//$data['categories'] = json_encode($data_categories);
+						//$data['categories'] = json_encode($data_categories);
 
-				foreach ($this->dataSet as $value) {
-					switch($this -> getTrainingGuidelineName($value['guideline'])) {
-						case 'Does the facility have updated 2012 IMCI guidelines?' :
-							$guideline = '2012 IMCI';
-							break;
-						case 'Does the facility have updated ORT Corner guidelines?' :
-							$guideline = 'ORT Corner';
-							break;
-						case 'Does the facility have an updated Paediatric Protocol?' :
-							$guideline = 'Paediatric Protocol';
-							break;
-						case 'Does the facility have updated ICCM guidelines?' :
-							$guideline = 'ICCM';
-							break;
-					}
+						foreach ($this->dataSet as $value) {
+							switch($this -> getTrainingGuidelineName($value['guideline'])) {
+								case 'Does the facility have updated 2012 IMCI guidelines?' :
+									$guideline = '2012 IMCI';
+									break;
+								case 'Does the facility have updated ORT Corner guidelines?' :
+									$guideline = 'ORT Corner';
+									break;
+								case 'Does the facility have an updated Paediatric Protocol?' :
+									$guideline = 'Paediatric Protocol';
+									break;
+								case 'Does the facility have updated ICCM guidelines?' :
+									$guideline = 'ICCM';
+									break;
+							}
 
-					if ($value['availability'] == 'Yes') {
-						$data_y[] = array($guideline => (int)$value['total_facilities']);
+							if ($value['availability'] == 'Yes') {
+								$data_y[] = array($guideline => (int)$value['total_facilities']);
+							} else {
+								$data_n[] = array($guideline => (int)$value['total_facilities']);
+							}
+							//$data['categories'][]=$guideline;
+						}
+
+						$data['yes_values'] = $data_y;
+						$data['no_values'] = $data_n;
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+
 					} else {
-						$data_n[] = array($guideline => (int)$value['total_facilities']);
+						return $this -> dataSet = null;
 					}
-					//$data['categories'][]=$guideline;
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
+				break;
+			case 'list' :
+				#Facility List
+				$query = "SELECT DISTINCT ql.facilityID, g.mchQuestion, f.facilityName
+					FROM mnh.mch_questions_log ql,mnh.mch_questions g, facility f WHERE response = 'No'AND ql.indicatorID IN (SELECT questionCode FROM mch_questions
+ 					WHERE  mchQuestionFor = 'gp') AND ql.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
+ 					 AND ql.indicatorID = g.questionCode AND ql.facilityID=f.facilityMFC;";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
 
-				$data['yes_values'] = $data_y;
-				$data['no_values'] = $data_n;
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				$this -> dataSet = $data;
+						foreach ($this->dataSet as $value) {
+							switch($value['mchQuestion']) {
+								case 'Does the facility have updated 2012 IMCI guidelines?' :
+									$IMCI[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Does the facility have updated ORT Corner guidelines?' :
+									$ORT[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Does the facility have updated ICCM guidelines?' :
+									$ICCM[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Does the facility have an updated Paediatric Protocol?' :
+									$PAED[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						$this -> dataSet = array('IMCI' => $IMCI, 'ORT' => $ORT, 'ICCM' => $ICCM, 'PAED' => $PAED);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
+		return $this -> dataSet;
 	}
 
 	/*
 	 * Trained Staff
 	 */
-	public function getTrainedStaff($criteria, $value, $status, $survey) {
+	public function getTrainedStaff($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = array();
 		$data_prefix_y = '';
@@ -244,47 +297,52 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT COUNT(gt.facilityID) AS facilities,gt.guidelineCode AS training,sum(gt.lastTrained) AS trained,sum(gt.trainedAndWorking) AS working
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT COUNT(gt.facilityID) AS facilities,gt.guidelineCode AS training,sum(gt.lastTrained) AS trained,sum(gt.trainedAndWorking) AS working
 		  	FROM guideline_training gt WHERE gt.guidelineCode IN 
 		 	(SELECT guidelineCode FROM guidelines WHERE guidelineFor='mch') 
 			AND gt.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 			GROUP BY gt.guidelineCode ORDER BY gt.guidelineCode ASC";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				foreach ($this->dataSet as $value) {
-					//if(isset($value['trained'])){
-					$data_y[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['trained']));
-					//}else if(isset($value['working'])){
-					$data_n[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['working']));
-					//}
+						foreach ($this->dataSet as $value) {
+							//if(isset($value['trained'])){
+							$data_y[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['trained']));
+							//}else if(isset($value['working'])){
+							$data_n[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['working']));
+							//}
 
-					//get a set of the 3 staff trainings
-					//$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
+							//get a set of the 3 staff trainings
+							//$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
+						}
+
+						$data['categories'] = json_encode($data_categories);
+
+						$data['yes_values'] = $data_y;
+						$data['no_values'] = $data_n;
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
+					}
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-
-				$data['categories'] = json_encode($data_categories);
-
-				$data['yes_values'] = $data_y;
-				$data['no_values'] = $data_n;
-
-				$this -> dataSet = $data;
-
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+				break;
 		}
+
 	}
 
 	/*
@@ -695,11 +753,12 @@ class M_Analytics extends MY_Model {
 	/*
 	 * Services to Children with Diarrhoea
 	 */
-	public function getChildrenServices($criteria, $value, $status, $survey) {
+	public function getChildrenServices($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
 		$data_n = array();
+		$temp = $muac = $weight = $height = $mch = array();
 		$MCHY = $MCHN = $temperatureY = $temperatureN = $weightY = $weightN = $HLY = $HLN = $MUACY = $MUACN = 0;
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
@@ -729,102 +788,170 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT il.indicatorID AS indicator,il.response as response
+		#Check whether a graph or a list is required
+		switch($chartorlist) {
+			#initial query
+			case 'chart' :
+				$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='svc') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") ";
 
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			//echo $this->db->last_query();die;
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
-				$yesCount = 0;
-				$noCount = 0;
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					//echo $this->db->last_query();die;
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
+						$yesCount = 0;
+						$noCount = 0;
 
-				//var_dump($this->dataSet);
+						//var_dump($this->dataSet);
 
-				#Forced One Values
-				foreach ($this->dataSet as $value) {
-					switch($this->getChildHealthIndicatorName($value['indicator'])) {
-						case 'Use of MCH booklet' :
-							if ($value['response'] == 'Yes') {
-								$MCHY++;
-							} else if ($value['response'] == 'No') {
-								$MCHN++;
-							}
-							break;
+						#Forced One Values
+						foreach ($this->dataSet as $value) {
+							switch($this->getChildHealthIndicatorName($value['indicator'])) {
+								case 'Use of MCH booklet' :
+									if ($value['response'] == 'Yes') {
+										$MCHY++;
+									} else if ($value['response'] == 'No') {
+										$MCHN++;
+									}
+									break;
 
-						case 'Temperature taken' :
-							if ($value['response'] == 'Yes') {
-								$temperatureY++;
-							} else if ($value['response'] == 'No') {
-								$temperatureN++;
-							}
-							break;
+								case 'Temperature taken' :
+									if ($value['response'] == 'Yes') {
+										$temperatureY++;
+									} else if ($value['response'] == 'No') {
+										$temperatureN++;
+									}
+									break;
 
-						case 'Weight taken' :
-							if ($value['response'] == 'Yes') {
-								$weightY++;
-							} else if ($value['response'] == 'No') {
-								$weightN++;
+								case 'Weight taken' :
+									if ($value['response'] == 'Yes') {
+										$weightY++;
+									} else if ($value['response'] == 'No') {
+										$weightN++;
+									}
+									break;
+								case 'Height/Length taken' :
+									if ($value['response'] == 'Yes') {
+										$HLY++;
+									} else if ($value['response'] == 'No') {
+										$HLN++;
+									}
+									break;
+								case 'MUAC taken' :
+									if ($value['response'] == 'Yes') {
+										$MUACY++;
+									} else if ($value['response'] == 'No') {
+										$MUACN++;
+									}
+									break;
 							}
-							break;
-						case 'Height/Length taken' :
-							if ($value['response'] == 'Yes') {
-								$HLY++;
-							} else if ($value['response'] == 'No') {
-								$HLN++;
-							}
-							break;
-						case 'MUAC taken' :
-							if ($value['response'] == 'Yes') {
-								$MUACY++;
-							} else if ($value['response'] == 'No') {
-								$MUACN++;
-							}
-							break;
+							//echo $MCHY;
+							/*if ($value['response'] == 'Yes') {
+							 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 $yesCount++;
+							 } else if ($value['response'] == 'No') {
+							 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 $noCount++;
+							 }*/
+
+							//get a set of the 5 services offered
+
+						}
+						$data_categories = array('Use of MCH booklet', 'Temperature taken', 'Weight taken', 'Height/Length taken', 'MUAC taken');
+						$data['categories'] = $data_categories;
+
+						$data['yes_values'] = array((int)$MCHY, (int)$temperatureY, (int)$weightY, (int)$HLY, (int)$MUACY);
+						$data['no_values'] = array((int)$MCHN, (int)$temperatureN, (int)$weightN, (int)$HLN, (int)$MUACN);
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
 					}
-					//echo $MCHY;
-					/*if ($value['response'] == 'Yes') {
-					 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 $yesCount++;
-					 } else if ($value['response'] == 'No') {
-					 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 $noCount++;
-					 }*/
-
-					//get a set of the 5 services offered
-
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-				$data_categories = array('Use of MCH booklet', 'Temperature taken', 'Weight taken', 'Height/Length taken', 'MUAC taken');
-				$data['categories'] = $data_categories;
+				break;
+			case 'list' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'svc')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
 
-				$data['yes_values'] = array((int)$MCHY, (int)$temperatureY, (int)$weightY, (int)$HLY, (int)$MUACY);
-				$data['no_values'] = array((int)$MCHN, (int)$temperatureN, (int)$weightN, (int)$HLN, (int)$MUACN);
+					if (count($this -> dataSet) > 0) {
 
-				$this -> dataSet = $data;
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Temperature Taken' :
+									$temp[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Weight taken' :
+									$weight[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Height/Length taken' :
+									$height[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Use of MCH booklet' :
+									$mch[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'MUAC taken' :
+									$muac[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('temp' => $temp, 'weight' => $weight, 'height' => $height, 'mch' => $mch, 'muac' => $muac);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
-
+		return $this -> dataSet;
 	}
 
 	/*
 	 * Danger Signs assessed in Ongoing Sessions
 	 */
-	public function getDangerSigns($criteria, $value, $status, $survey) {
+	public function getDangerSigns($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -858,78 +985,136 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-
-		$query = "SELECT il.indicatorID AS indicator,il.response as response
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT il.indicatorID AS indicator,il.response as response
 				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='sgn') 
 				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
 				  WHERE " . $status_condition . "  " . $criteria_condition . ") ";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			//echo $this->db->last_query();die;
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
-				//var_dump($this -> dataSet);
-				$data_categories = array('Inability to drink or breastfeed', 'Lethargy and unconsciousness');
-				foreach ($this->dataSet as $value) {
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					//echo $this->db->last_query();die;
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
+						//var_dump($this -> dataSet);
+						$data_categories = array('Inability to drink or breastfeed', 'Lethargy and unconsciousness');
+						foreach ($this->dataSet as $value) {
 
-					switch($this->getChildHealthIndicatorName($value['indicator'])) {
-						case 'Inability to drink or breastfeed' :
-							if ($value['response'] == 'Yes') {
-								$breastFeedY++;
-							} else if ($value['response'] == 'No') {
-								$breastFeedN++;
+							switch($this->getChildHealthIndicatorName($value['indicator'])) {
+								case 'Inability to drink or breastfeed' :
+									if ($value['response'] == 'Yes') {
+										$breastFeedY++;
+									} else if ($value['response'] == 'No') {
+										$breastFeedN++;
+									}
+									break;
+								case 'Lethargy and unconsciousness' :
+									if ($value['response'] == 'Yes') {
+										$lethargyY++;
+									} else if ($value['response'] == 'No') {
+										$lethargyN++;
+									}
+									break;
 							}
-							break;
-						case 'Lethargy and unconsciousness' :
-							if ($value['response'] == 'Yes') {
-								$lethargyY++;
-							} else if ($value['response'] == 'No') {
-								$lethargyN++;
-							}
-							break;
+
+							/*if ($value['response'] == 'Yes') {
+							 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 } else if ($value['response'] == 'No') {
+							 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 }
+							 */
+							//get a set of the 5 services offered
+							//$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+						}
+
+						$data['categories'] = $data_categories;
+
+						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
 					}
-
-					/*if ($value['response'] == 'Yes') {
-					 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 } else if ($value['response'] == 'No') {
-					 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 }
-					 */
-					//get a set of the 5 services offered
-					//$data_categories[] = $this -> getChildHealthIndicatorName($value['indicator']);
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
+				break;
+			case 'list' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'sgn')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
 
-				$data['categories'] = $data_categories;
+					if (count($this -> dataSet) > 0) {
 
-				$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-				$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
-				;
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				$this -> dataSet = $data;
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Inability to drink or breastfeed' :
+									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Lethargy and unconsciousness' :
+									$lethargy[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
+		return $this -> dataSet;
 	}
 
 	/*
 	 * Tasks performed in Ongoing Sessions
 	 */
-	public function getActionsPerformed($criteria, $value, $status, $survey) {
+	public function getActionsPerformed($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
 		$data_n = array();
+		$diarrhoea = $fluid = $pinch = $dehydration = array();
 		$diarrhoeaY = $diarrhoeaN = $bloodY = $bloodN = $sunkenY = $sunkenN = $fluidY = $fluidN = $pinchY = $pinchN = $dehydrationY = $dehydrationN = 0;
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
@@ -958,95 +1143,159 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT il.indicatorID AS indicator,il.response as response
+FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn')
+AND il.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
+						//var_dump($this -> dataSet);
+						foreach ($this->dataSet as $value) {
+							switch($this->getChildHealthIndicatorName($value['indicator'])) {
+								case 'Ask about the duration of diarrhoea' :
+									if ($value['response'] == 'Yes') {
+										$diarrhoeaY++;
+									} else if ($value['response'] == 'No') {
+										$diarrhoeaN++;
+									}
+									break;
+								case 'Ask about the presence of Blood in stool' :
+									if ($value['response'] == 'Yes') {
+										$bloodY++;
+									} else if ($value['response'] == 'No') {
+										$bloodN++;
+									}
+									break;
+								case 'Look for sunken eyes' :
+									if ($value['response'] == 'Yes') {
+										$sunkenY++;
+									} else if ($value['response'] == 'No') {
+										$sunkenN++;
+									}
+									break;
+								case 'Offer the child fluid to drink' :
+									if ($value['response'] == 'Yes') {
+										$fluidY++;
+									} else if ($value['response'] == 'No') {
+										$fluidN++;
+									}
+									break;
+								case 'Perform skin pinch' :
+									if ($value['response'] == 'Yes') {
+										$pinchY++;
+									} else if ($value['response'] == 'No') {
+										$pinchN++;
+									}
+									break;
+								case 'Correctly assess and classify diarrhoea and dehydration' :
+									if ($value['response'] == 'Yes') {
+										$dehydrationY++;
+									} else if ($value['response'] == 'No') {
+										$dehydrationN++;
+									}
+									break;
+							}
+							/*if ($value['response'] == 'Yes') {
+							 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 } else if ($value['response'] == 'No') {
+							 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
+							 }*/
 
-		$query = "SELECT il.indicatorID AS indicator,il.response as response
-				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn') 
-				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ") ";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
-				//var_dump($this -> dataSet);
-				foreach ($this->dataSet as $value) {
-					switch($this->getChildHealthIndicatorName($value['indicator'])) {
-						case 'Ask about the duration of diarrhoea' :
-							if ($value['response'] == 'Yes') {
-								$diarrhoeaY++;
-							} else if ($value['response'] == 'No') {
-								$diarrhoeaN++;
-							}
-							break;
-						case 'Ask about the presence of Blood in stool' :
-							if ($value['response'] == 'Yes') {
-								$bloodY++;
-							} else if ($value['response'] == 'No') {
-								$bloodN++;
-							}
-							break;
-						case 'Look for sunken eyes' :
-							if ($value['response'] == 'Yes') {
-								$sunkenY++;
-							} else if ($value['response'] == 'No') {
-								$sunkenN++;
-							}
-							break;
-						case 'Offer the child fluid to drink' :
-							if ($value['response'] == 'Yes') {
-								$fluidY++;
-							} else if ($value['response'] == 'No') {
-								$fluidN++;
-							}
-							break;
-						case 'Perform skin pinch' :
-							if ($value['response'] == 'Yes') {
-								$pinchY++;
-							} else if ($value['response'] == 'No') {
-								$pinchN++;
-							}
-							break;
-						case 'Correctly assess and classify diarrhoea and dehydration' :
-							if ($value['response'] == 'Yes') {
-								$dehydrationY++;
-							} else if ($value['response'] == 'No') {
-								$dehydrationN++;
-							}
-							break;
+						}
+						$data_categories = array('Ask about the duration of diarrhoea', 'Ask about the presence of Blood in stool', 'Look for sunken eyes', 'Offer the child fluid to drink', 'Perform skin pinch', 'Correctly assess and classify diarrhoea and dehydration');
+						$data['categories'] = $data_categories;
+
+						$data['yes_values'] = array($diarrhoeaY, $bloodY, $sunkenY, $fluidY, $pinchY, $dehydrationY);
+						$data['no_values'] = array($diarrhoeaN, $bloodN, $sunkenN, $fluidN, $pinchN, $dehydrationN);
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
 					}
-					/*if ($value['response'] == 'Yes') {
-					 $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 } else if ($value['response'] == 'No') {
-					 $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
-					 }*/
-
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-				$data_categories = array('Ask about the duration of diarrhoea', 'Ask about the presence of Blood in stool', 'Look for sunken eyes', 'Offer the child fluid to drink', 'Perform skin pinch', 'Correctly assess and classify diarrhoea and dehydration');
-				$data['categories'] = $data_categories;
+				break;
+			case 'list' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'dgn')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
 
-				$data['yes_values'] = array($diarrhoeaY, $bloodY, $sunkenY, $fluidY, $pinchY, $dehydrationY);
-				$data['no_values'] = array($diarrhoeaN, $bloodN, $sunkenN, $fluidN, $pinchN, $dehydrationN);
+					if (count($this -> dataSet) > 0) {
 
-				$this -> dataSet = $data;
+						$size = count($this -> dataSet);
+						$i = 0;
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Ask about the duration of diarrhoea' :
+									$diarrhoea[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Offer the child fluid to drink' :
+									$fluid[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Perform skin pinch' :
+									$pinch[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Correctly assess and classify diarrhoea and dehydration' :
+									$dehydration[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('diarrhoea' => $diarrhoea, 'fluid' => $fluid, 'pinch' => $pinch, 'dehydration' => $dehydration);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
+		return $this -> dataSet;
+
 	}
 
 	/*
 	 * Counsel on Ongoing Sessions
 	 */
-	public function getCounselGiven($criteria, $value, $status, $survey) {
+	public function getCounselGiven($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1079,69 +1328,130 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT il.indicatorID AS indicator,il.response as response
+FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns')
+AND il.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . "  " . $criteria_condition . ")";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
+						//var_dump($this -> dataSet);
+						foreach ($this->dataSet as $value) {
+							switch($this->getChildHealthIndicatorName($value['indicator'])) {
+								case 'On giving extra feeding' :
+									if ($value['response'] == 'Yes') {
+										$extraY++;
+									} else if ($value['response'] == 'No') {
+										$extraN++;
+									}
+									break;
+								case 'On home care' :
+									if ($value['response'] == 'Yes') {
+										$homeY++;
+									} else if ($value['response'] == 'No') {
+										$homeN++;
+									}
+									break;
+								case 'On when to return for follow up' :
+									if ($value['response'] == 'Yes') {
+										$followY++;
+									} else if ($value['response'] == 'No') {
+										$followN++;
+									}
+									break;
+							}
 
-		$query = "SELECT il.indicatorID AS indicator,il.response as response
-				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns') 
-				  AND il.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ")";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
-				//var_dump($this -> dataSet);
-				foreach ($this->dataSet as $value) {
-					switch($this->getChildHealthIndicatorName($value['indicator'])) {
-						case 'On giving extra feeding' :
-							if ($value['response'] == 'Yes') {
-								$extraY++;
-							} else if ($value['response'] == 'No') {
-								$extraN++;
-							}
-							break;
-						case 'On home care' :
-							if ($value['response'] == 'Yes') {
-								$homeY++;
-							} else if ($value['response'] == 'No') {
-								$homeN++;
-							}
-							break;
-						case 'On when to return for follow up' :
-							if ($value['response'] == 'Yes') {
-								$followY++;
-							} else if ($value['response'] == 'No') {
-								$followN++;
-							}
-							break;
+						}
+						$data_categories = array('On giving extra feeding', 'On home care', 'On when to return for follow up');
+						$data['categories'] = $data_categories;
+						$data['yes_values'] = array($extraY, $homeY, $followY);
+						$data['no_values'] = array($extraN, $homeN, $followN);
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
 					}
-
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-				$data_categories = array('On giving extra feeding', 'On home care', 'On when to return for follow up');
-				$data['categories'] = $data_categories;
-				$data['yes_values'] = array($extraY, $homeY, $followY);
-				$data['no_values'] = array($extraN, $homeN, $followN);
+				break;
+			case 'list' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'cns')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
 
-				$this -> dataSet = $data;
+					if (count($this -> dataSet) > 0) {
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'On giving extra feeding' :
+									$extra[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'On home care' :
+									$home[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'On when to return for follow up' :
+									$follow[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('extra' => $extra, 'home' => $home, 'follow' => $follow);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
+		return $this -> dataSet;
+
 	}
 
 	/*
 	 * Get Tools in Units
 	 */
 
-	public function getTools($criteria, $value, $status, $survey) {
+	public function getTools($criteria, $value, $status, $survey, $chartorlist) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1174,63 +1484,125 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
+		switch($chartorlist) {
+			case 'chart' :
+				$query = "SELECT t.indicatorID AS tool,t.response as response
+FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror')
+AND t.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . "  " . $criteria_condition . ")";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+					if (count($this -> dataSet) > 0) {
+						//prep data for the pie chart format
+						$size = count($this -> dataSet);
+						$i = 0;
+						//var_dump($this -> dataSet);
+						foreach ($this->dataSet as $value) {
+							switch($this->getChildHealthIndicatorName($value['tool'])) {
+								case 'Under 5 register' :
+									if ($value['response'] == 'Yes') {
+										$under5Y++;
+									} else if ($value['response'] == 'No') {
+										$under5N++;
+									}
+									break;
+								case 'ORT Corner register(improvised)' :
+									if ($value['response'] == 'Yes') {
+										$ORTY++;
+									} else if ($value['response'] == 'No') {
+										$ORTN++;
+									}
+									break;
+								case 'Mother Child Booklet' :
+									if ($value['response'] == 'Yes') {
+										$bookY++;
+									} else if ($value['response'] == 'No') {
+										$bookN++;
+									}
+									break;
+							}
 
-		$query = "SELECT t.indicatorID AS tool,t.response as response
-				  FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror') 
-				  AND t.facilityID IN (SELECT facilityMFC FROM facility 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ")";
-		try {
-			$this -> dataSet = $this -> db -> query($query, array($status, $value));
-			$this -> dataSet = $this -> dataSet -> result_array();
-			if (count($this -> dataSet) > 0) {
-				//prep data for the pie chart format
-				$size = count($this -> dataSet);
-				$i = 0;
-				//var_dump($this -> dataSet);
-				foreach ($this->dataSet as $value) {
-					switch($this->getChildHealthIndicatorName($value['tool'])) {
-						case 'Under 5 register' :
-							if ($value['response'] == 'Yes') {
-								$under5Y++;
-							} else if ($value['response'] == 'No') {
-								$under5N++;
-							}
-							break;
-						case 'ORT Corner register(improvised)' :
-							if ($value['response'] == 'Yes') {
-								$ORTY++;
-							} else if ($value['response'] == 'No') {
-								$ORTN++;
-							}
-							break;
-						case 'Mother Child Booklet' :
-							if ($value['response'] == 'Yes') {
-								$bookY++;
-							} else if ($value['response'] == 'No') {
-								$bookN++;
-							}
-							break;
+							//echo $value['indicator'];
+						}
+						$data_categories = array('Under 5 register', 'ORT Corner register(improvised)', 'Mother Child Booklet');
+						$data['categories'] = $data_categories;
+						$data['yes_values'] = array($under5Y, $ORTY, $bookY);
+						$data['no_values'] = array($under5N, $ORTN, $bookN);
+
+						$this -> dataSet = $data;
+
+						//var_dump($this->dataSet);die;
+						return $this -> dataSet;
+					} else {
+						return $this -> dataSet = null;
 					}
-
-					//echo $value['indicator'];
+					//die(var_dump($this->dataSet));
+				} catch(exception $ex) {
+					//ignore
+					//die($ex->getMessage());//exit;
 				}
-				$data_categories = array('Under 5 register', 'ORT Corner register(improvised)', 'Mother Child Booklet');
-				$data['categories'] = $data_categories;
-				$data['yes_values'] = array($under5Y, $ORTY, $bookY);
-				$data['no_values'] = array($under5N, $ORTN, $bookN);
+				break;
+			case 'list' :
+			case 'list' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'ror')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
 
-				$this -> dataSet = $data;
+					if (count($this -> dataSet) > 0) {
 
-				//var_dump($this->dataSet);die;
-				return $this -> dataSet;
-			} else {
-				return $this -> dataSet = null;
-			}
-			//die(var_dump($this->dataSet));
-		} catch(exception $ex) {
-			//ignore
-			//die($ex->getMessage());//exit;
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Under 5 register' :
+									$under5[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'ORT Corner register(improvised)' :
+									$ORT[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Mother Child Booklet' :
+									$book[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('under5' => $under5, 'ORT' => $ORT, 'book' => $book);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
 		}
+		return $this -> dataSet;
+
 	}
 
 	/*
@@ -1267,11 +1639,11 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr, 
-		SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug, 
-		SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december 
-		FROM morbidity_data_log d WHERE d.facilityID IN (SELECT facilityMFC FROM facility 
-		WHERE " . $status_condition . "  " . $criteria_condition . ")";
+		$query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr,
+SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug,
+SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december
+FROM morbidity_data_log d WHERE d.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1302,6 +1674,7 @@ class M_Analytics extends MY_Model {
 			//ignore
 			//die($ex->getMessage());//exit;
 		}
+
 	}
 
 	/*
@@ -1339,11 +1712,11 @@ class M_Analytics extends MY_Model {
 				break;
 		}
 
-		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration, 
-		          SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification 
-		          FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
-				  WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . "  " . $criteria_condition . ")
-				  GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
+		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration,
+SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
+FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
+WHERE treatmentFor='dia') AND tl.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . "  " . $criteria_condition . ")
+GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1416,9 +1789,9 @@ class M_Analytics extends MY_Model {
 		}
 
 		$query = "SELECT oa.indicatorID AS assessment_item,oa.response as response
-			FROM mch_questions_log oa WHERE oa.indicatorID IN (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='ort') 
-			AND oa.facilityID IN (SELECT facilityMFC FROM facility 
-			WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indicatorID ASC";
+FROM mch_questions_log oa WHERE oa.indicatorID IN (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='ort')
+AND oa.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indicatorID ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1517,9 +1890,9 @@ class M_Analytics extends MY_Model {
 		}
 
 		/*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-		$query = "SELECT count(ea.equipAvailability) AS total_response,ea.equipmentID as equipment,ea.equipAvailability AS frequency FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility 
-				WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort') 
-				GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
+		$query = "SELECT count(ea.equipAvailability) AS total_response,ea.equipmentID as equipment,ea.equipAvailability AS frequency FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
+GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 		try {
 
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
@@ -1590,11 +1963,11 @@ class M_Analytics extends MY_Model {
 		/*--------------------end ort equipment availability by frequency----------------------------------------------*/
 
 		/*--------------------begin ort equipment location of availability----------------------------------------------*/
-		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location 
-					FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility 
-					WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN 
-					(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
-				    AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
+		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location
+FROM equipments_available ea WHERE ea.facilityID IN (SELECT facilityMFC FROM facility
+WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN
+(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
+AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
 
 		try {
 			//echo $query;die;
@@ -1674,11 +2047,11 @@ class M_Analytics extends MY_Model {
 
 		/*--------------------begin ort equipment availability by quantity----------------------------------------------*/
 		$query = "SELECT ea.equipmentID as equipment,SUM(ea.qtyFullyFunctional) AS total_functional,SUM(ea.qtyNonFunctional) AS total_non_functional FROM equipments_available ea
-				  WHERE ea.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
-                  AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
-				  AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
-				  GROUP BY ea.equipmentID
-				  ORDER BY ea.equipmentID ASC";
+WHERE ea.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
+AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
+AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
+GROUP BY ea.equipmentID
+ORDER BY ea.equipmentID ASC";
 		//echo $query; die;
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
@@ -1752,8 +2125,8 @@ class M_Analytics extends MY_Model {
 		try {
 			/*using CI Database Active Record*/
 			try {
-				$query = "SELECT DISTINCT(facilityCode),trackerID,lastActivity FROM assessment_tracker WHERE survey=? AND trackerSection='section-6' 
-					 ORDER BY lastActivity DESC";
+				$query = "SELECT DISTINCT(facilityCode),trackerID,lastActivity FROM assessment_tracker WHERE survey=? AND trackerSection='section-6'
+ORDER BY lastActivity DESC";
 				$this -> dataSet = $this -> db -> query($query, array($survey));
 				$this -> dataSet = $this -> dataSet -> result_array();
 				//die(var_dump($this->dataSet));
@@ -1798,7 +2171,7 @@ class M_Analytics extends MY_Model {
 		}
 		return $this -> countyFacilities;
 	}/*end of getSpecificDistrictNames*/
-	
+
 	function getCountyFacilitiesByOwner($county) {
 		/*using DQL*/
 		try {
@@ -1818,14 +2191,14 @@ class M_Analytics extends MY_Model {
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT DISTINCT
-    						facility.facilityMFC, facility.facilityName
-								FROM
-    							facility,
-  								  mnh.mch_indicator_log
-								WHERE
-   									 facilityDistrict = '" . $district . "'
-   								     AND facility.facilityMFC = mch_indicator_log.facilityID
-								ORDER BY facilityName;";
+facility.facilityMFC, facility.facilityName
+FROM
+facility,
+mnh.mch_indicator_log
+WHERE
+facilityDistrict = '" . $district . "'
+AND facility.facilityMFC = mch_indicator_log.facilityID
+ORDER BY facilityName;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//die(var_dump($this->dataSet));
@@ -1853,6 +2226,31 @@ class M_Analytics extends MY_Model {
 		}
 		return $myOptions;
 
+	}
+
+	public function generateFacilityList() {
+		$result;
+		try {
+			$query = "";
+			$this -> dataSet = $this -> db -> query($query);
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//die(var_dump($this->dataSet));
+			if (count($this -> dataSet) > 0) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+				}
+
+			} else {
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		return $result;
 	}
 
 }
