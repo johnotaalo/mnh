@@ -380,8 +380,8 @@ class M_Analytics extends MY_Model {
 		}
 
 		/*--------------------begin commodity availability by frequency----------------------------------------------*/
-		$query = "SELECT count(ca.Availability) AS total_response,ca.CommodityID as commodity,ca.Availability AS frequency FROM cquantity_available ca
-					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
+		$query = "SELECT count(ca.Availability) AS total_response,ca.CommodityID as commodity,ca.Availability AS frequency,c.unit as unit FROM cquantity_available ca,commodity c
+					WHERE ca.CommodityID=c.commodityCode AND ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
 					GROUP BY ca.CommodityID,ca.Availability
 					ORDER BY ca.CommodityID";
@@ -397,7 +397,7 @@ class M_Analytics extends MY_Model {
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
@@ -455,8 +455,8 @@ class M_Analytics extends MY_Model {
 		/*--------------------end commodity availability by frequency----------------------------------------------*/
 
 		/*--------------------begin commodity reason for unavailability----------------------------------------------*/
-		$query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason FROM cquantity_available ca
-					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
+		$query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason, c.unit as unit FROM cquantity_available ca,commodity c
+					WHERE ca.CommodityID=c.commodityCode AND ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
 					AND ca.reason4Unavailability !='Not Applicable'
 					GROUP BY ca.CommodityID,ca.reason4Unavailability
@@ -473,7 +473,7 @@ class M_Analytics extends MY_Model {
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
@@ -552,19 +552,19 @@ class M_Analytics extends MY_Model {
 
 					//collect the data_sets
 					if (strpos($value_['location'], 'OPD') !== FALSE) {
-						$data_set['OPD'][] = intval($value_['total_response']);
+						$data_set['OPD'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'MCH') !== FALSE) {
-						$data_set['MCH'][] = intval($value_['total_response']);
+						$data_set['MCH'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-						$data_set['U5 Clinic'][] = intval($value_['total_response']);
+						$data_set['U5 Clinic'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'Ward') !== FALSE) {
-						$data_set['Ward'][] = intval($value_['total_response']);
+						$data_set['Ward'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'Other') !== FALSE) {
-						$data_set['Other'][] = intval($value_['total_response']);
+						$data_set['Other'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
 					}
 
 				}
@@ -692,8 +692,8 @@ class M_Analytics extends MY_Model {
 		}
 
 		/*--------------------begin equipment main supplier----------------------------------------------*/
-		$query = "SELECT count(ca.SupplierID) AS total_response,ca.CommodityID as commodity,ca.SupplierID AS supplier FROM cquantity_available ca
-				 WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
+		$query = "SELECT count(ca.SupplierID) AS total_response,ca.CommodityID as commodity,ca.SupplierID AS supplier, c.unit as unit FROM cquantity_available ca,commodity c
+				 WHERE ca.CommodityID=c.commodityCode AND ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
 				 AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
 				GROUP BY ca.CommodityID,ca.SupplierID
 				ORDER BY ca.CommodityID";
@@ -714,11 +714,11 @@ class M_Analytics extends MY_Model {
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']);
+					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//data set by each analytic variable
-					$data_set[$value_['supplier']][] = array($this -> getCommodityNameById($value_['commodity']) => intval($value_['total_response']));
+					$data_set[$value_['supplier']][] = intval($value_['total_response']);
 
 				}
 
@@ -916,7 +916,7 @@ WHERE
 
 						foreach ($this->dataSet as $value) {
 							switch($value['indicatorName']) {
-								case 'Temperature Taken' :
+								case 'Temperature taken' :
 									$temp[] = array($value['facilityID'], $value['facilityName']);
 									break;
 								case 'Weight taken' :
@@ -956,6 +956,7 @@ WHERE
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
 		$data_n = array();
+		$lethargy = $breastfeed = array();
 		$breastFeedY = $breastFeedN = $lethargyY = $lethargyN = 0;
 
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
@@ -1033,8 +1034,7 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
-						;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
 
 						$this -> dataSet = $data;
 
@@ -1114,7 +1114,7 @@ WHERE
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
 		$data_n = array();
-		$diarrhoea = $fluid = $pinch = $dehydration = array();
+		$diarrhoea = $blood = $sunken = $fluid = $pinch = $dehydration = array();
 		$diarrhoeaY = $diarrhoeaN = $bloodY = $bloodN = $sunkenY = $sunkenN = $fluidY = $fluidN = $pinchY = $pinchN = $dehydrationY = $dehydrationN = 0;
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
@@ -1265,6 +1265,12 @@ WHERE
 								case 'Ask about the duration of diarrhoea' :
 									$diarrhoea[] = array($value['facilityID'], $value['facilityName']);
 									break;
+								case 'Ask about the presence of Blood in stool' :
+									$blood[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Look for sunken eyes' :
+									$sunken[] = array($value['facilityID'], $value['facilityName']);
+									break;
 								case 'Offer the child fluid to drink' :
 									$fluid[] = array($value['facilityID'], $value['facilityName']);
 									break;
@@ -1277,7 +1283,7 @@ WHERE
 							}
 						}
 
-						$this -> dataSet = array('diarrhoea' => $diarrhoea, 'fluid' => $fluid, 'pinch' => $pinch, 'dehydration' => $dehydration);
+						$this -> dataSet = array('diarrhoea' => $diarrhoea, 'blood' => $blood, 'sunken' => $sunken, 'fluid' => $fluid, 'pinch' => $pinch, 'dehydration' => $dehydration);
 
 						//var_dump($this->dataSet);die;
 

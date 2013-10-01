@@ -118,12 +118,8 @@
 				$('#graph_2').load(currentChart+'facility/'+facility+'/complete/ch/chart');
 			});
 			$('#facility_list').click(function(){
-				$.ajax({
-  						url: currentChart+'district/'+district+'/complete/ch/list',
-  						success: function(data) {
-  							alert( 'done');
- 						 }
-					});
+				window.open(currentChart+'district/'+district+'/complete/ch/list');
+				
 			});
 			
 			$('ul.sub li').click(function(){

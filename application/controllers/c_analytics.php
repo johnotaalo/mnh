@@ -306,18 +306,22 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getCommodityAvailabilityFrequency($criteria, $value, $status, $survey) {
-		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Frequency',5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Frequency', 5);
 	}
+
 	public function getCommodityAvailabilityUnavailability($criteria, $value, $status, $survey) {
-		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Unavailability',5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability', 5);
 	}
+
 	public function getCommodityAvailabilityLocation($criteria, $value, $status, $survey) {
-		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Location',25);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Location', 5);
 	}
+
 	public function getCommodityAvailabilityQuantities($criteria, $value, $status, $survey) {
-		$this->getCommodityAvailability($criteria, $value, $status, $survey,'Quantities',5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Quantities', 5);
 	}
-	public function getCommodityAvailability($criteria, $value, $status, $survey,$choice,$resultSize) {
+
+	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice, $resultSize) {
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
 
 		$resultArray = array();
@@ -341,38 +345,51 @@ class C_Analytics extends MY_Controller {
 				$analytics = $unavailability['responses'];
 				$categories = $unavailability['categories'];
 				foreach ($analytics as $key => $val) {
-					$resultArray[]=array('name'=>$key,'data'=>$val);
+					$resultArray[] = array('name' => $key, 'data' => $val);
 				}
-				
+
 				break;
 			case 'Location' :
 				//var_dump($location['Table spoons']);die;
+				//var_dump($results['location']);die;
 				$location = $results['location']['responses'];
 				$categories = $results['location']['categories'];
-				
-				$mch = $location['MCH'];
-				$other = $location['Other'];
-				$opd=$location['OPD'];
-				$ward = $location['Ward'];
-				$clinic = $location['U5 Clinic'];
-				//var_dump($other);
-				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+				//var_dump($location);
 
-				//var_dump($resultArray);die;
+				foreach ($location as $key => $value) {
+					$zinc = $ors = $cipro = $metro = 0;
+					foreach ($value as $val) {
+						switch($val[1]) {
+							case 'Zinc Sulphate' :
+								$zinc += $val[0];
+								break;
+							case 'Low Osmolarity Oral Rehydration Salts (ORS)' :
+								$ors += $val[0];
+								break;
+							case 'Ciprofloxacin' :
+								$cipro += $val[0];
+								break;
+							case 'Metronidazole (Flagyl)' :
+								$metro += $val[0];
+								break;
+						}
+					}
+					$resultArray[] = array('name' => $key, 'data' => array($zinc, $ors, $cipro, $metro));
+				}
 
 				break;
 			case 'Quantities' :
 				$quantities = $results['quantities']['responses'];
 				$categories = $results['quantities']['categories'];
-				foreach($quantities as $val){
-					$currentData[]=$val;
+				foreach ($quantities as $val) {
+					$currentData[] = $val;
 				}
-				
-				$resultArray = array('name'=>'Quantities','data'=>$currentData);
+
+				$resultArray[] = array('name' => 'Quantities', 'data' => $currentData);
 				break;
 		}
 		$category = $categories;
-		
+		$category[] = 'Metronidazole (Flagyl)';
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		//die;
@@ -383,7 +400,7 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'ORT Assessment ' . $choice;
+		$datas['chartTitle'] = 'Commodity ' . $choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -392,7 +409,40 @@ class C_Analytics extends MY_Controller {
 
 	public function getCHCommoditySupplier($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
-		var_dump($results);
+		$category = $results['analytic_variables'];
+		$suppliers = $results['responses'];
+		foreach ($category as $cat) {
+			if ($cat != null) {
+				$newCat[] = $cat;
+			}
+		}
+		//var_dump($newCat);die;
+		foreach ($suppliers as $key => $value) {
+			$finalD = array();
+			foreach ($value as $key1 => $val) {
+				$finalD[] = $val;
+			}
+			$resultArray[] = array('name' => $key, 'data' => $finalD);
+			unset($finalD);
+		}
+		$newCat[] = 'Metronidazole (Flagyl)';
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria;
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = 'Commodity Suppliers';
+		$datas['categories'] = json_encode($newCat);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+
 	}
 
 	public function getChildrenServices($criteria, $value, $status, $survey, $chartorlist) {
@@ -651,6 +701,8 @@ class C_Analytics extends MY_Controller {
 				break;
 			case 'list' :
 				$diarrhoea = $results['diarrhoea'];
+				$blood = $results['blood'];
+				$sunken = $results['sunken'];
 				$fluid = $results['fluid'];
 				$pinch = $results['pinch'];
 				$dehydration = $results['dehydration'];
@@ -659,6 +711,18 @@ class C_Analytics extends MY_Controller {
 				$pdf .= '<table>';
 				$pdf .= '<tr><th>Ask about the duration of diarrhoea</th></tr>';
 				foreach ($diarrhoea as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Ask about the presence of Blood in stool</th></tr>';
+				foreach ($blood as $val) {
+					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
+				}
+				$pdf .= '</table>';
+				$pdf .= '<table>';
+				$pdf .= '<tr><th>Look for sunken eyes</th></tr>';
+				foreach ($sunken as $val) {
 					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
 				}
 				$pdf .= '</table>';
