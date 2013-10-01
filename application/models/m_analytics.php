@@ -397,7 +397,7 @@ class M_Analytics extends MY_Model {
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']';
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
@@ -473,7 +473,7 @@ class M_Analytics extends MY_Model {
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']';
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
@@ -552,19 +552,19 @@ class M_Analytics extends MY_Model {
 
 					//collect the data_sets
 					if (strpos($value_['location'], 'OPD') !== FALSE) {
-						$data_set['OPD'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
+						$data_set['OPD'][] = array(intval($value_['total_response']), $this -> getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'MCH') !== FALSE) {
-						$data_set['MCH'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
+						$data_set['MCH'][] = array(intval($value_['total_response']), $this -> getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-						$data_set['U5 Clinic'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
+						$data_set['U5 Clinic'][] = array(intval($value_['total_response']), $this -> getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'Ward') !== FALSE) {
-						$data_set['Ward'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
+						$data_set['Ward'][] = array(intval($value_['total_response']), $this -> getCommodityNameById($value_['commodity']));
 					}
 					if (strpos($value_['location'], 'Other') !== FALSE) {
-						$data_set['Other'][] = array(intval($value_['total_response']), $this->getCommodityNameById($value_['commodity']));
+						$data_set['Other'][] = array(intval($value_['total_response']), $this -> getCommodityNameById($value_['commodity']));
 					}
 
 				}
@@ -714,7 +714,7 @@ class M_Analytics extends MY_Model {
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']).'['.$value_['unit'].']';
+					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']';
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//data set by each analytic variable
@@ -1034,7 +1034,8 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
 
 						$this -> dataSet = $data;
 
@@ -2117,6 +2118,7 @@ ORDER BY ea.equipmentID ASC";
 	 * Availability, Location and Functionality of Supplies at ORT Corner
 	 */
 	public function getORTCornerSupplies() {
+		
 
 	}
 

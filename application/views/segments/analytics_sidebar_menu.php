@@ -119,9 +119,9 @@
 				<li id="ORTEquipmentLocation">
 					<a href="#">ORT Corner Equipment Location</a>
 				</li>
-				<li id="ORTSupplies">
+				<!--li id="ORTSupplies">
 					<a href="#">ORT Corner Supplies</a>
-				</li>
+				</li-->
 			</ul>
 		</li>
 		<li id="resources-parent" class="has-sub start">
