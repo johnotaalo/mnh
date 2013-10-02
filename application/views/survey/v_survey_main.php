@@ -553,7 +553,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								//$(form_id).formwizard('show','section-2');
+								$(form_id).formwizard('show','section-4');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

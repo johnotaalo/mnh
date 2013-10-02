@@ -105,7 +105,7 @@ namespace models\Entities;
 	private $jun13;
 	
 	/**
-	* @Column(name="jul13", type="integer",length=11, nullable=false)
+	* @Column(name="july13", type="integer",length=11, nullable=false)
 	* */
 	private $jul13;
 	
