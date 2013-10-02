@@ -124,6 +124,24 @@
 				</li-->
 			</ul>
 		</li>
+		<li id="supplies-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="suppliesAssessment">
+					<a href="#">Supplies Assessment</a>
+				</li>
+				<li id="suppliesAvailability">
+					<a href="#">Supplies Availability</a>
+				</li>
+				<li id="suppliesFunctionality">
+					<a href="#">Supplies Functionality</a>
+				</li>
+				<li id="suppliesLocation">
+					<a href="#">Supplies Location</a>
+				</li>
+			</ul>
+			
+		</li>
 		<li id="resources-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
