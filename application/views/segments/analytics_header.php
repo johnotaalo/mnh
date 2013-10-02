@@ -25,7 +25,7 @@
 						<ul class="dropdown-menu">
 							
 							<li class="divider"></li>
-							<li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+							<li><a href="<?php echo base_url();?>session/close"><i class="icon-key"></i> Log Out</a></li>
 						</ul>
 					</li>
 					<!-- END USER LOGIN DROPDOWN -->

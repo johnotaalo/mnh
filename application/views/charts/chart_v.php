@@ -19,6 +19,10 @@ if($resultArraySize>20){
 if($resultArraySize>25){
 	$chartSize='3000';
 }
+if($resultArraySize>30){
+	$chartSize='6000';
+}
+
 
 ?>
 
@@ -49,8 +53,15 @@ if($resultArraySize>25){
 		xAxis:
 		{
 			categories:  <?php echo $categories; ?>,
+			labels : {
+				style: {
+					fontFamily:'Helvetica Nue'
+				}
+			}
 	
 	},
+	
+                
 	yAxis: {
 		min: 0,
 		title: {

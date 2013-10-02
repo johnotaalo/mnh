@@ -550,7 +550,7 @@ img.alignright, img.right {
 .post-body a {
 	/*color: #039;*/
 }
-.post-body a:hover {
+.post-body li a:hover {
 	color: #039;
 }
 
@@ -1329,3 +1329,4 @@ img.alignright, img.right {
 	list-style: none;
 	padding: 0.1%;
 }
+

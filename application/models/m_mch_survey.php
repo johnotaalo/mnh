@@ -661,7 +661,7 @@ class M_MCH_Survey  extends MY_Model {
 					//detaches all objects from doctrine
 					//return true;
 				} catch(Exception $ex) {
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 
 					/*display user friendly message*/
@@ -770,7 +770,7 @@ class M_MCH_Survey  extends MY_Model {
 				//detaches all objects from doctrine
 				return true;
 			} catch(Exception $ex) {
-				die($ex->getMessage());
+				//die($ex->getMessage());
 				return false;
 				/*display user friendly message*/
 
@@ -870,7 +870,7 @@ class M_MCH_Survey  extends MY_Model {
 
 					//return true;
 				} catch(Exception $ex) {
-					die($ex->getMessage());
+					//die($ex->getMessage());
 					return false;
 
 					/*display user friendly message*/
@@ -1441,7 +1441,7 @@ class M_MCH_Survey  extends MY_Model {
 
 			$step = $this -> input -> post('step_name', TRUE);
 			switch($step) {
-			/**/	case 'section-1' :
+				case 'section-1' :
 					//check if entry exists
 					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
@@ -1562,7 +1562,7 @@ class M_MCH_Survey  extends MY_Model {
 				 $this->markSurveyStatusAsComplete();
 				 return $this -> response = 'true';
 				 }
-				 break;/**/
+				 break;
 			}//close switch
 
 			//return $this -> response = 'true';
