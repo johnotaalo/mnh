@@ -53,9 +53,9 @@
 						</h3>
 						
 						<ul class="breadcrumb">
-							<li><a href="#" id="breadcrumb-title"></a></li>
+							<li><a id="breadcrumb-title"></a></li>
 							<i class="icon-angle-right"></i>
-							<li><a href="#" id="breadcrumb-sub-title"></a></li>
+							<li><a id="breadcrumb-sub-title"></a></li>
 							<label style="margin-bottom:0;display:inline-block;margin-left:40%;" for="county_select">Select a County
 							<select name="county_select" id="county_select"style="margin-bottom:0" class="input">
 								<option selected=selected>No County Selected</option>
@@ -95,12 +95,10 @@
 			
 			var countyClicked;
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
-			county = encodeURIComponent(county);
 			click=0;
 			//alert(county);
-		
-			if(county!=null){
-				
+		$('#facility_list').hide();
+			if(county!=null){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
@@ -110,6 +108,8 @@
 				$('.span6').hide();
 				$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
 			}
+			
+			county = encodeURIComponent(county);
 			
 		$('select#county_select').change(function() {			
 			countyClicked = $('select#county_select option:selected').text();
@@ -137,6 +137,7 @@
 			
 			//Change Event for District Select
 			$('select#fi_district').change(function(){
+				$('#facility_list').show();
 				$('#graph_3').empty();
 				$('#graph_4').empty();
 				district=$('select#fi_district option:selected').text();
@@ -156,6 +157,7 @@
 			});
 			
 			$('ul.sub li').click(function(){
+				$('#facility_list').hide();
 				click=1;
 				subID = $(this).attr('id');
 				//parentDiv = $('#'+subID+' a').parents('ul');
@@ -539,7 +541,7 @@
 			}
 			else{
 				$('.span6').show();
-				$('h4.temp').css('color','white');
+				$('#analytics-page h4.temp').css('color','white');
 			}
 				// Build the charts
 });

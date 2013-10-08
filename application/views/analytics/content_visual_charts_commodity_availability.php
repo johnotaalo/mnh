@@ -18,10 +18,6 @@
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span> By District</h4>
-				<button class="btn red" id="facility_list" style="float:right;padding:2px 5px 2px 5px">
-					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
-				</button>
-
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -45,6 +41,9 @@
 					</div>
 				</div>
 				<div id="graph_3" class="chart"></div>
+				<button class="btn red" id="facility_list" style="float:left;padding:2px 5px 2px 5px">
+					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
+				</button>
 			</div>
 		</div>
 		

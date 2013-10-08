@@ -80,11 +80,16 @@ if($resultArraySize>25){
                             }
                         },
                         color:'white'
-		}
+		},
+	events: {
+                    legendItemClick: function () {
+                        return false; // <== returning false will cancel the default action
+                    }
+                }
 		}
 		},
 		legend: {
-			layout: 'horizontal',
+			layout: 'vertical',
 			align: 'left',
 			floating: true,
 			borderWidth: 1,
