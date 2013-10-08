@@ -308,24 +308,24 @@ class C_Load extends MY_Controller {
 			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
+			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" />
 			</td>
 			<td style ="text-align:center;">
-			<!--input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" /-->
+			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" >
 			</td>
 			<td style ="text-align:center;">
-			<!--input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/-->
+			<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" >
 			</td>
 			<td  style ="text-align:center;">
-			<!--input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled/-->
+			<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" >
 			</td>
 			<td style ="text-align:center;">
-			<!--input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled/--></td>
+			<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" ></td>
 			<td style ="text-align:center;" width="15">
-			<!--input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers" disabled/--></td>
+			<input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers"></td>
 			
 			<td style ="text-align:center;">
-			<!--input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/-->
+			<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" >
 			</td>	
 		</tr>
 	</table>
@@ -345,7 +345,7 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="12" >PROVISION OF CEOC SERVICES </th>
+			<th colspan="12" >PROVISION OF CEOC SERVICES IN THE LAST THREE MONTHS</th>
 		</thead>
 		
 		
@@ -570,7 +570,7 @@ class C_Load extends MY_Controller {
 			<td>OPD</td>
 			<td>MCH</td>
 			<td>U5 Clinic</td>
-			<td>Ward</td>
+			<td>Maternity</td>
 			<td>Other</td>
 
 			<!--td style="text-align:center">No.of Supplies</td-->

@@ -163,12 +163,12 @@ class M_MNH_Survey  extends MY_Model {
 	}
 
 	public function getFacilitiesByDistrictOptions($district) {
-		$myOptions='';
+		$myOptions = '';
 		//$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
 		$options = $this -> getAllFacilitiesByDistrictOptions($district);
 		//var_dump($options);
 		foreach ($options as $option) {
-			$myOptions .= '<option value='.$option['facilityMFC'].'>' . $option['facilityName'] . '</option>';
+			$myOptions .= '<option value=' . $option['facilityMFC'] . '>' . $option['facilityName'] . '</option>';
 		}
 		return $myOptions;
 		//echo count($this->districtFacilities);die;
@@ -1365,146 +1365,146 @@ class M_MNH_Survey  extends MY_Model {
 		if ($this -> input -> post()) {
 
 			$step = $this -> input -> post('step_name', TRUE);
-			switch($step) {case 'section-1':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+			switch($step) {
+				case 'section-1' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->updateFacilityInfo()==true){//Defined in MY_Model
-				 $this->writeAssessmentTrackerLog();
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> updateFacilityInfo() == true) {//Defined in MY_Model
+							$this -> writeAssessmentTrackerLog();
 
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 //return $this -> response = 'true';
-				 break;
-				 case 'section-2':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					//return $this -> response = 'true';
+					break;
+				case 'section-2' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addDeliveryByMonthInfo()==true && $this->addBemoncSignalFunctionsInfo()==true && $this->addCEOCServicesInfo()==true){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-				 return $this -> response = 'true';
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addDeliveryByMonthInfo() == true && $this -> addBemoncSignalFunctionsInfo() == true && $this -> addCEOCServicesInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							return $this -> response = 'true';
 
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 break;
-				 case 'section-3':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					break;
+				case 'section-3' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addCommodityQuantityAvailabilityInfo()==true){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 break;
-				 case 'section-4':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addCommodityQuantityAvailabilityInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					break;
+				case 'section-4' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addGuidelinesStaffInfo()==true){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 break;
-				 case 'section-5':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addGuidelinesStaffInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					break;
+				case 'section-5' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addCommodityUsageAndStockOutageInfo()==true){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 break;
-				 case 'section-6':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addCommodityUsageAndStockOutageInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					break;
+				case 'section-6' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addEquipmentQuantityAvailabilityInfo()==true){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 return $this -> response = 'true';
-				 }
-				 break;
-				 case 'section-7':
-				 //check if entry exists
-				 $this->section=$this->sectionEntryExists($this->session->userdata('fCode'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addEquipmentQuantityAvailabilityInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						return $this -> response = 'true';
+					}
+					break;
+				case 'section-7' :
+					//check if entry exists
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-				 //print var_dump($this->section);
+					//print var_dump($this->section);
 
-				 //insert log entry if new, else update the existing one
-				 if($this->sectionExists==false){
-				 if($this->addSuppliesQuantityAvailabilityInfo()==true && $this->addSuppliesUsageAndStockOutageInfo()==true ){//defined in this model
-				 $this->writeAssessmentTrackerLog();
-
-				 //update facility survey status
-				 $this->markSurveyStatusAsComplete();
-				 return $this -> response = 'true';
-				 }else{
-				 return $this -> response = 'false';
-				 }
-				 }else{
-				 //die('Entry exsits');
-				 $this->markSurveyStatusAsComplete();
-				 return $this -> response = 'true';
-				 }
-				 break;
+					//insert log entry if new, else update the existing one
+					if ($this -> sectionExists == false) {
+						if ($this -> addSuppliesQuantityAvailabilityInfo() == true && $this -> addSuppliesUsageAndStockOutageInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
+							//update facility survey status
+							$this -> markSurveyStatusAsComplete();
+							return $this -> response = 'true';
+						} else {
+							return $this -> response = 'false';
+						}
+					} else {
+						//die('Entry exsits');
+						$this -> markSurveyStatusAsComplete();
+						return $this -> response = 'true';
+					}
+					break;
 			}//close switch
 			//print var_dump($this->input->post());
 

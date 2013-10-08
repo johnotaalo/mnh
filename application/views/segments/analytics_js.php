@@ -1,5 +1,5 @@
 <!-- Load javascripts at bottom, this will reduce page load time -->
-	<script src="<?php echo base_url()?>assets/js/jquery-1.8.3.min.js"></script>		
+	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>	
 	<script src="<?php echo base_url()?>assets/breakpoints/breakpoints.js"></script>	
 	<script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url()?>assets/js/jquery.blockui.js"></script>

@@ -613,9 +613,7 @@ img.alignright, img.right {
 	background: #F6F6F6;
 	color: #000;
 }
-.current-tab {
 
-}
 #network li.current-tab a {
 	background: #FFF;
 	font-weight: bold;
@@ -643,7 +641,6 @@ img.alignright, img.right {
 /* Site title */
 #site-title {
 	font: normal 1.6em serif;
-	border-bottom: 1px solid #CCC;
 	padding-bottom: 24px;
 	width: 100%;
 }
@@ -1282,7 +1279,7 @@ img.alignright, img.right {
  */
 #content {
 	width: 90%;
-	margin: 0;
+	margin: auto;
 	padding: 0 5% 0 5%;
 }
 .tile {
@@ -1322,7 +1319,7 @@ img.alignright, img.right {
 	font-size: 1.4em;
 }
 .current-tab {
-	width: 96%;
+	width: 100%;
 	background: white;
 }
 .right li {

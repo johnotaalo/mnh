@@ -14,25 +14,15 @@
 
 	<link href="<?php echo base_url(); ?>css/fixed-layout.css" rel="stylesheet">
 	 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css" media="screen" />
+	 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.css" media="screen" />
+	 
 	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>
+	 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.js"></script>
 	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
 		<script src="<?php echo base_url()?>/js/highcharts.js"></script>
 		<script src="<?php echo base_url()?>/js/exporting.js"></script>
 	<script src="<?php echo base_url()?>/js/Merged-JS.js"></script>
-	<!--link href="<?php echo base_url(); ?>css/layout.css" rel="stylesheet" type="text/css" /-->
-		<!--link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" /-->
-        
-        <!--script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script-->
-		<!-- -->
-		<!-- Attach CSS files -->
-	
-		<!--link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css"/-->
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
-    <!--fav and touch icons -->
 
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
     

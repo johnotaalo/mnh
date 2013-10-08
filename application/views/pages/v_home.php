@@ -1,17 +1,3 @@
-<script>
-	$(document).ready(function() {
-		var countyClicked;
-		$('select#ch-level2').change(function() {
-			countyClicked = $('select#ch-level2 option:selected').text();
-			countyClicked = encodeURIComponents(countyClicked);
-		});
-		$('#ch-btn').click(function(){			
-			window.location.href='<?php echo base_url()?>c_analytics/setActive/'+countyClicked;
-		});
-
-	}); 
-</script>
-
 <div id="site">
 	<div class="center-wrapper">
 
@@ -43,10 +29,10 @@
 						<p>
 							<ul class="nice-list">
 								<li>
-									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. MNH - Emergency Obstetric Care Baseline Assessment</a>
+									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
 								</li>
 								<li>
-									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. CH - Diarrhoea, Treatment Scale Up Baseline Assessment</a>
+									<a href="<?php echo base_url(); ?>ch/takesurvey">  2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline 	</a>
 								</li>
 								<!--li>Post surveys online for easy access</li>
 								<li>Conduct timely Analysis</li-->
@@ -63,7 +49,7 @@
 
 				<div class="post" id="kenya_county_map">
 					<script type="text/javascript">
-						var myMap = new FusionCharts( "<?php echo base_url()?>js/FusionMaps/Maps/FCMap_KenyaCounties.swf","myMapId","150%","220%","0");
+						var myMap = new FusionCharts( "<?php echo base_url()?>js/FusionMaps/Maps/FCMap_KenyaCounty.swf","myMapId","150%","220%","0");
 						myMap.setJSONUrl("<?php echo base_url()?>js/FusionMaps/Data.json");
 						myMap.render("kenya_county_map");
 					</script>
@@ -96,35 +82,13 @@
 							<ul class="nice-list">
 								<!--li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li-->
 
-								<li id="mnh-link" class="anal-link">
-									<a href="<?php //echo base_url(); ?>#" > 1. MNH - Emergency Obstetric Care Baseline Assessment</a>
+								<li>
+									<a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
 								</li>
 
-								<select id="mnh-level1" class="level1">
-									<option value="1">National</option>
-									<option value="2">Counties</option>
-								</select>
-								<select id="mnh-level2" class="level2">
-									<?php echo $this -> selectCounties; ?>
-								</select>
-								<button class="btn awesome blue" id="mnh-btn" href="<?php echo base_url(); ?>mnh/analytics">View</button>
-
-								<li id="ch-link" class="anal-link">
-									<a href="<?php //echo base_url(); ?>#" > 2. CH - Diarrhoea, Treatment Scale Up Baseline Assessment</a>
+								<li>
+									<a href="<?php echo base_url(); ?>ch/analytics" > 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
 								</li>
-
-								<select id="ch-level1" class="level1">
-									<option value="1">National</option>
-									<option value="2">Counties</option>
-								</select>
-								<select id="ch-level2" class="level2">
-									<?php echo $this -> selectCounties; ?>
-								</select>
-
-								<button class="awesome blue" id="ch-btn" href="#">View</button>
-
-								<!--li>Post surveys online for easy access</li>
-								<li>Conduct timely Analysis</li-->
 							</ul>
 						</p>
 					</div>

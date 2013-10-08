@@ -4,7 +4,7 @@
 class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
-	$selectCommodityType, $facilities,$facility, $selectCounties, 
+	$selectReportingCounties,$selectCommodityType, $facilities,$facility, $selectCounties, 
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMNHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
 	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchCommunityStrategySection,$mnhWaterAspectsSection,$mnhCEOCAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
 	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$suppliesMNHOtherSection,$equipmentsSection,$deliveryEquipmentSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
@@ -20,11 +20,13 @@ class  MY_Controller  extends  CI_Controller {
 		$this->em = $this->doctrine->em;
 		$this->load->model('m_mnh_survey');
 		$this->load->model('m_mch_survey');
+		$this->load->model('m_analytics');
 		$this->response=$this->theForm=$this->data=$this->facilityInDistrict='';
-		$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectMCHCommoditySuppliers=$this->selectCommoditySuppliers='';
+		$this->selectReportingCounties=$this->selectCounties=$this->selectDistricts=$selectFacilityType=$selectFacilityLevel=$selectProvince=$selectFacilityOwner=$selectFacility=$this->selectMCHCommoditySuppliers=$this->selectCommoditySuppliers='';
 		$this->commodityAvailabilitySection=$this->mchCommodityAvailabilitySection=$this->districtFacilityListSection=$this->treatmentMCHSection=$this->signalFunctionsSection=$this->ortCornerAspectsSection=$this->mchGuidelineAvailabilitySection=$this->trainingGuidelineSection=$this->mchTrainingGuidelineSection=$this->commodityUsageAndOutageSection=$this->hardwareMCHSection=$this->equipmentsMCHSection=$this->equipmentsSection='';
 		$this->mchIndicatorsSection=array();
 		$this->getHealthFacilities();
+		$this->getReportingCounties();
 		$this->getCountyNames();$this->getDisctrictNames();$this->getFacilityLevels();$this->getCommoditySuppliers();$this->getMCHCommoditySuppliers();$this->getMCHOtherSuppliers();$this->getMNHOtherSuppliers();
 		$this->getFacilityTypes();$this->getFacilityOwners();$this->getProvinceNames();
 		$this->createCommodityAvailabilitySection();
@@ -78,6 +80,16 @@ class  MY_Controller  extends  CI_Controller {
 				
 				//var_dump($this -> session -> userdata('allCounties')); exit;
 				return $this->selectCounties;
+			
+		}
+	public function getReportingCounties(){/*obtained from the session data*/
+	   $this->data_found= $this->m_analytics->getReportingCounties();
+		foreach($this->data_found as $value) {
+				 $this->selectReportingCounties.= '<option value="'.$value['countyID'].'">'.$value['county'].'</option>'.'<br />';
+				}
+				
+				//var_dump($this -> session -> userdata('allCounties')); exit;
+				return $this->selectReportingCounties;
 			
 		}
 		public function getSpecificFacilities($mfc=13001){/*obtained from the session data*/
@@ -881,7 +893,7 @@ public function createSuppliesMNHOtherSection(){
 			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="U5 Clinic" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Ward" />
+			<input name="sqLocation_'.$counter.'[]" type="checkbox" value="Maternity" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="sqLocation_'.$counter.'[]" id="sqLocOther_'.$counter.'" type="checkbox" value="Other" />

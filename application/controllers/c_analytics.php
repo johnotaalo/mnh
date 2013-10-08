@@ -93,16 +93,16 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
-		var_dump($results);
-		die ;
+		$resultArray = array();
 		//$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
 		if ($results != null) {
 			foreach ($results as $result) {
 				$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
 			}
+			$datas['categories'] = json_encode(array('Quantity'));
 		} else {
-			$resultArray = 'No Data';
+			$resultArray = array();
 		}
 		$datas = array();
 		$resultArraySize = 5;
@@ -115,8 +115,9 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Community Strategy';
-		$datas['categories'] = json_encode(array('Quantity'));
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Community Strategy';
+
 		$datas['yAxis'] = 'Drugs';
 		$datas['resultArray'] = json_encode($resultArray);
 		$this -> load -> view('charts/chart_v', $datas);
@@ -127,7 +128,7 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist) {
 		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist);
-
+		//var_dump($results);die;
 		switch($chartorlist) {
 			#When Chart is chosen
 			case 'chart' :
@@ -186,7 +187,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Guidelines';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Guidelines';
 				$datas['categories'] = json_encode($categories);
 				$datas['yAxis'] = 'Availability';
 				$datas['resultArray'] = $resultArray;
@@ -293,7 +295,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Trained Staff vs Working with Children';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Trained Staff vs Working with Children';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Ratio';
 				$datas['resultArray'] = $resultArray;
@@ -400,7 +403,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Commodity ' . $choice;
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Commodity ' . $choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -437,7 +441,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Commodity Suppliers';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Commodity Suppliers';
 		$datas['categories'] = json_encode($newCat);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -499,7 +504,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Services Offered to Children with Diarrhoea';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Services Offered to Children with Diarrhoea';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
@@ -608,7 +614,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Danger Signs';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Danger Signs';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
@@ -693,7 +700,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Action Performed';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Action Performed';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
@@ -807,7 +815,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Counsel Given';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Counsel Given';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
@@ -899,7 +908,8 @@ class C_Analytics extends MY_Controller {
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = 'Tools in a given Unit';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Tools in a given Unit';
 				$datas['categories'] = json_encode($category);
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
@@ -969,7 +979,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Diarrhoea Case Numbers';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Diarrhoea Case Numbers';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -980,12 +991,12 @@ class C_Analytics extends MY_Controller {
 	 * Diarrhoea case treatments
 	 */
 
-	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey) {
+	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey, $filter) {
 		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey);
 		//var_dump($results);die;
 		$categories = $results['categories'];
 		$categoriesCount = 0;
-
+		$resultArray = array();
 		foreach ($results as $result => $val) {
 
 			if ($categoriesCount < 6) {
@@ -1002,27 +1013,27 @@ class C_Analytics extends MY_Controller {
 			}
 		}
 		switch($filter) {
-			case 'Severe Dehydration' :
+			case 'SevereDehydration' :
 				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
 				break;
-			case 'Some Dehydration' :
+			case 'SomeDehydration' :
 				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
 				break;
-			case 'No Dehydration' :
+			case 'NoDehydration' :
 				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
 				break;
 			case 'Dysentry' :
 				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
 				break;
-			case 'No Classification' :
+			case 'NoClassification' :
 				$resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
 				break;
 		}
 
-		//$resultArray = array( array('name' => 'Severe Dehyration', 'data' => $severe_dehydration), array('name' => 'Some Dehyration', 'data' => $some_dehydration), array('name' => 'No Dehyration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
 		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = 1;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		//var_dump($category);
@@ -1030,14 +1041,15 @@ class C_Analytics extends MY_Controller {
 
 		$datas['container'] = 'chart_' . $criteria;
 
-		$datas['chartType'] = 'pie';
+		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Case Treatment';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Case Treatment';
 		$datas['categories'] = '';
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_pie_v', $datas);
 	}
 
 	/*
@@ -1101,7 +1113,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'ORT Corner Assessment';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'ORT Corner Assessment';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -1212,7 +1225,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'ORT Assessment ' . $choice;
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'ORT Assessment ' . $choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -1270,7 +1284,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'column';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Facilities per County';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -1297,7 +1312,8 @@ class C_Analytics extends MY_Controller {
 		$datas['chartType'] = 'column';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = 'Facilities per County';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;

@@ -391,6 +391,8 @@ padding: 1px 6px 3px 6px;
  Page container
  ***/
 .page-container {
+	border-top:1px solid #eee;
+	border-top:1px solid rgb(229,229,229);
 	margin: 0px;
 	padding: 0px;
 }
@@ -996,6 +998,7 @@ h3.form-section {
 .portlet-title {
 	margin-bottom: 15px;
 	border-bottom: 1px solid #eee;
+	background:#eee;
 }
 
 .portlet-title h4 {
@@ -1004,6 +1007,7 @@ h3.form-section {
 	font-weight: 400;
 	margin: 0;
 	padding: 0;
+	color:#666;
 	margin-bottom: 7px;
 }
 

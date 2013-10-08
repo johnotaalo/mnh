@@ -23,7 +23,7 @@ if($resultArraySize>30){
 	$chartSize='6000';
 }
 
-
+if($resultArray!=null){
 ?>
 
 <script>
@@ -53,11 +53,7 @@ if($resultArraySize>30){
 		xAxis:
 		{
 			categories:  <?php echo $categories; ?>,
-			labels : {
-				style: {
-					fontFamily:'Helvetica Nue'
-				}
-			}
+			
 	
 	},
 	
@@ -111,4 +107,13 @@ if($resultArraySize>30){
 	<div id="<?php echo $container;?>"  style="width:98%"  '>
 </div>
 </div>
-
+<?php
+}
+else{?>
+<div class="graph">	
+	<h4>No records found for this statistic</h4>
+</div>
+</div>
+<?php
+}
+?>

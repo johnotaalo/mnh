@@ -1,11 +1,7 @@
 <div class="page-sidebar nav-collapse collapse">
 	<!-- BEGIN SIDEBAR MENU -->
 	<ul>
-		<li>
-			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-			<div class="sidebar-toggler hidden-phone"></div>
-			<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-		</li>
+		
 		<!--li class="has-sub start">
 			<a href="<?php echo base_url() ?>ch/analytics"> <i class="icon-home"></i> <span class="title">Analytics Summary</span> </a>
 		</li>
@@ -124,7 +120,7 @@
 				</li-->
 			</ul>
 		</li>
-		<li id="supplies-parent" class="has-sub start">
+		<!--li id="supplies-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="suppliesAssessment">
@@ -141,7 +137,7 @@
 				</li>
 			</ul>
 			
-		</li>
+		</li-->
 		<li id="resources-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
