@@ -4,14 +4,20 @@
 	}
 </style>
 <!-- BEGIN CHART PORTLET 1-->
+<div id="reporting-parent">
+	<h4 id="countyHeader">County</h4>
+	<h4 id="progressHeader">Reporting Progress</h4>
+	<div id="reporting"></div>
+
+</div>
 <div class="row-fluid" id="analytics-page">
 	<div class="span6" id="span1">
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> National</h4>
+				<h4><i class="icon-reorder"></i><span class="statistic"></span> Aggregated Analysis</h4>
 			</div>
 			<div class="portlet-body">
-				
+
 				<div id="graph_1" class="chart"></div>
 			</div>
 		</div>
@@ -46,14 +52,13 @@
 				</button>
 			</div>
 		</div>
-		
-	
+
 	</div>
 
 	<div class="span6">
 		<div class="portlet box">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic">   </span> By County</h4>
+				<h4><i class="icon-reorder"></i><span class="statistic"> </span> By County</h4>
 
 			</div>
 			<div class="portlet-body">
@@ -62,18 +67,18 @@
 
 						<select class="secondary-filter" id="county">
 							<option value="SevereDehydration">Severe Dehydration</option>
-								<option value="SomeDehydration">Some Dehydration</option>
-								<option value="NoDehydration">No Dehydration</option>
-								<option value="Dysentry">Dysentry</option>
-								<option value="NoClassification">No Classification</option>
+							<option value="SomeDehydration">Some Dehydration</option>
+							<option value="NoDehydration">No Dehydration</option>
+							<option value="Dysentry">Dysentry</option>
+							<option value="NoClassification">No Classification</option>
 						</select>
 					</div>
-					
+
 				</div>
 				<div id="graph_2" class="chart"></div>
 			</div>
 		</div>
-			<div class="portlet box " id="port2">
+		<div class="portlet box " id="port2">
 			<div class="portlet-title">
 				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
 			</div>
@@ -100,7 +105,8 @@
 				<div id="graph_4" class="chart"></div>
 			</div>
 		</div>
-		
+
 	</div>
 </div>
+<?php $this->load->view('segments/modals')?>
 <!-- END CHART PORTLET-->

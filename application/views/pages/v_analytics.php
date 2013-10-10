@@ -56,11 +56,17 @@
 							<li><a id="breadcrumb-title"></a></li>
 							<i class="icon-angle-right"></i>
 							<li><a id="breadcrumb-sub-title"></a></li>
-							<label style="margin-bottom:0;display:inline-block;margin-left:40%;" for="county_select">Select a County
+							<label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><h6>Reporting Statistics</h6>
+									<div id="reportingBar">
+										
+									</div>
+									</label>
+							<label style="margin:0 5% 0 0;display:inline-block;float:right;" for="county_select">Select a County
 							<select name="county_select" id="county_select"style="margin-bottom:0" class="input">
 								<option selected=selected>No County Selected</option>
 									<?php echo $this->selectReportingCounties;?>
 								</select></label>
+								
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
 					</div>
@@ -98,13 +104,21 @@
 			click=0;
 			//alert(county);
 		$('#facility_list').hide();
+		$('#reportingLabel').hide();
+		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
+		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
 			if(county!=null){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
 				
+				//Make Progress Visible
+				$('#reportingLabel').show();
+				//Load Progress
+				$('#reportingBar').load('<?php echo base_url();?>c_analytics/getOneReportingCounty/'+county);
 			}
 			else{
+				$('#reportingLabel').hide();
 				$('.span6').hide();
 				$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
 			}
@@ -137,7 +151,7 @@
 			
 			//Change Event for District Select
 			$('select#fi_district').change(function(){
-				$('#facility_list').show();
+				
 				$('#graph_3').empty();
 				$('#graph_4').empty();
 				district=$('select#fi_district option:selected').text();
@@ -158,6 +172,7 @@
 			
 			$('ul.sub li').click(function(){
 				$('#facility_list').hide();
+				$('#reporting-parent').hide();
 				click=1;
 				subID = $(this).attr('id');
 				//parentDiv = $('#'+subID+' a').parents('ul');
@@ -244,6 +259,7 @@
 					 * Facility Statistics
 					 */
 					case 'communityStrategy':
+					$('#facility_list').show();
 					appendToTitle = ' ';
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
@@ -255,6 +271,7 @@
 						break;
 						
 					case 'guidelines':
+					$('#facility_list').show();
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getGuidelinesAvailability/';
 					currentDiv = '#graph_3';
@@ -268,6 +285,7 @@
 						break;
 						
 					case 'training':
+					$('#facility_list').show();
 					appendToTitle = ' in the last 2 years';
 					currentChart = '<?php echo base_url();?>c_analytics/getTrainedStaff/';
 					currentDiv = '#graph_3';
@@ -280,6 +298,7 @@
 						break;
 						
 					case 'childrenServices':
+					$('#facility_list').show();
 					appendToTitle=' to children with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getChildrenServices/';
 					currentDiv = '#graph_3';
@@ -292,6 +311,7 @@
 						break;
 						
 					case 'dangerSigns':
+					$('#facility_list').show();
 					appendToTitle=' assessed in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getDangerSigns/';
 					currentDiv = '#graph_3';
@@ -304,6 +324,7 @@
 						break;	
 						
 					case 'actionsPerformed':
+					$('#facility_list').show();
 					appendToTitle = ' in ongoing sessions for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getActionsPerformed/';
 					currentDiv = '#graph_3';
@@ -317,6 +338,7 @@
 						break;	
 						
 					case 'counselGiven':
+					$('#facility_list').show();
 					appendToTitle=' in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getCounselGiven/';
 					currentDiv = '#graph_3';
@@ -329,6 +351,7 @@
 						break;	
 						
 					case 'tools':
+					$('#facility_list').show();
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getTools/';
 					currentDiv = '#graph_3';
@@ -537,7 +560,7 @@
 			});
 			if(click==0){
 				$('.span6').hide();
-				$('#analytics-page').append('<h4 class="temp">Please Choose a Statistic from the menu on the <b>LEFT</b></h4>')
+				//$('#analytics-page').append('<h4 class="temp">Please Choose a Statistic from the menu on the <b>LEFT</b></h4>')
 			}
 			else{
 				$('.span6').show();

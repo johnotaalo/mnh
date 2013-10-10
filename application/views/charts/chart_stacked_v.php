@@ -26,7 +26,7 @@ if($resultArraySize>25){
 		$(function () {
 	$('<?php echo "#" . $container; ?>').highcharts({
 		colors: [
-		'#eeeeee',
+		'#28b779',
 		'#fb4347',
 		'#8bbc21',
 		'#910000',

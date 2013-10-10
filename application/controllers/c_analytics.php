@@ -50,6 +50,67 @@ class C_Analytics extends MY_Controller {
 		var_dump($results);
 	}
 
+	public function getAllReportedCounties() {
+		$reportingCounties = $this -> m_analytics -> getAllReportingRatio();
+		$counter = 0;
+		$allProgress = '';
+		foreach ($reportingCounties as $key => $county) {
+			//echo $key;
+			$allProgress .= $this -> getReportedCounty($county, $key);
+			$counter++;
+		}
+		echo $allProgress;
+	}
+
+	public function getOneReportingCounty($county) {
+		$reportingCounty = $this -> m_analytics -> getReportingRatio($county);
+		$oneProgress = $this->getReportedCounty($reportingCounty, $county);
+		echo ($oneProgress);
+	}
+
+	public function getReportedCounty($county, $key) {
+		$progress = "";
+
+		//var_dump($reportingCounties);
+		//die ;
+
+		$countyName = $key;
+		$percentage = (int)$county[0]['percentage'];
+		$reported = (int)$county[0]['reported'];
+		$actual = (int)$county[0]['actual'];
+
+		/**
+		 * Check status
+		 *
+		 * Different Colors for Different LEVELS
+		 */
+
+		switch($percentage) {
+			case ($percentage<20) :
+				$status = '#e93939';
+				break;
+			case ($percentage<40) :
+				$status = '#da8a33';
+				break;
+			case ($percentage<60) :
+				$status = '#dad833';
+				break;
+			case ($percentage<80) :
+				$status = '#91da33';
+				break;
+			case ($percentage<100) :
+				$status = '#7ada33';
+				break;
+			case ($percentage==100) :
+				$status = '#13b00b';
+				break;
+		}
+		$progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
+		return $progress;
+
+		//echo($progress);
+	}
+
 	public function test_query_2() {
 		$results = $this -> m_analytics -> getSpecificDistrictNames('Nairobi');
 		var_dump($results);
@@ -1148,6 +1209,7 @@ class C_Analytics extends MY_Controller {
 		$quantities = $results['quantities']['responses'];
 		//var_dump($results['location']);die;
 		$resultArray = array();
+		$stackorno;
 
 		$counter = 0;
 
@@ -1161,6 +1223,7 @@ class C_Analytics extends MY_Controller {
 				$frequencyAlways = $frequency['responses']['Available'];
 				$frequencySometimes = $frequency['responses']['Sometimes Available'];
 				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				$stackorno = 'charts/chart_stacked_v';
 				break;
 			case 'Availability' :
 				foreach ($quantities as $quantity) {
@@ -1170,6 +1233,7 @@ class C_Analytics extends MY_Controller {
 					$quantitiesNonFunctional[] = $arr['Non-functional'];
 					//$counter++;
 				}
+				$stackorno = 'charts/chart_v';
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
 			case 'Location' :
@@ -1211,7 +1275,7 @@ class C_Analytics extends MY_Controller {
 				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
 
 				//var_dump($resultArray);die;
-
+				$stackorno = 'charts/chart_v';
 				break;
 		}
 		$category = $categories;
@@ -1230,7 +1294,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view($stackorno, $datas);
 	}
 
 	/*
@@ -1329,7 +1393,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	#Generate Facility List
-	public function generateFacilityList() {
+	public function getReportingRatio() {
 
 	}
 

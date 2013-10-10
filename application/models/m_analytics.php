@@ -1880,9 +1880,9 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indica
 					 }*/
 
 					//get a set of the 3 items for ORT assessment
-					$data['categories'][] = $this -> getChildHealthQuestionName($value['assessment_item']);
-				}
 
+				}
+				$data['categories'] = array('Is the ORT Corner functional?', 'Does this Facility have a designated location for oral rehydration?');
 				$data['yes_values'] = array($functionalTotalY, $rehydrationTotalY);
 				$data['no_values'] = array($functionalTotalN, $rehydrationTotalN);
 
@@ -2553,14 +2553,23 @@ ORDER BY facilityName;";
 
 	public function getReportingCounties() {
 		/*using CI Database Active Record*/
-		$myOptions='<option>No County Selected</option>';
 		try {
-			$query = "SELECT     DISTINCT f.facilityCounty as county,c.countyID FROM    mnh.assessment_tracker t,facility f,county c
-						where  f.facilityCounty=c.countyName AND t.facilityCode=f.facilityMFC ORDER BY county ASC;";
+			$query = "SELECT 
+    f.facilityCounty as county,c.countyID as countyID
+FROM
+    mnh_latest.assessment_tracker t,
+    facility f,county c
+WHERE
+    t.facilityCode = f.facilityMFC
+        and t.trackerSection = 'section-6'
+AND
+c.countyName =  f.facilityCounty
+GROUP BY f.facilityCounty
+ORDER BY f.facilityCounty ASC;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//die(var_dump($this->dataSet));
-			
+
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());//exit;
@@ -2593,6 +2602,63 @@ ORDER BY facilityName;";
 			//die($ex->getMessage());//exit;
 		}
 		return $result;
+	}
+
+	function getAllReportingRatio(){
+		$reportingCounties = $this -> getReportingCounties();
+		for($x=0;$x<sizeof($reportingCounties);$x++){
+			$allData[$reportingCounties[$x]['county']]=$this->getReportingRatio($reportingCounties[$x]['county']);
+			
+		}
+		//var_dump($allData);
+		return $allData;
+		
+	}
+	function getReportingRatio($county) {
+		/*using DQL*/
+
+		$finalData=array();
+	
+		try {
+			
+				$query = "SELECT 
+    tracker.reported,
+    facilityData.actual,
+    round((tracker.reported / facilityData.actual) * 100,0) as percentage
+FROM
+    (SELECT 
+        COUNT(facilityCode) as reported,facility.facilityCounty as countyName
+    FROM
+        assessment_tracker, facility
+    WHERE
+        assessment_tracker.facilityCode = facility.facilityMFC
+            AND facility.facilityCounty = '" .$county . "'
+            AND assessment_tracker.trackerSection = 'section-6') AS tracker,
+    (SELECT 
+        COUNT(facilityMFC) as actual
+    FROM
+        facility
+    WHERE
+        facility.facilityCounty = '" .$county. "') as facilityData;";
+        
+				$myData = $this -> db -> query($query);
+				$finalData= $myData -> result_array();
+				//var_dump($myData);
+				//foreach($myData as $value){
+					//var_dump ($value);
+					//$finalData[]=array($value['countyName'],$value['reported'],$value['actual'],$value['percentage']);
+				//}
+				//die(var_dump($this->districtName));
+			
+			
+			 
+		//}/*end of getSpecificDistrictNames*/
+		
+		} catch(exception $ex) {
+				//ignore
+				echo($ex->getMessage());
+			}
+			return $finalData;
 	}
 
 }
