@@ -25,8 +25,25 @@ if($resultArraySize>25){
 <script>
 		$(function () {
 	$('<?php echo "#" . $container; ?>').highcharts({
+		<?php if(isset($availability)){
+			?>
 		colors: [
-		'#28b779',
+		'#8bbc21',
+		'#92e18e',
+		'#fb4347',
+		'#910000',
+		'#1aadce',
+		'#492970',
+		'#f28f43',
+		'#77a1e5',
+		'#c42525',
+		'#a6c96a'
+		],
+<?php	
+		}
+else{ ?>
+		colors: [
+		'#92e18e',
 		'#fb4347',
 		'#8bbc21',
 		'#910000',
@@ -37,6 +54,7 @@ if($resultArraySize>25){
 		'#c42525',
 		'#a6c96a'
 		],
+		<?php }?>
 		chart: {            
             zoomType: 'x',            
 			height:<?php echo $chartSize;?>,

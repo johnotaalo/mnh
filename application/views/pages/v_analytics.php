@@ -107,7 +107,7 @@
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
 		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
-			if(county!=null){				
+			if(county!=null && county!='No County Selected'){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
@@ -119,6 +119,7 @@
 			}
 			else{
 				$('#reportingLabel').hide();
+				$('#reportingBar').empty();
 				$('.span6').hide();
 				$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
 			}

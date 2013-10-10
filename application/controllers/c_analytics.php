@@ -64,8 +64,8 @@ class C_Analytics extends MY_Controller {
 
 	public function getOneReportingCounty($county) {
 		$reportingCounty = $this -> m_analytics -> getReportingRatio($county);
-		$oneProgress = $this->getReportedCounty($reportingCounty, $county);
-		echo ($oneProgress);
+		$oneProgress = $this -> getReportedCounty($reportingCounty, $county);
+		echo($oneProgress);
 	}
 
 	public function getReportedCounty($county, $key) {
@@ -387,16 +387,17 @@ class C_Analytics extends MY_Controller {
 
 	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice, $resultSize) {
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
-
+		$datas = array();
 		$resultArray = array();
 
 		$counter = 0;
-
+		$stackorno = 'charts/chart_stacked_v';
 		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
 		$mch = $other = $opd = $ward = $clinic = array();
 		//$category = $frequencyCategories;
 		switch($choice) {
 			case 'Frequency' :
+				$datas['availability'] = 1;
 				$frequency = $results['frequency'];
 				$categories = $frequency['categories'];
 				$frequencyNever = $frequency['responses']['Never Available'];
@@ -450,6 +451,7 @@ class C_Analytics extends MY_Controller {
 				}
 
 				$resultArray[] = array('name' => 'Quantities', 'data' => $currentData);
+				$stackorno = 'charts/chart_v';
 				break;
 		}
 		$category = $categories;
@@ -457,7 +459,7 @@ class C_Analytics extends MY_Controller {
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		//die;
-		$datas = array();
+
 		$resultArraySize = $resultSize;
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
@@ -469,13 +471,14 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view($stackorno, $datas);
 	}
 
 	public function getCHCommoditySupplier($criteria, $value, $status, $survey) {
 		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
+
 		foreach ($category as $cat) {
 			if ($cat != null) {
 				$newCat[] = $cat;
@@ -1187,23 +1190,24 @@ class C_Analytics extends MY_Controller {
 	 */
 
 	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency', 20);
 
 	}
 
 	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability', 20);
 
 	}
 
 	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location', 30);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location', 20);
 
 	}
 
 	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice, $resultSize) {
 		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value, $status, $survey);
 		//var_dump($results);die;
+		$datas = array();
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
 		$quantities = $results['quantities']['responses'];
@@ -1218,6 +1222,7 @@ class C_Analytics extends MY_Controller {
 		//$category = $frequencyCategories;
 		switch($choice) {
 			case 'Frequency' :
+				$datas['availability']=1;
 				$frequencyCategories = $frequency['categories'];
 				$frequencyNever = $frequency['responses']['Never Available'];
 				$frequencyAlways = $frequency['responses']['Available'];
@@ -1233,7 +1238,7 @@ class C_Analytics extends MY_Controller {
 					$quantitiesNonFunctional[] = $arr['Non-functional'];
 					//$counter++;
 				}
-				$stackorno = 'charts/chart_v';
+				$stackorno = 'charts/chart_stacked_v';
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
 			case 'Location' :
@@ -1275,14 +1280,13 @@ class C_Analytics extends MY_Controller {
 				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
 
 				//var_dump($resultArray);die;
-				$stackorno = 'charts/chart_v';
+				$stackorno = 'charts/chart_stacked_v';
 				break;
 		}
 		$category = $categories;
 		//var_dump($quantitiesFullyFunctional);
 		//die;
-		$resultArray = json_encode($resultArray);
-		$datas = array();
+		$resultArray = json_encode($resultArray);		
 		$resultArraySize = $resultSize;
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
