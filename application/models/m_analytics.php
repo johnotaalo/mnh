@@ -405,7 +405,7 @@ class M_Analytics extends MY_Model {
 			if (count($this -> dataSet) > 0) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
-
+				$data_set['Sometimes Available'] = $data_set['Available'] = $data_set['Never Available'] = array();
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
@@ -421,6 +421,7 @@ class M_Analytics extends MY_Model {
 					}
 					$analytic_var[] = $frequency;
 					//includes duplicates--so we'll array_unique outside the foreach()
+					#Declare Arrays
 
 					//collect the data_sets for the 3 analytic variables under availability
 					if ($frequency == 'Available') {
@@ -1055,7 +1056,8 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
 
 						$this -> dataSet = $data;
 
@@ -2604,24 +2606,25 @@ ORDER BY f.facilityCounty ASC;";
 		return $result;
 	}
 
-	function getAllReportingRatio(){
+	function getAllReportingRatio() {
 		$reportingCounties = $this -> getReportingCounties();
-		for($x=0;$x<sizeof($reportingCounties);$x++){
-			$allData[$reportingCounties[$x]['county']]=$this->getReportingRatio($reportingCounties[$x]['county']);
-			
+		for ($x = 0; $x < sizeof($reportingCounties); $x++) {
+			$allData[$reportingCounties[$x]['county']] = $this -> getReportingRatio($reportingCounties[$x]['county']);
+
 		}
 		//var_dump($allData);
 		return $allData;
-		
+
 	}
+
 	function getReportingRatio($county) {
 		/*using DQL*/
 
-		$finalData=array();
-	
+		$finalData = array();
+
 		try {
-			
-				$query = "SELECT 
+
+			$query = "SELECT 
     tracker.reported,
     facilityData.actual,
     round((tracker.reported / facilityData.actual) * 100,0) as percentage
@@ -2632,33 +2635,31 @@ FROM
         assessment_tracker, facility
     WHERE
         assessment_tracker.facilityCode = facility.facilityMFC
-            AND facility.facilityCounty = '" .$county . "'
+            AND facility.facilityCounty = '" . $county . "'
             AND assessment_tracker.trackerSection = 'section-6') AS tracker,
     (SELECT 
         COUNT(facilityMFC) as actual
     FROM
         facility
     WHERE
-        facility.facilityCounty = '" .$county. "') as facilityData;";
-        
-				$myData = $this -> db -> query($query);
-				$finalData= $myData -> result_array();
-				//var_dump($myData);
-				//foreach($myData as $value){
-					//var_dump ($value);
-					//$finalData[]=array($value['countyName'],$value['reported'],$value['actual'],$value['percentage']);
-				//}
-				//die(var_dump($this->districtName));
-			
-			
-			 
-		//}/*end of getSpecificDistrictNames*/
-		
+        facility.facilityCounty = '" . $county . "') as facilityData;";
+
+			$myData = $this -> db -> query($query);
+			$finalData = $myData -> result_array();
+			//var_dump($myData);
+			//foreach($myData as $value){
+			//var_dump ($value);
+			//$finalData[]=array($value['countyName'],$value['reported'],$value['actual'],$value['percentage']);
+			//}
+			//die(var_dump($this->districtName));
+
+			//}/*end of getSpecificDistrictNames*/
+
 		} catch(exception $ex) {
-				//ignore
-				echo($ex->getMessage());
-			}
-			return $finalData;
+			//ignore
+			echo($ex -> getMessage());
+		}
+		return $finalData;
 	}
 
 }

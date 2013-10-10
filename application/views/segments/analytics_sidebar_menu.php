@@ -70,10 +70,10 @@
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="commodityFrequency">
-					<a href="#">Commodity Frequency</a>
+					<a href="#">Commodity Availability</a>
 				</li>
 				<li id="commodityUnavailability">
-					<a href="#">Commodity Unavailability</a>
+					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
 				<li id="commodityLocation">
 					<a href="#">Commodity Location</a>

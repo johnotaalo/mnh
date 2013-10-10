@@ -100,6 +100,7 @@
 			var appendToTitle,filter,click;
 			
 			var countyClicked;
+			county=' ';
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
 			click=0;
 			//alert(county);
@@ -107,7 +108,7 @@
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
 		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
-			if(county!=null && county!='No County Selected'){				
+			if(county!='' && county!='No County Selected'){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
@@ -374,7 +375,7 @@
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('Commodity Frequency');
+					$('span.statistic').text('Commodity Availability');
 					$('#commodities-parent').addClass('active');
 					$('#commodities-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/national/n/complete/ch/chart');
@@ -386,9 +387,9 @@
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('Commodity Unavailability');
+					$('span.statistic').text('Commodity Reasons For Unavailability');
 					$('#commodities-parent').addClass('active');
-					$('#commodities-parent-parent a').append('<span class="selected"></span>');
+					$('#commodities-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/national/n/complete/ch/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/ch');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/ch');

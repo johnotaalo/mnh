@@ -409,8 +409,12 @@ class C_Analytics extends MY_Controller {
 				$unavailability = $results['unavailability'];
 				$analytics = $unavailability['responses'];
 				$categories = $unavailability['categories'];
+				if($analytics!=null || isset($analytics)){
 				foreach ($analytics as $key => $val) {
 					$resultArray[] = array('name' => $key, 'data' => $val);
+				}}
+				else{
+					
 				}
 
 				break;
