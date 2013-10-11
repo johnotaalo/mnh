@@ -85,7 +85,7 @@ class  MY_Controller  extends  CI_Controller {
 	public function getReportingCounties(){/*obtained from the session data*/
 	   $this->data_found= $this->m_analytics->getReportingCounties();
 		foreach($this->data_found as $value) {
-				 $this->selectReportingCounties.= '<option value="'.$value['countyID'].'">'.$value['county'].'</option>'.'<br />';
+				 $this->selectReportingCounties.= '<option value="'.$value['county'].'">'.$value['county'].'</option>'.'<br />';
 				}
 				
 				//var_dump($this -> session -> userdata('allCounties')); exit;

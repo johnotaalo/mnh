@@ -102,8 +102,10 @@
 			var countyClicked;
 			county=' ';
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
+			county=encodeURIComponent(county);
+			alert(county);
 			click=0;
-			//alert(county);
+			
 		$('#facility_list').hide();
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
@@ -116,7 +118,9 @@
 				//Make Progress Visible
 				$('#reportingLabel').show();
 				//Load Progress
+				//alert(county);
 				$('#reportingBar').load('<?php echo base_url();?>c_analytics/getOneReportingCounty/'+county);
+				
 			}
 			else{
 				$('#reportingLabel').hide();
@@ -125,11 +129,12 @@
 				$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
 			}
 			
-			county = encodeURIComponent(county);
-			
+					
+				
 		$('select#county_select').change(function() {			
-			countyClicked = $('select#county_select option:selected').text();
+			countyClicked = $(this).val();//$('select#county_select option:selected').text();
 			countyClicked = encodeURIComponent(countyClicked);
+			
 			window.location.href='<?php echo base_url()?>c_analytics/setActive/'+countyClicked;
 		});
 					
@@ -149,7 +154,7 @@
 			
 			//Load District Names
 			$('select#fi_district').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
-			$('select#fi_district2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
+			//$('select#fi_district2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
 			
 			//Change Event for District Select
 			$('select#fi_district').change(function(){

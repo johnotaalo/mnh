@@ -2553,6 +2553,34 @@ ORDER BY facilityName;";
 
 	}
 
+	public function getReportingCountiesCore() {
+		/*using CI Database Active Record*/
+		try {
+			$query = "SELECT 
+    f.facilityCounty as county,c.countyID as countyID
+FROM
+    mnh_latest.assessment_tracker t,
+    facility f,county c
+WHERE
+    t.facilityCode = f.facilityMFC
+        and t.trackerSection = 'section-6'
+AND
+c.countyName =  f.facilityCounty
+GROUP BY f.facilityCounty
+ORDER BY f.facilityCounty ASC;";
+			$this -> dataSet = $this -> db -> query($query);
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//die(var_dump($this->dataSet));
+
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		//var_dump($myOptions);
+		//var_dump($this -> dataSet);
+		return $this -> dataSet;
+
+	}
 	public function getReportingCounties() {
 		/*using CI Database Active Record*/
 		try {
@@ -2577,6 +2605,7 @@ ORDER BY f.facilityCounty ASC;";
 			//die($ex->getMessage());//exit;
 		}
 		//var_dump($myOptions);
+		//var_dump($this -> dataSet);
 		return $this -> dataSet;
 
 	}
