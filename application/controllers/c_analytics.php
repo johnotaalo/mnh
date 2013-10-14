@@ -1322,20 +1322,243 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 	}
 
-	/*
-	 * Availability, Location and Functionality of Supplies at ORT Corner
-	 */
-	public function getORTCornerSupplies() {
-		$results = $this -> m_analytics -> getORTCornerSupplies('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+	public function getSuppliesFrequency($criteria, $value, $status, $survey) {
+		$this -> getSupplies($criteria, $value, $status, $survey, 'Frequency', 5);
+	}
+
+	public function getSuppliesLocation($criteria, $value, $status, $survey) {
+		$this -> getSupplies($criteria, $value, $status, $survey, 'Location', 5);
 	}
 
 	/*
+	 * Availability, Location and Functionality of Supplies at ORT Corner
+	 */
+	public function getSupplies($criteria, $value, $status, $survey, $choice, $resultSize) {
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getSupplies($criteria, $value, $status, $survey);
+		$datas = array();
+		$frequency = $results['frequency'];
+		$categories = $results['frequency']['categories'];
+		//var_dump($results['location']);die;
+		$resultArray = array();
+		$stackorno;
+
+		$counter = 0;
+
+		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
+		$mch = $other = $opd = $ward = $clinic = array();
+		//$category = $frequencyCategories;
+		switch($choice) {
+			case 'Frequency' :
+				$frequencyNever = $frequencyAlways = $frequencySometimes = array();
+				$datas['availability'] = 1;
+				$frequencyCategories = $frequency['categories'];
+				$frequencyNever = $frequency['responses']['Never Available'];
+				$frequencyAlways = $frequency['responses']['Available'];
+				$frequencySometimes = $frequency['responses']['Sometimes Available'];
+				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+			case 'Location' :
+				//var_dump($location['Table spoons']);die;
+				$location = $results['location']['responses'];
+				$locationCategories = $results['location']['categories'];
+				foreach ($location as $key => $loc) {
+
+					if (array_key_exists('MCH', $loc) == true) {
+						$mch[] = $loc['MCH'];
+					} else {
+						$mch[] = 0;
+					}
+					if (array_key_exists('Other', $loc) == true) {
+						$other[] = $loc['Other'];
+					} else {
+						$other[] = 0;
+					}
+					if (array_key_exists('OPD', $loc) == true) {
+						$opd[] = $loc['OPD'];
+					} else {
+						$opd[] = 0;
+					}
+					if (array_key_exists('Ward', $loc) == true) {
+						$ward[] = $loc['Ward'];
+					} else {
+						$ward[] = 0;
+					}
+					if (array_key_exists('U5 Clinic', $loc) == true) {
+						$clinic[] = $loc['U5 Clinic'];
+					} else {
+						$clinic[] = 0;
+
+					}
+					//var_dump ($location);die;
+
+				}
+				//var_dump($other);
+				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+
+				//var_dump($resultArray);die;
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+		}
+		$category = $categories;
+		//var_dump($quantitiesFullyFunctional);
+		//die;
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = $resultSize;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria;
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'ORT Assessment ' . $choice;
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view($stackorno, $datas);
+	}
+
+	/**
+	 *
+	 */
+	public function getCHSuppliesSupplier($criteria, $value, $status, $survey) {
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getCHSuppliesSupplier($criteria, $value, $status, $survey);
+		//var_dump($results);
+		$category = $results['analytic_variables'];
+		$suppliers = $results['responses'];
+
+		foreach ($category as $cat) {
+			if ($cat != null) {
+				$newCat[] = $cat;
+			}
+		}
+		//var_dump($newCat);die;
+		foreach ($suppliers as $key => $value) {
+			$finalD = array();
+			foreach ($value as $key1 => $val) {
+				$finalD[] = $val;
+			}
+			$resultArray[] = array('name' => $key, 'data' => $finalD);
+			unset($finalD);
+		}
+	
+		$resultArray = json_encode($resultArray);
+		$datas = array();
+		$resultArraySize = 5;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria;
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Commodity Suppliers';
+		$datas['categories'] = json_encode($newCat);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+
+	}
+	public function getResourcesFrequency($criteria, $value, $status, $survey) {
+		$this -> getResources($criteria, $value, $status, $survey, 'Frequency', 5);
+	}
+
+	public function getResourcesLocation($criteria, $value, $status, $survey) {
+		$this -> getResources($criteria, $value, $status, $survey, 'Location', 5);
+	}
+	/*
 	 *  Availability, Location and Functionality of Electricity and Hardware Resources
 	 */
-	public function getResources() {
-		$results = $this -> m_analytics -> getResources('facility', '17052', 'complete', 'ch');
-		var_dump($results);
+	public function getResources($criteria, $value, $status, $survey,$choice,$resultSize) {
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getResources($criteria, $value, $status, $survey);
+		$datas = array();
+		$frequency = $results['frequency'];
+		$categories = $results['frequency']['categories'];
+		//var_dump($results['location']);die;
+		$resultArray = array();
+		$stackorno;
+
+		$counter = 0;
+
+		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
+		$mch = $other = $opd = $ward = $clinic = array();
+		//$category = $frequencyCategories;
+		switch($choice) {
+			case 'Frequency' :
+				$frequencyNever = $frequencyAlways = $frequencySometimes = array();
+				$datas['availability'] = 1;
+				$frequencyCategories = $frequency['categories'];
+				$frequencyNever = $frequency['responses']['Never Available'];
+				$frequencyAlways = $frequency['responses']['Available'];
+				$frequencySometimes = $frequency['responses']['Sometimes Available'];
+				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+			case 'Location' :
+				//var_dump($location['Table spoons']);die;
+				$location = $results['location']['responses'];
+				$locationCategories = $results['location']['categories'];
+				foreach ($location as $key => $loc) {
+
+					if (array_key_exists('MCH', $loc) == true) {
+						$mch[] = $loc['MCH'];
+					} else {
+						$mch[] = 0;
+					}
+					if (array_key_exists('Other', $loc) == true) {
+						$other[] = $loc['Other'];
+					} else {
+						$other[] = 0;
+					}
+					if (array_key_exists('OPD', $loc) == true) {
+						$opd[] = $loc['OPD'];
+					} else {
+						$opd[] = 0;
+					}
+					if (array_key_exists('Ward', $loc) == true) {
+						$ward[] = $loc['Ward'];
+					} else {
+						$ward[] = 0;
+					}
+					if (array_key_exists('U5 Clinic', $loc) == true) {
+						$clinic[] = $loc['U5 Clinic'];
+					} else {
+						$clinic[] = 0;
+
+					}
+					//var_dump ($location);die;
+
+				}
+				//var_dump($other);
+				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+
+				//var_dump($resultArray);die;
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+		}
+		$category = $categories;
+		//var_dump($quantitiesFullyFunctional);
+		//die;
+		$resultArray = json_encode($resultArray);
+		//var_dump($resultArray);
+		$resultArraySize = $resultSize;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria;
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'ORT Assessment ' . $choice;
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view($stackorno, $datas);
+		
 	}
 
 	/**

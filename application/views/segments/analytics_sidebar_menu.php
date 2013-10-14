@@ -120,32 +120,26 @@
 				</li-->
 			</ul>
 		</li>
-		<!--li id="supplies-parent" class="has-sub start">
+		<li id="supplies-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="suppliesAssessment">
-					<a href="#">Supplies Assessment</a>
-				</li>
-				<li id="suppliesAvailability">
+				<li id="suppliesFrequency">
 					<a href="#">Supplies Availability</a>
 				</li>
-				<li id="suppliesFunctionality">
-					<a href="#">Supplies Functionality</a>
-				</li>
-				<li id="suppliesLocation">
-					<a href="#">Supplies Location</a>
+				<li id="suppliesSuppliers">
+					<a href="#">Suppliers</a>
 				</li>
 			</ul>
 			
-		</li-->
+		</li>
 		<li id="resources-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="safeWater">
-					<a href="#">Safe Water Source</a>
+				<li id="resourceAvailability">
+					<a href="#">Resource Availability</a>
 				</li>
-				<li id="hardwareResources">
-					<a href="#">Electricity and Hardware Resources</a>
+				<li id="resourceLocation">
+					<a href="#">Resource Location</a>
 				</li>
 				<!--li >
 					<a href="#">Treatment of Records</a>

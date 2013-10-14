@@ -513,28 +513,29 @@ select.m-wrap.large {
 #reporting label, #reportingBar label {
 	vertical-align: top;
 	display: inline-block;
-	width: 25%;
+	width: 40%;
 }
 #reporting .progress, #reportingBar .progress {
 	display: inline-block;
-	width: 70%;
+	width: 55%;
 	margin-bottom: 0;
 }
 #countyHeader {
-	width: 20%;
+	width: 35%;
 }
 #countyHeader, #progressHeader {
+	border-bottom: 2px solid #bbbbbb;
 	padding: 1%;
-	background: #eee;
+	background: #e3e3e3;
 	display: inline-block;
 	vertical-align: top;
 }
 #progressHeader {
-	width: 75%;
+	width: 60%;
 }
 .progressRow {
 	padding: 2%;
-	border-bottom: 1px solid #dddddd;
+	border-bottom: 1px solid #bbbbbb;
 }
 #reportingLabel {
 	width: 30%;
@@ -545,7 +546,7 @@ select.m-wrap.large {
 }
 #reportingBar {
 	display: inline-block;
-	width: 60%;
+	width: 70%;
 }
 
 .statistic{

@@ -102,8 +102,8 @@
 			var countyClicked;
 			county=' ';
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
-			county=encodeURIComponent(county);
-			alert(county);
+		
+			//alert(county);
 			click=0;
 			
 		$('#facility_list').hide();
@@ -114,7 +114,7 @@
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
-				
+					county=encodeURIComponent(county);
 				//Make Progress Visible
 				$('#reportingLabel').show();
 				//Load Progress
@@ -533,27 +533,71 @@
 					 * ------End of ORT Corner
 					 */
 					/*
-					 * Resources
-					 */	
-					case 'safeWater':
+					 * Supplies
+					 */
+					case 'suppliesFrequency':
 					appendToTitle = ' ';
-					$('span.statistic').text('Safe Water');
-					$('#resources-parent').addClass('active');
-					$('#resources-parent a').append('<span class="selected"></span>');
-					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources/national/n/complete/ch');
-					$('#graph_2').load('<?php echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
+					currentDiv = '#graph_3';
+					currentChart = '<?php echo base_url();?>c_analytics/getSuppliesFrequency/';
+					$('span.statistic').text('Supplies Availability');
+					$('#supplies-parent').addClass('active');
+					$('#supplies-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getSuppliesFrequency/national/n/complete/ch');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getSuppliesFrequency/county/'+county+'/complete/ch');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
 						break;	
 						
-					case 'hardwareResources':
+					case 'suppliesLocation':					
 					appendToTitle = ' ';
-					$('span.statistic').text('Hardware Resources');
-					$('#resources-parent').addClass('active');
-					$('#resources-parent a').append('<span class="selected"></span>');
-					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResources/national/n/complete/ch');
-					$('#graph_2').load('<?php echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
+					currentChart = '<?php echo base_url();?>c_analytics/getSuppliesLocation/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Supplies Location');
+					$('#supplies-parent').addClass('active');
+					$('#supplies-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getSuppliesLocation/national/n/complete/ch');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getSuppliesLocation/county/'+county+'/complete/ch');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
 						break;	
+						
+					case 'suppliesSuppliers':					
+					appendToTitle = ' ';
+					currentChart = '<?php echo base_url();?>c_analytics/getCHSuppliesSupplier/';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Supplies Location');
+					$('#supplies-parent').addClass('active');
+					$('#supplies-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCHSuppliesSupplier/national/n/complete/ch');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCHSuppliesSupplier/county/'+county+'/complete/ch');
+					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
+						break;	
+					/*
+					 * Resources
+					 */	
+									
+					case 'resourceAvailability':
+					currentChart = '<?php echo base_url();?>c_analytics/getResourcesFrequency/';
+					appendToTitle = ' ';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Hardware Resource Availability');
+					$('#resources-parent').addClass('active');
+					$('#resources-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResourcesFrequency/national/n/complete/ch');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getResourcesFrequency/county/'+county+'/complete/ch');
+					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
+						break;	
+						
+					case 'resourceLocation':
+					currentChart = '<?php echo base_url();?>c_analytics/getResourcesLocation/';
+					appendToTitle = ' ';
+					currentDiv = '#graph_3';
+					$('span.statistic').text('Hardware Resource Location');
+					$('#resources-parent').addClass('active');
+					$('#resources-parent a').append('<span class="selected"></span>');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getResourcesLocation/national/n/complete/ch');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getResourcesLocation/county/'+county+'/complete/ch');
+					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/complete/ch');
+						break;	
+						
 					
 				}
 				
