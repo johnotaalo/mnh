@@ -1056,7 +1056,8 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
 
 						$this -> dataSet = $data;
 
@@ -2224,7 +2225,7 @@ ORDER BY sq.SuppliesCode;";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
-				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available']=array();
+				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2502,6 +2503,7 @@ LIMIT 0 , 1000
 			//die($ex->getMessage());//exit;
 		}
 	}
+
 	/*
 	 *  Availability, Location and Functionality of Electricity and Hardware Resources
 	 */
@@ -2569,7 +2571,7 @@ ORDER BY ra.ResourceCode ASC";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
 			if (count($this -> dataSet) > 0) {
-				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available']=array();
+				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2731,7 +2733,6 @@ ORDER BY ra.ResourceCode ASC";
 			//die($ex->getMessage());//exit;
 		}
 		/*--------------------end ort equipment location of availability----------------------------------------------*/
-
 
 	}
 
@@ -2965,20 +2966,29 @@ FROM
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
-			//var_dump($myData);
-			//foreach($myData as $value){
-			//var_dump ($value);
-			//$finalData[]=array($value['countyName'],$value['reported'],$value['actual'],$value['percentage']);
-			//}
-			//die(var_dump($this->districtName));
-
-			//}/*end of getSpecificDistrictNames*/
+			
 
 		} catch(exception $ex) {
 			//ignore
-			echo($ex -> getMessage());
+			//echo($ex -> getMessage());
 		}
 		return $finalData;
+	}
+
+	/**
+	 * Run County Maps
+	 */
+	public function runMap() {
+		$myData = array();
+		$counties = $this -> getAllCountyNames();
+		
+		foreach ($counties as $county) {
+			$countyName=$county['countyName'];
+			echo $countyName;
+			//$myData[$countyName]=$this->getReportingRatio($countyName);
+			var_dump($this->getReportingRatio($countyName));
+		}
+		return $myData;
 	}
 
 }
