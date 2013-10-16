@@ -7,6 +7,7 @@ class C_Front extends MY_Controller {
 
 		parent::__construct();
 	    $this->data=array();
+		$this->load->model('m_analytics');
 
 	}
 
@@ -84,7 +85,11 @@ class C_Front extends MY_Controller {
 		$data['form'] = '<p class="error"><br/><br/>Click on any of the tabs to continue<br/><br/><p>';
 		$this -> load -> view('form', $data);
 	}
+	public function runMap(){
+		$counties = $this->m_analytics->runMap();
 	
+		var_dump($counties);
+	}
 	public function reports() {
 		$data['status']="";
 		$data['response']="";

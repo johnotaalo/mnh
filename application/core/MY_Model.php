@@ -263,7 +263,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCountyNames() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT c.countyID,c.countyName FROM models\Entities\e_county c ORDER BY c.countyName ASC');
+			$query = $this -> em -> createQuery('SELECT c.countyID,c.countyName,c.countyFusionMapId FROM models\Entities\e_county c ORDER BY c.countyName ASC');
 			$this -> county = $query -> getResult();
 		} catch(exception $ex) {
 			//$ex->getMessage();
