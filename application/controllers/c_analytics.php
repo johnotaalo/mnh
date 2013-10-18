@@ -17,6 +17,7 @@ class C_Analytics extends MY_Controller {
 		$this -> county = $this -> session -> userdata('county_analytics');
 		redirect('ch/analytics');
 	}
+	
 
 	public function active_results() {
 		$this -> data['title'] = 'MoH::Analytics';
@@ -158,6 +159,7 @@ class C_Analytics extends MY_Controller {
 	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
+		//var_dump($results);die;
 		$resultArray = array();
 		//$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
@@ -522,7 +524,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($newCat);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 
 	}
 
@@ -1443,7 +1445,7 @@ class C_Analytics extends MY_Controller {
 			$resultArray[] = array('name' => $key, 'data' => $finalD);
 			unset($finalD);
 		}
-	
+
 		$resultArray = json_encode($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
@@ -1463,6 +1465,7 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_v', $datas);
 
 	}
+
 	public function getResourcesFrequency($criteria, $value, $status, $survey) {
 		$this -> getResources($criteria, $value, $status, $survey, 'Frequency', 5);
 	}
@@ -1470,10 +1473,11 @@ class C_Analytics extends MY_Controller {
 	public function getResourcesLocation($criteria, $value, $status, $survey) {
 		$this -> getResources($criteria, $value, $status, $survey, 'Location', 5);
 	}
+
 	/*
 	 *  Availability, Location and Functionality of Electricity and Hardware Resources
 	 */
-	public function getResources($criteria, $value, $status, $survey,$choice,$resultSize) {
+	public function getResources($criteria, $value, $status, $survey, $choice, $resultSize) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getResources($criteria, $value, $status, $survey);
 		$datas = array();
@@ -1558,7 +1562,7 @@ class C_Analytics extends MY_Controller {
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view($stackorno, $datas);
-		
+
 	}
 
 	/**
@@ -1640,10 +1644,7 @@ class C_Analytics extends MY_Controller {
 		echo $options;
 	}
 
-	#Generate Facility List
-	public function getReportingRatio() {
-
-	}
+	
 
 	#Load PDF
 	public function loadPDF($pdf) {

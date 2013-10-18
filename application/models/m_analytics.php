@@ -125,7 +125,7 @@ class M_Analytics extends MY_Model {
 					//die($ex->getMessage());//exit;
 				}
 				break;
-			case 'line' :
+			case 'list' :
 				break;
 		}
 
@@ -2944,7 +2944,7 @@ ORDER BY f.facilityCounty ASC;";
 
 		try {
 
-			$query = "SELECT 
+			$query = 'SELECT 
     tracker.reported,
     facilityData.actual,
     round((tracker.reported / facilityData.actual) * 100,0) as percentage
@@ -2955,14 +2955,14 @@ FROM
         assessment_tracker, facility
     WHERE
         assessment_tracker.facilityCode = facility.facilityMFC
-            AND facility.facilityCounty = '" . $county . "'
-            AND assessment_tracker.trackerSection = 'section-6') AS tracker,
+            AND facility.facilityCounty = "' . $county . '"
+            AND assessment_tracker.trackerSection = "section-6") AS tracker,
     (SELECT 
         COUNT(facilityMFC) as actual
     FROM
         facility
     WHERE
-        facility.facilityCounty = '" . $county . "') as facilityData;";
+        facility.facilityCounty = "' . $county . '") as facilityData;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
@@ -2981,13 +2981,12 @@ FROM
 	public function runMap() {
 		$myData = array();
 		$counties = $this -> getAllCountyNames();
-		
 		foreach ($counties as $county) {
 			$countyName=$county['countyName'];
-			echo $countyName;
-			//$myData[$countyName]=$this->getReportingRatio($countyName);
-			var_dump($this->getReportingRatio($countyName));
+			//$countyName=str_replace("'","", $countyName);			
+			$myData[$countyName]=array($this->getReportingRatio($countyName),$county['countyFusionMapId'],$countyName);
 		}
+		
 		return $myData;
 	}
 

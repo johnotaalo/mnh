@@ -18,11 +18,11 @@
 	 
 	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>
 	 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.js"></script>
-	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
-	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
+	
 		<script src="<?php echo base_url()?>/js/highcharts.js"></script>
 		<script src="<?php echo base_url()?>/js/exporting.js"></script>
 	<script src="<?php echo base_url()?>/js/Merged-JS.js"></script>
+	<script src="<?php echo base_url()?>/js/FusionMaps/FusionCharts.js"></script>
 
 
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
