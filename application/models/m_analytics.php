@@ -78,14 +78,30 @@ class M_Analytics extends MY_Model {
 		}
 		switch($chartorlist) {
 			case 'chart' :
-				$query = "SELECT cs.strategyID AS strategy,cs.strategyResponse AS strategy_number FROM mch_community_strategy cs WHERE cs.strategyID IN
-                   (SELECT questionCode FROM mch_questions WHERE mchQuestionFor='cms') 
-                   AND cs.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
-                   GROUP BY cs.strategyID ASC";
+				$query = "SELECT 
+    cs.strategyID AS strategy,
+    SUM(cs.strategyResponse) AS strategy_number
+FROM
+    mch_community_strategy cs
+WHERE
+    cs.strategyID IN (SELECT 
+            questionCode
+        FROM
+            mch_questions
+        WHERE
+            mchQuestionFor = 'cms')
+        AND cs.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            " . $status_condition . " " . $criteria_condition . ")
+AND cs.strategyResponse!=-1
+GROUP BY cs.strategyID ASC;";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$i = 1;
 						$size = count($this -> dataSet);
@@ -175,7 +191,7 @@ class M_Analytics extends MY_Model {
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -234,7 +250,7 @@ class M_Analytics extends MY_Model {
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -316,7 +332,7 @@ class M_Analytics extends MY_Model {
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -402,7 +418,7 @@ class M_Analytics extends MY_Model {
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			// echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$data_set['Sometimes Available'] = $data_set['Available'] = $data_set['Never Available'] = array();
@@ -468,6 +484,7 @@ class M_Analytics extends MY_Model {
 		/*--------------------end commodity availability by frequency----------------------------------------------*/
 
 		/*--------------------begin commodity reason for unavailability----------------------------------------------*/
+		$this -> dataSet = array();
 		$query = "SELECT count(ca.reason4Unavailability) AS total_response,ca.CommodityID as commodity,ca.reason4Unavailability AS reason, c.unit as unit FROM cquantity_available ca,commodity c
 					WHERE ca.CommodityID=c.commodityCode AND ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ")
 					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
@@ -479,7 +496,7 @@ class M_Analytics extends MY_Model {
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet !== NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -518,7 +535,7 @@ class M_Analytics extends MY_Model {
 
 				//get the data sets
 				$data['responses'] = $data_set;
-
+				$this -> final_data_set['unavailability'] = array();
 				$this -> final_data_set['unavailability'] = $data;
 				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
 
@@ -549,7 +566,7 @@ class M_Analytics extends MY_Model {
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -614,36 +631,52 @@ class M_Analytics extends MY_Model {
 		/*--------------------end commodity location of availability----------------------------------------------*/
 
 		/*--------------------begin commodity availability by quantity----------------------------------------------*/
-		$query = "SELECT SUM(ca.quantityAvailable) AS total_quantity,ca.CommodityID as commodity FROM cquantity_available ca
-				WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
-				AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
-				AND ca.quantityAvailable !=-1
-				GROUP BY ca.CommodityID
-				ORDER BY ca.CommodityID";
+		$query = "SELECT 
+    SUM(ca.quantityAvailable) AS total_quantity,
+    ca.CommodityID as commodity,commodity.unit AS unit
+FROM
+    cquantity_available ca,commodity
+WHERE
+commodity.commodityCode=ca.CommodityID AND
+    ca.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            " . $status_condition . " " . $criteria_condition . ") 
+        AND ca.CommodityID IN (SELECT 
+            commodityCode
+        FROM
+            commodity
+        WHERE
+            commodityFor = 'mch')
+        AND ca.quantityAvailable != - 1
+GROUP BY ca.CommodityID
+ORDER BY ca.CommodityID";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCommodityNameById($value_['commodity']);
+					$data_categories[] = $this -> getCommodityNameById($value_['commodity']). '[' . $value_['unit'] . ']';
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']);
+					$analytic_var[] = $this -> getCommodityNameById($value_['commodity']). '[' . $value_['unit'] . ']';
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//collect the data_sets by commodity
 					$data_set[$this -> getCommodityNameById($value_['commodity'])] = intval($value_['total_quantity']);
 
 				}
-
+//var_dump($data_categories);die;
 				//var_dump($analytic_var);die;
 
 				//make cat array unique if we got duplicates then json_encode and set to $data array
@@ -719,7 +752,7 @@ class M_Analytics extends MY_Model {
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -820,7 +853,7 @@ class M_Analytics extends MY_Model {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					//echo $this->db->last_query();die;
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -928,7 +961,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1018,7 +1051,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					//echo $this->db->last_query();die;
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1056,8 +1089,7 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
-						;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
 
 						$this -> dataSet = $data;
 
@@ -1099,7 +1131,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1178,7 +1210,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1281,7 +1313,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1372,7 +1404,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1448,7 +1480,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1531,7 +1563,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1609,7 +1641,7 @@ WHERE
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
-					if (count($this -> dataSet) > 0) {
+					if ($this -> dataSet!==NULL) {
 
 						$size = count($this -> dataSet);
 						$i = 0;
@@ -1689,7 +1721,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo $this->db->last_query();die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
@@ -1765,7 +1797,7 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo $this->db->last_query();die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
@@ -1843,7 +1875,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indica
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo $this->db->last_query();
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
@@ -1950,7 +1982,7 @@ GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2027,7 +2059,7 @@ AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equi
 			//var_dump($this->dataSet);die;
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
@@ -2109,7 +2141,7 @@ ORDER BY ea.equipmentID ASC";
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2224,7 +2256,7 @@ ORDER BY sq.SuppliesCode;";
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -2317,7 +2349,7 @@ ORDER BY sq.suppliesCode ASC";
 			//var_dump($this->dataSet);die;
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
@@ -2457,7 +2489,7 @@ LIMIT 0 , 1000
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2570,7 +2602,7 @@ ORDER BY ra.ResourceCode ASC";
 
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
@@ -2665,7 +2697,7 @@ ORDER BY ra.ResourceCode ASC";
 			//var_dump($this->dataSet);die;
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
@@ -2817,7 +2849,7 @@ ORDER BY facilityName;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//die(var_dump($this->dataSet));
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2908,7 +2940,7 @@ ORDER BY f.facilityCounty ASC;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//die(var_dump($this->dataSet));
-			if (count($this -> dataSet) > 0) {
+			if ($this -> dataSet!==NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2966,7 +2998,6 @@ FROM
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
-			
 
 		} catch(exception $ex) {
 			//ignore
@@ -2982,11 +3013,11 @@ FROM
 		$myData = array();
 		$counties = $this -> getAllCountyNames();
 		foreach ($counties as $county) {
-			$countyName=$county['countyName'];
-			//$countyName=str_replace("'","", $countyName);			
-			$myData[$countyName]=array($this->getReportingRatio($countyName),$county['countyFusionMapId'],$countyName);
+			$countyName = $county['countyName'];
+			//$countyName=str_replace("'","", $countyName);
+			$myData[$countyName] = array($this -> getReportingRatio($countyName), $county['countyFusionMapId'], $countyName);
 		}
-		
+
 		return $myData;
 	}
 

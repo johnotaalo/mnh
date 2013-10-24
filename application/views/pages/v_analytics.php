@@ -162,6 +162,7 @@
 				$('#graph_3').empty();
 				$('#graph_4').empty();
 				district=$('select#fi_district option:selected').text();
+				district = encodeURIComponent(district);
 				//alert(currentChart+district+'/complete/ch');
 				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch/chart');
 				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
@@ -266,13 +267,14 @@
 					 * Facility Statistics
 					 */
 					case 'communityStrategy':
-					$('#facility_list').show();
+					currentChart = '<?php echo base_url();?>c_analytics/getCommunityStrategy/';
 					appendToTitle = ' ';
+					currentDiv = '#graph_3';
 					$('span.statistic').text('Community Strategy');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
 					
-					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/national/ /complete/ch/chart');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/national/n/complete/ch/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommunityStrategy/county/'+county+'/complete/ch/chart');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommunityStrategy/county/'+county+'/complete/ch/chart');
 						break;

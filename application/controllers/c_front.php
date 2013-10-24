@@ -52,9 +52,12 @@ class C_Front extends MY_Controller {
 				case ($percentage<80) :
 					$status = '#91da33';
 					break;
-				case ($percentage<100) :
+				case ($percentage<=100) :
 					$status = '#7ada33';
 					break;
+				#case ($percentage===100) :
+				#	$status = '#13b00b';
+				#	break;
 				default :
 					$status = '#ffffff';
 					break;

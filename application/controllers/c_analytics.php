@@ -17,7 +17,6 @@ class C_Analytics extends MY_Controller {
 		$this -> county = $this -> session -> userdata('county_analytics');
 		redirect('ch/analytics');
 	}
-	
 
 	public function active_results() {
 		$this -> data['title'] = 'MoH::Analytics';
@@ -158,35 +157,35 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
 		$value = urldecode($value);
+		$results=array();
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
 		//var_dump($results);die;
 		$resultArray = array();
+		$datas = array();
 		//$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
-		if ($results != null) {
+		if (count($results)>0 &&$results !== null) {
 			foreach ($results as $result) {
-				$resultArray[] = array('name' => $result[0], 'data' => array((int)$result[1]));
+				$categories[] = $result[0];
+				$resultData[] = (int)$result[1];
 			}
-			$datas['categories'] = json_encode(array('Quantity'));
-		} else {
-			$resultArray = array();
 		}
-		$datas = array();
+
+		$resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
 		$resultArraySize = 5;
-		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-		//$resultArray = 5;
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_' . $criteria;
 
 		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 100;
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Community Strategy';
-
-		$datas['yAxis'] = 'Drugs';
+		//$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Availability';
 		$datas['resultArray'] = json_encode($resultArray);
+		//var_dump($datas['categories']);die;
 		$this -> load -> view('charts/chart_v', $datas);
 	}
 
@@ -396,6 +395,7 @@ class C_Analytics extends MY_Controller {
 	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice, $resultSize) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
+		//var_dump($results);die;
 		$datas = array();
 		$resultArray = array();
 
@@ -1643,8 +1643,6 @@ class C_Analytics extends MY_Controller {
 		//var_dump($options);
 		echo $options;
 	}
-
-	
 
 	#Load PDF
 	public function loadPDF($pdf) {

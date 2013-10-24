@@ -47,6 +47,13 @@
 
 			<div class="tile" style="width:30%">
 				<h3>Child Health Assessment Reporting Rates</h3>
+				<div class="legend">
+					<div class="item"><div class="color" style="background:#e93939"></div><div class="title"><20%</div></div>
+					<div class="item"><div class="color" style="background:#da8a33"></div><div class="title"><40%</div></div>
+					<div class="item"><div class="color" style="background:#dad833"></div><div class="title"><60%</div></div>
+					<div class="item"><div class="color" style="background:#91da33"></div><div class="title"><80%</div></div>
+					<div class="item"><div class="color" style="background:#7ada33"></div><div class="title"><=100%</div></div>
+				</div>
 				<div class="post" id="map1">
 					<script>
 var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
@@ -56,6 +63,7 @@ map.setJSONData(<?php echo $maps; ?>
 					</script>
 					<!--div class="content-separator"></div-->
 				</div><!--./kenya_county_map-->
+				
 			</div><!--./middle_column-->
 
 			<div class="tile" style="float:right">

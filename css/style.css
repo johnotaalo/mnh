@@ -1326,4 +1326,31 @@ img.alignright, img.right {
 	list-style: none;
 	padding: 0.1%;
 }
-
+.legend{
+	width:90%;
+	float:right;
+	padding:2%;
+	box-shadow:0 0 4px 0.5px #999;
+	margin-bottom:5px;
+	border-radius:4px;
+	border:solid 1px #999;
+}
+.item .title, .item .color{
+	display:inline-block;
+	vertical-align:top;
+}
+.legend .item{
+	display:inline-block;
+	vertical-align:top;
+	width:19%;
+	height:7%;
+}
+.item .color{
+	width:30%;
+	height:100%;
+}
+.item .title{
+	margin-left:5%;
+	width:60%;
+	height:100%;
+}
