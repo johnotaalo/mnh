@@ -503,9 +503,7 @@ select.m-wrap.large {
 /**
  * 	Extra Divs
  */
-#reporting-parent {
-	width: 49%;
-}
+
 #reporting {
 	width: 97%;
 	padding: 1%;
@@ -549,8 +547,11 @@ select.m-wrap.large {
 	width: 70%;
 }
 
-.statistic{
+.statistic,.statistic-free{
 	color:#666;
 	font-weight:400;
+}
+.statistic-free{
+	padding-right:5px;
 }
 

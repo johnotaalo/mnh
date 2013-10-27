@@ -4,11 +4,47 @@
 	}
 </style>
 <!-- BEGIN CHART PORTLET 1-->
-<div id="reporting-parent">
-	<h4 id="countyHeader">County</h4>
-	<h4 id="progressHeader">Reporting Progress</h4>
-	<div id="reporting"></div>
+<div class="row-fluid" id="reporting-parent">
+	<div class="span6" id="span1">
+		<div class="portlet box ">
+			<h4 id="countyHeader">County</h4>
+			<h4 id="progressHeader">Reporting Progress</h4>
+			<div id="reporting"></div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i><span class="statistic-free">Reporting Facility Owners</span>By County</h4>
+			</div>
+			<div class="portlet-body">
+				
+				<div id="graph_5" class="chart"></div>
+			</div>
+		</div>
 
+	</div>
+
+	<div class="span6">
+		<div class="portlet box">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
+
+			</div>
+			<div class="portlet-body">
+				
+				<div id="graph_6" class="chart"></div>
+			</div>
+		</div>
+		<!--div class="portlet box " id="port2">
+			<div class="portlet-title">
+				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
+			</div>
+			<div class="portlet-body">
+				
+				<div id="graph_7" class="chart"></div>
+			</div>
+		</div-->
+
+	</div>
 </div>
 <div class="row-fluid" id="analytics-page">
 	<div class="span6" id="span1">

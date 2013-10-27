@@ -412,7 +412,7 @@ class C_Analytics extends MY_Controller {
 			case 'Frequency' :
 				$datas['availability'] = 1;
 				$frequency = $results['frequency'];
-				$categories = $frequency['categories'];
+				$category = $frequency['categories'];
 				$frequencyNever = $frequency['responses']['Never Available'];
 				$frequencyAlways = $frequency['responses']['Available'];
 				$frequencySometimes = $frequency['responses']['Sometimes Available'];
@@ -421,7 +421,7 @@ class C_Analytics extends MY_Controller {
 			case 'Unavailability' :
 				$unavailability = $results['unavailability'];
 				$analytics = $unavailability['responses'];
-				$categories = $unavailability['categories'];
+				$category = $unavailability['categories'];
 				if ($analytics != null || isset($analytics)) {
 					foreach ($analytics as $key => $val) {
 						$resultArray[] = array('name' => $key, 'data' => $val);
@@ -435,7 +435,7 @@ class C_Analytics extends MY_Controller {
 				//var_dump($location['Table spoons']);die;
 				//var_dump($results['location']);die;
 				$location = $results['location']['responses'];
-				$categories = $results['location']['categories'];
+				$category = $results['location']['categories'];
 				//var_dump($location);
 
 				foreach ($location as $key => $value) {
@@ -462,7 +462,7 @@ class C_Analytics extends MY_Controller {
 				break;
 			case 'Quantities' :
 				$quantities = $results['quantities']['responses'];
-				$categories = $results['quantities']['categories'];
+				$category = $results['quantities']['categories'];
 				$currentData = array();
 				foreach ($quantities as $val) {
 					$currentData[] = $val;
@@ -472,8 +472,7 @@ class C_Analytics extends MY_Controller {
 				$stackorno = 'charts/chart_v';
 				break;
 		}
-		$category = $categories;
-		$category[] = 'Metronidazole (Flagyl)';
+
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		//die;
@@ -1586,6 +1585,102 @@ class C_Analytics extends MY_Controller {
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view($stackorno, $datas);
+
+	}
+
+	/**
+	 * Lists for NEVER
+	 */
+	public function getFacilityListForNever($choice) {
+		switch($choice) {
+			case 'Commodity' :
+				break;
+			case 'ORT' :
+				break;
+			case 'Water' :
+				break;
+			case 'Resources' :
+				break;
+		}
+	}
+
+	/**
+	 * Get Facility Ownership
+	 */
+	public function getFacilityOwnerPerCounty($county) {
+		//$allCounties = $this -> m_analytics -> getReportingCounties();
+		$county=urldecode($county);
+		//foreach ($allCounties as $county) {
+		$category[] = $county;
+		$results = $this -> m_analytics -> getFacilityOwnerPerCounty($county);
+		$resultArray = array();
+		foreach ($results as $value) {
+			$data = array();
+			$name = $value['facilityOwner'];
+			$data[] = (int)$value['ownership_total'];
+			$resultArray[] = array('name' => $name, 'data' => $data);
+		}
+		$finalResult = $resultArray;
+		//}
+		//$category=$category[0];
+		//$finalResult=$finalResult[0];
+		$resultArraySize = count($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_one';
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Facilities';
+		$datas['resultArray'] = json_encode($finalResult);
+		//var_dump($datas['categories']);die;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+		//echo '<pre>';
+		//print_r($finalResult);
+		//echo '</pre>';
+
+	}
+
+	/**
+	 * Get Lever Ownership
+	 */
+	public function getFacilityLevelPerCounty($county) {
+		//$allCounties = $this -> m_analytics -> getReportingCounties();
+		$county=urldecode($county);
+		//foreach ($allCounties as $county) {
+		$category[] = $county;
+		$results = $this -> m_analytics -> getFacilityLevelPerCounty($county);
+		$resultArray = array();		
+		foreach ($results as $value) {
+			$data = array();
+			$name = 'Level  '.$value['facilityLevel'];
+			$data[] = (int)$value['level_total'];
+			$resultArray[] = array('name' => $name, 'data' => $data);
+		}
+		$finalResult = $resultArray;
+		//}
+		$resultArraySize = count($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_two';
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Facilities';
+		$datas['resultArray'] = json_encode($finalResult);
+		//var_dump($datas['categories']);die;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+		//echo '<pre>';
+		//print_r($finalResult);
+		//echo '</pre>';
 
 	}
 

@@ -1108,7 +1108,8 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
 
 						$this -> dataSet = $data;
 
@@ -2966,6 +2967,9 @@ ORDER BY f.facilityCounty ASC;";
 
 	}
 
+/**
+ * List of Counties that have reported
+ */
 	public function getReportingCounties() {
 		/*using CI Database Active Record*/
 		try {
@@ -3077,6 +3081,72 @@ FROM
 		return $finalData;
 	}
 
+	function getFacilityOwnerPerCounty($county) {
+		/*using DQL*/
+
+		$finalData = array();
+
+		try {
+
+			$query = 'SELECT 
+    tracker.ownership_total, tracker.facilityOwner
+FROM
+    (SELECT 
+        COUNT(facilityOwnedBy) as ownership_total,
+            facilityOwnedBy as facilityOwner,
+            facility.facilityCounty as countyName
+    FROM
+        assessment_tracker, facility
+    WHERE
+        assessment_tracker.facilityCode = facility.facilityMFC
+            AND facility.facilityCounty = "' . $county . '"
+            AND assessment_tracker.trackerSection = "section-6"
+    GROUP BY facilityOwner
+    ORDER BY facilityOwner) AS tracker;';
+
+			$myData = $this -> db -> query($query);
+			$finalData = $myData -> result_array();
+
+		} catch(exception $ex) {
+			//ignore
+			//echo($ex -> getMessage());
+		}
+		return $finalData;
+	}
+	
+	function getFacilityLevelPerCounty($county) {
+		/*using DQL*/
+
+		$finalData = array();
+
+		try {
+
+			$query = 'SELECT 
+    tracker.level_total, tracker.facilityLevel
+FROM
+    (SELECT 
+        COUNT(facilityLevel) as level_total,
+            facilityLevel as facilityLevel,
+            facility.facilityCounty as countyName
+    FROM
+        assessment_tracker, facility
+    WHERE
+        assessment_tracker.facilityCode = facility.facilityMFC
+            AND facility.facilityCounty = "' . $county . '"
+            AND assessment_tracker.trackerSection = "section-6"
+    GROUP BY facilityLevel
+    ORDER BY facilityLevel) AS tracker;';
+
+			$myData = $this -> db -> query($query);
+			$finalData = $myData -> result_array();
+
+		} catch(exception $ex) {
+			//ignore
+			//echo($ex -> getMessage());
+		}
+		return $finalData;
+	}
+
 	/**
 	 * Run County Maps
 	 */
@@ -3090,6 +3160,257 @@ FROM
 		}
 
 		return $myData;
+	}
+
+	/**
+	 * Lists for NEVER
+	 */
+	public function getFacilityListForNever($district, $choice) {
+		urldecode($value);
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				$value = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		switch($choice) {
+			case 'Commodity' :
+				$query = "SELECT 
+    ca.facilityID,
+    f.facilityName,
+    ca.Availability AS frequency,
+    ca.CommodityID as commodity,
+    c.unit as unit
+FROM
+    cquantity_available ca,
+    commodity c,
+    facility f
+WHERE
+    ca.Availability = 'Never Available'
+        AND ca.CommodityID = c.commodityCode
+        AND ca.facilityID = f.facilityMFC
+        AND ca.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            " . $status_condition . "  " . $criteria_condition . ") 
+        AND ca.CommodityID IN (SELECT 
+            commodityCode
+        FROM
+            commodity
+        WHERE
+            commodityFor = 'mch')
+ORDER BY ca.CommodityID";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+
+					if ($this -> dataSet !== NULL) {
+
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Inability to drink or breastfeed' :
+									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Lethargy and unconsciousness' :
+									$lethargy[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
+			case 'ORT' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'sgn')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+
+					if ($this -> dataSet !== NULL) {
+
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Inability to drink or breastfeed' :
+									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Lethargy and unconsciousness' :
+									$lethargy[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
+			case 'Water' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'sgn')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+
+					if ($this -> dataSet !== NULL) {
+
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							switch($value['indicatorName']) {
+								case 'Inability to drink or breastfeed' :
+									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Lethargy and unconsciousness' :
+									$lethargy[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
+			case 'Resources' :
+				$query = "SELECT 
+    i.indicatorName, il.facilityID, f.facilityName
+FROM
+    mch_indicator_log il,
+    mch_indicators i,
+    facility f
+WHERE
+    il.response = 'No'
+        AND il.indicatorID = i.indicatorCode
+        AND il.facilityID = f.facilityMFC
+        AND il.indicatorID IN (SELECT 
+            indicatorCode
+        FROM
+            mch_indicators
+        WHERE
+            indicatorFor = 'sgn')
+        AND il.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . "  " . $criteria_condition . ") ";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($status, $value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+
+					if ($this -> dataSet !== NULL) {
+
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+
+							switch($this->getCommodityNameById($value_['commodity'])) {
+								case 'Inability to drink or breastfeed' :
+									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
+									break;
+								case 'Lethargy and unconsciousness' :
+									$lethargy[] = array($value['facilityID'], $value['facilityName']);
+									break;
+							}
+						}
+
+						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $this -> dataSet = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
+		}
 	}
 
 }

@@ -108,6 +108,7 @@
 			//alert(county);
 			click=0;
 			
+			
 		$('#facility_list').hide();
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
@@ -127,10 +128,15 @@
 			else{
 				$('#reportingLabel').hide();
 				$('#reportingBar').empty();
-				$('.span6').hide();
+				$('#analytics-page').hide();
 				$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
 			}
 			
+			$('#reporting-parent').show();
+			$('#analytics-page').hide();
+			//Load Initial Graphs
+			$('#graph_5').load('<?php echo base_url();?>c_analytics/getFacilityOwnerPerCounty/'+county);
+			$('#graph_6').load('<?php echo base_url();?>c_analytics/getFacilityLevelPerCounty/'+county);
 					
 				
 		$('select#county_select').change(function() {			
@@ -630,14 +636,7 @@
 				$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
 				$('#breadcrumb-sub-title').text(smallText);
 			});
-			if(click==0){
-				$('.span6').hide();
-				//$('#analytics-page').append('<h4 class="temp">Please Choose a Statistic from the menu on the <b>LEFT</b></h4>')
-			}
-			else{
-				$('.span6').show();
-				$('#analytics-page h4.temp').css('color','white');
-			}
+			
 				// Build the charts
 });
 

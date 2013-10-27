@@ -1,7 +1,7 @@
 <?php
 //$this->load->view('segments/head');
 $chartSize=0;
-if($resultArraySize<=6){
+if($resultArraySize<7){
 	$chartSize='300';
 }
 if($resultArraySize>6){
