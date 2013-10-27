@@ -157,22 +157,23 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results=array();
+		$results = array();
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
 		//var_dump($results);die;
 		$resultArray = array();
 		$datas = array();
+		
 		//$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
-		if (count($results)>0 &&$results !== null) {
+		if (count($results) > 0 && $results !== null) {
 			foreach ($results as $result) {
 				$categories[] = $result[0];
 				$resultData[] = (int)$result[1];
 			}
 		}
-
+$resultArraySize = count($categories);
 		$resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
-		$resultArraySize = 5;
+		////$resultArraySize =  ; 5;
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_' . $criteria;
@@ -244,7 +245,8 @@ class C_Analytics extends MY_Controller {
 				$resultArray = json_encode($resultArray);
 				//var_dump($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($categories);
+				////$resultArraySize =  ; 5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				$datas['resultArraySize'] = $resultArraySize;
@@ -352,7 +354,8 @@ class C_Analytics extends MY_Controller {
 				$resultArray = array( array('name' => 'Trained', 'data' => $yesData), array('name' => 'Working', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($category);
@@ -381,22 +384,23 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getCommodityAvailabilityUnavailability($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability', 8);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability');
 	}
 
 	public function getCommodityAvailabilityLocation($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Location', 5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Location');
 	}
 
 	public function getCommodityAvailabilityQuantities($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Quantities', 5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Quantities');
 	}
 
-	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice, $resultSize) {
+	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
 		//var_dump($results);die;
 		$datas = array();
+		
 		$resultArray = array();
 
 		$counter = 0;
@@ -459,7 +463,7 @@ class C_Analytics extends MY_Controller {
 			case 'Quantities' :
 				$quantities = $results['quantities']['responses'];
 				$categories = $results['quantities']['categories'];
-				$currentData=array();
+				$currentData = array();
 				foreach ($quantities as $val) {
 					$currentData[] = $val;
 				}
@@ -474,7 +478,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($resultArray);
 		//die;
 
-		$resultArraySize = $resultSize;
+		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'bar';
@@ -493,7 +497,7 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
-$resultArray=array();
+		$resultArray = array();
 		foreach ($category as $cat) {
 			if ($cat != null) {
 				$newCat[] = $cat;
@@ -511,7 +515,8 @@ $resultArray=array();
 		$newCat[] = 'Metronidazole (Flagyl)';
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = 8;
+		$resultArraySize = count($categories);
+		//$resultArraySize =  8;
 
 		$datas['resultArraySize'] = $resultArraySize;
 
@@ -573,7 +578,8 @@ $resultArray=array();
 				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($resultArray);
@@ -684,7 +690,8 @@ $resultArray=array();
 				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($category);
@@ -773,7 +780,8 @@ $resultArray=array();
 				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($category);
@@ -887,7 +895,8 @@ $resultArray=array();
 				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($category);
@@ -983,7 +992,8 @@ $resultArray=array();
 				$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 				$resultArray = json_encode($resultArray);
 				$datas = array();
-				$resultArraySize = 5;
+				$resultArraySize = count($category);
+				//$resultArraySize =  5;
 				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 				//$resultArray = 5;
 				//var_dump($category);
@@ -1053,6 +1063,7 @@ $resultArray=array();
 		//var_dump($resultArray);
 		$datas = array();
 		$resultArraySize = 5;
+		//$resultArraySize =  5;
 
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
@@ -1083,22 +1094,22 @@ $resultArray=array();
 		$categories = $results['categories'];
 		$categoriesCount = 0;
 		$resultArray = array();
-		if($results!=null && count($results)>0){
-		foreach ($results as $result => $val) {
+		if ($results != null && count($results) > 0) {
+			foreach ($results as $result => $val) {
 
-			if ($categoriesCount < 6) {
-				$index = $categories[$categoriesCount];
-				if ($result == $index) {
-					$severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
-					$some_dehydration[] = array($result, (int)$val['some_dehydration']);
-					$no_dehydration[] = array($result, (int)$val['no_dehydration']);
-					$dysentry[] = array($result, (int)$val['dysentry']);
-					$no_classification[] = array($result, (int)$val['no_classification']);
-					$category[] = $index;
-					$categoriesCount++;
+				if ($categoriesCount < 6) {
+					$index = $categories[$categoriesCount];
+					if ($result == $index) {
+						$severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
+						$some_dehydration[] = array($result, (int)$val['some_dehydration']);
+						$no_dehydration[] = array($result, (int)$val['no_dehydration']);
+						$dysentry[] = array($result, (int)$val['dysentry']);
+						$no_classification[] = array($result, (int)$val['no_classification']);
+						$category[] = $index;
+						$categoriesCount++;
+					}
 				}
 			}
-		}
 		}
 		switch($filter) {
 			case 'SevereDehydration' :
@@ -1121,7 +1132,8 @@ $resultArray=array();
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		$datas = array();
-		$resultArraySize = 1;
+		$resultArraySize = count($categories);
+		//$resultArraySize =  1;
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
 		//var_dump($category);
@@ -1190,7 +1202,8 @@ $resultArray=array();
 		$resultArray = array( array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = count($category);
+		//$resultArraySize =  5;
 		//var_dump($resultArray);
 		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
 		//$resultArray = 5;
@@ -1215,25 +1228,25 @@ $resultArray=array();
 	 */
 
 	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency', 20);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency');
 
 	}
 
 	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability', 20);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability');
 
 	}
 
 	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location', 20);
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location');
 
 	}
 
-	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice, $resultSize) {
+	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value, $status, $survey);
 		//var_dump($results);die;
-		$datas = array();
+		$datas = array();		
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
 		$quantities = $results['quantities']['responses'];
@@ -1313,7 +1326,8 @@ $resultArray=array();
 		//var_dump($quantitiesFullyFunctional);
 		//die;
 		$resultArray = json_encode($resultArray);
-		$resultArraySize = $resultSize;
+		//$resultArraySize =  $resultSize;
+		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'bar';
@@ -1328,20 +1342,21 @@ $resultArray=array();
 	}
 
 	public function getSuppliesFrequency($criteria, $value, $status, $survey) {
-		$this -> getSupplies($criteria, $value, $status, $survey, 'Frequency', 5);
+		$this -> getSupplies($criteria, $value, $status, $survey, 'Frequency');
 	}
 
 	public function getSuppliesLocation($criteria, $value, $status, $survey) {
-		$this -> getSupplies($criteria, $value, $status, $survey, 'Location', 5);
+		$this -> getSupplies($criteria, $value, $status, $survey, 'Location');
 	}
 
 	/*
 	 * Availability, Location and Functionality of Supplies at ORT Corner
 	 */
-	public function getSupplies($criteria, $value, $status, $survey, $choice, $resultSize) {
+	public function getSupplies($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getSupplies($criteria, $value, $status, $survey);
 		$datas = array();
+		
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
 		//var_dump($results['location']);die;
@@ -1410,7 +1425,8 @@ $resultArray=array();
 		//var_dump($quantitiesFullyFunctional);
 		//die;
 		$resultArray = json_encode($resultArray);
-		$resultArraySize = $resultSize;
+		//$resultArraySize =  $resultSize;
+		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'bar';
@@ -1433,7 +1449,7 @@ $resultArray=array();
 		//var_dump($results);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
-$resultArray=$newCat=array();
+		$resultArray = $newCat = array();
 		foreach ($category as $cat) {
 			if ($cat != null) {
 				$newCat[] = $cat;
@@ -1451,7 +1467,8 @@ $resultArray=$newCat=array();
 
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = count($newCat);
+		//$resultArraySize =  5;
 
 		$datas['resultArraySize'] = $resultArraySize;
 
@@ -1470,17 +1487,17 @@ $resultArray=$newCat=array();
 	}
 
 	public function getResourcesFrequency($criteria, $value, $status, $survey) {
-		$this -> getResources($criteria, $value, $status, $survey, 'Frequency', 5);
+		$this -> getResources($criteria, $value, $status, $survey, 'Frequency');
 	}
 
 	public function getResourcesLocation($criteria, $value, $status, $survey) {
-		$this -> getResources($criteria, $value, $status, $survey, 'Location', 5);
+		$this -> getResources($criteria, $value, $status, $survey, 'Location');
 	}
 
 	/*
 	 *  Availability, Location and Functionality of Electricity and Hardware Resources
 	 */
-	public function getResources($criteria, $value, $status, $survey, $choice, $resultSize) {
+	public function getResources($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getResources($criteria, $value, $status, $survey);
 		$datas = array();
@@ -1553,7 +1570,9 @@ $resultArray=$newCat=array();
 		//die;
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
-		$resultArraySize = $resultSize;
+		//$resultArraySize =  $resultSize;
+		
+		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'bar';
@@ -1597,7 +1616,8 @@ $resultArray=$newCat=array();
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'column';
@@ -1625,7 +1645,8 @@ $resultArray=$newCat=array();
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
 		$datas['chartType'] = 'column';

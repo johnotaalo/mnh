@@ -1,6 +1,6 @@
 <style>
 	.chart {
-		overflow: auto;
+		overflow-y: auto;
 	}
 </style>
 <!-- BEGIN CHART PORTLET 1-->

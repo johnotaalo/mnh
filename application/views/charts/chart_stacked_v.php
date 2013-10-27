@@ -11,13 +11,13 @@ if($resultArraySize>10){
 	$chartSize='900';
 }
 if($resultArraySize>15){
-	$chartSize='1200';
+	$chartSize='1000';
 }
 if($resultArraySize>20){
-	$chartSize='1500';
+	$chartSize='1200';
 }
 if($resultArraySize>25){
-	$chartSize='3000';
+	$chartSize='2000';
 }
 
 ?>
@@ -107,7 +107,7 @@ else{ ?>
 		}
 		},
 		legend: {
-			layout: 'vertical',
+			layout: 'horizontal',
 			align: 'left',
 			floating: true,
 			borderWidth: 1,
