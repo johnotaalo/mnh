@@ -377,11 +377,11 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getCommodityAvailabilityFrequency($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Frequency', 5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Frequency', 8);
 	}
 
 	public function getCommodityAvailabilityUnavailability($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability', 5);
+		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability', 8);
 	}
 
 	public function getCommodityAvailabilityLocation($criteria, $value, $status, $survey) {
@@ -459,6 +459,7 @@ class C_Analytics extends MY_Controller {
 			case 'Quantities' :
 				$quantities = $results['quantities']['responses'];
 				$categories = $results['quantities']['categories'];
+				$currentData=array();
 				foreach ($quantities as $val) {
 					$currentData[] = $val;
 				}
@@ -492,7 +493,7 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
-
+$resultArray=array();
 		foreach ($category as $cat) {
 			if ($cat != null) {
 				$newCat[] = $cat;
@@ -510,7 +511,7 @@ class C_Analytics extends MY_Controller {
 		$newCat[] = 'Metronidazole (Flagyl)';
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = 5;
+		$resultArraySize = 8;
 
 		$datas['resultArraySize'] = $resultArraySize;
 
@@ -1082,6 +1083,7 @@ class C_Analytics extends MY_Controller {
 		$categories = $results['categories'];
 		$categoriesCount = 0;
 		$resultArray = array();
+		if($results!=null && count($results)>0){
 		foreach ($results as $result => $val) {
 
 			if ($categoriesCount < 6) {
@@ -1096,6 +1098,7 @@ class C_Analytics extends MY_Controller {
 					$categoriesCount++;
 				}
 			}
+		}
 		}
 		switch($filter) {
 			case 'SevereDehydration' :
@@ -1430,7 +1433,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($results);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
-
+$resultArray=$newCat=array();
 		foreach ($category as $cat) {
 			if ($cat != null) {
 				$newCat[] = $cat;

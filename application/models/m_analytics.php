@@ -555,12 +555,31 @@ GROUP BY cs.strategyID ASC;";
 		/*--------------------end commodity reason for unavailability----------------------------------------------*/
 
 		/*--------------------begin commodity location of availability----------------------------------------------*/
-		$query = "SELECT count(ca.Location) AS total_response,ca.CommodityID as commodity,ca.Location AS location FROM cquantity_available ca
-					WHERE ca.facilityID IN (SELECT facilityMFC FROM facility WHERE " . $status_condition . " " . $criteria_condition . ") 
-					AND ca.CommodityID IN (SELECT commodityCode FROM commodity WHERE commodityFor='mch')
-					AND ca.Location NOT LIKE '%Not Applicable%'
-					GROUP BY ca.CommodityID,ca.Location
-					ORDER BY ca.CommodityID";
+		$query = "SELECT 
+    count(ca.Location) AS total_response,
+    ca.CommodityID as commodity,
+    ca.Location AS location,
+    commodity.unit as unit
+FROM
+    cquantity_available ca,
+    commodity
+WHERE
+    ca.commodityID = commodity.commodityCode
+        AND ca.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+             " . $status_condition . " " . $criteria_condition . ") 
+        AND ca.CommodityID IN (SELECT 
+            commodityCode
+        FROM
+            commodity
+        WHERE
+            commodityFor = 'mch')
+        AND ca.Location NOT LIKE '%Not Applicable%'
+GROUP BY ca.CommodityID , ca.Location
+ORDER BY ca.CommodityID";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($status, $value));
 
@@ -2874,6 +2893,47 @@ ORDER BY facilityName;";
 		return $myOptions;
 
 	}
+	public function getFacilitiesByDistrictOptionsNew($district,$table) {
+		$myOptions = '<option>Viewing All</option>';
+		/*using CI Database Active Record*/
+		try {
+			$query = "SELECT DISTINCT
+facility.facilityMFC, facility.facilityName
+FROM
+facility,
+mnh.mch_indicator_log
+WHERE
+facilityDistrict = '" . $district . "'
+AND facility.facilityMFC = ".$table.".facilityID
+ORDER BY facilityName;";
+			$this -> dataSet = $this -> db -> query($query);
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//die(var_dump($this->dataSet));
+			if ($this -> dataSet!==NULL) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+					$myOptions .= '<option value=' . $value_['facilityMFC'] . '>' . $value_['facilityName'] . '</option>';
+					//1. collect the categories
+					//$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
+					//incase of duplicates--do an array_unique outside the foreach()
+
+				}
+
+				//unset the arrays for reuse
+
+				//return $this -> final_data_set;
+			} else {
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		return $myOptions;
+
+	}
 
 	public function getReportingCountiesCore() {
 		/*using CI Database Active Record*/
@@ -2994,7 +3054,16 @@ FROM
     FROM
         facility
     WHERE
-        facility.facilityCounty = "' . $county . '") as facilityData;';
+        facility.facilityCounty = "' . $county . '"
+		AND facilityType != "Dental Clinic"
+            AND facilityType != "VCT Centre (Stand-Alone)"
+            AND facilityType != "Training Institution in Health (Stand-alone)"
+            AND facilityType != "Funeral Home (Stand-alone)"
+            AND facilityType != "Laboratory (Stand-alone)"
+            AND facilityType != "Health Project"
+            AND facilityType != "Eye Clinic"
+			AND facilityType != "Eye Centre"
+            AND facilityType != "Radiology Unit") as facilityData;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();

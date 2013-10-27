@@ -2,10 +2,10 @@
 	<!-- BEGIN SIDEBAR MENU -->
 	<ul>
 		
-		<!--li class="has-sub start">
-			<a href="<?php echo base_url() ?>ch/analytics"> <i class="icon-home"></i> <span class="title">Analytics Summary</span> </a>
+		<li id="home-parent" class="has-sub start">
+			<a href="#"> <i class="icon-home"></i> <span class="title">Analytics Summary</span> </a>
 		</li>
-		<li id="facility-info-parent" class="has-sub start">
+		<!--li id="facility-info-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bookmark-empty"></i> <span class="title">Facility Information</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li >

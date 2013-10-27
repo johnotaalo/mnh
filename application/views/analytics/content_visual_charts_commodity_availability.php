@@ -17,7 +17,17 @@
 				<h4><i class="icon-reorder"></i><span class="statistic"></span> Aggregated Analysis</h4>
 			</div>
 			<div class="portlet-body">
-
+				<div class="clearfix">
+					<div class="control-group pull-left">
+						<select class="secondary-filter" id="secondary-aggregated">
+							<option value="SevereDehydration">Severe Dehydration</option>
+							<option value="SomeDehydration">Some Dehydration</option>
+							<option value="NoDehydration">No Dehydration</option>
+							<option value="Dysentry">Dysentry</option>
+							<option value="NoClassification">No Classification</option>
+						</select>
+					</div>
+				</div>
 				<div id="graph_1" class="chart"></div>
 			</div>
 		</div>
@@ -29,7 +39,7 @@
 				<div class="clearfix">
 					<div class="clearfix">
 						<div class="control-group pull-left">
-							<select class="secondary-filter" id="district">
+							<select class="secondary-filter" id="secondary-district">
 								<option value="SevereDehydration">Severe Dehydration</option>
 								<option value="SomeDehydration">Some Dehydration</option>
 								<option value="NoDehydration">No Dehydration</option>
@@ -40,7 +50,7 @@
 						<div class="control-group pull-right">
 							Filter
 							<select name="fi_district" id="fi_district">
-								<option value="all" selected="">Viewing All</option>
+								<option value="all" selected="">No District Chosen</option>
 
 							</select>
 						</div>
@@ -65,7 +75,7 @@
 				<div class="clearfix">
 					<div class="control-group pull-left">
 
-						<select class="secondary-filter" id="county">
+						<select class="secondary-filter" id="secondary-county">
 							<option value="SevereDehydration">Severe Dehydration</option>
 							<option value="SomeDehydration">Some Dehydration</option>
 							<option value="NoDehydration">No Dehydration</option>
@@ -86,8 +96,7 @@
 				<div class="clearfix">
 					<div class="control-group pull-left">
 
-						<select class="secondary-filter">
-							<option value="all" selected="">Viewing All</option>
+						<select class="secondary-filter" id="secondary-facility">
 							<option>Severe Dehydration</option>
 							<option>Some Dehydration</option>
 							<option>No Dehydration</option>
@@ -98,7 +107,7 @@
 					<div class="control-group pull-right">
 
 						<select style="width:280px" name="fi_facility" id="fi_facility">
-							<option value="all" selected="">Viewing All</option>
+							<option value="all" selected="">No Facility Chosen</option>
 						</select>
 					</div>
 				</div>

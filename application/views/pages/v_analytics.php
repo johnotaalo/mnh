@@ -102,7 +102,9 @@
 			var countyClicked;
 			county=' ';
 			county='<?php echo $this->session->userdata('county_analytics') ?>';
-		
+			if(county==''){
+				county='Unselected';
+			}
 			//alert(county);
 			click=0;
 			
@@ -110,7 +112,7 @@
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
 		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
-			if(county!='' && county!='No County Selected'){				
+			if(county!='' && county!='Unselected'){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
 				}).prop("selected", "selected");
@@ -178,9 +180,26 @@
 				
 			});
 			
+			//Home Action Event
+			$('#home-parent').click(function(){
+				$('h3.page-title').text('Analytics Summary');
+				$('h3.page-title').append('<small>Facts and Figures</small>');
+				$('#breadcrumb-title').text('');
+				$('#breadcrumb-sub-title').text('');
+				
+				$('.has-sub.start').removeClass('active');
+				$('.has-sub.start a').remove('span');
+				$('#home-parent').addClass('active');
+				$('#home-parent').append('<span class="selected"></span>');
+				$('#analytics-page').hide();
+				$('#reporting-parent').show();
+			});
+			
+			
 			$('ul.sub li').click(function(){
 				$('#facility_list').hide();
 				$('#reporting-parent').hide();
+				$('#analytics-page').show();
 				click=1;
 				subID = $(this).attr('id');
 				//parentDiv = $('#'+subID+' a').parents('ul');
@@ -512,7 +531,7 @@
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('ORT Equipment Availability');
+					$('span.statistic').text('ORT Equipment Functionality');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/national/n/complete/ch');
