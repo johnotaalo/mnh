@@ -162,7 +162,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($results);die;
 		$resultArray = array();
 		$datas = array();
-		
+
 		//$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
 		if (count($results) > 0 && $results !== null) {
@@ -171,7 +171,7 @@ class C_Analytics extends MY_Controller {
 				$resultData[] = (int)$result[1];
 			}
 		}
-$resultArraySize = count($categories);
+		$resultArraySize = count($categories);
 		$resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
 		////$resultArraySize =  ; 5;
 		$datas['resultArraySize'] = $resultArraySize;
@@ -400,7 +400,7 @@ $resultArraySize = count($categories);
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
 		//var_dump($results);die;
 		$datas = array();
-		
+
 		$resultArray = array();
 
 		$counter = 0;
@@ -1233,7 +1233,7 @@ $resultArraySize = count($categories);
 	}
 
 	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Availability');
+		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Functionality');
 
 	}
 
@@ -1246,7 +1246,7 @@ $resultArraySize = count($categories);
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value, $status, $survey);
 		//var_dump($results);die;
-		$datas = array();		
+		$datas = array();
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
 		$quantities = $results['quantities']['responses'];
@@ -1263,13 +1263,14 @@ $resultArraySize = count($categories);
 			case 'Frequency' :
 				$datas['availability'] = 1;
 				$frequencyCategories = $frequency['categories'];
+				$category = $frequencyCategories;
 				$frequencyNever = $frequency['responses']['Never Available'];
 				$frequencyAlways = $frequency['responses']['Available'];
 				$frequencySometimes = $frequency['responses']['Sometimes Available'];
 				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
 				$stackorno = 'charts/chart_stacked_v';
 				break;
-			case 'Availability' :
+			case 'Functionality' :
 				foreach ($quantities as $quantity) {
 					$arr = $quantity[$counter];
 					//[0]['Fully-functional'];
@@ -1277,6 +1278,7 @@ $resultArraySize = count($categories);
 					$quantitiesNonFunctional[] = $arr['Non-functional'];
 					//$counter++;
 				}
+				$category = $results['quantities']['categories'];
 				$stackorno = 'charts/chart_stacked_v';
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
@@ -1317,16 +1319,16 @@ $resultArraySize = count($categories);
 				}
 				//var_dump($other);
 				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-
+				$category = $locationCategories;
 				//var_dump($resultArray);die;
 				$stackorno = 'charts/chart_stacked_v';
 				break;
 		}
-		$category = $categories;
 		//var_dump($quantitiesFullyFunctional);
 		//die;
 		$resultArray = json_encode($resultArray);
 		//$resultArraySize =  $resultSize;
+
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;
@@ -1356,7 +1358,7 @@ $resultArraySize = count($categories);
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getSupplies($criteria, $value, $status, $survey);
 		$datas = array();
-		
+
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
 		//var_dump($results['location']);die;
@@ -1571,7 +1573,7 @@ $resultArraySize = count($categories);
 		$resultArray = json_encode($resultArray);
 		//var_dump($resultArray);
 		//$resultArraySize =  $resultSize;
-		
+
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
 		$datas['container'] = 'chart_' . $criteria;

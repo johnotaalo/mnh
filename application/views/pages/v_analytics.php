@@ -507,7 +507,7 @@
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('ORT Equipment Frequency');
+					$('span.statistic').text('ORT Equipment Availability');
 					$('#ORT-Corner-parent').addClass('active');
 					$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/national/n/complete/ch');
