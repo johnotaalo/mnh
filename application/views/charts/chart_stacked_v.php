@@ -112,7 +112,8 @@ else{ ?>
 			floating: true,
 			borderWidth: 1,
 			backgroundColor: '#FFFFFF',
-			shadow: true
+			shadow: true,
+			reversed: true  
 		},
 		credits: {
 			enabled: false

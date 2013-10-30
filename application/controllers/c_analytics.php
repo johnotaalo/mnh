@@ -165,11 +165,14 @@ class C_Analytics extends MY_Controller {
 
 		//$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
 
-		if (count($results) > 0 && $results !== null) {
+		if ($results != "") {
 			foreach ($results as $result) {
 				$categories[] = $result[0];
 				$resultData[] = (int)$result[1];
 			}
+		} else {
+			$categories = "";
+			$resultData = 0;
 		}
 		$resultArraySize = count($categories);
 		$resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
@@ -398,7 +401,8 @@ class C_Analytics extends MY_Controller {
 	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
-		//var_dump($results);die;
+		//var_dump($results);
+		//die ;
 		$datas = array();
 
 		$resultArray = array();
@@ -413,15 +417,46 @@ class C_Analytics extends MY_Controller {
 				$datas['availability'] = 1;
 				$frequency = $results['frequency'];
 				$category = $frequency['categories'];
-				$frequencyNever = $frequency['responses']['Never Available'];
-				$frequencyAlways = $frequency['responses']['Available'];
-				$frequencySometimes = $frequency['responses']['Sometimes Available'];
-				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				$responses = $frequency['responses'];
+				$catkey = 0;
+				$always = $responses['Available'];
+				$sometimes = $responses['Sometimes Available'];
+				$never = $responses['Never Available'];
+				$finalAlways = $finalSometimes = $finalNever = array();
+				$drug_always = $drug_sometimes = $drug_never = 0;
+				//echo count($category);die;
+				for ($catkey = 0; $catkey < count($category); $catkey++) {
+					$drug = $category[$catkey];
+					//var_dump($never[$drug]);die;
+
+					if (array_key_exists($drug, $always) == false) {
+						$drug_always = 0;
+					} else {
+						$drug_always = $always[$drug];
+					}
+					if (array_key_exists($drug, $sometimes) == false) {
+						$drug_sometimes = 0;
+					} else {
+						$drug_sometimes = $sometimes[$drug];
+					}
+					if (array_key_exists($drug, $never) == false) {
+						$drug_never = 0;
+					} else {
+						$drug_never = $never[$drug];
+					}
+					//var_dump($always[$drug]);
+					$finalAlways[] = $drug_always;
+					$finalSometimes[] = $drug_sometimes;
+					$finalNever[] = $drug_never;
+
+				}
+
+				$resultArray = array( array('name' => 'Always', 'data' => $finalAlways), array('name' => 'Sometimes', 'data' => $finalSometimes), array('name' => 'Never', 'data' => $finalNever));
 				break;
 			case 'Unavailability' :
 				$unavailability = $results['unavailability'];
 				$analytics = $unavailability['responses'];
-				$category = $unavailability['categories'];
+				//$category = $unavailability['categories'];
 				if ($analytics != null || isset($analytics)) {
 					foreach ($analytics as $key => $val) {
 						$resultArray[] = array('name' => $key, 'data' => $val);
@@ -462,7 +497,8 @@ class C_Analytics extends MY_Controller {
 				break;
 			case 'Quantities' :
 				$quantities = $results['quantities']['responses'];
-				$category = $results['quantities']['categories'];
+				$category = $results['frequency']['categories'];
+				//$category = $results['quantities']['categories'];
 				$currentData = array();
 				foreach ($quantities as $val) {
 					$currentData[] = $val;
@@ -514,7 +550,7 @@ class C_Analytics extends MY_Controller {
 		$newCat[] = 'Metronidazole (Flagyl)';
 		$resultArray = json_encode($resultArray);
 		$datas = array();
-		$resultArraySize = count($categories);
+		$resultArraySize = count($newCat);
 		//$resultArraySize =  8;
 
 		$datas['resultArraySize'] = $resultArraySize;
@@ -1483,7 +1519,7 @@ class C_Analytics extends MY_Controller {
 		$datas['categories'] = json_encode($newCat);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 
 	}
 
@@ -1591,17 +1627,26 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Lists for NEVER
 	 */
-	public function getFacilityListForNever($choice) {
-		switch($choice) {
-			case 'Commodity' :
-				break;
-			case 'ORT' :
-				break;
-			case 'Water' :
-				break;
-			case 'Resources' :
-				break;
+	public function getFacilityListForNever($criteria, $value, $status, $survey, $choice) {
+		urldecode($value);
+		$results = $this -> m_analytics -> getFacilityListForNever($criteria, $value, $status, $survey, $choice);
+		//var_dump($results);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		$pdf = "<h3>Facility List that responded <em>NEVER</em> for $value District</h3>";
+		$pdf .= '<table>';
+		foreach ($results as $key => $value) {
+			$pdf .= '<tr><th colspan="2">' . $key . '<th></tr>';
+			#Per Title
+			foreach ($value as $facility) {
+				$pdf .= '<tr class="tableRow"><td width="70px">' . $facility[0] . '</td><td width="500px">' . $facility[1] . '</td></tr>';
+			}
+
 		}
+		$pdf .= '</table>';
+		$this->loadPDF($pdf);
+
 	}
 
 	/**
@@ -1609,7 +1654,7 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getFacilityOwnerPerCounty($county) {
 		//$allCounties = $this -> m_analytics -> getReportingCounties();
-		$county=urldecode($county);
+		$county = urldecode($county);
 		//foreach ($allCounties as $county) {
 		$category[] = $county;
 		$results = $this -> m_analytics -> getFacilityOwnerPerCounty($county);
@@ -1650,14 +1695,14 @@ class C_Analytics extends MY_Controller {
 	 */
 	public function getFacilityLevelPerCounty($county) {
 		//$allCounties = $this -> m_analytics -> getReportingCounties();
-		$county=urldecode($county);
+		$county = urldecode($county);
 		//foreach ($allCounties as $county) {
 		$category[] = $county;
 		$results = $this -> m_analytics -> getFacilityLevelPerCounty($county);
-		$resultArray = array();		
+		$resultArray = array();
 		foreach ($results as $value) {
 			$data = array();
-			$name = 'Level  '.$value['facilityLevel'];
+			$name = 'Level  ' . $value['facilityLevel'];
 			$data[] = (int)$value['level_total'];
 			$resultArray[] = array('name' => $name, 'data' => $data);
 		}
@@ -1769,7 +1814,11 @@ class C_Analytics extends MY_Controller {
 	public function loadPDF($pdf) {
 		$stylesheet = ('
 		th{
-			border-bottom:2px solid #000;
+			padding:5px;
+			text-align:left;
+		}
+		tr.tableRow:nth-child(even){
+			background:#DDD;
 		}
 		h3 em {
 			color:red;

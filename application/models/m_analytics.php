@@ -441,11 +441,11 @@ GROUP BY cs.strategyID ASC;";
 
 					//collect the data_sets for the 3 analytic variables under availability
 					if ($frequency == 'Available') {
-						$data_set['Available'][] = intval($value_['total_response']);
+						$data_set['Available'][$this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
 					} else if ($frequency == 'Sometimes Available') {
-						$data_set['Sometimes Available'][] = intval($value_['total_response']);
+						$data_set['Sometimes Available'][$this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
 					} else if ($frequency == 'Never Available') {
-						$data_set['Never Available'][] = intval($value_['total_response']);
+						$data_set['Never Available'][$this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
 					}
 
 				}
@@ -692,7 +692,7 @@ ORDER BY ca.CommodityID";
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//collect the data_sets by commodity
-					$data_set[$this -> getCommodityNameById($value_['commodity'])] = intval($value_['total_quantity']);
+					$data_set[$this -> getCommodityNameById($value_['commodity']) . '[' . $value_['unit'] . ']'] = intval($value_['total_quantity']);
 
 				}
 				//var_dump($data_categories);die;
@@ -2480,7 +2480,7 @@ ORDER BY sq.suppliesCode ASC";
 
 		/*--------------------begin equipment main supplier----------------------------------------------*/
 		$query = "SELECT 
-    count(sq.SuppliesCode) AS total_response,
+    count(sq.SuppliesCode)/2 AS total_response,
     sq.SuppliesCode as supplies,
     sq.SupplierID AS supplier
 FROM
@@ -2967,9 +2967,9 @@ ORDER BY f.facilityCounty ASC;";
 
 	}
 
-/**
- * List of Counties that have reported
- */
+	/**
+	 * List of Counties that have reported
+	 */
 	public function getReportingCounties() {
 		/*using CI Database Active Record*/
 		try {
@@ -3102,7 +3102,7 @@ FROM
             AND facility.facilityCounty = "' . $county . '"
             AND assessment_tracker.trackerSection = "section-6"
     GROUP BY facilityOwner
-    ORDER BY facilityOwner) AS tracker;';
+    ORDER BY COUNT(facilityOwnedBy) ASC) AS tracker;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
@@ -3113,7 +3113,7 @@ FROM
 		}
 		return $finalData;
 	}
-	
+
 	function getFacilityLevelPerCounty($county) {
 		/*using DQL*/
 
@@ -3135,7 +3135,7 @@ FROM
             AND facility.facilityCounty = "' . $county . '"
             AND assessment_tracker.trackerSection = "section-6"
     GROUP BY facilityLevel
-    ORDER BY facilityLevel) AS tracker;';
+    ORDER BY COUNT(facilityLevel) ASC) AS tracker;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
@@ -3165,7 +3165,7 @@ FROM
 	/**
 	 * Lists for NEVER
 	 */
-	public function getFacilityListForNever($district, $choice) {
+	public function getFacilityListForNever($criteria, $value, $status, $survey, $choice) {
 		urldecode($value);
 		if ($survey == 'ch') {
 			$status_condition = 'facilityCHSurveyStatus =?';
@@ -3228,157 +3228,142 @@ ORDER BY ca.CommodityID";
 
 						$size = count($this -> dataSet);
 						$i = 0;
-
+						$facilities = array();
 						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Inability to drink or breastfeed' :
-									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
-									break;
-								case 'Lethargy and unconsciousness' :
-									$lethargy[] = array($value['facilityID'], $value['facilityName']);
-									break;
-							}
-						}
+							//$title[$this->getCommodityNameById($value['commodity'])][]=$this->getCommodityNameById($value['commodity']).'  ['.$value['unit'].']';
+							$facilities[$this -> getCommodityNameById($value['commodity']) . '  [' . $value['unit'] . ']'][] = array($value['facilityID'], $value['facilityName']);
 
-						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+						}
+						return $facilities;
+						//$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
 
 						//var_dump($this->dataSet);die;
-
 					} else {
-						return $this -> dataSet = null;
+						return $facilities = null;
 					}
 				} catch(exception $ex) {
 				}
 				break;
 			case 'ORT' :
 				$query = "SELECT 
-    i.indicatorName, il.facilityID, f.facilityName
+    ea.facilityID,
+    f.facilityName,
+    ea.equipAvailability AS frequency,
+    ea.equipmentID as equipment
 FROM
-    mch_indicator_log il,
-    mch_indicators i,
+    equipments_available ea,
     facility f
 WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.facilityID = f.facilityMFC
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'sgn')
-        AND il.facilityID IN (SELECT 
+    ea.facilityID IN (SELECT 
             facilityMFC
         FROM
             facility
         WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            " . $status_condition . "  " . $criteria_condition . ") 
+        AND ea.equipmentID IN (SELECT 
+            equipmentCode
+        FROM
+            equipment
+        WHERE
+            equipmentFor = 'ort')
+        AND ea.equipAvailability = 'Never Available'
+        AND ea.facilityID = f.facilityMFC
+ORDER BY ea.equipmentID ASC";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
 					if ($this -> dataSet !== NULL) {
-
+						$facilities = array();
 						$size = count($this -> dataSet);
 						$i = 0;
 
 						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Inability to drink or breastfeed' :
-									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
-									break;
-								case 'Lethargy and unconsciousness' :
-									$lethargy[] = array($value['facilityID'], $value['facilityName']);
-									break;
-							}
+							$facilities[$this -> getCHEquipmentName($value['equipment'])][] = array($value['facilityID'], $value['facilityName']);
 						}
 
-						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
-
+						return $facilities;
 						//var_dump($this->dataSet);die;
 
 					} else {
-						return $this -> dataSet = null;
+						return $facilities = null;
 					}
 				} catch(exception $ex) {
 				}
 				break;
 			case 'Water' :
 				$query = "SELECT 
-    i.indicatorName, il.facilityID, f.facilityName
+    sq.facilityID,
+    f.facilityName,
+    sq.SuppliesCode as supplies,
+    sq.Availability AS frequency
 FROM
-    mch_indicator_log il,
-    mch_indicators i,
+    squantity_available sq,
+    supplies s,
     facility f
 WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.facilityID = f.facilityMFC
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'sgn')
-        AND il.facilityID IN (SELECT 
+    sq.SuppliesCode = s.suppliesCode
+        AND sq.facilityID IN (SELECT 
             facilityMFC
         FROM
             facility
         WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+             " . $status_condition . "  " . $criteria_condition . ") 
+        AND sq.SuppliesCode IN (SELECT 
+            suppliesCode
+        FROM
+            supplies
+        WHERE
+            suppliesFor = 'mch')
+        AND sq.Availability = 'Never Available'
+        AND sq.facilityID = f.facilityMFC
+ORDER BY sq.SuppliesCode;";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 
 					if ($this -> dataSet !== NULL) {
-
+						$facilities = array();
 						$size = count($this -> dataSet);
 						$i = 0;
 
 						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Inability to drink or breastfeed' :
-									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
-									break;
-								case 'Lethargy and unconsciousness' :
-									$lethargy[] = array($value['facilityID'], $value['facilityName']);
-									break;
-							}
+							$facilities[$this -> getCHSuppliesName($value['supplies'])][] = array($value['facilityID'], $value['facilityName']);
 						}
-
-						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
-
+						return $facilities;
 						//var_dump($this->dataSet);die;
 
 					} else {
-						return $this -> dataSet = null;
+						return $facilities = null;
 					}
 				} catch(exception $ex) {
 				}
 				break;
 			case 'Resources' :
 				$query = "SELECT 
-    i.indicatorName, il.facilityID, f.facilityName
+    ra.facilityID,
+    f.facilityName,
+    ra.ResourceCode as equipment,
+    ra.Availability AS frequency
 FROM
-    mch_indicator_log il,
-    mch_indicators i,
+    mch_resource_available ra,
     facility f
 WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.facilityID = f.facilityMFC
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'sgn')
-        AND il.facilityID IN (SELECT 
+    ra.facilityID IN (SELECT 
             facilityMFC
         FROM
             facility
         WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+           " . $status_condition . "  " . $criteria_condition . ") 
+        AND ra.ResourceCode IN (SELECT 
+            equipmentCode
+        FROM
+            equipment
+        WHERE
+            equipmentFor = 'hwr')
+        AND ra.Availability = 'Never Available'
+        AND ra.facilityID = f.facilityMFC
+ORDER BY ra.ResourceCode ASC";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($status, $value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3387,25 +3372,17 @@ WHERE
 
 						$size = count($this -> dataSet);
 						$i = 0;
-
+						$facilities = array();
 						foreach ($this->dataSet as $value) {
-
-							switch($this->getCommodityNameById($value_['commodity'])) {
-								case 'Inability to drink or breastfeed' :
-									$breastfeed[] = array($value['facilityID'], $value['facilityName']);
-									break;
-								case 'Lethargy and unconsciousness' :
-									$lethargy[] = array($value['facilityID'], $value['facilityName']);
-									break;
-							}
+							$facilities[$this -> getCHEquipmentName($value['equipment'])][] = array($value['facilityID'], $value['facilityName']);
 						}
 
-						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
+						return $facilities;
 
 						//var_dump($this->dataSet);die;
 
 					} else {
-						return $this -> dataSet = null;
+						return $facilities = null;
 					}
 				} catch(exception $ex) {
 				}

@@ -45,7 +45,7 @@
 								
 						<!-- BEGIN PAGE TITLE & BREADCRUMB-->			
 						<h3 class="page-title">
-							<?php echo $analytics_main_title; ?> <small><?php echo $analytics_mini_title; ?></small>
+							<?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County" ?><small><?php echo $analytics_mini_title; ?></small>
 							<h4 style="float:right;padding-right:3%;"><?php //echo $this->session->userdata('county_analytics') ?>
 								
 								
@@ -97,7 +97,7 @@
 			var district;
 			var currentChart,currentDiv;
 			var selectedOption;
-			var appendToTitle,filter,click;
+			var appendToTitle,filter,click,neverList;
 			
 			var countyClicked;
 			county=' ';
@@ -108,7 +108,8 @@
 			//alert(county);
 			click=0;
 			
-			
+		$('#home-parent').addClass('active');
+		$('#home-parent').append('<span class="selected"></span>');		
 		$('#facility_list').hide();
 		$('#reportingLabel').hide();
 		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
@@ -186,9 +187,14 @@
 				
 			});
 			
+			$('#facility_list_never').click(function(){
+				window.open('<?php echo base_url();?>c_analytics/getFacilityListForNever/district/'+district+'/complete/ch/'+neverList);
+				
+			});
+			
 			//Home Action Event
 			$('#home-parent').click(function(){
-				$('h3.page-title').text('Analytics Summary');
+				$('h3.page-title').text('Analytics Summary for '+county+' County');
 				$('h3.page-title').append('<small>Facts and Figures</small>');
 				$('#breadcrumb-title').text('');
 				$('#breadcrumb-sub-title').text('');
@@ -204,6 +210,7 @@
 			
 			$('ul.sub li').click(function(){
 				$('#facility_list').hide();
+				$('#facility_list_never').hide();
 				$('#reporting-parent').hide();
 				$('#analytics-page').show();
 				click=1;
@@ -404,6 +411,8 @@
 					 * Commodities
 					 */
 					case 'commodityFrequency':
+					$('#facility_list_never').show();
+					neverList='Commodity';
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/';
 					currentDiv = '#graph_3';
@@ -510,6 +519,8 @@
 						break;	
 						
 					case 'ORTEquipmentAvailability':
+					$('#facility_list_never').show();
+					neverList='ORT';
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/';
 					currentDiv = '#graph_3';
@@ -563,6 +574,8 @@
 					 * Supplies
 					 */
 					case 'suppliesFrequency':
+					$('#facility_list_never').show();
+					neverList='Water';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
 					currentChart = '<?php echo base_url();?>c_analytics/getSuppliesFrequency/';
@@ -590,7 +603,7 @@
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getCHSuppliesSupplier/';
 					currentDiv = '#graph_3';
-					$('span.statistic').text('Supplies Location');
+					$('span.statistic').text('Suppliers');
 					$('#supplies-parent').addClass('active');
 					$('#supplies-parent a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCHSuppliesSupplier/national/n/complete/ch');
@@ -602,6 +615,8 @@
 					 */	
 									
 					case 'resourceAvailability':
+					$('#facility_list_never').show();
+					neverList='Resources';
 					currentChart = '<?php echo base_url();?>c_analytics/getResourcesFrequency/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';

@@ -4,6 +4,7 @@
 	<link href="<?php echo base_url()?>assets/css/metro.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>css/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="<?php echo base_url()?>assets/loading/css/loading.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>assets/css/style.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>assets/css/style_responsive.css" rel="stylesheet" />
 	<link href="<?php echo base_url()?>assets/css/style_light.css" rel="stylesheet" id="style_color" />
