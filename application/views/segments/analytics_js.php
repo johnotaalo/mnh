@@ -2,6 +2,7 @@
 	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>	
 	<script src="<?php echo base_url()?>assets/breakpoints/breakpoints.js"></script>	
 	<script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url()?>assets/js/bootbox.js"></script>
 	<script src="<?php echo base_url()?>assets/js/jquery.blockui.js"></script>
 	<script src="<?php echo base_url()?>assets/js/jquery.cookie.js"></script>
 	<!-- ie8 fixes -->

@@ -1238,7 +1238,6 @@ color: #fff;
 .portlet.box .portlet-title {
 	padding: 8px 10px 2px 10px;
 	border-bottom: 2px solid #bbbbbb;
-	color: #fff !important;
 }
 
 .portlet.box .portlet-title > .actions > .btn > i {

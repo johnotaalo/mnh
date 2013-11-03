@@ -174,6 +174,7 @@
 				district = encodeURIComponent(district);
 				//alert(currentChart+district+'/complete/ch');
 				$(currentDiv).load(currentChart+'district/'+district+'/complete/ch/chart');
+				//$('#graph_10').load(currentChart+'district/'+district+'/complete/ch/chart');
 				$('select#fi_facility').load('<?php echo base_url()?>c_analytics/getFacilitiesByDistrictOptions/'+district);
 			});
 						
@@ -652,11 +653,50 @@
 				$('#breadcrumb-sub-title').text(smallText);
 			});
 			
-				// Build the charts
+			//Load fields
+			$('select#compare_1').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');					
+			$('select#compare_2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
+				//Bootbox
+				$("#district_compare").click(function(){
+					
+					//district = encodeURI(district);
+					statistic = $('ul.sub li.active a').text();
+					$('#compare_title').text(statistic);
+					$('#compare_title_1').text(statistic);
+					$('#compare_title_2').text(statistic);
+					
+					
+					district = decodeURI(district);
+					$("select#compare_1").val(district);
+					$('#graph_10').delay(10000000).load(currentChart+'district/'+district+'/complete/ch/chart');
+					//$('').load('');
+					//bootbox.alert().load("<div>HELLO</div>");
+				});
+				
+				$("#county_compare").click(function(){
+					//county = decodeURI(county);
+					statistic = $('ul.sub li.active a').text();
+					$('#compare_title').text(statistic);
+					$('#compare_title_1').text(statistic);
+					$('#compare_title_2').text(statistic);
+					
+					//$('').load('');
+					//bootbox.alert().load("<div>HELLO</div>");
+				});
+				//Change Event for District Select
+				$(document).on("change", "select#compare_2", function(){
+				district2=$('select#compare_2 option:selected').text();
+				$("#graph_11").load(currentChart+'district/'+district2+'/complete/ch/chart');
+});
+				
+				$("select#compare_2").change(function(){
+				
+				});
 });
 
 	</script>
 	<!-- END JAVASCRIPTS -->
+	<?php $this->load->view('segments/modals')?>
 </body>
 <!-- END BODY -->
 </html>

@@ -3,6 +3,7 @@
 		overflow-y: auto;
 	}
 </style>
+<script></script>
 <!-- BEGIN CHART PORTLET 1-->
 <div class="row-fluid" id="reporting-parent">
 	<div class="span6" id="span1">
@@ -13,10 +14,10 @@
 		</div>
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic-free">Reporting Facility Ownership</span>By County</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>By County</h4>
 			</div>
 			<div class="portlet-body">
-				
+
 				<div id="graph_5" class="chart"></div>
 			</div>
 		</div>
@@ -26,22 +27,22 @@
 	<div class="span6">
 		<div class="portlet box">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
 
 			</div>
 			<div class="portlet-body">
-				
+
 				<div id="graph_6" class="chart"></div>
 			</div>
 		</div>
 		<!--div class="portlet box " id="port2">
-			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
-			</div>
-			<div class="portlet-body">
-				
-				<div id="graph_7" class="chart"></div>
-			</div>
+		<div class="portlet-title">
+		<h4><i class="icon-bar-chart"></i><span class="statistic"></span> By Facility</h4>
+		</div>
+		<div class="portlet-body">
+
+		<div id="graph_7" class="chart"></div>
+		</div>
 		</div-->
 
 	</div>
@@ -50,7 +51,7 @@
 	<div class="span6" id="span1">
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> Aggregated Analysis</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> Aggregated Analysis</h4>
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -69,7 +70,11 @@
 		</div>
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> By District</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> By District</h4>
+				<div class="control-group pull-right">
+					<h6 class="compare" id="district_compare" data-toggle="modal" href="#compareModal"><i class="icon-adjust"></i> Compare </h6>
+				</div>
+
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -107,8 +112,10 @@
 	<div class="span6">
 		<div class="portlet box">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"> </span> By County</h4>
-
+				<h4><i class="icon-bar-chart"></i><span class="statistic"> </span> By County</h4>
+				<div class="control-group pull-right">
+					<h6 class="compare" id="county_compare" data-toggle="modal" href="#compareModal"><i class="icon-adjust"></i> Compare </h6>
+				</div>
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -129,7 +136,7 @@
 		</div>
 		<div class="portlet box " id="port2">
 			<div class="portlet-title">
-				<h4><i class="icon-reorder"></i><span class="statistic"></span> By Facility</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> By Facility</h4>
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
@@ -156,5 +163,5 @@
 
 	</div>
 </div>
-<?php $this->load->view('segments/modals')?>
+
 <!-- END CHART PORTLET-->

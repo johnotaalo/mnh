@@ -547,11 +547,23 @@ select.m-wrap.large {
 	width: 70%;
 }
 
-.statistic,.statistic-free{
+.statistic,.statistic-free,.statistic-compare{
 	color:#666;
 	font-weight:400;
 }
 .statistic-free{
 	padding-right:5px;
 }
-
+.compare{
+	margin:0;
+	cursor:pointer;
+}
+.compare:hover{
+	cursor:hand;
+}
+#compare_1,#compare_2,#compare_title{
+margin-left:10px;	
+}
+#compare_1,#compare_2{
+	margin-bottom:0;
+}
