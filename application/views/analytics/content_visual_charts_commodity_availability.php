@@ -8,8 +8,11 @@
 <div class="row-fluid" id="reporting-parent">
 	<div class="span6" id="span1">
 		<div class="portlet box ">
-			<h4 id="countyHeader">County</h4>
+			<div class="portlet-title">
+				<h4 id="countyHeader">County</h4>
 			<h4 id="progressHeader">Reporting Progress</h4>
+			</div>
+			
 			<div id="reporting"></div>
 		</div>
 		<div class="portlet box ">

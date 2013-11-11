@@ -522,8 +522,6 @@ select.m-wrap.large {
 	width: 35%;
 }
 #countyHeader, #progressHeader {
-	border-bottom: 2px solid #bbbbbb;
-	padding: 1%;
 	background: #e3e3e3;
 	display: inline-block;
 	vertical-align: top;
