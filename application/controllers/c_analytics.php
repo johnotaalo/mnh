@@ -50,6 +50,18 @@ class C_Analytics extends MY_Controller {
 		var_dump($results);
 	}
 
+	public function getReportingCountyList() {/*obtained from the session data*/
+	$options='';
+		$this -> data_found = $this -> m_analytics -> getReportingCounties();
+		foreach ($this->data_found as $value) {
+			$options .= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
+		}
+
+		//var_dump($this -> session -> userdata('allCounties')); exit;
+		echo $options;
+
+	}
+
 	public function getAllReportedCounties() {
 		$reportingCounties = $this -> m_analytics -> getAllReportingRatio();
 		$counter = 0;
@@ -179,7 +191,7 @@ class C_Analytics extends MY_Controller {
 		////$resultArraySize =  ; 5;
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -254,7 +266,7 @@ class C_Analytics extends MY_Controller {
 				//$resultArray = 5;
 				$datas['resultArraySize'] = $resultArraySize;
 
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
@@ -364,7 +376,7 @@ class C_Analytics extends MY_Controller {
 				//var_dump($category);
 				$datas['resultArraySize'] = $resultArraySize;
 
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
@@ -515,7 +527,7 @@ class C_Analytics extends MY_Controller {
 
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -555,7 +567,7 @@ class C_Analytics extends MY_Controller {
 
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -620,7 +632,7 @@ class C_Analytics extends MY_Controller {
 				//var_dump($resultArray);
 				$datas['resultArraySize'] = $resultArraySize;
 
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
@@ -732,7 +744,7 @@ class C_Analytics extends MY_Controller {
 				//var_dump($category);
 				$datas['resultArraySize'] = $resultArraySize;
 
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
@@ -821,7 +833,7 @@ class C_Analytics extends MY_Controller {
 				//$resultArray = 5;
 				//var_dump($category);
 				$datas['resultArraySize'] = $resultArraySize;
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
@@ -937,7 +949,7 @@ class C_Analytics extends MY_Controller {
 				//var_dump($category);
 				$datas['resultArraySize'] = $resultArraySize;
 
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
@@ -1033,7 +1045,7 @@ class C_Analytics extends MY_Controller {
 				//$resultArray = 5;
 				//var_dump($category);
 				$datas['resultArraySize'] = $resultArraySize;
-				$datas['container'] = 'chart_' . $criteria;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 				$datas['chartType'] = 'bar';
 				$datas['chartMargin'] = 70;
 				$datas['title'] = 'Chart';
@@ -1105,7 +1117,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -1174,7 +1186,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -1245,7 +1257,7 @@ class C_Analytics extends MY_Controller {
 		//var_dump($category);
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -1366,7 +1378,7 @@ class C_Analytics extends MY_Controller {
 
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -1465,7 +1477,7 @@ class C_Analytics extends MY_Controller {
 		//$resultArraySize =  $resultSize;
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -1509,7 +1521,7 @@ class C_Analytics extends MY_Controller {
 
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -1611,7 +1623,7 @@ class C_Analytics extends MY_Controller {
 
 		$resultArraySize = count($category);
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -1645,7 +1657,7 @@ class C_Analytics extends MY_Controller {
 
 		}
 		$pdf .= '</table>';
-		$this->loadPDF($pdf);
+		$this -> loadPDF($pdf);
 
 	}
 
@@ -1761,7 +1773,7 @@ class C_Analytics extends MY_Controller {
 		$resultArraySize = count($categories);
 		//$resultArraySize =  5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'column';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
@@ -1790,7 +1802,7 @@ class C_Analytics extends MY_Controller {
 		$resultArraySize = count($categories);
 		//$resultArraySize =  5;
 		$datas['resultArraySize'] = $resultArraySize;
-		$datas['container'] = 'chart_' . $criteria;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 		$datas['chartType'] = 'column';
 		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
@@ -1805,6 +1817,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getFacilitiesByDistrictOptions($district) {
+		$district = urldecode($district);
 		$options = $this -> m_analytics -> getFacilitiesByDistrictOptions($district);
 		//var_dump($options);
 		echo $options;

@@ -75,7 +75,7 @@
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> By District</h4>
 				<div class="control-group pull-right">
-					<h6 class="compare" id="district_compare" data-toggle="modal" href="#compareModal"><i class="icon-adjust"></i> Compare </h6>
+					<h6 class="compare" id="district_compare"><i class="icon-adjust"></i> Compare </h6>
 				</div>
 
 			</div>
@@ -117,7 +117,7 @@
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic"> </span> By County</h4>
 				<div class="control-group pull-right">
-					<h6 class="compare" id="county_compare" data-toggle="modal" href="#compareModal"><i class="icon-adjust"></i> Compare </h6>
+					<h6 class="compare" id="county_compare" ><i class="icon-adjust"></i> Compare </h6>
 				</div>
 			</div>
 			<div class="portlet-body">

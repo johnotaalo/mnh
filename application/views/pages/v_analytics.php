@@ -98,6 +98,7 @@
 			var currentChart,currentDiv;
 			var selectedOption;
 			var appendToTitle,filter,click,neverList;
+			var comparing;
 			
 			var countyClicked;
 			county=' ';
@@ -653,44 +654,69 @@
 				$('#breadcrumb-sub-title').text(smallText);
 			});
 			
-			//Load fields
-			$('select#compare_1').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');					
-			$('select#compare_2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
+			
 				//Bootbox
 				$("#district_compare").click(function(){
+					compare='district';
+					//Load fields
+			$('select#compare_1').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');					
+			$('select#compare_2').load('<?php echo base_url()?>c_analytics/getSpecificDistrictNames');
+					$("#graph_10").empty();
+					$("#graph_11").empty();
+					$('#compareModal').modal('show');
 					
 					//district = encodeURI(district);
 					statistic = $('ul.sub li.active a').text();
 					$('#compare_title').text(statistic);
 					$('#compare_title_1').text(statistic);
 					$('#compare_title_2').text(statistic);
-					
-					
-					district = decodeURI(district);
+					$('#graph_10').delay(4000).queue(function( nxt ) {
+						district = decodeURI(district);
 					$("select#compare_1").val(district);
-					$('#graph_10').delay(10000000).load(currentChart+'district/'+district+'/complete/ch/chart');
+					district = encodeURI(district);
+    					$('#graph_10').load(currentChart+'district/'+district+'/complete/ch/chart');
+    					nxt();
+					});
+					
+					//clearInterval(loadChart);
+					
+					
+					
 					//$('').load('');
 					//bootbox.alert().load("<div>HELLO</div>");
 				});
 				
 				$("#county_compare").click(function(){
+					compare='county';
+					$('select#compare_1').empty();				
+					$('select#compare_2').empty();
+					$('select#compare_1').load('<?php echo base_url()?>c_analytics/getReportingCountyList');					
+					$('select#compare_2').load('<?php echo base_url()?>c_analytics/getReportingCountyList');
+					$("#graph_10").empty();
+					$("#graph_11").empty();
+					$('#compareModal').modal('show');
+					
 					//county = decodeURI(county);
 					statistic = $('ul.sub li.active a').text();
 					$('#compare_title').text(statistic);
 					$('#compare_title_1').text(statistic);
 					$('#compare_title_2').text(statistic);
-					
-					//$('').load('');
-					//bootbox.alert().load("<div>HELLO</div>");
+					$('#graph_10').delay(4000).queue(function( nxt ) {
+						county = decodeURI(county);
+					$("select#compare_1").val(county);
+					county = encodeURI(county);
+    					$('#graph_10').load(currentChart+'county/'+county+'/complete/ch/chart');
+    					nxt();
+					});
 				});
 				//Change Event for District Select
-				$(document).on("change", "select#compare_2", function(){
-				district2=$('select#compare_2 option:selected').text();
-				$("#graph_11").load(currentChart+'district/'+district2+'/complete/ch/chart');
-});
 				
-				$("select#compare_2").change(function(){
 				
+				$('select#compare_2').change(function(){				
+				compar=$('select#compare_2 option:selected').text();
+				compar = encodeURIComponent(compar);
+				$("#graph_11").load(currentChart+compare+'/'+compar+'/complete/ch/chart');
+				//$('#graph_10').load(currentChart+'district/'+district+'/complete/ch/chart');
 				});
 });
 
