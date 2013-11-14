@@ -553,11 +553,14 @@ select.m-wrap.large {
 	padding-right:5px;
 }
 .compare{
+	color:#666;
 	margin:0;
 	cursor:pointer;
 }
 .compare:hover{
+	color:#000;
 	cursor:hand;
+	text-decoration:underline;
 }
 #compare_1,#compare_2,#compare_title{
 margin-left:10px;	

@@ -468,7 +468,7 @@ class C_Analytics extends MY_Controller {
 			case 'Unavailability' :
 				$unavailability = $results['unavailability'];
 				$analytics = $unavailability['responses'];
-				//$category = $unavailability['categories'];
+				$category = $unavailability['categories'];
 				if ($analytics != null || isset($analytics)) {
 					foreach ($analytics as $key => $val) {
 						$resultArray[] = array('name' => $key, 'data' => $val);
@@ -1635,7 +1635,30 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 
 	}
+/**
+	 * Lists for NEVER
+	 */
+	public function getFacilityListForNo($criteria, $value, $status, $survey, $choice) {
+		urldecode($value);
+		$results = $this -> m_analytics -> getFacilityListForNo($criteria, $value, $status, $survey, $choice);
+		var_dump($results);die;
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		$pdf = "<h3>Facility List that responded <em>NO</em> for $value District</h3>";
+		$pdf .= '<table>';
+		foreach ($results as $key => $value) {
+			$pdf .= '<tr><th colspan="2">' . $key . '<th></tr>';
+			#Per Title
+			foreach ($value as $facility) {
+				$pdf .= '<tr class="tableRow"><td width="70px">' . $facility[0] . '</td><td width="500px">' . $facility[1] . '</td></tr>';
+			}
 
+		}
+		$pdf .= '</table>';
+		$this -> loadPDF($pdf);
+
+	}
 	/**
 	 * Lists for NEVER
 	 */

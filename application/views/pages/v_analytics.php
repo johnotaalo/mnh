@@ -97,7 +97,7 @@
 			var district;
 			var currentChart,currentDiv;
 			var selectedOption;
-			var appendToTitle,filter,click,neverList;
+			var appendToTitle,filter,click,neverList,noList;
 			var comparing;
 			
 			var countyClicked;
@@ -185,7 +185,7 @@
 				$('#graph_4').load(currentChart+'facility/'+facility+'/complete/ch/chart');
 			});
 			$('#facility_list').click(function(){
-				window.open(currentChart+'district/'+district+'/complete/ch/list');
+				window.open('<?php echo base_url();?>c_analytics/getFacilityListForNo/district/'+district+'/complete/ch/'+noList);
 				
 			});
 			
@@ -314,6 +314,7 @@
 						break;
 						
 					case 'guidelines':
+					noList='GuidelinesAvailability';
 					$('#facility_list').show();
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getGuidelinesAvailability/';
@@ -327,7 +328,7 @@
 					
 						break;
 						
-					case 'training':
+					case 'training':					
 					$('#facility_list').show();
 					appendToTitle = ' in the last 2 years';
 					currentChart = '<?php echo base_url();?>c_analytics/getTrainedStaff/';
@@ -341,6 +342,7 @@
 						break;
 						
 					case 'childrenServices':
+					noList='ServicesOffered';
 					$('#facility_list').show();
 					appendToTitle=' to children with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getChildrenServices/';
@@ -354,6 +356,7 @@
 						break;
 						
 					case 'dangerSigns':
+					noList='DangerSigns';
 					$('#facility_list').show();
 					appendToTitle=' assessed in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getDangerSigns/';
@@ -367,6 +370,7 @@
 						break;	
 						
 					case 'actionsPerformed':
+					noList='ActionsPerformed';
 					$('#facility_list').show();
 					appendToTitle = ' in ongoing sessions for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getActionsPerformed/';
@@ -381,6 +385,7 @@
 						break;	
 						
 					case 'counselGiven':
+					noList='CounselGiven';
 					$('#facility_list').show();
 					appendToTitle=' in ongoing session for a child with diarrhoea';
 					currentChart = '<?php echo base_url();?>c_analytics/getCounselGiven/';
@@ -394,6 +399,7 @@
 						break;	
 						
 					case 'tools':
+					noList='Tools';
 					$('#facility_list').show();
 					appendToTitle = ' ';
 					currentChart = '<?php echo base_url();?>c_analytics/getTools/';
@@ -710,9 +716,16 @@
 					});
 				});
 				//Change Event for District Select
+				$('select#compare_1').change(function(){
+				$("#graph_10").empty();			
+				compar2=$('select#compare_1 option:selected').text();
+				compar2 = encodeURIComponent(compar2);
+				$("#graph_10").load(currentChart+compare+'/'+compar2+'/complete/ch/chart');
+				//$('#graph_10').load(currentChart+'district/'+district+'/complete/ch/chart');
+				});
 				
-				
-				$('select#compare_2').change(function(){				
+				$('select#compare_2').change(function(){	
+				$("#graph_11").empty();					
 				compar=$('select#compare_2 option:selected').text();
 				compar = encodeURIComponent(compar);
 				$("#graph_11").load(currentChart+compare+'/'+compar+'/complete/ch/chart');
