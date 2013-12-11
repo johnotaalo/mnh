@@ -35,12 +35,15 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Analytics <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<li>
-									<a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis - Baseline </a>
-								</li>
-								<li>
-									<a href="<?php echo base_url(); ?>ch/analytics">  2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline 	</a>
-								</li>
+								<a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis - Baseline </a>
+							</li>
+							<li>
+								<a href="<?php echo base_url(); ?>ch/analytics"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
+							</li>
 						</ul>
+					</li>
+					<li>
+						<a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
 					</li>
 				</ul>
 			</div>
