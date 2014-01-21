@@ -245,14 +245,29 @@ $mfCode = $this -> session -> userdata('fCode');
 								$('#transfusion_n').hide();
 								$('#transfusion_n').prop('disabled',true);
 								
+								 $('#mnhceocFollowUpOther_1').prop('disabled',false);
+							     $('#mnhceocFollowUpOther_1').show();
+							     $('#mnhceocFollowUp_1').prop('disabled',false);
+							     $('#mnhceocFollowUp_1').show();
+							     $('#label_followup_other_1').show();
+								
 								$('#transfusion_y').prop('disabled',false);
 								$('#transfusion_y').show();
 							
-						}else if($(this).attr('id')=='mnhceocAspectResponse_1' && $(this).val()=='No'){
+						}
+						
+						if($(this).attr('id')=='mnhceocAspectResponse_1' && $(this).val()=='No'){
 							
 								//show no follow up qn, and hide yes one
 								$('#transfusion_y').hide();
 								$('#transfusion_y').prop('disabled',true);
+								
+								 $('#mnhceocFollowUpOther_1').hide();
+							     $('#label_followup_other_1').hide();
+								 $('#mnhceocFollowUpOther_1').prop('disabled',true);
+								 $('#mnhceocFollowUp_1').prop('disabled',true);
+							     $('#mnhceocFollowUp_1').hide();
+							     
 								
 								$('#transfusion_n').prop('disabled',false);
 								$('#transfusion_n').show();
@@ -263,8 +278,14 @@ $mfCode = $this -> session -> userdata('fCode');
 								//hide follow up qn
 								$('#csdone_n').hide();
 								$('#csdone_n').prop('disabled',true);
+								
+								 $('#mnhceocReasonOther_2').hide();
+							     $('#label_reason_other_2').hide();
+								 $('#mnhceocReasonOther_2').prop('disabled',true);
+							     
 							
-						}else if($(this).attr('id')=='mnhceocAspectResponse_2' && $(this).val()=='No'){
+						}
+						 if($(this).attr('id')=='mnhceocAspectResponse_2' && $(this).val()=='No'){
 								//show no follow up qn
 								$('#csdone_n').prop('disabled',false);
 								$('#csdone_n').show();
@@ -274,11 +295,13 @@ $mfCode = $this -> session -> userdata('fCode');
 						if($(this).attr('id')=='mnhceocFollowUp_1' && $(this).val()=='Other'){
 								//show input field on other
 								
-								$('#mnhceocFollowUpOther_1').prop('disabled',false);
 								$('#mnhceocFollowUpOther_1').show();
 								$('#label_followup_other_1').show();
+								$('#mnhceocFollowUpOther_1').prop('disabled',false);
+								
 							
-						}else if($(this).attr('id')=='mnhceocFollowUp_1' && $(this).val()!='Other'){
+						}
+						if($(this).attr('id')=='mnhceocFollowUp_1' && $(this).val()!='Other'){
 							
 							 //hide other input field
 							 $('#mnhceocFollowUpOther_1').prop('disabled',true);
@@ -293,7 +316,9 @@ $mfCode = $this -> session -> userdata('fCode');
 								$('#mnhceocReasonOther_1').show();
 								$('#label_reason_other_1').show();
 							
-						}else if($(this).attr('id')=='mnhceocReason_1' && $(this).val()!='Other'){
+						}
+						
+						 if($(this).attr('id')=='mnhceocReason_1' && $(this).val()!='Other'){
 							
 							 //hide other input field
 							 $('#mnhceocReasonOther_1').prop('disabled',true);
@@ -308,7 +333,9 @@ $mfCode = $this -> session -> userdata('fCode');
 								$('#mnhceocReasonOther_2').show();
 								$('#label_reason_other_2').show();
 							
-						}else if($(this).attr('id')=='mnhceocReason_2' && $(this).val()!='Other'){
+						}
+						
+						if($(this).attr('id')=='mnhceocReason_2' && $(this).val()!='Other'){
 							
 							 //hide other input field
 							 $('#mnhceocReasonOther_2').prop('disabled',true);
@@ -384,7 +411,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: false,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',

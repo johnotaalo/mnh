@@ -4,7 +4,7 @@
 class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found,$facilityInDistrict,
-	$selectReportingCounties,$selectCommodityType, $facilities,$facility, $selectCounties, 
+	$selectReportingCounties,$selectCommodityType, $facilities,$facility, $selectCounties,$global_counter,
 	$selectDistricts, $selectFacilityType, $selectFacilityLevel,$selectFacilityOwner,$selectProvince,$selectCommoditySuppliers,$selectMCHOtherSuppliers,$selectMNHOtherSuppliers,$selectMCHCommoditySuppliers,$selectFacility,
 	$commodityAvailabilitySection,$mchCommodityAvailabilitySection,$mchIndicatorsSection,$signalFunctionsSection,$ortCornerAspectsSection,$mchCommunityStrategySection,$mnhWaterAspectsSection,$mnhCEOCAspectsSection,$mchGuidelineAvailabilitySection,$trainingGuidelineSection,$mchTrainingGuidelineSection,$districtFacilityListSection,
 	$suppliesUsageAndOutageSection,$commodityUsageAndOutageSection,$suppliesSection,$suppliesMCHSection,$suppliesMNHOtherSection,$equipmentsSection,$deliveryEquipmentSection,$hardwareMCHSection,$equipmentsMCHSection,$treatmentMCHSection;
@@ -474,17 +474,17 @@ class  MY_Controller  extends  CI_Controller {
 		
 		if($value['questionCode']=='QMNH01'){
 			$aspect_response_on_yes='<label>Water Storage Point</label><br/>
-			<input type="text"  name="mnhwAspectResponse_'.$counter.'[]" id="mnhwStoragePoint_'.$counter.'" value="" size="45" placeholder="specify"/>';
+			<input type="text"  name="mnhwAspectWaterSpecify_'.$counter.'" id="mnhwStoragePoint_'.$counter.'" value="" size="45" placeholder="specify"/>';
 		}else{
 			$aspect_response_on_yes='<label>Main Source</label><br/>
-			<select name="mnhwAspectResponse_'.$counter.'[]" id="sqSupplier_'.$counter.'" class="cloned">
+			<select name="mnhwAspectWaterSpecify_'.$counter.'" id="sqSupplier_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>'.$mh_supplier_names.'
 			</select>';
 		}
 			$this->mnhWaterAspectsSection.='<tr>
 			<td colspan="1">'.$value['mnhQuestion'].'</td>
 			<td colspan="1">
-			<select name="mnhwAspectResponse_'.$counter.'[]" id="mnhwAspectResponse_'.$counter.'" class="cloned">
+			<select name="mnhwAspectResponse_'.$counter.'" id="mnhwAspectResponse_'.$counter.'" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
@@ -512,37 +512,37 @@ class  MY_Controller  extends  CI_Controller {
 		$follow_up_question='';
 		
 		if($value['questionCode']=='QMNH03'){
-			$follow_up_question='<tr id="transfusion_y" style="display:none">
+			$follow_up_question='<tr id="transfusion_y" style="display:none" disabled>
 			<td>If blood transfusion is performed, indicate <strong>main source</strong> of blood</td>
 			<td>
-			<select name="mnhceocFollowUp_'.$counter.'" id="mnhceocFollowUp_'.$counter.'" class="cloned" disabled>
+			<select name="mnhceocFollowUp_'.$counter.'" id="mnhceocFollowUp_'.$counter.'" class="cloned">
 			<option value="" selected="selected">Select One</option>
 			<option value="Blood bank available">Blood bank available</option>
 			<option value="Transfusion done, no blood blank">Transfusions done but no blood bank</option>
 			<option value="Other">Other</option>
 			</select><br/>
 			<label id="label_followup_other_'.$counter.'">Provide Other</label> <br/>
-			<input type="text"  name="mnhceocFollowUpOther_'.$counter.'" id="mnhceocFollowUpOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			<input type="text"  name="mnhceocFollowUpOther_'.$counter.'" id="mnhceocFollowUpOther_'.$counter.'" value="" size="64" class="cloned" />
 			</td>
 			</tr>
 			<tr id="transfusion_n" style="display:none">
 			<td>Give a reason why blood transfusion is <strong>not</strong> performed</td>
 			<td>
-			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" disabled>
+			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" >
 			<option value="" selected="selected">Select One</option>
 			<option value="Blood not available">Blood not available</option>
 			<option value="No supplies & equipment">Supplies and equipment NOT available</option>
 			<option value="Other">Other</option>
 			</select><br/>
 			<label id="label_reason_other_'.$counter.'">Other Reason</label><br/>
-			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" />
 			</td>
 			</tr>';
 		}else{
 			$follow_up_question='<tr id="csdone_n" style="display:none">
 			<td>Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
 			<td>
-			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" disabled>
+			<select name="mnhceocReason_'.$counter.'" id="mnhceocReason_'.$counter.'" class="cloned" >
 			<option value="" selected="selected">Select One</option>
 			<option value="No supplies & equipment">Supplies and equipment NOT available</option>
 			<option value="No theatre space">Theatre space NOT available</option>
@@ -550,7 +550,7 @@ class  MY_Controller  extends  CI_Controller {
 			<option value="Other">Other</option><br/>
 			</select><br/>
 			<label id="label_reason_other_'.$counter.'">Other Reason</label><br/>
-			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" disabled/>
+			<input type="text"  name="mnhceocReasonOther_'.$counter.'" id="mnhceocReasonOther_'.$counter.'" value="" size="64" class="cloned" />
 			</td>
 			</tr>';
 		}
@@ -563,9 +563,9 @@ class  MY_Controller  extends  CI_Controller {
 			<option value="Yes">Yes</option>
 			<option value="No">No</option>
 		</select>
-		</td>
+		</td>'.$follow_up_question.'
 		<input type="hidden"  name="mnhceocAspectCode_'.$counter.'" id="mnhceocAspectCode_'.$counter.'" value="'.$value['questionCode'].'" />
-	</tr>'.$follow_up_question;
+	</tr>';
 		}
 		
 	//echo $this->mnhCEOCAspectsSection;die;
@@ -1104,7 +1104,7 @@ public function createHardwareResourcesMCHSection(){
 			</td>
 			<input type="hidden"  name="eqEquipmentCode_'.$counter.'" id="eqEquipmentCode_'.$counter.'" value="'.$value['equipmentCode'].'" />
 		</tr>';
-		
+		$this->global_counter=$counter;
    	}
 	//echo $this->commodityUsageAndOutageSection;die;
    	return $this->equipmentsSection;
@@ -1114,7 +1114,7 @@ public function createHardwareResourcesMCHSection(){
 	 $this->data_found= $this->m_mnh_survey->getEquipmentNames('dke');
 	//var_dump($this->data_found);die;
 	$unit="";
-	$counter=10;#pick up from the gen mnh equipment's list 
+	$counter=$this->global_counter;#pick up from the gen mnh equipment's list 
    	foreach($this->data_found as $value){
    		$counter++;
 		
