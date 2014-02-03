@@ -10,43 +10,158 @@
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4 id="countyHeader">County</h4>
-			<h4 id="progressHeader">Reporting Progress</h4>
+				<h4 id="progressHeader">Reporting Progress</h4>
 			</div>
-			
+
 			<div id="reporting"></div>
 		</div>
-		<div class="portlet box ">
+		<!--div class="portlet box ">
+		<div class="portlet-title">
+		<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>By County</h4>
+		</div>
+		<div class="portlet-body">
+
+		<div id="graph_5" class="chart"></div>
+		</div>
+		</div-->
+		<div class="portlet box">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>By County</h4>
+				<h4><i class="icon-bar-chart"></i>Diarrhoea Treatment</h4>
+
 			</div>
 			<div class="portlet-body">
 
-				<div id="graph_5" class="chart"></div>
+				<div id="graph_41" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>2012 IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_42" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Paediatric Protocol</h4>
+
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_45" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Tools</span>ORT Corner Register(improvised)</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_47" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Tools</span>Under 5 Register</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_46" class="chart"></div>
+			</div>
+		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Training</span>ICCM</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_50" class="chart"></div>
 			</div>
 		</div>
 
 	</div>
 
 	<div class="span6">
+		<!--div class="portlet box">
+		<div class="portlet-title">
+		<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
+
+		</div>
+		<div class="portlet-body">
+
+		<div id="graph_6" class="chart"></div>
+		</div>
+		</div-->
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>Summary</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_49" class="chart"></div>
+			</div>
+		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i>Diarrhoea Cases</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_40" class="chart"></div>
+			</div>
+		</div>
 		<div class="portlet box">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>ICCM</h4>
 
 			</div>
 			<div class="portlet-body">
 
-				<div id="graph_6" class="chart"></div>
+				<div id="graph_43" class="chart"></div>
 			</div>
 		</div>
-		<!--div class="portlet box " id="port2">
-		<div class="portlet-title">
-		<h4><i class="icon-bar-chart"></i><span class="statistic"></span> By Facility</h4>
-		</div>
-		<div class="portlet-body">
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>ORT Corner</h4>
+			</div>
+			<div class="portlet-body">
 
-		<div id="graph_7" class="chart"></div>
+				<div id="graph_44" class="chart"></div>
+			</div>
 		</div>
-		</div-->
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Tools</span>Mother Child Booklet</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_48" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Training</span>IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_51" class="chart"></div>
+			</div>
+		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Training</span>Enhanced Diarrhoea Management</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_52" class="chart"></div>
+			</div>
+		</div>
 
 	</div>
 </div>

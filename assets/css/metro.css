@@ -505,8 +505,10 @@ select.m-wrap.large {
  */
 
 #reporting {
+	overflow-y: scroll;
+	height: 300px;
 	width: 97%;
-	padding: 1%;
+	padding: 10px;
 }
 #reporting label, #reportingBar label {
 	vertical-align: top;
@@ -537,34 +539,34 @@ select.m-wrap.large {
 	width: 30%;
 	float: right;
 }
-#reportingLabel h6{
-	display:inline-block;
+#reportingLabel h6 {
+	display: inline-block;
 }
 #reportingBar {
 	display: inline-block;
 	width: 70%;
 }
 
-.statistic,.statistic-free,.statistic-compare{
-	color:#666;
-	font-weight:400;
+.statistic, .statistic-free, .statistic-compare {
+	color: #666;
+	font-weight: 400;
 }
-.statistic-free{
-	padding-right:5px;
+.statistic-free {
+	padding-right: 5px;
 }
-.compare{
-	color:#666;
-	margin:0;
-	cursor:pointer;
+.compare {
+	color: #666;
+	margin: 0;
+	cursor: pointer;
 }
-.compare:hover{
-	color:#000;
-	cursor:hand;
-	text-decoration:underline;
+.compare:hover {
+	color: #000;
+	cursor: hand;
+	text-decoration: underline;
 }
-#compare_1,#compare_2,#compare_title{
-margin-left:10px;	
+#compare_1, #compare_2, #compare_title {
+	margin-left: 10px;
 }
-#compare_1,#compare_2{
-	margin-bottom:0;
+#compare_1, #compare_2 {
+	margin-bottom: 0;
 }

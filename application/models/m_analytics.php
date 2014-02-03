@@ -294,7 +294,7 @@ GROUP BY cs.strategyID ASC;";
 		//"name:'Trained (Last 2 years)',data:";
 		$data_prefix_n = '';
 		//"name:'Trained & Working in CH',data:";
-		$data_y = $data_n = $data_categories = array();
+		$data_t = $data_w = $data_categories = array();
 
 		if ($survey == 'ch') {
 			$status_condition = 'facilityCHSurveyStatus =?';
@@ -337,9 +337,9 @@ GROUP BY cs.strategyID ASC;";
 
 						foreach ($this->dataSet as $value) {
 							//if(isset($value['trained'])){
-							$data_y[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['trained']));
+							$data_t[$this -> getStaffTrainingGuidelineById($value['training'])] = (int)($value['trained']);
 							//}else if(isset($value['working'])){
-							$data_n[] = array($this -> getStaffTrainingGuidelineById($value['training']), (int)($value['working']));
+							$data_w[$this -> getStaffTrainingGuidelineById($value['training'])] = (int)($value['working']);
 							//}
 
 							//get a set of the 3 staff trainings
@@ -348,8 +348,8 @@ GROUP BY cs.strategyID ASC;";
 
 						$data['categories'] = json_encode($data_categories);
 
-						$data['yes_values'] = $data_y;
-						$data['no_values'] = $data_n;
+						$data['trained_values'] = $data_t;
+						$data['working_values'] = $data_w;
 
 						$this -> dataSet = $data;
 
@@ -1106,8 +1106,7 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
-						;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
 
 						$this -> dataSet = $data;
 
@@ -1595,7 +1594,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 										$under5N++;
 									}
 									break;
-								case 'ORT Corner register(improvised)' :
+								case 'ORT Corner register' :
 									if ($value['response'] == 'Yes') {
 										$ORTY++;
 									} else if ($value['response'] == 'No') {
@@ -1613,10 +1612,11 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 
 							//echo $value['indicator'];
 						}
-						$data_categories = array('Under 5 register', 'ORT Corner register(improvised)', 'Mother Child Booklet');
+						$data_categories = array('Under 5 register', 'ORT Corner register', 'Mother Child Booklet');
 						$data['categories'] = $data_categories;
-						$data['yes_values'] = array($under5Y, $ORTY, $bookY);
-						$data['no_values'] = array($under5N, $ORTN, $bookN);
+						$data['yes_values'] = array('Under 5 register'=>$under5Y, 'ORT Corner register'=>$ORTY,'Mother Child Booklet'=> $bookY);
+						$data['no_values'] = array('Under 5 register'=>$under5N, 'ORT Corner register'=>$ORTN,'Mother Child Booklet'=> $bookN);
+						
 
 						$this -> dataSet = $data;
 
@@ -3262,7 +3262,7 @@ WHERE
 				}
 				break;
 			case 'DangerSigns' :
-			$query = "SELECT 
+				$query = "SELECT 
     i.indicatorName, il.facilityID, f.facilityName
 FROM
     mch_indicator_log il,
@@ -3352,7 +3352,7 @@ WHERE
 				}
 				break;
 			case 'Counsel Given' :
-			$query = "SELECT 
+				$query = "SELECT 
     i.indicatorName, il.facilityID, f.facilityName
 FROM
     mch_indicator_log il,
@@ -3670,6 +3670,106 @@ ORDER BY ra.ResourceCode ASC";
 				}
 				break;
 		}
+	}
+
+	public function case_summary($county, $choice) {
+		$final=array();
+		$query = '';
+		switch($choice) {
+			case 'Cases' :
+				$query = "SELECT 
+    SUM(CASE
+        WHEN tl.severeDehydrationNo = - 1 THEN 0
+        ELSE tl.severeDehydrationNo
+    END) AS severe_dehydration,
+    SUM(CASE
+        WHEN tl.someDehydrationNo = - 1 THEN 0
+        ELSE tl.someDehydrationNo
+    END) AS some_dehydration,
+    SUM(CASE
+        WHEN tl.noDehydrationNo = - 1 THEN 0
+        ELSE tl.noDehydrationNo
+    END) AS no_dehydration,
+    SUM(CASE
+        WHEN tl.dysentryNo = - 1 THEN 0
+        ELSE tl.dysentryNo
+    END) AS dysentry,
+    SUM(CASE
+        WHEN tl.noClassificationNo = - 1 THEN 0
+        ELSE tl.noClassificationNo
+    END) AS no_classification
+FROM
+    mch_treatment_log tl
+WHERE
+    tl.treatmentID IN (SELECT 
+            treatmentCode
+        FROM
+            mch_treatments
+        WHERE
+            treatmentFor = 'dia')
+        AND tl.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            facilityCHSurveyStatus = 'complete' and facilityCounty='$county')
+;";
+				$results = $this -> db -> query($query);
+				return $results -> result_array();
+				break;
+			case 'Classification' :
+			$final=array();
+				$query = "SELECT 
+    tl.treatmentID AS treatment,
+(SUM(CASE
+        WHEN tl.severeDehydrationNo = - 1 THEN 0
+        ELSE tl.severeDehydrationNo
+    END)+
+    SUM(CASE
+        WHEN tl.someDehydrationNo = - 1 THEN 0
+        ELSE tl.someDehydrationNo
+    END)+
+    SUM(CASE
+        WHEN tl.noDehydrationNo = - 1 THEN 0
+        ELSE tl.noDehydrationNo
+    END)+
+    SUM(CASE
+        WHEN tl.dysentryNo = - 1 THEN 0
+        ELSE tl.dysentryNo
+    END)+
+    SUM(CASE
+        WHEN tl.noClassificationNo = - 1 THEN 0
+        ELSE tl.noClassificationNo
+    END)) as total
+FROM
+    mch_treatment_log tl
+WHERE
+    tl.treatmentID IN (SELECT 
+            treatmentCode
+        FROM
+            mch_treatments
+        WHERE
+            treatmentFor = 'dia')
+        AND tl.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            facilityCHSurveyStatus = 'complete' and facilityCounty='$county')
+GROUP BY tl.treatmentID
+ORDER BY tl.treatmentID ASC";
+				$results = $this -> db -> query($query);
+				$results = $results -> result_array();
+
+				foreach ($results as $result) {
+					//echo $this->getChildHealthTreatmentName($result['treatment']);
+					//$result['treatment']=$this->getChildHealthTreatmentName($result['treatment']);
+					$final[$this -> getChildHealthTreatmentName($result['treatment'])][] = array('treatment' => $this -> getChildHealthTreatmentName($result['treatment']), 'total' => $result['total']);
+				}
+				return $final;
+				break;
+		}
+
 	}
 
 }

@@ -38,6 +38,26 @@ class C_Analytics extends MY_Controller {
 
 	}
 
+	public function summary() {
+		$this -> data['title'] = 'MoH::Analytics';
+		$this -> data['active_link']['as'] = '<li class="start active">';
+		$this -> data['span_selected']['as'] = '<span class="selected"></span>';
+		$this -> data['active_link']['fi'] = '<li class="start has-sub">';
+		$this -> data['span_selected']['fi'] = '';
+		$this -> data['active_link']['s2'] = '<li class="has-sub start">';
+		$this -> data['span_selected']['s2'] = '';
+		$this -> data['analytics_main_title'] = 'Analytics Summary';
+		$this -> data['analytics_mini_title'] = 'Facts and Figures';
+		$this -> data['data_pie'] = null;
+		$this -> data['data_column'] = null;
+		$this -> data['data_column_combined'] = null;
+		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
+		//$this -> data['analytics_content_to_load'] = 'analytics/content_dashboard';
+		$this -> ch_survey_response_rate();
+		$this -> load -> view('pages/v_analytics', $this -> data);
+
+	}
+
 	public function facility_reporting() {
 		$this -> data['title'] = 'MoH::Facility Reporting Summary';
 		$this -> data['summary'] = $this -> facility_reporting_summary();
@@ -51,7 +71,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getReportingCountyList() {/*obtained from the session data*/
-	$options='';
+		$options = '';
 		$this -> data_found = $this -> m_analytics -> getReportingCounties();
 		foreach ($this->data_found as $value) {
 			$options .= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
@@ -1635,13 +1655,15 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 
 	}
-/**
+
+	/**
 	 * Lists for NEVER
 	 */
 	public function getFacilityListForNo($criteria, $value, $status, $survey, $choice) {
 		urldecode($value);
 		$results = $this -> m_analytics -> getFacilityListForNo($criteria, $value, $status, $survey, $choice);
-		var_dump($results);die;
+		var_dump($results);
+		die ;
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -1659,6 +1681,7 @@ class C_Analytics extends MY_Controller {
 		$this -> loadPDF($pdf);
 
 	}
+
 	/**
 	 * Lists for NEVER
 	 */
@@ -1764,6 +1787,53 @@ class C_Analytics extends MY_Controller {
 
 	}
 
+	public function getFacilityLevelAll() {
+		$counties = $this -> m_analytics -> getReportingCounties();
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getFacilityLevelPerCounty($county['county']);
+			$categories[] = $county['county'];
+		}
+
+		$resultArray = array();
+		foreach ($results as $county) {
+			foreach ($county as $level) {
+				$data[$level['facilityLevel'] + 1][] = (int)$level['level_total'];
+			}
+		}
+		unset($data[5]);
+		unset($data[6]);
+		foreach ($data as $key => $val) {
+			$resultArray[] = array('name' => 'Level ' . $key, 'data' => $val);
+
+		}
+
+		//echo '<pre>';
+		//print_r($resultArray);
+		//echo '</pre>';die;
+
+		$finalResult = $resultArray;
+		//}
+		$resultArraySize = count($categories);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_two' . rand(5, 300);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Facilities';
+		$datas['resultArray'] = json_encode($finalResult);
+		//var_dump($datas['categories']);die;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+		//echo '<pre>';
+		//print_r($finalResult);
+		//echo '</pre>';
+
+	}
+
 	/**
 	 * Get Specific Districts Filter
 	 */
@@ -1844,6 +1914,199 @@ class C_Analytics extends MY_Controller {
 		$options = $this -> m_analytics -> getFacilitiesByDistrictOptions($district);
 		//var_dump($options);
 		echo $options;
+	}
+
+	/**
+	 *  Summary Data
+	 */
+
+	public function case_summary($choice) {
+
+		//Get All Reporting Counties
+		$counties = $this -> m_analytics -> getReportingCounties();
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> case_summary($county['county'], $choice);
+			$categories[] = $county['county'];
+		}
+
+		switch($choice) {
+			case 'Cases' :
+
+				//group cases
+				foreach ($results as $result) {
+					$severe_dehydration[] = (int)$result[0]['severe_dehydration'];
+					$some_dehydration[] = (int)$result[0]['some_dehydration'];
+					$no_dehydration[] = (int)$result[0]['no_dehydration'];
+					$dysentry[] = (int)$result[0]['dysentry'];
+					$no_classification[] = (int)$result[0]['no_classification'];
+				}
+				$resultArray = array( array('name' => 'Severe Dehydration', 'data' => $severe_dehydration), array('name' => 'Some Dehydration', 'data' => $some_dehydration), array('name' => 'No Dehydration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
+				break;
+
+			case 'Classification' :
+				foreach ($results as $value) {
+					foreach ($value as $key => $val) {
+						$formattedArray[$key][] = (int)$val[0]['total'];
+					}
+				}
+				foreach ($formattedArray as $key => $arr) {
+					$resultArray[] = array('name' => $key, 'data' => $arr);
+					//$categories[]=$key;
+				}
+				break;
+		}
+
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $choice . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	public function guidelines_summary($guideline) {
+		$guideline = urldecode($guideline);
+		//Get All Reporting Counties
+		$finalYes = $finalNo = array();
+		$counties = $this -> m_analytics -> getReportingCounties();
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailability('county', $county['county'], 'complete', 'ch', 'chart');
+			$categories[] = $county['county'];
+		}
+		foreach ($results as $county) {
+			foreach ($county['yes_values'] as $yes) {
+				//var_dump($yes);
+
+				foreach ($yes as $k => $y) {
+					if ($k == $guideline) {
+						$finalYes[] = $y;
+					}
+				}
+			}
+
+			foreach ($county['no_values'] as $no) {
+				foreach ($no as $k => $n) {
+					if ($k == $guideline) {
+						$finalNo[] = $n;
+					}
+				}
+			}
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+		$guideline = str_replace(" ", "_", $guideline);
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $guideline . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	public function training_summary($training) {
+		$training = urldecode($training);
+		//Get All Reporting Counties
+		$finalYes = $finalNo = array();
+		$counties = $this -> m_analytics -> getReportingCounties();
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'ch', 'chart');
+			$categories[] = $county['county'];
+		}
+		//echo '<pre>';print_r($results);echo '</pre>';die;
+		foreach ($results as $county) {
+			foreach ($county['trained_values'] as $k => $t) {
+
+				if ($k == $training) {
+					$finalYes[] = $t;
+
+				}
+			}
+
+			foreach ($county['working_values'] as $k => $w) {
+				if ($k == $training) {
+					$finalNo[] = $w;
+
+				}
+			}
+		}
+		//echo '<pre>';print_r($finalYes);echo '</pre>';
+		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+		$training = str_replace(" ", "_", $training);
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $training . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	public function tools_summary($tool) {
+		$tool = urldecode($tool);
+		//Get All Reporting Counties
+		$finalYes = $finalNo = array();
+		$counties = $this -> m_analytics -> getReportingCounties();
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getTools('county', $county['county'], 'complete', 'ch', 'chart');
+			$categories[] = $county['county'];
+		}
+		//echo '<pre>';print_r($results);echo '</pre>';die;
+		foreach ($results as $county) {
+			foreach ($county['yes_values'] as $yes => $y) {//var_dump($yes);
+
+				if ($yes == $tool) {
+					$finalYes[] = $y;
+
+				}
+			}
+
+			foreach ($county['no_values'] as $no => $n) {
+				if ($no == $tool) {
+					$finalNo[] = $n;
+
+				}
+			}
+		}
+
+		$resultArray = array( array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+		//echo '<pre>';print_r($resultArray);echo '</pre>';die;
+		$tool = str_replace(" ", "_", $tool);
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $tool . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	#Load PDF

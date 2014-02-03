@@ -11471,7 +11471,7 @@ function TableHeaderFooter($content='',$tablestartpage='',$tablestartcolumn ='',
 	 }
 	}
 /*-- END COLUMNS --*/
-
+//echo '<pre>';print_r($content);echo '</pre>';die;
     $colctr = 0;
     foreach($content[$i] as $tablehf) {
 	$colctr++;

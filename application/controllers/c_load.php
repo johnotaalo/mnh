@@ -1,6 +1,6 @@
 <?php
 class C_Load extends MY_Controller {
-	var $rows, $combined_form,$message;
+	var $rows, $combined_form, $message;
 
 	public function __construct() {
 		parent::__construct();
@@ -13,11 +13,11 @@ class C_Load extends MY_Controller {
 	public function getFacilityDetails() {
 		/*retrieve facility info if any*/
 		$this -> load -> model('m_mnh_survey');
-		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input ->get_post('fcode',TRUE))) == true) {
+		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input -> get_post('fcode', TRUE))) == true) {
 			//retrieve existing data..else just load a blank form
 			//set facility code into the session
-			$new_data=array('fCode'=>$this -> input ->get_post('fcode',TRUE));
-			$this->session->set_userdata($new_data);
+			$new_data = array('fCode' => $this -> input -> get_post('fcode', TRUE));
+			$this -> session -> set_userdata($new_data);
 			print $this -> m_mnh_survey -> formRecords;
 		}
 	}
@@ -26,7 +26,6 @@ class C_Load extends MY_Controller {
 		$this -> load -> model('m_autocomplete');
 		$facilityName = strtolower($this -> input -> get_post('term', TRUE));
 		//term is obtained from an ajax call
-
 
 		if (!strlen($facilityName) < 2)
 
@@ -75,17 +74,14 @@ class C_Load extends MY_Controller {
 
 	}
 
-	
-	public function get_mnh_form()
-	 {
-		$this -> combined_form.= 
-		         '<h5 id="status"></h5>
+	public function get_mnh_form() {
+		$this -> combined_form .= '<h5 id="status"></h5>
                  
 				<form class="bbq" name="mnh_tool" id="mnh_tool" method="POST">
 
   				 <p id="data" class="feedback"></p>
 		         <!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
-		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking '.(((strtoupper($this->session->userdata('survey')))=='CH')?'Child Health':'Maternal and Newborn Health').' Survey.</p>
+		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey.</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
 		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
@@ -103,7 +99,7 @@ class C_Load extends MY_Controller {
 			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
 							<option value="" selected="selected">Select Level</option>
-							'.$this -> selectFacilityLevel.'
+							' . $this -> selectFacilityLevel . '
 						</select>
 			</td><td>County </td>
 			<td>
@@ -235,7 +231,7 @@ class C_Load extends MY_Controller {
 	<div class="block">
 	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
 			<p id="data" class="message success">Thanks for your participation.<br></p><br>
-			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			<p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p>
 			</div>
 	</div><!--\.end of assessment message section-->
 	
@@ -250,7 +246,7 @@ class C_Load extends MY_Controller {
 	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th><th> JULY</th><th> AUGUST</th>
 	<th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 		 <!--tr>
-			<td>'.(date('Y')-1).'</td>
+			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
 			<input type="text" id="dnjanuary_12" name="dnjanuary_12"  size="8" class="cloned numbers"/>
 			</td>
@@ -291,7 +287,7 @@ class C_Load extends MY_Controller {
 		</tr-->
 
 		<tr>
-			<td>'.date("Y").'</td>			
+			<td>' . date("Y") . '</td>			
 			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
 			</td>
 			
@@ -340,7 +336,7 @@ class C_Load extends MY_Controller {
 			<th   colspan="4"> WAS IT CONDUCTED? </th>			
 			<th  colspan="5">INDICATE MAJOR CHALLENGE</th>
 
-		</tr>'.$this->signalFunctionsSection.'
+		</tr>' . $this -> signalFunctionsSection . '
 	</table>
 	
 	<table class="centre">
@@ -353,8 +349,67 @@ class C_Load extends MY_Controller {
 			<th style="width:65%;text-align:left">RESPONSE</th>			
 			
 
-		</tr>'.$this->mnhCEOCAspectsSection.'
+		</tr>' . $this -> mnhCEOCAspectsSection . '
 	</table>
+			<table >
+			<thead>
+				<tr>
+					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
+				</tr>
+				</thead>
+				<tr>
+					<th style="width:35%">QUESTION</th>
+					<th style="width:65%;text-align:left">RESPONSE</th>
+
+				</tr>
+			
+			' . $this -> mnhHIVTestingAspectsSection . '
+		</table>
+		
+		<table >
+			<thead>
+				<tr>
+					<th colspan="12" >Preparedness for Delivery</th>
+				</tr>
+				</thead>
+				<tr>
+					<th style="width:35%">QUESTION</th>
+					<th style="width:65%;text-align:left">RESPONSE</th>
+
+				</tr>
+			
+			' . $this -> mnhPreparednessAspectsSection . '
+		</table>
+		<table >
+			<thead>
+				<tr>
+					<th colspan="12" >GUIDELINES AVAILABILITY</th>
+				</tr>
+				</thead>
+				<tr>
+					<th style="width:35%">ASPECTS</th>
+					<th style="width:35%;text-align:left">RESPONSE</th>
+					<th style="width:30%;text-align:left">QUANTITY</th>
+
+				</tr>
+			
+			' . $this -> mnhGuidelinesAspectsSection . '
+		</table>
+		<table >
+			<thead>
+				<tr>
+					<th colspan="12" >JOB AIDS</th>
+				</tr>
+			</thead>
+				<tr>
+					<th style="width:35%">ASPECTS</th>
+					<th style="width:35%;text-align:left">RESPONSE</th>
+					<th style="width:30%;text-align:left">QUANTITY</th>
+
+				</tr>
+			
+			' . $this -> mnhJobAidsAspectsSection . '
+		</table>
 	</div><!--\.section 2-->
 
 	<div id="section-3" class="step">
@@ -401,7 +456,7 @@ class C_Load extends MY_Controller {
 			<td>Supplier</td>
 			<td> Unavailability</td>
 
-		</tr>'.$this->commodityAvailabilitySection.'
+		</tr>' . $this -> commodityAvailabilitySection . '
 
 	</table>
 	</div><!--\.section-3-->
@@ -416,7 +471,7 @@ class C_Load extends MY_Controller {
 		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
 		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
 		
-		'.$this->trainingGuidelineSection.'
+		' . $this -> trainingGuidelineSection . '
 
 	</table>
     </div><!--\.section-4-->
@@ -473,7 +528,7 @@ class C_Load extends MY_Controller {
 			</div></td>
 
 		</tr>
-        '.$this->commodityUsageAndOutageSection.'
+        ' . $this -> commodityUsageAndOutageSection . '
         </table>
 	</div><!--\.section-5-->
 	<div id="section-6" class="step">
@@ -509,8 +564,7 @@ class C_Load extends MY_Controller {
             <!--td>Partially Functional</td-->
 			<td>Non-Functional</td>
 			</tr>
-			'.$this->equipmentsSection.
-			'<tr>
+			' . $this -> equipmentsSection . '<tr>
 			<th scope="col" >Delivery Equipment Name</th>
 			
 			<th colspan="3" style="text-align:center">Availability  
@@ -533,7 +587,7 @@ class C_Load extends MY_Controller {
 			<td>Fully-Functional</td>
             <!--td>Partially Functional</td-->
 			<td>Non-Functional</td>
-			</tr>'.$this->deliveryEquipmentSection.'
+			</tr>' . $this -> deliveryEquipmentSection . '
 
 			</table>
 			
@@ -579,7 +633,7 @@ class C_Load extends MY_Controller {
 			
 			
 
-		</tr>'.$this->suppliesMNHOtherSection.'
+		</tr>' . $this -> suppliesMNHOtherSection . '
 		</table>
 		
 		<table class="centre">
@@ -592,7 +646,7 @@ class C_Load extends MY_Controller {
 			<th   style="width:12.5%;text-align:left"> RESPONSE </th>			
 			<th   style="width:52.5%;text-align:left"> SPECIFY </th>	
 
-		</tr>'.$this->mnhWaterAspectsSection.'
+		</tr>' . $this -> mnhWaterAspectsSection . '
 	</table>
 			
            </div><!--\.section-6-->
@@ -644,7 +698,7 @@ class C_Load extends MY_Controller {
 			
 			
 
-		</tr>'.$this->suppliesSection.'
+		</tr>' . $this -> suppliesSection . '
 		</table>
 		<table  class="centre" >
 		<thead>
@@ -695,7 +749,7 @@ class C_Load extends MY_Controller {
 			</div></td>
 
 		</tr>
-        '.$this->suppliesUsageAndOutageSection.'
+        ' . $this -> suppliesUsageAndOutageSection . '
         </table>
 		
 	 </div><!--\.section-7-->
@@ -706,19 +760,16 @@ class C_Load extends MY_Controller {
 	</form>';
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';
-		$this->load->view('form',$data);
+		$this -> load -> view('form', $data);
 	}
 
-
-public function get_mch_form()
-	 {
-		$this -> combined_form.= 
-		         '<h5 id="status"></h5>
+	public function get_mch_form() {
+		$this -> combined_form .= '<h5 id="status"></h5>
                  
 				<form class="bbq" name="mch_tool" id="mch_tool" method="POST">
 
   				 <p id="data" class="feedback"></p>
-		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking '.(((strtoupper($this->session->userdata('survey')))=='CH')?'Child Health':'Maternal and Newborn Health').' Survey</p>
+		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
 		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
@@ -739,7 +790,7 @@ public function get_mch_form()
 			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
 							<option value="" selected="selected">Select Level</option>
-							'.$this -> selectFacilityLevel.'
+							' . $this -> selectFacilityLevel . '
 						</select>
 			</td><td>County </td>
 			<td>
@@ -830,7 +881,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchCommunityStrategySection.'
+		</tr>' . $this -> mchCommunityStrategySection . '
 	</table>
 	
 	</div><!--\.the section-1 -->
@@ -840,7 +891,7 @@ public function get_mch_form()
 	<div class="block">
 	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
 			<p id="data" class="message success">Thanks for your participation.<br></p><br>
-			<p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p>
+			<p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p>
 			</div>
 	</div--><!--\.end of assessment message section-->
 	
@@ -859,7 +910,7 @@ public function get_mch_form()
 			<th   style="width:52.5%;text-align:left"> If <strong>Yes</strong>, Indicate Total Quantities Available </th>		
 			
 
-		</tr>'.$this->mchGuidelineAvailabilitySection.'
+		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
 	
      <table class="centre">
@@ -870,7 +921,7 @@ public function get_mch_form()
 		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
 		Trained in the Last 2 Years are still Working in Child Health?</div></th>
 		
-		'.$this->mchTrainingGuidelineSection.'
+		' . $this -> mchTrainingGuidelineSection . '
 
 	</table>
 	
@@ -918,7 +969,7 @@ public function get_mch_form()
 			<td>Expiry Date</td>
 			<td>Supplier</td>
 
-		</tr>'.$this->mchCommodityAvailabilitySection.'
+		</tr>' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>
 	</div><!--\.section 2-->
@@ -937,7 +988,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchIndicatorsSection['svc'].'
+		</tr>' . $this -> mchIndicatorsSection['svc'] . '
 	</table>
 	
 	<table class="centre">
@@ -950,7 +1001,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchIndicatorsSection['sgn'].'
+		</tr>' . $this -> mchIndicatorsSection['sgn'] . '
 	</table>
 	
 	<table class="centre">
@@ -963,7 +1014,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchIndicatorsSection['dgn'].'
+		</tr>' . $this -> mchIndicatorsSection['dgn'] . '
 	</table>
 	
 	<table class="centre">
@@ -976,7 +1027,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchIndicatorsSection['cns'].'
+		</tr>' . $this -> mchIndicatorsSection['cns'] . '
 	</table>
 		
 	</div><!--\.section-3-->
@@ -996,7 +1047,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->mchIndicatorsSection['ror'].'
+		</tr>' . $this -> mchIndicatorsSection['ror'] . '
 	</table>
 	
 	<table class="centre">
@@ -1008,7 +1059,7 @@ public function get_mch_form()
 	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
 
 		 <!--tr>
-			<td>'.(date('Y')-1).'</td>
+			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
 			<input type="text" id="dnjanuary_12" name="dnjanuary_12"  size="8" class="cloned numbers"/>
 			</td>
@@ -1049,7 +1100,7 @@ public function get_mch_form()
 		</tr-->
 
 		<tr>
-			<td>'.date("Y").'</td>			
+			<td>' . date("Y") . '</td>			
 			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
 			</td>
 			
@@ -1073,7 +1124,7 @@ public function get_mch_form()
 		</tr>
 		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 		<tr>
-		<td>'.(date('Y')).'</td>
+		<td>' . (date('Y')) . '</td>
 		<td style ="text-align:center;">
 			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" />
 			<td style ="text-align:center;">
@@ -1113,7 +1164,7 @@ public function get_mch_form()
 			<td>Dysentry</td>
 			<td>No Classification</td>
 		</tr>
-		'.$this->treatmentMCHSection.'
+		' . $this -> treatmentMCHSection . '
 	</table>
 	
     </div><!--\.section-4-->
@@ -1132,7 +1183,7 @@ public function get_mch_form()
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
 
-		</tr>'.$this->ortCornerAspectsSection.'
+		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
 		
 		<table  class="centre" >
@@ -1165,7 +1216,7 @@ public function get_mch_form()
             <!--td>Partially Functional</td-->
 			<td>Non-Functional</td>
 			</tr>
-			'.$this->equipmentsMCHSection.'
+			' . $this -> equipmentsMCHSection . '
 
 			</table>
            </div><!--\.section-5-->
@@ -1213,7 +1264,7 @@ public function get_mch_form()
 			
 			
 
-		</tr>'.$this->suppliesMCHSection.'
+		</tr>' . $this -> suppliesMCHSection . '
 		</table>
 		
 		 <p style="display:true" class="message success">SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES</p>
@@ -1257,7 +1308,7 @@ public function get_mch_form()
 			
 			
 
-		</tr>'.$this->hardwareMCHSection.'
+		</tr>' . $this -> hardwareMCHSection . '
 		</table>
 		
 	
@@ -1270,29 +1321,28 @@ public function get_mch_form()
 	</form>';
 		$data['form'] = $this -> combined_form;
 		$data['form_id'] = 'form_dcah';
-		$this->load->view('form',$data);
+		$this -> load -> view('form', $data);
 	}
 
-	public function survey_complete(){
-		$this->message.='<div id="No" class="step"><!--end of assessment message section-->
+	public function survey_complete() {
+		$this -> message .= '<div id="No" class="step"><!--end of assessment message section-->
 	<input type="hidden" name="step_name" value="end_of_assessment"/>
 	<div class="block">
 	        <p align="left" style="font-size:20px;color:#AA1317; font-weight:bold">Assessment Complete</p>
 			<p id="data" class="message success">Thanks for your participation.<br></p><br>
-			<!--p class="message success">'.anchor(base_url().'commodity/assessment','Select another Facility').'</p-->
+			<!--p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p-->
 			</div>
 	</div><!--\.end of assessment message section-->';
-	    $data['form'] = $this->message;
-		$this->load->view('form',$data);
-	
+		$data['form'] = $this -> message;
+		$this -> load -> view('form', $data);
+
 	}
 
+	public function get_facility_list() {
 
-	public function get_facility_list(){
-		
-		$this->facilityList.='<table class="centre">
+		$this -> facilityList .= '<table class="centre">
 		<thead>
-			<th colspan="22" >'.strtoupper($this -> session -> userdata('dName')).' DISTRICT/SUB-COUNTY FACILITIES</th>
+			<th colspan="22" >' . strtoupper($this -> session -> userdata('dName')) . ' DISTRICT/SUB-COUNTY FACILITIES</th>
 		</thead>
 		
 		    <th colspan="1"></th>
@@ -1301,14 +1351,11 @@ public function get_mch_form()
 			<th  colspan="5">SURVEY STATUS</th>
 			<th  colspan="5">ACTION</th>
 
-		</tr>'.$this->districtFacilityListSection.'
+		</tr>' . $this -> districtFacilityListSection . '
 		</table>';
 		$data['form'] = $this -> facilityList;
 		$data['form_id'] = '';
-		$this->load->view('form',$data);
+		$this -> load -> view('form', $data);
 	}
-	
 
-	
-	 
 }

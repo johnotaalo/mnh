@@ -139,7 +139,30 @@
 			//Load Initial Graphs
 			$('#graph_5').load('<?php echo base_url();?>c_analytics/getFacilityOwnerPerCounty/'+county);
 			$('#graph_6').load('<?php echo base_url();?>c_analytics/getFacilityLevelPerCounty/'+county);
-					
+			
+			
+			$('#graph_40').load('<?php echo base_url();?>c_analytics/case_summary/Cases');
+			$('#graph_41').load('<?php echo base_url();?>c_analytics/case_summary/Classification');		
+			
+			
+			$('#graph_42').load('<?php echo base_url();?>c_analytics/guidelines_summary/2012%20IMCI');		
+			$('#graph_43').load('<?php echo base_url();?>c_analytics/guidelines_summary/ICCM');		
+			$('#graph_44').load('<?php echo base_url();?>c_analytics/guidelines_summary/ORT%20Corner');		
+			$('#graph_45').load('<?php echo base_url();?>c_analytics/guidelines_summary/Paediatric%20Protocol');	
+    	//Tools Summary
+				$('#graph_46').load('<?php echo base_url();?>c_analytics/tools_summary/Under%205%20register');	
+				ort='ORT Corner register';
+				ort=encodeURI(ort);
+				$('#graph_47').load('<?php echo base_url();?>c_analytics/tools_summary/'+ort);	
+				$('#graph_48').load('<?php echo base_url();?>c_analytics/tools_summary/Mother%20Child%20Booklet');	
+				$('#graph_49').load('<?php echo base_url();?>c_analytics/getFacilityLevelAll');	
+				
+				$('#graph_50').load('<?php echo base_url();?>c_analytics/training_summary/ICCM');	
+				$('#graph_51').load('<?php echo base_url();?>c_analytics/training_summary/IMCI');	
+				$('#graph_52').load('<?php echo base_url();?>c_analytics/training_summary/Enhanced%20Diarrhoea%20Management');	
+				
+				
+				
 				
 		$('select#county_select').change(function() {			
 			countyClicked = $(this).val();//$('select#county_select option:selected').text();
@@ -731,6 +754,9 @@
 				$("#graph_11").load(currentChart+compare+'/'+compar+'/complete/ch/chart');
 				//$('#graph_10').load(currentChart+'district/'+district+'/complete/ch/chart');
 				});
+				
+				//Summary
+				
 });
 
 	</script>
