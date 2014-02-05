@@ -894,7 +894,6 @@ $this -> theForm -> setReasonForResponse('n/a');
 
 		//get the highest value of the array that will control the number of inserts to be done
 		$this -> noOfInsertsBatch = $finalCount;
-echo '<pre>';print_r($this -> elements);echo'</pre>';
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhPreparednessReason'];exit;
 			//go ahead and persist data posted

@@ -241,10 +241,9 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 		
 	<thead>
-	<th colspan="13" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
+	<th colspan="7" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
 
-	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th><th> JULY</th><th> AUGUST</th>
-	<th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
+	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
 		 <!--tr>
 			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
@@ -287,7 +286,7 @@ class C_Load extends MY_Controller {
 		</tr-->
 
 		<tr>
-			<td>' . date("Y") . '</td>			
+			<td>' . '2013' . '</td>			
 			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
 			</td>
 			
@@ -306,6 +305,12 @@ class C_Load extends MY_Controller {
 			<td style ="text-align:center;">
 			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" />
 			</td>
+			</tr>
+			<tr>
+				<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
+			</tr>
+			<tr>
+			<td>' . '2013' . '</td>	
 			<td style ="text-align:center;">
 			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" >
 			</td>
@@ -333,7 +338,7 @@ class C_Load extends MY_Controller {
 		
 		
 			<th  colspan="7">SIGNAL FUNCTION</th>
-			<th   colspan="4"> WAS IT CONDUCTED? </th>			
+			<th   colspan="2"> WAS IT CONDUCTED? </th>			
 			<th  colspan="5">INDICATE MAJOR CHALLENGE</th>
 
 		</tr>' . $this -> signalFunctionsSection . '
@@ -345,53 +350,52 @@ class C_Load extends MY_Controller {
 		</thead>
 		
 		
-			<th style="width:35%">QUESTION</th>
-			<th style="width:65%;text-align:left">RESPONSE</th>			
+			<th colspan="7">QUESTION</th>
+			<th colspan="5">RESPONSE</th>			
 			
 
 		</tr>' . $this -> mnhCEOCAspectsSection . '
 	</table>
-			<table >
+	<table >
 			<thead>
-				<tr>
 					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
-				</tr>
+				
 				</thead>
-				<tr>
-					<th style="width:35%">QUESTION</th>
-					<th style="width:65%;text-align:left">RESPONSE</th>
+				
+					<th colspan="7">QUESTION</th>
+					<th colspan="5">RESPONSE</th>
 
-				</tr>
+				
 			
 			' . $this -> mnhHIVTestingAspectsSection . '
 		</table>
 		
 		<table >
 			<thead>
-				<tr>
+				
 					<th colspan="12" >Preparedness for Delivery</th>
-				</tr>
+				
 				</thead>
-				<tr>
-					<th style="width:35%">QUESTION</th>
-					<th style="width:65%;text-align:left">RESPONSE</th>
+			
+					<th colspan="7">QUESTION</th>
+					<th colspan="5">RESPONSE</th>
 
-				</tr>
+				
 			
 			' . $this -> mnhPreparednessAspectsSection . '
 		</table>
 		<table >
 			<thead>
-				<tr>
+				
 					<th colspan="12" >GUIDELINES AVAILABILITY</th>
-				</tr>
+				
 				</thead>
-				<tr>
-					<th style="width:35%">ASPECTS</th>
-					<th style="width:35%;text-align:left">RESPONSE</th>
-					<th style="width:30%;text-align:left">QUANTITY</th>
+				
+					<th colspan="6">ASPECTS</th>
+					<th colspan="3">RESPONSE</th>
+					<th colspan="3">QUANTITY</th>
 
-				</tr>
+				
 			
 			' . $this -> mnhGuidelinesAspectsSection . '
 		</table>

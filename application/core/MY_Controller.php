@@ -736,8 +736,8 @@ class  MY_Controller  extends  CI_Controller {
 			}
 
 			$this -> mnhCEOCAspectsSection .= '<tr>
-		<td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
-		<td colspan="1">
+		<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
 		<select name="mnhceocAspectResponse_' . $counter . '" id="mnhceocAspectResponse_' . $counter . '" class="cloned ceoc">
 			<option value="" selected="selected">Select One</option>
 			<option value="Yes">Yes</option>
@@ -822,8 +822,8 @@ class  MY_Controller  extends  CI_Controller {
 		foreach ($this->data_found as $value) {
 			$counter++;
 			$this -> mnhHIVTestingAspectsSection .= '<tr>
-			<td colspan="1">' . $value['mnhQuestion'] . '</td>
-			<td colspan="1">
+			<td colspan="7">' . $value['mnhQuestion'] . '</td>
+			<td colspan="5">
 			<select name="mnhHIVAspectResponse_' . $counter . '" id="mnhHIVAspectResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
@@ -872,8 +872,8 @@ class  MY_Controller  extends  CI_Controller {
 			
 
 			$this -> mnhPreparednessAspectsSection .= '<tr>
-		<td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
-		<td colspan="1">
+		<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
 		<select name="mnhPreparednessAspectResponse_' . $counter . '" id="mnhPreparednessAspectResponse_' . $counter . '" class="cloned ceoc">
 			<option value="" selected="selected">Select One</option>
 			<option value="Yes">Yes</option>
@@ -919,8 +919,8 @@ class  MY_Controller  extends  CI_Controller {
 		foreach ($this->data_found as $value) {
 			$counter++;
 			$this -> mnhGuidelinesAspectsSection .= '<tr>
-			<td colspan="1">' . $value['mnhQuestion'] . '</td>
-			<td colspan="1">
+			<td colspan="7">' . $value['mnhQuestion'] . '</td>
+			<td colspan="3">
 			<select name="mnhGuidelinesAspectResponse_' . $counter . '" id="mnhGuidelinesAspectResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
@@ -928,7 +928,7 @@ class  MY_Controller  extends  CI_Controller {
 
 			</select>
 			</td>
-			<td><input type="text" name="mnhGuidelinesAspectCount_' . $counter . '" id="mnhGuidelinesAspectCount_' . $counter . '" size="6" class="numbers" disabled/></td>
+			<td colspan="2"><input type="text" name="mnhGuidelinesAspectCount_' . $counter . '" id="mnhGuidelinesAspectCount_' . $counter . '" size="6" class="numbers" disabled/></td>
 			<input type="hidden"  name="mnhGuidelinesAspectCode_' . $counter . '" id="mnhGuidelinesAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 
