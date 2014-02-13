@@ -42,6 +42,17 @@
 							</li>
 						</ul>
 					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> Offline Forms <b class="caret"></b> </a>
+						<ul class="dropdown-menu">
+							<li id="mnh-form">
+								<a href="#"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis - Baseline </a>
+							</li>
+							<li id="mch-form">
+								<a href="#"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
+							</li>
+						</ul>
+					</li>
 					<li>
 						<a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
 					</li>
@@ -52,3 +63,13 @@
 	</div>
 
 </div>
+<script>
+	$(document).ready(function(){
+		$('#mnh-form').click(function(){
+			window.open('<?php echo base_url();?>c_pdf/loadPDF/mnh');
+		});
+		$('#mch-form').click(function(){
+			window.open('<?php echo base_url();?>c_pdf/loadPDF/mch');
+		});
+	});
+</script>

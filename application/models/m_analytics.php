@@ -1106,7 +1106,8 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
+						;
 
 						$this -> dataSet = $data;
 
@@ -1614,9 +1615,8 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 						}
 						$data_categories = array('Under 5 register', 'ORT Corner register', 'Mother Child Booklet');
 						$data['categories'] = $data_categories;
-						$data['yes_values'] = array('Under 5 register'=>$under5Y, 'ORT Corner register'=>$ORTY,'Mother Child Booklet'=> $bookY);
-						$data['no_values'] = array('Under 5 register'=>$under5N, 'ORT Corner register'=>$ORTN,'Mother Child Booklet'=> $bookN);
-						
+						$data['yes_values'] = array('Under 5 register' => $under5Y, 'ORT Corner register' => $ORTY, 'Mother Child Booklet' => $bookY);
+						$data['no_values'] = array('Under 5 register' => $under5N, 'ORT Corner register' => $ORTN, 'Mother Child Booklet' => $bookN);
 
 						$this -> dataSet = $data;
 
@@ -2967,17 +2967,25 @@ ORDER BY f.facilityCounty ASC;";
 	/**
 	 * List of Counties that have reported
 	 */
-	public function getReportingCounties() {
+	public function getReportingCounties($survey) {
+		switch($survey) {
+			case 'ch' :
+				$search = "f.facilityCHSurveyStatus='complete'";
+				break;
+
+			case 'mnh' :
+				$search = "f.facilitySurveyStatus='complete'";
+				break;
+		}
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT 
     f.facilityCounty as county,c.countyID as countyID
 FROM
-    assessment_tracker t,
+  
     facility f,county c
 WHERE
-    t.facilityCode = f.facilityMFC
-        and t.trackerSection = 'section-6'
+ $search   
 AND
 c.countyName =  f.facilityCounty
 GROUP BY f.facilityCounty
@@ -3021,10 +3029,10 @@ ORDER BY f.facilityCounty ASC;";
 		return $result;
 	}
 
-	function getAllReportingRatio() {
-		$reportingCounties = $this -> getReportingCounties();
+	function getAllReportingRatio($survey) {
+		$reportingCounties = $this -> getReportingCounties($survey);
 		for ($x = 0; $x < sizeof($reportingCounties); $x++) {
-			$allData[$reportingCounties[$x]['county']] = $this -> getReportingRatio($reportingCounties[$x]['county']);
+			$allData[$reportingCounties[$x]['county']] = $this -> getReportingRatio($reportingCounties[$x]['county'],$survey);
 
 		}
 		//var_dump($allData);
@@ -3032,11 +3040,19 @@ ORDER BY f.facilityCounty ASC;";
 
 	}
 
-	function getReportingRatio($county) {
+	function getReportingRatio($county,$survey) {
 		/*using DQL*/
 
 		$finalData = array();
+switch($survey) {
+			case 'ch' :
+				$search = 'facility.facilityCHSurveyStatus="complete"';
+				break;
 
+			case 'mnh' :
+				$search = 'facility.facilitySurveyStatus="complete"';
+				break;
+		}
 		try {
 
 			$query = 'SELECT 
@@ -3045,19 +3061,18 @@ ORDER BY f.facilityCounty ASC;";
     round((tracker.reported / facilityData.actual) * 100,0) as percentage
 FROM
     (SELECT 
-        COUNT(facilityCode) as reported,facility.facilityCounty as countyName
+        COUNT(facilityMFC) as reported,facility.facilityCounty as countyName
     FROM
-        assessment_tracker, facility
+        facility
     WHERE
-        assessment_tracker.facilityCode = facility.facilityMFC
-            AND facility.facilityCounty = "' . $county . '"
-            AND assessment_tracker.trackerSection = "section-6") AS tracker,
+       facility.facilityCounty = "'.$county.'"
+            AND '.$search.') AS tracker,
     (SELECT 
         COUNT(facilityMFC) as actual
     FROM
         facility
     WHERE
-        facility.facilityCounty = "' . $county . '"
+        facility.facilityCounty = "'.$county.'"
 		AND facilityType != "Dental Clinic"
             AND facilityType != "VCT Centre (Stand-Alone)"
             AND facilityType != "Training Institution in Health (Stand-alone)"
@@ -3067,7 +3082,7 @@ FROM
             AND facilityType != "Eye Clinic"
 			AND facilityType != "Eye Centre"
             AND facilityType != "Radiology Unit") as facilityData;';
-
+//echo $query;die;
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
 
@@ -3673,7 +3688,7 @@ ORDER BY ra.ResourceCode ASC";
 	}
 
 	public function case_summary($county, $choice) {
-		$final=array();
+		$final = array();
 		$query = '';
 		switch($choice) {
 			case 'Cases' :
@@ -3718,7 +3733,7 @@ WHERE
 				return $results -> result_array();
 				break;
 			case 'Classification' :
-			$final=array();
+				$final = array();
 				$query = "SELECT 
     tl.treatmentID AS treatment,
 (SUM(CASE

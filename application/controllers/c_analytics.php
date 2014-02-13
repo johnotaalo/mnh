@@ -72,7 +72,7 @@ class C_Analytics extends MY_Controller {
 
 	public function getReportingCountyList() {/*obtained from the session data*/
 		$options = '';
-		$this -> data_found = $this -> m_analytics -> getReportingCounties();
+		$this -> data_found = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($this->data_found as $value) {
 			$options .= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
 		}
@@ -82,8 +82,8 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getAllReportedCounties() {
-		$reportingCounties = $this -> m_analytics -> getAllReportingRatio();
+	public function getAllReportedCounties($survey) {
+		$reportingCounties = $this -> m_analytics -> getAllReportingRatio($survey);
 		$counter = 0;
 		$allProgress = '';
 		foreach ($reportingCounties as $key => $county) {
@@ -1711,7 +1711,7 @@ class C_Analytics extends MY_Controller {
 	 * Get Facility Ownership
 	 */
 	public function getFacilityOwnerPerCounty($county) {
-		//$allCounties = $this -> m_analytics -> getReportingCounties();
+		//$allCounties = $this -> m_analytics -> getReportingCounties('ch');
 		$county = urldecode($county);
 		//foreach ($allCounties as $county) {
 		$category[] = $county;
@@ -1752,7 +1752,7 @@ class C_Analytics extends MY_Controller {
 	 * Get Lever Ownership
 	 */
 	public function getFacilityLevelPerCounty($county) {
-		//$allCounties = $this -> m_analytics -> getReportingCounties();
+		//$allCounties = $this -> m_analytics -> getReportingCounties('ch');
 		$county = urldecode($county);
 		//foreach ($allCounties as $county) {
 		$category[] = $county;
@@ -1788,7 +1788,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getFacilityLevelAll() {
-		$counties = $this -> m_analytics -> getReportingCounties();
+		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> getFacilityLevelPerCounty($county['county']);
 			$categories[] = $county['county'];
@@ -1923,7 +1923,7 @@ class C_Analytics extends MY_Controller {
 	public function case_summary($choice) {
 
 		//Get All Reporting Counties
-		$counties = $this -> m_analytics -> getReportingCounties();
+		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> case_summary($county['county'], $choice);
 			$categories[] = $county['county'];
@@ -1976,7 +1976,7 @@ class C_Analytics extends MY_Controller {
 		$guideline = urldecode($guideline);
 		//Get All Reporting Counties
 		$finalYes = $finalNo = array();
-		$counties = $this -> m_analytics -> getReportingCounties();
+		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailability('county', $county['county'], 'complete', 'ch', 'chart');
 			$categories[] = $county['county'];
@@ -2022,7 +2022,7 @@ class C_Analytics extends MY_Controller {
 		$training = urldecode($training);
 		//Get All Reporting Counties
 		$finalYes = $finalNo = array();
-		$counties = $this -> m_analytics -> getReportingCounties();
+		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'ch', 'chart');
 			$categories[] = $county['county'];
@@ -2067,7 +2067,7 @@ class C_Analytics extends MY_Controller {
 		$tool = urldecode($tool);
 		//Get All Reporting Counties
 		$finalYes = $finalNo = array();
-		$counties = $this -> m_analytics -> getReportingCounties();
+		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> getTools('county', $county['county'], 'complete', 'ch', 'chart');
 			$categories[] = $county['county'];

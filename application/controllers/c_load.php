@@ -181,7 +181,7 @@ class C_Load extends MY_Controller {
 	</table>
 	<table class="centre">
 	<thead>
-	<th colspan ="8"> DOES THIS FACILITY ROUTINELY CONDUCT DELIVERIES?</th> </thead>
+	<th colspan ="8"> DOES THIS FACILITY CONDUCT DELIVERIES?</th> </thead>
 	<tr><th colspan ="8"><select name="facDeliveriesDone" id="facDeliveriesDone" class="cloned link">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
@@ -224,6 +224,16 @@ class C_Load extends MY_Controller {
 	</tr>
 	</table>
 	</div><!--\.delivery_cenre-->
+	<table>
+			<thead>				
+					<th colspan="2" >PROVISION OF Nurses</th>			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+				</tr>
+			</thead>
+			' . $this -> nurses . '
+		</table>
 	</div><!--\.the section-1 -->
 	
 	<div id="No" class="step"><!--end of assessment message section-->
@@ -330,7 +340,7 @@ class C_Load extends MY_Controller {
 			</td>	
 		</tr>
 	</table>
-
+	
 	<table class="centre">
 		<thead>
 			<th colspan="14" >PROVISION OF BEmONC SIGNAL FUNCTIONS  IN THE LAST THREE MONTHS </th>
@@ -346,7 +356,7 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="12" >PROVISION OF CEOC SERVICES IN THE LAST THREE MONTHS</th>
+			<th colspan="12" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
 		</thead>
 		
 		
@@ -369,6 +379,21 @@ class C_Load extends MY_Controller {
 			
 			' . $this -> mnhHIVTestingAspectsSection . '
 		</table>
+		<p>
+		<h4>Criteria for Preparedness</h4>
+		 <ol>
+		 	<li>Adult Resuscitation Kit. Complete, working and clean</li>
+		 	<li>Newborn Resuscitation Kit. Complete, working and clean</li>
+		 	<li>Receiving Place</li>
+		 	<li>Adequate Light</li>
+		 	<li>No draft(cold air)</li>
+		 	<li>Clean (delivery beds and all surfaces)</li>
+		 	<li>Waste Disposal System</li>
+		 	<li>Sterilization color-coded</li>
+		 	<li>Sharp Container</li>
+		 	<li>Privacy</li>		
+		 </ol>
+		</p>
 		
 		<table >
 			<thead>
@@ -414,6 +439,18 @@ class C_Load extends MY_Controller {
 			
 			' . $this -> mnhJobAidsAspectsSection . '
 		</table>
+		<table class="centre">
+		<thead>
+			<th colspan="2" >COMMUNITY STRATEGY </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mnhCommunityStrategySectionPDF . '
+	</table>
 	</div><!--\.section 2-->
 
 	<div id="section-3" class="step">
@@ -642,23 +679,48 @@ class C_Load extends MY_Controller {
 		
 		<table class="centre">
 		<thead>
-			<th colspan="3" >INDICATE THE STORAGE AND ACCESS TO WATER BY THE COMMUNITY </th>
-		</thead>
-		
-		
-			<th  style="width:35%">ASPECT</th>
-			<th   style="width:12.5%;text-align:left"> RESPONSE </th>			
-			<th   style="width:52.5%;text-align:left"> SPECIFY </th>	
+			<th colspan="12" >INDICATE THE STORAGE AND ACCESS TO WATER BY THE COMMUNITY </th>
+				<tr>
+			<th  colspan="7">ASPECT</th>
+			<th   colspan="5"> RESPONSE </th>			
+			<th   colspan="2"> SPECIFY </th>	
 
-		</tr>' . $this -> mnhWaterAspectsSection . '
+		</tr>
+		</thead>' . $this -> mnhWaterAspectsSection . '
 	</table>
+			<p style="display:true" class="message success">SECTION 6 of 7: III. ELECTRICTY AND HARDWARE RESOURCES</p>
+		 <table  class="centre" >
+		<thead><tr>
+			<th colspan="6">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th></tr>
+		</thead>
+		<tr>
+			<th rowspan="2">Resource Name</th>
 			
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th rowspan="2">
+			
+				Main Supplier
+			</th>
+			<th rowspan="2">			
+				Main Source	
+			</th>
+		</tr>
+		<tr >
+			<th >Available</th>
+			<th>Sometimes Available</th>
+			<th>Never Available</th>		
+		</tr>
+		
+		' . $this -> hardwareMNHSection . '
+		</table>
            </div><!--\.section-6-->
 			<div id="section-7" class="step">
 			<input type="hidden" name="step_name" value="section-7"/>
 	 <p style="display:true" class="message success">SECTION 7 of 7: SUPPLIES AVAILABILITY</p>
 			
-		 <table  class="centre" >
+	<table  class="centre" >
 		<thead>
 			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
 		</thead>

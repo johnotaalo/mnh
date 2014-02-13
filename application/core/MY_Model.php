@@ -163,6 +163,22 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> supplier;
 	}/*end of getAllCommoditySupplierNames*/
+	
+	function getAllSources($surveyName) {
+		/*using DQL*/
+		try {
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierID, s.supplierCode, s.supplierName FROM models\Entities\e_supplier s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+			$this -> supplier -> setParameter('survey', $surveyName);
+			// echo $this->supplier->getSQL();die;
+			$this -> supplier = $this -> supplier -> getResult();
+
+			//die(var_dump($this->supplier));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> supplier;
+	}/*end of getAllCommoditySupplierNames*/
 
 	function getAllSignalFunctions() {
 		/*using DQL*/

@@ -113,8 +113,8 @@
 		$('#home-parent').append('<span class="selected"></span>');		
 		$('#facility_list').hide();
 		$('#reportingLabel').hide();
-		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
-		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties');
+		$('#reporting').load('<?php echo base_url();?>c_analytics/getAllReportedCounties/ch');
+		$('#reportingModalBody').load('<?php echo base_url();?>c_analytics/getAllReportedCounties/ch');
 			if(county!='' && county!='Unselected'){				
 				$("select#county_select").find("option").filter(function(index) {
   						  return county === $(this).text();
