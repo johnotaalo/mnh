@@ -5,9 +5,9 @@ class  MY_Controller  extends  CI_Controller {
 
 	public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection;
 	//new sections
-	public $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
+	public $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
 	//pdf variables
-	public $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
+	public $servicesPDF, $mnhKangarooMotherCarePDF,$mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
 
 	function __construct() {
 		parent::__construct();
@@ -24,13 +24,13 @@ class  MY_Controller  extends  CI_Controller {
 		$this -> selectReportingCounties = $this -> selectCounties = $this -> selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this -> selectMCHCommoditySuppliers = $this -> selectCommoditySuppliers = '';
 		$this -> commodityAvailabilitySection = $this -> mchCommodityAvailabilitySection = $this -> districtFacilityListSection = $this -> treatmentMCHSection = $this -> signalFunctionsSection = $this -> signalFunctionsSectionPDF = $this -> ortCornerAspectsSection = $this -> mchGuidelineAvailabilitySection = $this -> trainingGuidelineSection = $this -> mchTrainingGuidelineSection = $this -> commodityUsageAndOutageSection = $this -> hardwareMCHSection = $this -> equipmentsMCHSection = $this -> equipmentsSection = '';
 		//new sections
-		$this -> nurses = $this -> hardwareSources = $this -> mnhJobAidsAspectsSection = $this -> mnhGuidelinesAspectsSection = $this -> mnhPreparednessAspectsSection = $this -> mnhHIVTestingAspectsSection = '';
+		$this -> servicesPDF = $this -> services = $this -> beds = $this -> mnhWasteDisposalAspectsSectionPDF = $this -> mnhNewbornCareAspectsSection = $this -> mnhPostNatalCareAspectsSection = $this -> nurses = $this -> hardwareSources = $this -> mnhJobAidsAspectsSection = $this -> mnhGuidelinesAspectsSection = $this -> mnhPreparednessAspectsSection = $this -> mnhHIVTestingAspectsSection = '';
 		//pdf
-		$this -> nursesPDF = $this -> hardwareSourcesPDF = $this -> mnhCommunityStrategySectionPDF = $this -> selectMCHOtherSuppliersPDF = $this -> mchGuidelineAvailabilitySectionPDF = $this -> mnhJobAidsAspectsSectionPDF = $this -> mnhGuidelinesAspectsSectionPDF = $this -> mnhPreparednessAspectsSectionPDF = $this -> mnhHIVTestingAspectsSectionPDF = $this -> suppliesUsageAndOutageSectionPDF = $this -> suppliesMNHOtherSectionPDF = $this -> mnhWaterAspectsSectionPDF = $this -> selectMNHOtherSuppliersPDF = $this -> commodityUsageAndOutageSectionPDF = $this -> mnhCEOCAspectsSectionPDF = $this -> suppliesSectionPDF = $this -> commodityAvailabilitySectionPDF = $this -> selectCommoditySuppliersPDF = '';
+		$this -> mnhKangarooMotherCare=$this -> mnhKangarooMotherCarePDF = $this -> mnhCommitteeAspectSectionPDF = $this -> mnhWasteDisposalAspectsSection = $this -> mnhNewbornCareAspectsSectionPDF = $this -> mnhPostNatalCareAspectsSectionPDF = $this -> nursesPDF = $this -> hardwareSourcesPDF = $this -> mnhCommunityStrategySectionPDF = $this -> selectMCHOtherSuppliersPDF = $this -> mchGuidelineAvailabilitySectionPDF = $this -> mnhJobAidsAspectsSectionPDF = $this -> mnhGuidelinesAspectsSectionPDF = $this -> mnhPreparednessAspectsSectionPDF = $this -> mnhHIVTestingAspectsSectionPDF = $this -> suppliesUsageAndOutageSectionPDF = $this -> suppliesMNHOtherSectionPDF = $this -> mnhWaterAspectsSectionPDF = $this -> selectMNHOtherSuppliersPDF = $this -> commodityUsageAndOutageSectionPDF = $this -> mnhCEOCAspectsSectionPDF = $this -> suppliesSectionPDF = $this -> commodityAvailabilitySectionPDF = $this -> selectCommoditySuppliersPDF = '';
 
 		$this -> mchIndicatorsSection = array();
 		$this -> getHealthFacilities();
-		$this -> getReportingCounties();
+		
 		$this -> getCountyNames();
 		$this -> getDisctrictNames();
 		$this -> getFacilityLevels();
@@ -93,6 +93,23 @@ class  MY_Controller  extends  CI_Controller {
 		$this -> createHardwareResourcesMNHSection();
 		$this -> createHardwareResourcesMNHSectionforPDF();
 		$this -> createNurses();
+
+		$this -> createMNHNewbornCareAspectsSection();
+		$this -> createMNHNewbornCareAspectsSectionforPDF();
+		$this -> createMNHPostNatalCareAspectsSection();
+		$this -> createMNHPostNatalCareAspectsSectionforPDF();
+
+		$this -> createMNHWasteDisposalAspectsSectionforPDF();
+		$this -> createMNHWasteDisposalAspectsSection();
+
+		$this -> createMNHCommitteeAspectsSection();
+		$this -> createMNHCommitteeAspectsSectionforPDF();
+		$this -> createBeds();
+		$this -> createServices();
+		$this -> createServicesforPDF();
+		$this -> createKangaroo();
+		$this -> createKangarooforPDF();
+
 	}
 
 	function getRepositoryByFormName($form) {
@@ -135,7 +152,9 @@ class  MY_Controller  extends  CI_Controller {
 	}
 
 	public function getReportingCounties() {/*obtained from the session data*/
-		$this -> data_found = $this -> m_analytics -> getReportingCounties('ch');
+		$this -> selectReportingCounties = '';
+		$survey = $this -> session -> userdata('survey');
+		$this -> data_found = $this -> m_analytics -> getReportingCounties($survey);
 		foreach ($this->data_found as $value) {
 			$this -> selectReportingCounties .= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
 		}
@@ -778,6 +797,8 @@ class  MY_Controller  extends  CI_Controller {
 			<input type="text"  name="mnhceocReasonOther_' . $counter . '" id="mnhceocReasonOther_' . $counter . '" value="" size="64" class="cloned" />
 			</td>
 			</tr>';
+			} elseif ($value['questionCode'] == 'QMNH06b' || $value['questionCode'] == 'QMNH06c') {
+				$follow_up_question = '';
 			} else {
 				$follow_up_question = '<tr id="csdone_n" style="display:none">
 			<td colspan="7">Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
@@ -825,8 +846,8 @@ class  MY_Controller  extends  CI_Controller {
 			if ($value['questionCode'] == 'QMNH03') {
 				$follow_up_question = '
 			<tr id="transfusion_y" style="display:none" disabled>
-	<td>If blood transfusion is performed, indicate <strong>main source</strong> of blood</td>
-	<td>
+	<td colspan="7">If blood transfusion is performed, indicate <strong>main source</strong> of blood</td>
+	<td colspan="5">
 		1. Blood bank available<input type="checkbox">2. Transfusions done but no blood bank<input type="checkbox">3. Other(specify)<input type="checkbox">
 	
 	<br/>
@@ -836,8 +857,8 @@ class  MY_Controller  extends  CI_Controller {
 	</td>
 </tr>
 <tr id="transfusion_n">
-	<td>Give a reason why blood transfusion is <strong>not</strong> performed</td>
-	<td>
+	<td colspan="7">Give a reason why blood transfusion is <strong>not</strong> performed</td>
+	<td colspan="5">
 	1. Blood not available<input type="checkbox">2. Supplies and equipment not available<input type="checkbox">3. Other(specify)<input type="checkbox">
 	<br/>
 	<label id="label_reason_other_' . $counter . '">Other Reason</label>
@@ -845,10 +866,12 @@ class  MY_Controller  extends  CI_Controller {
 	<input type="text"  name="mnhceocReasonOther_' . $counter . '" id="mnhceocReasonOther_' . $counter . '" value="" size="64" class="cloned" />
 	</td>
 </tr>';
+			} elseif ($value['questionCode'] == 'QMNH06b' || $value['questionCode'] == 'QMNH06c') {
+				$follow_up_question = '';
 			} else {
 				$follow_up_question = '<tr id="csdone_n">
-	<td>Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
-	<td>
+	<td colspan="7">Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
+	<td colspan="5">
 	1. Supplies and equipment not available<input type="checkbox">
 	2. Theatre space not available<input type="checkbox">
 	3. Human Resource not available<input type="checkbox">
@@ -862,8 +885,8 @@ class  MY_Controller  extends  CI_Controller {
 			}
 
 			$this -> mnhCEOCAspectsSectionPDF .= '<tr>
-		<td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
-		<td colspan="1">
+		<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
 		Yes<input type="checkbox">No<input type="checkbox">
 		</td>' . $follow_up_question . '
 		<input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -920,6 +943,217 @@ class  MY_Controller  extends  CI_Controller {
 
 		//echo $this->mnhCEOCAspectsSection;die;
 		return $this -> mnhHIVTestingAspectsSectionPDF;
+	}
+
+	public function createMNHWasteDisposalAspectsSection() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhWasteDisposalAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhWasteDisposalAspectsSection .= '<tr>
+			<td colspan="7">' . $value['mnhQuestion'] . '</td>
+			<td colspan="5">
+			<select name="wastedisposalReason_' . $counter . '" id="wastedisposalReason_' . $counter . '" class="cloned is-guideline">
+				<option value="" selected="selected">Select One</option>
+				<option value="Waste Pit">Waste Pit</option>
+				<option value="Placenta Pit">Placenta Pit</option>
+				<option value="Incinerator">Incinerator</option>
+				<option value="Burning">Burning</option>
+				<option value="Other(Specify)">Other</option>
+
+			</select>
+			<label>Other</label><input type="text" name="wastedisposalReasonOther_' . $counter . '" >
+			
+			</td>
+			<input type="hidden"  name="wastedisposalAspectCode_' . $counter . '" id="wastedisposalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhWasteDisposalAspectsSection;
+	}
+
+	public function createMNHWasteDisposalAspectsSectionforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhWasteDisposalAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhWasteDisposalAspectsSectionPDF .= '<tr>
+		<td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="1">
+			Waste Pit<input type="checkbox">
+			Placenta Pit<input type="checkbox">
+			Incinerator<input type="checkbox">
+			Burning<input type="checkbox">
+			Other<input type="checkbox">
+		</td>' . '
+		<input type="hidden"  name="wastedisposalAspectCode_' . $counter . '" id="wastedisposalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+	</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhWasteDisposalAspectsSectionPDF;
+	}
+
+	public function createMNHPostNatalCareAspectsSection() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhPostNatalAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhPostNatalCareAspectsSection .= '<tr>
+			<td colspan="7">' . $value['mnhQuestion'] . '</td>
+			<td colspan="5">
+			<select name="postnatalAspectResponse_' . $counter . '" id="postnatalAspectResponse_' . $counter . '" class="cloned is-guideline">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+
+			</select>
+			</td>
+			<input type="hidden"  name="postnatalAspectCode_' . $counter . '" id="postnatalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhPostNatalCareAspectsSection;
+	}
+
+	public function createMNHPostNatalCareAspectsSectionforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhPostNatalAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhPostNatalCareAspectsSectionPDF .= '<tr>
+		<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
+		Yes<input type="checkbox">No<input type="checkbox">
+		</td>' . '
+		<input type="hidden"  name="postnatalAspectCode_' . $counter . '" id="postnatalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+	</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhPostNatalCareAspectsSectionPDF;
+	}
+
+	public function createMNHCommitteeAspectsSection() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhCommitteeAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhCommitteeAspectSection .= '<tr>
+			<td colspan="7">' . $value['mnhQuestion'] . '</td>
+			<td colspan="5">
+			<select name="committeeAspectResponse_' . $counter . '" id="committeeAspectResponse_' . $counter . '" class="cloned is-guideline">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+
+			</select>
+			</td>
+			<input type="hidden"  name="committeeAspectCode_' . $counter . '" id="committeeAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhCommitteeAspectSection;
+	}
+
+	public function createMNHCommitteeAspectsSectionforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhCommitteeAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$follow_up_question = '';
+
+			$this -> mnhCommitteeAspectSectionPDF .= '<tr>
+	<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
+		Yes<input type="checkbox">No<input type="checkbox">
+		</td>' . $follow_up_question . '
+		<input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $counter . '" />
+	</tr>';
+
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhCommitteeAspectSectionPDF;
+
+	}
+
+	public function createMNHNewbornCareAspectsSection() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhNewbornAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhNewbornCareAspectsSection .= '<tr>
+			<td >' . $value['mnhQuestion'] . '</td>
+			<td >
+			<select name="newbornReason_' . $counter . '" id="newbornReason_' . $counter . '" class="cloned" >
+			<option value="" selected="selected">Select One</option>
+			<option value="MCH">MCH</option>
+			<option value="Gynae">Gynae</option>
+			<option value="Other">Other</option><br/>
+			</select><br/>
+			<label id="label_reason_other_' . $counter . '">Other Reason</label><br/>
+			<input type="text"  name="newbornReasonOther_' . $counter . '" id="newbornReasonOther_' . $counter . '" value="" size="64" class="cloned" />
+			</td>
+			</td>
+			<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhNewbornCareAspectsSection;
+	}
+
+	public function createMNHNewbornCareAspectsSectionforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhNewbornAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$aspect = '';
+		foreach ($this->data_found as $value) {
+			$counter++;
+
+			$this -> mnhNewbornCareAspectsSectionPDF .= '<tr>
+		<td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['mnhQuestion'] . '</td>
+		<td colspan="5">
+		Yes<input type="checkbox">No<input type="checkbox">
+		</td>' . '
+		<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+	</tr>
+	<tr>
+		<td colspan="7">If YES, where?</td>
+		<td colspan="5">
+		MCH<input type="checkbox">Gynae<input type="checkbox">Other(Specify)<input type="checkbox">
+		(Other)<input type="text">
+		</td>' . '
+		<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+	</tr>';
+		}
+
+		//echo $this->mnhCEOCAspectsSection;die;
+		return $this -> mnhNewbornCareAspectsSectionPDF;
 	}
 
 	/**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii	 * */
@@ -1133,6 +1367,111 @@ class  MY_Controller  extends  CI_Controller {
 
 		}
 		return $this -> nurses;
+	}
+
+	/**Function to create the section: CH Guideline Availability
+	 * */
+	public function createKangaroo() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhKangarooAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> mnhKangarooMotherCare .= '<tr>
+			<td colspan="1">' . $value['mnhQuestion'] . '</td>
+			<td colspan="1">
+			<select name="kangarooAspect_' . $counter . '" id="kangarooAspect_' . $counter . '" class="cloned is-guideline">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+
+			</select>
+			<input type="hidden"  name="kangarooAspectCode_' . $counter . '" id="kangarooAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+
+		}
+		return $this -> mnhKangarooMotherCare;
+	}
+
+/**Function to create the section: CH Guideline Availability
+	 * */
+	public function createKangarooforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhKangarooAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> mnhKangarooMotherCarePDF .= '<tr>
+			<td colspan="1"><strong>(' . $counter . '). </strong>' . $value['mnhQuestion'] . '</td>
+			
+			<td>Yes<input type="checkbox">No<input type="checkbox"></td>
+			<input type="hidden"  name="kangarooAspectCode_' . $counter . '" id="kangarooAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+
+		}
+		return $this -> mnhKangarooMotherCarePDF;
+	}
+
+	/**Function to create the section: CH Guideline Availability
+	 * */
+	public function createServices() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhServicesAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> services .= '<tr>
+			<td colspan="1">' . $value['mnhQuestion'] . '</td>
+			<td colspan="1">
+			<select name="serviceAspect_' . $counter . '" id="serviceAspect_' . $counter . '" class="cloned is-guideline">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+
+			</select>
+			<input type="hidden"  name="serviceAspectCode_' . $counter . '" id="serviceAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+
+		}
+		return $this -> services;
+	}
+
+	/**Function to create the section: CH Guideline Availability
+	 * */
+	public function createServicesforPDF() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhServicesAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> servicesPDF .= '<tr>
+			<td colspan="1">' . $value['mnhQuestion'] . '</td>
+			
+			<td>Yes<input type="checkbox">No<input type="checkbox">
+			<input type="hidden"  name="serviceAspectCode_' . $counter . '" id="serviceAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+
+		}
+		return $this -> servicesPDF;
+	}
+
+	/**Function to create the section: CH Guideline Availability
+	 * */
+	public function createBeds() {
+		$this -> data_found = $this -> m_mnh_survey -> getMnhBedsAspectQuestions();
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> beds .= '<tr>
+			<td colspan="1">' . $value['mnhQuestion'] . '</td>
+			
+			<td><input type="text" name="bedCount_' . $counter . '" id="bedCount_' . $counter . '" size="6" class="numbers" disabled/></td>
+			<input type="hidden"  name="bedAspectCode_' . $counter . '" id="bedAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+
+		}
+		return $this -> beds;
 	}
 
 	/**Function to create various sections based on the indicator type * */

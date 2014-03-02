@@ -10,15 +10,25 @@ class C_Analytics extends MY_Controller {
 		//$this -> county = $this -> session -> userdata('county_analytics');
 	}
 
-	public function setActive($county) {
+	public function setActive($county, $survey) {
+
 		$county = urldecode($county);
 		$this -> session -> unset_userdata('county_analytics');
 		$this -> session -> set_userdata('county_analytics', $county);
+
+		$this -> session -> unset_userdata('survey');
+		$this -> session -> set_userdata('survey', $survey);
+		$this -> getReportingCounties();
 		$this -> county = $this -> session -> userdata('county_analytics');
-		redirect('ch/analytics');
+
+		redirect($survey . '/analytics');
 	}
 
-	public function active_results() {
+	public function active_results($survey) {
+		$this -> session -> unset_userdata('survey');
+		$this -> session -> set_userdata('survey', $survey);
+
+		$this -> getReportingCounties();
 		$this -> data['title'] = 'MoH::Analytics';
 		$this -> data['active_link']['as'] = '<li class="start active">';
 		$this -> data['span_selected']['as'] = '<span class="selected"></span>';
@@ -71,8 +81,9 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getReportingCountyList() {/*obtained from the session data*/
+		$survey = $this -> session -> userdata('survey');
 		$options = '';
-		$this -> data_found = $this -> m_analytics -> getReportingCounties('ch');
+		$this -> data_found = $this -> m_analytics -> getReportingCounties($survey);
 		foreach ($this->data_found as $value) {
 			$options .= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
 		}
@@ -96,9 +107,10 @@ class C_Analytics extends MY_Controller {
 
 	public function getOneReportingCounty($county) {
 		$county = urldecode($county);
+		$survey = $this -> session -> userdata('survey');
 		//$nowCounty = $this->uri->segment(3);
 		//echo $nowCounty;
-		$reportingCounty = $this -> m_analytics -> getReportingRatio($county);
+		$reportingCounty = $this -> m_analytics -> getReportingRatio($county, $survey);
 		$oneProgress = $this -> getReportedCounty($reportingCounty, $county);
 		echo($oneProgress);
 	}
@@ -187,11 +199,12 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
+	public function getCommunityStrategy($criteria, $value, $status, $survey) {
 		$value = urldecode($value);
 		$results = array();
-		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist);
-		//var_dump($results);die;
+		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
+		var_dump($results);
+		die ;
 		$resultArray = array();
 		$datas = array();
 
@@ -210,9 +223,7 @@ class C_Analytics extends MY_Controller {
 		$resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
 		////$resultArraySize =  ; 5;
 		$datas['resultArraySize'] = $resultArraySize;
-
 		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
@@ -343,74 +354,102 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Get Trained Stuff
 	 */
-	public function getTrainedStaff($criteria, $value, $status, $survey, $chartorlist) {
+	public function getTrainedStaff($criteria, $value, $status, $survey) {
+		$yes = $no = array();
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey, $chartorlist);
-		//var_dump($results);
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
+		echo '<pre>';
+		print_r($results);
+		echo '</pre>';
+		die ;
 
-		switch($chartorlist) {
-			case 'chart' :
-				$yes = $results['yes_values'];
-				$no = $results['no_values'];
-				$yCount = 3;
-				$nCount = 3;
-				$category = array();
-				//var_dump($yes);
+		foreach ($results as $county) {
+			foreach ($county['trained_values'] as $k => $t) {
 
-				//var_dump($result);
-				if ($yes != null) {
-					foreach ($yes as $value) {
-						$category[] = $value[0];
-						$yesData[] = (int)$value[1];
-						$yCount--;
-						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-					}
+				if ($k == $training) {
+					$finalYes[] = $t;
+
 				}
-				if ($no != null) {
-					foreach ($no as $value) {
-						$category[] = $value[0];
-						$noData[] = (int)$value[1];
-						$nCount--;
-						//$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-					}
-				}
+			}
 
-				#Fill up Arrays
-				for ($x = 0; $x < $yCount; $x++) {
-					$yesData[] = 0;
-				}
-				for ($x = 0; $x < $nCount; $x++) {
-					if ($no != null) {
-						array_unshift($noData, 0);
-					} else {
-						$noData[] = 0;
-					}
-				}
-				$resultArray = array( array('name' => 'Trained', 'data' => $yesData), array('name' => 'Working', 'data' => $noData));
-				$resultArray = json_encode($resultArray);
-				$datas = array();
-				$resultArraySize = count($category);
-				//$resultArraySize =  5;
-				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-				//$resultArray = 5;
-				//var_dump($category);
-				$datas['resultArraySize'] = $resultArraySize;
+			foreach ($county['working_values'] as $k => $w) {
+				if ($k == $training) {
+					$finalNo[] = $w;
 
-				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-				$datas['chartType'] = 'bar';
-				$datas['chartMargin'] = 70;
-				$datas['title'] = 'Chart';
-				$datas['chartTitle'] = ' ';
-				//$datas['chartTitle'] = 'Trained Staff vs Working with Children';
-				$datas['categories'] = json_encode($category);
-				$datas['yAxis'] = 'Ratio';
-				$datas['resultArray'] = $resultArray;
-				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				break;
+				}
+			}
 		}
+		//echo '<pre>';print_r($finalYes);echo '</pre>';
+		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+		$resultArray = json_encode($resultArray);
+		echo $resultArray;
+		die ;
+		$resultArraySize = count($categories);
+
+		//$resultArraySize =  5;
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Trained Staff vs Working with Children';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Ratio';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+
+	}
+
+	public function getTrainedStaffOne($criteria, $value, $status, $survey) {
+		$yes = $no = array();
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		//die ;
+
+		foreach ($results['trained_values'] as $k => $t) {
+			$category[] = $k;
+			$finalYes[] = $t;
+
+		}
+
+		foreach ($results['working_values'] as $k => $w) {
+
+			$finalNo[] = $w;
+		}
+
+		//echo '<pre>';print_r($finalYes);echo '</pre>';
+		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		//die ;
+		$resultArraySize = count($category);
+
+		//$resultArraySize =  5;
+		//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+		//$resultArray = 5;
+		//var_dump($category);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Trained Staff vs Working with Children';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Ratio';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
 
 	}
 
@@ -433,7 +472,7 @@ class C_Analytics extends MY_Controller {
 	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
-		//var_dump($results);
+		//echo '<pre>';print_r($results);echo '</pre>';
 		//die ;
 		$datas = array();
 
@@ -499,31 +538,26 @@ class C_Analytics extends MY_Controller {
 
 				break;
 			case 'Location' :
+
 				//var_dump($location['Table spoons']);die;
 				//var_dump($results['location']);die;
 				$location = $results['location']['responses'];
 				$category = $results['location']['categories'];
 				//var_dump($location);
-
+				//	echo '<pre>';print_r($location);echo '</pre>';
 				foreach ($location as $key => $value) {
-					$zinc = $ors = $cipro = $metro = 0;
-					foreach ($value as $val) {
-						switch($val[1]) {
-							case 'Zinc Sulphate' :
-								$zinc += $val[0];
-								break;
-							case 'Low Osmolarity Oral Rehydration Salts (ORS)' :
-								$ors += $val[0];
-								break;
-							case 'Ciprofloxacin' :
-								$cipro += $val[0];
-								break;
-							case 'Metronidazole (Flagyl)' :
-								$metro += $val[0];
-								break;
+
+					$location[] = $key;
+					foreach ($value as $k => $v) {
+						$quant = 0;
+						foreach ($v as $drugVal) {
+							$quant += $drugVal;
 						}
+						$numbers[] = $quant;
+
 					}
-					$resultArray[] = array('name' => $key, 'data' => array($zinc, $ors, $cipro, $metro));
+					$resultArray[] = array('name' => $key, 'data' => $numbers);
+					$numbers = array();
 				}
 
 				break;
@@ -542,7 +576,7 @@ class C_Analytics extends MY_Controller {
 		}
 
 		$resultArray = json_encode($resultArray);
-		//var_dump($resultArray);
+		//echo($resultArray);
 		//die;
 
 		$resultArraySize = count($category);
@@ -553,6 +587,114 @@ class C_Analytics extends MY_Controller {
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = ' ';
 		//$datas['chartTitle'] = 'Commodity ' . $choice;
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view($stackorno, $datas);
+	}
+
+	public function getEquipmentFrequency($criteria, $value, $status, $survey) {
+		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Frequency', 8);
+	}
+
+	public function getEquipmentLocation($criteria, $value, $status, $survey) {
+		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Location');
+	}
+
+	public function getEquipmentFunctionality($criteria, $value, $status, $survey) {
+		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Functionality');
+	}
+
+	public function getMnhEquipment($criteria, $value, $status, $survey, $choice) {
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getMnhEquipment($criteria, $value, $status, $survey);
+		//var_dump($results);die;
+		$datas = array();
+		$frequency = $results['frequency'];
+		$categories = $results['frequency']['categories'];
+		$quantities = $results['quantities']['responses'];
+		//var_dump($results['location']);die;
+		$resultArray = array();
+		$stackorno;
+
+		$counter = 0;
+
+		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
+		$delivery = $pharmacy = $store = $other = array();
+		//$category = $frequencyCategories;
+		switch($choice) {
+			case 'Frequency' :
+				$datas['availability'] = 1;
+				$frequencyCategories = $frequency['categories'];
+				$category = $frequencyCategories;
+				$frequencyNever = $frequency['responses']['Never Available'];
+				$frequencyAlways = $frequency['responses']['Available'];
+				$frequencySometimes = $frequency['responses']['Sometimes Available'];
+				$resultArray = array( array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+			case 'Functionality' :
+				foreach ($quantities as $quantity) {
+					$arr = $quantity[$counter];
+					//[0]['Fully-functional'];
+					$quantitiesFullyFunctional[] = $arr['Fully-functional'];
+					$quantitiesNonFunctional[] = $arr['Non-functional'];
+					//$counter++;
+				}
+				$category = $results['quantities']['categories'];
+				$stackorno = 'charts/chart_stacked_v';
+				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
+				break;
+			case 'Location' :
+				//var_dump($location['Table spoons']);die;
+				$location = $results['location']['responses'];
+				$locationCategories = $results['location']['categories'];
+				foreach ($location as $key => $loc) {
+
+					if (array_key_exists('Delivery room', $loc) == true) {
+						$delivery[] = $loc['Delivery room'];
+					} else {
+						$delivery[] = 0;
+					}
+					if (array_key_exists('Pharmacy', $loc) == true) {
+						$pharmacy[] = $loc['Pharmacy'];
+					} else {
+						$pharmacy[] = 0;
+					}
+					if (array_key_exists('Store', $loc) == true) {
+						$store[] = $loc['Store'];
+					} else {
+						$store[] = 0;
+					}
+					if (array_key_exists('Other', $loc) == true) {
+						$other[] = $loc['Other'];
+					} else {
+						$other[] = 0;
+					}
+
+					//var_dump ($location);die;
+
+				}
+				//var_dump($other);
+				$resultArray = array( array('name' => 'Delivery Room', 'data' => $delivery), array('name' => 'Pharmacy', 'data' => $pharmacy), array('name' => 'Store', 'data' => $store), array('name' => 'Other', 'data' => $other));
+				$category = $locationCategories;
+				//var_dump($resultArray);die;
+				$stackorno = 'charts/chart_stacked_v';
+				break;
+		}
+		//var_dump($quantitiesFullyFunctional);
+		//die;
+		$resultArray = json_encode($resultArray);
+		//$resultArraySize =  $resultSize;
+
+		$resultArraySize = count($category);
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'ORT Assessment ' . $choice;
 		$datas['categories'] = json_encode($category);
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
@@ -1424,18 +1566,20 @@ class C_Analytics extends MY_Controller {
 	public function getSupplies($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getSupplies($criteria, $value, $status, $survey);
+		//var_dump($results['location']);
+		//die ;
 		$datas = array();
 
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
-		//var_dump($results['location']);die;
+
 		$resultArray = array();
 		$stackorno;
 
 		$counter = 0;
 
 		$quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-		$mch = $other = $opd = $ward = $clinic = array();
+		$mch = $other = $opd = $ward = $clinic = $pharmacy = $delivery = $store = array();
 		//$category = $frequencyCategories;
 		switch($choice) {
 			case 'Frequency' :
@@ -1452,39 +1596,74 @@ class C_Analytics extends MY_Controller {
 				//var_dump($location['Table spoons']);die;
 				$location = $results['location']['responses'];
 				$locationCategories = $results['location']['categories'];
-				foreach ($location as $key => $loc) {
+				switch($survey) {
+					case 'ch' :
+						foreach ($location as $key => $loc) {
 
-					if (array_key_exists('MCH', $loc) == true) {
-						$mch[] = $loc['MCH'];
-					} else {
-						$mch[] = 0;
-					}
-					if (array_key_exists('Other', $loc) == true) {
-						$other[] = $loc['Other'];
-					} else {
-						$other[] = 0;
-					}
-					if (array_key_exists('OPD', $loc) == true) {
-						$opd[] = $loc['OPD'];
-					} else {
-						$opd[] = 0;
-					}
-					if (array_key_exists('Ward', $loc) == true) {
-						$ward[] = $loc['Ward'];
-					} else {
-						$ward[] = 0;
-					}
-					if (array_key_exists('U5 Clinic', $loc) == true) {
-						$clinic[] = $loc['U5 Clinic'];
-					} else {
-						$clinic[] = 0;
+							if (array_key_exists('MCH', $loc) == true) {
+								$mch[] = $loc['MCH'];
+							} else {
+								$mch[] = 0;
+							}
+							if (array_key_exists('Other', $loc) == true) {
+								$other[] = $loc['Other'];
+							} else {
+								$other[] = 0;
+							}
+							if (array_key_exists('OPD', $loc) == true) {
+								$opd[] = $loc['OPD'];
+							} else {
+								$opd[] = 0;
+							}
+							if (array_key_exists('Ward', $loc) == true) {
+								$ward[] = $loc['Ward'];
+							} else {
+								$ward[] = 0;
+							}
+							if (array_key_exists('U5 Clinic', $loc) == true) {
+								$clinic[] = $loc['U5 Clinic'];
+							} else {
+								$clinic[] = 0;
 
-					}
-					//var_dump ($location);die;
+							}
+							//var_dump ($location);die;
 
+						}
+						//var_dump($other);
+						$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
+
+						break;
+					case 'mnh' :
+						foreach ($location as $key => $loc) {
+
+							if (array_key_exists('Delivery room', $loc) == true) {
+								$delivery[] = $loc['Delivery room'];
+							} else {
+								$delivery[] = 0;
+							}
+							if (array_key_exists('Other', $loc) == true) {
+								$other[] = $loc['Other'];
+							} else {
+								$other[] = 0;
+							}
+							if (array_key_exists('Pharmacy', $loc) == true) {
+								$pharmacy[] = $loc['Pharmacy'];
+							} else {
+								$pharmacy[] = 0;
+							}
+							if (array_key_exists('Store', $loc) == true) {
+								$store[] = $loc['Store'];
+							} else {
+								$store[] = 0;
+							}
+							//var_dump ($location);die;
+
+						}
+						//var_dump($other);
+						$resultArray = array( array('name' => 'Delivery Room', 'data' => $delivery), array('name' => 'Pharmacy', 'data' => $pharmacy), array('name' => 'Store', 'data' => $store), array('name' => 'Other', 'data' => $other));
+
+						break;
 				}
-				//var_dump($other);
-				$resultArray = array( array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
 
 				//var_dump($resultArray);die;
 				$stackorno = 'charts/chart_stacked_v';
@@ -1787,10 +1966,10 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getFacilityLevelAll() {
-		$counties = $this -> m_analytics -> getReportingCounties('ch');
+	public function getFacilityLevelAll($survey) {
+		$counties = $this -> m_analytics -> getReportingCounties($survey);
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getFacilityLevelPerCounty($county['county']);
+			$results[$county['county']] = $this -> m_analytics -> getFacilityLevelPerCounty($county['county'], $survey);
 			$categories[] = $county['county'];
 		}
 
@@ -1814,6 +1993,51 @@ class C_Analytics extends MY_Controller {
 		$finalResult = $resultArray;
 		//}
 		$resultArraySize = count($categories);
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_two' . rand(5, 300);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Guidelines';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Facilities';
+		$datas['resultArray'] = json_encode($finalResult);
+		//var_dump($datas['categories']);die;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+		//echo '<pre>';
+		//print_r($finalResult);
+		//echo '</pre>';
+
+	}
+
+	public function getFacilityOwnerAll($survey) {
+		$counties = $this -> m_analytics -> getReportingCounties($survey);
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getFacilityOwnerPerCounty($county['county'], $survey);
+			$categories[] = $county['county'];
+		}
+
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
+
+		$resultArray = array();
+		foreach ($results as $county) {
+			foreach ($county as $level) {
+				$data[$level['facilityOwner']][] = (int)$level['ownership_total'];
+			}
+		}
+		foreach ($data as $key => $val) {
+			$resultArray[] = array('name' => 'Ownership ' . $key, 'data' => $val);
+
+		}
+
+		$finalResult = $resultArray;
+		//}
+		$resultArraySize = 10;
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_two' . rand(5, 300);
@@ -1909,9 +2133,9 @@ class C_Analytics extends MY_Controller {
 		//var_dump($result);
 	}
 
-	public function getFacilitiesByDistrictOptions($district) {
+	public function getFacilitiesByDistrictOptions($district, $survey) {
 		$district = urldecode($district);
-		$options = $this -> m_analytics -> getFacilitiesByDistrictOptions($district);
+		$options = $this -> m_analytics -> getFacilitiesByDistrictOptions($district, $survey);
 		//var_dump($options);
 		echo $options;
 	}
@@ -2109,6 +2333,51 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
+	public function training_summaryMNH($training) {
+		$training = urldecode($training);
+		//Get All Reporting Counties
+		$finalYes = $finalNo = array();
+		$counties = $this -> m_analytics -> getReportingCounties('mnh');
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'mnh', 'chart');
+			$categories[] = $county['county'];
+		}
+		//echo '<pre>';print_r($results);echo '</pre>';die;
+		foreach ($results as $county) {
+			foreach ($county['trained_values'] as $k => $t) {
+
+				if ($k == $training) {
+					$finalYes[] = $t;
+
+				}
+			}
+
+			foreach ($county['working_values'] as $k => $w) {
+				if ($k == $training) {
+					$finalNo[] = $w;
+
+				}
+			}
+		}
+		//echo '<pre>';print_r($finalYes);echo '</pre>';
+		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+		$training = str_replace(" ", "_", $training);
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $training . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
 	#Load PDF
 	public function loadPDF($pdf) {
 		$stylesheet = ('
@@ -2137,4 +2406,528 @@ class C_Analytics extends MY_Controller {
 
 	}
 
+	/**
+	 * Mother and Neonatal Health Section
+	 */
+
+	#Section 1
+	#-----------------------------------------------------------------------------
+
+	/**
+	 * Nurses Deployed in Maternity
+	 */
+	public function getNursesDeployed($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getNursesDeployed($criteria, $value, $status, $survey);
+		$number = $resultArray = $q = $yes = $no = array();
+		$question = '';
+		foreach ($results as $key => $value) {
+			$question = $key;
+			$number[] = (int)$value[0];
+		}
+		$category[] = 'Numbers';
+		$resultArray[] = array('name' => 'Nurses Deployed', 'data' => $number);
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/**
+	 * Beds in facility
+	 */
+	public function getBeds($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getBeds($criteria, $value, $status, $survey);
+		$number = $resultArray = array();
+		foreach ($results as $key => $value) {
+			$number[] = (int)$value[0];
+			$resultArray[] = array('name' => $key, 'data' => $number);
+			$number = array();
+		}
+		$category[] = 'Numbers';
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/**
+	 * 24 Hour Service
+	 */
+	public function getService($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getService($criteria, $value, $status, $survey);
+		$number = $resultArray = array();
+		foreach ($results as $key => $value) {
+			$number[] = (int)$value[0];
+			$resultArray[] = array('name' => $key, 'data' => $number);
+		}
+
+		$category[] = 'Numbers';
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/**
+	 * Health Facility Management
+	 */
+	public function getHFM($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getHFM($criteria, $value, $status, $survey);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
+		$number = $resultArray = array();
+		foreach ($results as $key => $value) {
+			$newkey = explode(" ", $key);
+			$key = $newkey[5];
+			$number[] = (int)$value[0];
+			$resultArray[] = array('name' => $key, 'data' => $number);
+			$number = array();
+		}
+
+		$category[] = 'Numbers';
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;die;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	/**
+	 * Deliveries
+	 */
+	public function getDeliveries($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getDeliveries($criteria, $value, $status, $survey);
+
+		$number = $q = $resultArray = array();
+		foreach ($results as $key => $value) {
+			$q = $key;
+			$resultArray = array( array('name' => 'Yes', 'data' => array((int)$value['yes'])), array('name' => 'No', 'data' => array((int)$value['no'])));
+
+		}
+
+		$category[] = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	#Section 2
+	#-----------------------------------------------------------------------------
+
+	/**
+	 * Deliveries Conducted
+	 */
+	public function getDeliveriesConducted($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getDeliveries($criteria, $value, $status, $survey);
+	}
+
+	/**
+	 * Signal Functions
+	 * Options:
+	 * 		.bemonc
+	 * 		.cemonc
+	 */
+	public function getSignalFunction($criteria, $value, $status, $survey, $signal) {
+		$results['conducted'] = array();
+		$results = $this -> m_analytics -> getSignalFunction($criteria, $value, $status, $survey, $signal);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
+
+		$number = $q = $resultArray = $yes = $no = array();
+		foreach ($results['conducted'] as $key => $value) {
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	public function getBEMONCReason($criteria, $value, $status, $survey) {
+		$this -> getSignalFunctionReason($criteria, $value, $status, $survey, 'ceoc');
+	}
+
+	public function getCEOCReason($criteria, $value, $status, $survey) {
+		$this -> getSignalFunctionReason($criteria, $value, $status, $survey, 'bemonc');
+	}
+
+	public function getSignalFunctionReason($criteria, $value, $status, $survey, $signal) {
+		$results['reason'] = $results['categories'] = array();
+		$results = $this -> m_analytics -> getSignalFunction($criteria, $value, $status, $survey, $signal);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		//die ;
+		$cat = $results['categories'];
+		$number = $q = $resultArray = $yes = $no = array();
+		$counter = 0;
+		foreach ($results['reason'] as $key => $value) {
+			foreach ($cat as $c) {
+				if (array_key_exists($c, $value)) {
+					$numbers[] = $value[$c];
+				} else {
+					$numbers[] = 0;
+				}
+				$categories[] = $c;
+			}
+			$resultArray[] = array('name' => $key, 'data' => $numbers);
+			$numbers = array();
+		}
+
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	public function getCEOC($criteria, $value, $status, $survey) {
+		$this -> getSignalFunction($criteria, $value, $status, $survey, 'ceoc');
+	}
+
+	public function getBEMONC($criteria, $value, $status, $survey) {
+		$this -> getSignalFunction($criteria, $value, $status, $survey, 'bemonc');
+	}
+
+	/**
+	 * Deliveries Conducted
+	 */
+	public function getHIVTesting($criteria, $value, $status, $survey) {
+
+		$results = $this -> m_analytics -> getHIVTesting($criteria, $value, $status, $survey);
+
+		$number = $resultArray = $q = array();
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	/**
+	 * Newborn Care
+	 */
+	public function getNewbornCare($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getNewbornCare($criteria, $value, $status, $survey);
+		echo '<pre>';
+		print_r($results);
+		echo '</pre>';
+		die ;
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	/**
+	 * Kangaroo Mother Care
+	 */
+	public function getKMC($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getKMC($criteria, $value, $status, $survey);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	/**
+	 * Deliveriy Preparedness
+	 */
+	public function getDeliveryPreparedness($criteria, $value, $status, $survey) {
+
+	}
+
+	/**
+	 * Guidelines Availability
+	 */
+	public function getGuidelinesAvailabilityMNH($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getGuidelinesAvailabilityMNH($criteria, $value, $status, $survey);
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$key = trim($key, 'Does this facility have an updated');
+			$key = trim($key, '?');
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 6;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	/**
+	 * Job Aids
+	 */
+	public function getJobAids($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getJobAids($criteria, $value, $status, $survey);
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
+		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 10;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	/**
+	 * Community Strategy
+	 */
+	public function getCommunityStrategyMNH($criteria, $value, $status, $survey) {
+		$results = $this -> m_analytics -> getCommunityStrategyMNH($criteria, $value, $status, $survey);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$key = trim($key, 'Total number of ');
+			$category[] = $key;
+			$number[] = (int)$value[0];
+		}
+
+		$resultArray[] = array('name' => 'Numbers', 'data' => $number);
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 1;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	#Section 3
+	#-----------------------------------------------------------------------------
+	#Section 4
+	#-----------------------------------------------------------------------------
+
+	#Section 5
+	#-----------------------------------------------------------------------------
+	#Section 6
+	#-----------------------------------------------------------------------------
+	#Section 7
+	#-----------------------------------------------------------------------------
 }

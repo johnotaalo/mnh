@@ -177,7 +177,57 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
+		</table>
+<table>
+			<thead>				
+					<th colspan="2" >PROVISION OF Nurses</th>
+				</thead>			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+				</tr>
+			
+			' . $this -> nurses . '
+		</table>
+		
+		
+		<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Beds</th>
+			</thead>
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
 
+				</tr>
+			
+			' . $this -> beds . '
+		</table>
+		<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Services</th>
+			</thead>
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			
+			' . $this -> services . '
+		</table>	
+		
+		
+		<table>
+		<tr>
+		<th colspan="12" >Health Facility Management</th>
+		</tr>
+		<tr>		
+		<th colspan="7">QUESTION</th>
+		<th colspan="5">RESPONSE</th>	
+		</tr>
+		' . $this ->  mnhCommitteeAspectSection  . '
 	</table>
 	<table class="centre">
 	<thead>
@@ -224,16 +274,7 @@ class C_Load extends MY_Controller {
 	</tr>
 	</table>
 	</div><!--\.delivery_cenre-->
-	<table>
-			<thead>				
-					<th colspan="2" >PROVISION OF Nurses</th>			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-				</tr>
-			</thead>
-			' . $this -> nurses . '
-		</table>
+	
 	</div><!--\.the section-1 -->
 	
 	<div id="No" class="step"><!--end of assessment message section-->
@@ -378,6 +419,34 @@ class C_Load extends MY_Controller {
 				
 			
 			' . $this -> mnhHIVTestingAspectsSection . '
+		</table>
+		
+		<table >
+			<thead>			
+					<th colspan="2" >PROVISION OF Newborn Care</th>
+					</thead>
+				<tr>				
+					<th colspan="1">QUESTION</th>
+					<th colspan="1">RESPONSE</th>
+				</tr>
+		
+			
+			' . $this -> mnhNewbornCareAspectsSection . '
+		</table>
+		<table >
+			<thead>
+				<tr>
+					<th colspan="2" >PROVISION OF Kangaroo Mother Care</th>
+				
+				</tr>
+				<tr>
+					<th colspan="1">QUESTION</th>
+					<th colspan="1">RESPONSE</th>
+				</tr>
+</thead>
+				
+			
+			' . $this -> mnhKangarooMotherCare . '
 		</table>
 		<p>
 		<h4>Criteria for Preparedness</h4>
@@ -817,6 +886,19 @@ class C_Load extends MY_Controller {
 		</tr>
         ' . $this -> suppliesUsageAndOutageSection . '
         </table>
+        <table >
+			<thead>
+				<tr>
+					<th colspan="12" >PROVISION OF Waste Disposal</th>
+				</tr>
+				</thead>
+				<tr>
+					<th colspan="7" style="width:35%">QUESTION</th>
+					<th colspan="5" style="width:65%;text-align:left">RESPONSE</th>
+				</tr>
+			
+			' . $this -> mnhWasteDisposalAspectsSection . '
+		</table>
 		
 	 </div><!--\.section-7-->
 	 <div id="sectionNavigation" class="buttonsPane">

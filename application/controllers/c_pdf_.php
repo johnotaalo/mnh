@@ -14,8 +14,57 @@ class C_Pdf extends MY_Controller {
 	public function index() {
 	}
 
+	public function test_mnh() {
+		$pdf = '<table>
+
+	<th>FACILITY INFORMATION</th>
+
+	<tbody>
+		<tr>
+			<td>Facility Name </td>
+			<td>
+			<input type="text" />
+			</td>
+			<td>Facility Level </td>
+			<td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<input type="text" />
+			</td>
+			<td>County </td>
+			<td>
+			<input type="text" />
+		</tr>
+		<tr>
+			<td>Facility Type </td>
+			<td>
+			<input type="text" />
+			</td>
+			<td>Owned By </td>
+			<td>
+			<input type="text" />
+			</td>
+
+			<td>District/Sub County </td>
+			<td>
+			<input type="text" />
+			</td>
+		</tr>
+	</tbody>
+</table>';
+		return $pdf;
+	}
+
 	public function get_mnh_form() {
-		$this -> combined_form .= '
+		$this -> combined_form .= '<link href="' . base_url() . 'assets/css/style.css" ref ="stylesheet">
+<link href="' . base_url() . 'assets/css/style.css" ref ="stylesheet">
+<form class="bbq" name="mnh_tool" id="mnh_tool" method="POST">
+
+	<p id="data" class="feedback"></p>
+	<!--h3 align="center">COMMODITY, SUPPLIES AND EQUIPMENT ASSESSMENT</h3-->
+	<p style="color:#488214;font-size:20px;font-style:bold">
+		You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey.
+	</p>
+	<div id="section-1" class="step">
+		<input type="hidden" name="step_name" value="section-1"/>
 		<p style="display:true" class="message success">
 			SECTION 1 of 7: FACILITY INFORMATION
 		</p>
@@ -95,64 +144,9 @@ class C_Pdf extends MY_Controller {
 					</td>
 				</tr>
 			</tbody>
-		</table>	
-		
-		
-	
-			
-			
-			<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Nurses</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> nurses . '
-		</table>	
-		<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Beds</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> beds . '
 		</table>
+		</br></br>
 		<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Beds</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> servicesPDF . '
-		</table>	
-		
-		
-		<table>
-		<tr>
-		<th colspan="12" >Health Facility Management</th>
-		</tr>
-		<tr>		
-		<th colspan="7">QUESTION</th>
-		<th colspan="5">RESPONSE</th>	
-		</tr>
-		' . $this ->  mnhCommitteeAspectSectionPDF  . '
-	</table>
-	<table>
 		<tr>
 			<td>
 				<th> DOES THIS FACILITY CONDUCT DELIVERIES?</th>
@@ -167,7 +161,8 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			
 		</table>
-		<table>
+	
+			<table >
 
 				<thead>
 				<tr>
@@ -205,6 +200,20 @@ class C_Pdf extends MY_Controller {
 
 				</tr>
 			</table>
+			<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Nurses</th>
+			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			</thead>
+			' . $this -> nurses . '
+		</table>
+	
 	</div><!--\.the section-1 -->
 
 	<div id="Yes" class="step">
@@ -265,7 +274,7 @@ class C_Pdf extends MY_Controller {
 				</td>
 			</tr>
 		</table>
-       
+
 		<table>
 			<thead>
 				<tr>
@@ -281,31 +290,17 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> signalFunctionsSectionPDF . '
 		</table>
-	
-<table>
-	
-		<tr>
-			<th colspan="14" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
+		<table class="centre">
+		<thead>
+			<th colspan="12" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
+				<tr>		
+					<th colspan="7">QUESTION</th>
+					<th colspan="5">RESPONSE</th>	
 		</tr>
-		<tr>		
-		<th colspan="8">QUESTION</th>
-		<th colspan="6">RESPONSE</th>	
-		</tr>
-		' . $this -> mnhCEOCAspectsSectionPDF . '
+		</thead>' . $this -> mnhCEOCAspectsSectionPDF . '
 	</table>
-	<table style="display:false">
-		<tr>
-		<th colspan="12" >Health Facility Management</th>
-		</tr>
-		<tr>		
-		<th colspan="7">QUESTION</th>
-		<th colspan="5">RESPONSE</th>	
-		</tr>
-		' . $this ->  mnhCommitteeAspectSectionPDF  . '
-	</table>
-	
 		<table >
-		
+			<thead>
 				<tr>
 					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
 				</tr>
@@ -314,51 +309,31 @@ class C_Pdf extends MY_Controller {
 					<th style="width:65%;text-align:left">RESPONSE</th>
 
 				</tr>
-	
+			</thead>
 			' . $this -> mnhHIVTestingAspectsSectionPDF . '
 		</table>
-
+		
 		<table >
 			<thead>
-				<tr>
-					<th colspan="12" >PROVISION OF Newborn Care</th>
-				
-				</tr>
-				<tr>
-					<th colspan="7">QUESTION</th>
-					<th colspan="5">RESPONSE</th>
-				</tr>
-</thead>
-				
-			
-			' . $this -> mnhNewbornCareAspectsSectionPDF . '
-		</table>
-		<table >
-			<thead>
-				<tr>
-					<th colspan="2" >PROVISION OF Kangaroo Mother Care</th>
-				
-				</tr>
-				<tr>
-					<th colspan="1">QUESTION</th>
-					<th colspan="1">RESPONSE</th>
-				</tr>
-</thead>
-				
-			
-			' . $this -> mnhKangarooMotherCarePDF . '
-		</table>
-		<table >
-			<thead>
+			<tr>
+			<th>
+		<h4>Criteria for Preparedness</h4>
+		 <ol>
+		 	<li>Adult Resuscitation Kit. Complete, working and clean</li>
+		 	<li>Newborn Resuscitation Kit. Complete, working and clean</li>
+		 	<li>Receiving Place</li>
+		 	<li>Adequate Light</li>
+		 	<li>No draft(cold air)</li>
+		 	<li>Clean (delivery beds and all surfaces)</li>
+		 	<li>Waste Disposal System</li>
+		 	<li>Sterilization color-coded</li>
+		 	<li>Sharp Container</li>
+		 	<li>Privacy</li>		
+		 </ol>
+		</th>
+		</tr>
 				<tr>
 					<th colspan="12" >Preparedness for Delivery</th>
-				</tr>
-				<tr>
-					<th colspan="12" style="background=#fff"> 
-					<strong>Criteria : </strong>Adult Resuscitation Kit Complete, Working and Clean	; Newborn Resuscitation Kit Complete, working and clean;
-				 Receiving Place ; Adequate Light ; No draft(cold air); Clean (delivery beds and all surfaces)	; Waste Disposal System	
-				; Sterilization color-coded	;Sharp Container; Privacy		
-					</th>
 				</tr>
 				<tr>
 					<th style="width:35%">QUESTION</th>
@@ -381,8 +356,9 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			</thead>
 			' . $this -> mnhGuidelinesAspectsSectionPDF . '
-		</table>		
-		<table >
+		</table>
+		
+				<table >
 			<thead>
 				<tr>
 					<th colspan="12" >JOB AIDS</th>
@@ -760,19 +736,6 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesUsageAndOutageSectionPDF . '
 		</table>
-		
-		<table >
-			<thead>
-				<tr>
-					<th colspan="12" >PROVISION OF Waste Disposal</th>
-				</tr>
-				<tr>
-					<th style="width:35%">QUESTION</th>
-					<th style="width:65%;text-align:left">RESPONSE</th>
-				</tr>
-			</thead>
-			' . $this -> mnhWasteDisposalAspectsSectionPDF . '
-		</table>
 
 	</div><!--\.section-7-->
 </form>
@@ -954,7 +917,7 @@ class C_Pdf extends MY_Controller {
 	}
 
 	public function loadPDF($survey) {
-		$stylesheet = ('<style>
+		$stylesheet = ('
 		input[type="text"]{
 			width:600px;
 		}
@@ -977,7 +940,7 @@ font: bold 100% sans-serif;}
 text-align: center;
 background: #91c5d4;
 }
-		</style>
+		
 		');
 
 		switch($survey) {
@@ -988,8 +951,6 @@ background: #91c5d4;
 				$html = $this -> get_mch_form();
 				break;
 		}
-
-
 		//$html = $this -> get_mnh_form();
 		//echo $html;die;
 		$this -> load -> library('mpdf');
@@ -998,10 +959,10 @@ background: #91c5d4;
 		$this -> mpdf -> SetHTMLHeader('<em>MNH Assessment Tool</em>');
 		$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em>');
 		$this -> mpdf -> simpleTables = true;
-		//$this -> mpdf -> WriteHTML($stylesheet, 1);
-		$this -> mpdf -> WriteHTML($stylesheet.$html);
+		$this -> mpdf -> WriteHTML($stylesheet, 1);
+		$this -> mpdf -> WriteHTML($html, 2);
 		$report_name = 'MNH Assessment Tool' . ".pdf";
-		$this -> mpdf -> Output($report_name, 'I');
+		$this -> mpdf -> Output($report_name, 'D');
 
 	}
 

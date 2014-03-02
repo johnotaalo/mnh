@@ -14,7 +14,8 @@ class C_Front extends MY_Controller {
 	public function index() {
 		$data['title'] = 'MoH::Data Management Tool';
 		$data['content'] = 'pages/v_home';
-		$data['maps'] = $this -> runMap();
+		$data['mapsCH'] = $this -> runMap('ch');
+		$data['mapsMNH'] = $this -> runMap('mnh');
 		//var_dump($this -> runMap());
 		$this -> load -> view('template', $data);
 		//landing page
@@ -22,8 +23,8 @@ class C_Front extends MY_Controller {
 
 	}//End of index file
 
-	public function runMap() {
-		$counties = $this -> m_analytics -> runMap();
+	public function runMap($survey) {
+		$counties = $this -> m_analytics -> runMap($survey);
 		$map = array();
 		$datas = array();
 		$status = '';
@@ -62,7 +63,7 @@ class C_Front extends MY_Controller {
 					$status = '#ffffff';
 					break;
 			}
-			$datas[] = array('id' => $countyMap,'value'=>$countyName, 'color' => $status,'tooltext'=>$countyName.'  Percentage Complete:  '.$percentage.'% ('.$reported.'/'.$actual.')','link'=>base_url().'c_analytics/setActive/'.$countyName);
+			$datas[] = array('id' => $countyMap,'value'=>$countyName, 'color' => $status,'tooltext'=>$countyName.'  Percentage Complete:  '.$percentage.'% ('.$reported.'/'.$actual.')','link'=>base_url().'c_analytics/setActive/'.$countyName.'/'.$survey);
 		}
 		$map = array( "canvasBorderColor"=>"#ffffff","hoverColor"=>"#aaaaaa","fillcolor" => "D7F4FF", "numbersuffix" => "M", "includevalueinlabels" => "1", "labelsepchar" => ":", "basefontsize" => "9","borderColor"=>'#999999',"showBevel"=>"0",'showShadow'=>"0");
 		$styles = array("showBorder"=>0);

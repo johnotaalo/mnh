@@ -443,6 +443,35 @@ class  MY_Model  extends  CI_Model {
 			//die($ex->getMessage());
 		}
 	}
+	
+	/*utilized in several models*/
+	public function getMNHQuestionName($id) {
+		try {
+			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\e_mnh_questions') -> findOneBy(array('questionCode' => $id));
+
+			if ($this -> mnhQuestion) {
+				$this -> mnhQuestion = $this -> mnhQuestion -> getMNHQuestion();
+				return $this -> mnhQuestion;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());
+		}
+	}
+	
+	public function getSignalName($id) {
+		try {
+			$this -> signalFunction = $this -> em -> getRepository('models\Entities\e_signal_function') -> findOneBy(array('signalCode' => $id));
+
+			if ($this -> signalFunction) {
+				$this -> signalFunction = $this -> signalFunction -> getSignalName();
+				return $this -> signalFunction;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());
+		}
+	}
 
 	/*utilized in several models*/
 	public function getChildHealthIndicatorName($id) {
@@ -490,9 +519,9 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
-	public function getCHSuppliesName($id) {
+	public function getCHSuppliesName($id,$curr) {
 		try {
-			$this -> suppliesName = $this -> em -> getRepository('models\Entities\e_supplies') -> findOneBy(array('suppliesCode' => $id,'suppliesFor'=>'mch'));
+			$this -> suppliesName = $this -> em -> getRepository('models\Entities\e_supplies') -> findOneBy(array('suppliesCode' => $id,'suppliesFor'=>$curr));
 			if ($this -> suppliesName) {
 				$this -> suppliesName = $this -> suppliesName -> getsuppliesName();
 				return $this -> suppliesName;

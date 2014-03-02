@@ -410,8 +410,8 @@ $mfCode = $this -> session -> userdata('fCode');
 						   //alert(form_id);	
 						   var end_url;
 								$(form_id).formwizard({ 
-								 	formPluginEnabled: false,
-								 	validationEnabled: false,
+								 	formPluginEnabled: true,
+								 	validationEnabled: true,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -580,7 +580,7 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
-								//$(form_id).formwizard('show','section-4');
+								//$(form_id).formwizard('show','section-2');
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

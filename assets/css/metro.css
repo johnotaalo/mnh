@@ -505,7 +505,7 @@ select.m-wrap.large {
  */
 
 #reporting {
-	overflow-y: scroll;
+	overflow-y: auto;
 	height: 300px;
 	width: 97%;
 	padding: 10px;

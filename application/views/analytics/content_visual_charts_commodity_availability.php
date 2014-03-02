@@ -3,7 +3,12 @@
 		overflow-y: auto;
 	}
 </style>
-<script></script>
+
+<?php
+switch($this->session->userdata('survey')) {
+case 'ch' :
+
+?>
 <!-- BEGIN CHART PORTLET 1-->
 <div class="row-fluid" id="reporting-parent">
 	<div class="span6" id="span1">
@@ -15,15 +20,6 @@
 
 			<div id="reporting"></div>
 		</div>
-		<!--div class="portlet box ">
-		<div class="portlet-title">
-		<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>By County</h4>
-		</div>
-		<div class="portlet-body">
-
-		<div id="graph_5" class="chart"></div>
-		</div>
-		</div-->
 		<div class="portlet box">
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i>Diarrhoea Treatment</h4>
@@ -85,16 +81,6 @@
 	</div>
 
 	<div class="span6">
-		<!--div class="portlet box">
-		<div class="portlet-title">
-		<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>By County</h4>
-
-		</div>
-		<div class="portlet-body">
-
-		<div id="graph_6" class="chart"></div>
-		</div>
-		</div-->
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>Summary</h4>
@@ -165,6 +151,126 @@
 
 	</div>
 </div>
+
+<!-- END CHART PORTLET-->
+<?php
+
+break;
+
+case 'mnh':
+?>
+<div class="row-fluid" id="reporting-parent">
+	<div class="span6" id="span1">
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4 id="countyHeader">County</h4>
+				<h4 id="progressHeader">Reporting Progress</h4>
+			</div>
+
+			<div id="reporting"></div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>Summary</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_60" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>BEmONC</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_70" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>PNC</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_71" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>Essential Newborn Care</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_72" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>SBM-R</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_73" class="chart"></div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="span6">
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>Summary</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_49" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>FANC</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_74" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>PAC</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_75" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>MPDSR</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_76" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>UBT</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_77" class="chart"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<?php
+break;
+}
+?>
+
 <div class="row-fluid" id="analytics-page">
 	<div class="span6" id="span1">
 		<div class="portlet box ">
@@ -281,5 +387,3 @@
 
 	</div>
 </div>
-
-<!-- END CHART PORTLET-->
