@@ -174,6 +174,13 @@
 				$('#graph_77').load('<?php echo base_url();?>c_analytics/training_summaryMnh/UBT');	
 				
 				
+				$('#graph_78').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/National%20Roadmap%20MMR');	
+				$('#graph_79').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/PMTCT%20guidelines');	
+				$('#graph_80').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/IYCF%20policy%20statement');	
+				$('#graph_81').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care');	
+				$('#graph_82').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative');	
+				$('#graph_83').load('<?php echo base_url();?>c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines');	
+				
 				
 				
 		$('select#county_select').change(function() {			
@@ -229,6 +236,19 @@
 				
 			});
 			
+			$('#facility_list_no_mnh').click(function(){
+				window.open('<?php echo base_url();?>c_analytics/getFacilityListForNoMNH/district/'+district+'/complete/'+survey+'/'+neverList);
+				
+			});
+			$('#facility_list_commodity_supplies_county').click(function(){
+				window.open('<?php echo base_url();?>c_analytics/commodity_supplies_summary/county/'+county+'/complete/'+survey);
+				
+			});
+			$('#facility_list_commodity_supplies').click(function(){
+				window.open('<?php echo base_url();?>c_analytics/commodity_supplies_summary/district/'+district+'/complete/'+survey);
+				
+			});
+			
 			//Home Action Event
 			$('#home-parent').click(function(){
 				$('h3.page-title').text('Analytics Summary for '+county+' County');
@@ -248,6 +268,9 @@
 			$('ul.sub li').click(function(){
 				$('#facility_list').hide();
 				$('#facility_list_never').hide();
+				$('#facility_list_commodity_supplies_county').hide();
+				$('#facility_list_commodity_supplies').hide();
+				$('#facility_list_no_mnh').hide();
 				$('#reporting-parent').hide();
 				$('#analytics-page').show();
 				click=1;
@@ -370,13 +393,13 @@
 					case 'training':					
 					$('#facility_list').show();
 					appendToTitle = ' in the last 2 years';
-					currentChart = '<?php echo base_url();?>c_analytics/getTrainedStaff/';
+					currentChart = '<?php echo base_url();?>c_analytics/getTrainedStaffOne/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Training');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
-					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTrainedStaff/national/n/complete/ch/chart');
-					$('#graph_2').load('<?php echo base_url();?>c_analytics/getTrainedStaff/county/'+county+'/complete/ch/chart');
+					$('#graph_1').load('<?php echo base_url();?>c_analytics/getTrainedStaffOne/national/n/complete/ch/chart');
+					$('#graph_2').load('<?php echo base_url();?>c_analytics/getTrainedStaffOne/county/'+county+'/complete/ch/chart');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getTrainedStaff/county/'+county+'/complete/ch/chart');
 						break;
 						
@@ -741,6 +764,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getDeliveries/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'prep';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('Deliveries');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -753,6 +778,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getHIVTesting/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'hiv';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('HIV Testing');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -765,6 +792,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getNewbornCare/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'newb';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('Newborn Care');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -777,6 +806,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getKMC/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'kang';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('Kangaroo Mother Care');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -789,6 +820,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getJobAids/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'job';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('Job Aids');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -801,6 +834,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getGuidelinesAvailabilityMNH/';
 					appendToTitle = ' ';
 					currentDiv = '#graph_3';
+					neverList = 'guide';
+					$('#facility_list_no_mnh').show();
 					$('span.statistic').text('Guidelines Availability');
 					$('#facility-statistics-parent').addClass('active');
 					$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -843,8 +878,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Commodity Availability');
-					$('#commodities-parent').addClass('active');
-					$('#commodities-parent a').append('<span class="selected"></span>');
+					$('#commodities-parent-mnh').addClass('active');
+					$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/national/n/complete/mnh/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/complete/mnh');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/complete/mnh');
@@ -855,8 +890,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Commodity Reasons For Unavailability');
-					$('#commodities-parentMnh').addClass('active');
-					$('#commodities-parentMnh a').append('<span class="selected"></span>');
+					$('#commodities-parent-mnh').addClass('active');
+					$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/national/n/complete/mnh/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/mnh');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/complete/mnh');
@@ -867,8 +902,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Commodity Location');
-					$('#commodities-parentMnh').addClass('active');
-					$('#commodities-parentMnh a').append('<span class="selected"></span>');
+					$('#commodities-parent-mnh').addClass('active');
+					$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/national/n/complete/mnh/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/complete/mnh');
 					//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/complete/mnh');
@@ -876,11 +911,13 @@
 						
 					case 'commodityQuantitiesMnh':
 					appendToTitle = ' ';
+					$('#facility_list_commodity_supplies_county').show();
+					$('#facility_list_commodity_supplies').show();
 					currentChart = '<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Commodity Quantities');
-					$('#commodities-parentMnh').addClass('active');
-					$('#commodities-parentMnh a').append('<span class="selected"></span>');
+					$('#commodities-parent-mnh').addClass('active');
+					$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/national/n/complete/mnh/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/complete/mnh');
 						break;	
@@ -890,8 +927,8 @@
 					currentChart = '<?php echo base_url();?>c_analytics/getCHCommoditySupplier/';
 					currentDiv = '#graph_3';
 					$('span.statistic').text('Commodity Suppliers');
-					$('#commodities-parentMnh').addClass('active');
-					$('#commodities-parentMnh a').append('<span class="selected"></span>');
+					$('#commodities-parent-mnh').addClass('active');
+					$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 					$('#graph_1').load('<?php echo base_url();?>c_analytics/getCHCommoditySupplier/national/n/complete/mnh/chart');
 					$('#graph_2').load('<?php echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/complete/mnh');
 						break;	
@@ -1092,8 +1129,8 @@
 					compare='county';
 					$('select#compare_1').empty();				
 					$('select#compare_2').empty();
-					$('select#compare_1').load('<?php echo base_url()?>c_analytics/getReportingCountyList');					
-					$('select#compare_2').load('<?php echo base_url()?>c_analytics/getReportingCountyList');
+					$('select#compare_1').load('<?php echo base_url()?>c_analytics/getReportingCountyList/'+survey);					
+					$('select#compare_2').load('<?php echo base_url()?>c_analytics/getReportingCountyList/'+survey);
 					$("#graph_10").empty();
 					$("#graph_11").empty();
 					$('#compareModal').modal('show');
@@ -1132,7 +1169,12 @@
 				
 				
 				
-				
+	$('#mnh-form').click(function(){
+			window.open('<?php echo base_url();?>c_pdf/loadPDF/mnh');
+		});
+		$('#mch-form').click(function(){
+			window.open('<?php echo base_url();?>c_pdf/loadPDF/mch');
+		});			
 				
 });
 

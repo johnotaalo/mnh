@@ -214,6 +214,33 @@ case 'mnh':
 				<div id="graph_73" class="chart"></div>
 			</div>
 		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>National Roadmap MMR</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_78" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>PMTCT</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_79" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>IYCF Policy Statement</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_80" class="chart"></div>
+			</div>
+		</div>
 
 	</div>
 
@@ -261,6 +288,33 @@ case 'mnh':
 			<div class="portlet-body">
 
 				<div id="graph_77" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric & Prenatal Care</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_81" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Baby Friendly Hospital Initiative</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_82" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Post Abortion Guidelines</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_83" class="chart"></div>
 			</div>
 		</div>
 
@@ -328,6 +382,14 @@ break;
 				<button class="btn red" id="facility_list_never" style="float:left;padding:2px 5px 2px 5px">
 					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
 				</button>
+				<button class="btn blue" id="facility_list_commodity_supplies" style="float:left;padding:2px 5px 2px 5px">
+					<i class="icon-list" style="margin-right:5px"></i>Download Commodity List
+				</button>
+				<button class="btn red" id="facility_list_no_mnh" style="float:left;padding:2px 5px 2px 5px">
+					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
+				</button>
+				
+				
 			</div>
 		</div>
 
@@ -356,6 +418,9 @@ break;
 
 				</div>
 				<div id="graph_2" class="chart"></div>
+				<button class="btn blue" id="facility_list_commodity_supplies_county" style="float:left;padding:2px 5px 2px 5px">
+					<i class="icon-list" style="margin-right:5px"></i>Download Commodity List
+				</button>
 			</div>
 		</div>
 		<div class="portlet box " id="port2">

@@ -48,7 +48,7 @@ class M_Analytics extends MY_Model {
 	/**
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value, $status, $survey, $chartorlist) {
+	public function getCommunityStrategy($criteria, $value, $status, $survey) {
 		/*using CI Database Active Record*/
 		//$data=array();
 		$data = '';
@@ -76,9 +76,8 @@ class M_Analytics extends MY_Model {
 				$criteria_condition = '';
 				break;
 		}
-		switch($chartorlist) {
-			case 'chart' :
-				$query = "SELECT 
+
+		$query = "SELECT 
     cs.strategyID AS strategy,
     SUM(cs.strategyResponse) AS strategy_number
 FROM
@@ -98,49 +97,47 @@ WHERE
             " . $status_condition . " " . $criteria_condition . ")
 AND cs.strategyResponse!=-1
 GROUP BY cs.strategyID ASC;";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($status, $value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-					if ($this -> dataSet !== NULL) {
-						//prep data for the pie chart format
-						$i = 1;
-						$size = count($this -> dataSet);
-						foreach ($this->dataSet as $value) {
-							switch($this -> getCommunityStrategyName($value['strategy'])) {
-								case 'Total number of Community Units established and functional' :
-									$strategy = 'CU established and functional';
-									break;
-								case 'Total number of Community Units regularly supervised and provided feedback' :
-									$strategy = 'CU regularly supervised';
-									break;
-								case 'Total number of CHWs and CHEWs trained on Integrated Community Case Management (ICCM)' :
-									$strategy = 'CHWs & CHEWs on ICCM';
-									break;
-								case 'Total number of Community Units supported by incentives for CHWs' :
-									$strategy = 'CU supported by incentives for CHW';
-									break;
-								case 'Total number of cases treated with Zinc and ORS co-pack under Community Case Management of diarrhoea' :
-									$strategy = 'Cases treated with Zinc & ORS';
-									break;
-							}
-							if ($i == $size) {
-								$data[] = array($strategy, $value['strategy_number']);
-							} else {
-								$data[] = array($strategy, $value['strategy_number']);
-								$i++;
-							}
-						}
-						$this -> dataSet = $data;
-						return $this -> dataSet;
-					} else {
-						return $this -> dataSet = null;
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			if ($this -> dataSet !== NULL) {
+				//prep data for the pie chart format
+				$i = 1;
+				$size = count($this -> dataSet);
+				foreach ($this->dataSet as $value) {
+					switch($this -> getCommunityStrategyName($value['strategy'])) {
+						case 'Total number of Community Units established and functional' :
+							$strategy = 'CU established and functional';
+							break;
+						case 'Total number of Community Units regularly supervised and provided feedback' :
+							$strategy = 'CU regularly supervised';
+							break;
+						case 'Total number of CHWs and CHEWs trained on Integrated Community Case Management (ICCM)' :
+							$strategy = 'CHWs & CHEWs on ICCM';
+							break;
+						case 'Total number of Community Units supported by incentives for CHWs' :
+							$strategy = 'CU supported by incentives for CHW';
+							break;
+						case 'Total number of cases treated with Zinc and ORS co-pack under Community Case Management of diarrhoea' :
+							$strategy = 'Cases treated with Zinc & ORS';
+							break;
 					}
-					//die(var_dump($this->dataSet));
-				} catch(Exception $ex) {
-					//ignore
-					//die($ex->getMessage());//exit;
+					if ($i == $size) {
+						$data[] = array($strategy, $value['strategy_number']);
+					} else {
+						$data[] = array($strategy, $value['strategy_number']);
+						$i++;
+					}
 				}
-				break;
+				$this -> dataSet = $data;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(Exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
 		}
 
 	}
@@ -609,16 +606,16 @@ ORDER BY ca.CommodityID,location ASC";
 							}
 							if (strpos($value_['location'], 'Store') !== FALSE) {
 								$data_set['Store'][$this -> getCommodityNameById($value_['commodity'])][] = intval($value_['total_response']);
-								}
+							}
 							if (strpos($value_['location'], 'Other') !== FALSE) {
-								$data_set['Other'][$this -> getCommodityNameById($value_['commodity'])][] =intval($value_['total_response']);
+								$data_set['Other'][$this -> getCommodityNameById($value_['commodity'])][] = intval($value_['total_response']);
 							}
 
 							break;
 						case 'mch' :
 							//collect the data_sets
 							if (strpos($value_['location'], 'OPD') !== FALSE) {
-								$data_set['OPD'][$this -> getCommodityNameById($value_['commodity'])][] =intval($value_['total_response']);
+								$data_set['OPD'][$this -> getCommodityNameById($value_['commodity'])][] = intval($value_['total_response']);
 							}
 							if (strpos($value_['location'], 'MCH') !== FALSE) {
 								$data_set['MCH'][$this -> getCommodityNameById($value_['commodity'])][] = intval($value_['total_response']);
@@ -744,7 +741,7 @@ ORDER BY ca.CommodityID";
 		}
 	}
 
-/*
+	/*
 	 * Availability, Location and Functionality of Equipment at ORT Corner
 	 */
 	public function getORTCornerEquipmement($criteria, $value, $status, $survey) {
@@ -1386,8 +1383,7 @@ WHERE
 						$data['categories'] = $data_categories;
 
 						$data['yes_values'] = array((int)$breastFeedY, (int)$lethargyY);
-						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN);
-						;
+						$data['no_values'] = array((int)$breastFeedN, (int)$lethargyN); ;
 
 						$this -> dataSet = $data;
 
@@ -2439,15 +2435,14 @@ ORDER BY ea.equipmentID ASC";
 				$size = count($this -> dataSet);
 
 				foreach ($this->dataSet as $value_) {
-					if ($this -> getCHEquipmentName($value_['equipment']) == 'Table spoons' || $this -> getCHEquipmentName($value_['equipment']) == 'Wall Clock/Timing device' || $this -> getCHEquipmentName($value_['equipment']) == 'Weighing scale' || $this -> getCHEquipmentName($value_['equipment']) == 'Thermometer') {
 
-						//1. collect the categories
-						$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
-						//includes duplicates--so we'll array_unique outside the foreach()
+					//1. collect the categories
+					$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
+					//includes duplicates--so we'll array_unique outside the foreach()
 
-						//data set by each equipment
-						$data_set[$this -> getCHEquipmentName($value_['equipment'])][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
-					}
+					//data set by each equipment
+					$data_set[$this -> getCHEquipmentName($value_['equipment'])][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
+
 				}
 
 				//var_dump($analytic_var);die;
@@ -2464,7 +2459,7 @@ ORDER BY ea.equipmentID ASC";
 				$data['responses'] = $data_set;
 
 				//assign $data to $final_data_set
-				$this -> final_data_set['quantities'] = $data;
+				$this -> final_data_set['functionality'] = $data;
 				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 				//unset the arrays for reuse
 
@@ -3156,7 +3151,7 @@ ORDER BY lastActivity DESC";
 		return $this -> countyFacilities;
 	}/*end of getSpecificDistrictNames*/
 
-	public function getFacilitiesByDistrictOptions($district,$survey) {
+	public function getFacilitiesByDistrictOptions($district, $survey) {
 		switch($survey) {
 			case 'ch' :
 				$search = "facilityCHSurveyStatus='complete'";
@@ -3175,7 +3170,7 @@ FROM
 facility
 WHERE
 facilityDistrict = '$district'
-AND ".$search."
+AND " . $search . "
 ORDER BY facilityName;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -3783,6 +3778,9 @@ WHERE
 				} catch(exception $ex) {
 				}
 				break;
+			/**
+			 * MNH Questions
+			 */
 		}
 	}
 
@@ -4545,7 +4543,7 @@ ORDER BY signalFunctionsID";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				
+
 				$query = "SELECT 
     count(*) as response,challengeID,signalFunctionsID
 FROM
@@ -4568,11 +4566,11 @@ ORDER BY signalFunctionsID";
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
 						$question = $this -> getSignalName($value_['signalFunctionsID']);
-					
+
 						$data['reason'][$value_['challengeID']][$question] = (int)$value_['response'];
-						$data['categories'][] =$question; 
+						$data['categories'][] = $question;
 					}
-					$data['categories']=array_unique($data['categories']);
+					$data['categories'] = array_unique($data['categories']);
 					//die(var_dump($this->dataSet));
 				} catch(exception $ex) {
 					//ignore
@@ -4645,11 +4643,11 @@ ORDER BY questionID";
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
 						$question = $this -> getSignalName($value_['questionID']);
-					
+
 						$data['reason'][$value_['reasonForResponse']][$value_['questionID']] = (int)$value_['response'];
-						$data['categories'][] =$question; 
+						$data['categories'][] = $question;
 					}
-					$data['categories']=array_unique($data['categories']);
+					$data['categories'] = array_unique($data['categories']);
 					//die(var_dump($this->dataSet));
 				} catch(exception $ex) {
 					//ignore
@@ -4939,6 +4937,18 @@ ORDER BY questionID";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
 				$question = $this -> getMNHQuestionName($value_['questionID']);
+				$question = trim($question, 'Does this facility have an updated');
+				$question = trim($question, '?');
+
+				if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
+					$question = 'Baby Friendly Hospital Initiative';
+				} else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
+					$question = 'Quality Obstetric and Prenatal Care';
+				} else {
+
+					//$question = trim($question, 'National Guidelines for ');
+				}
+
 				$yes = $value_['yes_values'];
 				$no = $value_['no_values'];
 				//1. collect the categories
@@ -5093,6 +5103,210 @@ ORDER BY questionID";
 		}
 
 		return $data;
+
+	}
+
+	#Summary Excel
+	#-----------------------------------------------------------------------------
+	/**
+	 *
+	 */
+	public function commodity_supplies_summary($criteria, $value, $status, $survey) {/*using CI Database Active Record*/
+		$value = urldecode($value);
+		/*using CI Database Active Record*/
+		$data = array();
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+			$curr = 'mch';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+			$curr = 'mnh';
+		}
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		$query = "SELECT 
+    f.facilityName,f.facilityCounty,SUM(ca.quantityAvailable) AS total_quantity,
+    ca.CommodityID as commodity,commodity.unit AS unit
+FROM
+    cquantity_available as ca
+        INNER JOIN
+    facility as f ON ca.facilityID = f.facilityMFC,
+    commodity
+WHERE
+commodity.commodityCode=ca.CommodityID AND
+    ca.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . " " . $criteria_condition . ")
+        AND ca.CommodityID IN (SELECT 
+            commodityCode
+        FROM
+            commodity
+        WHERE
+            commodityFor = 'mnh')
+        AND ca.quantityAvailable != - 1
+GROUP BY f.facilityName,ca.CommodityID
+ORDER BY f.facilityName,ca.CommodityID;";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+
+			foreach ($this->dataSet as $value_) {
+				$data['commodity_categories'][0] = 'Facility Name';
+				$supply = $this -> getCommodityNameById($value_['commodity'], $curr) . ' ' . $value_['unit'];
+				$facility = $value_['facilityName'];
+				//$response = $value_['supplies'];
+				//1. collect the categories
+				$data['commodity'][$facility]['facility'] = $facility;
+				$data['commodity'][$facility][$supply] = $value_['total_quantity'];
+				$data['commodity_categories'][] = $supply;
+
+			}
+			$data['commodity_categories'] = array_unique($data['commodity_categories']);
+
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		$query = "SELECT 
+    f.facilityName,f.facilityCounty,SUM(sa.quantityAvailable) AS total_quantity,
+    sa.SuppliesCode as Supplies
+FROM
+    squantity_available as sa
+        INNER JOIN
+    facility as f ON sa.facilityID = f.facilityMFC,
+    Supplies
+WHERE
+Supplies.SuppliesCode=sa.SuppliesCode AND
+    sa.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+           " . $status_condition . " " . $criteria_condition . ")
+        AND sa.SuppliesCode IN (SELECT 
+            SuppliesCode
+        FROM
+            Supplies
+        WHERE
+            SuppliesFor = 'mnh')
+        AND sa.quantityAvailable != - 1
+GROUP BY f.facilityName,sa.SuppliesCode
+ORDER BY f.facilityName,sa.SuppliesCode;";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			foreach ($this->dataSet as $value_) {
+				$supply = $this -> getCHSuppliesName($value_['Supplies'], $curr);
+				$facility = $value_['facilityName'];
+				//$response = $value_['supplies'];
+				//1. collect the categories
+				$data['supplies'][$facility][$supply] = $value_['total_quantity'];
+				$data['supply_categories'][] = $supply;
+
+			}
+			$data['supply_categories'] = array_unique($data['supply_categories']);
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		return $data;
+
+	}
+
+	public function getFacilityListForNoMNH($criteria, $value, $status, $survey, $question) {
+		urldecode($value);
+		if ($survey == 'ch') {
+			$status_condition = 'facilityCHSurveyStatus =?';
+		} else if ($survey == 'mnh') {
+			$status_condition = 'facilitySurveyStatus =?';
+		}
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				$value = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'AND facilityCounty=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'AND facilityDistrict=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'AND facilityMFC=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		$query = "SELECT 
+    q.mnhQuestion, ql.facilityID, f.facilityName
+FROM
+    mnh_questions_log ql,
+    mnh_questions q,
+    facility f
+WHERE
+    ql.response = 'No'
+        AND ql.questionID = q.questionCode 
+        AND ql.facilityID = f.facilityMFC
+        AND ql.questionID IN (SELECT 
+            questionCode
+        FROM
+            mnh_questions
+        WHERE
+            mnhQuestionFor = '$question')
+        AND ql.facilityID IN (SELECT 
+            facilityMFC
+        FROM
+            facility
+        WHERE
+            " . $status_condition . "  " . $criteria_condition . ") ";
+
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($status, $value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+
+			if ($this -> dataSet !== NULL) {
+
+				$size = count($this -> dataSet);
+				$i = 0;
+				$facilities = array();
+				foreach ($this->dataSet as $value) {
+					$facilities[$value['mnhQuestion']][] = array($value['facilityID'], $value['facilityName']);
+				}
+				return $facilities;
+
+				//var_dump($this->dataSet);die;
+
+			} else {
+				return $this -> dataSet = null;
+			}
+		} catch(exception $ex) {
+		}
 
 	}
 

@@ -6,6 +6,7 @@ class C_Analytics extends MY_Controller {
 		parent::__construct();
 		$this -> data = '';
 		$this -> load -> model('m_analytics');
+		$this -> load -> library('PHPExcel');
 
 		//$this -> county = $this -> session -> userdata('county_analytics');
 	}
@@ -80,8 +81,8 @@ class C_Analytics extends MY_Controller {
 		var_dump($results);
 	}
 
-	public function getReportingCountyList() {/*obtained from the session data*/
-		$survey = $this -> session -> userdata('survey');
+	public function getReportingCountyList($survey) {/*obtained from the session data*/
+
 		$options = '';
 		$this -> data_found = $this -> m_analytics -> getReportingCounties($survey);
 		foreach ($this->data_found as $value) {
@@ -203,8 +204,7 @@ class C_Analytics extends MY_Controller {
 		$value = urldecode($value);
 		$results = array();
 		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
-		var_dump($results);
-		die ;
+
 		$resultArray = array();
 		$datas = array();
 
@@ -355,13 +355,13 @@ class C_Analytics extends MY_Controller {
 	 * Get Trained Stuff
 	 */
 	public function getTrainedStaff($criteria, $value, $status, $survey) {
-		$yes = $no = array();
+		$yes = $no = $resultsArray = array();
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
-		echo '<pre>';
-		print_r($results);
-		echo '</pre>';
-		die ;
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		//die ;
 
 		foreach ($results as $county) {
 			foreach ($county['trained_values'] as $k => $t) {
@@ -382,8 +382,8 @@ class C_Analytics extends MY_Controller {
 		//echo '<pre>';print_r($finalYes);echo '</pre>';
 		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
 		$resultArray = json_encode($resultArray);
-		echo $resultArray;
-		die ;
+		//echo $resultArray;
+		//die ;
 		$resultArraySize = count($categories);
 
 		//$resultArraySize =  5;
@@ -407,7 +407,7 @@ class C_Analytics extends MY_Controller {
 	}
 
 	public function getTrainedStaffOne($criteria, $value, $status, $survey) {
-		$yes = $no = array();
+		$yes = $no =$resultsArray= array();
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
 		//echo '<pre>';
@@ -608,11 +608,11 @@ class C_Analytics extends MY_Controller {
 	public function getMnhEquipment($criteria, $value, $status, $survey, $choice) {
 		$value = urldecode($value);
 		$results = $this -> m_analytics -> getMnhEquipment($criteria, $value, $status, $survey);
-		//var_dump($results);die;
+		//echo '<pre>';print_r($results);echo '</pre>';die;
 		$datas = array();
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
-		$quantities = $results['quantities']['responses'];
+		$quantities = $results['functionality']['responses'];
 		//var_dump($results['location']);die;
 		$resultArray = array();
 		$stackorno;
@@ -641,7 +641,7 @@ class C_Analytics extends MY_Controller {
 					$quantitiesNonFunctional[] = $arr['Non-functional'];
 					//$counter++;
 				}
-				$category = $results['quantities']['categories'];
+				$category = $results['functionality']['categories'];
 				$stackorno = 'charts/chart_stacked_v';
 				$resultArray = array( array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
 				break;
@@ -1839,10 +1839,10 @@ class C_Analytics extends MY_Controller {
 	 * Lists for NEVER
 	 */
 	public function getFacilityListForNo($criteria, $value, $status, $survey, $choice) {
-		urldecode($value);
+		$value = urldecode($value);
 		$results = $this -> m_analytics -> getFacilityListForNo($criteria, $value, $status, $survey, $choice);
-		var_dump($results);
-		die ;
+		//var_dump($results);
+		//die ;
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -1857,6 +1857,30 @@ class C_Analytics extends MY_Controller {
 
 		}
 		$pdf .= '</table>';
+		$this -> loadPDF($pdf);
+
+	}
+
+	public function getFacilityListForNoMNH($criteria, $value, $status, $survey, $question) {
+		$value = urldecode($value);
+		$results = $this -> m_analytics -> getFacilityListForNoMNH($criteria, $value, $status, $survey, $question);
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		//die ;
+
+		$pdf = "<h3>Facility List that responded <em>NO</em> for $value District</h3>";
+		$pdf .= '<table>';
+		foreach ($results as $key => $value) {
+			$pdf .= '<tr><th colspan="2">' . $key . '<th></tr>';
+			#Per Title
+			foreach ($value as $facility) {
+				$pdf .= '<tr class="tableRow"><td width="70px">' . $facility[0] . '</td><td width="500px">' . $facility[1] . '</td></tr>';
+			}
+
+		}
+		$pdf .= '</table>';
+		//echo $pdf;
 		$this -> loadPDF($pdf);
 
 	}
@@ -1912,7 +1936,7 @@ class C_Analytics extends MY_Controller {
 		$datas['container'] = 'chart_one';
 
 		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 100;
+		$datas['chartMargin'] = 70;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = ' ';
 		//$datas['chartTitle'] = 'Guidelines';
@@ -1972,6 +1996,9 @@ class C_Analytics extends MY_Controller {
 			$results[$county['county']] = $this -> m_analytics -> getFacilityLevelPerCounty($county['county'], $survey);
 			$categories[] = $county['county'];
 		}
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';die;
 
 		$resultArray = array();
 		foreach ($results as $county) {
@@ -2205,6 +2232,7 @@ class C_Analytics extends MY_Controller {
 			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailability('county', $county['county'], 'complete', 'ch', 'chart');
 			$categories[] = $county['county'];
 		}
+
 		foreach ($results as $county) {
 			foreach ($county['yes_values'] as $yes) {
 				//var_dump($yes);
@@ -2224,6 +2252,51 @@ class C_Analytics extends MY_Controller {
 				}
 			}
 		}
+
+		$resultArray = array( array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+		$guideline = str_replace(" ", "_", $guideline);
+		$resultArray = json_encode($resultArray);
+		$resultArraySize = count($categories);
+		//$resultArraySize =  5;
+		$datas['resultArraySize'] = $resultArraySize;
+		$datas['container'] = 'chart_' . $guideline . rand(1, 10000);
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 100;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Facilities per County';
+		$datas['categories'] = json_encode($categories);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
+	}
+
+	public function guidelines_summaryMNH($guideline) {
+		$guideline = urldecode($guideline);
+		//echo $guideline;
+		//Get All Reporting Counties
+		$finalYes = $finalNo = array();
+		$counties = $this -> m_analytics -> getReportingCounties('mnh');
+		foreach ($counties as $county) {
+			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailabilityMNH('county', $county['county'], 'complete', 'mnh', 'chart');
+
+		}
+		//echo '<pre>';print_r($results);echo '</pre>';die;
+		foreach ($results as $k => $county) {
+
+			foreach ($county as $guide => $val) {
+				//echo $guide;
+				if ($guideline == $guide) {
+					//echo $guideline.'  '.$guideline. '</br>';
+					$finalYes[] = (int)$val['yes'];
+					$finalNo[] = (int)$val['no'];
+					$categories[] = $k;
+				}
+			}
+
+		}
+		//echo '<pre>';print_r($finalYes);echo '</pre>';
+		//echo '<pre>';print_r($finalNo);echo '</pre>';
 		$resultArray = array( array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
 		$guideline = str_replace(" ", "_", $guideline);
 		$resultArray = json_encode($resultArray);
@@ -2336,29 +2409,40 @@ class C_Analytics extends MY_Controller {
 	public function training_summaryMNH($training) {
 		$training = urldecode($training);
 		//Get All Reporting Counties
-		$finalYes = $finalNo = array();
+		$categories = $finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('mnh');
 		foreach ($counties as $county) {
 			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'mnh', 'chart');
-			$categories[] = $county['county'];
+			//$categories[] = $county['county'];
 		}
-		//echo '<pre>';print_r($results);echo '</pre>';die;
-		foreach ($results as $county) {
+		//echo '<pre>';
+		//print_r($results);
+		//echo '</pre>';
+		//die ;
+
+		foreach ($results as $key => $county) {
 			foreach ($county['trained_values'] as $k => $t) {
 
 				if ($k == $training) {
 					$finalYes[] = $t;
-
+					$categories[] = $key;
 				}
 			}
 
 			foreach ($county['working_values'] as $k => $w) {
 				if ($k == $training) {
 					$finalNo[] = $w;
-
+					$categories[] = $key;
 				}
 			}
 		}
+
+		$categories = array_unique($categories);
+		foreach ($categories as $c) {
+			$cat[] = $c;
+		}
+		$categories = $cat;
+
 		//echo '<pre>';print_r($finalYes);echo '</pre>';
 		$resultArray = array( array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
 		$training = str_replace(" ", "_", $training);
@@ -2396,13 +2480,13 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> library('mpdf');
 		$this -> mpdf = new mPDF('', 'A4-L', 0, '', 15, 15, 16, 16, 9, 9, '');
 		$this -> mpdf -> SetTitle('Maternal Newborn and Child Health Assessment');
-		$this -> mpdf -> SetHTMLHeader('<em>Child Health Assessment Tool</em>');
-		$this -> mpdf -> SetHTMLFooter('<em>Child Health Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLHeader('<em>Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLFooter('<em>Assessment Tool</em>');
 		$this -> mpdf -> simpleTables = true;
 		$this -> mpdf -> WriteHTML($stylesheet, 1);
 		$this -> mpdf -> WriteHTML($html, 2);
 		$report_name = 'CH Assessment Tool_Facility List' . ".pdf";
-		$this -> mpdf -> Output($report_name, 'D');
+		$this -> mpdf -> Output($report_name, 'I');
 
 	}
 
@@ -2917,6 +3001,101 @@ class C_Analytics extends MY_Controller {
 		$datas['yAxis'] = 'Occurence';
 		$datas['resultArray'] = $resultArray;
 		$this -> load -> view('charts/chart_v', $datas);
+	}
+
+	#Summary Excel
+	#-----------------------------------------------------------------------------
+	/**
+	 *
+	 */
+	public function commodity_supplies_summary($criteria, $value, $status, $survey) {/*using CI Database Active Record*/
+		$value = urldecode($value);
+		//echo $value;die;
+		$results = $this -> m_analytics -> commodity_supplies_summary($criteria, $value, $status, $survey);
+
+		$supplies = $results['supplies'];
+		$commodity = $results['commodity'];
+		$supplies_cat = $results['supply_categories'];
+		$commodity_cat = $results['commodity_categories'];
+		$titles = array_merge(array_values($commodity_cat), array_values($supplies_cat));
+		//$facilities = array_keys($commodity);
+		//echo '<pre>';
+		//print_r($titles);
+		//echo '</pre>';die;
+		foreach ($supplies as $key => $facility) {
+			foreach ($supplies_cat as $cat) {
+				//echo $cat;
+				if (!array_key_exists($cat, $facility)) {
+					$newArray[$key][$cat] = 0;
+				} else {
+					$newArray[$key][$cat] = $supplies[$key][$cat];
+				}
+
+			}
+		}
+		$arr = array_merge_recursive($commodity, $newArray);
+
+		$data['title'] = $titles;
+		$data['data'] = $arr;
+		$this -> loadExcel($data, 'Commodity and Supplies for ' . $value);
+	}
+
+	public function loadExcel($data, $filename) {
+		$objPHPExcel = new PHPExcel();
+		$objPHPExcel -> getProperties() -> setCreator("Rufus Mbugua");
+		$objPHPExcel -> getProperties() -> setLastModifiedBy("Rufus Mbugua");
+		$objPHPExcel -> getProperties() -> setTitle("Office 2007 XLSX Test Document");
+		$objPHPExcel -> getProperties() -> setSubject("Office 2007 XLSX Test Document");
+		$objPHPExcel -> getProperties() -> setDescription(" ");
+
+		// Add some data
+		//	echo date('H:i:s') . " Add some data\n";
+		$objPHPExcel -> setActiveSheetIndex(0);
+
+		$rowExec = 1;
+
+		//Looping through the cells
+		$column = 0;
+		foreach ($data['title'] as $cell) {
+			//echo $column . $rowExec; die;
+			$objPHPExcel -> getActiveSheet() -> setCellValueByColumnAndRow($column, $rowExec, $cell);
+			$objPHPExcel -> getActiveSheet() -> getStyle(PHPExcel_Cell::stringFromColumnIndex($column) . $rowExec) -> getFont() -> setBold(true) -> setSize(14);
+			$objPHPExcel -> getActiveSheet() -> getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($column)) -> setAutoSize(true);
+
+			$column++;
+		}
+		$rowExec = 2;
+		foreach ($data['data'] as $rowset) {
+
+			//Looping through the cells per facility
+			$column = 0;
+			foreach ($rowset as $cell) {
+				$objPHPExcel -> getActiveSheet() -> setCellValueByColumnAndRow($column, $rowExec, $cell);
+				$column++;
+			}
+			$rowExec++;
+		}
+
+		//die ;
+
+		// Rename sheet
+		//	echo date('H:i:s') . " Rename sheet\n";
+		$objPHPExcel -> getActiveSheet() -> setTitle('Simple');
+
+		// Save Excel 2007 file
+		//echo date('H:i:s') . " Write to Excel2007 format\n";
+		$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+
+		// We'll be outputting an excel file
+		header('Content-type: application/vnd.ms-excel');
+
+		// It will be called file.xls
+		header('Content-Disposition: attachment; filename=' . $filename . '.xlsx');
+
+		// Write file to the browser
+		$objWriter -> save('php://output');
+		// Echo done
+		//echo date('H:i:s') . " Done writing file.\r\n";
 	}
 
 	#Section 3
