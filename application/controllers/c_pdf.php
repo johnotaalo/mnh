@@ -919,7 +919,7 @@ class C_Pdf extends MY_Controller {
 	<table>
 		<thead>
 			<tr class="persist-header">
-				<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+				<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 			</tr>
 
 			<tr>
@@ -927,7 +927,7 @@ class C_Pdf extends MY_Controller {
 				<th rowspan="2" >Commodity Unit</th>
 				<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th rowspan="2"> Main Reason For  Unavailability </th>
-				<th colspan="6" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
+				<th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th rowspan="1" colspan="2" >Available Quantities</th>
 				<th rowspan="2" > Main Supplier </th>
 				
@@ -941,6 +941,7 @@ class C_Pdf extends MY_Controller {
 				<th>MCH</th>
 				<th>U5 Clinic</th>
 				<th>Ward</th>
+				<th>Pharmacy</th>
 				<th>Other</th>
 				<th>Not Applicable</th>
 				<th>No. of Units</th>
@@ -951,6 +952,72 @@ class C_Pdf extends MY_Controller {
 		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
 	</table>  
+	<table  class="centre persist-area" >
+	<thead>
+	    <tr class="persist-header">
+		
+			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES BUNDLING. </th>
+		</tr>
+		
+		<tr>
+			<th scope="col" >Bundling Name</th>
+			<th >Bundling Unit</th>
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></div>
+			</th>
+			<th>
+			<div style="width: 90%" >
+				Main Reason For  Unavailability
+			</div>
+			</th>
+			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="2">Available Quantities</th>
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+
+		</tr>
+		<tr >
+			<th>&nbsp;</th>
+			<th>Unit</th>
+			<th >Available</th>
+			<th>Sometimes Available</th>
+			<th>Never Available</th>
+			<th> Unavailability</th>
+			<th>OPD</th>
+			<th>MCH</th>
+			<th>U5 Clinic</th>
+			<th>Ward</th>
+			<th>Pharmacy</th>
+			<th>Other</th>
+			<th>Not Applicable</th>
+			<th>No. of Units</th>
+			<th>Expiry Date</th>
+			<th>Supplier</th>
+
+		</tr></thead>' . $this -> mchBundlingPDF . '
+
+	</table>
+	</div><!--\.section 2-->
+
+	<div id="section-3" class="step">
+	<input type="hidden" name="step_name" value="section-3"/>
+	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
+
+     <table class="centre">
+		<thead>
+			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
+		</thead>
+		
+		
+			<th  style="width:35%">SERVICE</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['svc'] . '
+	</table>
 	<div id="section-3" class="step">
 		<input type="hidden" name="step_name" value="section-3"/>
 		<p style="display:true" class="message success">
@@ -960,7 +1027,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA?</th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
@@ -973,7 +1040,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
@@ -986,7 +1053,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >DO HEALTH WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
@@ -999,7 +1066,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>

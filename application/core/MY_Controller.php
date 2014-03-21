@@ -7,7 +7,7 @@ class  MY_Controller  extends  CI_Controller {
 	//new sections
 	public $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
 	//pdf variables
-	public $hardwareMCHSectionPDF,$suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
+	public $mchBundling,$mchBundlingPDF,$hardwareMCHSectionPDF,$suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
 
 	function __construct() {
 		parent::__construct();
@@ -22,7 +22,7 @@ class  MY_Controller  extends  CI_Controller {
 		$this -> load -> model('m_analytics');
 		$this -> response = $this -> theForm = $this -> data = $this -> facilityInDistrict = '';
 		$this -> selectReportingCounties = $this -> selectCounties = $this -> selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this -> selectMCHCommoditySuppliers = $this -> selectCommoditySuppliers = '';
-		$this -> commodityAvailabilitySection = $this -> mchCommodityAvailabilitySection = $this -> districtFacilityListSection = $this -> treatmentMCHSection = $this -> signalFunctionsSection = $this -> signalFunctionsSectionPDF = $this -> ortCornerAspectsSection = $this -> mchGuidelineAvailabilitySection = $this -> trainingGuidelineSection = $this -> mchTrainingGuidelineSection = $this -> commodityUsageAndOutageSection = $this -> hardwareMCHSection = $this -> equipmentsMCHSection = $this -> equipmentsSection = '';
+		$this->mchBundling=$this->mchBundlingPDF=$this -> commodityAvailabilitySection = $this -> mchCommodityAvailabilitySection = $this -> districtFacilityListSection = $this -> treatmentMCHSection = $this -> signalFunctionsSection = $this -> signalFunctionsSectionPDF = $this -> ortCornerAspectsSection = $this -> mchGuidelineAvailabilitySection = $this -> trainingGuidelineSection = $this -> mchTrainingGuidelineSection = $this -> commodityUsageAndOutageSection = $this -> hardwareMCHSection = $this -> equipmentsMCHSection = $this -> equipmentsSection = '';
 		//new sections
 		$this -> servicesPDF = $this -> services = $this -> beds = $this -> mnhWasteDisposalAspectsSectionPDF = $this -> mnhNewbornCareAspectsSection = $this -> mnhPostNatalCareAspectsSection = $this -> nurses = $this -> hardwareSources = $this -> mnhJobAidsAspectsSection = $this -> mnhGuidelinesAspectsSection = $this -> mnhPreparednessAspectsSection = $this -> mnhHIVTestingAspectsSection = '';
 		//pdf
@@ -115,6 +115,9 @@ class  MY_Controller  extends  CI_Controller {
 		$this -> createORTCornerAspectsSectionforPDF();
 		$this -> createSuppliesMCHSectionforPDF();
 		$this->createHardwareResourcesMCHSectionforPDF();
+		
+		$this->createMCHBundlingAvailabilitySection();
+		$this->createMCHBundlingAvailabilitySectionforPDF();
 
 	}
 
@@ -481,6 +484,9 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
@@ -546,6 +552,9 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
 			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
@@ -567,6 +576,143 @@ class  MY_Controller  extends  CI_Controller {
 		}
 		//echo $this->mchCommodityAvailabilitySection;die;
 		return $this -> mchCommodityAvailabilitySectionPDF;
+	}
+/**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
+	 * */
+	public function createMCHBundlingAvailabilitySection() {
+		$this -> data_found = $this -> m_mch_survey -> getEquipmentNames('bun');
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$supplier_names = $this -> selectMCHCommoditySuppliers;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> mchBundling .= '<tr>
+			<td> ' . $value['equipmentName'] . ' </td>
+			<td> ' . $value['equipmentUnit'] . '</td>
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
+			</td>
+			<td width="60">
+			<select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				<option value="Not Applicable">5. Not Applicable</option>
+
+			</select></td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" id="cqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
+			</td>
+			
+
+			<td style ="text-align:center;">
+			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
+			</td>
+			<td width="50">
+			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
+			<option value="" selected="selected">Select One</option>' . $supplier_names . '
+			</select></td>
+			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['equipmentCode'] . '" />
+	</tr>';
+
+		}
+		//echo $this->mchCommodityAvailabilitySection;die;
+		return $this -> mchBundling;
+	}
+
+	public function createMCHBundlingAvailabilitySectionforPDF() {
+		$this -> data_found = $this -> m_mch_survey -> getEquipmentNames('bun');
+		//var_dump($this->data_found);die;
+		$counter = 0;
+		$supplier_names = $this -> selectMCHCommoditySuppliersPDF;
+		foreach ($this->data_found as $value) {
+			$counter++;
+			$this -> mchBundlingPDF .= '<tr>
+			<td> ' . $value['equipmentName'] . ' </td>
+			<td> ' . $value['equipmentUnit'] . '</td>
+			<td style="vertical-align: middle; margin: 0px;text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
+			</td>
+			<td width="60">
+
+				1. Not Ordered<input type="checkbox">
+				2. Ordered but not yet Received<input type="checkbox">
+				3. Expired<input type="checkbox">
+				4. All Used<input type="checkbox">
+				5. Not Applicable<input type="checkbox">
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqLocation_' . $counter . '[]" id="cqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
+			</td>
+			
+
+			<td style ="text-align:center;">
+			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
+			</td>
+			<td width="200">' . $supplier_names . '
+			</td>
+			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['equipmentCode'] . '" />
+	</tr>';
+
+		}
+		//echo $this -> mchBundlingPDF;die;
+		return $this -> mchBundlingPDF;
 	}
 
 	/**Function to create the section: PROVISION OF BEmONC SIGNAL FUNCTIONS IN THE LAST THREE MONTHS

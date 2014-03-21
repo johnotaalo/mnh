@@ -592,6 +592,152 @@ class M_MCH_Survey  extends MY_Model {
 		} //end of innner loop
 
 	}//close addCommodityQuantityAvailabilityInfo
+	
+	//adding bundling function
+	private function addBundling() {
+		$count = $finalCount = 1;
+		foreach ($this -> input -> post() as $key => $val) {//For every posted values
+			if (strpos($key, 'cq') !== FALSE) {//select data for availability of commodities
+				//we separate the attribute name from the number
+
+				$this -> frags = explode("_", $key);
+
+				//$this->id = $this->frags[1];  // the id
+
+				$this -> id = $count;
+				// the id
+
+				$this -> attr = $this -> frags[0];
+				//the attribute name
+
+				//stringify any array value
+				if (is_array($val)) {
+					$val = implode(',', $val);
+				}
+				//	print $key.' ='.$val.' <br />';
+				//print 'ids: '.$this->id.'<br />';
+
+				//mark the end of 1 row...for record count
+				if ($this -> attr == "cqCommodityCode") {
+					//print 'count at:'.$count.'<br />';
+
+					$finalCount = $count;
+					$count++;
+					//print 'count at:'.$count.'<br />';
+					//print 'final count at:'.$finalCount.'<br />';
+					//print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+				}
+
+				//collect key and value to an array
+				if (!empty($val)) {
+					//We then store the value of this attribute for this element.
+					$this -> elements[$this -> id][$this -> attr] = htmlentities($val);
+
+					//$this->elements[$this->attr]=htmlentities($val);
+				} else {
+					$this -> elements[$this -> id][$this -> attr] = '';
+					//$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+				}
+
+			}
+
+		}//close foreach ($this -> input -> post() as $key => $val)
+		//print var_dump($this->elements);
+
+		/*foreach($this->elements as $key=>$value){
+		 if(isset($value['cqNumberOfUnits'])){
+		 print $value['cqNumberOfUnits'].'<br/>';
+		 }else{
+		 print 'Missing...'.'<br/>';
+		 }
+
+		 }*/
+
+		//exit;
+
+		//get the highest value of the array that will control the number of inserts to be done
+		$this -> noOfInsertsBatch = $finalCount;
+
+		//  print 'Found :'.$this->noOfInsertsBatch;die;
+
+		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
+
+			//go ahead and persist data posted
+			$this -> theForm = new \models\Entities\e_equipment_available();
+			//create an object of the model
+
+			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
+
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setCommodityID($this -> elements[$i]['cqCommodityCode']);
+
+			//check if that key exists, else set it to some default value
+			(isset($this -> elements[$i]['cqExpiryDate']) && $this -> elements[$i]['cqExpiryDate'] != '') ? $this -> theForm -> setCommodityExpiryDate($this -> elements[$i]['cqExpiryDate']) : $this -> theForm -> setCommodityExpiryDate('n/a');
+			(isset($this -> elements[$i]['cqNumberOfUnits'])) ? $this -> theForm -> setQuantityAvailable($this -> elements[$i]['cqNumberOfUnits']) : $this -> theForm -> setQuantityAvailable(-1);
+			(isset($this -> elements[$i]['cqSupplier']) || $this -> elements[$i]['cqSupplier'] == '') ? $this -> theForm -> setSupplierID($this -> elements[$i]['cqSupplier']) : $this -> theForm -> setSupplierID("Other");
+			(isset($this -> elements[$i]['cqReason']) || $this -> elements[$i]['cqReason'] == '') ? $this -> theForm -> setReason4Unavailability($this -> elements[$i]['cqReason']) : $this -> theForm -> setReason4Unavailability("N/A");
+			(isset($this -> elements[$i]['cqAvailability'])) ? $this -> theForm -> setAvailability($this -> elements[$i]['cqAvailability']) : $this -> theForm -> setAvailability("N/A");
+			(isset($this -> elements[$i]['cqLocation'])) ? $this -> theForm -> setLocation($this -> elements[$i]['cqLocation']) : $this -> theForm -> setLocation("N/A");
+			$this -> theForm -> setCreatedAt(new DateTime());
+			/*timestamp option*/
+			$this -> em -> persist($this -> theForm);
+
+			//now do a batched insert, default at 5
+			$this -> batchSize = 5;
+			if ($i % $this -> batchSize == 0) {
+				try {
+
+					$this -> em -> flush();
+					$this -> em -> clear();
+					//detaches all objects from doctrine
+
+					//on the last record to be inserted, log the process and return true;
+					if ($i == $this -> noOfInsertsBatch) {
+						//die(print 'Limit: '.$this->noOfInsertsBatch);
+						//$this->writeAssessmentTrackerLog();
+						return true;
+					}
+
+				} catch(Exception $ex) {
+					//die($ex->getMessage());
+					return false;
+
+					/*display user friendly message*/
+
+				}//end of catch
+
+			} else if ($i < $this -> batchSize || $i > $this -> batchSize || $i == $this -> noOfInsertsBatch && $this -> noOfInsertsBatch - $i < $this -> batchSize) {
+				//total records less than a batch, insert all of them
+				try {
+
+					$this -> em -> flush();
+					$this -> em -> clear();
+					//detactes all objects from doctrine
+
+					//on the last record to be inserted, log the process and return true;
+					if ($i == $this -> noOfInsertsBatch) {
+						//die(print 'Limit: '.$this->noOfInsertsBatch);
+						//$this->writeAssessmentTrackerLog();
+						return true;
+					}
+
+				} catch(Exception $ex) {
+					die($ex -> getMessage());
+					return false;
+
+					/*display user friendly message*/
+
+				}//end of catch
+
+				// die(print 'I completed well after iteration: '.$i);
+
+				//print 'I just saved rec no: '.$i;
+
+			}
+			//end of batch condition
+		} //end of innner loop
+
+	}//close addCommodityQuantityAvailabilityInfo
 
 	private function addMCHIndicatorInfo() {
 		$count = $finalCount = 1;
@@ -1477,7 +1623,7 @@ class M_MCH_Survey  extends MY_Model {
 
 				 //insert log entry if new, else update the existing one
 				 if($this->sectionExists==false){
-				 if($this->addMchGuidelinesAvailabilityInfo()==true && $this->addGuidelinesStaffInfo()==true && $this->addCommodityQuantityAvailabilityInfo()==true){//defined in this model
+				 if($this->addMchGuidelinesAvailabilityInfo()==true && $this->addGuidelinesStaffInfo()==true && $this->addCommodityQuantityAvailabilityInfo()==true && addBundling()==true){//defined in this model
 				 $this->writeAssessmentTrackerLog();
 				 return $this -> response = 'true';
 
