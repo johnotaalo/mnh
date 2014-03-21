@@ -38,7 +38,8 @@ class C_Auth extends MY_Controller {
 			#use an ajax request and not a whole refresh
 			$data['title']='MoH::Data Management Tool';
 			//die('Failed');
-			$this->data['login_response'] = 'Invalid District and Password Combination!';
+			$this->data['login_message'] = 'Invalid District and Password Combination!';
+			$this->data['survey'] = '';
 			$this -> load -> view('pages/v_login', $this->data);
 		}
 	}

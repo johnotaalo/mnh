@@ -19,7 +19,7 @@ class C_Statistics extends MY_Controller {
 		//echo "</pre>";
 		//Order by County
 		foreach ($facilities as $facility) {
-			$county = $facility['facilityCounty'];
+			$county = $facility['fac_county'];
 
 			$dataArr[$county][] = $facility;
 		}
@@ -44,7 +44,7 @@ class C_Statistics extends MY_Controller {
 			$pdf .= '<tr><th style="text-align:left" colspan="1">' . $key . '<th></tr>';
 			#Per Title
 			foreach ($facility as $value) {
-				$pdf .= '<tr class="tableRow"><td width="150px">' . $value['facilityMFC'] . '</td><td>' . $value['facilityName'] . '</td><td>' . $value['facilityDistrict'] . '</td><td width="500px">' . $value['facilityCounty'] . '</td></tr>';
+				$pdf .= '<tr class="tableRow"><td width="150px">' . $value['fac_mfl'] . '</td><td>' . $value['fac_name'] . '</td><td>' . $value['fac_district'] . '</td><td width="500px">' . $value['fac_county'] . '</td></tr>';
 			}
 		}
 		$pdf .= '</table>';

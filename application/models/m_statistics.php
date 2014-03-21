@@ -27,12 +27,11 @@ class M_Statistics extends MY_Model {
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT 
-    facilityMFC, facilityName, facilityDistrict, facilityCounty
+    fac_mfl, fac_name, fac_district, fac_county
 FROM
     facility
-WHERE
-    facilityCHSurveyStatus = 'complete'
-ORDER BY facilityCounty ASC , facilityDistrict ASC";
+
+ORDER BY fac_county ASC , fac_district ASC";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
 

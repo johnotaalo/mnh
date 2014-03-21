@@ -146,10 +146,10 @@ $mfCode = $this -> session -> userdata('fCode');
 						var info = data.rData;
 						$.each(info , function(i,facility) {
 						//render found data
-						//$("#facilityName").val(facility.facilityName).prop('disabled', true);
-						$("#facilityName").text(facility.facilityName);
-						$('#facilityMFLCode').val(facility.facilityMFC);
-						$('#facilityHName').val(facility.facilityName);
+						//$("#fac_name").val(facility.fac_name).prop('disabled', true);
+						$("#fac_name").text(facility.fac_name);
+						$('#facilityMFLCode').val(facility.fac_mfl);
+						$('#facilityHName').val(facility.fac_name);
 						
 						//$("#facilityType").val(facility.facilityType);
   						$("#facilityLevel").val(facility.facilityLevel);
@@ -411,7 +411,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: true,
-								 	validationEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',

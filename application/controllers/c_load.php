@@ -22,27 +22,27 @@ class C_Load extends MY_Controller {
 		}
 	}
 
-	public function suggestFacilityName() {
+	public function suggestfac_name() {
 		$this -> load -> model('m_autocomplete');
-		$facilityName = strtolower($this -> input -> get_post('term', TRUE));
+		$fac_name = strtolower($this -> input -> get_post('term', TRUE));
 		//term is obtained from an ajax call
 
-		if (!strlen($facilityName) < 2)
+		if (!strlen($fac_name) < 2)
 
-			//echo $facilityName;
+			//echo $fac_name;
 
 			try {
-				$this -> rows = $this -> m_autocomplete -> getAutocomplete(array('keyword' => $facilityName));
+				$this -> rows = $this -> m_autocomplete -> getAutocomplete(array('keyword' => $fac_name));
 				//die (var_dump($this->rows));
 				$json_data = array();
 
 				//foreach($this->rows as $key=>$value)
-				//array_push($json_data,$value['facilityName']);
+				//array_push($json_data,$value['fac_name']);
 				foreach ($this->rows as $value) {
-					array_push($json_data, $value -> facilityName);
+					array_push($json_data, $value -> fac_name);
 
 					//print $key.' '.$value.'<br />';
-					//$json_data=array('code'=>$value->facilityMFC,'name'=>$value->facilityName);
+					//$json_data=array('code'=>$value->fac_mfl,'name'=>$value->fac_name);
 				}
 				print json_encode($json_data);
 				//die;
@@ -56,7 +56,7 @@ class C_Load extends MY_Controller {
 
 	public function suggest() {
 		$this -> load -> model('m_autocomplete');
-		//$facilityName=$this->input->post('username',TRUE);
+		//$fac_name=$this->input->post('username',TRUE);
 
 		try {
 			$this -> rows = $this -> m_autocomplete -> getAllFacilityNames();
@@ -64,8 +64,8 @@ class C_Load extends MY_Controller {
 			$json_data = array();
 
 			foreach ($this->rows as $key => $value)
-			//array_push($json_names,$value['facilityName']);
-				$json_data = array('code' => $value['facilityMFC'], 'name' => $value['facilityName']);
+			//array_push($json_names,$value['fac_name']);
+				$json_data = array('code' => $value['fac_mfl'], 'name' => $value['fac_name']);
 			print json_encode($json_data);
 		} catch(exception $ex) {
 			//ignore
@@ -91,8 +91,8 @@ class C_Load extends MY_Controller {
 		       
 			<tr>
 			<td>Facility Name </td><td>
-			<!--input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/-->
-			<label id="facilityName"  size="40" ></label>
+			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
+			<label id="fac_name"  size="40" ></label>
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> <td>Facility Level </td><td>
@@ -103,7 +103,7 @@ class C_Load extends MY_Controller {
 						</select>
 			</td><td>County </td>
 			<td>
-			<select name="facilityCounty" id="facilityCounty" class="cloned" style="width:85%">
+			<select name="fac_county" id="fac_county" class="cloned" style="width:85%">
 							<option value="" selected="selected">Select County</option>
 							' . $this -> selectCounties . '
 						</select>
@@ -128,7 +128,7 @@ class C_Load extends MY_Controller {
 
 			<td>District/Sub County </td>
 			<td>
-			<select name="facilityDistrict" id="facilityDistrict" class="cloned" style="width:85%">
+			<select name="fac_district" id="fac_district" class="cloned" style="width:85%">
 							<option value="" selected="selected">Select District/Sub County</option>
 							' . $this -> selectDistricts . '
 						</select>
@@ -928,8 +928,8 @@ class C_Load extends MY_Controller {
 			<tr>
 			<td>Facility Name </td>
 			<td>
-			<!--input type="text" id="facilityName" name="facilityName" class="cloned" size="40" disabled/-->
-			<label id="facilityName"  size="40" ></label>
+			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
+			<label id="fac_name"  size="40" ></label>
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> 
@@ -942,7 +942,7 @@ class C_Load extends MY_Controller {
 						</select>
 			</td><td>County </td>
 			<td>
-			<select name="facilityCounty" id="facilityCounty" class="cloned" style="width:85%">
+			<select name="fac_county" id="fac_county" class="cloned" style="width:85%">
 							<option value="" selected="selected">Select County</option>
 							' . $this -> selectCounties . '
 						</select>
@@ -964,7 +964,7 @@ class C_Load extends MY_Controller {
 			</td>
 
 			<td>District/Sub County </td><td>
-			<select name="facilityDistrict" id="facilityDistrict" class="cloned" style="width:85%">
+			<select name="fac_district" id="fac_district" class="cloned" style="width:85%">
 							<option value="" selected="selected">Select District/Sub County</option>
 							' . $this -> selectDistricts . '
 						</select>

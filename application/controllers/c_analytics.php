@@ -44,7 +44,7 @@ class C_Analytics extends MY_Controller {
 		$this -> data['data_column_combined'] = null;
 		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts_commodity_availability';
 		//$this -> data['analytics_content_to_load'] = 'analytics/content_dashboard';
-		$this -> ch_survey_response_rate();
+		//$this -> ch_survey_response_rate();
 		$this -> load -> view('pages/v_analytics', $this -> data);
 
 	}
@@ -64,7 +64,7 @@ class C_Analytics extends MY_Controller {
 		$this -> data['data_column_combined'] = null;
 		$this -> data['analytics_content_to_load'] = 'analytics/content_visual_charts';
 		//$this -> data['analytics_content_to_load'] = 'analytics/content_dashboard';
-		$this -> ch_survey_response_rate();
+		//$this -> ch_survey_response_rate();
 		$this -> load -> view('pages/v_analytics', $this -> data);
 
 	}
@@ -189,7 +189,7 @@ class C_Analytics extends MY_Controller {
 
 				$dbdate = $dbdate -> format("d M, Y h:i:s A");
 
-				$dyn_table .= "<tr><td>" . $result['facilityMFC'] . "</td><td>" . $result['facilityName'] . "</td><td>" . $result['facilityDistrict'] . "</td><td>" . $result['facilityCounty'] . "</td><td>" . $result['facilityInchargeContactPerson'] . "</td><td>" . $result['facilityInchargeEmail'] . "</td><td>" . $dbdate . "</td></tr>";
+				$dyn_table .= "<tr><td>" . $result['fac_mfl'] . "</td><td>" . $result['fac_name'] . "</td><td>" . $result['fac_district'] . "</td><td>" . $result['fac_county'] . "</td><td>" . $result['facilityInchargeContactPerson'] . "</td><td>" . $result['facilityInchargeEmail'] . "</td><td>" . $dbdate . "</td></tr>";
 			}
 			$dyn_table .= "</tbody></table>";
 			echo $dyn_table;
@@ -2094,8 +2094,8 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> getSpecificDistrictNames($county);
 		$options = '<option selected=selected>Viewing All</option>';
 		foreach ($results as $result) {
-			$options .= '<option>' . $result['facilityDistrict'] . '</option>';
-			//$dataArray.='<option>'.$result['facilityDistrict'].'</option>';
+			$options .= '<option>' . $result['fac_district'] . '</option>';
+			//$dataArray.='<option>'.$result['fac_district'].'</option>';
 		}
 		//return $dataArray;
 		echo($options);
@@ -2106,8 +2106,8 @@ class C_Analytics extends MY_Controller {
 		$result = $this -> m_analytics -> getCountyFacilities();
 
 		foreach ($result as $result) {
-			$county[] = $result['facilityCounty'];
-			$facilities[] = (int)$result['COUNT(facility.facilityName)'];
+			$county[] = $result['fac_county'];
+			$facilities[] = (int)$result['COUNT(facility.fac_name)'];
 		}
 		$category = $county;
 		$resultArray[] = array('type' => 'column', 'name' => 'Facilities', 'data' => $facilities);

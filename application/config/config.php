@@ -92,7 +92,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = TRUE;
+$config['enable_hooks'] = true;
 
 
 /*
@@ -250,7 +250,7 @@ $config['sess_expiration']		= 28800;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;
-$config['sess_table_name']		= 'mnh_sessions_log';
+$config['sess_table_name']		= 'log_sessions';
 $config['sess_match_ip']		= FALSE;
 $config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;

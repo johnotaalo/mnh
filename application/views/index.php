@@ -162,7 +162,7 @@
 				                    return;
 				                }
 				 
-				                $.getJSON( '<?php echo base_url();?>c_load/suggestFacilityName', request, function( data, status, xhr ) {
+				                $.getJSON( '<?php echo base_url();?>c_load/suggestfac_name', request, function( data, status, xhr ) {
 				                    cache[ term ] = data;
 				                    response( data );
 				                });

@@ -29,14 +29,14 @@ class M_MNH_Survey  extends MY_Model {
 		return $this -> equipmentList;
 	}
 
-	public function getSuppliesNames() {
-		$this -> suppliesList = $this -> getAllSuppliesNames('mnh');
+	public function getSupplyNames() {
+		$this -> suppliesList = $this -> getAllSupplyNames('mnh');
 		//var_dump($this->suppliesList);die;
 		return $this -> suppliesList;
 	}
 
-	public function getOtherSuppliesNames() {
-		$this -> suppliesList = $this -> getAllSuppliesNames('mh');
+	public function getOtherSupplyNames() {
+		$this -> suppliesList = $this -> getAllSupplyNames('mh');
 		//var_dump($this->suppliesList);die;
 		return $this -> suppliesList;
 	}
@@ -50,49 +50,49 @@ class M_MNH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhWaterAspectQuestions() {
-		$this -> mnhWaterAspectList = $this -> getMNHQuestionsBySection('mnhw');
+		$this -> mnhWaterAspectList = $this -> getQuestionsBySection('mnhw','QMNH');
 		//var_dump($this->mnhWaterAspectList);die;
 		return $this -> mnhWaterAspectList;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhCommunityStrategy() {
-		$data = $this -> getMNHQuestionsBySection('cms');
+		$data = $this -> getQuestionsBySection('cms','QMNH');
 		//var_dump($this->mnhWaterAspectList);die;
 		return $data;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhCeocAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('ceoc');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('ceoc','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhPostNatalAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('pnat');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('pnat','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhWasteDisposalAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('waste');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('waste','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhCommitteeAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('commi');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('commi','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhNewbornAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('newb');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('newb','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
@@ -100,21 +100,21 @@ class M_MNH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhBedsAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('bed');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('bed','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 /*calls the query defined in MY_Model*/
 	public function getMnhServicesAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('serv');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('serv','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 	
 	/*calls the query defined in MY_Model*/
 	public function getMnhKangarooAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('kang');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('kang','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
@@ -192,7 +192,7 @@ class M_MNH_Survey  extends MY_Model {
 	//new mnh sections
 	/*calls the query defined in MY_Model*/
 	public function getNursesAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('nur');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('nur','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
@@ -200,25 +200,25 @@ class M_MNH_Survey  extends MY_Model {
 	//new mnh sections
 	/*calls the query defined in MY_Model*/
 	public function getMnhHIVTestingAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('hiv');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('hiv','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	public function getMnhPreparednessTestingAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('prep');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('prep','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	public function getMnhGuidelinesAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('guide');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('guide','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
 
 	public function getMnhJobAidsAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getMNHQuestionsBySection('commi');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('commi','QMNH');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
@@ -230,7 +230,7 @@ class M_MNH_Survey  extends MY_Model {
 
 			//Working with an object of the entity
 			try {
-				$this -> district = $this -> em -> getRepository('models\Entities\e_district') -> findOneBy(array('districtID' => $this -> input -> post('username', TRUE), 'districtAccessCode' => md5($this -> input -> post('usercode', TRUE))));
+				$this -> district = $this -> em -> getRepository('models\Entities\Districts') -> findOneBy(array('districtId' => $this -> input -> post('username', TRUE), 'districtAccessCode' => md5($this -> input -> post('usercode', TRUE))));
 
 				if ($this -> district) {
 					return $this -> isDistrict = 'true';
@@ -259,7 +259,7 @@ class M_MNH_Survey  extends MY_Model {
 		$options = $this -> getAllFacilitiesByDistrictOptions($district);
 		//var_dump($options);
 		foreach ($options as $option) {
-			$myOptions .= '<option value=' . $option['facilityMFC'] . '>' . $option['facilityName'] . '</option>';
+			$myOptions .= '<option value=' . $option['fac_mfl'] . '>' . $option['fac_name'] . '</option>';
 		}
 		return $myOptions;
 		//echo count($this->districtFacilities);die;
@@ -271,7 +271,7 @@ class M_MNH_Survey  extends MY_Model {
 		/*using DQL*/
 		try {
 			//geting server side param: $store=$this->uri->segment(param_position_from_base_url);
-			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\e_facility f WHERE f.facilityMFC = :fcode');
+			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_mfl = :fcode');
 			$query -> setParameter('fcode', $mfc);
 
 			$this -> formRecords = $query -> getArrayResult();
@@ -457,7 +457,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhCommunityStrategyQCode'];
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhCommunityStrategyQCode']);
@@ -695,7 +695,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhceocAspectCode']);
@@ -833,7 +833,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['serviceAspectCode']);
@@ -959,7 +959,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['committeeAspectCode']);
@@ -1086,7 +1086,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['newbornAspectCode']);
@@ -1218,7 +1218,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['wastedisposalAspectCode']);
@@ -1350,7 +1350,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['nurseAspectCode']);
@@ -1476,7 +1476,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['bedAspectCode']);
@@ -1602,7 +1602,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['kangarooAspectCode']);
@@ -1729,7 +1729,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhGuidelinesAspectCode']);
@@ -1855,7 +1855,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhHIVReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhHIVAspectCode']);
@@ -1985,7 +1985,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhPreparednessReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhPreparednessAspectCode']);
@@ -2110,7 +2110,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhJobAidsReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhJobAidsAspectCode']);
@@ -2236,7 +2236,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MNH_Questions_Log();
+			$this -> theForm = new \models\Entities\questions_Log();
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhwAspectCode']);
@@ -2389,7 +2389,7 @@ class M_MNH_Survey  extends MY_Model {
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setCommodityID($this -> elements[$i]['cqCommodityCode']);
+			$this -> theForm -> setcomm_code($this -> elements[$i]['cqCommodityCode']);
 
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['cqExpiryDate'])) ? $this -> theForm -> setCommodityExpiryDate($this -> elements[$i]['cqExpiryDate']) : $this -> theForm -> setCommodityExpiryDate('n/a');
@@ -2483,7 +2483,7 @@ class M_MNH_Survey  extends MY_Model {
 				//print 'ids: '.$this->id.'<br />';
 
 				//mark the end of 1 row...for record count
-				if ($this -> attr == "sqSuppliesCode") {
+				if ($this -> attr == "sqsupplyCode") {
 					//print 'count at:'.$count.'<br />';
 
 					$finalCount = $count;
@@ -2525,7 +2525,7 @@ class M_MNH_Survey  extends MY_Model {
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setSuppliesCode($this -> elements[$i]['sqSuppliesCode']);
+			$this -> theForm -> setsupplyCode($this -> elements[$i]['sqsupplyCode']);
 
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['sqNumberOfUnits'])) ? $this -> theForm -> setQuantityAvailable($this -> elements[$i]['sqNumberOfUnits']) : $this -> theForm -> setQuantityAvailable(-1);
@@ -2664,7 +2664,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Equipment_Available();
+			$this -> theForm = new \models\Entities\Equipments_Available();
 			//create an object of the model
 
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
@@ -2794,7 +2794,7 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Guideline_Training();
+			$this -> theForm = new \models\Entities\Guidelines_Training();
 			//create an object of the model
 
 			$this -> theForm -> setGuidelineCode($this -> elements[$i]['gsGuidelineCode']);
@@ -2932,7 +2932,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setCommodityID($this -> elements[$i]['usocCommodityCode']);
+			$this -> theForm -> setcomm_code($this -> elements[$i]['usocCommodityCode']);
 
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['usocUsage'])) ? $this -> theForm -> setCommodityUsage($this -> elements[$i]['usocUsage']) : $this -> theForm -> setCommodityUsage(-1);
@@ -3019,7 +3019,7 @@ class M_MNH_Survey  extends MY_Model {
 				//print 'ids: '.$this->id.'<br />';
 
 				//mark the end of 1 row...for record count
-				if ($this -> attr == "usosSuppliesCode") {
+				if ($this -> attr == "usossupplyCode") {
 					//print 'count at:'.$count.'<br />';
 
 					$finalCount = $count;
@@ -3057,7 +3057,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setSupplyID($this -> elements[$i]['usosSuppliesCode']);
+			$this -> theForm -> setSupplyID($this -> elements[$i]['usossupplyCode']);
 
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['usosUsage'])) ? $this -> theForm -> setSupplyUsage($this -> elements[$i]['usosUsage']) : $this -> theForm -> setSupplyUsage(-1);
@@ -3258,7 +3258,7 @@ class M_MNH_Survey  extends MY_Model {
 
 			$step = $this -> input -> post('step_name', TRUE);
 			switch($step) {
-				case 'section-1' :
+				/*case 'section-1' :
 					//check if entry exists
 					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
@@ -3399,11 +3399,11 @@ class M_MNH_Survey  extends MY_Model {
 						$this -> markSurveyStatusAsComplete();
 						return $this -> response = 'true';
 					}
-					break;
+					break;*/
 			}//close switch
 			//print var_dump($this->input->post());
 
-			//return $this -> response = 'true';
+			return $this -> response = 'true';
 		}
 
 	}
