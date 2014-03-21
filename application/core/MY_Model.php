@@ -448,12 +448,12 @@ class  MY_Model  extends  CI_Model {
 	}
 	
 	/*utilized in several models*/
-	public function getMNHQuestionName($id) {
+	public function getQuestionName($id) {
 		try {
 			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> mnhQuestion) {
-				$this -> mnhQuestion = $this -> mnhQuestion -> getMNHQuestion();
+				$this -> mnhQuestion = $this -> mnhQuestion -> getQuestionName();
 				return $this -> mnhQuestion;
 			}
 		} catch(exception $ex) {

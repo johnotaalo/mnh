@@ -1111,6 +1111,7 @@ class C_Load extends MY_Controller {
 			<td>MCH</td>
 			<td>U5 Clinic</td>
 			<td>Ward</td>
+			<td>Pharmacy</th>
 			<td>Other</td>
 			<td>Not Applicable</td>
 			<td>No. of Units</td>
@@ -1120,6 +1121,55 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>
+	 <table  class="centre persist-area" >
+	<thead>
+	    <tr class="persist-header">
+		
+			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES BUNDLING </th>
+		</tr>
+		</thead>
+		<tr>
+			<th scope="col" >Bundling Name</th>
+			<th >Bundling Unit</th>
+			<th colspan="3" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></div>
+			</th>
+			<th>
+			<div style="width: 90%" >
+				Main Reason For  Unavailability
+			</div>
+			</th>
+			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="2">Available Quantities</th>
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Unit</td>
+			<td >Available</td>
+			<td>Sometimes Available</td>
+			<td>Never Available</td>
+			<td> Unavailability</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Pharmacy</th>
+			<td>Other</td>
+			<td>Not Applicable</td>
+			<td>No. of Units</td>
+			<td>Expiry Date</td>
+			<td>Supplier</td>
+
+		</tr>' . $this -> mchBundling . ' 
+
+	</table>
+	
 	</div><!--\.section 2-->
 
 	<div id="section-3" class="step">
@@ -1128,7 +1178,7 @@ class C_Load extends MY_Controller {
 
      <table class="centre">
 		<thead>
-			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA? </th>
+			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA?  </th>
 		</thead>
 		
 		
@@ -1167,7 +1217,7 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="2" >DO HEALTH WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+			<th colspan="2" >DO HEALTH WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
 		</thead>
 		
 		
