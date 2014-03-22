@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model {
 
-	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $suppliesName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $fCode, $strategy, $strategyName, $guideline, $chQuestion;
+	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $fCode, $strategy, $strategyName, $guideline, $chQuestion;
 
 	function __construct() {
 		parent::__construct();
@@ -22,12 +22,12 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getFacilityName($id) {
 		try {
-			$this -> centre = $this -> em -> getRepository('models\Entities\E_Facility') -> findOneBy(array('facilityMFC' => $id));
+			$this -> centre = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facMfl' => $id));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
 		}
-		return $this -> centre -> getFacilityName();
+		return $this -> centre -> getFacName();
 	}
 
 	/*utilized in several models*/
@@ -36,10 +36,11 @@ class  MY_Model  extends  CI_Model {
 
 			#Using DQL
 
-			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district ORDER BY f.facilityName ASC ');
+			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facMfl,f.facName,f.ss_id FROM models\Entities\Facilities f WHERE f.facDistrict= :district ORDER BY f.facName ASC ');
 			$this -> districtFacilities -> setParameter('district', $districtName);
 
 			$this -> districtFacilities = $this -> districtFacilities -> getArrayResult();
+			var_dump($this -> districtFacilities);die;
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -51,7 +52,7 @@ class  MY_Model  extends  CI_Model {
 
 			#Using DQL
 
-			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus,f.facilityCHSurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict= :district AND f.facilityCHSurveyStatus=:status ORDER BY f.facilityName ASC ');
+			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facMfl,f.facName,f.ss_id FROM models\Entities\Facilities f WHERE f.facDistrict= :district AND =:status ORDER BY f.facName ASC ');
 			$this -> districtFacilities -> setParameter('district', $districtName);
 			$this -> districtFacilities -> setParameter('status', 'complete');
 
@@ -68,26 +69,26 @@ class  MY_Model  extends  CI_Model {
 		try {
 
 			/*DQL
-			 $this->districtFacilities = $this->em->createQuery("SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM models\Entities\e_facility f WHERE f.facilityDistrict=: district AND f.facilityOwnedBy IN (: condition) ORDER BY f.facilityName ASC");
+			 $this->districtFacilities = $this->em->createQuery("SELECT f.facMFL,f.facName,f.ss_id FROM models\Entities\Facilities f WHERE f.facilityDistrict=: district AND f.fac_ownership IN (: condition) ORDER BY f.facName ASC");
 			 $this->districtFacilities->setParameter('district',$districtName);
 			 $this->districtFacilities->setParameter('condition','Ministry of Health,Local Authority,Local Authority T Fund');
 
 			 $this->districtFacilities = $this->districtFacilities->getArrayResult();*/
 
 			/*Using CI*/
-			$this -> query = "SELECT f.facilityMFC,f.facilityName,f.facilitySurveyStatus FROM facility f WHERE f.facilityDistrict='$districtName' 
-            			  AND f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY f.facilityName ASC";
+			$this -> query = "SELECT f.facMFL,f.facName,f.ss_id FROM facilities f WHERE f.facilityDistrict='$districtName' 
+            			  AND f.fac_ownership IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY f.facName ASC";
 			$this -> districtFacilities = $this -> db -> query($this -> query);
 			$this -> districtFacilities = $this -> districtFacilities -> result_array();
 			//die(var_dump($this->districtFacilities));
 		} catch(exception $ex) {
-			//ignore
+			//ignor
 			//die($ex->getMessage());
 		}
 	}
 
 	public function getAllFacilityNames() {
-		$query = $this -> em -> createQuery('SELECT f.facilityName FROM models\Entities\e_facility f');
+		$query = $this -> em -> createQuery('SELECT f.facName FROM models\Entities\Facilities f');
 		//$query->setParameter('fname','%'.$options['keyword'].'%');
 
 		$this -> formRecords = $query -> getArrayResult();
@@ -97,7 +98,7 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	public function getSpecificFacilityNames($mfc) {
-		$query = $this -> em -> createQuery('SELECT f.facilityName FROM models\Entities\e_facility f where f.facilityMFC=' . $mfc);
+		$query = $this -> em -> createQuery('SELECT f.facName FROM models\Entities\Facilities f where f.facMFL=' . $mfc);
 		//$query->setParameter('fname','%'.$options['keyword'].'%');
 
 		$this -> facility = $query -> getArrayResult();
@@ -109,7 +110,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommodityNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> commodity = $this -> em -> createQuery('SELECT c.commodityID, c.commodityCode, c.commodityName, c.commodityUnit FROM models\Entities\e_commodity c WHERE c.commodityFor= :surveyName ORDER BY c.commodityID ASC');
+			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commId ASC');
 			$this -> commodity -> setParameter('surveyName', $surveyName);
 			$this -> commodity = $this -> commodity -> getResult();
 			//die(var_dump($this->commodity));
@@ -120,10 +121,10 @@ class  MY_Model  extends  CI_Model {
 		return $this -> commodity;
 	}/*end of getAllCommodityNames*/
 
-	function getAllSuppliesNames($surveyName) {
+	function getAllSupplyNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplies = $this -> em -> createQuery('SELECT s.suppliesID, s.suppliesCode, s.suppliesName, s.suppliesUnit FROM models\Entities\e_supplies s WHERE s.suppliesFor= :survey ORDER BY s.suppliesID ASC');
+			$this -> supplies = $this -> em -> createQuery('SELECT s.supplyId, s.supplyCode, s.supplyName, s.supplyUnit FROM models\Entities\Supplies s WHERE s.supplyFor= :survey ORDER BY s.supplyId ASC');
 			$this -> supplies -> setParameter('survey', $surveyName);
 			$this -> supplies = $this -> supplies -> getResult();
 			// die(var_dump($this->supplies));
@@ -132,12 +133,12 @@ class  MY_Model  extends  CI_Model {
 			//$ex->getMessage();
 		}
 		return $this -> supplies;
-	}/*end of getAllSuppliesNames*/
+	}/*end of getAllSupplyNames*/
 
 	function getAllEquipmentNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> equipment = $this -> em -> createQuery('SELECT e.equipmentID, e.equipmentCode, e.equipmentName, e.equipmentUnit FROM models\Entities\e_equipment e WHERE e.equipmentFor= :survey ORDER BY e.equipmentID ASC');
+			$this -> equipment = $this -> em -> createQuery('SELECT e.eqId, e.eqCode, e.eqName, e.eqUnit FROM models\Entities\Equipments e WHERE e.eqFor= :survey ORDER BY e.eqId ASC');
 			$this -> equipment -> setParameter('survey', $surveyName);
 			$this -> equipment = $this -> equipment -> getResult();
 			//die(var_dump($this->equipment));
@@ -151,7 +152,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommoditySupplierNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierID, s.supplierCode, s.supplierName FROM models\Entities\e_supplier s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();
@@ -167,7 +168,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllSources($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierID, s.supplierCode, s.supplierName FROM models\Entities\e_supplier s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();
@@ -183,7 +184,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllSignalFunctions() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT s.signalCode, s.signalName FROM models\Entities\e_signal_function s ORDER BY s.signalCode ASC');
+			$query = $this -> em -> createQuery('SELECT s.sfCode, s.sfName FROM models\Entities\SignalFunctions s ORDER BY s.sfCode ASC');
 			$this -> signalFunction = $query -> getResult();
 			//die(var_dump($this->signalFunction));
 		} catch(exception $ex) {
@@ -196,7 +197,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllOrtAspects($for) {
 		/*using DQL*/
 		try {
-			$this -> ortAspect = $this -> em -> createQuery('SELECT q.questionCode, q.mchQuestion FROM models\Entities\e_mch_questions q WHERE q.mchQuestionFor= :for ORDER BY q.questionCode ASC');
+			$this -> ortAspect = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q WHERE q.questionFor= :for  ORDER BY q.questionCode ASC');
 			$this -> ortAspect -> setParameter('for', $for);
 			$this -> ortAspect = $this -> ortAspect -> getResult();
 
@@ -208,25 +209,26 @@ class  MY_Model  extends  CI_Model {
 		return $this -> ortAspect;
 	}/*end of getAllOrtAspects*/
 
-	function getMNHQuestionsBySection($for) {
+	function getQuestionsBySection($for,$code) {
 		/*using DQL*/
 		try {
-			$this -> mnhIndicator = $this -> em -> createQuery('SELECT q.questionCode, q.mnhQuestion FROM models\Entities\e_mnh_questions q WHERE q.mnhQuestionFor= :for ORDER BY q.questionCode ASC');
-			$this -> mnhIndicator -> setParameter('for', $for);
-			$this -> mnhIndicator = $this -> mnhIndicator -> getResult();
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q WHERE q.questionFor= :for AND q.questionCode LIKE :code ORDER BY q.questionCode ASC');
+			$this -> questions -> setParameter('for', $for);
+			$this -> questions -> setParameter('code', $code.'%');
+			$this -> questions = $this -> questions -> getResult();
 
 			//die(var_dump($this->mnhIndicator));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
 		}
-		return $this -> mnhIndicator;
+		return $this -> questions;
 	}/*end of getAllOrtAspects*/
 
 	function getAllMCHIndicators() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\e_mch_indicators i ORDER BY i.indicatorCode ASC');
+			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorCode ASC');
 			$this -> mchIndicator = $query -> getResult();
 			//die(var_dump($this->mchIndicator));
 		} catch(exception $ex) {
@@ -239,7 +241,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHTreatments() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\e_mch_treatments t ORDER BY t.treatmentCode ASC');
+			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentCode ASC');
 			$this -> mchTreatment = $query -> getResult();
 			//die(var_dump($this->mchTreatment));
 		} catch(exception $ex) {
@@ -252,7 +254,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllTrainingGuidelines($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> trainingGuidelines = $this -> em -> createQuery('SELECT g.guidelineCode, g.guidelineName FROM models\Entities\e_guideline g WHERE g.guidelineFor= :survey ORDER BY g.guidelineCode ASC');
+			$this -> trainingGuidelines = $this -> em -> createQuery('SELECT g.guideCode, g.guideName FROM models\Entities\Guidelines g WHERE g.guideFor= :survey ORDER BY g.guideCode ASC');
 			$this -> trainingGuidelines -> setParameter('survey', $surveyName);
 			$this -> trainingGuidelines = $this -> trainingGuidelines -> getResult();
 			//die(var_dump($this->trainingGuidelines));
@@ -266,7 +268,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllDistrictNames() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT d.districtID,d.districtName FROM models\Entities\e_district d ORDER BY d.districtName ASC');
+			$query = $this -> em -> createQuery('SELECT d.districtId,d.districtName FROM models\Entities\Districts d ORDER BY d.districtName ASC');
 			$this -> district = $query -> getResult();
 			//die(var_dump($this->district));
 		} catch(exception $ex) {
@@ -279,8 +281,9 @@ class  MY_Model  extends  CI_Model {
 	function getAllCountyNames() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT c.countyID,c.countyName,c.countyFusionMapId FROM models\Entities\e_county c ORDER BY c.countyName ASC');
+			$query = $this -> em -> createQuery('SELECT c.countyId,c.countyName,c.countyFusionMapId FROM models\Entities\Counties c ORDER BY c.countyName ASC');
 			$this -> county = $query -> getResult();
+			//var_dump($this -> county);
 		} catch(exception $ex) {
 			//$ex->getMessage();
 
@@ -291,7 +294,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllProvinceNames() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT p.provinceID, p.provinceName FROM models\Entities\e_province p ORDER BY p.provinceName ASC');
+			$query = $this -> em -> createQuery('SELECT p.provinceId, p.provinceName FROM models\Entities\e_province p ORDER BY p.provinceName ASC');
 			$this -> province = $query -> getResult();
 			//die(var_dump($this->level));
 		} catch(exception $ex) {
@@ -304,7 +307,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllFacilityOwnerNames() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT o.facilityOwnerID, o.facilityOwner FROM models\Entities\e_facility_owner o ORDER BY o.facilityOwner ASC');
+			$query = $this -> em -> createQuery('SELECT o.foId, o.foName FROM models\Entities\FacilityOwners o ORDER BY o.foName ASC');
 			$this -> owner = $query -> getResult();
 			//die(var_dump($this->level));
 		} catch(exception $ex) {
@@ -317,12 +320,12 @@ class  MY_Model  extends  CI_Model {
 	function getAllGovernmentOwnedNames() {
 		/*using CI Database Active Record*/
 		try {
-			/* $query = $this->em->createQuery('SELECT t.facilityTypeID,t.facilityType FROM models\Entities\e_facility_type t
-			 WHERE t.facilityType IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.facilityType ASC');*/
+			/* $query = $this->em->createQuery('SELECT t.ft_id,t.ft_name FROM models\Entities\Facilities_type t
+			 WHERE t.ft_name IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.ft_name ASC');*/
 			if ($this -> session -> userdata('survey') == 'ch') {
-				$query = "SELECT o.facilityOwnerID,o.facilityOwner FROM facility_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') OR o.facilityOwnerFor='mch' ORDER BY o.facilityOwner ASC";
+				$query = "SELECT o.facilityOwnerId,o.facilityOwner FROM facilities_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') OR o.facilityOwnerFor='mch' ORDER BY o.facilityOwner ASC";
 			} else {
-				$query = "SELECT o.facilityOwnerID,o.facilityOwner FROM facility_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY o.facilityOwner ASC";
+				$query = "SELECT o.facilityOwnerId,o.facilityOwner FROM facilities_owner o WHERE o.facilityOwner IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') ORDER BY o.facilityOwner ASC";
 			}
 
 			$this -> owner = $this -> db -> query($query);
@@ -338,7 +341,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllFacilityTypes() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT t.facilityTypeID,t.facilityType FROM models\Entities\e_facility_type t ORDER BY t.facilityType ASC');
+			$query = $this -> em -> createQuery('SELECT t.ft_id,t.ft_name FROM models\Entities\Facilities_type t ORDER BY t.ft_name ASC');
 			$this -> type = $query -> getResult();
 			//die(var_dump($this->type));
 		} catch(exception $ex) {
@@ -352,9 +355,9 @@ class  MY_Model  extends  CI_Model {
 
 		/*using CI Database Active Record*/
 		try {
-			/* $query = $this->em->createQuery('SELECT t.facilityTypeID,t.facilityType FROM models\Entities\e_facility_type t
-			 WHERE t.facilityType IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.facilityType ASC');*/
-			$query = "SELECT DISTINCT(f.facilityType),t.facilityTypeID FROM facility f,facility_type t WHERE f.facilityOwnedBy IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') AND t.facilityType=f.facilityType ORDER BY f.facilityType ASC";
+			/* $query = $this->em->createQuery('SELECT t.ft_id,t.ft_name FROM models\Entities\Facilities_type t
+			 WHERE t.ft_name IN (Ministry of Health,Local Authority,Local Authority T Fund) ORDER BY t.ft_name ASC');*/
+			$query = "SELECT DISTINCT(fac_type),t.ft_id FROM facilities f,facility_types t WHERE f.fac_ownership IN ('Ministry of Health','Local Authority','Local Authority T Fund','Armed Forces','Community Development Fund','Community','Parastatal','State Corporation') AND t.ft_name=fac_type ORDER BY fac_type ASC";
 			$this -> type = $this -> db -> query($query);
 			$this -> type = $this -> type -> result_array();
 			//die(var_dump($this->type));
@@ -368,7 +371,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllFacilityLevels() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT l.facilityLevelID,l.facilityLevel FROM models\Entities\e_facility_level l ORDER BY l.facilityLevel ASC');
+			$query = $this -> em -> createQuery('SELECT l.flId,l.flName FROM models\Entities\FacilityLevels l ORDER BY l.flName ASC');
 			$this -> level = $query -> getResult();
 			//die(var_dump($this->level));
 		} catch(exception $ex) {
@@ -382,7 +385,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getDistrictName($id) {
 		try {
-			$this -> district = $this -> em -> getRepository('models\Entities\E_District') -> findOneBy(array('districtID' => $id));
+			$this -> district = $this -> em -> getRepository('models\Entities\Districts') -> findOneBy(array('districtId' => $id));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -392,7 +395,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCountyName($id) {
 		try {
-			$this -> county = $this -> em -> getRepository('models\Entities\E_County') -> findOneBy(array('countyID' => $id));
+			$this -> county = $this -> em -> getRepository('models\Entities\Counties') -> findOneBy(array('countyId' => $id));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -402,7 +405,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCommunityStrategyName($id) {
 		try {
-			$this -> strategy = $this -> em -> getRepository('models\Entities\e_mch_questions') -> findOneBy(array('questionCode' => $id));
+			$this -> strategy = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> strategy) {
 				$this -> strategyName = $this -> strategy -> getMCHQuestion();
@@ -417,7 +420,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getTrainingGuidelineName($id) {
 		try {
-			$this -> guideline = $this -> em -> getRepository('models\Entities\e_mch_questions') -> findOneBy(array('questionCode' => $id));
+			$this -> guideline = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> guideline) {
 				$this -> guideline = $this -> guideline -> getMCHQuestion();
@@ -432,7 +435,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getChildHealthQuestionName($id) {
 		try {
-			$this -> chQuestion = $this -> em -> getRepository('models\Entities\e_mch_questions') -> findOneBy(array('questionCode' => $id));
+			$this -> chQuestion = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> chQuestion) {
 				$this -> chQuestion = $this -> chQuestion -> getMCHQuestion();
@@ -447,7 +450,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getMNHQuestionName($id) {
 		try {
-			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\e_mnh_questions') -> findOneBy(array('questionCode' => $id));
+			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> mnhQuestion) {
 				$this -> mnhQuestion = $this -> mnhQuestion -> getMNHQuestion();
@@ -461,7 +464,7 @@ class  MY_Model  extends  CI_Model {
 	
 	public function getSignalName($id) {
 		try {
-			$this -> signalFunction = $this -> em -> getRepository('models\Entities\e_signal_function') -> findOneBy(array('signalCode' => $id));
+			$this -> signalFunction = $this -> em -> getRepository('models\Entities\SignalFunctions') -> findOneBy(array('signalCode' => $id));
 
 			if ($this -> signalFunction) {
 				$this -> signalFunction = $this -> signalFunction -> getSignalName();
@@ -476,7 +479,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getChildHealthIndicatorName($id) {
 		try {
-			$this -> mchIndicatorName = $this -> em -> getRepository('models\Entities\e_mch_indicators') -> findOneBy(array('indicatorCode' => $id));
+			$this -> mchIndicatorName = $this -> em -> getRepository('models\Entities\indicators') -> findOneBy(array('indicatorCode' => $id));
 
 			if ($this -> mchIndicatorName) {
 				$this -> mchIndicatorName = $this -> mchIndicatorName -> getIndicatorName();
@@ -491,7 +494,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getChildHealthTreatmentName($id) {
 		try {
-			$this -> mchTreatmentName = $this -> em -> getRepository('models\Entities\e_mch_treatments') -> findOneBy(array('treatmentCode' => $id));
+			$this -> mchTreatmentName = $this -> em -> getRepository('models\Entities\treatments') -> findOneBy(array('treatmentCode' => $id));
 
 			if ($this -> mchTreatmentName) {
 				$this -> mchTreatmentName = $this -> mchTreatmentName -> getTreatmentName();
@@ -506,7 +509,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCHEquipmentName($id) {
 		try {
-			$this -> equipmentName = $this -> em -> getRepository('models\Entities\e_equipment') -> findOneBy(array('equipmentCode' => $id));
+			$this -> equipmentName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('equipmentCode' => $id));
 
 			if ($this -> equipmentName) {
 				$this -> equipmentName = $this -> equipmentName -> getEquipmentName();
@@ -519,12 +522,12 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
-	public function getCHSuppliesName($id,$curr) {
+	public function getCHsupplyName($id,$curr) {
 		try {
-			$this -> suppliesName = $this -> em -> getRepository('models\Entities\e_supplies') -> findOneBy(array('suppliesCode' => $id,'suppliesFor'=>$curr));
-			if ($this -> suppliesName) {
-				$this -> suppliesName = $this -> suppliesName -> getsuppliesName();
-				return $this -> suppliesName;
+			$this -> supplyName = $this -> em -> getRepository('models\Entities\Supplies') -> findOneBy(array('supplyCode' => $id,'suppliesFor'=>$curr));
+			if ($this -> supplyName) {
+				$this -> supplyName = $this -> supplyName -> getsupplyName();
+				return $this -> supplyName;
 			}
 		} catch(exception $ex) {
 			//ignore
@@ -535,7 +538,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCHResourcesName($id) {
 		try {
-			$this -> resourcesName = $this -> em -> getRepository('models\Entities\e_equipment') -> findOneBy(array('equipmentCode' => $id));
+			$this -> resourcesName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('equipmentCode' => $id));
 			//var_dump($this -> resourcesName);
 			if ($this -> resourcesName) {
 				$this -> resourcesName = $this -> resourcesName -> getEquipmentName();
@@ -550,7 +553,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getLevelName($id) {
 		try {
-			$this -> level = $this -> em -> getRepository('models\Entities\e_facility_level') -> findOneBy(array('facilityLevelID' => $id));
+			$this -> level = $this -> em -> getRepository('models\Entities\FacilityLevels') -> findOneBy(array('facilityLevelId' => $id));
 
 		} catch(exception $ex) {
 			//ignore
@@ -561,7 +564,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getLevelNameById($id) {
 		try {
-			$this -> level = $this -> em -> getRepository('models\Entities\e_facility_level') -> findOneBy(array('facilityLevelID' => $id));
+			$this -> level = $this -> em -> getRepository('models\Entities\FacilityLevels') -> findOneBy(array('facilityLevelId' => $id));
 			if ($this -> level) {
 				$this -> levelName = $this -> level -> getfacilityLevel();
 				return $this -> levelName;
@@ -576,7 +579,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getStaffTrainingGuidelineById($id) {
 		try {
-			$this -> trainingGuideline = $this -> em -> getRepository('models\Entities\e_guideline') -> findOneBy(array('guidelineCode' => $id));
+			$this -> trainingGuideline = $this -> em -> getRepository('models\Entities\Guidelines') -> findOneBy(array('guidelineCode' => $id));
 			if ($this -> trainingGuideline) {
 				$this -> trainingGuideline = $this -> trainingGuideline -> getGuidelineName();
 				return $this -> trainingGuideline;
@@ -591,7 +594,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCommodityNameById($id) {
 		try {
-			$this -> commodityName = $this -> em -> getRepository('models\Entities\e_commodity') -> findOneBy(array('commodityCode' => $id));
+			$this -> commodityName = $this -> em -> getRepository('models\Entities\Commodities') -> findOneBy(array('commodityCode' => $id));
 			if ($this -> commodityName) {
 				$this -> commodityName = $this -> commodityName -> getCommodityName();
 				return $this -> commodityName;
@@ -606,7 +609,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getFacilityOwnerNameById($id) {
 		try {
-			$this -> ownerName = $this -> em -> getRepository('models\Entities\e_facility_owner') -> findOneBy(array('facilityOwnerID' => $id));
+			$this -> ownerName = $this -> em -> getRepository('models\Entities\FacilityOwners') -> findOneBy(array('facilityOwnerId' => $id));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -616,7 +619,7 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getProvinceName($id) {
 		try {
-			$this -> province = $this -> em -> getRepository('models\Entities\e_province') -> findOneBy(array('provinceID' => $id));
+			$this -> province = $this -> em -> getRepository('models\Entities\e_province') -> findOneBy(array('provinceId' => $id));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -626,7 +629,7 @@ class  MY_Model  extends  CI_Model {
 	//check if facility name exists
 	public function facilityExists($mfc) {
 		try {
-			$this -> facility = $this -> em -> getRepository('models\Entities\E_Facility') -> findOneBy(array('facilityName' => $mfc));
+			$this -> facility = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facName' => $mfc));
 			if ($this -> facility) {
 				$this -> facilityFound = true;
 			}
@@ -656,7 +659,7 @@ class  MY_Model  extends  CI_Model {
 	//used in m_zinc_ors_inventory
 	public function findOrtCodeByFacility($mfc) {
 		try {
-			$this -> ort = $this -> em -> getRepository('models\Entities\e_ortc_assessment') -> findOneBy(array('facilityMFC' => $mfc));
+			$this -> ort = $this -> em -> getRepository('models\Entities\e_ortc_assessment') -> findOneBy(array('facMFL' => $mfc));
 			return $this -> ort;
 		} catch(exception $ex) {
 			//ignore
@@ -669,7 +672,7 @@ class  MY_Model  extends  CI_Model {
 	//checks if commodity name exists
 	public function commodityExists($cName) {
 		try {
-			$this -> commodity = $this -> em -> getRepository('models\Entities\E_Commodity') -> findOneBy(array('commodityName' => $cName));
+			$this -> commodity = $this -> em -> getRepository('models\Entities\Commodities') -> findOneBy(array('commodityName' => $cName));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -734,24 +737,24 @@ class  MY_Model  extends  CI_Model {
 		/*method defined in MY_Model*/
 
 		//get owner name by id passed
-		$this -> getFacilityOwnerNameById($this -> input -> post('facilityOwnedBy', TRUE));
+		$this -> getFacilityOwnerNameById($this -> input -> post('fac_ownership', TRUE));
 
 		//$this->getProvinceName($this->input->post('facilityProvince'));/*method defined in MY_Model*/
 
 		//insert facility if new, else update the existing one
 		/*	if(!$this->facility){
 		 //die('New entry, enter new one');
-		 $this -> theForm = new \models\Entities\E_Facility(); //create an object of the model
+		 $this -> theForm = new \models\Entities\Facilities(); //create an object of the model
 		 $this -> theForm -> setCreatedAt(new DateTime()); //timestamp option
-		 $this -> theForm -> setFacilityName($this->input->post('facilityName',TRUE));
-		 $this -> theForm -> setFacilityMFC($this -> session -> userdata('fCode'));//obtain facility code from current session
+		 $this -> theForm -> setfacName($this->input->post('facName',TRUE));
+		 $this -> theForm -> setfacMFL($this -> session -> userdata('fCode'));//obtain facility code from current session
 		 }else{*/
-		//$this -> theForm = new \models\Entities\E_Facility(); //create an object of the model
+		//$this -> theForm = new \models\Entities\Facilities(); //create an object of the model
 		//die('Duplicate entry, so update');
 
 		//  echo 'Name: '. $this -> session -> userdata('fName');die;
 		try {
-			$this -> theForm = $this -> em -> getRepository('models\Entities\E_Facility') -> findOneBy(array('facilityName' => $this -> input -> post('facilityHName', TRUE), 'facilityMFC' => $this -> session -> userdata('fCode')));
+			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facName' => $this -> input -> post('facilityHName', TRUE), 'facMFL' => $this -> session -> userdata('fCode')));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -786,7 +789,7 @@ class  MY_Model  extends  CI_Model {
 
 			if ($this -> elements['facDeliveriesDone'] == 'No') {
 				(isset($this -> elements['facRsnNoDeliveries'])) ? $this -> theForm -> setReasonDeliveryNotDone($this -> elements['facRsnNoDeliveries']) : $this -> theForm -> setReasonDeliveryNotDone('n/a');
-				$this -> theForm -> setFacilitySurveyStatus('complete');
+				$this -> theForm -> setss_id('complete');
 			} else {
 				$this -> theForm -> setReasonDeliveryNotDone('n/a');
 			}
@@ -865,7 +868,7 @@ class  MY_Model  extends  CI_Model {
 
 	protected function markSurveyStatusAsComplete() {
 		try {
-			$this -> theForm = $this -> em -> getRepository('models\Entities\e_facility') -> findOneBy(array('facilityMFC' => $this -> session -> userdata('fCode')));
+			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facMFL' => $this -> session -> userdata('fCode')));
 
 		} catch(exception $ex) {
 			//ignore
@@ -873,7 +876,7 @@ class  MY_Model  extends  CI_Model {
 		}
 
 		if ($this -> session -> userdata('survey') == 'mnh') {
-			$this -> theForm -> setFacilitySurveyStatus('complete');
+			$this -> theForm -> setss_id('complete');
 		} else {
 			$this -> theForm -> setFacilityCHSurveyStatus('complete');
 		}

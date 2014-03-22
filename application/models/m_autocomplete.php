@@ -2,9 +2,9 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 /**
- *model to E_Facility entities
+ *model to Facilities entities
  */
-use application\models\Entities\E_Facility;
+use application\models\Entities\Facilities;
 
 class M_Autocomplete extends MY_Model {
 	var $facility;
@@ -16,7 +16,7 @@ class M_Autocomplete extends MY_Model {
 	public function getAutocomplete($options = array())
 	{
 		
-		//$query = $this->em->createQuery('SELECT f FROM models\Entities\e_facility f WHERE f.facilityName LIKE :fname');
+		//$query = $this->em->createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_name LIKE :fname');
 		 // $query->setParameter('fname','%'.$options['keyword'].'%');
           
           //$this->formRecords = $query->getArrayResult();
@@ -24,9 +24,9 @@ class M_Autocomplete extends MY_Model {
 		 
       
       /*Using CI's database library--doctrine doesn't allow the use of 'REGEXP'*/
-       $this->db->select('facilityName,facilityMFC');
-      $this->db->where("facilityName REGEXP '^".$options['keyword']."'"); //retrieve all names beginning with
-       // $this->db->like('facilityName', $options['keyword'], 'after');
+       $this->db->select('fac_name,fac_mfl');
+      $this->db->where("fac_name REGEXP '^".$options['keyword']."'"); //retrieve all names beginning with
+       // $this->db->like('fac_name', $options['keyword'], 'after');
        $this->formRecords = $this->db->get('facility');
      //die(var_dump($this->formRecords->result()));
      // return $this->formRecords
@@ -35,7 +35,7 @@ class M_Autocomplete extends MY_Model {
 	}
 	
 	public function getAllFacilityNames(){
-		$query = $this->em->createQuery('SELECT f.facilityName FROM models\Entities\e_facility f');
+		$query = $this->em->createQuery('SELECT f.fac_name FROM models\Entities\Facilities f');
 		  //$query->setParameter('fname','%'.$options['keyword'].'%');
           
           $this->formRecords = $query->getArrayResult();

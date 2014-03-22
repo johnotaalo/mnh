@@ -22,8 +22,8 @@ class M_MCH_Survey  extends MY_Model {
 	}
 
 	/*calls the query defined in MY_Model*/
-	public function getMchommunityStrategyQuestions($for) {
-		$this -> ortAspectsList = $this -> getAllOrtAspects($for);
+	public function getMchCommunityStrategyQuestions() {
+		$this -> ortAspectsList = $this -> getQuestionsBySection('cms','QUC');
 		//var_dump($this->ortAspectsList);die;
 		return $this -> ortAspectsList;
 	}
@@ -76,8 +76,8 @@ class M_MCH_Survey  extends MY_Model {
 		return $this -> equipmentList;
 	}
 
-	public function getSuppliesNames() {
-		$this -> suppliesList = $this -> getAllSuppliesNames('mch');
+	public function getSupplyNames() {
+		$this -> suppliesList = $this -> getAllSupplyNames('mch');
 		//var_dump($this->suppliesList);die;
 		return $this -> suppliesList;
 	}
@@ -148,7 +148,7 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MCH_Questions_Log();
+			$this -> theForm = new \models\Entities\E_questions_Log();
 			//create an object of the model
 
 			//$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
@@ -262,13 +262,13 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MCH_Community_Strategy();
+			$this -> theForm = new \models\Entities\E_community_strategies();
 			//create an object of the model
 
 			$this -> theForm -> setStrategyID($this -> elements[$i]['mchCommunityStrategyQCode']);
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setStrategyResponse($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setStrategyResponse(-1);
+			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setcs_response($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setcs_response(-1);
 			$this -> theForm -> setCreatedAt(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
@@ -381,7 +381,7 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Guideline_Training();
+			$this -> theForm = new \models\Entities\Guidelines_Training();
 			//create an object of the model
 
 			$this -> theForm -> setGuidelineCode($this -> elements[$i]['gsGuidelineCode']);
@@ -523,7 +523,7 @@ class M_MCH_Survey  extends MY_Model {
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setCommodityID($this -> elements[$i]['cqCommodityCode']);
+			$this -> theForm -> setcomm_code($this -> elements[$i]['cqCommodityCode']);
 
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['cqExpiryDate']) && $this -> elements[$i]['cqExpiryDate'] != '') ? $this -> theForm -> setCommodityExpiryDate($this -> elements[$i]['cqExpiryDate']) : $this -> theForm -> setCommodityExpiryDate('n/a');
@@ -1119,7 +1119,7 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MCH_Questions_Log();
+			$this -> theForm = new \models\Entities\E_questions_Log();
 			//create an object of the model
 
 			//$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
@@ -1244,7 +1244,7 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Equipment_Available();
+			$this -> theForm = new \models\Entities\Equipments_Available();
 			//create an object of the model
 
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
@@ -1350,7 +1350,7 @@ class M_MCH_Survey  extends MY_Model {
 				//print 'ids: '.$this->id.'<br />';
 
 				//mark the end of 1 row...for record count
-				if ($this -> attr == "sqSuppliesCode") {
+				if ($this -> attr == "sqsupplyCode") {
 					//print 'count at:'.$count.'<br />';
 
 					$finalCount = $count;
@@ -1392,7 +1392,7 @@ class M_MCH_Survey  extends MY_Model {
 			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
 
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
-			$this -> theForm -> setSuppliesCode($this -> elements[$i]['sqSuppliesCode']);
+			$this -> theForm -> setsupplyCode($this -> elements[$i]['sqsupplyCode']);
 
 			//check if that key exists, else set it to some default value
 			//(isset($this->elements[$i]['sqNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['sqNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
@@ -1623,7 +1623,7 @@ class M_MCH_Survey  extends MY_Model {
 
 				 //insert log entry if new, else update the existing one
 				 if($this->sectionExists==false){
-				 if($this->addMchGuidelinesAvailabilityInfo()==true && $this->addGuidelinesStaffInfo()==true && $this->addCommodityQuantityAvailabilityInfo()==true && addBundling()==true){//defined in this model
+				 if($this->addMchGuidelinesAvailabilityInfo()==true && $this->addGuidelinesStaffInfo()==true && $this->addCommodityQuantityAvailabilityInfo()==true && $this->addBundling()==true){//defined in this model
 				 $this->writeAssessmentTrackerLog();
 				 return $this -> response = 'true';
 

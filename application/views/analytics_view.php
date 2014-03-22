@@ -52,7 +52,7 @@
       
       
        <div class="col2">
-      <div class="row" id="reponse_county_summary">
+      <div class="row" id="reponsCounties_summary">
       
         <div class="span7" id="response_rate">
         <div class="selector">
@@ -103,7 +103,7 @@
        </div>
         
       </div><!--/.county_summary-->
-    </div><!--/.reponse_county_summary-->
+    </div><!--/.reponsCounties_summary-->
     
   
     

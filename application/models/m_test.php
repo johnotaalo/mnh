@@ -2,9 +2,9 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 /**
- *model to E_Facility entities
+ *model to Facilities entities
  */
-//use application\models\Entities\E_Facility;
+//use application\models\Entities\Facilities;
 
 class M_Test extends MY_Model {
 	var $facility;
@@ -15,7 +15,7 @@ class M_Test extends MY_Model {
 
 	
 	public function getFacility($id){
-		$fac = $this->getFacilityName($id);
+		$fac = $this->getfac_name($id);
 		var_dump($fac);
 	}
 	

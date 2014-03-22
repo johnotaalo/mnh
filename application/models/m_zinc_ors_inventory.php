@@ -2,9 +2,9 @@
 if (!defined('BASEPATH'))
 	exit('No direct script access allowed');
 /**
- *model to E_Stock,E_Equipment_Assessment & E_OrtC_Assessment entities
+ *model to E_Stock,Equipments_Assessment & E_OrtC_Assessment entities
  */
-use application\models\Entities\E_Equipment_Assessment;
+use application\models\Entities\Equipments_Assessment;
 use application\models\Entities\E_OrtC_Assessment;
 use application\models\Entities\E_Stock;
 
@@ -232,8 +232,8 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 
    public function facilityExists($mfc){
 	     try{
-			$this->facility=$this->em->getRepository('models\Entities\E_Facility')
-			                       ->findOneBy( array('facilityName'=>$mfc));
+			$this->facility=$this->em->getRepository('models\Entities\Facilities')
+			                       ->findOneBy( array('fac_name'=>$mfc));
 			}catch(exception $ex){
 				//ignore
 				//die($ex->getMessage());
@@ -249,7 +249,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 
        //Working with an object of the entity
        try{
-		$this->facility = $this->em->getRepository('models\Entities\e_facility')->findOneBy(array('facilityMFC' => $this -> input -> post('username')));
+		$this->facility = $this->em->getRepository('models\Entities\Facilities')->findOneBy(array('fac_mfl' => $this -> input -> post('username')));
 
 	    if($this->facility){
 			return $this->isFacility='true';
@@ -267,7 +267,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 
        //Working with an object of the entity
        try{
-		$this->facility = $this->em->getRepository('models\Entities\e_facility')->findOneBy(array('facilityName' => $this -> input -> post('username')));
+		$this->facility = $this->em->getRepository('models\Entities\Facilities')->findOneBy(array('fac_name' => $this -> input -> post('username')));
 
 	    if($this->facility){
 			return $this->isFacility='true';
@@ -285,7 +285,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 	//checks if commodity name exists
 	 public function commodityExists($cName){
 	     try{
-			$this->commodity=$this->em->getRepository('models\Entities\E_Commodity')
+			$this->commodity=$this->em->getRepository('models\Entities\Commodities')
 			                       ->findOneBy( array('commodityName'=>$cName));
 			}catch(exception $ex){
 				//ignore
@@ -340,7 +340,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			  #new fields go here
 			 
 			   $this -> theForm = new \models\Entities\e_ortc_assessment(); //create an object of the model
-			   $this -> theForm -> setFacilityMFC($this -> session -> userdata('fCode'));
+			   $this -> theForm -> setfac_mfl($this -> session -> userdata('fCode'));
 			   $this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 			   //do some branching since this fellow gets feeds from diff sources
 			  switch($source){
@@ -359,7 +359,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				//die('Duplicate entry, so update');
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_ortc_assessment')
-					                       ->findOneBy( array('facilityMFC'=>$this -> session -> userdata('fCode')));
+					                       ->findOneBy( array('fac_mfl'=>$this -> session -> userdata('fCode')));
 					$this -> theForm -> setUpdatedAt(new DateTime()); /*timestamp option*/	
 					 //do some branching since this fellow gets feeds from diff sources
 				   switch($source){
@@ -474,7 +474,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				//die('New entry, enter new one');
 			    #new fields go here--when it's the first time the record is inserted, set the values the that are inserted once here. e.g facility code, equipment code
 
-			   $this -> theForm = new \models\Entities\e_equipment_assessment(); //create an object of the model
+			   $this -> theForm = new \models\Entities\Equipments_assessment(); //create an object of the model
 			   $this -> theForm -> setEquipmentCode($this->elements[$i]['equipCode']);
 			   $this -> theForm -> setOrtCode($this->ortAssessCode);
 			   
@@ -482,7 +482,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				//die('Duplicate entry, so update');
 				try{
 					//query to retrieve the existing record's info for an update
-					$this -> theForm=$this->em->getRepository('models\Entities\e_equipment_assessment')
+					$this -> theForm=$this->em->getRepository('models\Entities\Equipments_assessment')
 					                       ->findOneBy( array('equipmentCode'=>$this -> elements[$i]['equipCode'],'ortCode'=>$this->ortAssessCode));
 					}catch(exception $ex){
 						//ignore
@@ -732,7 +732,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				$this -> theForm -> setStockExpiryDate($this->elements[$i]['orsStockExpiryDate']);
 				$this -> theForm -> setStockComments($this->elements[$i]['orsStockComments']);
 				$this -> theForm -> setStockCommodityType($this->elements[$i]['orsCommodityName']);
-				$this -> theForm -> setStockFacility($this->input->post('facilityMFC'));
+				$this -> theForm -> setStockFacility($this->input->post('fac_mfl'));
 				$this -> theForm -> setStockDateOfInventory($this->input->post('facilityDateOfInventory'));
 				$this -> em -> persist($this -> theForm);
 
@@ -787,7 +787,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 	      /*using DQL*/
 	      try{
 	      //geting server side param: $store=$this->uri->segment(param_position_from_base_url);
-	      $query = $this->em->createQuery('SELECT f FROM models\Entities\e_facility f WHERE f.facilityMFC = :fcode');
+	      $query = $this->em->createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_mfl = :fcode');
 		  $query->setParameter('fcode',$mfc);
           
           $this->formRecords = $query->getArrayResult();
