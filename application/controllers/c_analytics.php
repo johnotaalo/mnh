@@ -200,10 +200,10 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value, $status, $survey) {
+	public function getCommunityStrategy($criteria, $value,  $survey) {
 		$value = urldecode($value);
 		$results = array();
-		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getCommunityStrategy($criteria, $value,  $survey);
 
 		$resultArray = array();
 		$datas = array();
@@ -239,9 +239,9 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist) {
+	public function getGuidelinesAvailability($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value,  $survey, $chartorlist);
 		//var_dump($results);die;
 		switch($chartorlist) {
 			#When Chart is chosen
@@ -354,10 +354,10 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Get Trained Stuff
 	 */
-	public function getTrainedStaff($criteria, $value, $status, $survey) {
+	public function getTrainedStaff($criteria, $value,  $survey) {
 		$yes = $no = $resultsArray = array();
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value,  $survey);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -406,10 +406,10 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getTrainedStaffOne($criteria, $value, $status, $survey) {
+	public function getTrainedStaffOne($criteria, $value,  $survey) {
 		$yes = $no =$resultsArray= array();
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getTrainedStaff($criteria, $value,  $survey);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -453,25 +453,25 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getCommodityAvailabilityFrequency($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Frequency', 8);
+	public function getCommodityAvailabilityFrequency($criteria, $value,  $survey) {
+		$this -> getCommodityAvailability($criteria, $value,  $survey, 'Frequency', 8);
 	}
 
-	public function getCommodityAvailabilityUnavailability($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Unavailability');
+	public function getCommodityAvailabilityUnavailability($criteria, $value,  $survey) {
+		$this -> getCommodityAvailability($criteria, $value,  $survey, 'Unavailability');
 	}
 
-	public function getCommodityAvailabilityLocation($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Location');
+	public function getCommodityAvailabilityLocation($criteria, $value,  $survey) {
+		$this -> getCommodityAvailability($criteria, $value,  $survey, 'Location');
 	}
 
-	public function getCommodityAvailabilityQuantities($criteria, $value, $status, $survey) {
-		$this -> getCommodityAvailability($criteria, $value, $status, $survey, 'Quantities');
+	public function getCommodityAvailabilityQuantities($criteria, $value,  $survey) {
+		$this -> getCommodityAvailability($criteria, $value,  $survey, 'Quantities');
 	}
 
-	public function getCommodityAvailability($criteria, $value, $status, $survey, $choice) {
+	public function getCommodityAvailability($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getCommodityAvailability($criteria, $value,  $survey);
 		//echo '<pre>';print_r($results);echo '</pre>';
 		//die ;
 		$datas = array();
@@ -593,21 +593,21 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 	}
 
-	public function getEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Frequency', 8);
+	public function getEquipmentFrequency($criteria, $value,  $survey) {
+		$this -> getMnhEquipment($criteria, $value,  $survey, 'Frequency', 8);
 	}
 
-	public function getEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Location');
+	public function getEquipmentLocation($criteria, $value,  $survey) {
+		$this -> getMnhEquipment($criteria, $value,  $survey, 'Location');
 	}
 
-	public function getEquipmentFunctionality($criteria, $value, $status, $survey) {
-		$this -> getMnhEquipment($criteria, $value, $status, $survey, 'Functionality');
+	public function getEquipmentFunctionality($criteria, $value,  $survey) {
+		$this -> getMnhEquipment($criteria, $value,  $survey, 'Functionality');
 	}
 
-	public function getMnhEquipment($criteria, $value, $status, $survey, $choice) {
+	public function getMnhEquipment($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getMnhEquipment($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getMnhEquipment($criteria, $value,  $survey);
 		//echo '<pre>';print_r($results);echo '</pre>';die;
 		$datas = array();
 		$frequency = $results['frequency'];
@@ -701,9 +701,9 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 	}
 
-	public function getCHCommoditySupplier($criteria, $value, $status, $survey) {
+	public function getCHCommoditySupplier($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getCHCommoditySupplier($criteria, $value,  $survey);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
 		$resultArray = array();
@@ -743,9 +743,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getChildrenServices($criteria, $value, $status, $survey, $chartorlist) {
+	public function getChildrenServices($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getChildrenServices($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getChildrenServices($criteria, $value,  $survey, $chartorlist);
 		switch($chartorlist) {
 			case 'chart' :
 				$yes = $results['yes_values'];
@@ -853,9 +853,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getDangerSigns($criteria, $value, $status, $survey, $chartorlist) {
+	public function getDangerSigns($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getDangerSigns($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getDangerSigns($criteria, $value,  $survey, $chartorlist);
 
 		switch($chartorlist) {
 			case 'chart' :
@@ -944,9 +944,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getActionsPerformed($criteria, $value, $status, $survey, $chartorlist) {
+	public function getActionsPerformed($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value,  $survey, $chartorlist);
 
 		switch($chartorlist) {
 			case 'chart' :
@@ -1060,9 +1060,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getCounselGiven($criteria, $value, $status, $survey, $chartorlist) {
+	public function getCounselGiven($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getCounselGiven($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getCounselGiven($criteria, $value,  $survey, $chartorlist);
 		switch($chartorlist) {
 			case 'chart' :
 				$yes = $results['yes_values'];
@@ -1156,9 +1156,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getTools($criteria, $value, $status, $survey, $chartorlist) {
+	public function getTools($criteria, $value,  $survey, $chartorlist) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getTools($criteria, $value, $status, $survey, $chartorlist);
+		$results = $this -> m_analytics -> getTools($criteria, $value,  $survey, $chartorlist);
 		//var_dump($results);die;
 		switch($chartorlist) {
 			case 'chart' :
@@ -1254,9 +1254,9 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Diarrhoea case numbers per Month
 	 */
-	public function getDiarrhoeaCaseNumbers($criteria, $value, $status, $survey) {
+	public function getDiarrhoeaCaseNumbers($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getDiarrhoeaCaseNumbers($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getDiarrhoeaCaseNumbers($criteria, $value,  $survey);
 		$resultData = $results['num_of_diarrhoea_cases'];
 		$category = $results['categories'];
 
@@ -1296,9 +1296,9 @@ class C_Analytics extends MY_Controller {
 	 * Diarrhoea case treatments
 	 */
 
-	public function getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey, $filter) {
+	public function getDiarrhoeaCaseTreatment($criteria, $value,  $survey, $filter) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getDiarrhoeaCaseTreatment($criteria, $value,  $survey);
 		//var_dump($results);die;
 		$categories = $results['categories'];
 		$categoriesCount = 0;
@@ -1364,9 +1364,9 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * ORT Corner Assessment
 	 */
-	public function getORTCornerAssessment($criteria, $value, $status, $survey) {
+	public function getORTCornerAssessment($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getORTCornerAssessment($criteria, $value,  $survey);
 		$yes = $results['yes_values'];
 		$no = $results['no_values'];
 		$category = array();
@@ -1436,24 +1436,24 @@ class C_Analytics extends MY_Controller {
 	 * Availability, Location and Functionality of Equipement at ORT Corner
 	 */
 
-	public function getORTCornerEquipmentFrequency($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Frequency');
+	public function getORTCornerEquipmentFrequency($criteria, $value,  $survey) {
+		$this -> getORTCornerEquipment($criteria, $value,  $survey, 'Frequency');
 
 	}
 
-	public function getORTCornerEquipmentAvailability($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Functionality');
+	public function getORTCornerEquipmentAvailability($criteria, $value,  $survey) {
+		$this -> getORTCornerEquipment($criteria, $value,  $survey, 'Functionality');
 
 	}
 
-	public function getORTCornerEquipmentLocation($criteria, $value, $status, $survey) {
-		$this -> getORTCornerEquipment($criteria, $value, $status, $survey, 'Location');
+	public function getORTCornerEquipmentLocation($criteria, $value,  $survey) {
+		$this -> getORTCornerEquipment($criteria, $value,  $survey, 'Location');
 
 	}
 
-	public function getORTCornerEquipment($criteria, $value, $status, $survey, $choice) {
+	public function getORTCornerEquipment($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getORTCornerEquipmement($criteria, $value,  $survey);
 		//var_dump($results);die;
 		$datas = array();
 		$frequency = $results['frequency'];
@@ -1552,20 +1552,20 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view($stackorno, $datas);
 	}
 
-	public function getSuppliesFrequency($criteria, $value, $status, $survey) {
-		$this -> getSupplies($criteria, $value, $status, $survey, 'Frequency');
+	public function getSuppliesFrequency($criteria, $value,  $survey) {
+		$this -> getSupplies($criteria, $value,  $survey, 'Frequency');
 	}
 
-	public function getSuppliesLocation($criteria, $value, $status, $survey) {
-		$this -> getSupplies($criteria, $value, $status, $survey, 'Location');
+	public function getSuppliesLocation($criteria, $value,  $survey) {
+		$this -> getSupplies($criteria, $value,  $survey, 'Location');
 	}
 
 	/*
 	 * Availability, Location and Functionality of Supplies at ORT Corner
 	 */
-	public function getSupplies($criteria, $value, $status, $survey, $choice) {
+	public function getSupplies($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getSupplies($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getSupplies($criteria, $value,  $survey);
 		//var_dump($results['location']);
 		//die ;
 		$datas = array();
@@ -1691,9 +1691,9 @@ class C_Analytics extends MY_Controller {
 	/**
 	 *
 	 */
-	public function getCHSuppliesSupplier($criteria, $value, $status, $survey) {
+	public function getCHSuppliesSupplier($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getCHSuppliesSupplier($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getCHSuppliesSupplier($criteria, $value,  $survey);
 		//var_dump($results);
 		$category = $results['analytic_variables'];
 		$suppliers = $results['responses'];
@@ -1734,20 +1734,20 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getResourcesFrequency($criteria, $value, $status, $survey) {
-		$this -> getResources($criteria, $value, $status, $survey, 'Frequency');
+	public function getResourcesFrequency($criteria, $value,  $survey) {
+		$this -> getResources($criteria, $value,  $survey, 'Frequency');
 	}
 
-	public function getResourcesLocation($criteria, $value, $status, $survey) {
-		$this -> getResources($criteria, $value, $status, $survey, 'Location');
+	public function getResourcesLocation($criteria, $value,  $survey) {
+		$this -> getResources($criteria, $value,  $survey, 'Location');
 	}
 
 	/*
 	 *  Availability, Location and Functionality of Electricity and Hardware Resources
 	 */
-	public function getResources($criteria, $value, $status, $survey, $choice) {
+	public function getResources($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getResources($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> getResources($criteria, $value,  $survey);
 		$datas = array();
 		$frequency = $results['frequency'];
 		$categories = $results['frequency']['categories'];
@@ -1838,9 +1838,9 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Lists for NEVER
 	 */
-	public function getFacilityListForNo($criteria, $value, $status, $survey, $choice) {
+	public function getFacilityListForNo($criteria, $value,  $survey, $choice) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getFacilityListForNo($criteria, $value, $status, $survey, $choice);
+		$results = $this -> m_analytics -> getFacilityListForNo($criteria, $value,  $survey, $choice);
 		//var_dump($results);
 		//die ;
 		//echo '<pre>';
@@ -1861,9 +1861,9 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getFacilityListForNoMNH($criteria, $value, $status, $survey, $question) {
+	public function getFacilityListForNoMNH($criteria, $value,  $survey, $question) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getFacilityListForNoMNH($criteria, $value, $status, $survey, $question);
+		$results = $this -> m_analytics -> getFacilityListForNoMNH($criteria, $value,  $survey, $question);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -1888,9 +1888,9 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Lists for NEVER
 	 */
-	public function getFacilityListForNever($criteria, $value, $status, $survey, $choice) {
+	public function getFacilityListForNever($criteria, $value,  $survey, $choice) {
 		urldecode($value);
-		$results = $this -> m_analytics -> getFacilityListForNever($criteria, $value, $status, $survey, $choice);
+		$results = $this -> m_analytics -> getFacilityListForNever($criteria, $value,  $survey, $choice);
 		//var_dump($results);
 		//echo '<pre>';
 		//print_r($results);
@@ -2500,8 +2500,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Nurses Deployed in Maternity
 	 */
-	public function getNursesDeployed($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getNursesDeployed($criteria, $value, $status, $survey);
+	public function getNursesDeployed($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getNursesDeployed($criteria, $value,  $survey);
 		$number = $resultArray = $q = $yes = $no = array();
 		$question = '';
 		foreach ($results as $key => $value) {
@@ -2533,8 +2533,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Beds in facility
 	 */
-	public function getBeds($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getBeds($criteria, $value, $status, $survey);
+	public function getBeds($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getBeds($criteria, $value,  $survey);
 		$number = $resultArray = array();
 		foreach ($results as $key => $value) {
 			$number[] = (int)$value[0];
@@ -2565,8 +2565,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * 24 Hour Service
 	 */
-	public function getService($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getService($criteria, $value, $status, $survey);
+	public function getService($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getService($criteria, $value,  $survey);
 		$number = $resultArray = array();
 		foreach ($results as $key => $value) {
 			$number[] = (int)$value[0];
@@ -2597,8 +2597,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Health Facility Management
 	 */
-	public function getHFM($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getHFM($criteria, $value, $status, $survey);
+	public function getHFM($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getHFM($criteria, $value,  $survey);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';die;
@@ -2635,8 +2635,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Deliveries
 	 */
-	public function getDeliveries($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getDeliveries($criteria, $value, $status, $survey);
+	public function getDeliveries($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getDeliveries($criteria, $value,  $survey);
 
 		$number = $q = $resultArray = array();
 		foreach ($results as $key => $value) {
@@ -2672,8 +2672,8 @@ class C_Analytics extends MY_Controller {
 	/**
 	 * Deliveries Conducted
 	 */
-	public function getDeliveriesConducted($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getDeliveries($criteria, $value, $status, $survey);
+	public function getDeliveriesConducted($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getDeliveries($criteria, $value,  $survey);
 	}
 
 	/**
@@ -2682,9 +2682,9 @@ class C_Analytics extends MY_Controller {
 	 * 		.bemonc
 	 * 		.cemonc
 	 */
-	public function getSignalFunction($criteria, $value, $status, $survey, $signal) {
+	public function getSignalFunction($criteria, $value,  $survey, $signal) {
 		$results['conducted'] = array();
-		$results = $this -> m_analytics -> getSignalFunction($criteria, $value, $status, $survey, $signal);
+		$results = $this -> m_analytics -> getSignalFunction($criteria, $value,  $survey, $signal);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';die;
@@ -2719,17 +2719,17 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	public function getBEMONCReason($criteria, $value, $status, $survey) {
-		$this -> getSignalFunctionReason($criteria, $value, $status, $survey, 'ceoc');
+	public function getBEMONCReason($criteria, $value,  $survey) {
+		$this -> getSignalFunctionReason($criteria, $value,  $survey, 'ceoc');
 	}
 
-	public function getCEOCReason($criteria, $value, $status, $survey) {
-		$this -> getSignalFunctionReason($criteria, $value, $status, $survey, 'bemonc');
+	public function getCEOCReason($criteria, $value,  $survey) {
+		$this -> getSignalFunctionReason($criteria, $value,  $survey, 'bemonc');
 	}
 
-	public function getSignalFunctionReason($criteria, $value, $status, $survey, $signal) {
+	public function getSignalFunctionReason($criteria, $value,  $survey, $signal) {
 		$results['reason'] = $results['categories'] = array();
-		$results = $this -> m_analytics -> getSignalFunction($criteria, $value, $status, $survey, $signal);
+		$results = $this -> m_analytics -> getSignalFunction($criteria, $value,  $survey, $signal);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';
@@ -2770,21 +2770,21 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	public function getCEOC($criteria, $value, $status, $survey) {
-		$this -> getSignalFunction($criteria, $value, $status, $survey, 'ceoc');
+	public function getCEOC($criteria, $value,  $survey) {
+		$this -> getSignalFunction($criteria, $value,  $survey, 'ceoc');
 	}
 
-	public function getBEMONC($criteria, $value, $status, $survey) {
-		$this -> getSignalFunction($criteria, $value, $status, $survey, 'bemonc');
+	public function getBEMONC($criteria, $value,  $survey) {
+		$this -> getSignalFunction($criteria, $value,  $survey, 'bemonc');
 	}
 
 	/**
 	 * Deliveries Conducted
 	 */
-	public function getHIVTesting($criteria, $value, $status, $survey) {
+	public function getQuestionStatistics($criteria, $value,  $survey,$for) {
 
-		$results = $this -> m_analytics -> getHIVTesting($criteria, $value, $status, $survey);
-
+		$results = $this -> m_analytics -> getQuestionStatistics($criteria, $value,  $survey,$for);
+//echo '<pre>';print_r($results);echo '</pre>';die;
 		$number = $resultArray = $q = array();
 		$number = $resultArray = $q = $yes = $no = array();
 		foreach ($results as $key => $value) {
@@ -2815,163 +2815,20 @@ class C_Analytics extends MY_Controller {
 		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
-	/**
-	 * Newborn Care
-	 */
-	public function getNewbornCare($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getNewbornCare($criteria, $value, $status, $survey);
-		echo '<pre>';
-		print_r($results);
-		echo '</pre>';
-		die ;
-		$number = $resultArray = $q = $yes = $no = array();
-		foreach ($results as $key => $value) {
-			$q[] = $key;
-			$yes[] = (int)$value['yes'];
-			$no[] = (int)$value['no'];
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-
-		$category = $q;
-		$resultArray = json_encode($resultArray);
-		//echo $resultArray;
-		$datas = array();
-		$resultArraySize = 1;
-
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
-	}
-
-	/**
-	 * Kangaroo Mother Care
-	 */
-	public function getKMC($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getKMC($criteria, $value, $status, $survey);
-		//echo '<pre>';
-		//print_r($results);
-		//echo '</pre>';die;
-		$number = $resultArray = $q = $yes = $no = array();
-		foreach ($results as $key => $value) {
-			$q[] = $key;
-			$yes[] = (int)$value['yes'];
-			$no[] = (int)$value['no'];
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-
-		$category = $q;
-		$resultArray = json_encode($resultArray);
-		//echo $resultArray;
-		$datas = array();
-		$resultArraySize = 1;
-
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
-	}
+	
 
 	/**
 	 * Deliveriy Preparedness
 	 */
-	public function getDeliveryPreparedness($criteria, $value, $status, $survey) {
+	public function getDeliveryPreparedness($criteria, $value,  $survey) {
 
-	}
-
-	/**
-	 * Guidelines Availability
-	 */
-	public function getGuidelinesAvailabilityMNH($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getGuidelinesAvailabilityMNH($criteria, $value, $status, $survey);
-		$number = $resultArray = $q = $yes = $no = array();
-		foreach ($results as $key => $value) {
-			$key = trim($key, 'Does this facility have an updated');
-			$key = trim($key, '?');
-			$q[] = $key;
-			$yes[] = (int)$value['yes'];
-			$no[] = (int)$value['no'];
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-
-		$category = $q;
-		$resultArray = json_encode($resultArray);
-		//echo $resultArray;
-		$datas = array();
-		$resultArraySize = 6;
-
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
-	}
-
-	/**
-	 * Job Aids
-	 */
-	public function getJobAids($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getJobAids($criteria, $value, $status, $survey);
-		$number = $resultArray = $q = $yes = $no = array();
-		foreach ($results as $key => $value) {
-			$q[] = $key;
-			$yes[] = (int)$value['yes'];
-			$no[] = (int)$value['no'];
-		}
-		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-
-		$category = $q;
-		$resultArray = json_encode($resultArray);
-		//echo $resultArray;
-		$datas = array();
-		$resultArraySize = 10;
-
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/**
 	 * Community Strategy
 	 */
-	public function getCommunityStrategyMNH($criteria, $value, $status, $survey) {
-		$results = $this -> m_analytics -> getCommunityStrategyMNH($criteria, $value, $status, $survey);
+	public function getCommunityStrategyMNH($criteria, $value,  $survey) {
+		$results = $this -> m_analytics -> getCommunityStrategyMNH($criteria, $value,  $survey);
 		//echo '<pre>';
 		//print_r($results);
 		//echo '</pre>';die;
@@ -3008,10 +2865,10 @@ class C_Analytics extends MY_Controller {
 	/**
 	 *
 	 */
-	public function commodity_supplies_summary($criteria, $value, $status, $survey) {/*using CI Database Active Record*/
+	public function commodity_supplies_summary($criteria, $value,  $survey) {/*using CI Database Active Record*/
 		$value = urldecode($value);
 		//echo $value;die;
-		$results = $this -> m_analytics -> commodity_supplies_summary($criteria, $value, $status, $survey);
+		$results = $this -> m_analytics -> commodity_supplies_summary($criteria, $value,  $survey);
 
 		$supplies = $results['supplies'];
 		$commodity = $results['commodity'];

@@ -63,7 +63,7 @@ class C_Front extends MY_Controller {
 					$status = '#ffffff';
 					break;
 			}
-			$datas[] = array('id' => $countyMap,'value'=>$countyName, 'color' => $status,'tooltext'=>$countyName.'  Percentage Complete:  '.$percentage.'% ('.$reported.'/'.$actual.')','link'=>base_url().'c_analytics/setActive/'.$countyName.'/'.$survey);
+			$datas[] = array('id' => $countyMap,'value'=>$countyName, 'color' =>$status, 'tooltext'=>$countyName.'  Percentage Complete:  '.$percentage.'% ('.$reported.'/'.$actual.')','link'=>base_url().'c_analytics/setActive/'.$countyName.'/'.$survey);
 		}
 		$map = array( "canvasBorderColor"=>"#ffffff","hoverColor"=>"#aaaaaa","fillcolor" => "D7F4FF", "numbersuffix" => "M", "includevalueinlabels" => "1", "labelsepchar" => ":", "basefontsize" => "9","borderColor"=>'#999999',"showBevel"=>"0",'showShadow'=>"0");
 		$styles = array("showBorder"=>0);
