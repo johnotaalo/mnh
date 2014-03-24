@@ -57,7 +57,7 @@ $().ready(function(){
 	$("#mnh_tool").validate({/*combined tool*/
 		rules: {
 			facilityDateOfInventory:{required: true},
-			facilityName:{required: true},
+			fac_name:{required: true},
 			facilityContactPerson:{required: true},
 			facilityZincOrsDispensedFrom:{required: false},
 			facilityDistrict: {required: true},
@@ -76,7 +76,7 @@ $().ready(function(){
 		},
 		messages: {
 			facilityDateOfInventory:{required: "*Required"},
-			facilityName:{required: "*Required"},
+			fac_name:{required: "*Required"},
 			facilityContactPerson:{required: "*Required"},
 			facilityZincOrsDispensedFrom:{required: "*Required"},
 			facilityDistrict: {required:"*Required"},

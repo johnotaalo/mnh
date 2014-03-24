@@ -929,7 +929,7 @@ class C_Load extends MY_Controller {
 			<td>Facility Name </td>
 			<td>
 			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
-			<label id="fac_name"  size="40" ></label>
+			<label id="facilityName"  size="40" ></label>
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> 

@@ -147,7 +147,7 @@ $mfCode = $this -> session -> userdata('fCode');
 						$.each(info , function(i,facility) {
 						//render found data
 						//$("#fac_name").val(facility.fac_name).prop('disabled', true);
-						$("#fac_name").text(facility.fac_name);
+						$("#facilityName").text(facility.fac_name);
 						$('#facilityMFLCode').val(facility.fac_mfl);
 						$('#facilityHName').val(facility.fac_name);
 						

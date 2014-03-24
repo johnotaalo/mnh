@@ -11,6 +11,11 @@ class C_Analytics extends MY_Controller {
 		//$this -> county = $this -> session -> userdata('county_analytics');
 	}
 
+/**
+ * [setActive description]
+ * @param [type] $county
+ * @param [type] $survey
+ */
 	public function setActive($county, $survey) {
 
 		$county = urldecode($county);
@@ -24,7 +29,11 @@ class C_Analytics extends MY_Controller {
 
 		redirect($survey . '/analytics');
 	}
-
+/**
+ * [active_results description]
+ * @param  [type] $survey
+ * @return [type]
+ */
 	public function active_results($survey) {
 		$this -> session -> unset_userdata('survey');
 		$this -> session -> set_userdata('survey', $survey);
@@ -167,7 +176,10 @@ class C_Analytics extends MY_Controller {
 	private function ch_survey_response_rate() {
 		$this -> data['response_count'] = $this -> m_analytics -> get_response_count('ch');
 	}
-
+/**
+ * [facility_reporting_summary description]
+ * @return [type]
+ */
 	public function facility_reporting_summary() {
 		$results = $this -> m_analytics -> get_facility_reporting_summary('ch');
 		if ($results) {
@@ -239,13 +251,11 @@ class C_Analytics extends MY_Controller {
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability($criteria, $value,  $survey, $chartorlist) {
+	public function getGuidelinesAvailability($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value,  $survey, $chartorlist);
+		$results = $this -> m_analytics -> getGuidelinesAvailability($criteria, $value,  $survey);
 		//var_dump($results);die;
-		switch($chartorlist) {
-			#When Chart is chosen
-			case 'chart' :
+		
 				$categories = $results['categories'];
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
@@ -308,47 +318,44 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Availability';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			#When List is chosen
-			case 'list' :
-				$IMCI = $results['IMCI'];
-				$ORT = $results['ORT'];
-				$ICCM = $results['ICCM'];
-				$PAED = $results['PAED'];
+				
 
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Does the facility have updated 2012 IMCI guidelines?</th></tr>';
-				foreach ($IMCI as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Does the facility have updated ORT Corner guidelines?</th></tr>';
-				foreach ($ORT as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Does the facility have updated ICCM guidelines?</th></tr>';
-				foreach ($ICCM as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Does the facility have an updated Paediatric Protocol?</th></tr>';
-				foreach ($PAED as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
+	}
 
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-
-				break;
+	/**
+	 * Guidelines Availability
+	 */
+	public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
+		$results = $this -> m_analytics -> getQuestionStatistics($criteria, $value, $survey,'guide');
+		$number = $resultArray = $q = $yes = $no = array();
+		foreach ($results as $key => $value) {
+			$key = trim($key, 'Does this facility have an updated');
+			$key = trim($key, '?');
+			$q[] = $key;
+			$yes[] = (int)$value['yes'];
+			$no[] = (int)$value['no'];
 		}
+		$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
 
+		$category = $q;
+		$resultArray = json_encode($resultArray);
+		//echo $resultArray;
+		$datas = array();
+		$resultArraySize = 6;
+
+		$datas['resultArraySize'] = $resultArraySize;
+
+		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+
+		$datas['chartType'] = 'bar';
+		$datas['chartMargin'] = 70;
+		$datas['title'] = 'Chart';
+		$datas['chartTitle'] = ' ';
+		//$datas['chartTitle'] = 'Danger Signs';
+		$datas['categories'] = json_encode($category);
+		$datas['yAxis'] = 'Occurence';
+		$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/*
@@ -414,7 +421,7 @@ class C_Analytics extends MY_Controller {
 		//print_r($results);
 		//echo '</pre>';
 		//die ;
-
+$finalYes =$finalNo =$category=array();
 		foreach ($results['trained_values'] as $k => $t) {
 			$category[] = $k;
 			$finalYes[] = $t;
@@ -627,6 +634,7 @@ class C_Analytics extends MY_Controller {
 				$datas['availability'] = 1;
 				$frequencyCategories = $frequency['categories'];
 				$category = $frequencyCategories;
+				$frequencyNever=$frequencySometimes=$frequencyAlways=array();
 				$frequencyNever = $frequency['responses']['Never Available'];
 				$frequencyAlways = $frequency['responses']['Available'];
 				$frequencySometimes = $frequency['responses']['Sometimes Available'];
@@ -743,16 +751,14 @@ class C_Analytics extends MY_Controller {
 
 	}
 
-	public function getChildrenServices($criteria, $value,  $survey, $chartorlist) {
+	public function getChildrenServices($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getChildrenServices($criteria, $value,  $survey, $chartorlist);
-		switch($chartorlist) {
-			case 'chart' :
+				$results = $this -> m_analytics -> getChildrenServices($criteria, $value,  $survey);
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
 				$yCount = 5;
 				$nCount = 5;
-				$category = $results['categories'];
+				$category = $results['categories'];		
 				//var_dump($yes);
 
 				//var_dump($result);
@@ -805,60 +811,15 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				$temp = $results['temp'];
-				$weight = $results['weight'];
-				$height = $results['height'];
-				$mch = $results['mch'];
-				$muac = $results['muac'];
-
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Temperature Taken</th></tr>';
-				foreach ($temp as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Weight taken</th></tr>';
-				foreach ($weight as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Height taken</th></tr>';
-				foreach ($height as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>MCH taken</th></tr>';
-				foreach ($mch as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>MUAC taken</th></tr>';
-				foreach ($muac as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-				break;
-		}
+				
 
 	}
 
-	public function getDangerSigns($criteria, $value,  $survey, $chartorlist) {
+	public function getDangerSigns($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getDangerSigns($criteria, $value,  $survey, $chartorlist);
+		$results = $this -> m_analytics -> getDangerSigns($criteria, $value,  $survey);
 
-		switch($chartorlist) {
-			case 'chart' :
+		
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
 				$category = $results['categories'];
@@ -917,39 +878,15 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				$breastfeed = $results['breastfeed'];
-				$lethargy = $results['lethargy'];
-
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Inability to drink or breastfeed</th></tr>';
-				foreach ($breastfeed as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Lethargy and unconsciousness</th></tr>';
-				foreach ($lethargy as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-				break;
-		}
+				
 
 	}
 
-	public function getActionsPerformed($criteria, $value,  $survey, $chartorlist) {
+	public function getActionsPerformed($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value,  $survey, $chartorlist);
+		$results = $this -> m_analytics -> getActionsPerformed($criteria, $value,  $survey);
 
-		switch($chartorlist) {
-			case 'chart' :
+		
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
 				$category = $results['categories'];
@@ -1005,66 +942,14 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				$diarrhoea = $results['diarrhoea'];
-				$blood = $results['blood'];
-				$sunken = $results['sunken'];
-				$fluid = $results['fluid'];
-				$pinch = $results['pinch'];
-				$dehydration = $results['dehydration'];
-
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Ask about the duration of diarrhoea</th></tr>';
-				foreach ($diarrhoea as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Ask about the presence of Blood in stool</th></tr>';
-				foreach ($blood as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Look for sunken eyes</th></tr>';
-				foreach ($sunken as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Offer the child fluid to drink</th></tr>';
-				foreach ($fluid as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Perform skin pinch</th></tr>';
-				foreach ($pinch as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Correctly assess and classify diarrhoea and dehydration</th></tr>';
-				foreach ($dehydration as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-				break;
-		}
+				
 
 	}
 
-	public function getCounselGiven($criteria, $value,  $survey, $chartorlist) {
+	public function getCounselGiven($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getCounselGiven($criteria, $value,  $survey, $chartorlist);
-		switch($chartorlist) {
-			case 'chart' :
+		$results = $this -> m_analytics -> getCounselGiven($criteria, $value,  $survey);
+		
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
 				$category = $results['categories'];
@@ -1122,46 +1007,13 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				$extra = $results['extra'];
-				$home = $results['home'];
-				$follow = $results['follow'];
-
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>On giving extra feeding</th></tr>';
-				foreach ($extra as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>On home care</th></tr>';
-				foreach ($home as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>On when to return for follow up</th></tr>';
-				foreach ($follow as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-				break;
-		}
-
+				
 	}
 
-	public function getTools($criteria, $value,  $survey, $chartorlist) {
+	public function getTools($criteria, $value,  $survey) {
 		$value = urldecode($value);
-		$results = $this -> m_analytics -> getTools($criteria, $value,  $survey, $chartorlist);
-		//var_dump($results);die;
-		switch($chartorlist) {
-			case 'chart' :
+		$results = $this -> m_analytics -> getTools($criteria, $value,  $survey);
+		
 				$yes = $results['yes_values'];
 				$no = $results['no_values'];
 				$category = $results['categories'];
@@ -1217,37 +1069,7 @@ class C_Analytics extends MY_Controller {
 				$datas['yAxis'] = 'Occurence';
 				$datas['resultArray'] = $resultArray;
 				$this -> load -> view('charts/chart_stacked_v', $datas);
-				break;
-			case 'list' :
-				$under5 = $results['under5'];
-				$ORT = $results['ORT'];
-				$book = $results['book'];
-
-				$pdf = '<h3>Facility List that responded <em>NO</em></h3>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Under 5 register</th></tr>';
-				foreach ($under5 as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>ORT Corner register(improvised)</th></tr>';
-				foreach ($ORT as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-				$pdf .= '<table>';
-				$pdf .= '<tr><th>Mother Child Booklet</th></tr>';
-				foreach ($book as $val) {
-					$pdf .= '<tr><td>' . $val[0] . '</td><td>' . $val[1] . '</td></tr>';
-				}
-				$pdf .= '</table>';
-
-				#End of List
-				#Generate PDF
-				$this -> loadPDF($pdf);
-				break;
-		}
+				
 
 	}
 
@@ -2022,7 +1844,7 @@ class C_Analytics extends MY_Controller {
 		$resultArraySize = count($categories);
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_two' . rand(5, 300);
+		$datas['container'] = 'chart_levels' . rand(5, 300);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -2067,7 +1889,7 @@ class C_Analytics extends MY_Controller {
 		$resultArraySize = 10;
 		$datas['resultArraySize'] = $resultArraySize;
 
-		$datas['container'] = 'chart_two' . rand(5, 300);
+		$datas['container'] = 'chart_ownership' . rand(5, 300);
 
 		$datas['chartType'] = 'bar';
 		$datas['chartMargin'] = 70;
@@ -2094,7 +1916,7 @@ class C_Analytics extends MY_Controller {
 		$results = $this -> m_analytics -> getSpecificDistrictNames($county);
 		$options = '<option selected=selected>Viewing All</option>';
 		foreach ($results as $result) {
-			$options .= '<option>' . $result['fac_district'] . '</option>';
+			$options .= '<option>' . $result['facDistrict'] . '</option>';
 			//$dataArray.='<option>'.$result['fac_district'].'</option>';
 		}
 		//return $dataArray;
@@ -2229,7 +2051,7 @@ class C_Analytics extends MY_Controller {
 		$finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailability('county', $county['county'], 'complete', 'ch', 'chart');
+			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailability('county', $county['county'], 'ch');
 			$categories[] = $county['county'];
 		}
 
@@ -2278,7 +2100,7 @@ class C_Analytics extends MY_Controller {
 		$finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('mnh');
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getGuidelinesAvailabilityMNH('county', $county['county'], 'complete', 'mnh', 'chart');
+			$results[$county['county']] = $this -> m_analytics -> getQuestionStatistics('county', $county['county'], 'mnh','guide');
 
 		}
 		//echo '<pre>';print_r($results);echo '</pre>';die;
@@ -2321,7 +2143,7 @@ class C_Analytics extends MY_Controller {
 		$finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'ch', 'chart');
+			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'ch');
 			$categories[] = $county['county'];
 		}
 		//echo '<pre>';print_r($results);echo '</pre>';die;
@@ -2366,7 +2188,7 @@ class C_Analytics extends MY_Controller {
 		$finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('ch');
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getTools('county', $county['county'], 'complete', 'ch', 'chart');
+			$results[$county['county']] = $this -> m_analytics -> getTools('county', $county['county'], 'ch');
 			$categories[] = $county['county'];
 		}
 		//echo '<pre>';print_r($results);echo '</pre>';die;
@@ -2412,7 +2234,7 @@ class C_Analytics extends MY_Controller {
 		$categories = $finalYes = $finalNo = array();
 		$counties = $this -> m_analytics -> getReportingCounties('mnh');
 		foreach ($counties as $county) {
-			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'complete', 'mnh', 'chart');
+			$results[$county['county']] = $this -> m_analytics -> getTrainedStaff('county', $county['county'], 'mnh');
 			//$categories[] = $county['county'];
 		}
 		//echo '<pre>';

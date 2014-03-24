@@ -1517,7 +1517,7 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MCH_Resource_Available();
+			$this -> theForm = new \models\Entities\E_available_resources();
 			//create an object of the model
 
 			//die(print 'Code: '.$this -> session -> userdata('fCode'));

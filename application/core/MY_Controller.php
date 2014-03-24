@@ -3084,21 +3084,21 @@ class  MY_Controller  extends  CI_Controller {
 				$counter++;
 
 				if ($this -> session -> userdata('survey') == 'mnh') {
-					$surveyCompleteFlag = $value['ss_id'];
+					$surveyCompleteFlag = '';/**$value['ss_id']*/;
 				} else {
-					$surveyCompleteFlag = $value['facilityCHSurveyStatus'];
+					$surveyCompleteFlag = '';/*$value['facilityCHSurveyStatus']*/;
 				}
 
 				if ($surveyCompleteFlag == 'complete') {
-					$link = '<td colspan="5"><strong>' . $surveyCompleteFlag . '</strong></td><td colspan="5" id="facility_2" class="no-action"><a id="' . $value['fac_mfl'] . '" class="begin">Pending Analysis</a></td>';
+					$link = '<td colspan="5"><strong>' . $surveyCompleteFlag . '</strong></td><td colspan="5" id="facility_2" class="no-action"><a id="' . $value['facMfl'] . '" class="begin">Pending Analysis</a></td>';
 				} else {
-					$link = '<td colspan="5">' . $surveyCompleteFlag . '</td><td colspan="5" id="facility_1" class="action"><a id="' . $value['fac_mfl'] . '" class="begin">Begin Survey</a></td>';
+					$link = '<td colspan="5">' . $surveyCompleteFlag . '</td><td colspan="5" id="facility_1" class="action"><a id="' . $value['facMfl'] . '" class="begin">Begin Survey</a></td>';
 				}
 
 				$this -> districtFacilityListSection .= '<tr> 
        	<td colspan="1">' . $counter . '</td>
-			<td colspan="7" >' . $value['fac_mfl'] . '</td>
-			<td colspan="4">' . $value['fac_name'] . '</td>
+			<td colspan="7" >' . $value['facMfl'] . '</td>
+			<td colspan="4">' . $value['facName'] . '</td>
 			
 			' . $link . '
 			</tr>';

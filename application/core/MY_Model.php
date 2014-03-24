@@ -36,11 +36,11 @@ class  MY_Model  extends  CI_Model {
 
 			#Using DQL
 
-			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facMfl,f.facName,f.ss_id FROM models\Entities\Facilities f WHERE f.facDistrict= :district ORDER BY f.facName ASC ');
+			$this -> districtFacilities = $this -> em -> createQuery('SELECT f.facMfl,f.facName FROM models\Entities\Facilities f WHERE f.facDistrict= :district ORDER BY f.facName ASC ');
 			$this -> districtFacilities -> setParameter('district', $districtName);
 
 			$this -> districtFacilities = $this -> districtFacilities -> getArrayResult();
-			var_dump($this -> districtFacilities);die;
+			//var_dump($this -> districtFacilities);die;
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -408,7 +408,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> strategy = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> strategy) {
-				$this -> strategyName = $this -> strategy -> getMCHQuestion();
+				$this -> strategyName = $this -> strategy -> getQuestionName();
 				return $this -> strategyName;
 			}
 		} catch(exception $ex) {
@@ -423,7 +423,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> guideline = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> guideline) {
-				$this -> guideline = $this -> guideline -> getMCHQuestion();
+				$this -> guideline = $this -> guideline -> getQuestionName();
 				return $this -> guideline;
 			}
 		} catch(exception $ex) {
@@ -464,10 +464,10 @@ class  MY_Model  extends  CI_Model {
 	
 	public function getSignalName($id) {
 		try {
-			$this -> signalFunction = $this -> em -> getRepository('models\Entities\SignalFunctions') -> findOneBy(array('signalCode' => $id));
+			$this -> signalFunction = $this -> em -> getRepository('models\Entities\SignalFunctions') -> findOneBy(array('sfCode' => $id));
 
 			if ($this -> signalFunction) {
-				$this -> signalFunction = $this -> signalFunction -> getSignalName();
+				$this -> signalFunction = $this -> signalFunction -> getSfName();
 				return $this -> signalFunction;
 			}
 		} catch(exception $ex) {
@@ -509,10 +509,10 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCHEquipmentName($id) {
 		try {
-			$this -> equipmentName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('equipmentCode' => $id));
+			$this -> equipmentName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('eqCode' => $id));
 
 			if ($this -> equipmentName) {
-				$this -> equipmentName = $this -> equipmentName -> getEquipmentName();
+				$this -> equipmentName = $this -> equipmentName -> getEqName();
 				return $this -> equipmentName;
 			}
 		} catch(exception $ex) {
@@ -522,11 +522,11 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
-	public function getCHsupplyName($id,$curr) {
+	public function getSupplyName($id,$curr) {
 		try {
-			$this -> supplyName = $this -> em -> getRepository('models\Entities\Supplies') -> findOneBy(array('supplyCode' => $id,'suppliesFor'=>$curr));
+			$this -> supplyName = $this -> em -> getRepository('models\Entities\Supplies') -> findOneBy(array('supplyCode' => $id,'supplyFor'=>$curr));
 			if ($this -> supplyName) {
-				$this -> supplyName = $this -> supplyName -> getsupplyName();
+				$this -> supplyName = $this -> supplyName -> getSupplyName();
 				return $this -> supplyName;
 			}
 		} catch(exception $ex) {
@@ -538,10 +538,10 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCHResourcesName($id) {
 		try {
-			$this -> resourcesName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('equipmentCode' => $id));
+			$this -> resourcesName = $this -> em -> getRepository('models\Entities\Equipments') -> findOneBy(array('eqCode' => $id));
 			//var_dump($this -> resourcesName);
 			if ($this -> resourcesName) {
-				$this -> resourcesName = $this -> resourcesName -> getEquipmentName();
+				$this -> resourcesName = $this -> resourcesName -> getEqName();
 				return $this -> resourcesName;
 			}
 		} catch(exception $ex) {
@@ -579,9 +579,9 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getStaffTrainingGuidelineById($id) {
 		try {
-			$this -> trainingGuideline = $this -> em -> getRepository('models\Entities\Guidelines') -> findOneBy(array('guidelineCode' => $id));
+			$this -> trainingGuideline = $this -> em -> getRepository('models\Entities\Guidelines') -> findOneBy(array('guideCode' => $id));
 			if ($this -> trainingGuideline) {
-				$this -> trainingGuideline = $this -> trainingGuideline -> getGuidelineName();
+				$this -> trainingGuideline = $this -> trainingGuideline -> getGuideName();
 				return $this -> trainingGuideline;
 			}
 
@@ -594,9 +594,9 @@ class  MY_Model  extends  CI_Model {
 	/*utilized in several models*/
 	public function getCommodityNameById($id) {
 		try {
-			$this -> commodityName = $this -> em -> getRepository('models\Entities\Commodities') -> findOneBy(array('commodityCode' => $id));
+			$this -> commodityName = $this -> em -> getRepository('models\Entities\Commodities') -> findOneBy(array('commCode' => $id));
 			if ($this -> commodityName) {
-				$this -> commodityName = $this -> commodityName -> getCommodityName();
+				$this -> commodityName = $this -> commodityName -> getCommName();
 				return $this -> commodityName;
 			}
 

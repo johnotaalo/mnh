@@ -271,7 +271,7 @@ class M_MNH_Survey  extends MY_Model {
 		/*using DQL*/
 		try {
 			//geting server side param: $store=$this->uri->segment(param_position_from_base_url);
-			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_mfl = :fcode');
+			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.facMfl = :fcode');
 			$query -> setParameter('fcode', $mfc);
 
 			$this -> formRecords = $query -> getArrayResult();

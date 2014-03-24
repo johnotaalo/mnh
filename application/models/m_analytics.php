@@ -53,24 +53,20 @@ class M_Analytics extends MY_Model {
 		//$data=array();
 		$data = '';
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -92,9 +88,13 @@ WHERE
         AND cs.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
 AND cs.cs_response!=-1
 GROUP BY cs.strategy_code ASC;";
 		try {
@@ -145,44 +145,56 @@ GROUP BY cs.strategy_code ASC;";
 	/*
 	 * Guidelines Availability
 	 */
-	public function getGuidelinesAvailability($criteria, $value,  $survey, $chartorlist) {
+	public function getGuidelinesAvailability($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = array();
 		$data_prefix_y = '';
 		$data_prefix_n = '';
 		$data_y = $data_n = $data_categories = array();
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
-		#Check whether a graph or a list is required
-		switch($chartorlist) {
-			#initial query
-			case 'chart' :
-				$query = "SELECT COUNT(lq.fac_mfl) AS total_facilities,lq.question_code AS guideline,lq.lq_response AS availability FROM log_questions lq WHERE lq.question_code IN 
-                   (SELECT question_code FROM questions WHERE question_for='gp') 
-                   AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-                   GROUP BY lq.lq_response,lq.question_code ORDER BY lq.lq_response ASC";
+		
+				$query = "SELECT 
+    COUNT(lq.fac_mfl) AS total_facilities,
+    lq.question_code AS guideline,
+    lq.lq_response AS availability
+FROM
+    log_questions lq
+WHERE
+    lq.question_code IN (SELECT 
+            question_code
+        FROM
+            questions
+        WHERE
+            question_for = 'gp')
+        AND lq.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')
+".$criteria_condition.")
+GROUP BY lq.lq_response , lq.question_code
+ORDER BY lq.lq_response ASC";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -235,49 +247,7 @@ GROUP BY cs.strategy_code ASC;";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				#Facility List
-				$query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
-					FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
- 					WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
- 					 AND lq.question_code = g.question_code AND lq.fac_mfl=f.fac_mfl;";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['question_name']) {
-								case 'Does the facility have updated 2012 IMCI guidelines?' :
-									$IMCI[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Does the facility have updated ORT Corner guidelines?' :
-									$ORT[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Does the facility have updated ICCM guidelines?' :
-									$ICCM[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Does the facility have an updated Paediatric Protocol?' :
-									$PAED[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('IMCI' => $IMCI, 'ORT' => $ORT, 'ICCM' => $ICCM, 'PAED' => $PAED);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
+				
 		return $this -> dataSet;
 	}
 
@@ -285,6 +255,7 @@ GROUP BY cs.strategy_code ASC;";
 	 * Trained Staff
 	 */
 	public function getTrainedStaff($criteria, $value,  $survey) {
+		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
 		$data_prefix_y = '';
@@ -293,45 +264,59 @@ GROUP BY cs.strategy_code ASC;";
 		//"name:'Trained & Working in CH',data:";
 		$data_t = $data_w = $data_categories = array();
 
-		if ($survey == 'ch') {
-			$status_condition = 'facilityCHSurveyStatus =?';
-			$curr = 'mch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'ss_id =?';
-			$curr = 'mnh';
-		}
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 
-		$query = "SELECT COUNT(gt.fac_mfl) AS facilities,gt.guide_code AS training,sum(gt.tg_trained_before_2010) AS trained,sum(gt.tg_working) AS working
-		  	FROM training_guidelines gt WHERE gt.guide_code IN 
-		 	(SELECT guide_code FROM guidelines WHERE guide_for='$curr') 
-			AND gt.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-			GROUP BY gt.guide_code ORDER BY gt.guide_code ASC";
+		$query = "SELECT 
+    COUNT(gt.fac_mfl) AS facilities,
+    gt.guide_code AS training,
+    sum(gt.tg_trained_before_2010) AS trained,
+    sum(gt.tg_working) AS working
+FROM
+    training_guidelines gt
+WHERE
+    gt.guide_code IN (SELECT 
+            guide_code
+        FROM
+            guidelines
+        WHERE
+            guide_for = '".$survey."')
+        AND gt.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+         JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')".$criteria_condition.")
+GROUP BY gt.guide_code
+ORDER BY gt.guide_code ASC";
+
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo($this->db->last_query());die;
 			if ($this -> dataSet !== NULL) {
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 				$i = 0;
-
+//var_dump($this->dataSet);die;
 				foreach ($this->dataSet as $value) {
 					//if(isset($value['trained'])){
 					$data_t[$this -> getStaffTrainingGuidelineById($value['training'])] = (int)($value['trained']);
@@ -375,27 +360,18 @@ GROUP BY cs.strategy_code ASC;";
 		 * something of this kind:
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
-
-		if ($survey == 'ch') {
-			$curr = 'mch';
-			$status_condition = 'facilityCHSurveyStatus =?';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'ss_id =?';
-			$curr = 'mnh';
-		}
-
-		switch($criteria) {
+	switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -404,8 +380,14 @@ GROUP BY cs.strategy_code ASC;";
 
 		/*--------------------begin commodities availability by frequency----------------------------------------------*/
 		$query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
-					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='$curr')
+					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.") 
+					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='".$survey."')
 					GROUP BY ca.comm_code,ca.ac_Availability
 					ORDER BY ca.comm_code";
 		try {
@@ -481,8 +463,14 @@ GROUP BY cs.strategy_code ASC;";
 		/*--------------------begin commodities reason for unavailability----------------------------------------------*/
 		$this -> dataSet = array();
 		$query = "SELECT count(ca.ac_reason_unavailable) AS total_response,ca.comm_code as commodities,ca.ac_reason_unavailable AS reason, c.comm_unit as unit FROM available_commodities ca,commodities c
-					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='$curr')
+					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.") 
+					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='".$survey."')
 					AND ca.ac_reason_unavailable !='Not Applicable'
 					GROUP BY ca.comm_code,ca.ac_reason_unavailable
 					ORDER BY ca.comm_code,reason ASC";
@@ -563,15 +551,19 @@ WHERE
         AND ca.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . " " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.") 
         AND ca.comm_code IN (SELECT 
             comm_code
         FROM
             commodities
         WHERE
-            comm_for = '$curr')
+            comm_for = '$survey')
         AND ca.ac_location NOT LIKE '%Not Applicable%'
 GROUP BY ca.comm_code , ca.ac_location
 ORDER BY ca.comm_code,location ASC";
@@ -594,7 +586,7 @@ ORDER BY ca.comm_code,location ASC";
 					$analytic_var[] = $value_['location'];
 					//includes duplicates--so we'll array_unique outside the foreach()
 
-					switch($curr) {
+					switch($survey) {
 						case 'mnh' :
 							//collect the data_sets
 							//collect the data_sets from the coma separated responses
@@ -667,8 +659,8 @@ ORDER BY ca.comm_code,location ASC";
 
 		/*--------------------begin commodities availability by quantity----------------------------------------------*/
 		$query = "SELECT 
-    SUM(ca.quantity) AS total_quantity,
-    ca.comm_code as commodities,commodities.unit AS unit
+    SUM(ca.ac_quantity) AS total_quantity,
+    ca.comm_code as commodities,commodities.comm_unit AS unit
 FROM
     available_commodities ca,commodities
 WHERE
@@ -676,16 +668,20 @@ commodities.comm_code=ca.comm_code AND
     ca.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.") 
         AND ca.comm_code IN (SELECT 
             comm_code
         FROM
             commodities
         WHERE
-            comm_for = '$curr')
-        AND ca.quantity != - 1
+            comm_for = '$survey')
+        AND ca.ac_quantity != - 1
 GROUP BY ca.comm_code
 ORDER BY ca.comm_code";
 		try {
@@ -754,11 +750,7 @@ ORDER BY ca.comm_code";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -766,13 +758,13 @@ ORDER BY ca.comm_code";
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -780,9 +772,30 @@ ORDER BY ca.comm_code";
 		}
 
 		/*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-		$query = "SELECT count(ea.equipAvailability) AS total_response,ea.equipmentID as equipment,ea.equipAvailability AS frequency FROM equipments_available ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
-GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
+		$query = "SELECT 
+    count(ea.ae_availability) AS total_response,
+    ea.eq_code as equipment,
+    ea.ae_availability AS frequency
+FROM
+    available_equipments ea
+WHERE
+    ea.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.")
+        AND ea.eq_code IN (SELECT 
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = 'ort')
+GROUP BY ea.eq_code , ea.ae_availability
+ORDER BY ea.eq_code ASC";
 		try {
 
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -853,11 +866,31 @@ GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 		/*--------------------end ort equipment availability by frequency----------------------------------------------*/
 
 		/*--------------------begin ort equipment location of availability----------------------------------------------*/
-		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location
-FROM equipments_available ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN
-(SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
-AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
+		$query = "SELECT 
+    count(ea.ae_location) AS total_response,
+    ea.eq_code as equipment,
+    ea.ae_location AS location
+FROM
+    available_equipments ea
+WHERE
+    ea.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.")
+        AND ea.eq_code IN (SELECT 
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = 'ort')
+        AND ea.ae_location NOT LIKE '%Not Applicable%'
+GROUP BY ea.eq_code , ea.ae_location
+ORDER BY ea.eq_code ASC";
 
 		try {
 			//echo $query;die;
@@ -936,12 +969,32 @@ AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equi
 		/*--------------------end ort equipment location of availability----------------------------------------------*/
 
 		/*--------------------begin ort equipment availability by functionality----------------------------------------------*/
-		$query = "SELECT ea.equipmentID as equipment,SUM(ea.qtyFullyFunctional) AS total_functional,SUM(ea.qtyNonFunctional) AS total_non_functional FROM equipments_available ea
-WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='ort')
-AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
-GROUP BY ea.equipmentID
-ORDER BY ea.equipmentID ASC";
+		$query = "SELECT 
+    ea.eq_code as equipment,
+    SUM(ea.ae_fully_functional) AS total_functional,
+    SUM(ea.ae_non_functional) AS total_non_functional
+FROM
+    available_equipments ea
+WHERE
+    ea.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.")
+        AND ea.eq_code IN (SELECT 
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = 'ort')
+        AND ea.ae_fully_functional != - 1
+        AND ea.ae_non_functional != - 1
+GROUP BY ea.eq_code
+ORDER BY ea.eq_code ASC";
 		//echo $query; die;
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -1008,26 +1061,20 @@ ORDER BY ea.equipmentID ASC";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$curr = 'mch';
-			$status_condition = 'facilityCHSurveyStatus =?';
-		} else if ($survey == 'mnh') {
-			$curr = 'mnh';
-			$status_condition = 'ss_id =?';
-		}
+		
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -1035,10 +1082,15 @@ ORDER BY ea.equipmentID ASC";
 		}
 
 		/*--------------------begin equipment main supplier----------------------------------------------*/
-		$query = "SELECT count(ca.SupplierID) AS total_response,ca.comm_code as commodities,ca.SupplierID AS supplier, c.comm_unit as unit FROM available_commodities ca,commodities c
-				 WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ") 
-				 AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='$curr')
-				GROUP BY ca.comm_code,ca.SupplierID
+		$query = "SELECT count(ca.supplier_code) AS total_response,ca.comm_code as commodities,ca.supplier_code AS supplier, c.comm_unit as unit FROM available_commodities ca,commodities c
+				 WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')".$criteria_condition.")
+				 AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='".$survey."')
+				GROUP BY ca.comm_code,ca.supplier_code
 				ORDER BY ca.comm_code";
 		try {
 
@@ -1096,7 +1148,7 @@ ORDER BY ea.equipmentID ASC";
 	/*
 	 * Services to Children with Diarrhoea
 	 */
-	public function getChildrenServices($criteria, $value,  $survey, $chartorlist) {
+	public function getChildrenServices($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1110,38 +1162,47 @@ ORDER BY ea.equipmentID ASC";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 
-		#Check whether a graph or a list is required
-		switch($chartorlist) {
-			#initial query
-			case 'chart' :
-				$query = "SELECT il.indicatorID AS indicator,il.response as response
-				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='svc') 
-				  AND il.fac_mfl IN (SELECT fac_mfl FROM facilities 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ") ";
+		
+				$query = "SELECT 
+    il.indicator_code AS indicator, il.li_response as response
+FROM
+    log_indicators il
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = 'svc')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'mnh')".$criteria_condition.")";
 
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
@@ -1227,77 +1288,14 @@ ORDER BY ea.equipmentID ASC";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				$query = "SELECT 
-    i.indicatorName, il.fac_mfl, f.fac_name
-FROM
-    mch_indicator_log il,
-    mch_indicators i,
-    facilities f
-WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.fac_mfl = f.fac_mfl
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'svc')
-        AND il.fac_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Temperature taken' :
-									$temp[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Weight taken' :
-									$weight[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Height/Length taken' :
-									$height[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Use of MCH booklet' :
-									$mch[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'MUAC taken' :
-									$muac[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('temp' => $temp, 'weight' => $weight, 'height' => $height, 'mch' => $mch, 'muac' => $muac);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
+				
 		return $this -> dataSet;
 	}
 
 	/*
 	 * Danger Signs assessed in Ongoing Sessions
 	 */
-	public function getDangerSigns($criteria, $value,  $survey, $chartorlist) {
+	public function getDangerSigns($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1312,35 +1310,46 @@ WHERE
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 		// echo $criteria;die;
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
-		switch($chartorlist) {
-			case 'chart' :
-				$query = "SELECT il.indicatorID AS indicator,il.response as response
-				  FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='sgn') 
-				  AND il.fac_mfl IN (SELECT fac_mfl FROM facilities 
-				  WHERE " . $status_condition . "  " . $criteria_condition . ") ";
+		
+				$query = "SELECT 
+    il.indicator_code AS indicator, il.li_response as response
+FROM
+    log_indicators il
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = 'sgn')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'mnh')".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -1397,68 +1406,13 @@ WHERE
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				$query = "SELECT 
-    i.indicatorName, il.fac_mfl, f.fac_name
-FROM
-    mch_indicator_log il,
-    mch_indicators i,
-    facilities f
-WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.fac_mfl = f.fac_mfl
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'sgn')
-        AND il.fac_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Inability to drink or breastfeed' :
-									$breastfeed[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Lethargy and unconsciousness' :
-									$lethargy[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
 		return $this -> dataSet;
 	}
 
 	/*
 	 * Tasks performed in Ongoing Sessions
 	 */
-	public function getActionsPerformed($criteria, $value,  $survey, $chartorlist) {
+	public function getActionsPerformed($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1472,35 +1426,46 @@ WHERE
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
-		switch($chartorlist) {
-			case 'chart' :
-				$query = "SELECT il.indicatorID AS indicator,il.response as response
-FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='dgn')
-AND il.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . "  " . $criteria_condition . ") ";
+		
+				$query = "SELECT 
+    il.indicator_code AS indicator, il.li_response as response
+FROM
+    log_indicators il
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = 'dgn')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'mnh')".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -1579,73 +1544,6 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				$query = "SELECT 
-    i.indicatorName, il.fac_mfl, f.fac_name
-FROM
-    mch_indicator_log il,
-    mch_indicators i,
-    facilities f
-WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.fac_mfl = f.fac_mfl
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'dgn')
-        AND il.fac_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Ask about the duration of diarrhoea' :
-									$diarrhoea[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Ask about the presence of Blood in stool' :
-									$blood[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Look for sunken eyes' :
-									$sunken[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Offer the child fluid to drink' :
-									$fluid[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Perform skin pinch' :
-									$pinch[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Correctly assess and classify diarrhoea and dehydration' :
-									$dehydration[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('diarrhoea' => $diarrhoea, 'blood' => $blood, 'sunken' => $sunken, 'fluid' => $fluid, 'pinch' => $pinch, 'dehydration' => $dehydration);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
 		return $this -> dataSet;
 
 	}
@@ -1653,7 +1551,7 @@ WHERE
 	/*
 	 * Counsel on Ongoing Sessions
 	 */
-	public function getCounselGiven($criteria, $value,  $survey, $chartorlist) {
+	public function getCounselGiven($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1666,35 +1564,46 @@ WHERE
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
-		switch($chartorlist) {
-			case 'chart' :
-				$query = "SELECT il.indicatorID AS indicator,il.response as response
-FROM mch_indicator_log il WHERE il.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='cns')
-AND il.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . "  " . $criteria_condition . ")";
+		
+				$query = "SELECT 
+    il.indicator_code AS indicator, il.li_response as response
+FROM
+    log_indicators il
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = 'cns')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'mnh')".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -1746,64 +1655,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				$query = "SELECT 
-    i.indicatorName, il.fac_mfl, f.fac_name
-FROM
-    mch_indicator_log il,
-    mch_indicators i,
-    facilities f
-WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.fac_mfl = f.fac_mfl
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'cns')
-        AND il.fac_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'On giving extra feeding' :
-									$extra[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'On home care' :
-									$home[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'On when to return for follow up' :
-									$follow[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('extra' => $extra, 'home' => $home, 'follow' => $follow);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
+				
 		return $this -> dataSet;
 
 	}
@@ -1812,7 +1664,7 @@ WHERE
 	 * Get Tools in Units
 	 */
 
-	public function getTools($criteria, $value,  $survey, $chartorlist) {
+	public function getTools($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1825,35 +1677,44 @@ WHERE
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
-		switch($chartorlist) {
-			case 'chart' :
-				$query = "SELECT t.indicatorID AS tool,t.response as response
-FROM mch_indicator_log t WHERE t.indicatorID IN (SELECT indicatorCode FROM mch_indicators WHERE indicatorFor='ror')
-AND t.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . "  " . $criteria_condition . ")";
+		
+				$query = "SELECT 
+    il.indicator_code AS indicator, il.li_response as response
+FROM
+    log_indicators il
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = 'ror')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'mnh')".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -1861,9 +1722,9 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 						//prep data for the pie chart format
 						$size = count($this -> dataSet);
 						$i = 0;
-						//var_dump($this -> dataSet);
+						//var_dump($this -> dataSet);die;
 						foreach ($this->dataSet as $value) {
-							switch($this->getChildHealthIndicatorName($value['tool'])) {
+							switch($this->getChildHealthIndicatorName($value['indicator'])) {
 								case 'Under 5 register' :
 									if ($value['response'] == 'Yes') {
 										$under5Y++;
@@ -1906,64 +1767,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 					//ignore
 					//die($ex->getMessage());//exit;
 				}
-				break;
-			case 'list' :
-				$query = "SELECT 
-    i.indicatorName, il.fac_mfl, f.fac_name
-FROM
-    mch_indicator_log il,
-    mch_indicators i,
-    facilities f
-WHERE
-    il.response = 'No'
-        AND il.indicatorID = i.indicatorCode
-        AND il.fac_mfl = f.fac_mfl
-        AND il.indicatorID IN (SELECT 
-            indicatorCode
-        FROM
-            mch_indicators
-        WHERE
-            indicatorFor = 'ror')
-        AND il.fac_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
-				try {
-					$this -> dataSet = $this -> db -> query($query, array($value));
-					$this -> dataSet = $this -> dataSet -> result_array();
-
-					if ($this -> dataSet !== NULL) {
-
-						$size = count($this -> dataSet);
-						$i = 0;
-
-						foreach ($this->dataSet as $value) {
-							switch($value['indicatorName']) {
-								case 'Under 5 register' :
-									$under5[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'ORT Corner register(improvised)' :
-									$ORT[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-								case 'Mother Child Booklet' :
-									$book[] = array($value['fac_mfl'], $value['fac_name']);
-									break;
-							}
-						}
-
-						$this -> dataSet = array('under5' => $under5, 'ORT' => $ORT, 'book' => $book);
-
-						//var_dump($this->dataSet);die;
-
-					} else {
-						return $this -> dataSet = null;
-					}
-				} catch(exception $ex) {
-				}
-				break;
-		}
+				
 		return $this -> dataSet;
 
 	}
@@ -1981,24 +1785,20 @@ WHERE
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2057,24 +1857,20 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2136,34 +1932,47 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 
-		$query = "SELECT oa.indicatorID AS assessment_item,oa.response as response
-FROM log_questions oa WHERE oa.indicatorID IN (SELECT question_code FROM questions WHERE question_for='ort')
-AND oa.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indicatorID ASC";
+		$query = "SELECT 
+    oa.question_code AS assessment_item, oa.lq_response as response
+FROM
+    log_questions oa
+WHERE
+    oa.question_code IN (SELECT 
+            question_code
+        FROM
+            questions
+        WHERE
+            question_for = 'ort')
+        AND oa.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')".$criteria_condition.")
+ORDER BY oa.question_code ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -2174,7 +1983,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indica
 				$i = 0;
 
 				foreach ($this->dataSet as $value) {
-					switch($this->getChildHealthQuestionName($value['assessment_item'])) {
+					switch($this->getQuestionName($value['assessment_item'])) {
 						case 'Is the ORT Corner functional?' :
 							if ($value['response'] == 'Yes') {
 								$functionalTotalY++;
@@ -2239,26 +2048,19 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indica
 		 * something of this kind:
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
-
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2266,9 +2068,14 @@ WHERE " . $status_condition . "  " . $criteria_condition . ") ORDER BY oa.indica
 		}
 
 		/*--------------------begin mnh equipment availability by frequency----------------------------------------------*/
-		$query = "SELECT count(ea.equipAvailability) AS total_response,ea.equipmentID as equipment,ea.equipAvailability AS frequency FROM equipments_available ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='mnh')
-GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
+		$query = "SELECT count(ea.ae_availability) AS total_response,ea.eq_code as equipment,ea.ae_availability AS frequency FROM available_equipments ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM  
+			facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.") AND ea.eq_code IN (SELECT eq_code FROM equipments WHERE eq_for='mnh')
+GROUP BY ea.eq_code,ea.ae_availability ORDER BY ea.eq_code ASC";
 		try {
 
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -2276,6 +2083,7 @@ GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo($this->db->last_query());die;
 			if ($this -> dataSet !== NULL) {
+				$data_set['Available']=$data_set['Sometimes Available']=$data_set['Never Available']=array();
 				//prep data for the pie chart format
 				$size = count($this -> dataSet);
 
@@ -2339,11 +2147,17 @@ GROUP BY ea.equipmentID,ea.equipAvailability ORDER BY ea.equipmentID ASC";
 		/*--------------------end mnh equipment availability by frequency----------------------------------------------*/
 
 		/*--------------------begin mnh equipment location of availability----------------------------------------------*/
-		$query = "SELECT count(ea.equipLocation) AS total_response,ea.equipmentID as equipment,ea.equipLocation AS location
-FROM equipments_available ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . " " . $criteria_condition . ") AND ea.equipmentID IN
-(SELECT equipmentCode FROM equipment WHERE equipmentFor='mnh')
-AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equipLocation ORDER BY ea.equipmentID ASC";
+		$query = "SELECT count(ea.ae_location) AS total_response,ea.eq_code as equipment,ea.ae_location AS location
+FROM available_equipments ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM 
+facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.")
+                 AND ea.eq_code IN
+(SELECT eq_code FROM equipments WHERE eq_for='mnh')
+AND ea.ae_location NOT LIKE '%Not Applicable%' GROUP BY ea.eq_code,ea.ae_location ORDER BY ea.eq_code ASC";
 
 		try {
 			//echo $query;die;
@@ -2418,12 +2232,17 @@ AND ea.equipLocation NOT LIKE '%Not Applicable%' GROUP BY ea.equipmentID,ea.equi
 		/*--------------------end mnh equipment location of availability----------------------------------------------*/
 
 		/*--------------------begin mnh equipment availability by functionality----------------------------------------------*/
-		$query = "SELECT ea.equipmentID as equipment,SUM(ea.qtyFullyFunctional) AS total_functional,SUM(ea.qtyNonFunctional) AS total_non_functional FROM equipments_available ea
-WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
-AND ea.equipmentID IN (SELECT equipmentCode FROM equipment WHERE equipmentFor='mnh')
-AND ea.qtyFullyFunctional !=-1 AND ea.qtyNonFunctional !=-1
-GROUP BY ea.equipmentID
-ORDER BY ea.equipmentID ASC";
+		$query = "SELECT ea.eq_code as equipment,SUM(ea.ae_fully_functional) AS total_functional,SUM(ea.ae_non_functional) AS total_non_functional FROM available_equipments ea
+WHERE ea.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')".$criteria_condition.")
+AND ea.eq_code IN (SELECT eq_code FROM equipments WHERE eq_for='mnh')
+AND ea.ae_fully_functional !=-1 AND ea.ae_non_functional !=-1
+GROUP BY ea.eq_code
+ORDER BY ea.eq_code ASC";
 		//echo $query; die;
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -2489,13 +2308,7 @@ ORDER BY ea.equipmentID ASC";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$curr = 'mch';
-			$status_condition = 'facilityCHSurveyStatus =?';
-		} else if ($survey == 'mnh') {
-			$curr = 'mnh';
-			$status_condition = 'ss_id =?';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -2503,13 +2316,13 @@ ORDER BY ea.equipmentID ASC";
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2519,28 +2332,31 @@ ORDER BY ea.equipmentID ASC";
 		/*--------------------begin supplies availability by frequency----------------------------------------------*/
 
 		$query = "SELECT 
-    count(sq.Availability) AS total_response,
-    sq.supplyCode as supplies,
-    sq.Availability AS frequency
+    count(sq.as_availability) AS total_response,
+    sq.supply_code as supplies,
+    sq.as_availability AS frequency
 FROM
-    availablSupplies sq,
+    available_supplies sq,
     supplies s
 WHERE
-    sq.supplyCode = s.supplyCode
+    sq.supply_code = s.supply_code
         AND sq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . " " . $criteria_condition . ")
-        AND sq.supplyCode IN (SELECT 
-            supplyCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ")
+        AND sq.supply_code IN (SELECT 
+            supply_code
         FROM
             supplies
         WHERE
-            suppliesFor = '$curr')
-GROUP BY sq.supplyCode , sq.Availability
-ORDER BY sq.supplyCode;";
+            supply_for = '".$survey."')
+GROUP BY sq.supply_code , sq.as_availability
+ORDER BY sq.supply_code;";
 		try {
 
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -2556,7 +2372,7 @@ ORDER BY sq.supplyCode;";
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCHSupplyNames($value_['supplies'], $curr);
+					$data_categories[] = $this -> getSupplyName($value_['supplies'], $survey);
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
@@ -2614,25 +2430,29 @@ ORDER BY sq.supplyCode;";
 
 		/*--------------------begin supplies equipment location of availability----------------------------------------------*/
 		$query = "SELECT 
-    count(sq.Location) AS total_response,
-    sq.supplyCode as supplies,
-    sq.Location AS location
+    count(sq.as_location) AS total_response,
+    sq.supply_code as supplies,
+    sq.as_location AS location
 FROM
-    availablSupplies sq
+    available_supplies sq
 WHERE
     sq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . " " . $criteria_condition . ")
-        AND sq.supplyCode IN (SELECT 
-            supplyCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+        AND sq.supply_code IN (SELECT 
+            supply_code
         FROM
-            supplies WHERE suppliesFor='mnh')
-        AND sq.Location NOT LIKE '%Not Applicable%'
-GROUP BY sq.supplyCode , sq.Location
-ORDER BY sq.supplyCode ASC";
+            supplies WHERE supply_for='mnh')
+        AND sq.as_location NOT LIKE '%Not Applicable%'
+GROUP BY sq.supply_code , sq.as_location
+ORDER BY sq.supply_code ASC";
 
 		try {
 			//echo $query;die;
@@ -2651,30 +2471,30 @@ ORDER BY sq.supplyCode ASC";
 				foreach ($this->dataSet as $value_) {
 
 					//1. collect the categories
-					$data_categories[] = $this -> getCHSupplyNames($value_['supplies'], $curr);
+					$data_categories[] = $this -> getSupplyName($value_['supplies'], $survey);
 					//incase of duplicates--do an array_unique outside the foreach()
-					switch($curr) {
-						case 'mch' :
+					switch($survey) {
+						case 'ch' :
 							//collect the data_sets from the coma separated responses
 							if (strpos($value_['location'], 'OPD') !== FALSE) {
 								$count_instances['OPD'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['OPD'] = $count_instances['OPD'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['OPD'] = $count_instances['OPD'];
 							}
 							if (strpos($value_['location'], 'MCH') !== FALSE) {
 								$count_instances['MCH'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['MCH'] = $count_instances['MCH'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['MCH'] = $count_instances['MCH'];
 							}
 							if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
 								$count_instances['U5 Clinic'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['U5 Clinic'] = $count_instances['U5 Clinic'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['U5 Clinic'] = $count_instances['U5 Clinic'];
 							}
 							if (strpos($value_['location'], 'Ward') !== FALSE) {
 								$count_instances['Ward'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Ward'] = $count_instances['Ward'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Ward'] = $count_instances['Ward'];
 							}
 							if (strpos($value_['location'], 'Other') !== FALSE) {
 								$count_instances['Other'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Other'] = $count_instances['Other'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Other'] = $count_instances['Other'];
 							}
 
 							break;
@@ -2682,19 +2502,19 @@ ORDER BY sq.supplyCode ASC";
 							//collect the data_sets from the coma separated responses
 							if (strpos($value_['location'], 'Delivery room') !== FALSE) {
 								$count_instances['Delivery room'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Delivery room'] = $count_instances['Delivery room'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Delivery room'] = $count_instances['Delivery room'];
 							}
 							if (strpos($value_['location'], 'Pharmacy') !== FALSE) {
 								$count_instances['Pharmacy'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Pharmacy'] = $count_instances['Pharmacy'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Pharmacy'] = $count_instances['Pharmacy'];
 							}
 							if (strpos($value_['location'], 'Store') !== FALSE) {
 								$count_instances['Store'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Store'] = $count_instances['Store'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Store'] = $count_instances['Store'];
 							}
 							if (strpos($value_['location'], 'Other') !== FALSE) {
 								$count_instances['Other'] += intval($value_['total_response']);
-								$data_set[$this -> getCHSupplyNames($value_['supplies'], $curr)]['Other'] = $count_instances['Other'];
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Other'] = $count_instances['Other'];
 							}
 							break;
 					}
@@ -2749,26 +2569,18 @@ ORDER BY sq.supplyCode ASC";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$curr = 'mch';
-			$status_condition = 'facilityCHSurveyStatus =?';
-		} else if ($survey == 'mnh') {
-			$curr = 'mnh';
-			$status_condition = 'ss_id =?';
-		}
-
-		switch($criteria) {
+	switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2777,28 +2589,32 @@ ORDER BY sq.supplyCode ASC";
 
 		/*--------------------begin equipment main supplier----------------------------------------------*/
 		$query = "SELECT 
-    count(sq.supplyCode)/2 AS total_response,
-    sq.supplyCode as supplies,
-    sq.SupplierID AS supplier
+    count(sq.supply_code)/2 AS total_response,
+    sq.supply_code as supplies,
+    sq.supplier_code AS supplier
 FROM
-    availablSupplies sq,
+    available_supplies sq,
     supplies c
 WHERE
-    sq.supplyCode = c.supplyCode
+    sq.supply_code = c.supply_code
         AND sq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . " " . $criteria_condition . ")
-        AND sq.supplyCode IN (SELECT 
-            supplyCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+        AND sq.supply_code IN (SELECT 
+            supply_code
         FROM
             supplies
         WHERE
-            suppliesFor = '$curr')
-GROUP BY sq.supplyCode , sq.supplyCode
-ORDER BY sq.supplyCode
+            supply_for = '$survey')
+GROUP BY sq.supply_code , sq.supply_code
+ORDER BY sq.supply_code
 LIMIT 0 , 1000
 ";
 		try {
@@ -2818,7 +2634,7 @@ LIMIT 0 , 1000
 					//incase of duplicates--do an array_unique outside the foreach()
 
 					//2. collect the analytic variables
-					$analytic_var[] = $this -> getCHSupplyNames($value_['supplies'], $curr);
+					$analytic_var[] = $this -> getSupplyName($value_['supplies'], $survey);
 					//includes duplicates--so we'll array_unique outside the foreach()
 
 					//data set by each analytic variable
@@ -2867,11 +2683,7 @@ LIMIT 0 , 1000
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -2879,13 +2691,13 @@ LIMIT 0 , 1000
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -2894,26 +2706,30 @@ LIMIT 0 , 1000
 
 		/*--------------------begin ort equipment availability by frequency----------------------------------------------*/
 		$query = "SELECT 
-    count(ra.Availability) AS total_response,
-    ra.ResourceCode as equipment,
-    ra.Availability AS frequency
+    count(ra.ar_availability) AS total_response,
+    ra.eq_code as equipment,
+    ra.ar_availability AS frequency
 FROM
-    mch_resource_available ra
+    available_resources ra
 WHERE
     ra.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-        AND ra.ResourceCode IN (SELECT 
-            equipmentCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+        AND ra.eq_code IN (SELECT 
+            eq_code
         FROM
-            equipment
+            equipments
         WHERE
-            equipmentFor = 'hwr')
-GROUP BY ra.ResourceCode , ra.Availability
-ORDER BY ra.ResourceCode ASC";
+            eq_for = 'hwr')
+GROUP BY ra.eq_code , ra.ar_availability
+ORDER BY ra.eq_code ASC";
 		try {
 
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -2986,27 +2802,31 @@ ORDER BY ra.ResourceCode ASC";
 
 		/*--------------------begin ort equipment location of availability----------------------------------------------*/
 		$query = "SELECT 
-    count(ra.Location) AS total_response,
-    ra.ResourceCode as equipment,
-    ra.Location AS location
+    count(ra.ar_location) AS total_response,
+    ra.eq_code as equipment,
+    ra.ar_location AS location
 FROM
-    mch_resource_available ra
+    available_resources ra
 WHERE
     ra.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-          " . $status_condition . " " . $criteria_condition . ")
-        AND ra.ResourceCode IN (SELECT 
-            equipmentCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+        AND ra.eq_code IN (SELECT 
+            eq_code
         FROM
-            equipment
+            equipments
         WHERE
-            equipmentFor = 'hwr')
-        AND ra.Location NOT LIKE '%Not Applicable%'
-GROUP BY ra.ResourceCode , ra.Location
-ORDER BY ra.ResourceCode ASC";
+            eq_for = 'hwr')
+        AND ra.ar_location NOT LIKE '%Not Applicable%'
+GROUP BY ra.eq_code , ra.ar_location
+ORDER BY ra.eq_code ASC";
 
 		try {
 			//echo $query;die;
@@ -3112,7 +2932,7 @@ ORDER BY lastActivity DESC";
 	function getSpecificDistrictNames($county) {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT DISTINCT(f.fac_district) FROM  models\Entities\Facilities f WHERE f.fac_county = :county ORDER BY f.fac_district ASC');
+			$query = $this -> em -> createQuery('SELECT DISTINCT(f.facDistrict) FROM  models\Entities\Facilities f WHERE f.facCounty = :county ORDER BY f.facDistrict ASC');
 			$query -> setParameter('county', $county);
 			$this -> districtName = $query -> getResult();
 			//die(var_dump($this->districtName));
@@ -3165,12 +2985,16 @@ ORDER BY lastActivity DESC";
 		/*using CI Database Active Record*/
 		try {
 			$query = "SELECT DISTINCT
-facilities.fac_mfl, facilities.fac_name
+    f.fac_mfl, f.fac_name
 FROM
-facility
+    facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')
 WHERE
-fac_district = '$district'
-AND " . $search . "
+    fac_district = '".$district."'
 ORDER BY fac_name;";
 			$this -> dataSet = $this -> db -> query($query);
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -3409,17 +3233,21 @@ WHERE
 
 			$query = 'SELECT 
     tracker.ownership_total, tracker.facilityOwner
+FROM(SELECT 
+    COUNT(fac_ownership) as ownership_total,
+    fac_ownership as facilityOwner,
+    fac_county as countyName
 FROM
-    (SELECT 
-        COUNT(facilityOwnedBy) as ownership_total,
-            facilityOwnedBy as facilityOwner,
-            facilities.fac_county as countyName
-    FROM
-        facilities
-    WHERE
-            fac_county = "' . $county . '" AND ' . $search . '
-    GROUP BY facilityOwner
-    ORDER BY COUNT(facilityOwnedBy) ASC) AS tracker;';
+    facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = "'.$survey.'")
+WHERE
+    f.fac_county = "'.$county.'"
+GROUP BY facilityOwner
+ORDER BY COUNT(facilityOwner) ASC) as tracker;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
@@ -3433,33 +3261,24 @@ FROM
 
 	function getFacilityLevelPerCounty($county, $survey) {
 		/*using DQL*/
-
-		$finalData = array();
-		switch($survey) {
-			case 'ch' :
-				$search = '';
-				break;
-
-			case 'mnh' :
-				$search = '';
-				break;
-		}
 		try {
 
 			$query = 'SELECT 
     tracker.level_total, tracker.facilityLevel
 FROM
     (SELECT 
-        COUNT(facilityLevel) as level_total,
-            facilityLevel as facilityLevel,
-            facilities.fac_county as countyName
+        COUNT(fac_level) as level_total,
+            fac_level as facilityLevel,
+            fac_county as countyName
     FROM
-        facilities
+        facilities f
+    JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+    JOIN survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = "'.$survey.'")
     WHERE
-        fac_county = "' . $county . '"
-            AND ' . $search . '
-    GROUP BY facilityLevel
-    ORDER BY COUNT(facilityLevel) ASC) AS tracker;';
+        f.fac_county = "'.$county.'"
+    GROUP BY fac_Level
+    ORDER BY COUNT(fac_Level) ASC) AS tracker;';
 
 			$myData = $this -> db -> query($query);
 			$finalData = $myData -> result_array();
@@ -3491,11 +3310,7 @@ FROM
 	 */
 	public function getFacilityListForNo($criteria, $value,  $survey, $choice) {
 		urldecode($value);
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -3503,13 +3318,13 @@ FROM
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -3779,11 +3594,7 @@ WHERE
 	 */
 	public function getFacilityListForNever($criteria, $value,  $survey, $choice) {
 		urldecode($value);
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -3791,13 +3602,13 @@ WHERE
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -3812,7 +3623,7 @@ WHERE
     ca.comm_code as commodities,
     c.comm_unit as unit
 FROM
-    equipments_available ca,
+    available_equipments ca,
     commodities c,
     facilities f
 WHERE
@@ -3860,10 +3671,10 @@ ORDER BY ca.comm_code";
 				$query = "SELECT 
     ea.fac_mfl,
     f.fac_name,
-    ea.equipAvailability AS frequency,
-    ea.equipmentID as equipment
+    ea.ae_availability AS frequency,
+    ea.eq_code as equipment
 FROM
-    equipments_available ea,
+    available_equipments ea,
     facilities f
 WHERE
     ea.fac_mfl IN (SELECT 
@@ -3872,15 +3683,15 @@ WHERE
             facilities
         WHERE
             " . $status_condition . "  " . $criteria_condition . ") 
-        AND ea.equipmentID IN (SELECT 
-            equipmentCode
+        AND ea.eq_code IN (SELECT 
+            eq_code
         FROM
             equipment
         WHERE
-            equipmentFor = 'ort')
-        AND ea.equipAvailability = 'Never Available'
+            eq_for = 'ort')
+        AND ea.ae_availability = 'Never Available'
         AND ea.fac_mfl = f.fac_mfl
-ORDER BY ea.equipmentID ASC";
+ORDER BY ea.eq_code ASC";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3907,29 +3718,29 @@ ORDER BY ea.equipmentID ASC";
 				$query = "SELECT 
     sq.fac_mfl,
     f.fac_name,
-    sq.supplyCode as supplies,
-    sq.Availability AS frequency
+    sq.supply_code as supplies,
+    sq.as_availability AS frequency
 FROM
-    availablSupplies sq,
+    available_supplies sq,
     supplies s,
     facilities f
 WHERE
-    sq.supplyCode = s.supplyCode
+    sq.supply_code = s.supply_code
         AND sq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
             facilities
         WHERE
              " . $status_condition . "  " . $criteria_condition . ") 
-        AND sq.supplyCode IN (SELECT 
-            supplyCode
+        AND sq.supply_code IN (SELECT 
+            supply_code
         FROM
             supplies
         WHERE
-            suppliesFor = 'mch')
-        AND sq.Availability = 'Never Available'
+            supply_for = 'mch')
+        AND sq.as_availability = 'Never Available'
         AND sq.fac_mfl = f.fac_mfl
-ORDER BY sq.supplyCode;";
+ORDER BY sq.supply_code;";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3940,7 +3751,7 @@ ORDER BY sq.supplyCode;";
 						$i = 0;
 
 						foreach ($this->dataSet as $value) {
-							$facilities[$this -> getCHSupplyNames($value['supplies'])][] = array($value['fac_mfl'], $value['fac_name']);
+							$facilities[$this -> getSupplyName($value['supplies'])][] = array($value['fac_mfl'], $value['fac_name']);
 						}
 						return $facilities;
 						//var_dump($this->dataSet);die;
@@ -3955,10 +3766,10 @@ ORDER BY sq.supplyCode;";
 				$query = "SELECT 
     ra.fac_mfl,
     f.fac_name,
-    ra.ResourceCode as equipment,
-    ra.Availability AS frequency
+    ra.eq_code as equipment,
+    ra.ar_availability AS frequency
 FROM
-    mch_resource_available ra,
+    available_resources ra,
     facilities f
 WHERE
     ra.fac_mfl IN (SELECT 
@@ -3967,15 +3778,15 @@ WHERE
             facilities
         WHERE
            " . $status_condition . "  " . $criteria_condition . ") 
-        AND ra.ResourceCode IN (SELECT 
-            equipmentCode
+        AND ra.eq_code IN (SELECT 
+            eq_code
         FROM
             equipment
         WHERE
-            equipmentFor = 'hwr')
-        AND ra.Availability = 'Never Available'
+            eq_for = 'hwr')
+        AND ra.ar_availability = 'Never Available'
         AND ra.fac_mfl = f.fac_mfl
-ORDER BY ra.ResourceCode ASC";
+ORDER BY ra.eq_code ASC";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -4116,35 +3927,30 @@ ORDER BY tl.treatmentID ASC";
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
-
+		
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,SUM(responseCount) as response
+    question_code, SUM(lq_response_count) as response
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4153,16 +3959,21 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$response = $value_['response'];
 				//1. collect the categories
 				$data[$question][] = $response;
@@ -4184,35 +3995,31 @@ ORDER BY question_id";
 		/*using CI Database Active Record*/
 		$value = urldecode($value);
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,SUM(responseCount) as response
+    question_code,SUM(lq_response_count) as response
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4221,16 +4028,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$response = $value_['response'];
 				//1. collect the categories
 				$data[$question][] = $response;
@@ -4252,35 +4063,31 @@ ORDER BY question_id";
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,SUM(responseCount) as response
+    question_code,SUM(lq_response_count) as response
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4289,16 +4096,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$response = $value_['response'];
 				//1. collect the categories
 				$data[$question][] = $response;
@@ -4320,35 +4131,31 @@ ORDER BY question_id";
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,SUM(responseCount) as response
+    question_code,SUM(lq_response_count) as response
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4357,16 +4164,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$response = $value_['response'];
 				//1. collect the categories
 				$data[$question][] = $response;
@@ -4388,37 +4199,33 @@ ORDER BY question_id";
 		/*using CI Database Active Record*/
 		$value = urldecode($value);
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,
-    sum(if (`response` ='Yes' , 1 , 0)) as yes_values,
-    sum(if (`response` ='No' , 1 , 0)) as no_values
+    question_code,
+    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
+    sum(if (lq_response ='No' , 1 , 0)) as no_values
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4427,16 +4234,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . " " . $criteria_condition . ")
-GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$yes = $value_['yes_values'];
 				$no = $value_['no_values'];
 				//1. collect the categories
@@ -4472,24 +4283,20 @@ ORDER BY question_id";
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -4498,29 +4305,33 @@ ORDER BY question_id";
 		switch($signal) {
 			case 'bemonc' :
 				$query = "SELECT 
-    sf_id,
-    sum(if(`conducted` = 'Yes', 1, 0)) as yes_values,
-    sum(if(`conducted` = 'No', 1, 0)) as no_values
+    sf_code,
+    sum(if(bem_conducted = 'Yes', 1, 0)) as yes_values,
+    sum(if(bem_conducted = 'No', 1, 0)) as no_values
 FROM
     bemonc_functions
 WHERE
-    sf_id IN (SELECT 
+    sf_code IN (SELECT 
             sf_code
         FROM
             signal_functions)
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-              " . $status_condition . " " . $criteria_condition . ")
-GROUP BY sf_id
-ORDER BY sf_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+".$criteria_condition.")
+GROUP BY sf_code
+ORDER BY sf_code";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
-						$question = $this -> getSignalName($value_['sf_id']);
+						$question = $this -> getSignalName($value_['sf_code']);
 						$yes = $value_['yes_values'];
 						$no = $value_['no_values'];
 						//1. collect the categories
@@ -4535,27 +4346,31 @@ ORDER BY sf_id";
 				}
 
 				$query = "SELECT 
-    count(*) as response,challenge_code,sf_id
+    count(*) as response,challenge_code,sf_code
 FROM
     bemonc_functions
 WHERE
-    sf_id IN (SELECT 
+    sf_code IN (SELECT 
             sf_code
         FROM
             signal_functions)
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . " " . $criteria_condition . ")
-GROUP BY sf_id,challenge_code
-ORDER BY sf_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+GROUP BY sf_code,challenge_code
+ORDER BY sf_code";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
-						$question = $this -> getSignalName($value_['sf_id']);
+						$question = $this -> getSignalName($value_['sf_code']);
 
 						$data['reason'][$value_['challenge_code']][$question] = (int)$value_['response'];
 						$data['categories'][] = $question;
@@ -4571,13 +4386,13 @@ ORDER BY sf_id";
 				break;
 			case 'ceoc' :
 				$query = "SELECT 
-     question_id,
-    sum(if (`response` ='Yes' , 1 , 0)) as yes_values,
-    sum(if (`response` ='No' , 1 , 0)) as no_values
+     question_code,
+    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
+    sum(if (lq_response ='No' , 1 , 0)) as no_values
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4586,16 +4401,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY question_code
+ORDER BY question_code";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
-						$question = $this -> getMNHQuestionName($value_['question_id']);
+						$question = $this -> getQuestionName($value_['question_code']);
 						$yes = $value_['yes_values'];
 						$no = $value_['no_values'];
 						//1. collect the categories
@@ -4610,11 +4429,11 @@ ORDER BY question_id";
 				}
 
 				$query = "SELECT 
-     count(*) as response,reasonForResponse,question_id
+     count(*) as lq_response,lq_reason,question_code
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4623,18 +4442,22 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY reasonForResponse,question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY lq_reason,question_code
+ORDER BY question_code";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
-						$question = $this -> getSignalName($value_['question_id']);
+						$question = $this -> getSignalName($value_['question_code']);
 
-						$data['reason'][$value_['reasonForResponse']][$value_['question_id']] = (int)$value_['response'];
+						$data['reason'][$value_['lq_reason']][$value_['question_code']] = (int)$value_['lq_response'];
 						$data['categories'][] = $question;
 					}
 					$data['categories'] = array_unique($data['categories']);
@@ -4657,11 +4480,7 @@ ORDER BY question_id";
 		/*using CI Database Active Record*/
 		$value = urldecode($value);
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -4708,6 +4527,17 @@ ORDER BY lq.question_code ASC";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
 				$question = $this -> getQuestionName($value_['question_code']);
+				$question = trim($question, 'Does this facility have an updated');
+				$question = trim($question, '?');
+
+				if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
+					$question = 'Baby Friendly Hospital Initiative';
+				} else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
+					$question = 'Quality Obstetric and Prenatal Care';
+				} else {
+
+					//$question = trim($question, 'National Guidelines for ');
+				}
 				$yes = $value_['yes_values'];
 				$no = $value_['no_values'];
 				//1. collect the categories
@@ -4731,35 +4561,31 @@ ORDER BY lq.question_code ASC";
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    question_id,SUM(responseCount) as response
+    question_code,SUM(lq_response_count) as response
 FROM
     log_questions
 WHERE
-    question_id IN (SELECT 
+    question_code IN (SELECT 
             question_code
         FROM
             questions
@@ -4768,16 +4594,20 @@ WHERE
         AND fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . " " . $criteria_condition . ")
-            GROUP BY question_id
-ORDER BY question_id";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+            GROUP BY question_code
+ORDER BY question_code";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$question = $this -> getMNHQuestionName($value_['question_id']);
+				$question = $this -> getQuestionName($value_['question_code']);
 				$response = $value_['response'];
 				//1. collect the categories
 				$data[$question][] = $response;
@@ -4804,10 +4634,10 @@ ORDER BY question_id";
 		$data = array();
 		if ($survey == 'ch') {
 			$status_condition = 'facilityCHSurveyStatus =?';
-			$curr = 'mch';
+			$survey = 'mch';
 		} else if ($survey == 'mnh') {
 			$status_condition = 'ss_id =?';
-			$curr = 'mnh';
+			$survey = 'mnh';
 		}
 
 		switch($criteria) {
@@ -4815,20 +4645,20 @@ ORDER BY question_id";
 				$criteria_condition = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
 				break;
 		}
 		$query = "SELECT 
-    f.fac_name,f.fac_county,SUM(ca.quantity) AS total_quantity,
+    f.fac_name,f.fac_county,SUM(ca.ac_quantity) AS total_quantity,
     ca.comm_code as commodities,commodities.unit AS unit
 FROM
     available_commodities as ca
@@ -4840,16 +4670,19 @@ commodities.comm_code=ca.comm_code AND
     ca.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . " " . $criteria_condition . ")
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ")
         AND ca.comm_code IN (SELECT 
             comm_code
         FROM
             commodities
         WHERE
             comm_for = 'mnh')
-        AND ca.quantity != - 1
+        AND ca.ac_quantity != - 1
 GROUP BY f.fac_name,ca.comm_code
 ORDER BY f.fac_name,ca.comm_code;";
 		try {
@@ -4858,7 +4691,7 @@ ORDER BY f.fac_name,ca.comm_code;";
 
 			foreach ($this->dataSet as $value_) {
 				$data['commodities_categories'][0] = 'Facility Name';
-				$supply = $this -> getCommodityNameById($value_['commodities'], $curr) . ' ' . $value_['unit'];
+				$supply = $this -> getCommodityNameById($value_['commodities'], $survey) . ' ' . $value_['unit'];
 				$facility = $value_['fac_name'];
 				//$response = $value_['supplies'];
 				//1. collect the categories
@@ -4877,34 +4710,37 @@ ORDER BY f.fac_name,ca.comm_code;";
 
 		$query = "SELECT 
     f.fac_name,f.fac_county,SUM(sa.quantity) AS total_quantity,
-    sa.supplyCode as Supplies
+    sa.supply_code as Supplies
 FROM
-    availablSupplies as sa
+    available_supplies as sa
         INNER JOIN
     facility as f ON sa.fac_mfl = f.fac_mfl,
     Supplies
 WHERE
-Supplies.supplyCode=sa.supplyCode AND
+Supplies.supply_code=sa.supply_code AND
     sa.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . " " . $criteria_condition . ")
-        AND sa.supplyCode IN (SELECT 
-            supplyCode
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ")
+        AND sa.supply_code IN (SELECT 
+            supply_code
         FROM
             Supplies
         WHERE
-            SuppliesFor = 'mnh')
+            supply_for = 'mnh')
         AND sa.quantity != - 1
-GROUP BY f.fac_name,sa.supplyCode
-ORDER BY f.fac_name,sa.supplyCode;";
+GROUP BY f.fac_name,sa.supply_code
+ORDER BY f.fac_name,sa.supply_code;";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
-				$supply = $this -> getCHSupplyNames($value_['Supplies'], $curr);
+				$supply = $this -> getSupplyName($value_['Supplies'], $survey);
 				$facility = $value_['fac_name'];
 				//$response = $value_['supplies'];
 				//1. collect the categories
@@ -4925,11 +4761,7 @@ ORDER BY f.fac_name,sa.supplyCode;";
 
 	public function getFacilityListForNoMNH($criteria, $value,  $survey, $question) {
 		urldecode($value);
-		if ($survey == 'ch') {
-			$status_condition = 'ch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'mnh';
-		}
+	
 
 		switch($criteria) {
 			case 'national' :
@@ -4937,13 +4769,13 @@ ORDER BY f.fac_name,sa.supplyCode;";
 				$value = ' ';
 				break;
 			case 'county' :
-				$criteria_condition = 'AND fac_county=?';
+				$criteria_condition = 'WHERE fac_county=?';
 				break;
 			case 'district' :
-				$criteria_condition = 'AND fac_district=?';
+				$criteria_condition = 'WHERE fac_district=?';
 				break;
 			case 'facility' :
-				$criteria_condition = 'AND fac_mfl=?';
+				$criteria_condition = 'WHERE fac_mfl=?';
 				break;
 			case 'none' :
 				$criteria_condition = '';
@@ -4958,9 +4790,9 @@ FROM
     facilities f
 WHERE
     lq.lq_response = 'No'
-        AND lq.question_id = q.question_code 
+        AND lq.question_code = q.question_code 
         AND lq.fac_mfl = f.fac_mfl
-        AND lq.question_id IN (SELECT 
+        AND lq.question_code IN (SELECT 
             question_code
         FROM
             questions
