@@ -588,8 +588,8 @@ class  MY_Controller  extends  CI_Controller {
 		foreach ($this->data_found as $value) {
 			$counter++;
 			$this -> mchBundling .= '<tr>
-			<td> ' . $value['equipmentName'] . ' </td>
-			<td> ' . $value['equipmentUnit'] . '</td>
+			<td> ' . $value['eqName'] . ' </td>
+			<td> ' . $value['eqUnit'] . '</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
@@ -642,7 +642,7 @@ class  MY_Controller  extends  CI_Controller {
 			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
 			<option value="" selected="selected">Select One</option>' . $supplier_names . '
 			</select></td>
-			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['equipmentCode'] . '" />
+			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['eqCode'] . '" />
 	</tr>';
 
 		}
@@ -658,8 +658,8 @@ class  MY_Controller  extends  CI_Controller {
 		foreach ($this->data_found as $value) {
 			$counter++;
 			$this -> mchBundlingPDF .= '<tr>
-			<td> ' . $value['equipmentName'] . ' </td>
-			<td> ' . $value['equipmentUnit'] . '</td>
+			<td> ' . $value['eqName'] . ' </td>
+			<td> ' . $value['eqUnit'] . '</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
@@ -708,7 +708,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td width="200">' . $supplier_names . '
 			</td>
-			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['equipmentCode'] . '" />
+			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['eqCode'] . '" />
 	</tr>';
 
 		}
@@ -2575,7 +2575,10 @@ class  MY_Controller  extends  CI_Controller {
 
 		return $this -> hardwareMCHSectionPDF;
 	}
-
+/**
+ * [createHardwareResourcesMNHSection description]
+ * @return [type] [description]
+ */
 	public function createHardwareResourcesMNHSection() {
 		$ch_supplier_names = $this -> selectMCHOtherSuppliers;
 		$sources = $this -> hardwareSources;

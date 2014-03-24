@@ -124,7 +124,12 @@ class C_Analytics extends MY_Controller {
 		$oneProgress = $this -> getReportedCounty($reportingCounty, $county);
 		echo($oneProgress);
 	}
-
+/**
+ * [getReportedCounty description]
+ * @param  [type] $county [description]
+ * @param  [type] $key    [description]
+ * @return [type]         [description]
+ */
 	public function getReportedCounty($county, $key) {
 		$progress = "";
 

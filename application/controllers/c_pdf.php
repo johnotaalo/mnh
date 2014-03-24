@@ -130,7 +130,7 @@ class C_Pdf extends MY_Controller {
 		<table>
 			<thead>
 				
-					<th colspan="2" >PROVISION OF Beds</th>
+					<th colspan="2" >PROVISION OF Services</th>
 			
 				<tr>
 					<th >QUESTION</th>
@@ -1002,22 +1002,6 @@ class C_Pdf extends MY_Controller {
 	</table>
 	</div><!--\.section 2-->
 
-	<div id="section-3" class="step">
-	<input type="hidden" name="step_name" value="section-3"/>
-	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
-
-     <table class="centre">
-		<thead>
-			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
-		</thead>
-		
-		
-			<th  style="width:35%">SERVICE</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['svc'] . '
-	</table>
 	<div id="section-3" class="step">
 		<input type="hidden" name="step_name" value="section-3"/>
 		<p style="display:true" class="message success">
