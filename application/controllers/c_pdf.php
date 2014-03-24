@@ -982,10 +982,10 @@ class C_Pdf extends MY_Controller {
 		<tr >
 			<th>&nbsp;</th>
 			<th>Unit</th>
-			<th >Available</th>
+			<th>Available</th>
 			<th>Sometimes Available</th>
 			<th>Never Available</th>
-			<th> Unavailability</th>
+			<th>Unavailability</th>
 			<th>OPD</th>
 			<th>MCH</th>
 			<th>U5 Clinic</th>
@@ -1066,7 +1066,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >DO HEALTH WORKERS COUNSEL ON FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
