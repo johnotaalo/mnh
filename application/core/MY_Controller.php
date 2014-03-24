@@ -1940,7 +1940,8 @@ class  MY_Controller  extends  CI_Controller {
 			$this -> trainingGuidelineSection .= '<tr>
 			<TD colspan="2" >' . $value['guideName'] . '</TD><td>
 			<input name="gsLastTraining_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td><td>
+			</td>
+			<td>
 			<input name="gsTrainedAndWorking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td>
 			<input type="hidden"  name="gsguideCode_' . $counter . '" id="gsguideCode_' . $counter . '" value="' . $value['guideCode'] . '" />
@@ -1961,7 +1962,10 @@ class  MY_Controller  extends  CI_Controller {
 			$counter++;
 			$this -> mchTrainingGuidelineSection .= '<tr>
 			<TD colspan="2" >' . $value['guideName'] . '</TD><td>
-			<input name="gsLastTraining_' . $counter . '" type="text" size="10" class="cloned numbers"/>
+			<input name="gstrainedbefore2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
+			</td>
+			<td>
+			<input name="gstrainedafter2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td><td>
 			<input name="gsTrainedAndWorking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td>

@@ -152,7 +152,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommoditySupplierNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();
@@ -168,7 +168,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllSources($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierCode ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();

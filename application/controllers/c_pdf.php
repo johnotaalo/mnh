@@ -783,6 +783,7 @@ class C_Pdf extends MY_Controller {
 
 	public function get_mch_form() {
 		$this -> combined_form .= ' 
+
 		<p style="display:true" class="message success">
 	SECTION 1 of 7: FACILITY INFORMATION
 </p>
@@ -900,12 +901,13 @@ class C_Pdf extends MY_Controller {
 	<table class="centre">
 		<thead>
 			<tr>
-				<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+				<th colspan="5"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
 			</tr>
 			<tr>
 
 				<th colspan ="2" style="text-align:left"> TRAININGS</th>
-				<th style="text-align:left">Number Trained in the Last 2 Years</th>
+				<th style="text-align:left">Number Trained before 2010</th>
+				<th style="text-align:left">Number Trained after 2010</th>
 				<th colspan ="2" style="text-align:left">
 				<div style="width: 500px" >
 					How Many Of The Staff Members
@@ -952,6 +954,7 @@ class C_Pdf extends MY_Controller {
 		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
 	</table>  
+	<p style="margin-top:100px"></p>
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -1109,14 +1112,14 @@ class C_Pdf extends MY_Controller {
 				<td style ="text-align:center;">
 				<input type="text" id="dnmarch_13" name="dnmarch_13" size="8"class="cloned numbers"/>
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnapril_13" name="dnapril_13" size="8"class="cloned numbers"/>
+				<td style ="text-align:center;background:red">
+				<input type="text" id="dnapril_13" name="dnapril_13" size="8"class="cloned numbers not-read"/>
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
+				<td style ="text-align:center;background:red">
+				<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers not-read" />
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
+				<td style ="text-align:center;background:red">
+				<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers not-read" disabled/>
 				</td>
 
 			</tr>
@@ -1124,14 +1127,14 @@ class C_Pdf extends MY_Controller {
 				<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 			</tr>
 			<tr>
-				<th>' . (date('Y')) . '</th>
-				<td style ="text-align:center;">
-				<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" />
-				<td style ="text-align:center;">
-				<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/>
+				<th>' . 2013 . '</th>
+				<td style ="text-align:center;background:red">
+				<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers not-read" />
+				<td style ="text-align:center;background:red">
+				<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers not-read" disabled/>
 				</td>
-				<td  style ="text-align:center;">
-				<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled/>
+				<td  style ="text-align:center;background:red">
+				<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers not-read" disabled/>
 				</td>
 				<td style ="text-align:center;">
 				<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled/>
@@ -1149,8 +1152,9 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 
 			<thead>
+			<tr>
 				<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
-
+			</tr>
 				<tr>
 
 					<th  rowspan="2" style="width:35%">TREATMENT</th>
@@ -1190,7 +1194,7 @@ class C_Pdf extends MY_Controller {
 			' . $this -> ortCornerAspectsSectionPDF . '
 		</table>
 
-		
+		<p style="margin-top:200px"></p>
 		<table  class="centre" >
 			<thead>
 				<tr>
@@ -1248,7 +1252,7 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesMCHSectionPDF . '
 		</table>
-		<p style="display:true;margin-top:200px" class="message success">
+		<p style="display:true" class="message success">
 			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
 		</p>
 		<table  class="centre" >
@@ -1308,6 +1312,9 @@ font: bold 100% sans-serif;}
 text-align: center;
 background: #91c5d4;
 }
+.not-read{
+	background:#aaa;
+}
 		</style>
 		');
 
@@ -1320,14 +1327,14 @@ background: #91c5d4;
 			case 'mnh' :
 				$html = $this -> get_mnh_form();
 				$this -> mpdf -> SetTitle('MNH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<em>MNH Assessment Tool</em>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em>Date : October 2013 - March 2014</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
 				break;
 			case 'mch' :
 				$html = $this -> get_mch_form();
 				$this -> mpdf -> SetTitle('CH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<em>CH Assessment Tool</em>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em>Date : October 2013 - March 2014</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>CH Assessment Tool</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'CH Assessment Tool' . ".pdf";
