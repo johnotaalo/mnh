@@ -444,7 +444,7 @@ class  MY_Controller  extends  CI_Controller {
 	/**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
 	 * */
 	public function createMCHOrtCommodityAvailabilitySection() {
-		$this -> data_found = $this -> m_mch_survey -> getcommodityNames();
+		$this -> data_found = $this -> m_mch_survey -> getCommodityNames();
 		//var_dump($this->data_found);die;
 		$counter = 0;
 		$supplier_names = $this -> selectMCHCommoditySuppliers;

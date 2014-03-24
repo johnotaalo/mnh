@@ -37,7 +37,7 @@ class M_MCH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getCommodityNames() {
-		$this -> commodityList = $this -> getAllCommodityNames('mch');
+		$this -> commodityList = $this -> getAllCommodityNames('ch');
 		//var_dump($this->commodityList);die;
 		return $this -> commodityList;
 	}
@@ -51,7 +51,7 @@ class M_MCH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getOtherSupplierNames() {
-		$this -> supplierList = $this -> getAllCommoditySupplierNames('mch');
+		$this -> supplierList = $this -> getAllCommoditySupplierNames('ch');
 		//var_dump($this->supplierList);die;
 		return $this -> supplierList;
 	}
@@ -65,7 +65,7 @@ class M_MCH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getTrainingGuidelines() {
-		$this -> trainingGuidelinesList = $this -> getAllTrainingGuidelines('mch');
+		$this -> trainingGuidelinesList = $this -> getAllTrainingGuidelines('ch');
 		//var_dump($this->trainingGuidelinesList);die;
 		return $this -> trainingGuidelinesList;
 	}
@@ -77,7 +77,7 @@ class M_MCH_Survey  extends MY_Model {
 	}
 
 	public function getSupplyNames() {
-		$this -> suppliesList = $this -> getAllSupplyNames('mch');
+		$this -> suppliesList = $this -> getAllSupplyNames('ch');
 		//var_dump($this->suppliesList);die;
 		return $this -> suppliesList;
 	}
