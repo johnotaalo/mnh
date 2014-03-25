@@ -262,13 +262,15 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_community_strategies();
+			$this -> theForm = new \models\Entities\CommunityStrategies();
 			//create an object of the model
 
-			$this -> theForm -> setStrategyID($this -> elements[$i]['mchCommunityStrategyQCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			//$this -> theForm -> setCsResponse($this -> elements[$i]['mchCommunityStrategyQCode']);
+			$this -> theForm -> setStratId($this -> elements[$i]['mchCommunityStrategyQCode']);
+			$this -> theForm -> setFacId($this -> elements[$i]['fCode']);
+			$this -> theForm -> setssId($this -> session -> userdata(1));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setcs_response($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setcs_response(-1);
+			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setCsresponse($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setCsresponse(-1);
 			$this -> theForm -> setCreatedAt(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
@@ -1601,7 +1603,7 @@ class M_MCH_Survey  extends MY_Model {
 					//print var_dump($this->section);
 
 					//insert log entry if new, else update the existing one
-					if ($this -> sectionExists == false) {
+					/*if ($this -> sectionExists == false) {
 						if ($this -> updateFacilityInfo() == true && $this -> addMchCommunityStrategyInfo() == true) {//Defined in MY_Model
 							$this -> writeAssessmentTrackerLog();
 
@@ -1613,7 +1615,7 @@ class M_MCH_Survey  extends MY_Model {
 						//die('Entry exsits');
 						return $this -> response = 'true';
 					}
-					//return $this -> response = 'true';
+					//return $this -> response = 'true';*/
 					break;
 				case 'section-2':
 				 //check if entry exists
