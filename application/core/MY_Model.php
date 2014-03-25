@@ -644,7 +644,7 @@ class  MY_Model  extends  CI_Model {
 	//check if tracker entry has already been done
 	public function sectionEntryExists($mfc, $section, $survey) {
 		try {
-			$this -> section = $this -> em -> getRepository('models\Entities\e_assessment_tracker') -> findOneBy(array('facilityCode' => $mfc, 'trackerSection' => $section, 'survey' => $survey));
+			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey));
 			if ($this -> section) {
 				$this -> sectionExists = true;
 			}
@@ -821,28 +821,28 @@ class  MY_Model  extends  CI_Model {
 		//check if entry exists
 		$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-		//print var_dump($this->section);
+		print var_dump($this->section);
 
 		//insert log entry if new, else update the existing one
 		if ($this -> sectionExists == false) {
 			//die('New entry, enter new one');
-			$this -> theForm = new \models\Entities\e_assessment_tracker();
+			$this -> theForm = new \models\Entities\AssessmentTracker();
 			//create an object of the model
-			$this -> theForm -> setTrackerSection($this -> input -> post('step_name', TRUE));
-			$this -> theForm -> setSurvey($this -> session -> userdata('survey'));
+			$this -> theForm -> setAstSection($this -> input -> post('step_name', TRUE));
+			$this -> theForm -> setAstSurvey($this -> session -> userdata('survey'));
 			//obtain facility code from current survey session val
-			$this -> theForm -> setLastActivity(new DateTime());
+			$this -> theForm -> setAstLastActivity(new DateTime());
 			/*timestamp option*/
 			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
 			//obtain facility code from current temp session val
 		} else {
 			// die('Update log');
 			try {
-				$this -> theForm = $this -> em -> getRepository('models\Entities\e_assessment_tracker') -> findOneBy(array('facilityCode' => $this -> session -> userdata('fCode'), 'trackerSection' => $this -> input -> post('step_name', TRUE), 'survey' => $this -> session -> userdata('survey')));
+				$this -> theForm = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $this -> session -> userdata('fCode'), 'astSection' => $this -> input -> post('step_name', TRUE), 'astSurvey' => $this -> session -> userdata('survey')));
 
 			} catch(exception $ex) {
 				//ignore
-				//die($ex->getMessage());
+				die($ex->getMessage());
 			}
 		}
 

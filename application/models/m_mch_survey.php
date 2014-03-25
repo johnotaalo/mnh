@@ -1603,7 +1603,7 @@ class M_MCH_Survey  extends MY_Model {
 					//print var_dump($this->section);
 
 					//insert log entry if new, else update the existing one
-					/*if ($this -> sectionExists == false) {
+					if ($this -> sectionExists == false) {
 						if ($this -> updateFacilityInfo() == true && $this -> addMchCommunityStrategyInfo() == true) {//Defined in MY_Model
 							$this -> writeAssessmentTrackerLog();
 
@@ -1615,7 +1615,7 @@ class M_MCH_Survey  extends MY_Model {
 						//die('Entry exsits');
 						return $this -> response = 'true';
 					}
-					//return $this -> response = 'true';*/
+					//return $this -> response = 'true';
 					break;
 				case 'section-2':
 				 //check if entry exists
