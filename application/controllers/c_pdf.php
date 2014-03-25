@@ -1327,14 +1327,14 @@ background: #91c5d4;
 			case 'mnh' :
 				$html = $this -> get_mnh_form();
 				$this -> mpdf -> SetTitle('MNH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em>Date : October 2013 - March 2014</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
 				break;
 			case 'mch' :
 				$html = $this -> get_mch_form();
 				$this -> mpdf -> SetTitle('CH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em>Date : October 2013 - March 2014</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>CH Assessment Tool</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'CH Assessment Tool' . ".pdf";

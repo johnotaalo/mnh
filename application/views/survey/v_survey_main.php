@@ -144,37 +144,38 @@ $mfCode = $this -> session -> userdata('fCode');
 						data:"fcode="+fcode,
 						success: function(data){
 						var info = data.rData;
+						//print(info);
 						$.each(info , function(i,facility) {
 						//render found data
 						//$("#fac_name").val(facility.fac_name).prop('disabled', true);
-						$("#facilityName").text(facility.fac_name);
-						$('#facilityMFLCode').val(facility.fac_mfl);
-						$('#facilityHName').val(facility.fac_name);
+						$("#facilityName").text(facility.facName);
+						$('#facilityMFLCode').val(facility.facMfl);
+						$('#facilityHName').val(facility.facHName);
 						
 						//$("#facilityType").val(facility.facilityType);
-  						$("#facilityLevel").val(facility.facilityLevel);
-  						$("#facilityOwnedBy").val(facility.facilityOwnedBy);
+  						$("#facilityLevel").val(facility.facLevel);
+  						$("#facilityOwnedBy").val(facility.facOwnership);
 						//$("#facilityDistrict").val(facility.facilityDistrict);
 						//$("#facilityCounty").val(facility.facilityCounty);
 						
-						$("#facilityType option").filter(function() {return $(this).text() == facility.facilityType;}).first().prop("selected", true);
-  						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facilityLevel;}).first().prop("selected", true);
-  						$("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facilityOwnedBy;}).first().prop("selected", true);
-						$("#facilityDistrict option").filter(function() {return $(this).text() == facility.facilityDistrict;}).first().prop("selected", true);
-						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facilityCounty;}).first().prop("selected", true);
+						$("#facilityType option").filter(function() {return $(this).text() == facility.facType;}).first().prop("selected", true);
+  						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facLevel;}).first().prop("selected", true);
+  						$("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facOwnership;}).first().prop("selected", true);
+						$("#facilityDistrict option").filter(function() {return $(this).text() == facility.facDistrict;}).first().prop("selected", true);
+						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facCounty;}).first().prop("selected", true);
 						
 						
-						$("#facilityInchargename").val(facility.facilityInchargeContactPerson);
-						$("#facilityInchargemobile").val(facility.facilityInchargeTelephone);
-						$("#facilityInchargeemail").val(facility.facilityInchargeEmail);
+						$("#facilityInchargename").val(facility.facInchargeContactPerson);
+						$("#facilityInchargemobile").val(facility.facInchargeTelephone);
+						$("#facilityInchargeemail").val(facility.facInchargeEmail);
 						
-						$("#facilityMchname").val(facility.facilityMCHContactPerson);
-						$("#facilityMchmobile").val(facility.facilityMCHTelephone);
-						$("#facilityMchemail").val(facility.facilityMCHEmail);
+						$("#facilityMchname").val(facility.facMCHContactPerson);
+						$("#facilityMchmobile").val(facility.facMCHTelephone);
+						$("#facilityMchemail").val(facility.facMCHEmail);
 						
-						$("#facilityMaternityname").val(facility.facilityMaternityContactPerson);
-						$("#facilityMaternitymobile").val(facility.facilityMaternityTelephone);
-						$("#facilityMaternityemail").val(facility.facilityMaternityEmail);
+						$("#facilityMaternityname").val(facility.facyMaternityContactPerson);
+						$("#facilityMaternitymobile").val(facility.facMaternityTelephone);
+						$("#facilityMaternityemail").val(facility.facMaternityEmail);
 					
 						//}
 						});
