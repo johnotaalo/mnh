@@ -1322,7 +1322,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 		<tr>
-		<td>' . (date('Y')) . '</td>
+		<td>' . 2013 . '</td>
 		<td style ="text-align:center;">
 			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" />
 			<td style ="text-align:center;">
