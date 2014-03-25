@@ -1,4 +1,5 @@
 function startSurvey(base_url, survey) {
+
 	/**
 	 * variables
 	 */
@@ -54,7 +55,7 @@ function startSurvey(base_url, survey) {
 			onload_queue[i]();
 		}
 		onload_queue = null;
-	}; /*end of domLoaded*/
+	} /*end of domLoaded*/
 
 	/*-----------------------------------------------------------------------------------------------------------*/
 
@@ -80,11 +81,11 @@ function startSurvey(base_url, survey) {
 		var scripts = [base_url + 'js/js_ajax_load.js'];
 
 		for (i = 0; i < scripts.length; i++) {
-			loadGlobalJS(scripts[i], function() {});
+			loadGlobalJS(scripts[i]);
 		}
 		form_id = '#' + $(".form-container").find('form').attr('id');
 
-	};
+	}
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 
@@ -103,12 +104,12 @@ function startSurvey(base_url, survey) {
 			fcode = link_id;
 
 			//alert(link_id);
-			if (link_id)
+			if (link_id){
 				if (survey == 'mnh') {
-					$(".form-container").load(base_url + 'c_load/get_mnh_form')
+					$(".form-container").load(base_url + 'c_load/get_mnh_form');
 				} else {
-					$(".form-container").load(base_url + 'c_load/get_mch_form')
-
+					$(".form-container").load(base_url + 'c_load/get_mch_form');
+}
 					//delegate events
 					//if(loaded==false)
 					//include remote scripts
@@ -117,7 +118,8 @@ function startSurvey(base_url, survey) {
 					break_form_to_steps(form_id);
 					select_option_changed();
 
-				}
+				
+			}
 		});
 	}); /*end of which link was clicked*/
 	/*----------------------------------------------------------------------------------------------------------------*/
@@ -210,7 +212,7 @@ function startSurvey(base_url, survey) {
 				cb_id = '#' + $(this).attr('id');
 
 				//alert(cb_id);
-				cb_no = cb_id.substr(cb_id.indexOf('_') + 1, (cb_id.length)) //for the numerical part of the id
+				cb_no = cb_id.substr(cb_id.indexOf('_') + 1, (cb_id.length)); //for the numerical part of the id
 
 				//substr(id.indexOf('_')+1,id.length)
 				//cb_id=cb_id.substr(cb_id.indexOf('#'),(cb_id.indexOf('_')))//for the trimmed id
@@ -349,7 +351,7 @@ function startSurvey(base_url, survey) {
 
 		$(form_id).find(':radio').on('change', function() {
 			r_id = '#' + $(this).attr('name');
-			r_no = r_id.substr(r_id.indexOf('_') + 1, (r_id.length)) //for the numerical part of the name
+			r_no = r_id.substr(r_id.indexOf('_') + 1, (r_id.length)); //for the numerical part of the name
 			if ($(this).val() == 'Never Available') {
 				$('#cqNumberOfUnits_' + r_no).val(0);
 				$('#cqExpiryDate_' + r_no).val('n/a');
@@ -433,19 +435,21 @@ function startSurvey(base_url, survey) {
 		$(form_id).find('input,select,radio,form').removeClass('ui-helper-reset ui-state-default ui-helper-reset ui-wizard-content');
 
 		var remoteAjax = {}; // empty options object
+		the_url = '';
+		if (survey == 'mnh') {
+			the_url = base_url + "submit/c_form/complete_mnh_survey"; // the url which stores the stuff in db for each step
 
-		$(form_id + ".step").each(function() { // for each step in the wizard, add an option to the remoteAjax object...
+		} else {
+			the_url = base_url + "submit/c_form/complete_ch_survey"; // the url which stores the stuff in db for each step
+
+		} // for each step in the wizard, add an option to the remoteAjax object...
+		$(form_id + ".step").each(function() {
+
 			remoteAjax[$(this).attr("id")] = {
-				if (survey == 'mnh') {
-					url: base_url + "submit/c_form/complete_mnh_survey", // the url which stores the stuff in db for each step
-
-				} else {
-					url: base_url + "submit/c_form/complete_ch_survey", // the url which stores the stuff in db for each step
-
-				}
+				url: the_url,
 				dataType: 'json',
 				beforeSubmit: function(data) {
-					$("#data").html("<div class='error ui-autocomplete-loading' style='width:auto;height:25px'>Processing...</div>")
+					$("#data").html("<div class='error ui-autocomplete-loading' style='width:auto;height:25px'>Processing...</div>");
 				},
 				//beforeSubmit: function(data){$("#data").html("Saving the previous section's response")},
 				success: function(data) {
@@ -461,7 +465,7 @@ function startSurvey(base_url, survey) {
 									//$(form_id).formwizard('show','No');
 									// console.log($(form_id).formwizard('state'));
 									$(".form-container").load(base_url + 'c_load/survey_complete', function() {
-										window.location = base_url+'/'+survey+'/assessment';
+										window.location = base_url + '/' + survey + '/assessment';
 									});
 
 								}
@@ -472,8 +476,7 @@ function startSurvey(base_url, survey) {
 									//$(form_id).formwizard('show','No');
 									// console.log($(form_id).formwizard('state'));
 									$(".form-container").load(base_url + 'c_load/survey_complete', function() {
-										window.location = 'base_url.$this -> session -> userdata('
-										survey ');?>/assessment';
+										window.location = base_url + '/' + survey + '/assessment';
 									});
 
 								}
@@ -537,7 +540,7 @@ function startSurvey(base_url, survey) {
 
 		//check if deliveries are conducted		
 		$('#facDeliveriesDone').change(function() {
-			if ($(this).val() == "Yes" || $(this).val() == "") {
+			if ($(this).val() == "Yes" || $(this).val() === "") {
 				//show next section, hide this section
 				$('#delivery_centre').find('input').prop('disabled', true);
 				$('#delivery_centre').hide();
@@ -559,43 +562,43 @@ function startSurvey(base_url, survey) {
 				var el = $(this),
 					offset = el.offset(),
 					scrollTop = $(window).scrollTop(),
-					floatingHeader = $(".floatingHeader", this)
+					floatingHeader = $(".floatingHeader", this);
 
-					if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
-						floatingHeader.css({
-							"visibility": "visible"
-						});
-					} else {
-						floatingHeader.css({
-							"visibility": "hidden"
-						});
-					};
+				if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
+					floatingHeader.css({
+						"visibility": "visible"
+					});
+				} else {
+					floatingHeader.css({
+						"visibility": "hidden"
+					});
+				}
 			});
 		}
 
 		$(function() {
 
-			var clonedHeaderRow;
+				var clonedHeaderRow;
 
-			$(".persist-area").each(function() {
-				clonedHeaderRow = $(".persist-header", this);
-				clonedHeaderRow
-					.before(clonedHeaderRow.clone())
-					.css("width", clonedHeaderRow.width())
-					.addClass("floatingHeader");
+				$(".persist-area").each(function() {
+					clonedHeaderRow = $(".persist-header", this);
+					clonedHeaderRow
+						.before(clonedHeaderRow.clone())
+						.css("width", clonedHeaderRow.width())
+						.addClass("floatingHeader");
+
+				});
+
+				$(window)
+					.scroll(UpdateTableHeaders())
+					.trigger("scroll");
 
 			});
 
-			$(window)
-				.scroll(UpdateTableHeaders())
-				.trigger("scroll");
-
-		});
-
 		//$(form_id).formwizard('show','section-2');
+	}
+	//--end of function break_form_to_steps(form_id)
+}
 
-	} //--end of function break_form_to_steps(form_id)
 
-
-
-	/*---------------------end form wizard functions----------------------------------------------------------------*/
+/*---------------------end form wizard functions----------------------------------------------------------------*/

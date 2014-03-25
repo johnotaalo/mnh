@@ -16,7 +16,7 @@
 	 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css" media="screen" />
 	 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/bootstrap.css" media="screen" />
 	 
-	 <script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>
+	 <script src="<?php echo base_url()?>js/jquery-1.8.2.min.js"></script>
 	 <script src="<?php echo base_url()?>assets/bootstrap/js/bootstrap.js"></script>
 	
 		<script src="<?php echo base_url()?>js/highcharts.js"></script>
