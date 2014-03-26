@@ -94,10 +94,10 @@ class M_MCH_Survey  extends MY_Model {
 		return $this -> treatmentList;
 	}
 
-	private function addMchGuidelinesAvailabilityInfo() {
+	private function addQuestionsInfo() {
 		$count = $finalCount = 1;
 		foreach ($this -> input -> post() as $key => $val) {//For every posted values
-			if (strpos($key, 'ortc') !== FALSE) {//select data for bemonc signal functions
+			if (strpos($key, 'questionC') !== FALSE) {//select data for bemonc signal functions
 				//we separate the attribute name from the number
 
 				$this -> frags = explode("_", $key);
@@ -114,7 +114,7 @@ class M_MCH_Survey  extends MY_Model {
 				//print 'ids: '.$this->id.'<br />';
 
 				//mark the end of 1 row...for record count
-				if ($this -> attr == "ortcAspectCode") {
+				if ($this -> attr == "questionCode") {
 					// print 'count at:'.$count.'<br />';
 
 					$finalCount = $count;
@@ -148,16 +148,19 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_questions_Log();
+			$this -> theForm = new \models\Entities\logQuestions();
 			//create an object of the model
 
 			//$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['ortcAspect'])) ? $this -> theForm -> setResponse($this -> elements[$i]['ortcAspect']) : $this -> theForm -> setResponse("N/A");
-			(isset($this -> elements[$i]['ortcGuidesCount']) || $this -> elements[$i]['ortcGuidesCount'] != '') ? $this -> theForm -> setNoOfGuides($this -> elements[$i]['ortcGuidesCount']) : $this -> theForm -> setNoOfGuides(-1);
-			$this -> theForm -> setIndicatorID($this -> elements[$i]['ortcAspectCode']);
-			$this -> theForm -> setCreatedAt(new DateTime());
+			(array_key_exists('questionResponse', $this -> elements[$i])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['questionResponse']) : $this -> theForm -> setLqResponse("n/a");
+			(array_key_exists('questionCount', $this -> elements[$i])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['questionCount']) : $this -> theForm -> setLqResponseCount(-1);
+			(array_key_exists('questionReason', $this -> elements[$i])) ? $this -> theForm -> setLqReason($this -> elements[$i]['questionReason']) : $this -> theForm -> setLqReason('n/a');
+			(array_key_exists('questionSpecified', $this -> elements[$i])) ? $this -> theForm -> setLqSpecifiedOrFollowUp($this -> elements[$i]['questionSpecified']) : $this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['questionCode']);
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -270,6 +273,7 @@ class M_MCH_Survey  extends MY_Model {
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setCsResponse($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setCsResponse(-1);
 			$this -> theForm -> setCsCreated(new DateTime());
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -347,7 +351,7 @@ class M_MCH_Survey  extends MY_Model {
 				//print 'ids: '.$this->id.'<br />';
 
 				//mark the end of 1 row...for record count
-				if ($this -> attr == "gsGuidelineCode") {
+				if ($this -> attr == "gsguideCode") {
 					// print 'count at:'.$count.'<br />';
 
 					$finalCount = $count;
@@ -381,15 +385,17 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\Guidelines_Training();
+			$this -> theForm = new \models\Entities\TrainingGuidelines();
 			//create an object of the model
 
-			$this -> theForm -> setGuidelineCode($this -> elements[$i]['gsGuidelineCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setGuideCode($this -> elements[$i]['gsguideCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['gsLastTraining'])) ? $this -> theForm -> setLastTrained($this -> elements[$i]['gsLastTraining']) : $this -> theForm -> setLastTrained(-1);
-			(isset($this -> elements[$i]['gsTrainedAndWorking'])) ? $this -> theForm -> setTrainedAndWorking($this -> elements[$i]['gsTrainedAndWorking']) : $this -> theForm -> setLastTrained(-1);
-			$this -> theForm -> setCreatedAt(new DateTime());
+			(isset($this -> elements[$i]['gstrainedbefore2010'])) ? $this -> theForm -> setTgTrainedBefore2010($this -> elements[$i]['gstrainedbefore2010']) : $this -> theForm -> setTgTrainedBefore2010(-1);
+			(isset($this -> elements[$i]['gstrainedafter2010'])) ? $this -> theForm -> setTgTrainedAfter2010($this -> elements[$i]['gstrainedafter2010']) : $this -> theForm -> setTgTrainedAfter2010(-1);
+			(isset($this -> elements[$i]['gsworking'])) ? $this -> theForm -> setTgWorking($this -> elements[$i]['gsworking']) : $this -> theForm -> setTgWorking(-1);
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
+			$this -> theForm -> setTgCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -793,14 +799,15 @@ class M_MCH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_MCH_Indicator_Log();
+			$this -> theForm = new \models\Entities\LogIndicators();
 			//create an object of the model
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mchIndicator'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mchIndicator']) : $this -> theForm -> setResponse("N/A");
-			$this -> theForm -> setIndicatorID($this -> elements[$i]['mchIndicatorCode']);
-			$this -> theForm -> setCreatedAt(new DateTime());
+			(isset($this -> elements[$i]['mchIndicator'])) ? $this -> theForm -> setLiResponse($this -> elements[$i]['mchIndicator']) : $this -> theForm -> setLiResponse("N/A");
+			$this -> theForm -> setIndicatorCode($this -> elements[$i]['mchIndicatorCode']);
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
+			$this -> theForm -> setLiCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1602,7 +1609,7 @@ class M_MCH_Survey  extends MY_Model {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						if ($this -> addMchCommunityStrategyInfo() == true) {//Defined in MY_Model
+						if (/*$this->updateFacilityInfo()	==	true &&*/ $this -> addMchCommunityStrategyInfo() == true) {//Defined in MY_Model
 							$this -> writeAssessmentTrackerLog();
 
 							return $this -> response = 'true';
@@ -1615,7 +1622,7 @@ class M_MCH_Survey  extends MY_Model {
 					}
 					//return $this -> response = 'true';
 					break;
-				/*case 'section-2':
+				case 'section-2':
 				 //check if entry exists
 				 $this->section=$this->sectionEntryExists($this->session->userdata('facilityMFL'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 
@@ -1623,7 +1630,7 @@ class M_MCH_Survey  extends MY_Model {
 
 				 //insert log entry if new, else update the existing one
 				 if($this->sectionExists==false){
-				 if($this->addMchGuidelinesAvailabilityInfo()==true && $this->addGuidelinesStaffInfo()==true && $this->addCommodityQuantityAvailabilityInfo()==true && $this->addBundling()==true){//defined in this model
+				 if($this->addQuestionsInfo()==true && $this->addGuidelinesStaffInfo()==true){ //&& $this->addCommodityQuantityAvailabilityInfo()==true && $this->addBundling()==true){//defined in this model
 				 $this->writeAssessmentTrackerLog();
 				 return $this -> response = 'true';
 
@@ -1638,7 +1645,6 @@ class M_MCH_Survey  extends MY_Model {
 				 case 'section-3':
 				 //check if entry exists
 				 $this->section=$this->sectionEntryExists($this->session->userdata('facilityMFL'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
-
 				 //print var_dump($this->section);
 
 				 //insert log entry if new, else update the existing one
@@ -1673,7 +1679,7 @@ class M_MCH_Survey  extends MY_Model {
 				 return $this -> response = 'true';
 				 }
 				 break;
-				 case 'section-5':
+				 /*case 'section-5':
 				 //check if entry exists
 				 $this->section=$this->sectionEntryExists($this->session->userdata('facilityMFL'),$this->input->post('step_name',TRUE),$this->session->userdata('survey'));
 

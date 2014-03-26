@@ -45,9 +45,9 @@ class LogIndicators
     /**
      * @var string
      *
-     * @Column(name="fac_id", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
-    private $facId;
+    private $facMfl;
 
     /**
      * @var integer
@@ -142,9 +142,9 @@ class LogIndicators
      * @param string $facId
      * @return LogIndicators
      */
-    public function setFacId($facId)
+    public function setFacMfl($facMfl)
     {
-        $this->facId = $facId;
+        $this->facMfl = $facMfl;
     
         return $this;
     }
@@ -154,9 +154,9 @@ class LogIndicators
      *
      * @return string 
      */
-    public function getFacId()
+    public function getFacMfl()
     {
-        return $this->facId;
+        return $this->facMfl;
     }
 
     /**

@@ -1606,15 +1606,15 @@ class  MY_Controller  extends  CI_Controller {
 			$this -> mchGuidelineAvailabilitySection .= '<tr>
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<select name="ortcAspect_' . $counter . '" id="ortcAspect_' . $counter . '" class="cloned is-guideline">
+			<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select>
 			</td>
-			<td><input type="text" name="ortcGuidesCount_' . $counter . '" id="ortcGuidesCount_' . $counter . '" size="6" class="numbers" disabled/></td>
-			<input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<td><input type="text" name="questionCount_' . $counter . '" id="questionCount_' . $counter . '" size="6" class="numbers" disabled/></td>
+			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 
 		}
@@ -1967,7 +1967,7 @@ class  MY_Controller  extends  CI_Controller {
 			<td>
 			<input name="gstrainedafter2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td><td>
-			<input name="gsTrainedAndWorking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
+			<input name="gsworking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td>
 			<input type="hidden"  name="gsguideCode_' . $counter . '" id="gsguideCode_' . $counter . '" value="' . $value['guideCode'] . '" />
 		</tr>';

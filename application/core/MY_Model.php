@@ -644,7 +644,7 @@ class  MY_Model  extends  CI_Model {
 	//check if tracker entry has already been done
 	public function sectionEntryExists($mfc, $section, $survey) {
 		try {
-			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey));
+			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey,'ssId'=>(int)$this->session->userdata('survey_status')));
 			if ($this -> section) {
 				$this -> sectionExists = true;
 			}
@@ -834,6 +834,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> theForm -> setAstLastActivity(new DateTime());
 			/*timestamp option*/
 			$this -> theForm -> setFacilitycode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
 			//obtain facility code from current temp session val
 		} else {
 			// die('Update log');
