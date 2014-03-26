@@ -38,16 +38,16 @@ class CommunityStrategies
     /**
      * @var string
      *
-     * @Column(name="strat_id", type="string", length=45, nullable=false)
+     * @Column(name="strategy_code", type="string", length=45, nullable=false)
      */
-    private $stratId;
+    private $strategyCode;
 
     /**
      * @var string
      *
-     * @Column(name="fac_ID", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
-    private $facId;
+    private $facMfl;
 
     /**
      * @var integer
@@ -114,49 +114,49 @@ class CommunityStrategies
     }
 
     /**
-     * Set stratId
+     * Set strategyCode
      *
-     * @param string $stratId
+     * @param string $strategyCode
      * @return CommunityStrategies
      */
-    public function setStratId($stratId)
+    public function setStrategyCode($strategyCode)
     {
-        $this->stratId = $stratId;
+        $this->strategyCode = $strategyCode;
     
         return $this;
     }
 
     /**
-     * Get stratId
+     * Get strategyCode
      *
      * @return string 
      */
-    public function getStratId()
+    public function getStrategyCode()
     {
-        return $this->stratId;
+        return $this->strategyCode;
     }
 
     /**
-     * Set facId
+     * Set facMfl
      *
-     * @param string $facId
+     * @param string $facMfl
      * @return CommunityStrategies
      */
-    public function setFacId($facId)
+    public function setFacMfl($facMfl)
     {
-        $this->facId = $facId;
+        $this->facMfl = $facMfl;
     
         return $this;
     }
 
     /**
-     * Get facId
+     * Get facMfl
      *
      * @return string 
      */
-    public function getFacId()
+    public function getFacMfl()
     {
-        return $this->facId;
+        return $this->facMfl;
     }
 
     /**

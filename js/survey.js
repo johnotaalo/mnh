@@ -91,9 +91,12 @@ function startSurvey(base_url, survey) {
 
 
 	//load 1st section of the assessment on page load
-	$(".form-container").load(base_url + 'c_load/get_facility_list ', function() {
-		// fcode=12864;
-		//loadGlobalScript();//renderFacilityInfo(fcode);
+	$(".form-container").load(base_url + 'c_load/get_facility_list ', function(response, status, xrc) {
+		$(".form-container").html(response);
+		console.log(form_id);
+		//alert(status);
+		// facilityMFL=12864;
+		//loadGlobalScript();//renderFacilityInfo(facilityMFL);
 
 		//so which link was clicked?
 		$('.action').on('click', function() {
@@ -101,39 +104,41 @@ function startSurvey(base_url, survey) {
 			link_id = link_id.substr(link_id.indexOf('#') + 1, link_id.length);
 			//linkSub=$(link_id).attr('class');
 			//linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
-			fcode = link_id;
+			facilityMFL = link_id;
 
 			//alert(link_id);
-			if (link_id){
+			if (link_id) 
 				if (survey == 'mnh') {
 					$(".form-container").load(base_url + 'c_load/get_mnh_form');
+					form_id = 'mnh_tool';
 				} else {
 					$(".form-container").load(base_url + 'c_load/get_mch_form');
-}
-					//delegate events
-					//if(loaded==false)
-					//include remote scripts
-					loadGlobalScript();
-					renderFacilityInfo(fcode);
-					break_form_to_steps(form_id);
-					select_option_changed();
+					form_id = 'mch_tool';
+				}
+				console.log(form_id);
+				//delegate events
+				//if(loaded==false)
+				//include remote scripts
+				loadGlobalScript();
+				renderFacilityInfo(facilityMFL);
+				break_form_to_steps(form_id);
+				select_option_changed();
 
-				
-			}
+
 		});
 	}); /*end of which link was clicked*/
 	/*----------------------------------------------------------------------------------------------------------------*/
 
 	/*-----------------------------------------------------------------------------------------------------------------*/
 	/*start of ajax data requests*/
-	function renderFacilityInfo(fcode) {
+	function renderFacilityInfo(facilityMFL) {
 		$.ajax({
 			type: "GET",
 
 			url: base_url + "c_load/getFacilityDetails",
 			dataType: "json",
 			cache: "true",
-			data: "fcode=" + fcode,
+			data: "facilityMFL=" + facilityMFL,
 			success: function(data) {
 				var info = data.rData;
 				//print(info);
@@ -578,22 +583,22 @@ function startSurvey(base_url, survey) {
 
 		$(function() {
 
-				var clonedHeaderRow;
+			var clonedHeaderRow;
 
-				$(".persist-area").each(function() {
-					clonedHeaderRow = $(".persist-header", this);
-					clonedHeaderRow
-						.before(clonedHeaderRow.clone())
-						.css("width", clonedHeaderRow.width())
-						.addClass("floatingHeader");
-
-				});
-
-				$(window)
-					.scroll(UpdateTableHeaders())
-					.trigger("scroll");
+			$(".persist-area").each(function() {
+				clonedHeaderRow = $(".persist-header", this);
+				clonedHeaderRow
+					.before(clonedHeaderRow.clone())
+					.css("width", clonedHeaderRow.width())
+					.addClass("floatingHeader");
 
 			});
+
+			$(window)
+				.scroll(UpdateTableHeaders())
+				.trigger("scroll");
+
+		});
 
 		//$(form_id).formwizard('show','section-2');
 	}

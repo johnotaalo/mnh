@@ -13,10 +13,10 @@ class C_Load extends MY_Controller {
 	public function getFacilityDetails() {
 		/*retrieve facility info if any*/
 		$this -> load -> model('m_mnh_survey');
-		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input -> get_post('fcode', TRUE))) == true) {
+		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input -> get_post('facilityMFL', TRUE))) == true) {
 			//retrieve existing data..else just load a blank form
 			//set facility code into the session
-			$new_data = array('fCode' => $this -> input -> get_post('fcode', TRUE));
+			$new_data = array('facilityMFL' => $this -> input -> get_post('facilityMFL', TRUE));
 			$this -> session -> set_userdata($new_data);
 			print $this -> m_mnh_survey -> formRecords;
 		}
@@ -53,6 +53,53 @@ class C_Load extends MY_Controller {
 			}
 
 	}
+	
+	/**
+	 * [startSurvey description]
+	 * @param  [type] $survey_type     [description]
+	 * @param  [type] $survey_category [description]
+	 * @param  [type] $fac_mfl         [description]
+	 * @param  [type] $survey_year     [description]
+	 * @return [type]                  [description]
+	 */
+	public function startSurvey($survey_type,$survey_category,$fac_mfl,$survey_year){
+		$result          =$this->db->get_where('survey_types',array('st_name'=>$survey_type));
+		$result          =$result->result_array();		
+		$survey_type     =$result[0]['st_id'];
+		
+		$result          =$this->db->get_where('survey_categories',array('sc_name'=>$survey_category));
+		$result          =$result->result_array();		
+		$survey_category =$result[0]['sc_id'];
+
+		$data  =array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl);
+		
+		$count =$this->checkifExists($data,'survey_status');
+		if($count==0){
+			$this->db->insert('survey_status',$data);	
+		}
+		
+		$result =$this->db->get_where('survey_status',array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl));
+		$result = $result->result_array();		
+		$ss_id  =$result[0]['ss_id'];
+		$this->session->set_userdata('survey_status',$ss_id);
+
+	}
+/**
+ * [checkifExists description]
+ * @param  [type] $data  [description]
+ * @param  [type] $table [description]
+ * @return [type]        [description]
+ */
+	public function checkifExists($data,$table) {
+		$this -> db -> like($data);
+		$this -> db -> from($table);
+		$count = $this -> db -> count_all_results();
+		return (int)$count;
+
+	}
+
+
+
 
 	public function suggest() {
 		$this -> load -> model('m_autocomplete');

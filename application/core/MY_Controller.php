@@ -743,7 +743,7 @@ class  MY_Controller  extends  CI_Controller {
 				<option value="No Challenge Experienced">7.No Challenge Experienced</option>
 
 			</select></td>
-			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfCode'] . '" />
+			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
 		</tr>';
 
 		}
@@ -776,7 +776,7 @@ class  MY_Controller  extends  CI_Controller {
 			6.Case never presented<input type="checkbox">
 			7.No Challenge Experienced<input type="checkbox">
 			</td>
-			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfCode'] . '" />
+			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
 		</tr>';
 
 		}

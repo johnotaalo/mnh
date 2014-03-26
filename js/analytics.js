@@ -11,7 +11,7 @@ function startAnalytics(base_url, county, survey) {
 
 	var countyClicked;
 
-	if (county == '') {
+	if (county === '') {
 		county = 'Unselected';
 	}
 	//alert(county);
@@ -23,7 +23,7 @@ function startAnalytics(base_url, county, survey) {
 	$('#reportingLabel').hide();
 	$('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey);
 	$('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey);
-	if (county != '' && county != 'Unselected') {
+	if (county !== '' && county != 'Unselected') {
 		$("select#county_select").find("option").filter(function(index) {
 			return county === $(this).text();
 		}).prop("selected", "selected");
@@ -38,7 +38,7 @@ function startAnalytics(base_url, county, survey) {
 		$('#reportingLabel').hide();
 		$('#reportingBar').empty();
 		$('#analytics-page').hide();
-		$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>')
+		$('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>');
 	}
 
 	$('#reporting-parent').show();
@@ -619,7 +619,7 @@ function startAnalytics(base_url, county, survey) {
 				currentChart = base_url + 'c_analytics/getNursesDeployed/';
 				appendToTitle = ' ';
 				currentDiv = '#graph_3';
-				extraStat='nur'
+				extraStat='nur';
 				$('span.statistic').text('Nurses Deployed');
 				$('#facility-statistics-parent').addClass('active');
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -1070,13 +1070,10 @@ function startAnalytics(base_url, county, survey) {
 	});
 
 	//Summary
-
-
-
 	$('#mnh-form').click(function() {
 		window.open(base_url + 'c_pdf/loadPDF/mnh');
 	});
 	$('#mch-form').click(function() {
 		window.open(base_url + 'c_pdf/loadPDF/mch');
 	});
-};
+}
