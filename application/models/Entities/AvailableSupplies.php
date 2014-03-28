@@ -59,7 +59,7 @@ class AvailableSupplies
     /**
      * @var string
      *
-     * @Column(name="supplies_code", type="string", length=11, nullable=false)
+     * @Column(name="supply_code", type="string", length=11, nullable=false)
      */
     private $supplyCode;
 

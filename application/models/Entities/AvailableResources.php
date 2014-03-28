@@ -52,7 +52,7 @@ class AvailableResources
     /**
      * @var string
      *
-     * @Column(name="equipment_code", type="string", length=11, nullable=false)
+     * @Column(name="eq_code", type="string", length=11, nullable=false)
      */
     private $equipmentCode;
 

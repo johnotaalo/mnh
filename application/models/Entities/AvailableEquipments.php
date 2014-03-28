@@ -66,9 +66,9 @@ class AvailableEquipments
     /**
      * @var string
      *
-     * @Column(name="fac_id", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
-    private $facId;
+    private $facMfl;
 
     /**
      * @var string
@@ -234,26 +234,26 @@ class AvailableEquipments
     }
 
     /**
-     * Set facId
+     * Set facMfl
      *
-     * @param string $facId
+     * @param string $facMfl
      * @return AvailableEquipments
      */
-    public function setFacId($facId)
+    public function setFacMfl($facMfl)
     {
-        $this->facId = $facId;
+        $this->facMfl = $facMfl;
     
         return $this;
     }
 
     /**
-     * Get facId
+     * Get facMfl
      *
      * @return string 
      */
-    public function getFacId()
+    public function getFacMfl()
     {
-        return $this->facId;
+        return $this->facMfl;
     }
 
     /**

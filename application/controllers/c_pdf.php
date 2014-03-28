@@ -975,7 +975,7 @@ class C_Pdf extends MY_Controller {
 			</div>
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
+			<th colspan="1">Available Quantities</th>
 			<th scope="col">
 			
 				Main Supplier
@@ -997,7 +997,6 @@ class C_Pdf extends MY_Controller {
 			<th>Other</th>
 			<th>Not Applicable</th>
 			<th>No. of Units</th>
-			<th>Expiry Date</th>
 			<th>Supplier</th>
 
 		</tr></thead>' . $this -> mchBundlingPDF . '

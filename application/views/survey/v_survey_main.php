@@ -592,7 +592,25 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 								   
 								});
 								 
+								 /*
+								 	Get Section
+								  */
 								//$(form_id).formwizard('show','section-2');
+								
+								the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL;
+								$.ajax({
+									type:'GET',
+									url:the_url,
+									dataType:'json',
+									beforeSend: function(){
+
+									},
+									success: function(data){
+										console.log(data);
+										(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
+										
+									}}
+								);
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			

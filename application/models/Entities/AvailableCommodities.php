@@ -73,16 +73,16 @@ class AvailableCommodities
     /**
      * @var string
      *
-     * @Column(name="supp_id", type="string", length=55, nullable=false)
+     * @Column(name="supplier_code", type="string", length=55, nullable=false)
      */
-    private $suppId;
+    private $supplierCode;
 
     /**
      * @var string
      *
-     * @Column(name="fac_id", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
-    private $facId;
+    private $facMfl;
 
     /**
      * @var integer
@@ -264,49 +264,49 @@ class AvailableCommodities
     }
 
     /**
-     * Set suppId
+     * Set supplierCode
      *
-     * @param string $suppId
+     * @param string $supplierCode
      * @return AvailableCommodities
      */
-    public function setSuppId($suppId)
+    public function setSupplierCode($supplierCode)
     {
-        $this->suppId = $suppId;
+        $this->supplierCode = $supplierCode;
     
         return $this;
     }
 
     /**
-     * Get suppId
+     * Get supplierCode
      *
      * @return string 
      */
-    public function getSuppId()
+    public function getSupplierCode()
     {
-        return $this->suppId;
+        return $this->supplierCode;
     }
 
     /**
-     * Set facId
+     * Set facMfl
      *
-     * @param string $facId
+     * @param string $facMfl
      * @return AvailableCommodities
      */
-    public function setFacId($facId)
+    public function setFacMfl($facMfl)
     {
-        $this->facId = $facId;
+        $this->facMfl = $facMfl;
     
         return $this;
     }
 
     /**
-     * Get facId
+     * Get facMfl
      *
      * @return string 
      */
-    public function getFacId()
+    public function getFacMfl()
     {
-        return $this->facId;
+        return $this->facMfl;
     }
 
     /**

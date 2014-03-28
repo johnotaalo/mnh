@@ -652,6 +652,7 @@ class  MY_Model  extends  CI_Model {
 			//ignore
 			//die($ex->getMessage());
 		}
+		echo  $this -> section;
 		return $this -> section;
 
 	}/*close sectionEntryExists($mfc,$section,$survey)*/

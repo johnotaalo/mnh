@@ -27,7 +27,19 @@ class LogMorbidity
      * @Column(name="createdAt", type="datetime", nullable=false)
      */
     private $createdat;
+ /**
+     * @var string
+     *
+     * @Column(name="month", type="string", length=45, nullable=true)
+     */
+    private $month;
 
+    /**
+     * @var string
+     *
+     * @Column(name="year", type="string", length=45, nullable=true)
+     */
+    private $year;
     /**
      * @var string
      *
@@ -38,9 +50,15 @@ class LogMorbidity
     /**
      * @var integer
      *
-     * @Column(name="ss_id", type="integer", nullable=true)
+     * @Column(name="ss_id", type="integer",length=11, nullable=true)
      */
     private $ssId;
+    /**
+     * @var integer
+     *
+     * @Column(name="lm_number", type="integer",length=11, nullable=true)
+     */
+    private $lmNumber;
 
 
     /**
@@ -74,6 +92,51 @@ class LogMorbidity
     public function getCreatedat()
     {
         return $this->createdat;
+    }
+/**
+     * Set month
+     *
+     * @param string $month
+     * @return LogMorbidity
+     */
+    public function setMonth($month)
+    {
+        $this->month = $month;
+    
+        return $this;
+    }
+
+    /**
+     * Get month
+     *
+     * @return string 
+     */
+    public function getMonth()
+    {
+        return $this->month;
+    }
+
+    /**
+     * Set year
+     *
+     * @param string $year
+     * @return LogMorbidity
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return string 
+     */
+    public function getYear()
+    {
+        return $this->year;
     }
 
     /**
@@ -120,5 +183,27 @@ class LogMorbidity
     public function getSsId()
     {
         return $this->ssId;
+    }
+        /**
+     * Set lmNumber
+     *
+     * @param integer $lmNumber
+     * @return LogMorbidity
+     */
+    public function setLmNumber($lmNumber)
+    {
+        $this->lmNumber = $lmNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get lmNumber
+     *
+     * @return integer 
+     */
+    public function getLmNumber()
+    {
+        return $this->lmNumber;
     }
 }
