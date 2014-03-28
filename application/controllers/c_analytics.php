@@ -1763,7 +1763,7 @@ $finalYes =$finalNo =$category=array();
 		$datas['container'] = 'chart_one';
 
 		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
+		$datas['chartMargin'] = 100;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = ' ';
 		//$datas['chartTitle'] = 'Guidelines';

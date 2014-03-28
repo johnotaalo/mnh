@@ -3235,7 +3235,18 @@ WHERE
     tracker.ownership_total, tracker.facilityOwner
 FROM(SELECT 
     COUNT(fac_ownership) as ownership_total,
-    fac_ownership as facilityOwner,
+    (CASE
+                WHEN fac_ownership = "Private Practice - General Practitioner" THEN "Private"
+                WHEN fac_ownership = "Private Practice - Nurse / Midwife" THEN "Private"
+                WHEN fac_ownership = "Private Enterprise (Institution)" THEN "Private"
+                WHEN fac_ownership = "Private Practice - Clinical Officer" THEN "Private"
+                WHEN fac_ownership = "Christian Health Association of Kenya" THEN "Faith Based Organisation"
+                WHEN fac_ownership = "Other Faith Based" THEN "Faith Based Organisation"
+                WHEN fac_ownership = "FBO" THEN "Faith Based Organisation"
+                WHEN fac_ownership = "Kenya Episcopal Conference-Catholic Secretariat" THEN "Faith Based Organisation"
+                WHEN fac_ownership = "GOK" THEN "Ministry of Health"
+                ELSE fac_ownership
+            END) as facilityOwner,
     fac_county as countyName
 FROM
     facilities f
