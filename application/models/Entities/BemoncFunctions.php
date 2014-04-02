@@ -47,7 +47,7 @@ class BemoncFunctions
      *
      * @Column(name="sf_code", type="string", length=11, nullable=false)
      */
-    private $sfCode;
+    private $sfacilityMFL;
 
     /**
      * @var string
@@ -144,26 +144,26 @@ class BemoncFunctions
     }
 
     /**
-     * Set sfCode
+     * Set sfacilityMFL
      *
-     * @param string $sfCode
+     * @param string $sfacilityMFL
      * @return BemoncFunctions
      */
-    public function setSfCode($sfCode)
+    public function setSfacilityMFL($sfacilityMFL)
     {
-        $this->sfCode = $sfCode;
+        $this->sfacilityMFL = $sfacilityMFL;
     
         return $this;
     }
 
     /**
-     * Get sfCode
+     * Get sfacilityMFL
      *
      * @return string 
      */
-    public function getSfCode()
+    public function getSfacilityMFL()
     {
-        return $this->sfCode;
+        return $this->sfacilityMFL;
     }
 
     /**

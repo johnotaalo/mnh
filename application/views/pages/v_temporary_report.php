@@ -1,6 +1,6 @@
 <?php
 $mfName = $this -> session -> userdata('fName');
-$mfCode = $this -> session -> userdata('fCode');
+$mfacilityMFL = $this -> session -> userdata('facilityMFL');
 ?>
 <!doctype html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->

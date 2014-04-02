@@ -375,7 +375,7 @@ class  MY_Controller  extends  CI_Controller {
 				
 
 			</select></td>
-			<input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
+			<input type="hidden"  name="cqCommCode_' . $counter . '" id="cqCommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
 
 		}
@@ -505,7 +505,7 @@ class  MY_Controller  extends  CI_Controller {
 			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
 			<option value="" selected="selected">Select One</option>' . $supplier_names . '
 			</select></td>
-			<input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
+			<input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
 
 		}
@@ -571,7 +571,7 @@ class  MY_Controller  extends  CI_Controller {
 			</td>
 			<td width="200">' . $supplier_names . '
 			</td>
-			<input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
+			<input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
 
 		}
@@ -591,16 +591,16 @@ class  MY_Controller  extends  CI_Controller {
 			<td> ' . $value['eqName'] . ' </td>
 			<td> ' . $value['eqUnit'] . '</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+			<input name="eqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
+			<input name="eqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
+			<input name="eqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
 			</td>
 			<td width="60">
-			<select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
+			<select name="eqReason_' . $counter . '" id="eqReason_' . $counter . '" style="width:110px" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Not Ordered">1. Not Ordered</option>
 				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
@@ -610,39 +610,36 @@ class  MY_Controller  extends  CI_Controller {
 
 			</select></td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
+			<input name="eqLocation_' . $counter . '[]" type="checkbox" value="Other" />
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqLocation_' . $counter . '[]" id="cqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
+			<input name="eqLocation_' . $counter . '[]" id="eqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
 			</td>
 			
 
 			<td style ="text-align:center;">
-			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
+			<input name="eqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
 			</td>
 			<td width="50">
-			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
+			<select name="eqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
 			<option value="" selected="selected">Select One</option>' . $supplier_names . '
 			</select></td>
-			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['eqCode'] . '" />
+			<input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
 	</tr>';
 
 		}
@@ -703,9 +700,6 @@ class  MY_Controller  extends  CI_Controller {
 			<td style ="text-align:center;">
 			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
 			</td>
-			<td style ="text-align:center;">
-			<input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
-			</td>
 			<td width="200">' . $supplier_names . '
 			</td>
 			<input type="hidden"  name="cqCommodityCode_' . $counter . '" id="cqCommodityCode_' . $counter . '" value="' . $value['eqCode'] . '" />
@@ -743,7 +737,7 @@ class  MY_Controller  extends  CI_Controller {
 				<option value="No Challenge Experienced">7.No Challenge Experienced</option>
 
 			</select></td>
-			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfCode'] . '" />
+			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
 		</tr>';
 
 		}
@@ -776,7 +770,7 @@ class  MY_Controller  extends  CI_Controller {
 			6.Case never presented<input type="checkbox">
 			7.No Challenge Experienced<input type="checkbox">
 			</td>
-			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfCode'] . '" />
+			<input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
 		</tr>';
 
 		}
@@ -799,14 +793,14 @@ class  MY_Controller  extends  CI_Controller {
 				$aspect = '<tr>
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<select name="ortcAspect_' . $counter . '" id="ortcAspect_' . $counter . '" class="cloned">
+			<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select>
 			</td>
-			<input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 				$this -> ortCornerAspectsSection .= $aspect;
 
@@ -817,27 +811,27 @@ class  MY_Controller  extends  CI_Controller {
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="2">
 			<label>Multiple Selections Allowed</label><br/>
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="MCH"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
 			<label for="" style="font-weight:normal">MCH</label><br/>
 			
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="U5 Clinic"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="U5 Clinic"/>
 			<label for="" style="font-weight:normal">U5 Clinic</label><br/>
 			
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="OPD"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="OPD"/>
 			<label for="" style="font-weight:normal">OPD</label><br/>
 			
 		   
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="WARD"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="WARD"/>
 			<label for="" style="font-weight:normal">WARD</label><br/>
 			
 			
 			<input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value=""/>
 			<label for="" style="font-weight:normal">Other</label><br/>
-			<input type="text" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+			<input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
 			
 			
 			</td>
-			<input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 
 					$this -> ortCornerAspectsSection .= $ort_location;
@@ -846,14 +840,14 @@ class  MY_Controller  extends  CI_Controller {
 					$this -> ortCornerAspectsSection .= '<tr>
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<select name="ortcAspect_' . $counter . '" id="ortcAspect_' . $counter . '" class="cloned">
+			<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select>
 			</td>
-			<input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 				}
 			}
@@ -890,23 +884,23 @@ class  MY_Controller  extends  CI_Controller {
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="2">
 			<label>Multiple Selections Allowed</label><br/>
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="MCH"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
 			<label for="" style="font-weight:normal">MCH</label><br/>
 			
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="U5 Clinic"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="U5 Clinic"/>
 			<label for="" style="font-weight:normal">U5 Clinic</label><br/>
 			
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="OPD"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="OPD"/>
 			<label for="" style="font-weight:normal">OPD</label><br/>
 			
 		   
-			<input type="checkbox" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="WARD"/>
+			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="WARD"/>
 			<label for="" style="font-weight:normal">WARD</label><br/>
 			
 			
 			<input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value=""/>
 			<label for="" style="font-weight:normal">Other</label><br/>
-			<input type="text" name="ortcAspectLocResponse_' . $counter . '[]" id="ortcAspectLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+			<input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
 			
 			
 			</td>
@@ -1606,15 +1600,15 @@ class  MY_Controller  extends  CI_Controller {
 			$this -> mchGuidelineAvailabilitySection .= '<tr>
 			<td colspan="1">' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<select name="ortcAspect_' . $counter . '" id="ortcAspect_' . $counter . '" class="cloned is-guideline">
+			<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
 
 			</select>
 			</td>
-			<td><input type="text" name="ortcGuidesCount_' . $counter . '" id="ortcGuidesCount_' . $counter . '" size="6" class="numbers" disabled/></td>
-			<input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<td><input type="text" name="questionCount_' . $counter . '" id="questionCount_' . $counter . '" size="6" class="numbers" disabled/></td>
+			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
 
 		}
@@ -1967,7 +1961,7 @@ class  MY_Controller  extends  CI_Controller {
 			<td>
 			<input name="gstrainedafter2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td><td>
-			<input name="gsTrainedAndWorking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
+			<input name="gsworking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td>
 			<input type="hidden"  name="gsguideCode_' . $counter . '" id="gsguideCode_' . $counter . '" value="' . $value['guideCode'] . '" />
 		</tr>';
@@ -2519,7 +2513,7 @@ class  MY_Controller  extends  CI_Controller {
 				
 
 			</select></td-->
-			<input type="hidden"  name="hweqCode_' . $counter . '" id="hweqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
+			<input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
 		</tr>';
 
 		}
@@ -3075,6 +3069,19 @@ class  MY_Controller  extends  CI_Controller {
 		//echo $this->suppliesUsageAndOutageSection;die;
 		return $this -> suppliesUsageAndOutageSectionPDF;
 	}
+public function getSection($survey,$fac_mfl){
+		$this->db->select_max('ast_id','maxId');
+		$result = $this->db->get_where('assessment_tracker',array('ast_survey'=>$survey,'facilityCode'=>$fac_mfl));
+		$result = $result->result_array();
+		$maxId= $result[0]['maxId'];
+
+		$this->db->select('ast_section');
+		$result = $this->db->get_where('assessment_tracker',array('ast_id'=>$maxId));
+		$result = $result->result_array();
+		//var_dump($result);die;
+		$section = (($result)!=NULL)? $result[0]['ast_section'] : NULL;
+		return json_encode((int)trim($section,'section-'));
+	}
 
 	public function createFacilitiesListSection() {
 		/*retrieve facility list*/
@@ -3089,19 +3096,33 @@ class  MY_Controller  extends  CI_Controller {
 			//print 'true'; die;
 			foreach ($this->m_mnh_survey->districtFacilities as $value) {
 				$counter++;
-
-				if ($this -> session -> userdata('survey') == 'mnh') {
-					$surveyCompleteFlag = '';/**$value['ss_id']*/;
-				} else {
-					$surveyCompleteFlag = '';/*$value['facilityCHSurveyStatus']*/;
+				$fac_mfl = $value['facMfl'];
+				$survey = $this -> session -> userdata('survey');
+				if ($survey == 'mnh') {
+					$total=7;
 				}
-
-				if ($surveyCompleteFlag == 'complete') {
-					$link = '<td colspan="5"><strong>' . $surveyCompleteFlag . '</strong></td><td colspan="5" id="facility_2" class="no-action"><a id="' . $value['facMfl'] . '" class="begin">Pending Analysis</a></td>';
-				} else {
-					$link = '<td colspan="5">' . $surveyCompleteFlag . '</td><td colspan="5" id="facility_1" class="action"><a id="' . $value['facMfl'] . '" class="begin">Begin Survey</a></td>';
+				else{
+					$total=6;
 				}
+				$current=$this->getSection($survey,$fac_mfl);
+				$progress = round(($current/$total)*100);
+				if($progress==0){
+					$linkText = 'Begin Survey';
+					$linkClass = 'action';
+				}
+				elseif($progress==100){
+					$linkText = 'Survey Completed';
+					$linkClass = 'no-action';
+				}
+				else{
+					$linkText = 'Continue Survey';
+					$linkClass = 'action';
+				}
+				
+				$link = '<td><div class="progress">  <div class="bar" style="width: '.$progress.'%;">'.$progress.' %</div>	</div></td>';
+				$link .= '<td colspan="5" id="facility_1" class="'.$linkClass.'"><a id="' . $value['facMfl'] . '" class="begin">'.$linkText.'</a></td>';
 
+				
 				$this -> districtFacilityListSection .= '<tr> 
        	<td colspan="1">' . $counter . '</td>
 			<td colspan="7" >' . $value['facMfl'] . '</td>

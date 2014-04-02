@@ -26,7 +26,7 @@ class SignalFunctions
      *
      * @Column(name="sf_code", type="string", length=15, nullable=false)
      */
-    private $sfCode;
+    private $sfacilityMFL;
 
     /**
      * @var string
@@ -47,26 +47,26 @@ class SignalFunctions
     }
 
     /**
-     * Set sfCode
+     * Set sfacilityMFL
      *
-     * @param string $sfCode
+     * @param string $sfacilityMFL
      * @return SignalFunctions
      */
-    public function setSfCode($sfCode)
+    public function setSfacilityMFL($sfacilityMFL)
     {
-        $this->sfCode = $sfCode;
+        $this->sfacilityMFL = $sfacilityMFL;
     
         return $this;
     }
 
     /**
-     * Get sfCode
+     * Get sfacilityMFL
      *
      * @return string 
      */
-    public function getSfCode()
+    public function getSfacilityMFL()
     {
-        return $this->sfCode;
+        return $this->sfacilityMFL;
     }
 
     /**

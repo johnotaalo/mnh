@@ -13,10 +13,10 @@ class C_Load extends MY_Controller {
 	public function getFacilityDetails() {
 		/*retrieve facility info if any*/
 		$this -> load -> model('m_mnh_survey');
-		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input -> get_post('fcode', TRUE))) == true) {
+		if (($this -> m_mnh_survey -> retrieveFacilityInfo($this -> input -> get_post('facilityMFL', TRUE))) == true) {
 			//retrieve existing data..else just load a blank form
 			//set facility code into the session
-			$new_data = array('fCode' => $this -> input -> get_post('fcode', TRUE));
+			$new_data = array('facilityMFL' => $this -> input -> get_post('facilityMFL', TRUE));
 			$this -> session -> set_userdata($new_data);
 			print $this -> m_mnh_survey -> formRecords;
 		}
@@ -53,6 +53,60 @@ class C_Load extends MY_Controller {
 			}
 
 	}
+	
+	/**
+	 * [startSurvey description]
+	 * @param  [type] $survey_type     [description]
+	 * @param  [type] $survey_category [description]
+	 * @param  [type] $fac_mfl         [description]
+	 * @param  [type] $survey_year     [description]
+	 * @return [type]                  [description]
+	 */
+	public function startSurvey($survey_type,$survey_category,$fac_mfl,$survey_year){
+		$result          =$this->db->get_where('survey_types',array('st_name'=>$survey_type));
+		$result          =$result->result_array();		
+		$survey_type     =$result[0]['st_id'];
+		
+		$result          =$this->db->get_where('survey_categories',array('sc_name'=>$survey_category));
+		$result          =$result->result_array();		
+		$survey_category =$result[0]['sc_id'];
+
+		$data  =array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl);
+		
+		$count =$this->checkifExists($data,'survey_status');
+		if($count==0){
+			$this->db->insert('survey_status',$data);	
+		}
+		else{
+
+		}
+		
+		$result =$this->db->get_where('survey_status',array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl));
+		$result = $result->result_array();		
+		$ss_id  =$result[0]['ss_id'];
+		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl);
+		$this->session->set_userdata($data);
+
+	}
+/**
+ * [checkifExists description]
+ * @param  [type] $data  [description]
+ * @param  [type] $table [description]
+ * @return [type]        [description]
+ */
+	public function checkifExists($data,$table) {
+		$this -> db -> like($data);
+		$this -> db -> from($table);
+		$count = $this -> db -> count_all_results();
+		return (int)$count;
+
+	}
+
+	public function getFacilitySection($survey,$fac_mfl){
+		$section = $this->getSection($survey,$fac_mfl);
+		echo $section;
+	}
+
 
 	public function suggest() {
 		$this -> load -> model('m_autocomplete');
@@ -298,39 +352,39 @@ class C_Load extends MY_Controller {
 		 <!--tr>
 			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjanuary_12" name="dnjanuary_12"  size="8" class="cloned numbers"/>
+			<input type="text" id="dnjanuary_12" name="dnmonth[january_12"  size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_12" name="dnfebruary_12" size="8" class="cloned numbers"/>
+			<input type="text" id="dnfebruary_12" name="dnmonth[february_12" size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_12" size="8" name="dnmarch_12" class="cloned numbers"/>
+			<input type="text" id="dnmarch_12" size="8" name="dnmonth[march_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnapril_12" size="8" name="dnapril_12" class="cloned numbers"/>
+			<input type="text" id="dnapril_12" size="8" name="dnmonth[april_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmay_12" size="8" name="dnmay_12" class="cloned numbers"/>
+			<input type="text" id="dnmay_12" size="8" name="dnmonth[may_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_12" size="8" name="dnjune_12" class="cloned numbers"/>
+			<input type="text" id="dnjune_12" size="8" name="dnmonth[june_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_12" size="8" name="dnjuly_12" class="cloned numbers"/>
+			<input type="text" id="dnjuly_12" size="8" name="dnmonth[july_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_12" size="8" name="dnaugust_12" class="cloned numbers"/>
+			<input type="text" id="dnaugust_12" size="8" name="dnmonth[august_12" class="cloned numbers"/>
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_12" size="8" name="dnseptember_12" class="cloned numbers"/>
+			<input type="text" id="dnseptember_12" size="8" name="dnmonth[september_12" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_12" size="8" name="dnoctober_12" class="cloned numbers"/></td>
+			<input type="text" id="dnoctober_12" size="8" name="dnmonth[october_12" class="cloned numbers"/></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_12" size="8" name="dnnovember_12" class="cloned numbers"/></td>
+			<input type="text" id="dnnovember_12" size="8" name="dnmonth[november_12" class="cloned numbers"/></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_12" size="8" name="dndecember_12" class="cloned numbers"/>
+			<input type="text" id="dndecember_12" size="8" name="dnmonth[december_12" class="cloned numbers"/>
 			</td>			
 			
 
@@ -338,23 +392,23 @@ class C_Load extends MY_Controller {
 
 		<tr>
 			<td>' . '2013' . '</td>			
-			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
+			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnmonth[january_13" class="cloned numbers"/>
 			</td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_13" name="dnfebruary_13" size="8"class="cloned numbers"/>
+			<input type="text" id="dnfebruary_13" name="dnmonth[february_13" size="8"class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_13" name="dnmarch_13" size="8"class="cloned numbers"/>
+			<input type="text" id="dnmarch_13" name="dnmonth[march_13" size="8"class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnapril_13" name="dnapril_13" size="8"class="cloned numbers"/>
+			<input type="text" id="dnapril_13" name="dnmonth[april_13" size="8"class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
+			<input type="text" id="dnmay_13" name="dnmonth[may_13" size="8"class="cloned numbers" />
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" />
+			<input type="text" id="dnjune_13" name="dnmonth[june_13" size="8"class="cloned numbers" />
 			</td>
 			</tr>
 			<tr>
@@ -363,21 +417,21 @@ class C_Load extends MY_Controller {
 			<tr>
 			<td>' . '2013' . '</td>	
 			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" >
+			<input type="text" id="dnjuly_13" size="8" name="dnmonth[july_13" class="cloned numbers" >
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" >
+			<input type="text" id="dnaugust_13" size="8" name="dnmonth[august_13" class="cloned numbers" >
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" >
+			<input type="text" id="dnseptember_13" size="8" name="dnmonth[september_13" class="cloned numbers" >
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" ></td>
+			<input type="text" id="dnoctober_13" size="8" name="dnmonth[october_13" class="cloned numbers" ></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers"></td>
+			<input type="text" id="dnnovember_13" size="8" name="dnmonth[november_13" class="cloned numbers"></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" >
+			<input type="text" id="dndecember_13" size="8" name="dnmonth[december_13" class="cloned numbers" >
 			</td>	
 		</tr>
 	</table>
@@ -1063,10 +1117,11 @@ class C_Load extends MY_Controller {
 	
      <table class="centre">
 	<thead>
-		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
+		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
 		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained in the Last 2 Years</th>
-		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
+		<th style="text-align:left">Number Trained before 2010</th>
+		<th style="text-align:left">Number Trained after 2010</th>
+		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
 		Trained in the Last 2 Years are still Working in Child Health?</div></th>
 		
 		' . $this -> mchTrainingGuidelineSection . '
@@ -1077,7 +1132,7 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -1092,7 +1147,7 @@ class C_Load extends MY_Controller {
 				Main Reason For  Unavailability
 			</div>
 			</th>
-			<th colspan="6" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="2">Available Quantities</th>
 			<th scope="col">
 			
@@ -1141,7 +1196,7 @@ class C_Load extends MY_Controller {
 			</div>
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
+			<th colspan="1">Available Quantities</th>
 			<th scope="col">
 			
 				Main Supplier
@@ -1163,7 +1218,6 @@ class C_Load extends MY_Controller {
 			<td>Other</td>
 			<td>Not Applicable</td>
 			<td>No. of Units</td>
-			<td>Expiry Date</td>
 			<td>Supplier</td>
 
 		</tr>' . $this -> mchBundling . ' 
@@ -1259,39 +1313,39 @@ class C_Load extends MY_Controller {
 		 <!--tr>
 			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjanuary_12" name="dnjanuary_12"  size="8" class="cloned numbers"/>
+			<input type="text" id="dnjanuary_12" name="january"  size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_12" name="dnfebruary_12" size="8" class="cloned numbers"/>
+			<input type="text" id="dnfebruary_12" name="february" size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_12" size="8" name="dnmarch_12" class="cloned numbers"/>
+			<input type="text" id="dnmarch_12" size="8" name="march" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnapril_12" size="8" name="dnapril_12" class="cloned numbers"/>
+			<input type="text" id="dnapril_12" size="8" name="april" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmay_12" size="8" name="dnmay_12" class="cloned numbers"/>
+			<input type="text" id="dnmay_12" size="8" name="may" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_12" size="8" name="dnjune_12" class="cloned numbers"/>
+			<input type="text" id="dnjune_12" size="8" name="june" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_12" size="8" name="dnjuly_12" class="cloned numbers"/>
+			<input type="text" id="dnjuly_12" size="8" name="july]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_12" size="8" name="dnaugust_12" class="cloned numbers"/>
+			<input type="text" id="dnaugust_12" size="8" name="augus]t" class="cloned numbers"/>
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_12" size="8" name="dnseptember_12" class="cloned numbers"/>
+			<input type="text" id="dnseptember_12" size="8" name="september"] class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_12" size="8" name="dnoctober_12" class="cloned numbers"/></td>
+			<input type="text" id="dnoctober_12" size="8" name="october]" class="cloned numbers"/></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_12" size="8" name="dnnovember_12" class="cloned numbers"/></td>
+			<input type="text" id="dnnovember_12" size="8" name="november]" class="cloned numbers"/></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_12" size="8" name="dndecember_12" class="cloned numbers"/>
+			<input type="text" id="dndecember_12" size="8" name="december]" class="cloned numbers"/>
 			</td>			
 			
 
@@ -1299,47 +1353,47 @@ class C_Load extends MY_Controller {
 
 		<tr>
 			<td>' . date("Y") . '</td>			
-			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
-			</td>
-			
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_13" name="dnfebruary_13" size="8"class="cloned numbers"/>
+			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_13" name="dnmarch_13" size="8"class="cloned numbers"/>
+			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnapril_13" name="dnapril_13" size="8"class="cloned numbers"/>
+			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
+			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" disabled/>
+			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
 			</td>
 
 			
 		</tr>
 		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 		<tr>
-		<td>' . (date('Y')) . '</td>
-		<td style ="text-align:center;">
-			<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" />
+		<td>' . 2013 . '</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" disabled/>
+			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" disabled/>
+			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" disabled/></td>
+			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers" disabled/></td>
+			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" disabled/>
-
-			</td>	
+			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
+			</td>		
 		</tr>
 	</table>
 	

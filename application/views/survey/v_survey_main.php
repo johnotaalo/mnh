@@ -1,6 +1,6 @@
 <?php
 $mfName = $this -> session -> userdata('fName');
-$mfCode = $this -> session -> userdata('fCode');
+$mfacilityMFL = $this -> session -> userdata('facilityMFL');
 ?>
 
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
@@ -101,8 +101,8 @@ $mfCode = $this -> session -> userdata('fCode');
 				
 				//load 1st section of the assessment on page load
 				$(".form-container").load('<?php echo base_url() . 'c_load/get_facility_list'; ?>',function(){
-					       // fcode=12864;
-							//loadGlobalScript();//renderFacilityInfo(fcode);
+					       // facilityMFL=12864;
+							//loadGlobalScript();//renderFacilityInfo(facilityMFL);
 							
 							//so which link was clicked?
 						  $('.action').on('click',function(){
@@ -110,8 +110,19 @@ $mfCode = $this -> session -> userdata('fCode');
 							link_id=link_id.substr(link_id.indexOf('#')+1,link_id.length);
 							//linkSub=$(link_id).attr('class');
 							//linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
-							fcode=link_id;
-							
+							facilityMFL=link_id;
+							the_url='<?php echo base_url();?>c_load/startSurvey/<?php echo $this->session->userdata("survey");?>/mid-term/'+facilityMFL+'/2013-2014';
+							$.ajax({
+								type:'POST',
+								data: '',
+								url:the_url,
+								beforeSend: function(){
+
+								},
+								success: function(){
+
+								}}
+								);
 							//alert(link_id);
 							if(link_id)
 							
@@ -124,7 +135,7 @@ $mfCode = $this -> session -> userdata('fCode');
 							//delegate events
 							//if(loaded==false)
 							//include remote scripts
-					        loadGlobalScript();renderFacilityInfo(fcode);break_form_to_steps(form_id);select_option_changed();
+					        loadGlobalScript();renderFacilityInfo(facilityMFL);break_form_to_steps(form_id);select_option_changed();
 							
 							 });
 							
@@ -134,14 +145,14 @@ $mfCode = $this -> session -> userdata('fCode');
 				
 				/*-----------------------------------------------------------------------------------------------------------------*/
 				/*start of ajax data requests*/
-				function renderFacilityInfo(fcode){
+				function renderFacilityInfo(facilityMFL){
     			 $.ajax({
 		            type: "GET",
 
 		            	url: "<?php echo base_url()?>c_load/getFacilityDetails",
 						dataType:"json",
 						cache:"true",
-						data:"fcode="+fcode,
+						data:"facilityMFL="+facilityMFL,
 						success: function(data){
 						var info = data.rData;
 						//print(info);
@@ -581,7 +592,25 @@ $mfCode = $this -> session -> userdata('fCode');
 								   
 								});
 								 
+								 /*
+								 	Get Section
+								  */
 								//$(form_id).formwizard('show','section-2');
+								
+								the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL;
+								$.ajax({
+									type:'GET',
+									url:the_url,
+									dataType:'json',
+									beforeSend: function(){
+
+									},
+									success: function(data){
+										console.log(data);
+										(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
+										
+									}}
+								);
 			
 				  	}//--end of function break_form_to_steps(form_id)
 			
@@ -620,4 +649,3 @@ $mfCode = $this -> session -> userdata('fCode');
 
 	</div>
 </div>
-

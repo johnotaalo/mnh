@@ -19,10 +19,10 @@ class C_Analytics extends MY_Controller {
 	public function setActive($county, $survey) {
 
 		$county = urldecode($county);
-		$this -> session -> unset_userdata('county_analytics');
+		//$this -> session -> unset_userdata('county_analytics');
 		$this -> session -> set_userdata('county_analytics', $county);
 
-		$this -> session -> unset_userdata('survey');
+		//$this -> session -> unset_userdata('survey');
 		$this -> session -> set_userdata('survey', $survey);
 		$this -> getReportingCounties();
 		$this -> county = $this -> session -> userdata('county_analytics');
@@ -35,7 +35,7 @@ class C_Analytics extends MY_Controller {
  * @return [type]
  */
 	public function active_results($survey) {
-		$this -> session -> unset_userdata('survey');
+		//$this -> session -> unset_userdata('survey');
 		$this -> session -> set_userdata('survey', $survey);
 
 		$this -> getReportingCounties();
@@ -214,8 +214,12 @@ class C_Analytics extends MY_Controller {
 		}
 	}
 
-	/*
-	 * Community Strategy
+	/**
+	 * [getCommunityStrategy description]
+	 * @param  [type] $criteria [description]
+	 * @param  [type] $value    [description]
+	 * @param  [type] $survey   [description]
+	 * @return [type]           [description]
 	 */
 	public function getCommunityStrategy($criteria, $value,  $survey) {
 		$value = urldecode($value);
@@ -2426,37 +2430,35 @@ $finalYes =$finalNo =$category=array();
 	 */
 	public function getHFM($criteria, $value,  $survey) {
 		$results = $this -> m_analytics -> getHFM($criteria, $value,  $survey);
-		//echo '<pre>';
-		//print_r($results);
-		//echo '</pre>';die;
-		$number = $resultArray = array();
-		foreach ($results as $key => $value) {
-			$newkey = explode(" ", $key);
-			$key = $newkey[5];
-			$number[] = (int)$value[0];
-			$resultArray[] = array('name' => $key, 'data' => $number);
-			$number = array();
-		}
+		//echo '<pre>';print_r($results);echo '</pre>';die;
+				foreach($results as $key=> $val){
+					$yes[]=(int)$val['yes'];
+					$no[]=(int)$val['no'];
+					$category[] = $key;
+				}
+				
+				
+				$resultArray = array( array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+				$resultArray = json_encode($resultArray);
+				$datas = array();
+				$resultArraySize = 10;
+				//$resultArraySize =  5;
+				//$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+				//$resultArray = 5;
+				//var_dump($category);
+				$datas['resultArraySize'] = $resultArraySize;
 
-		$category[] = 'Numbers';
-		$resultArray = json_encode($resultArray);
-		//echo $resultArray;die;
-		$datas = array();
-		$resultArraySize = 1;
+				$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
 
-		$datas['resultArraySize'] = $resultArraySize;
-
-		$datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-
-		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 100;
-		$datas['title'] = 'Chart';
-		$datas['chartTitle'] = ' ';
-		//$datas['chartTitle'] = 'Danger Signs';
-		$datas['categories'] = json_encode($category);
-		$datas['yAxis'] = 'Occurence';
-		$datas['resultArray'] = $resultArray;
-		$this -> load -> view('charts/chart_v', $datas);
+				$datas['chartType'] = 'bar';
+				$datas['chartMargin'] = 70;
+				$datas['title'] = 'Chart';
+				$datas['chartTitle'] = ' ';
+				//$datas['chartTitle'] = 'Counsel Given';
+				$datas['categories'] = json_encode($category);
+				$datas['yAxis'] = 'Occurence';
+				$datas['resultArray'] = $resultArray;
+		$this -> load -> view('charts/chart_stacked_v', $datas);
 	}
 
 	/**
@@ -2695,7 +2697,7 @@ $finalYes =$finalNo =$category=array();
 	public function commodity_supplies_summary($criteria, $value,  $survey) {/*using CI Database Active Record*/
 		$value = urldecode($value);
 		//echo $value;die;
-		$results = $this -> m_analytics -> commodity_supplies_summary($criteria, $value,  $survey);
+		$results = $this -> m_analytics -> commodities_supplies_summary($criteria, $value,  $survey);
 
 		$supplies = $results['supplies'];
 		$commodity = $results['commodity'];

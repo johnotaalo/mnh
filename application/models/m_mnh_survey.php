@@ -271,8 +271,8 @@ class M_MNH_Survey  extends MY_Model {
 		/*using DQL*/
 		try {
 			//geting server side param: $store=$this->uri->segment(param_position_from_base_url);
-			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.facMfl = :fcode');
-			$query -> setParameter('fcode', $mfc);
+			$query = $this -> em -> createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.facMfl = :facilityMFL');
+			$query -> setParameter('facilityMFL', $mfc);
 
 			$this -> formRecords = $query -> getArrayResult();
 
@@ -355,7 +355,7 @@ class M_MNH_Survey  extends MY_Model {
 
 			$this -> theForm -> setCreatedAt(new DateTime());
 			/*timestamp option*/
-			$this -> theForm -> setFacilityID($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityID($this -> session -> userdata('facilityMFL'));
 			/*if no value set, then set to -1*/
 			/**/(!isset($this -> elements['dnjanuary_12'])) ? $this -> theForm -> setJan12(-1) : $this -> theForm -> setJan12($this -> elements['dnjanuary_12']);
 			(!isset($this -> elements['dnfebruary_12'])) ? $this -> theForm -> setFeb12(-1) : $this -> theForm -> setFeb12($this -> elements['dnfebruary_12']);
@@ -461,7 +461,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhCommunityStrategyQCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhCommunityStrategy'])) ? $this -> theForm -> setResponseCount((int)$this -> elements[$i]['mnhCommunityStrategy']) : $this -> theForm -> setResponseCount(0);
 			$this -> theForm -> setResponse('n/a');
@@ -586,7 +586,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setSignalFunctionsID($this -> elements[$i]['bmsfSignalCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['bmsfSignalFunctionConducted'])) ? $this -> theForm -> setConducted($this -> elements[$i]['bmsfSignalFunctionConducted']) : $this -> theForm -> setConducted("N/A");
 			$this -> theForm -> setChallengeId($this -> elements[$i]['bmsfChallenge']);
@@ -699,7 +699,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhceocAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setResponseCount(0);
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhceocAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhceocAspectResponse']) : $this -> theForm -> setResponse('n/a');
@@ -837,7 +837,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['serviceAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			$this -> theForm -> setResponseCount(0);
 			(isset($this -> elements[$i]['serviceAspect'])) ? $this -> theForm -> setResponse($this -> elements[$i]['serviceAspect']) : $this -> theForm -> setResponse('n/a');
@@ -963,7 +963,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['committeeAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['committeeAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['committeeAspectResponse']) : $this -> theForm -> setResponse('n/a');
 
@@ -1090,7 +1090,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['newbornAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['newbornAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['newbornAspectResponse']) : $this -> theForm -> setResponse('n/a');
 
@@ -1222,7 +1222,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['wastedisposalAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			 $this -> theForm -> setResponse('n/a');
 
@@ -1354,7 +1354,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['nurseAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			$this -> theForm -> setResponse('n/a');
 			(isset($this -> elements[$i]['nurseCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['nurseCount']) : $this -> theForm -> setResponseCount(0);
@@ -1480,7 +1480,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['bedAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			$this -> theForm -> setResponse('n/a');
 			(isset($this -> elements[$i]['bedCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['bedCount']) : $this -> theForm -> setResponseCount(0);
@@ -1606,7 +1606,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['kangarooAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			//$this -> theForm -> setResponse('n/a');
 			(isset($this -> elements[$i]['kangarooAspect'])) ? $this -> theForm -> setResponse($this -> elements[$i]['kangarooAspect']) : $this -> theForm -> setResponse('n/a');
@@ -1733,7 +1733,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhGuidelinesAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhGuidelinesAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhGuidelinesAspectResponse']) : $this -> theForm -> setResponse('n/a');
 			(isset($this -> elements[$i]['mnhGuidelinesAspectCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['mnhGuidelinesAspectCount']) : $this -> theForm -> setResponseCount(0);
@@ -1859,7 +1859,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhHIVAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhHIVAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhHIVAspectResponse']) : $this -> theForm -> setResponse('n/a');
 
@@ -1989,7 +1989,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhPreparednessAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhPreparednessAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhPreparednessAspectResponse']) : $this -> theForm -> setResponse('n/a');
 
@@ -2114,7 +2114,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhJobAidsAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhJobAidsAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhJobAidsAspectResponse']) : $this -> theForm -> setResponse('n/a');
 			(isset($this -> elements[$i]['mnhJobAidsAspectCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['mnhJobAidsAspectCount']) : $this -> theForm -> setResponseCount(0);
@@ -2240,7 +2240,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhwAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mnhwAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhwAspectResponse']) : $this -> theForm -> setResponse('n/a');
 
@@ -2386,9 +2386,9 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\E_Cquantity_Available();
 			//create an object of the model
 
-			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
+			//  die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setcomm_code($this -> elements[$i]['cqCommodityCode']);
 
 			//check if that key exists, else set it to some default value
@@ -2522,9 +2522,9 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\E_Squantity_Available();
 			//create an object of the model
 
-			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
+			//  die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setsupplyCode($this -> elements[$i]['sqsupplyCode']);
 
 			//check if that key exists, else set it to some default value
@@ -2667,9 +2667,9 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\Equipments_Available();
 			//create an object of the model
 
-			//  die(print 'Code: '.$this -> session -> userdata('fCode'));
+			//  die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setEquipmentID($this -> elements[$i]['eqEquipmentCode']);
 
 			//check if that key exists, else set it to some default value
@@ -2798,7 +2798,7 @@ class M_MNH_Survey  extends MY_Model {
 			//create an object of the model
 
 			$this -> theForm -> setGuidelineCode($this -> elements[$i]['gsGuidelineCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['gsLastTraining'])) ? $this -> theForm -> setLastTrained($this -> elements[$i]['gsLastTraining']) : $this -> theForm -> setLastTrained(-1);
 			(isset($this -> elements[$i]['gsTrainedAndWorking'])) ? $this -> theForm -> setTrainedAndWorking($this -> elements[$i]['gsTrainedAndWorking']) : $this -> theForm -> setLastTrained(-1);
@@ -2931,7 +2931,7 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\E_C_Usage_Stock_Out_Log();
 			//create an object of the model
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setcomm_code($this -> elements[$i]['usocCommodityCode']);
 
 			//check if that key exists, else set it to some default value
@@ -3056,7 +3056,7 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\E_S_Usage_Stock_Out_Log();
 			//create an object of the model
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setSupplyID($this -> elements[$i]['usossupplyCode']);
 
 			//check if that key exists, else set it to some default value
@@ -3183,9 +3183,9 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\E_MNH_Resource_Available();
 			//create an object of the model
 
-			//die(print 'Code: '.$this -> session -> userdata('fCode'));
+			//die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
 			$this -> theForm -> setResourceCode($this -> elements[$i]['hwEquipmentCode']);
 
 			//check if that key exists, else set it to some default value
@@ -3260,7 +3260,7 @@ class M_MNH_Survey  extends MY_Model {
 			switch($step) {
 				/*case 'section-1' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3282,7 +3282,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-2' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3303,7 +3303,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-3' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3322,7 +3322,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-4' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3341,7 +3341,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-5' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3360,7 +3360,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-6' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 
@@ -3379,7 +3379,7 @@ class M_MNH_Survey  extends MY_Model {
 					break;
 				case 'section-7' :
 					//check if entry exists
-					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 					//print var_dump($this->section);
 

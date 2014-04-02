@@ -49,6 +49,13 @@ class AssessmentTracker
      */
     private $facilitycode;
 
+    /**
+     * @var integer
+     *
+     * @Column(name="ss_id", type="integer", nullable=true)
+     */
+    private $ssId;
+
 
     /**
      * Get astId
@@ -150,5 +157,28 @@ class AssessmentTracker
     public function getFacilitycode()
     {
         return $this->facilitycode;
+    }
+
+    /**
+     * Set ssId
+     *
+     * @param integer $ssId
+     * @return TrainingGuidelines
+     */
+    public function setSsId($ssId)
+    {
+        $this->ssId = $ssId;
+    
+        return $this;
+    }
+
+    /**
+     * Get ssId
+     *
+     * @return integer 
+     */
+    public function getSsId()
+    {
+        return $this->ssId;
     }
 }

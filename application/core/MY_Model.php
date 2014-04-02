@@ -3,7 +3,7 @@
 
 class  MY_Model  extends  CI_Model {
 
-	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $fCode, $strategy, $strategyName, $guideline, $chQuestion;
+	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $facilityMFL, $strategy, $strategyName, $guideline, $chQuestion;
 
 	function __construct() {
 		parent::__construct();
@@ -14,7 +14,7 @@ class  MY_Model  extends  CI_Model {
 		$this -> em = $this -> doctrine -> em;
 		$this -> load -> database();
 		$this -> response = '';
-		$this -> theForm = $this -> fCode = '';
+		$this -> theForm = $this -> facilityMFL = '';
 		$this -> facilityFound = false;
 		$this -> sectionExists = false;
 	}
@@ -184,7 +184,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllSignalFunctions() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT s.sfCode, s.sfName FROM models\Entities\SignalFunctions s ORDER BY s.sfCode ASC');
+			$query = $this -> em -> createQuery('SELECT s.sfacilityMFL, s.sfName FROM models\Entities\SignalFunctions s ORDER BY s.sfacilityMFL ASC');
 			$this -> signalFunction = $query -> getResult();
 			//die(var_dump($this->signalFunction));
 		} catch(exception $ex) {
@@ -464,7 +464,7 @@ class  MY_Model  extends  CI_Model {
 	
 	public function getSignalName($id) {
 		try {
-			$this -> signalFunction = $this -> em -> getRepository('models\Entities\SignalFunctions') -> findOneBy(array('sfCode' => $id));
+			$this -> signalFunction = $this -> em -> getRepository('models\Entities\SignalFunctions') -> findOneBy(array('sfacilityMFL' => $id));
 
 			if ($this -> signalFunction) {
 				$this -> signalFunction = $this -> signalFunction -> getSfName();
@@ -644,7 +644,9 @@ class  MY_Model  extends  CI_Model {
 	//check if tracker entry has already been done
 	public function sectionEntryExists($mfc, $section, $survey) {
 		try {
-			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey));
+
+			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey,'ssId'=>(int)$this->session->userdata('survey_status')));
+
 			if ($this -> section) {
 				$this -> sectionExists = true;
 			}
@@ -652,6 +654,7 @@ class  MY_Model  extends  CI_Model {
 			//ignore
 			//die($ex->getMessage());
 		}
+		//echo  $this -> section;
 		return $this -> section;
 
 	}/*close sectionEntryExists($mfc,$section,$survey)*/
@@ -686,9 +689,9 @@ class  MY_Model  extends  CI_Model {
 
 		//pick facility name and code for temp session use
 		if ($this -> input -> post() && $this -> input -> post('facilityHName', TRUE)) {
-			//print $this -> session -> userdata('fCode'); die;
-			if (!$this -> session -> userdata('fCode')) {
-				$new_data = array('fName' => $this -> input -> post('facilityHName', TRUE), 'fCode' => $this -> input -> post('facilityMFLCode', TRUE));
+			//print $this -> session -> userdata('facilityMFL'); die;
+			if (!$this -> session -> userdata('facilityMFL')) {
+				$new_data = array('fName' => $this -> input -> post('facilityHName', TRUE), 'facilityMFL' => $this -> input -> post('facilityMFLCode', TRUE));
 				$this -> session -> set_userdata($new_data);
 			}
 
@@ -747,14 +750,14 @@ class  MY_Model  extends  CI_Model {
 		 $this -> theForm = new \models\Entities\Facilities(); //create an object of the model
 		 $this -> theForm -> setCreatedAt(new DateTime()); //timestamp option
 		 $this -> theForm -> setfacName($this->input->post('facName',TRUE));
-		 $this -> theForm -> setfacMFL($this -> session -> userdata('fCode'));//obtain facility code from current session
+		 $this -> theForm -> setfacMFL($this -> session -> userdata('facilityMFL'));//obtain facility code from current session
 		 }else{*/
 		//$this -> theForm = new \models\Entities\Facilities(); //create an object of the model
 		//die('Duplicate entry, so update');
 
 		//  echo 'Name: '. $this -> session -> userdata('fName');die;
 		try {
-			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facName' => $this -> input -> post('facilityHName', TRUE), 'facMFL' => $this -> session -> userdata('fCode')));
+			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facName' => $this -> input -> post('facilityHName', TRUE), 'facMFL' => $this -> session -> userdata('facilityMFL')));
 		} catch(exception $ex) {
 			//ignore
 			//die($ex->getMessage());
@@ -819,7 +822,7 @@ class  MY_Model  extends  CI_Model {
 	//assuming mnh/mch assessment is taken, every facility has exactly 6 and 7 entries respectively, for each active survey
 	protected function writeAssessmentTrackerLog() {
 		//check if entry exists
-		$this -> section = $this -> sectionEntryExists($this -> session -> userdata('fCode'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
+		$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
 		print var_dump($this->section);
 
@@ -833,12 +836,15 @@ class  MY_Model  extends  CI_Model {
 			//obtain facility code from current survey session val
 			$this -> theForm -> setAstLastActivity(new DateTime());
 			/*timestamp option*/
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('fCode'));
+			$this -> theForm -> setFacilitycode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
 			//obtain facility code from current temp session val
 		} else {
 			// die('Update log');
 			try {
-				$this -> theForm = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $this -> session -> userdata('fCode'), 'astSection' => $this -> input -> post('step_name', TRUE), 'astSurvey' => $this -> session -> userdata('survey')));
+
+				$this -> theForm = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $this -> session -> userdata('facilityMFL'), 'astSection' => $this -> input -> post('step_name', TRUE), 'astSection' => $this -> session -> userdata('survey')));
+
 
 			} catch(exception $ex) {
 				//ignore
@@ -846,7 +852,7 @@ class  MY_Model  extends  CI_Model {
 			}
 		}
 
-		$this -> theForm -> setLastActivity(new DateTime());
+		$this -> theForm -> setAstLastActivity(new DateTime());
 		/*timestamp option*/
 
 		$this -> em -> persist($this -> theForm);
@@ -868,7 +874,7 @@ class  MY_Model  extends  CI_Model {
 
 	protected function markSurveyStatusAsComplete() {
 		try {
-			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facMFL' => $this -> session -> userdata('fCode')));
+			$this -> theForm = $this -> em -> getRepository('models\Entities\Facilities') -> findOneBy(array('facMFL' => $this -> session -> userdata('facilityMFL')));
 
 		} catch(exception $ex) {
 			//ignore

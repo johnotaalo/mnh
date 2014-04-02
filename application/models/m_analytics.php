@@ -4162,7 +4162,8 @@ ORDER BY question_code";
 				break;
 		}
 		$query = "SELECT 
-    question_code,SUM(lq_response_count) as response
+    question_code,sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
+    sum(if (lq_response ='No' , 1 , 0)) as no_values
 FROM
     log_questions
 WHERE
@@ -4189,9 +4190,11 @@ ORDER BY question_code";
 			$this -> dataSet = $this -> dataSet -> result_array();
 			foreach ($this->dataSet as $value_) {
 				$question = $this -> getQuestionName($value_['question_code']);
-				$response = $value_['response'];
+				$yes = $value_['yes_values'];
+				$no = $value_['no_values'];
 				//1. collect the categories
-				$data[$question][] = $response;
+				$data[$question]['yes'] = $yes;
+				$data[$question]['no'] = $no;
 
 			}
 			//die(var_dump($this->dataSet));
@@ -4642,15 +4645,6 @@ ORDER BY question_code";
 	public function commodities_supplies_summary($criteria, $value,  $survey) {/*using CI Database Active Record*/
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
-		$data = array();
-		if ($survey == 'ch') {
-			$status_condition = 'facilityCHSurveyStatus =?';
-			$survey = 'mch';
-		} else if ($survey == 'mnh') {
-			$status_condition = 'ss_id =?';
-			$survey = 'mnh';
-		}
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
@@ -4670,11 +4664,11 @@ ORDER BY question_code";
 		}
 		$query = "SELECT 
     f.fac_name,f.fac_county,SUM(ca.ac_quantity) AS total_quantity,
-    ca.comm_code as commodities,commodities.unit AS unit
+    ca.comm_code as commodities,commodities.comm_unit AS unit
 FROM
     available_commodities as ca
         INNER JOIN
-    facility as f ON ca.fac_mfl = f.fac_mfl,
+    facilities as f ON ca.fac_mfl = f.fac_mfl,
     commodities
 WHERE
 commodities.comm_code=ca.comm_code AND
@@ -4699,7 +4693,7 @@ ORDER BY f.fac_name,ca.comm_code;";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
-
+			//echo $this->db->last_query();
 			foreach ($this->dataSet as $value_) {
 				$data['commodities_categories'][0] = 'Facility Name';
 				$supply = $this -> getCommodityNameById($value_['commodities'], $survey) . ' ' . $value_['unit'];

@@ -174,7 +174,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			// exit;
 
 			//check if entry exists--advance it to be comparing month's using the assessment tracker's info before updating or creating a new entry
-			$this->section=$this->sectionEntryExists($this -> session -> userdata('fCode'),$this->input->post('step_name',TRUE));
+			$this->section=$this->sectionEntryExists($this -> session -> userdata('facilityMFL'),$this->input->post('step_name',TRUE));
 			
 			
 
@@ -190,12 +190,12 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				//die('New entry, enter new one');
 			   $this -> theForm = new \models\Entities\e_diarrhoea_cases(); //create an object of the model
 			   $this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
-			   $this -> theForm -> setFacilityCode($this -> session -> userdata('fCode')); /*timestamp option*/
+			   $this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL')); /*timestamp option*/
 				}else{
 				//die('Duplicate entry, so update');
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_diarrhoea_cases')
-					                       ->findOneBy( array('facilityCode'=>$this -> session -> userdata('fCode')));
+					                       ->findOneBy( array('facilityCode'=>$this -> session -> userdata('facilityMFL')));
 					$this -> theForm -> setUpdatedAt(new DateTime()); /*timestamp option*/	
 					}catch(exception $ex){
 						//ignore
@@ -322,7 +322,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			//exit;
 			 
 			    //check if entry exists--advance it to be comparing month's using the assessment tracker's info before updating or creating a new entry
-			   $this->section=$this->sectionEntryExists($this -> session -> userdata('fCode'),$this->input->post('step_name',TRUE));
+			   $this->section=$this->sectionEntryExists($this -> session -> userdata('facilityMFL'),$this->input->post('step_name',TRUE));
 
 		        //get the highest value of the array that will control the number of inserts to be done
 			    $this->noOfInsertsBatch=1; //only 1 ort corner record is inserted
@@ -340,7 +340,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			  #new fields go here
 			 
 			   $this -> theForm = new \models\Entities\e_ortc_assessment(); //create an object of the model
-			   $this -> theForm -> setfac_mfl($this -> session -> userdata('fCode'));
+			   $this -> theForm -> setfac_mfl($this -> session -> userdata('facilityMFL'));
 			   $this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 			   //do some branching since this fellow gets feeds from diff sources
 			  switch($source){
@@ -359,7 +359,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 				//die('Duplicate entry, so update');
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_ortc_assessment')
-					                       ->findOneBy( array('fac_mfl'=>$this -> session -> userdata('fCode')));
+					                       ->findOneBy( array('fac_mfl'=>$this -> session -> userdata('facilityMFL')));
 					$this -> theForm -> setUpdatedAt(new DateTime()); /*timestamp option*/	
 					 //do some branching since this fellow gets feeds from diff sources
 				   switch($source){
@@ -454,10 +454,10 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			//exit;
 			
 			    //check if entry exists--advance it to be comparing month's using the assessment tracker's info before updating or creating a new entry
-			   $this->section=$this->sectionEntryExists($this -> session -> userdata('fCode'),$this->input->post('step_name',TRUE));
+			   $this->section=$this->sectionEntryExists($this -> session -> userdata('facilityMFL'),$this->input->post('step_name',TRUE));
 			   
 			   //retrieve ort code assigned to this facility
-			   $this->findOrtCodeByFacility($this -> session -> userdata('fCode'));
+			   $this->findOrtCodeByFacility($this -> session -> userdata('facilityMFL'));
 			   $this->ortAssessCode=$this->ort->getOrtAssessmentCode();
 			   
 			 
@@ -583,7 +583,7 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			//exit;	
 			 
 			 //check if entry exists--advance it to be comparing month's using the assessment tracker's info before updating or creating a new entry
-			$this->section=$this->sectionEntryExists($this -> session -> userdata('fCode'),$this->input->post('step_name',TRUE));
+			$this->section=$this->sectionEntryExists($this -> session -> userdata('facilityMFL'),$this->input->post('step_name',TRUE));
 
 		  //get the record count that will control the number of inserts to be done        
 		  $this->noOfInsertsBatch=$finalCount;
@@ -601,12 +601,12 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 			  $this -> theForm = new \models\Entities\e_stock(); //create an object of the model
 			   $this -> theForm -> setCreatedAt(new DateTime()); /*timestamp option*/
 			   $this -> theForm -> setStockDateOfInventory(new DateTime());
-			   $this -> theForm -> setStockFacility($this -> session -> userdata('fCode')); /*timestamp option*/
+			   $this -> theForm -> setStockFacility($this -> session -> userdata('facilityMFL')); /*timestamp option*/
 				}else{
 				//die('Duplicate entry, so update');
 				try{
 					$this -> theForm=$this->em->getRepository('models\Entities\e_stock')
-					                       ->findOneBy( array('stockFacility'=>$this -> session -> userdata('fCode'),'placeFound'=>$this->elements[$i]['Unit'],'stockCommodityType'=>$this->elements[$i]['CommodityName']));
+					                       ->findOneBy( array('stockFacility'=>$this -> session -> userdata('facilityMFL'),'placeFound'=>$this->elements[$i]['Unit'],'stockCommodityType'=>$this->elements[$i]['CommodityName']));
 					$this -> theForm -> setUpdatedAt(new DateTime()); /*timestamp option*/	
 					}catch(exception $ex){
 						//ignore
@@ -787,8 +787,8 @@ class M_Zinc_Ors_Inventory  extends MY_Model {
 	      /*using DQL*/
 	      try{
 	      //geting server side param: $store=$this->uri->segment(param_position_from_base_url);
-	      $query = $this->em->createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_mfl = :fcode');
-		  $query->setParameter('fcode',$mfc);
+	      $query = $this->em->createQuery('SELECT f FROM models\Entities\Facilities f WHERE f.fac_mfl = :facilityMFL');
+		  $query->setParameter('facilityMFL',$mfc);
           
           $this->formRecords = $query->getArrayResult();
 
