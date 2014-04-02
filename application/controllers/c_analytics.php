@@ -2104,6 +2104,7 @@ $finalYes =$finalNo =$category=array();
 
 	public function guidelines_summaryMNH($guideline) {
 		$guideline = urldecode($guideline);
+		$categories = array();
 		//echo $guideline;
 		//Get All Reporting Counties
 		$finalYes = $finalNo = array();
@@ -2700,7 +2701,7 @@ $finalYes =$finalNo =$category=array();
 		$results = $this -> m_analytics -> commodities_supplies_summary($criteria, $value,  $survey);
 
 		$supplies = $results['supplies'];
-		$commodity = $results['commodity'];
+		$commodity = $results['commodities'];
 		$supplies_cat = $results['supply_categories'];
 		$commodity_cat = $results['commodity_categories'];
 		$titles = array_merge(array_values($commodity_cat), array_values($supplies_cat));

@@ -4522,7 +4522,7 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '".$status_condition."') ".$criteria_condition." )
+        AND st.st_name = '".$survey."') ".$criteria_condition." )
 GROUP BY lq.question_code
 ORDER BY lq.question_code ASC";
 		try {
@@ -4691,7 +4691,7 @@ ORDER BY f.fac_name,ca.comm_code;";
 				//1. collect the categories
 				$data['commodities'][$facility]['facility'] = $facility;
 				$data['commodities'][$facility][$supply] = $value_['total_quantity'];
-				$data['commodities_categories'][] = $supply;
+				$data['commodity_categories'][] = $supply;
 
 			}
 			$data['commodities_categories'] = array_unique($data['commodities_categories']);
@@ -4703,12 +4703,12 @@ ORDER BY f.fac_name,ca.comm_code;";
 		}
 
 		$query = "SELECT 
-    f.fac_name,f.fac_county,SUM(sa.quantity) AS total_quantity,
+    f.fac_name,f.fac_county,SUM(sa.as_quantity) AS total_quantity,
     sa.supply_code as Supplies
 FROM
     available_supplies as sa
         INNER JOIN
-    facility as f ON sa.fac_mfl = f.fac_mfl,
+    facilities as f ON sa.fac_mfl = f.fac_mfl,
     Supplies
 WHERE
 Supplies.supply_code=sa.supply_code AND
@@ -4727,7 +4727,7 @@ Supplies.supply_code=sa.supply_code AND
             Supplies
         WHERE
             supply_for = 'mnh')
-        AND sa.quantity != - 1
+        AND sa.as_quantity != - 1
 GROUP BY f.fac_name,sa.supply_code
 ORDER BY f.fac_name,sa.supply_code;";
 		try {

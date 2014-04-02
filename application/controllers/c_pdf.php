@@ -461,7 +461,7 @@ class C_Pdf extends MY_Controller {
 					<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
 					<th colspan ="2" style="text-align:left">
 					<div style="width: 500px" >
-						How Many Of The Staff Members
+						How Many Of The Total Staff Members
 						Trained in the Last 2 Years are still Working in the Marternity Unit?
 					</div></th>
 				</tr>
@@ -910,7 +910,7 @@ class C_Pdf extends MY_Controller {
 				<th style="text-align:left">Number Trained after 2010</th>
 				<th colspan ="2" style="text-align:left">
 				<div style="width: 500px" >
-					How Many Of The Staff Members
+					How Many Of The Total Staff Members
 					Trained in the Last 2 Years are still Working in Child Health?
 				</div></th>
 			</tr>
@@ -959,12 +959,12 @@ class C_Pdf extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES BUNDLING. </th>
+			<th colspan="16">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
 		
 		<tr>
-			<th scope="col" >Bundling Name</th>
-			<th >Bundling Unit</th>
+			<th rowspan="2" >Commodity Name</th>
+			<th rowspan="2">Commodity Unit</th>
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
@@ -976,15 +976,14 @@ class C_Pdf extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="1">Available Quantities</th>
-			<th scope="col">
+			<th colspan="1" rowspan="2">
 			
 				Main Supplier
 			</th>
 
 		</tr>
 		<tr >
-			<th>&nbsp;</th>
-			<th>Unit</th>
+			
 			<th>Available</th>
 			<th>Sometimes Available</th>
 			<th>Never Available</th>
@@ -997,7 +996,6 @@ class C_Pdf extends MY_Controller {
 			<th>Other</th>
 			<th>Not Applicable</th>
 			<th>No. of Units</th>
-			<th>Supplier</th>
 
 		</tr></thead>' . $this -> mchBundlingPDF . '
 
@@ -1039,7 +1037,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >DO HEALTH WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >DO HEALTH CARE WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
@@ -1052,7 +1050,7 @@ class C_Pdf extends MY_Controller {
 		<table class="centre">
 			<thead>
 				<tr>
-					<th colspan="2" >DO HEALTH WORKERS COUNSEL ON FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+					<th colspan="2" >DO HEALTH CARE WORKERS COUNSEL ON FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 				</tr>
 				<tr>
 					<th  style="width:65%">SERVICE</th>
@@ -1172,6 +1170,18 @@ class C_Pdf extends MY_Controller {
 			' . $this -> treatmentMCHSection . '
 		</table>
 
+		<table class="centre">
+		
+		<thead>
+		<tr>
+			<th colspan="6" > (D) WHAT IS THE CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above) </th></tr>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
+
 	</div><!--\.section-4-->
 	
 	<div id="section-5" class="step">
@@ -1193,7 +1203,6 @@ class C_Pdf extends MY_Controller {
 			' . $this -> ortCornerAspectsSectionPDF . '
 		</table>
 
-		<p style="margin-top:200px"></p>
 		<table  class="centre" >
 			<thead>
 				<tr>
@@ -1251,7 +1260,7 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesMCHSectionPDF . '
 		</table>
-		<p style="display:true" class="message success">
+		<p style="display:true;margin-top:50px" class="message success">
 			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
 		</p>
 		<table  class="centre" >

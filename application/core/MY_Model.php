@@ -135,6 +135,19 @@ class  MY_Model  extends  CI_Model {
 		return $this -> supplies;
 	}/*end of getAllSupplyNames*/
 
+	function getAllAccessChallenges() {
+		/*using DQL*/
+		try {
+			$this -> challenges = $this -> em -> createQuery('SELECT s.achId, s.achCode, s.achName FROM models\Entities\AccessChallenges s ORDER BY s.achId ASC');
+			$this -> challenges = $this -> challenges -> getResult();
+			// die(var_dump($this->supplies));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> challenges;
+	}/*end of getAllSupplyNames*/
+
 	function getAllEquipmentNames($surveyName) {
 		/*using DQL*/
 		try {
@@ -652,7 +665,6 @@ class  MY_Model  extends  CI_Model {
 			//ignore
 			//die($ex->getMessage());
 		}
-		echo  $this -> section;
 		return $this -> section;
 
 	}/*close sectionEntryExists($mfc,$section,$survey)*/

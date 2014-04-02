@@ -144,12 +144,15 @@ class C_Load extends MY_Controller {
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
 		       
 			<tr>
-			<td>Facility Name </td><td>
+			<td>Facility Name </td>
+			<td>
 			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
-			<label id="fac_name"  size="40" ></label>
+			<label id="facilityName"  size="40" ></label>
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
-			</td> <td>Facility Level </td><td>
+			</td> 
+			<td>Facility Level </td>
+			<td>
 			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
 							<option value="" selected="selected">Select Level</option>
@@ -164,24 +167,21 @@ class C_Load extends MY_Controller {
 			</td>
 			</tr>
 			<tr>
-			<td>Facility Type </td>
-			<td>
+			<td>Facility Type </td><td>
 			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
 							<option value="" selected="selected">Select Type</option>
 							' . $this -> selectFacilityType . '
 						</select>
 
 			</td>
-			<td>Owned By </td>
-			<td>
+			<td>Owned By </td><td>
 			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
 							<option value="" selected="selected">Select Owner</option>
 							' . $this -> selectFacilityOwner . '
 						</select>
 			</td>
 
-			<td>District/Sub County </td>
-			<td>
+			<td>District/Sub County </td><td>
 			<select name="fac_district" id="fac_district" class="cloned" style="width:85%">
 							<option value="" selected="selected">Select District/Sub County</option>
 							' . $this -> selectDistricts . '
@@ -632,7 +632,7 @@ class C_Load extends MY_Controller {
 	<thead>
 		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
 		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
-		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
+		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
 		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
 		
 		' . $this -> trainingGuidelineSection . '
@@ -1121,7 +1121,7 @@ class C_Load extends MY_Controller {
 		<th colspan ="2" style="text-align:left"> TRAININGS</th>
 		<th style="text-align:left">Number Trained before 2010</th>
 		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Staff Members 
+		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
 		Trained in the Last 2 Years are still Working in Child Health?</div></th>
 		
 		' . $this -> mchTrainingGuidelineSection . '
@@ -1180,12 +1180,12 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES BUNDLING </th>
+			<th colspan="16">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
 		</thead>
 		<tr>
-			<th scope="col" >Bundling Name</th>
-			<th >Bundling Unit</th>
+			<th scope="col" >Commodity Name</th>
+			<th >Commodity Unit</th>
 			<th colspan="3" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
@@ -1197,7 +1197,7 @@ class C_Load extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="1">Available Quantities</th>
-			<th scope="col">
+			<th colspan="1" rowspan="2">
 			
 				Main Supplier
 			</th>
@@ -1218,7 +1218,6 @@ class C_Load extends MY_Controller {
 			<td>Other</td>
 			<td>Not Applicable</td>
 			<td>No. of Units</td>
-			<td>Supplier</td>
 
 		</tr>' . $this -> mchBundling . ' 
 
@@ -1258,7 +1257,7 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="2" >DO HEALTH WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+			<th colspan="2" >DO HEALTH CARE WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
 		</thead>
 		
 		
@@ -1271,7 +1270,7 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="2" >DO HEALTH WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
+			<th colspan="2" >DO HEALTH CARE WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
 		</thead>
 		
 		
@@ -1417,6 +1416,16 @@ class C_Load extends MY_Controller {
 			<td>No Classification</td>
 		</tr>
 		' . $this -> treatmentMCHSection . '
+	</table>
+	<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (D) WHAT IS THE CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above) </th>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
 	</table>
 	
     </div><!--\.section-4-->
