@@ -657,7 +657,9 @@ class  MY_Model  extends  CI_Model {
 	//check if tracker entry has already been done
 	public function sectionEntryExists($mfc, $section, $survey) {
 		try {
+
 			$this -> section = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $mfc, 'astSection' => $section, 'astSurvey' => $survey,'ssId'=>(int)$this->session->userdata('survey_status')));
+
 			if ($this -> section) {
 				$this -> sectionExists = true;
 			}
@@ -665,6 +667,7 @@ class  MY_Model  extends  CI_Model {
 			//ignore
 			//die($ex->getMessage());
 		}
+
 		return $this -> section;
 
 	}/*close sectionEntryExists($mfc,$section,$survey)*/
@@ -834,7 +837,7 @@ class  MY_Model  extends  CI_Model {
 		//check if entry exists
 		$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
-		//print var_dump($this->section);
+		print var_dump($this->section);
 
 		//insert log entry if new, else update the existing one
 		if ($this -> sectionExists == false) {
@@ -852,11 +855,13 @@ class  MY_Model  extends  CI_Model {
 		} else {
 			// die('Update log');
 			try {
+
 				$this -> theForm = $this -> em -> getRepository('models\Entities\AssessmentTracker') -> findOneBy(array('facilityCode' => $this -> session -> userdata('facilityMFL'), 'astSection' => $this -> input -> post('step_name', TRUE), 'astSection' => $this -> session -> userdata('survey')));
+
 
 			} catch(exception $ex) {
 				//ignore
-				//die($ex->getMessage());
+				die($ex->getMessage());
 			}
 		}
 

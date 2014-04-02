@@ -284,12 +284,14 @@ class M_MCH_Survey  extends MY_Model {
 			$this -> theForm = new \models\Entities\CommunityStrategies();
 			//create an object of the model
 
+
 			$this -> theForm -> setStrategyCode(1);//$this -> elements[$i]['mchCommunityStrategyQCode']);
 			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['mchCommunityStrategy']) && $this -> elements[$i]['mchCommunityStrategy'] != '') ? $this -> theForm -> setCsResponse($this -> elements[$i]['mchCommunityStrategy']) : $this -> theForm -> setCsResponse(-1);
 			$this -> theForm -> setCsCreated(new DateTime());
 			$this -> theForm -> setSsId((int)$this->session->userdata('survey_status'));
+
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
