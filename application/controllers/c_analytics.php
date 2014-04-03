@@ -102,6 +102,12 @@ class C_Analytics extends MY_Controller {
 		echo $options;
 
 	}
+	public function getTotalCounties($survey){
+		$data = $this -> m_analytics -> getReportingCounties($survey);
+		//echo '<pre>';print_r($data);echo '</pre>';
+		$counties= (int)sizeof($data);
+		echo $counties;
+	}
 
 	public function getAllReportedCounties($survey) {
 		$reportingCounties = $this -> m_analytics -> getAllReportingRatio($survey);
@@ -1889,19 +1895,19 @@ $finalYes =$finalNo =$category=array();
 			}
 		}
 		foreach ($data as $key => $val) {
-			$resultArray[] = array('name' => 'Ownership ' . $key, 'data' => $val);
+			$resultArray[] = array('name' =>  $key, 'data' => $val);
 
 		}
 
 		$finalResult = $resultArray;
 		//}
-		$resultArraySize = 10;
+		$resultArraySize = sizeof($categories);
 		$datas['resultArraySize'] = $resultArraySize;
 
 		$datas['container'] = 'chart_ownership' . rand(5, 300);
 
 		$datas['chartType'] = 'bar';
-		$datas['chartMargin'] = 70;
+		$datas['chartMargin'] = 120;
 		$datas['title'] = 'Chart';
 		$datas['chartTitle'] = ' ';
 		//$datas['chartTitle'] = 'Guidelines';
