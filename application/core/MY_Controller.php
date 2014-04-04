@@ -3048,10 +3048,8 @@ class  MY_Controller  extends  CI_Controller {
 				$unit = '';
 			}
 			$this -> suppliesUsageAndOutageSectionPDF .= '<tr>
-			<td colspan="2" style="width:200px;">' . $value['supplyName'] . ' ' . $unit . ' </td>
-			<!-- td colspan="2">
-			<input name="usosUsage_' . $counter . '" type="text" size="5" />
-			</td -->
+			<td colspan="1" style="width:200px;">' . $value['supplyName'] . ' ' . $unit . ' </td>
+			
 			<td colspan="2">
 			a. Once<input type="checkbox">
 			b. 2-3<input type="checkbox">

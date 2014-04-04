@@ -885,6 +885,8 @@ function startAnalytics(base_url, county, survey) {
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getCEOC/';
 				currentDiv = '#graph_3';
+				neverList = 'ceoc';
+				$('#facility_list_no_mnh').show();
 				$('span.statistic').text('CEmONC Signal Function');
 				$('#signal-parentMnh').addClass('active');
 				$('#signal-parentMnh a').append('<span class="selected"></span>');
@@ -961,6 +963,8 @@ function startAnalytics(base_url, county, survey) {
 				break;
 
 			case 'equipmentFunctionality':
+				$('#facility_list_commodity_supplies_county').show();
+				$('#facility_list_commodity_supplies').show();
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getEquipmentFunctionality/';
 				currentDiv = '#graph_3';
@@ -984,6 +988,44 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getEquipmentAvailability/county/'+county+'/ch/'+extraStat);
 				break;
 
+			case 'hardwareFrequencyMnh':
+				$('#facility_list_never').show();
+				neverList = 'Resources';
+				currentChart = base_url + 'c_analytics/getResourcesFrequency/';
+				appendToTitle = ' ';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Hardware Resource Availability');
+				$('#hardware-parentMnh').addClass('active');
+				$('#hardware-parentMnh a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getResourcesFrequency/national/n/mnh/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getResourcesFrequency/county/' + county + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
+				break;
+
+			case 'resourcesFrequencyMnh':
+				
+				currentChart = base_url + 'c_analytics/getRunningWaterFrequency/';
+				appendToTitle = ' ';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Running Water Availability');
+				$('#resources-parentMnh').addClass('active');
+				$('#resources-parentMnh a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getRunningWaterFrequency/national/n/mnh/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getRunningWaterFrequency/county/' + county + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
+				break;
+
+			case 'resourcesLocationMnh':
+				currentChart = base_url + 'c_analytics/getRunningWaterLocation/';
+				appendToTitle = ' ';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Running Water Location');
+				$('#resources-parentMnh').addClass('active');
+				$('#resources-parentMnh a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getRunningWaterLocation/national/n/mnh/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getRunningWaterLocation/county/' + county + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
+				break;
 
 		}
 

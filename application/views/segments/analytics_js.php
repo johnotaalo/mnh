@@ -20,6 +20,7 @@
 	<script src="<?php echo base_url()?>assets/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>	
 	<script src="<?php echo base_url()?>assets/js/app.js"></script>	
 	<script src="<?php echo base_url()?>js/highcharts.js"></script>	
+	<script src="<?php echo base_url()?>js/modules/drilldown.js"></script>
 	<script src="<?php echo base_url()?>js/exporting.js"></script>		
 	<script>
 		jQuery(document).ready(function() {			

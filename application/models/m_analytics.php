@@ -2307,7 +2307,6 @@ ORDER BY ea.eq_code ASC";
 		 * something of this kind:
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
-
 	
 
 		switch($criteria) {
@@ -2555,6 +2554,241 @@ ORDER BY sq.supply_code ASC";
 		/*--------------------end supplies equipment location of availability----------------------------------------------*/
 
 	}
+	public function getRunningWater($criteria, $value,  $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+	
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				$value = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		/*--------------------begin supplies availability by frequency----------------------------------------------*/
+
+		$query = "SELECT 
+    count(sq.as_availability) AS total_response,
+    sq.supply_code as supplies,
+    sq.as_availability AS frequency
+FROM
+    available_supplies sq,
+    supplies s
+WHERE
+    sq.supply_code = s.supply_code
+        AND sq.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ")
+        AND sq.supply_code IN (SELECT 
+            supply_code
+        FROM
+            supplies
+        WHERE
+            supply_for = 'mh')
+GROUP BY sq.supply_code , sq.as_availability
+ORDER BY sq.supply_code;";
+		try {
+
+			$this -> dataSet = $this -> db -> query($query, array($value));
+
+			$this -> dataSet = $this -> dataSet -> result_array();
+
+			//echo($this->db->last_query());die;
+			if ($this -> dataSet !== NULL) {
+				$data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $this -> getSupplyName($value_['supplies'], 'mh');
+					//incase of duplicates--do an array_unique outside the foreach()
+
+					//2. collect the analytic variables
+					if ($value_['frequency'] == 'Some Available') {//a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
+
+						$frequency = 'Sometimes Available';
+					} else {
+						$frequency = $value_['frequency'];
+					}
+					$analytic_var[] = $frequency;
+					//includes duplicates--so we'll array_unique outside the foreach()
+
+					//collect the data_sets for the 3 analytic variables under availability
+					if ($frequency == 'Available') {
+						$data_set['Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Sometimes Available') {
+						$data_set['Sometimes Available'][] = intval($value_['total_response']);
+					} else if ($frequency == 'Never Available') {
+						$data_set['Never Available'][] = intval($value_['total_response']);
+					}
+
+				}
+
+				//var_dump($data_set);die;
+
+				//make cat array unique if we got duplicates then json_encode and set to $data array
+				$data['categories'] = (array_values(array_unique($data_categories)));
+				//expected 28
+
+				//get a unique set of analytic variables
+				$analytic_var = array_unique($analytic_var);
+				//expected to be 3 in this particular context
+				$data['analytic_variables'] = $analytic_var;
+
+				//get the data sets
+				$data['responses'] = $data_set;
+				//sets of the 3 analytic variables: Available | Sometimes Available | Never Available
+
+				$this -> final_data_set['frequency'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
+				//unset the arrays for reuse in the next query
+				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+				//return $this -> final_data_set;
+
+			} else {
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		/*--------------------end supplies equipment availability by frequency----------------------------------------------*/
+
+		/*--------------------begin supplies equipment location of availability----------------------------------------------*/
+		$query = "SELECT 
+    count(sq.as_location) AS total_response,
+    sq.supply_code as supplies,
+    sq.as_location AS location
+FROM
+    available_supplies sq
+WHERE
+    sq.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+                 ".$criteria_condition.")
+        AND sq.supply_code IN (SELECT 
+            supply_code
+        FROM
+            supplies WHERE supply_for='mh')
+        AND sq.as_location NOT LIKE '%Not Applicable%'
+GROUP BY sq.supply_code , sq.as_location
+ORDER BY sq.supply_code ASC";
+
+		try {
+			//echo $query;die;
+			//die(print $status.$value);
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			//var_dump($this->dataSet);die;
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo '<pre>';	print_r($this -> dataSet);echo '</pre>';die;
+			//echo($this -> db -> last_query());
+			//die ;
+			if ($this -> dataSet !== NULL) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Other' => 0,'Maternity' => 0);
+				//to hold the location instances
+				foreach ($this->dataSet as $value_) {
+
+					//1. collect the categories
+					$data_categories[] = $this -> getSupplyName($value_['supplies'], 'mh');
+					//var_dump($data_categories);die;
+					//incase of duplicates--do an array_unique outside the foreach()
+					
+							//collect the data_sets from the coma separated responses
+							if (strpos($value_['location'], 'OPD') !== FALSE) {
+								$count_instances['OPD'] += intval($value_['total_response']);
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['OPD'] = $count_instances['OPD'];
+							}
+							if (strpos($value_['location'], 'Maternity') !== FALSE) {
+								$count_instances['Maternity'] += intval($value_['total_response']);
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Maternity'] = $count_instances['Maternity'];
+							}
+							if (strpos($value_['location'], 'MCH') !== FALSE) {
+								$count_instances['MCH'] += intval($value_['total_response']);
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['MCH'] = $count_instances['MCH'];
+							}
+							if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
+								$count_instances['U5 Clinic'] += intval($value_['total_response']);
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['U5 Clinic'] = $count_instances['U5 Clinic'];
+							}
+							if (strpos($value_['location'], 'Other') !== FALSE) {
+								$count_instances['Other'] += intval($value_['total_response']);
+								$data_set[$this -> getSupplyName($value_['supplies'], $survey)]['Other'] = $count_instances['Other'];
+							}
+
+					//2. collect the analytic variables
+					//$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
+
+				}
+				//var_dump($count_instances);die;
+				//var_dump($data_set);die;
+
+				//make array unique if we got duplicates and set to $data array
+				$data['categories'] = array_values(array_unique($data_categories));
+				//expected 28
+
+				//get a unique set of analytic variables
+				$analytic_var = array('OPD', 'Maternity','MCH', 'U5 Clinic', 'Other');
+				//expected to be 5 in this particular context, again we know they r just these 5 :)
+				$data['analytic_variables'] = $analytic_var;
+
+				//get the data sets
+				$data['responses'] = $data_set;
+				//sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
+
+				$this -> final_data_set['location'] = $data;
+				#note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+
+				$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+				//unset the arrays for reuse
+
+				return $this -> final_data_set;
+			} else {
+				return null;
+			}
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		/*--------------------end supplies equipment location of availability----------------------------------------------*/
+
+	}
 
 	/*
 	 * Availability, Location and Functionality of Supplies at ORT Corner
@@ -2683,7 +2917,14 @@ LIMIT 0 , 1000
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-	
+	switch($survey){
+		case 'mnh':
+		$eq='mhw';
+		break;
+		case 'ch':
+		$eq='hwr';
+		break;
+	}
 
 		switch($criteria) {
 			case 'national' :
@@ -2727,7 +2968,7 @@ WHERE
         FROM
             equipments
         WHERE
-            eq_for = 'hwr')
+            eq_for = '".$eq."')
 GROUP BY ra.eq_code , ra.ar_availability
 ORDER BY ra.eq_code ASC";
 		try {
@@ -2823,7 +3064,7 @@ WHERE
         FROM
             equipments
         WHERE
-            eq_for = 'hwr')
+            eq_for = '".$eq."')
         AND ra.ar_location NOT LIKE '%Not Applicable%'
 GROUP BY ra.eq_code , ra.ar_location
 ORDER BY ra.eq_code ASC";
@@ -3287,7 +3528,7 @@ FROM
     JOIN survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = "'.$survey.'")
     WHERE
-        f.fac_county = "'.$county.'"
+        f.fac_county = "'.$county.'" and f.fac_level!=""
     GROUP BY fac_Level
     ORDER BY COUNT(fac_Level) ASC) AS tracker;';
 
@@ -3346,7 +3587,13 @@ FROM
 				#Facility List
 				$query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
 					FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
- 					WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . " " . $criteria_condition . ")
+ 					WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
  					 AND lq.question_code = g.question_code AND lq.fac_mfl=f.fac_mfl;";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
@@ -3389,9 +3636,13 @@ WHERE
         AND il.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3434,9 +3685,13 @@ WHERE
         AND il.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3479,9 +3734,13 @@ WHERE
         AND il.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3524,9 +3783,13 @@ WHERE
         AND il.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3569,9 +3832,13 @@ WHERE
         AND il.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -3604,9 +3871,6 @@ WHERE
 	 * Lists for NEVER
 	 */
 	public function getFacilityListForNever($criteria, $value,  $survey, $choice) {
-		urldecode($value);
-	
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
@@ -3644,9 +3908,13 @@ WHERE
         AND ca.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . "  " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
         AND ca.comm_code IN (SELECT 
             comm_code
         FROM
@@ -3691,13 +3959,17 @@ WHERE
     ea.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . "  " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
         AND ea.eq_code IN (SELECT 
             eq_code
         FROM
-            equipment
+            equipments
         WHERE
             eq_for = 'ort')
         AND ea.ae_availability = 'Never Available'
@@ -3740,9 +4012,13 @@ WHERE
         AND sq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-             " . $status_condition . "  " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
         AND sq.supply_code IN (SELECT 
             supply_code
         FROM
@@ -3773,8 +4049,71 @@ ORDER BY sq.supply_code;";
 				} catch(exception $ex) {
 				}
 				break;
-			case 'Resources' :
+			case 'Running Water' :
 				$query = "SELECT 
+    sq.fac_mfl,
+    f.fac_name,
+    sq.supply_code as supplies,
+    sq.as_availability AS frequency
+FROM
+    available_supplies sq,
+    supplies s,
+    facilities f
+WHERE
+    sq.supply_code = s.supply_code
+        AND sq.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
+        AND sq.supply_code IN (SELECT 
+            supply_code
+        FROM
+            supplies
+        WHERE
+            supply_for = 'mh')
+        AND sq.as_availability = 'Never Available'
+        AND sq.fac_mfl = f.fac_mfl
+ORDER BY sq.supply_code;";
+				try {
+					$this -> dataSet = $this -> db -> query($query, array($value));
+					$this -> dataSet = $this -> dataSet -> result_array();
+
+					if ($this -> dataSet !== NULL) {
+						$facilities = array();
+						$size = count($this -> dataSet);
+						$i = 0;
+
+						foreach ($this->dataSet as $value) {
+							$facilities[$this -> getSupplyName($value['supplies'])][] = array($value['fac_mfl'], $value['fac_name']);
+						}
+						return $facilities;
+						//var_dump($this->dataSet);die;
+
+					} else {
+						return $facilities = null;
+					}
+				} catch(exception $ex) {
+				}
+				break;
+			case 'Resources' :
+			switch($survey)
+				{
+					case 'mnh':
+						$for = "mhw";
+					break;
+					case 'ch':
+						$for="hwr";
+					break;
+
+					}
+				$query = "SELECT 
+				
     ra.fac_mfl,
     f.fac_name,
     ra.eq_code as equipment,
@@ -3786,15 +4125,19 @@ WHERE
     ra.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-           " . $status_condition . "  " . $criteria_condition . ") 
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.") 
         AND ra.eq_code IN (SELECT 
             eq_code
         FROM
-            equipment
+            equipments
         WHERE
-            eq_for = 'hwr')
+            eq_for = '".$for."')
         AND ra.ar_availability = 'Never Available'
         AND ra.fac_mfl = f.fac_mfl
 ORDER BY ra.eq_code ASC";
@@ -4265,8 +4608,51 @@ ORDER BY question_code";
 				$yes = $value_['yes_values'];
 				$no = $value_['no_values'];
 				//1. collect the categories
-				$data[$question]['yes'] = $yes;
-				$data[$question]['no'] = $no;
+				$data['overview'][$question]['yes'] = $yes;
+				$data['overview'][$question]['no'] = $no;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+		$query = "SELECT 
+    question_code,
+    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
+    	(fac_level) as facility_level
+		FROM
+		    log_questions
+		JOIN 
+			facilities
+		ON
+			facilities.fac_mfl = log_questions.fac_mfl and facilities.fac_level!=''
+		WHERE
+    question_code IN (SELECT 
+            question_code
+        FROM
+            questions
+        WHERE
+            question_for = 'prep')
+        AND facilities.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')
+               ".$criteria_condition.")
+GROUP BY fac_level
+ORDER BY fac_level;";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			foreach ($this->dataSet as $value_) {
+				$fac_level = $value_['facility_level'];
+				$yes = $value_['yes_values'];
+				//1. collect the categories
+				$data['drilldown'][$fac_level] = $yes;
 			}
 			//die(var_dump($this->dataSet));
 		} catch(exception $ex) {
@@ -4663,7 +5049,7 @@ ORDER BY question_code";
 				break;
 		}
 		$query = "SELECT 
-    f.fac_name,f.fac_county,SUM(ca.ac_quantity) AS total_quantity,
+    f.fac_name,f.fac_district,SUM(ca.ac_quantity) AS total_quantity,
     ca.comm_code as commodities,commodities.comm_unit AS unit
 FROM
     available_commodities as ca
@@ -4686,27 +5072,31 @@ commodities.comm_code=ca.comm_code AND
         FROM
             commodities
         WHERE
-            comm_for = 'mnh')
+            comm_for = '".$survey."')
         AND ca.ac_quantity != - 1
 GROUP BY f.fac_name,ca.comm_code
-ORDER BY f.fac_name,ca.comm_code;";
+ORDER BY f.fac_district,f.fac_name,ca.comm_code;";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
 			//echo $this->db->last_query();
+			$data['commodity_categories'][]='Facility Name';
+			$data['commodity_categories'][]='District/Sub County';
 			foreach ($this->dataSet as $value_) {
-				$data['commodities_categories'][0] = 'Facility Name';
+				//$data['commodities_categories'][0] = 'Facility Name';
 				$supply = $this -> getCommodityNameById($value_['commodities'], $survey) . ' ' . $value_['unit'];
 				$facility = $value_['fac_name'];
+				$district = $value_['fac_district'];
 				//$response = $value_['supplies'];
 				//1. collect the categories
 				$data['commodities'][$facility]['facility'] = $facility;
+				$data['commodities'][$facility]['district'] = $district;
 				$data['commodities'][$facility][$supply] = $value_['total_quantity'];
 				$data['commodity_categories'][] = $supply;
 
 			}
-			$data['commodities_categories'] = array_unique($data['commodities_categories']);
-
+			$data['commodity_categories'] = array_unique($data['commodity_categories']);
+//echo '<pre>';print_r($data['commodity_categories']);echo '</pre>';
 			//die(var_dump($this->dataSet));
 		} catch(exception $ex) {
 			//ignore
@@ -4714,7 +5104,7 @@ ORDER BY f.fac_name,ca.comm_code;";
 		}
 
 		$query = "SELECT 
-    f.fac_name,f.fac_county,SUM(sa.as_quantity) AS total_quantity,
+    f.fac_name,f.fac_district,SUM(sa.as_quantity) AS total_quantity,
     sa.supply_code as Supplies
 FROM
     available_supplies as sa
@@ -4737,7 +5127,7 @@ Supplies.supply_code=sa.supply_code AND
         FROM
             Supplies
         WHERE
-            supply_for = 'mnh')
+            supply_for = '".$survey."')
         AND sa.as_quantity != - 1
 GROUP BY f.fac_name,sa.supply_code
 ORDER BY f.fac_name,sa.supply_code;";
@@ -4747,13 +5137,68 @@ ORDER BY f.fac_name,sa.supply_code;";
 			foreach ($this->dataSet as $value_) {
 				$supply = $this -> getSupplyName($value_['Supplies'], $survey);
 				$facility = $value_['fac_name'];
-				//$response = $value_['supplies'];
+				$district = $value_['fac_district'];
 				//1. collect the categories
 				$data['supplies'][$facility][$supply] = $value_['total_quantity'];
 				$data['supply_categories'][] = $supply;
 
 			}
 			$data['supply_categories'] = array_unique($data['supply_categories']);
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		$query = "SELECT 
+    f.fac_name,
+    f.fac_district,
+    SUM(sa.ae_fully_functional) AS fully,
+    SUM(sa.ae_non_functional) AS non,
+    sa.eq_code as Equipments
+FROM
+    available_equipments as sa
+        INNER JOIN
+    facilities as f ON sa.fac_mfl = f.fac_mfl
+WHERE
+    sa.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ")
+        AND sa.eq_code IN (SELECT 
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = '".$survey."')
+        AND sa.ae_fully_functional != - 1 AND sa.ae_non_functional!=-1
+GROUP BY f.fac_name , sa.eq_code
+ORDER BY f.fac_district,f.fac_name , sa.eq_code;";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();
+			
+			foreach ($this->dataSet as $value_) {
+				//$data['commodities_categories'][0] = 'Facility Name';
+				$supply = $this -> getCHEquipmentName($value_['Equipments'], $survey);
+				$facility = $value_['fac_name'];
+				$district = $value_['fac_district'];
+				//$response = $value_['supplies'];
+				//1. collect the categories
+				$data['equipments'][$facility][$supply. ' (Fully Functional)'] = $value_['fully'];
+				$data['equipments'][$facility][$supply. ' (Non-Functional)'] = $value_['non'];
+				$data['equipment_categories'][] = $supply. ' (Fully Functional)';
+				$data['equipment_categories'][] = $supply. ' (Non-Functional)';
+
+			}
+			$data['equipment_categories'] = array_unique($data['equipment_categories']);
+//echo '<pre>';print_r($data['equipment_categories']);echo '</pre>';die;
 			//die(var_dump($this->dataSet));
 		} catch(exception $ex) {
 			//ignore
@@ -4806,9 +5251,12 @@ WHERE
         AND lq.fac_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            " . $status_condition . "  " . $criteria_condition . ") ";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '".$survey."')" . $criteria_condition . ") ";
 
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
@@ -4834,14 +5282,4 @@ WHERE
 
 	}
 
-	#Section 3
-	#-----------------------------------------------------------------------------
-	#Section 4
-	#-----------------------------------------------------------------------------
-	#Section 5
-	#-----------------------------------------------------------------------------
-	#Section 6
-	#-----------------------------------------------------------------------------
-	#Section 7
-	#-----------------------------------------------------------------------------
 }

@@ -130,7 +130,7 @@ class C_Pdf extends MY_Controller {
 		<table>
 			<thead>
 				
-					<th colspan="2" >PROVISION OF Services</th>
+					<th colspan="2" >PROVISION OF Beds</th>
 			
 				<tr>
 					<th >QUESTION</th>
@@ -461,7 +461,7 @@ class C_Pdf extends MY_Controller {
 					<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
 					<th colspan ="2" style="text-align:left">
 					<div style="width: 500px" >
-						How Many Of The Total Staff Members
+						How Many Of The Staff Members
 						Trained in the Last 2 Years are still Working in the Marternity Unit?
 					</div></th>
 				</tr>
@@ -1285,7 +1285,7 @@ class C_Pdf extends MY_Controller {
 					<th>Other</th>
 				</tr>
 			</thead>
-			' . $this -> hardwareMCHSectionPDF . '
+			' . $this -> hardwareMNHSectionPDF . '
 		</table>
 		
 
@@ -1338,6 +1338,7 @@ background: #91c5d4;
 				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
+				//echo $html;die;
 				break;
 			case 'mch' :
 				$html = $this -> get_mch_form();

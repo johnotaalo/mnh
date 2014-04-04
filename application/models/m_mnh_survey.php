@@ -78,7 +78,7 @@ class M_MNH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhWasteDisposalAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('waste','QMNH');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('waste','QMN');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}

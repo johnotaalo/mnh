@@ -237,6 +237,27 @@ case 'mnh' :
 			</ul>
 
 		</li>
+		<li id="hardware-parentMnh" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="hardwareFrequencyMnh">
+					<a href="#">Hardware Availability</a>
+				</li>
+			</ul>
+
+		</li>
+		<li id="resources-parentMnh" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="resourcesFrequencyMnh">
+					<a href="#">Resources Availability</a>
+				</li>
+				<li id="resourcesLocationMnh">
+					<a href="#">Resources Location</a>
+				</li>
+			</ul>
+
+		</li>
 		
 	</ul>
 	<!-- END SIDEBAR MENU -->
