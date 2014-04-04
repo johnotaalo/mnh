@@ -109,6 +109,58 @@ ORDER BY fac_level;");
 	$this->load->view('Yes_Response',$data);
 } //end of the function
 
+
+//function to analyse data for section 2 of 7
+public function challenges(){
+	$this->load->helper("url");
+	$this->load->database();
+	$reason = array();
+            $data_array['level 1']=array();
+			$data_array['level 2']=array();
+			$data_array['level 3']=array();
+			$data_array['level 4']=array();
+			$data_array['level 5']=array();
+			$data_array['level 6']=array();
+	$category_array = array();
+	$query = $this->db->query("select count(*)as totals,challenge_code as challenge,fac_level as level
+							from bemonc_functions 
+							join facilities
+							on bemonc_functions.fac_mfl = facilities.fac_mfl 
+							group by challenge_code,fac_level;");
+							
+		foreach ($query->result() as $row) {
+		$total= $row->totals;
+		$challenges = $row->challenge;
+		$levels =$row->level;		
+		$category_array =in_array($challenges, $category_array)?  $category_array: 
+		array_merge($category_array,array($challenges));
+		
+		array_key_exists("level $levels", $data_array)?
+		$data_array["level $levels"]=array_merge($data_array["level $levels"], array($total)):
+		$data_array=array_merge($data_array, array('level $levels'=>$total));
+		
+		
+		}
+		$test=$data_array;
+		foreach($test as $key=>$checker){
+			
+			$count=count($checker);
+			$diff=7-$count;
+		
+			
+			for($i=0;$i<$diff;$i++){
+			$data_array[$key]=array_merge($data_array[$key], array(0));
+			
+			}
+			
+			
+		}
+		 	$data['categories']= json_encode($category_array);
+			$data['result']=$data_array;
+		  	$this->load->view('analyseChallenges',$data);
+		
+		}
+
 	public function setActive($county, $survey) {
 
 		$county = urldecode($county);
