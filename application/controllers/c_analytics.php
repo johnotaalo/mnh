@@ -1820,7 +1820,8 @@ ORDER BY fac_level;");
                 $frequencyAlways = $frequency['responses']['Available'];
                 $frequencySometimes = $frequency['responses']['Sometimes Available'];
                 $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-               // var_dump($resultArray);die;
+                
+                // var_dump($resultArray);die;
                 break;
 
             case 'Location':
@@ -1856,7 +1857,6 @@ ORDER BY fac_level;");
                     } else {
                         $clinic[] = 0;
                     }
-                                      
                 }
                 
                 //var_dump($other);
@@ -3023,11 +3023,11 @@ ORDER BY fac_level;");
     }
     
     public function getBEMONCReason($criteria, $value, $survey) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, 'ceoc');
+        $this->getSignalFunctionReason($criteria, $value, $survey, 'bemonc');
     }
     
     public function getCEOCReason($criteria, $value, $survey) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, 'bemonc');
+        $this->getSignalFunctionReason($criteria, $value, $survey, 'ceoc');
     }
     
     public function getSignalFunctionReason($criteria, $value, $survey, $signal) {
@@ -3035,23 +3035,48 @@ ORDER BY fac_level;");
         $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
         
         //echo '<pre>';
-        //print_r($results);
+       // print_r($results);
         //echo '</pre>';
         //die ;
-        $cat = $results['categories'];
+        foreach( $results['categories'] as $cat){
+            $categories[]=$cat;
+        }
+        
+        //$categories = $results['categories'];
         $number = $q = $resultArray = $yes = $no = array();
         $counter = 0;
-        foreach ($results['reason'] as $key => $value) {
-            foreach ($cat as $c) {
-                if (array_key_exists($c, $value)) {
-                    $numbers[] = $value[$c];
-                } else {
-                    $numbers[] = 0;
+        
+        switch ($signal) {
+            case 'bemonc':
+                
+                foreach ($results['reason'] as $key => $value) {
+                    foreach ($value as $level => $val) {
+                        $data['Level '.$level][] = $val;
+                    }
+                   
+                    //$data = array();;
                 }
-                $categories[] = $c;
-            }
-            $resultArray[] = array('name' => $key, 'data' => $numbers);
-            $numbers = array();
+                 $resultArray = array(array('name' => 'Level 1','data'=>$data['Level 1']),array('name' => 'Level 2','data'=>$data['Level 2']),array('name' => 'Level 3','data'=>$data['Level 3']));
+                //echo '<pre>';
+               // print_r($resultArray);
+                //echo '</pre>';
+                //die;
+                break;
+
+            case 'ceoc':
+                foreach ($results['reason'] as $key => $value) {
+                    foreach ($cat as $c) {
+                        if (array_key_exists($c, $value)) {
+                            $numbers[] = $value[$c];
+                        } else {
+                            $numbers[] = 0;
+                        }
+                        $categories[] = $c;
+                    }
+                    $resultArray[] = array('name' => $key, 'data' => $numbers);
+                    $numbers = array();
+                }
+                break;
         }
         
         $resultArray = json_encode($resultArray);

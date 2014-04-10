@@ -92,7 +92,7 @@ $config['charset'] = 'UTF-8';
 | setting this variable to TRUE (boolean).  See the user guide for details.
 |
 */
-$config['enable_hooks'] = true;
+$config['enable_hooks'] = TRUE;
 
 
 /*
@@ -246,7 +246,7 @@ $config['encryption_key'] = '34edder345tg7d573dew5323509593b1e2f258ee-ke';
 |
 */
 $config['sess_cookie_name']		= 'bg_info';
-$config['sess_expiration']		= 28800;
+$config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;

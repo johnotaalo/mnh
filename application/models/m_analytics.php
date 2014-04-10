@@ -1714,7 +1714,7 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = 'mnh')".$criteria_condition.")";
+        AND st.st_name = '$survey')".$criteria_condition.")";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
@@ -1732,7 +1732,7 @@ WHERE
 										$under5N++;
 									}
 									break;
-								case 'ORT Corner register' :
+								case 'ORT Corner register (improvised)' :
 									if ($value['response'] == 'Yes') {
 										$ORTY++;
 									} else if ($value['response'] == 'No') {
@@ -1750,10 +1750,10 @@ WHERE
 
 							//echo $value['indicator'];
 						}
-						$data_categories = array('Under 5 register', 'ORT Corner register', 'Mother Child Booklet');
+						$data_categories = array('Under 5 register', 'ORT Corner register (improvised)', 'Mother Child Booklet');
 						$data['categories'] = $data_categories;
-						$data['yes_values'] = array('Under 5 register' => $under5Y, 'ORT Corner register' => $ORTY, 'Mother Child Booklet' => $bookY);
-						$data['no_values'] = array('Under 5 register' => $under5N, 'ORT Corner register' => $ORTN, 'Mother Child Booklet' => $bookN);
+						$data['yes_values'] = array('Under 5 register' => $under5Y, 'ORT Corner register (improvised)' => $ORTY, 'Mother Child Booklet' => $bookY);
+						$data['no_values'] = array('Under 5 register' => $under5N, 'ORT Corner register (improvised)' => $ORTN, 'Mother Child Booklet' => $bookN);
 
 						$this -> dataSet = $data;
 
@@ -1879,7 +1879,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 
 		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration,
 SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
-FROM mch_treatment_log tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
+FROM log_treatment tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
 WHERE treatmentFor='dia') AND tl.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . "  " . $criteria_condition . ")
 GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		try {
@@ -3429,6 +3429,8 @@ FROM
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = "'.$survey.'")
+ JOIN assessment_tracker ast ON ast.facilityCode = f.fac_mfl
+        AND ast.ast_section = "section-6" AND ast.ast_survey="'.$survey.'"
 WHERE
     f.fac_county = "'.$county.'") as tracker,
 (SELECT 
@@ -4174,85 +4176,84 @@ ORDER BY ra.eq_code ASC";
 			case 'Cases' :
 				$query = "SELECT 
     SUM(CASE
-        WHEN tl.severeDehydrationNo = - 1 THEN 0
-        ELSE tl.severeDehydrationNo
+        WHEN tl.lt_severe_dehydration_number = - 1 THEN 0
+        ELSE tl.lt_severe_dehydration_number
     END) AS severe_dehydration,
     SUM(CASE
-        WHEN tl.someDehydrationNo = - 1 THEN 0
-        ELSE tl.someDehydrationNo
+        WHEN tl.lt_some_dehydration_number = - 1 THEN 0
+        ELSE tl.lt_some_dehydration_number
     END) AS some_dehydration,
     SUM(CASE
-        WHEN tl.noDehydrationNo = - 1 THEN 0
-        ELSE tl.noDehydrationNo
+        WHEN tl.lt_no_dehydration_number = - 1 THEN 0
+        ELSE tl.lt_no_dehydration_number
     END) AS no_dehydration,
     SUM(CASE
-        WHEN tl.dysentryNo = - 1 THEN 0
-        ELSE tl.dysentryNo
+        WHEN tl.lt_dysentry_number = - 1 THEN 0
+        ELSE tl.lt_dysentry_number
     END) AS dysentry,
     SUM(CASE
-        WHEN tl.noClassificationNo = - 1 THEN 0
-        ELSE tl.noClassificationNo
+        WHEN tl.lt_no_Classification_number = - 1 THEN 0
+        ELSE tl.lt_no_Classification_number
     END) AS no_classification
 FROM
-    mch_treatment_log tl
+    log_treatment tl
 WHERE
-    tl.treatmentID IN (SELECT 
-            treatmentCode
+    tl.treatment_code IN (SELECT 
+            treatment_code
         FROM
-            mch_treatments
+            treatments
         WHERE
-            treatmentFor = 'dia')
-        AND tl.fac_mfl IN (SELECT 
+            treatment_for = 'dia')
+        AND tl.facility_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            facilityCHSurveyStatus = 'complete' and fac_county='$county')
-;";
+            facilities f
+    JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+    JOIN survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'ch') WHERE fac_county='$county');";
 				$results = $this -> db -> query($query);
 				return $results -> result_array();
 				break;
 			case 'Classification' :
 				$final = array();
 				$query = "SELECT 
-    tl.treatmentID AS treatment,
-(SUM(CASE
-        WHEN tl.severeDehydrationNo = - 1 THEN 0
-        ELSE tl.severeDehydrationNo
-    END)+
-    SUM(CASE
-        WHEN tl.someDehydrationNo = - 1 THEN 0
-        ELSE tl.someDehydrationNo
-    END)+
-    SUM(CASE
-        WHEN tl.noDehydrationNo = - 1 THEN 0
-        ELSE tl.noDehydrationNo
-    END)+
-    SUM(CASE
-        WHEN tl.dysentryNo = - 1 THEN 0
-        ELSE tl.dysentryNo
-    END)+
-    SUM(CASE
-        WHEN tl.noClassificationNo = - 1 THEN 0
-        ELSE tl.noClassificationNo
+    tl.treatment_code AS treatment,
+    (SUM(CASE
+        WHEN tl.lt_severe_Dehydration_number = - 1 THEN 0
+        ELSE tl.lt_severe_Dehydration_number
+    END) + SUM(CASE
+        WHEN tl.lt_some_Dehydration_number = - 1 THEN 0
+        ELSE tl.lt_some_Dehydration_number
+    END) + SUM(CASE
+        WHEN tl.lt_no_Dehydration_number = - 1 THEN 0
+        ELSE tl.lt_no_Dehydration_number
+    END) + SUM(CASE
+        WHEN tl.lt_dysentry_number = - 1 THEN 0
+        ELSE tl.lt_dysentry_number
+    END) + SUM(CASE
+        WHEN tl.lt_no_Classification_number = - 1 THEN 0
+        ELSE tl.lt_no_Classification_number
     END)) as total
 FROM
-    mch_treatment_log tl
+    log_treatment tl
 WHERE
-    tl.treatmentID IN (SELECT 
-            treatmentCode
+    tl.treatment_code IN (SELECT 
+            treatment_code
         FROM
-            mch_treatments
+            treatments
         WHERE
-            treatmentFor = 'dia')
-        AND tl.fac_mfl IN (SELECT 
+            treatment_for = 'dia')
+        AND tl.facility_mfl IN (SELECT 
             fac_mfl
         FROM
-            facilities
-        WHERE
-            facilityCHSurveyStatus = 'complete' and fac_county='$county')
-GROUP BY tl.treatmentID
-ORDER BY tl.treatmentID ASC";
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')WHERE fac_county='$county')
+GROUP BY tl.treatment_code
+ORDER BY tl.treatment_code ASC";
 				$results = $this -> db -> query($query);
 				$results = $results -> result_array();
 
@@ -4746,15 +4747,16 @@ ORDER BY sf_code";
 				}
 
 				$query = "SELECT 
-    count(*) as response,challenge_code,sf_code
+    count(*) as response,challenge_code,fac_level as level
 FROM
-    bemonc_functions
+    bemonc_functions join
+    facilities f ON bemonc_functions.fac_mfl = f.fac_mfl AND f.fac_level!=''
 WHERE
     sf_code IN (SELECT 
             sf_code
         FROM
             signal_functions)
-        AND fac_mfl IN (SELECT 
+        AND f.fac_mfl IN (SELECT 
             fac_mfl
         FROM
             facilities f
@@ -4764,16 +4766,15 @@ WHERE
             survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = '".$survey."')
                  ".$criteria_condition.")
-GROUP BY sf_code,challenge_code
-ORDER BY sf_code";
+GROUP BY challenge_code,f.fac_level
+ORDER BY challenge_code
+";
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
 					$this -> dataSet = $this -> dataSet -> result_array();
 					foreach ($this->dataSet as $value_) {
-						$question = $this -> getSignalName($value_['sf_code']);
-
-						$data['reason'][$value_['challenge_code']][$question] = (int)$value_['response'];
-						$data['categories'][] = $question;
+						$data['reason'][$value_['challenge_code']][$value_['level']] = (int)$value_['response'];
+						$data['categories'][] = $value_['challenge_code'];
 					}
 					$data['categories'] = array_unique($data['categories']);
 					//die(var_dump($this->dataSet));

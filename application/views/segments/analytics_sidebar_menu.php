@@ -174,15 +174,15 @@ case 'mnh' :
 				<li id="cemonc">
 					<a href="#">CEmONC Signal Function</a>
 				</li>
-				<li id="cemoncReason">
+				<!--li id="cemoncReason">
 					<a href="#">CEmONC Signal Function Challenges</a>
-				</li>
+				</li-->
 				<li id="bemonc">
 					<a href="#">BEmONC Signal Function</a>
 				</li>
-				<!--li id="bemoncReason">
+				<li id="bemoncReason">
 					<a href="#">BEmONC Signal Function Challenges</a>
-				</li-->
+				</li>
 				
 				
 			</ul>
