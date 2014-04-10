@@ -15,7 +15,7 @@
                 text: 'bar chart'
             },
             xAxis: {
-                 categories: <?php echo  $categories ?>,
+                 categories: <?php echo  $facility_categories ?>,
                 title: {
                     text: null
                 }
@@ -32,19 +32,16 @@
             },
              series: [
         <?php
-        foreach ($result as $key => $value) {
+        foreach ($lev as $key => $value) {
         	echo "{ name: '$key',";
 			$marks_=array();
 		foreach ($value as $key => $marks) {
 			$marks_=array_merge($marks_,array((int)$marks));
-			
 		}
 		echo " data: ".json_encode($marks_).'},';	
 		}
         ?>
-      
-            
-            ]
+       ]
         });
     });
 </script>

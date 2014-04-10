@@ -139,7 +139,6 @@ public function challenges(){
 		$data_array["level $levels"]=array_merge($data_array["level $levels"], array($total)):
 		$data_array=array_merge($data_array, array('level $levels'=>$total));
 		
-		
 		}
 		$test=$data_array;
 		foreach($test as $key=>$checker){
