@@ -78,7 +78,7 @@ class M_MNH_Survey  extends MY_Model {
 
 	/*calls the query defined in MY_Model*/
 	public function getMnhWasteDisposalAspectQuestions() {
-		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('waste','QMNH');
+		$this -> mnhCeocQuestionsList = $this -> getQuestionsBySection('waste','QMN');
 		//var_dump($this->mnhCeocQuestionsList);die;
 		return $this -> mnhCeocQuestionsList;
 	}
@@ -350,12 +350,14 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//insert facility if new, else update the existing one
-			$this -> theForm = new \models\Entities\E_Deliveries_No_Log;
+			//$this -> theForm = new \models\Entities\E_Deliveries_No_Log;
+			$this -> theForm = new \models\Entities\Deliveries;
+			
 			//create an object of the model
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setDelCreated(new DateTime());
 			/*timestamp option*/
-			$this -> theForm -> setFacilityID($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			/*if no value set, then set to -1*/
 			/**/(!isset($this -> elements['dnjanuary_12'])) ? $this -> theForm -> setJan12(-1) : $this -> theForm -> setJan12($this -> elements['dnjanuary_12']);
 			(!isset($this -> elements['dnfebruary_12'])) ? $this -> theForm -> setFeb12(-1) : $this -> theForm -> setFeb12($this -> elements['dnfebruary_12']);
@@ -457,19 +459,19 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhCommunityStrategyQCode'];
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhCommunityStrategyQCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhCommunityStrategyQCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhCommunityStrategy'])) ? $this -> theForm -> setResponseCount((int)$this -> elements[$i]['mnhCommunityStrategy']) : $this -> theForm -> setResponseCount(0);
-			$this -> theForm -> setResponse('n/a');
-			$this -> theForm -> setReasonForResponse('n/a');
+			(isset($this -> elements[$i]['mnhCommunityStrategy'])) ? $this -> theForm -> setLqResponseCount((int)$this -> elements[$i]['mnhCommunityStrategy']) : $this -> theForm -> setLqResponseCount(0);
+			$this -> theForm -> setLqResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -582,15 +584,15 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Bemonc_Functions();
+			$this -> theForm = new \models\Entities\BemoncFunctions();
 			//create an object of the model
 
-			$this -> theForm -> setSignalFunctionsID($this -> elements[$i]['bmsfSignalCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			//$this -> theForm -> setSignalFunctionsID($this -> elements[$i]['bmsfSignalCode']);
+			$this -> theForm -> setSfacilityMFL($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['bmsfSignalFunctionConducted'])) ? $this -> theForm -> setConducted($this -> elements[$i]['bmsfSignalFunctionConducted']) : $this -> theForm -> setConducted("N/A");
-			$this -> theForm -> setChallengeId($this -> elements[$i]['bmsfChallenge']);
-			$this -> theForm -> setCreatedAt(new DateTime());
+			(isset($this -> elements[$i]['bmsfSignalFunctionConducted'])) ? $this -> theForm -> setBemConducted($this -> elements[$i]['bmsfSignalFunctionConducted']) : $this -> theForm -> setBemConducted("N/A");
+			$this -> theForm -> setChallengeCode($this -> elements[$i]['bmsfChallenge']);
+			$this -> theForm -> setBemCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -695,32 +697,32 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhceocAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
-			$this -> theForm -> setResponseCount(0);
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhceocAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setLqResponseCount(0);
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhceocAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhceocAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['mnhceocAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['mnhceocAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
 
 			//check if there's a reason
 			if (isset($this -> elements[$i]['mnhceocReason'])) {
-				($this -> elements[$i]['mnhceocReason'] == 'Other') ? $this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhceocReasonOther']) : $this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhceocReason']);
+				($this -> elements[$i]['mnhceocReason'] == 'Other') ? $this -> theForm -> setLqReason($this -> elements[$i]['mnhceocReasonOther']) : $this -> theForm -> setLqReason($this -> elements[$i]['mnhceocReason']);
 			} else {
-				$this -> theForm -> setReasonForResponse('n/a');
+				$this -> theForm -> setLqReason('n/a');
 			}
 
 			//check if there's a follow up qn
 			if (isset($this -> elements[$i]['mnhceocFollowUp'])) {
 				//check if reason is 'Other'
 				//if($this -> elements[$i]['mnhceocFollowUp'] != ''
-				($this -> elements[$i]['mnhceocFollowUp'] == 'Other') ? $this -> theForm -> setSpecifedOrFollowUp($this -> elements[$i]['mnhceocFollowUpOther']) : $this -> theForm -> setSpecifedOrFollowUp($this -> elements[$i]['mnhceocFollowUp']);
+				($this -> elements[$i]['mnhceocFollowUp'] == 'Other') ? $this -> theForm -> setLqSpecifiedOrFollowUp($this -> elements[$i]['mnhceocFollowUpOther']) : $this -> theForm -> setLqSpecifiedOrFollowUp($this -> elements[$i]['mnhceocFollowUp']);
 			} else {
-				$this -> theForm -> setSpecifedOrFollowUp('n/a');
+				$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 			}
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -833,20 +835,20 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['serviceAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['serviceAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			$this -> theForm -> setResponseCount(0);
-			(isset($this -> elements[$i]['serviceAspect'])) ? $this -> theForm -> setResponse($this -> elements[$i]['serviceAspect']) : $this -> theForm -> setResponse('n/a');
+			$this -> theForm -> setLqResponseCount(0);
+			(isset($this -> elements[$i]['serviceAspect'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['serviceAspect']) : $this -> theForm -> setLqResponse('n/a');
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -959,21 +961,21 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['committeeAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['committeeAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['committeeAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['committeeAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['committeeAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['committeeAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
 
-			(isset($this -> elements[$i]['committeeCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['committeeCount']) : $this -> theForm -> setResponseCount(0);
+			(isset($this -> elements[$i]['committeeCount'])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['committeeCount']) : $this -> theForm -> setLqResponseCount(0);
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1086,26 +1088,26 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['newbornAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['newbornAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['newbornAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['newbornAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['newbornAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['newbornAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
 
-			(isset($this -> elements[$i]['newbornCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['newbornCount']) : $this -> theForm -> setResponseCount(0);
+			(isset($this -> elements[$i]['newbornCount'])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['newbornCount']) : $this -> theForm -> setLqResponseCount(0);
 
 			//check if there's a reason
 			if (isset($this -> elements[$i]['newbornReason'])) {
-				($this -> elements[$i]['newbornReason'] == 'Other') ? $this -> theForm -> setReasonForResponse($this -> elements[$i]['newbornReasonOther']) : $this -> theForm -> setReasonForResponse($this -> elements[$i]['newbornReason']);
+				($this -> elements[$i]['newbornReason'] == 'Other') ? $this -> theForm -> setLqReason($this -> elements[$i]['newbornReasonOther']) : $this -> theForm -> setLqReason($this -> elements[$i]['newbornReason']);
 			} else {
-				$this -> theForm -> setReasonForResponse('n/a');
+				$this -> theForm -> setLqReason('n/a');
 			}
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1350,20 +1352,20 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['nurseAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['nurseAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			$this -> theForm -> setResponse('n/a');
-			(isset($this -> elements[$i]['nurseCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['nurseCount']) : $this -> theForm -> setResponseCount(0);
+			$this -> theForm -> setLqResponse('n/a');
+			(isset($this -> elements[$i]['nurseCount'])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['nurseCount']) : $this -> theForm -> setLqResponseCount(0);
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
+			
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
-
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1476,20 +1478,20 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['bedAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['bedAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			$this -> theForm -> setResponse('n/a');
-			(isset($this -> elements[$i]['bedCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['bedCount']) : $this -> theForm -> setResponseCount(0);
+			$this -> theForm -> setLqResponse('n/a');
+			(isset($this -> elements[$i]['bedCount'])) ? $this -> theForm ->setLqResponseCount($this -> elements[$i]['bedCount']) : $this -> theForm ->setLqResponseCount(0);
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqResponse('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1602,21 +1604,21 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['kangarooAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['kangarooAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			//$this -> theForm -> setResponse('n/a');
-			(isset($this -> elements[$i]['kangarooAspect'])) ? $this -> theForm -> setResponse($this -> elements[$i]['kangarooAspect']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['kangarooAspect'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['kangarooAspect']) : $this -> theForm -> setLqResponse('n/a');
 	
-			$this -> theForm -> setResponseCount(0);
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqResponseCount(0);
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1729,20 +1731,20 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhceocReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\logQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhGuidelinesAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhGuidelinesAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhGuidelinesAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhGuidelinesAspectResponse']) : $this -> theForm -> setResponse('n/a');
-			(isset($this -> elements[$i]['mnhGuidelinesAspectCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['mnhGuidelinesAspectCount']) : $this -> theForm -> setResponseCount(0);
+			(isset($this -> elements[$i]['mnhGuidelinesAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['mnhGuidelinesAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
+			(isset($this -> elements[$i]['mnhGuidelinesAspectCount'])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['mnhGuidelinesAspectCount']) : $this -> theForm -> setLqResponseCount(0);
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm ->  setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1855,25 +1857,25 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhHIVReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhHIVAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhHIVAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhHIVAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhHIVAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['mnhHIVAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['mnhHIVAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
 
 			//check if there's a reason
 			if (isset($this -> elements[$i]['mnhHIVReason'])) {
-				($this -> elements[$i]['mnhHIVReason'] == 'Other') ? $this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhHIVReasonOther']) : $this -> theForm -> setReasonForResponse($this -> elements[$i]['mnhHIVReason']);
+				($this -> elements[$i]['mnhHIVReason'] == 'Other') ? $this -> theForm -> setReason($this -> elements[$i]['mnhHIVReasonOther']) : $this -> theForm -> setLqReason($this -> elements[$i]['mnhHIVReason']);
 			} else {
-				$this -> theForm -> setReasonForResponse('n/a');
+				$this -> theForm -> setLqReason('n/a');
 			}
-			$this -> theForm -> setReasonForResponse('n/a');
-			$this -> theForm -> setResponseCount(0);
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqReason('n/a');
+			$this -> theForm -> setLqResponseCount(0);
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1985,19 +1987,19 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhPreparednessReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhPreparednessAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhPreparednessAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhPreparednessAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhPreparednessAspectResponse']) : $this -> theForm -> setResponse('n/a');
+			(isset($this -> elements[$i]['mnhPreparednessAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['mnhPreparednessAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
 
-			$this -> theForm -> setReasonForResponse('n/a');
-			$this -> theForm -> setResponseCount(0);
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqReason('n/a');
+			$this -> theForm -> setLqResponseCount(0);
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setlqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2110,20 +2112,20 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 			//echo $this -> elements[$i]['mnhJobAidsReason'];exit;
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\questions_Log();
+			$this -> theForm = new \models\Entities\LogQuestions();
 			//create an object of the model
 
-			$this -> theForm -> setQuestionID($this -> elements[$i]['mnhJobAidsAspectCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setQuestionCode($this -> elements[$i]['mnhJobAidsAspectCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['mnhJobAidsAspectResponse'])) ? $this -> theForm -> setResponse($this -> elements[$i]['mnhJobAidsAspectResponse']) : $this -> theForm -> setResponse('n/a');
-			(isset($this -> elements[$i]['mnhJobAidsAspectCount'])) ? $this -> theForm -> setResponseCount($this -> elements[$i]['mnhJobAidsAspectCount']) : $this -> theForm -> setResponseCount(0);
+			(isset($this -> elements[$i]['mnhJobAidsAspectResponse'])) ? $this -> theForm -> setLqResponse($this -> elements[$i]['mnhJobAidsAspectResponse']) : $this -> theForm -> setLqResponse('n/a');
+			(isset($this -> elements[$i]['mnhJobAidsAspectCount'])) ? $this -> theForm -> setLqResponseCount($this -> elements[$i]['mnhJobAidsAspectCount']) : $this -> theForm -> setLqResponseCount(0);
 
-			$this -> theForm -> setReasonForResponse('n/a');
+			$this -> theForm -> setLqReason('n/a');
 
-			$this -> theForm -> setSpecifedOrFollowUp('n/a');
+			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setLqCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2383,22 +2385,22 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\E_Cquantity_Available();
+			$this -> theForm = new \models\Entities\AvailableCommodities();
 			//create an object of the model
 
 			//  die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
 
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
-			$this -> theForm -> setcomm_code($this -> elements[$i]['cqCommodityCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setCommCode($this -> elements[$i]['cqCommCode']);
 
 			//check if that key exists, else set it to some default value
-			(isset($this -> elements[$i]['cqExpiryDate'])) ? $this -> theForm -> setCommodityExpiryDate($this -> elements[$i]['cqExpiryDate']) : $this -> theForm -> setCommodityExpiryDate('n/a');
-			(isset($this -> elements[$i]['cqNumberOfUnits'])) ? $this -> theForm -> setQuantityAvailable($this -> elements[$i]['cqNumberOfUnits']) : $this -> theForm -> setQuantityAvailable(-1);
-			(isset($this -> elements[$i]['cqSupplier']) || $this -> elements[$i]['cqSupplier'] == '') ? $this -> theForm -> setSupplierID($this -> elements[$i]['cqSupplier']) : $this -> theForm -> setSupplierID("Other");
-			(isset($this -> elements[$i]['cqReason']) || $this -> elements[$i]['cqReason'] == '') ? $this -> theForm -> setReason4Unavailability($this -> elements[$i]['cqReason']) : $this -> theForm -> setReason4Unavailability("N/A");
-			(isset($this -> elements[$i]['cqAvailability'])) ? $this -> theForm -> setAvailability($this -> elements[$i]['cqAvailability']) : $this -> theForm -> setAvailability("N/A");
-			(isset($this -> elements[$i]['cqLocation'])) ? $this -> theForm -> setLocation($this -> elements[$i]['cqLocation']) : $this -> theForm -> setLocation("N/A");
-			$this -> theForm -> setCreatedAt(new DateTime());
+			(isset($this -> elements[$i]['cqExpiryDate'])) ? $this -> theForm -> setAcExpiryDate($this -> elements[$i]['cqExpiryDate']) : $this -> theForm -> setAcExpiryDate('n/a');
+			(isset($this -> elements[$i]['cqNumberOfUnits'])) ? $this -> theForm -> setAcQuantity($this -> elements[$i]['cqNumberOfUnits']) : $this -> theForm -> setAcQuantity(-1);
+			(isset($this -> elements[$i]['cqSupplier']) || $this -> elements[$i]['cqSupplier'] == '') ? $this -> theForm ->setSupplierCode($this -> elements[$i]['cqSupplier']) : $this -> theForm -> setSupplierCode("Other");
+			(isset($this -> elements[$i]['cqReason']) || $this -> elements[$i]['cqReason'] == '') ? $this -> theForm ->setAcReasonUnavailable($this -> elements[$i]['cqReason']) : $this -> theForm -> setAcReasonUnavailable("N/A");
+			(isset($this -> elements[$i]['cqAvailability'])) ? $this -> theForm -> setAcAvailability($this -> elements[$i]['cqAvailability']) : $this -> theForm -> setAcAvailability("N/A");
+			(isset($this -> elements[$i]['cqLocation'])) ? $this -> theForm -> setAcLocation($this -> elements[$i]['cqLocation']) : $this -> theForm -> setAcLocation("N/A");
+			$this -> theForm -> setAcCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2794,15 +2796,15 @@ class M_MNH_Survey  extends MY_Model {
 		for ($i = 1; $i <= $this -> noOfInsertsBatch + 1; ++$i) {
 
 			//go ahead and persist data posted
-			$this -> theForm = new \models\Entities\Guidelines_Training();
+			$this -> theForm = new \models\Entities\TrainingGuidelines();
 			//create an object of the model
 
-			$this -> theForm -> setGuidelineCode($this -> elements[$i]['gsGuidelineCode']);
-			$this -> theForm -> setFacilityCode($this -> session -> userdata('facilityMFL'));
+			$this -> theForm -> setGuideCode($this -> elements[$i]['gsGuidelineCode']);
+			$this -> theForm -> setFacMfl($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['gsLastTraining'])) ? $this -> theForm -> setLastTrained($this -> elements[$i]['gsLastTraining']) : $this -> theForm -> setLastTrained(-1);
 			(isset($this -> elements[$i]['gsTrainedAndWorking'])) ? $this -> theForm -> setTrainedAndWorking($this -> elements[$i]['gsTrainedAndWorking']) : $this -> theForm -> setLastTrained(-1);
-			$this -> theForm -> setCreatedAt(new DateTime());
+			$this -> theForm -> setTgCreated(new DateTime());
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -3255,10 +3257,9 @@ class M_MNH_Survey  extends MY_Model {
 	function store_data() {
 		/*check assessment tracker log*/
 		if ($this -> input -> post()) {
-
 			$step = $this -> input -> post('step_name', TRUE);
 			switch($step) {
-				/*case 'section-1' :
+				case 'section-1' :
 					//check if entry exists
 					$this -> section = $this -> sectionEntryExists($this -> session -> userdata('facilityMFL'), $this -> input -> post('step_name', TRUE), $this -> session -> userdata('survey'));
 
@@ -3266,10 +3267,8 @@ class M_MNH_Survey  extends MY_Model {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						if ($this -> updateFacilityInfo() == true && $this -> addNurseInfo() == true&& $this -> addBedsInfo() == true
-						&& $this -> addServicesInfo() == true&& $this -> addCommitteeInfo() == true) {//Defined in MY_Model
+						if ( $this -> addNurseInfo() == true&& $this -> addServicesInfo() == true&& $this -> addCommitteeInfo() == true) {//Defined in MY_Model
 							$this -> writeAssessmentTrackerLog();
-
 							return $this -> response = 'true';
 						} else {
 							return $this -> response = 'false';
@@ -3288,7 +3287,10 @@ class M_MNH_Survey  extends MY_Model {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						if ($this -> addMnhCommunityStrategyInfo() == true && $this -> addDeliveryByMonthInfo() == true && $this -> addBemoncSignalFunctionsInfo() == true && $this -> addCEOCServicesInfo() == true && $this -> addKangarooInfo() == true 
+						/*if ($this -> addMnhCommunityStrategyInfo() == true && $this -> addDeliveryByMonthInfo() == true && $this -> addBemoncSignalFunctionsInfo() == true && $this -> addCEOCServicesInfo() == true && $this -> addKangarooInfo() == true 
+						&& $this -> addNewbornInfo() == true&& $this -> addGuidelinesInfo() == true && $this -> addHIVTestingInfo() == true && $this -> addPreparednessInfo() == true && $this -> addJobAidsInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();*/
+						if ($this -> addMnhCommunityStrategyInfo() == true && $this -> addCEOCServicesInfo() == true && $this -> addKangarooInfo() == true 
 						&& $this -> addNewbornInfo() == true&& $this -> addGuidelinesInfo() == true && $this -> addHIVTestingInfo() == true && $this -> addPreparednessInfo() == true && $this -> addJobAidsInfo() == true) {//defined in this model
 							$this -> writeAssessmentTrackerLog();
 							return $this -> response = 'true';
@@ -3399,11 +3401,11 @@ class M_MNH_Survey  extends MY_Model {
 						$this -> markSurveyStatusAsComplete();
 						return $this -> response = 'true';
 					}
-					break;*/
+					break; 
 			}//close switch
 			//print var_dump($this->input->post());
 
-			return $this -> response = 'true';
+			//return $this -> response = 'true';
 		}
 
 	}

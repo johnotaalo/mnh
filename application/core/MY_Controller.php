@@ -2575,11 +2575,24 @@ class  MY_Controller  extends  CI_Controller {
 			<td style ="text-align:center;">
 			<input name="hwLocation_' . $counter . '[]" id="hwLocOther_' . $counter . '" type="checkbox" value="Other" />
 			</td>
-			<td width="100">
-			' . $ch_supplier_names . '
-			</td>
-			
-			<input type="hidden"  name="hweqCode_' . $counter . '" id="hweqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
+			<!--td style ="text-align:center;">
+			<input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
+			</td-->
+			<td width="50">
+			<select name="hwSupplier_' . $counter . '" id="hwSupplier_' . $counter . '" class="cloned">
+			<option value="" selected="selected">Select One</option>' . $ch_supplier_names . '
+			</select></td>
+			<!--td width="50">
+			<select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
+				<option value="" selected="selected">Select One</option>
+				<option value="Not Ordered">1. Not Ordered</option>
+				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+				<option value="Expired">3. Expired</option>
+				<option value="All Used">4. All Used</option>
+				
+
+			</select></td-->
+			<input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
 		</tr>';
 
 		}
@@ -3048,10 +3061,8 @@ class  MY_Controller  extends  CI_Controller {
 				$unit = '';
 			}
 			$this -> suppliesUsageAndOutageSectionPDF .= '<tr>
-			<td colspan="2" style="width:200px;">' . $value['supplyName'] . ' ' . $unit . ' </td>
-			<!-- td colspan="2">
-			<input name="usosUsage_' . $counter . '" type="text" size="5" />
-			</td -->
+			<td colspan="1" style="width:200px;">' . $value['supplyName'] . ' ' . $unit . ' </td>
+			
 			<td colspan="2">
 			a. Once<input type="checkbox">
 			b. 2-3<input type="checkbox">

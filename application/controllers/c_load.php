@@ -1122,7 +1122,7 @@ class C_Load extends MY_Controller {
 		<th style="text-align:left">Number Trained before 2010</th>
 		<th style="text-align:left">Number Trained after 2010</th>
 		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained in the Last 2 Years are still Working in Child Health?</div></th>
+		Trained are still Working in Child Health?</div></th>
 		
 		' . $this -> mchTrainingGuidelineSection . '
 

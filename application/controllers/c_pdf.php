@@ -596,7 +596,7 @@ class C_Pdf extends MY_Controller {
 
 		</table>
 
-		<p style="display:true" class="message success">
+		<p style="display:true;margin-bottom:50px" class="message success">
 			SECTION 6 of 7: II. AVAILABILITY OF WATER
 		</p>
 
@@ -668,7 +668,7 @@ class C_Pdf extends MY_Controller {
 
 	<div id="section-7" class="step">
 		<input type="hidden" name="step_name" value="section-7"/>
-		<p style="margin-top:350px;display:true" class="message success">
+		<p style="display:true" class="message success">
 			SECTION 7 of 7: SUPPLIES AVAILABILITY
 		</p>
 
@@ -702,23 +702,17 @@ class C_Pdf extends MY_Controller {
 		</table>
 		<table>
 			<thead>
-				<!--th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</br>
-				WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th-->
-				<th colspan="11"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</br>
+			
+			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</br>
 				WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th>
 
 				<tr>
-					<th scope="col"  colspan="2">
-					<div style="width: 100px" >
+					
+					<th rowspan="2">
 						Supply Name
-					</div></th>
+					</th>
 
-					<!--th scope="col" colspan="2">
-					<div style="width: 40px" >
-					Usage
-					</div></th-->
-
-					<th scope="col" colspan="2">
+					<th colspan="2">
 					<div style="width: 100px" >
 						Number Of Times the supply was unavailable
 					</div></th>
@@ -731,8 +725,7 @@ class C_Pdf extends MY_Controller {
 
 				</tr>
 				<tr >
-					<th colspan="2">&nbsp;</th>
-					<!--th colspan="2">Total Units Used</th -->
+					
 					<th colspan="2">Times Unavailable </th>
 
 					<th colspan="1">
@@ -776,7 +769,6 @@ class C_Pdf extends MY_Controller {
 
 	</div><!--\.section-7-->
 </form>
-
 ';
 		return $this -> combined_form;
 	}
@@ -911,7 +903,7 @@ class C_Pdf extends MY_Controller {
 				<th colspan ="2" style="text-align:left">
 				<div style="width: 500px" >
 					How Many Of The Total Staff Members
-					Trained in the Last 2 Years are still Working in Child Health?
+					Trained are still Working in Child Health?
 				</div></th>
 			</tr>
 		</thead>
@@ -1285,7 +1277,7 @@ class C_Pdf extends MY_Controller {
 					<th>Other</th>
 				</tr>
 			</thead>
-			' . $this -> hardwareMCHSectionPDF . '
+			' . $this -> hardwareMNHSectionPDF . '
 		</table>
 		
 
@@ -1338,6 +1330,7 @@ background: #91c5d4;
 				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
+				//echo $html;die;
 				break;
 			case 'mch' :
 				$html = $this -> get_mch_form();

@@ -383,7 +383,7 @@ break;
 					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
 				</button>
 				<button class="btn blue" id="facility_list_commodity_supplies" style="float:left;padding:2px 5px 2px 5px">
-					<i class="icon-list" style="margin-right:5px"></i>Download Commodity List
+					<i class="icon-list" style="margin-right:5px"></i>Download Summary Data
 				</button>
 				<button class="btn red" id="facility_list_no_mnh" style="float:left;padding:2px 5px 2px 5px">
 					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
@@ -419,7 +419,7 @@ break;
 				</div>
 				<div id="graph_2" class="chart"></div>
 				<button class="btn blue" id="facility_list_commodity_supplies_county" style="float:left;padding:2px 5px 2px 5px">
-					<i class="icon-list" style="margin-right:5px"></i>Download Commodity List
+					<i class="icon-list" style="margin-right:5px"></i>Download Summary Data
 				</button>
 			</div>
 		</div>

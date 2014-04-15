@@ -174,15 +174,15 @@ case 'mnh' :
 				<li id="cemonc">
 					<a href="#">CEmONC Signal Function</a>
 				</li>
-				<li id="cemoncReason">
+				<!--li id="cemoncReason">
 					<a href="#">CEmONC Signal Function Challenges</a>
-				</li>
+				</li-->
 				<li id="bemonc">
 					<a href="#">BEmONC Signal Function</a>
 				</li>
-				<!--li id="bemoncReason">
+				<li id="bemoncReason">
 					<a href="#">BEmONC Signal Function Challenges</a>
-				</li-->
+				</li>
 				
 				
 			</ul>
@@ -233,6 +233,27 @@ case 'mnh' :
 				</li>
 				<li id="suppliesSuppliersMnh">
 					<a href="#">Suppliers</a>
+				</li>
+			</ul>
+
+		</li>
+		<li id="hardware-parentMnh" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="hardwareFrequencyMnh">
+					<a href="#">Hardware Availability</a>
+				</li>
+			</ul>
+
+		</li>
+		<li id="resources-parentMnh" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="resourcesFrequencyMnh">
+					<a href="#">Resources Availability</a>
+				</li>
+				<li id="resourcesLocationMnh">
+					<a href="#">Resources Location</a>
 				</li>
 			</ul>
 
