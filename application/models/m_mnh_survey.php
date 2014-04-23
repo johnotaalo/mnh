@@ -319,7 +319,7 @@ class M_MNH_Survey  extends MY_Model {
 		return $this -> response = 'ok';
 	}//end of addRecord()
 
-	private function addDeliveryByMonthInfo() {
+	private function addDiarrhoeaByMonthInfo() {
 		//print_r($this -> input -> post());die;
         foreach ($this->input->post() as $key => $vals) {
         	
@@ -366,7 +366,7 @@ class M_MNH_Survey  extends MY_Model {
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //echo 'Done'.$i;
-            $this->theForm = new \models\Entities\LogMorbidity();
+            $this->theForm = new \models\Entities\LogDiarrhoea();
             
             //create an object of the model
             
@@ -3337,8 +3337,8 @@ private function addBemoncSignalFunctionsInfo() {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						//if ( $this -> addNurseInfo() == true&& $this -> addServicesInfo() == true&& $this -> addCommitteeInfo() == true) {//Defined in MY_Model
-							if ($this -> addBedsInfo() == true ){
+						if ( $this -> addNurseInfo() == true&& $this -> addServicesInfo() == true&& $this -> addCommitteeInfo() == true) {//Defined in MY_Model
+							//if ($this -> addBedsInfo() == true ){
 							$this -> writeAssessmentTrackerLog();
 							return $this -> response = 'true';
 						} else {
@@ -3358,11 +3358,11 @@ private function addBemoncSignalFunctionsInfo() {
 
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
-						if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
-							$this -> writeAssessmentTrackerLog();
-						/*if ($this -> addMnhCommunityStrategyInfo() == true && $this -> addCEOCServicesInfo() == true && $this -> addDeliveryByMonthInfo() == true && $this -> addKangarooInfo() == true 
-						&& $this -> addNewbornInfo() == true&& $this -> addGuidelinesInfo() == true && $this -> addHIVTestingInfo() == true && $this -> addPreparednessInfo() == true && $this -> addJobAidsInfo() == true) {//defined in this model
+						/*if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
 							$this -> writeAssessmentTrackerLog();*/
+						if ($this -> addMnhCommunityStrategyInfo() == true && $this -> addCEOCServicesInfo() == true && $this -> addDiarrhoeaByMonthInfo() == true && $this -> addKangarooInfo() == true 
+						&& $this -> addNewbornInfo() == true&& $this -> addGuidelinesInfo() == true && $this -> addHIVTestingInfo() == true && $this -> addPreparednessInfo() == true && $this -> addJobAidsInfo() == true) {//defined in this model
+							$this -> writeAssessmentTrackerLog();
 							return $this -> response = 'true';
 
 						} else {
