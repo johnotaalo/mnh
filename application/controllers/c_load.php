@@ -1122,7 +1122,7 @@ class C_Load extends MY_Controller {
 		<th style="text-align:left">Number Trained before 2010</th>
 		<th style="text-align:left">Number Trained after 2010</th>
 		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained in the Last 2 Years are still Working in Child Health?</div></th>
+		Trained are still Working in Child Health?</div></th>
 		
 		' . $this -> mchTrainingGuidelineSection . '
 
@@ -1420,8 +1420,8 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 		
 		<thead>
-			<th colspan="6" > (D) WHAT IS THE CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above) </th>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
 		</thead>
 		'.$this -> selectAccessChallenges.'
 		
