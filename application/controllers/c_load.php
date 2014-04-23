@@ -347,92 +347,92 @@ class C_Load extends MY_Controller {
 		
 	<thead>
 	<th colspan="7" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
+		<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
 
-	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
 		 <!--tr>
 			<td>' . (date('Y') - 1) . '</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjanuary_12" name="dnmonth[january_12"  size="8" class="cloned numbers"/>
+			<input type="text" id="dnjanuary_12" name="january"  size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_12" name="dnmonth[february_12" size="8" class="cloned numbers"/>
+			<input type="text" id="dnfebruary_12" name="february" size="8" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_12" size="8" name="dnmonth[march_12" class="cloned numbers"/>
+			<input type="text" id="dnmarch_12" size="8" name="march" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnapril_12" size="8" name="dnmonth[april_12" class="cloned numbers"/>
+			<input type="text" id="dnapril_12" size="8" name="april" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmay_12" size="8" name="dnmonth[may_12" class="cloned numbers"/>
+			<input type="text" id="dnmay_12" size="8" name="may" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjune_12" size="8" name="dnmonth[june_12" class="cloned numbers"/>
+			<input type="text" id="dnjune_12" size="8" name="june" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_12" size="8" name="dnmonth[july_12" class="cloned numbers"/>
+			<input type="text" id="dnjuly_12" size="8" name="july]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_12" size="8" name="dnmonth[august_12" class="cloned numbers"/>
+			<input type="text" id="dnaugust_12" size="8" name="august]" class="cloned numbers"/>
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_12" size="8" name="dnmonth[september_12" class="cloned numbers"/>
+			<input type="text" id="dnseptember_12" size="8" name="september"] class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_12" size="8" name="dnmonth[october_12" class="cloned numbers"/></td>
+			<input type="text" id="dnoctober_12" size="8" name="october]" class="cloned numbers"/></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_12" size="8" name="dnmonth[november_12" class="cloned numbers"/></td>
+			<input type="text" id="dnnovember_12" size="8" name="november]" class="cloned numbers"/></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_12" size="8" name="dnmonth[december_12" class="cloned numbers"/>
+			<input type="text" id="dndecember_12" size="8" name="december]" class="cloned numbers"/>
 			</td>			
 			
 
 		</tr-->
 
 		<tr>
-			<td>' . '2013' . '</td>			
-			<td style ="text-align:center;"><input type="text" id="dnjanuary_13" size="8" name="dnmonth[january_13" class="cloned numbers"/>
+			<td>' . date("Y") . '</td>			
+			<td style ="text-align:center;">
+			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
 			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
+			</td>
+
 			
+		</tr>
+		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
+		<tr>
+		<td>' . 2013 . '</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_13" name="dnmonth[february_13" size="8"class="cloned numbers"/>
+			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_13" name="dnmonth[march_13" size="8"class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnapril_13" name="dnmonth[april_13" size="8"class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnmay_13" name="dnmonth[may_13" size="8"class="cloned numbers" />
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnjune_13" name="dnmonth[june_13" size="8"class="cloned numbers" />
-			</td>
-			</tr>
-			<tr>
-				<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
-			</tr>
-			<tr>
-			<td>' . '2013' . '</td>	
-			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_13" size="8" name="dnmonth[july_13" class="cloned numbers" >
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_13" size="8" name="dnmonth[august_13" class="cloned numbers" >
+			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
 			</td>
 			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_13" size="8" name="dnmonth[september_13" class="cloned numbers" >
+			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_13" size="8" name="dnmonth[october_13" class="cloned numbers" ></td>
+			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
 			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_13" size="8" name="dnmonth[november_13" class="cloned numbers"></td>
+			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
 			
 			<td style ="text-align:center;">
-			<input type="text" id="dndecember_13" size="8" name="dnmonth[december_13" class="cloned numbers" >
-			</td>	
+			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
+			</td>		
 		</tr>
 	</table>
 	
@@ -628,16 +628,20 @@ class C_Load extends MY_Controller {
     <div id="section-4" class="step">
     <input type="hidden" name="step_name" value="section-4"/>
      <p style="display:true" class="message success">SECTION 4 of 7: STAFF TRAINING</p>
-	<table class="centre">
+     
+	 <table class="centre">
 	<thead>
-		<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
-		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained in the Last 2 Years are still Working in the Marternity Unit?</DIV></th>
+		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th>
+		<th style="text-align:left">Number Trained before 2010</th>
+		<th style="text-align:left">Number Trained after 2010</th>
+		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
+		Trained are still Working in Child Health?</div></th>
 		
 		' . $this -> trainingGuidelineSection . '
 
 	</table>
+	
     </div><!--\.section-4-->
 
 	<div id="section-5" class="step">
