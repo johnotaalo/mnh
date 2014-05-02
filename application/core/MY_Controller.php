@@ -263,7 +263,7 @@ class  MY_Controller  extends  CI_Controller {
 		$counter = 0;
 		foreach ($this->data_found as $value) {
 			$counter++;
-			$this -> selectAccessChallenges .= '<tr><td><input style="margin-right:20px"value="'.$value['achCode'].'" name="achResponse_1" id = ""type="radio">'.$value['achName'] . '</td></tr>';
+			$this -> selectAccessChallenges .= '<tr><td><input style="margin-right:20px"value="'.$value['achCode'].'" name="achResponse_1" id= "" type="radio">'.$value['achName'] . '</td></tr>';
 		}
 	}
 
@@ -2581,9 +2581,8 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
 			</td-->
 			<td width="50">
-			<select name="hwSupplier_' . $counter . '" id="hwSupplier_' . $counter . '" class="cloned">
-			<option value="" selected="selected">Select One</option>' . $ch_supplier_names . '
-			</select></td>
+			'. $ch_supplier_names . '
+			</td>
 			<!--td width="50">
 			<select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
 				<option value="" selected="selected">Select One</option>

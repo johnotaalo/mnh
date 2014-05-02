@@ -53,6 +53,17 @@
 							</li>
 						</ul>
 					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> MNH Reporting Facilities (Baseline) <b class="caret"></b> </a>
+						<ul class="dropdown-menu">
+							<li id="mnh-completed">
+								<a href="#"> 1. List of Completed facilities </a>
+							</li>
+							<li id="mnh-partially">
+								<a href="#"> 2. List of Partially Completed facilities </a>
+							</li>
+						</ul>
+					</li>
 					<li>
 						<a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
 					</li>
@@ -70,6 +81,13 @@
 		});
 		$('#mch-form').click(function(){
 			window.open('<?php echo base_url();?>c_pdf/loadPDF/mch');
+		});
+
+		$('#mnh-completed').click(function(){
+			window.open('<?php echo base_url();?>c_statistics/reportingFacilitiesNew/complete/mnh/baseline/');
+		});
+		$('#mnh-partially').click(function(){
+			window.open('<?php echo base_url();?>c_statistics/reportingFacilitiesNew/partial/mnh/baseline/');
 		});
 		
 	});

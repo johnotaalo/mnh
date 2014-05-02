@@ -1424,8 +1424,8 @@ class C_Load extends MY_Controller {
 	<table class="centre">
 		
 		<thead>
-			<th colspan="6" > (D) WHAT IS THE CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above) </th>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
 		</thead>
 		'.$this -> selectAccessChallenges.'
 		
