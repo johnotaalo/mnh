@@ -510,6 +510,8 @@ class M_MNH_Survey  extends MY_Model {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -625,12 +627,14 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm = new \models\Entities\BemoncFunctions();
 			//create an object of the model
 
-			$this -> theForm -> setFacId($this -> elements[$i]['bmsfSignalCode']);
+			$this -> theForm -> setSignalFunctionsID($this -> elements[$i]['bmsfSignalCode']);
 			$this -> theForm -> setSfacilityMFL($this -> session -> userdata('facilityMFL'));
 			//check if that key exists, else set it to some default value
 			(isset($this -> elements[$i]['bmsfSignalFunctionConducted'])) ? $this -> theForm -> setBemConducted($this -> elements[$i]['bmsfSignalFunctionConducted']) : $this -> theForm -> setBemConducted("N/A");
 			$this -> theForm -> setChallengeCode($this -> elements[$i]['bmsfChallenge']);
 			$this -> theForm -> setBemCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+           
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -761,6 +765,8 @@ private function addBemoncSignalFunctionsInfo() {
 			}
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -887,6 +893,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1014,6 +1022,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1146,6 +1156,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1278,6 +1290,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1404,6 +1418,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1657,6 +1673,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1783,6 +1801,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm ->  setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -1914,6 +1934,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2038,6 +2060,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setlqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2164,6 +2188,8 @@ private function addBemoncSignalFunctionsInfo() {
 			$this -> theForm -> setLqSpecifiedOrFollowUp('n/a');
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2297,6 +2323,8 @@ private function addBemoncSignalFunctionsInfo() {
 			}
 
 			$this -> theForm -> setLqCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2439,6 +2467,8 @@ private function addBemoncSignalFunctionsInfo() {
 			(isset($this -> elements[$i]['cqAvailability'])) ? $this -> theForm -> setAcAvailability($this -> elements[$i]['cqAvailability']) : $this -> theForm -> setAcAvailability("N/A");
 			(isset($this -> elements[$i]['cqLocation'])) ? $this -> theForm -> setAcLocation($this -> elements[$i]['cqLocation']) : $this -> theForm -> setAcLocation("N/A");
 			$this -> theForm -> setAcCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2579,6 +2609,8 @@ private function addBemoncSignalFunctionsInfo() {
 			(isset($this -> elements[$i]['sqAvailability'])) ? $this -> theForm -> setAsAvailability($this -> elements[$i]['sqAvailability']) : $this -> theForm -> setAsAvailability("N/A");
 			(isset($this -> elements[$i]['sqLocation'])) ? $this -> theForm -> setAsLocation($this -> elements[$i]['sqLocation']) : $this -> theForm -> setAsLocation("N/A");
 			$this -> theForm -> setAsCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -2720,6 +2752,8 @@ private function addBemoncSignalFunctionsInfo() {
 			(isset($this -> elements[$i]['eqQtyNonFunctional']) || $this -> elements[$i]['eqQtyNonFunctional'] != '') ? $this -> theForm -> setAeNonFunctional($this -> elements[$i]['eqQtyFullyFunctional']) : $this -> theForm -> setAeNonFunctional(-1);
 
 			$this -> theForm -> setAeCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -3011,6 +3045,8 @@ private function addBemoncSignalFunctionsInfo() {
 			(isset($this -> elements[$i]['usocTimesUnavailable']) || $this -> elements[$i]['usocTimesUnavailable'] == '') ? $this -> theForm -> setLcsoUnavailableTimes($this -> elements[$i]['usocTimesUnavailable']) : $this -> theForm -> setLcsoUnavailableTimes('n/a');
 			(isset($this -> elements[$i]['usocWhatHappened'])) ? $this -> theForm -> setLcsoOptionOnOutage($this -> elements[$i]['usocWhatHappened']) : $this -> theForm -> setLcsoOptionOnOutage('n/a');
 			$this -> theForm -> setLcsoCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -3136,6 +3172,8 @@ private function addBemoncSignalFunctionsInfo() {
 			(isset($this -> elements[$i]['usosTimesUnavailable']) || $this -> elements[$i]['usosTimesUnavailable'] == '') ? $this -> theForm -> setLcsoUnavailableTimes($this -> elements[$i]['usosTimesUnavailable']) : $this -> theForm -> setLcsoUnavailableTimes('n/a');
 			(isset($this -> elements[$i]['usosWhatHappened'])) ? $this -> theForm -> setLcsoOptionOnOutage($this -> elements[$i]['usosWhatHappened']) : $this -> theForm -> setLcsoOptionOnOutage('n/a');
 			$this -> theForm -> setLcsoCreated(new DateTime());
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
 			/*timestamp option*/
 			$this -> em -> persist($this -> theForm);
 
@@ -3338,7 +3376,7 @@ private function addBemoncSignalFunctionsInfo() {
 					//insert log entry if new, else update the existing one
 					if ($this -> sectionExists == false) {
 						if ( $this -> addNurseInfo() == true&& $this -> addServicesInfo() == true&& $this -> addCommitteeInfo() == true) {//Defined in MY_Model
-							//if ($this -> addBedsInfo() == true ){
+							//if ($this -> addNurseInfo() == true ){
 							$this -> writeAssessmentTrackerLog();
 							return $this -> response = 'true';
 						} else {
