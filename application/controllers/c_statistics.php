@@ -40,9 +40,11 @@ class C_Statistics extends MY_Controller {
 		switch($choice){
 			case 'complete':
 $facilities = $this -> m_statistics -> reportingFacilitiesComplete($survey,$category);
+$status = 'complete';
 			break;
 			case 'partial':
 $facilities = $this -> m_statistics -> reportingFacilitiesPartial($survey,$category);
+$status = 'partial';
 			break;
 		}
 		
@@ -53,7 +55,7 @@ $facilities = $this -> m_statistics -> reportingFacilitiesPartial($survey,$categ
 			$dataArr[$county][] = $facility;
 		}
 
-		$facilities = $this->createTable($dataArr);
+		$facilities = $this->createTable($dataArr,$status);
 		//echo "<pre>";
 		//print_r($dataArr);
 		//echo "</pre>";
@@ -67,18 +69,22 @@ $facilities = $this -> m_statistics -> reportingFacilitiesPartial($survey,$categ
 		$this -> loadPDF($facilities);
 	}
 
-	public function createTable($dataArr) {
+	public function createTable($dataArr,$status) {
 		$pdf = "";
-		$pdf .= '<table>';
+		
 		foreach ($dataArr as $key => $facility) {
+			$pdf .= '<table>';
 			//$pdf .= "<tr><h3>Facility List that responded <em>NEVER</em> for $key District</h3></tr>";
-			$pdf .= '<tr><th colspan="3" style="text-align:left" >Facility List for ' . $key . ' County<th></tr>';
+			$pdf .= '<thead><tr><th colspan="4" style="text-align:left;font-size:20px" >Facility List for ' . $key . ' County ('.$status.')</th></tr>';
+			$pdf .= '<tr><th>Facility MFL</th><th>Facility Name</th><th>Facility District</th><th>Facility County</th></tr></thead><tbody>';
 			#Per Title
 			foreach ($facility as $value) {
-				$pdf .= '<tr class="tableRow"><td width="150px">' . $value['fac_mfl'] . '</td><td>' . $value['fac_name'] . '</td><td>' . $value['fac_district'] . '</td><td width="500px">' . $value['fac_county'] . '</td></tr>';
+				$pdf .= '<tr class="tableRow"><td width="150px">' . $value['fac_mfl'] . '</td><td>' . $value['fac_name'] . '</td><td>' . $value['fac_district'] . '</td><td>' . $value['fac_county'] . '</td></tr>';
 			}
+			$pdf .= '</tbody></table>';
 		}
-		$pdf .= '</table>';
+		
+		//echo $pdf;die;
 		return $pdf;
 	}
 
@@ -96,7 +102,18 @@ $facilities = $this -> m_statistics -> reportingFacilitiesPartial($survey,$categ
 			color:red;
 		}
 		h3{
-			font-size:22px;
+			font-size:26px;
+		}
+		td,th{
+			margin:0;
+			padding:6px;
+		}
+		thead tr:nth-child(even){
+			background:#888;
+			color:#ffffff !important;
+		}
+		tbody tr:nth-child(even){
+			background:#ddd;
 		}
 		')
 		;
