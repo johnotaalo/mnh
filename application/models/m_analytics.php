@@ -3352,7 +3352,8 @@ FROM
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '".$survey."'),
+        AND st.st_name = '".$survey."') JOIN assessment_tracker ast ON ast.facilityCode = f.fac_mfl
+        AND ast.ast_section = 'section-6' AND ast.ast_survey='".$survey."',
     counties c
 WHERE
     c.county_name = f.fac_county
@@ -3408,7 +3409,7 @@ ORDER BY f.fac_county ASC;";
 
 	}
 
-	function getReportingRatio($county, $survey) {
+	function getReportingRatio($county,$survey) {
 		/*using DQL*/
 
 		$finalData = array();

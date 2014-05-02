@@ -1118,4 +1118,11 @@ function startAnalytics(base_url, county, survey) {
 	$('#mch-form').click(function() {
 		window.open(base_url + 'c_pdf/loadPDF/mch');
 	});
+
+	$('#mnh-completed').click(function(){
+			window.open('<?php echo base_url();?>c_statistics/reportingFacilitiesNew/complete/mnh/baseline/');
+		});
+		$('#mnh-partially').click(function(){
+			window.open('<?php echo base_url();?>c_statistics/reportingFacilitiesNew/partial/mnh/baseline/');
+		});
 }

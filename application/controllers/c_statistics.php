@@ -36,12 +36,43 @@ class C_Statistics extends MY_Controller {
 		$this -> loadExcel($dataArr);
 	}
 
+	public function reportingFacilitiesNew($choice,$survey,$category) {
+		switch($choice){
+			case 'complete':
+$facilities = $this -> m_statistics -> reportingFacilitiesComplete($survey,$category);
+			break;
+			case 'partial':
+$facilities = $this -> m_statistics -> reportingFacilitiesPartial($survey,$category);
+			break;
+		}
+		
+		
+		foreach ($facilities as $facility) {
+			$county = $facility['fac_county'];
+
+			$dataArr[$county][] = $facility;
+		}
+
+		$facilities = $this->createTable($dataArr);
+		//echo "<pre>";
+		//print_r($dataArr);
+		//echo "</pre>";
+		//die;
+		//$pdf = "<h3>Facility List that responded <em>NEVER</em> for $value District</h3>";
+
+		//echo $pdf;
+		//die ;4
+		//$myPdf = $this -> createTable($dataArr);
+		//$this -> loadPDF($myPdf);
+		$this -> loadPDF($facilities);
+	}
+
 	public function createTable($dataArr) {
 		$pdf = "";
 		$pdf .= '<table>';
 		foreach ($dataArr as $key => $facility) {
 			//$pdf .= "<tr><h3>Facility List that responded <em>NEVER</em> for $key District</h3></tr>";
-			$pdf .= '<tr><th style="text-align:left" colspan="1">' . $key . '<th></tr>';
+			$pdf .= '<tr><th colspan="3" style="text-align:left" >Facility List for ' . $key . ' County<th></tr>';
 			#Per Title
 			foreach ($facility as $value) {
 				$pdf .= '<tr class="tableRow"><td width="150px">' . $value['fac_mfl'] . '</td><td>' . $value['fac_name'] . '</td><td>' . $value['fac_district'] . '</td><td width="500px">' . $value['fac_county'] . '</td></tr>';
@@ -64,18 +95,22 @@ class C_Statistics extends MY_Controller {
 		h3 em {
 			color:red;
 		}
-		');
+		h3{
+			font-size:22px;
+		}
+		')
+		;
 		$html = ($pdf);
 		$this -> load -> library('mpdf');
 		$this -> mpdf = new mPDF('', 'A4-L', 0, '', 15, 15, 16, 16, 9, 9, '');
 		$this -> mpdf -> SetTitle('Maternal Newborn and Child Health Assessment');
-		$this -> mpdf -> SetHTMLHeader('<em>Child Health Assessment Tool</em>');
-		$this -> mpdf -> SetHTMLFooter('<em>Child Health Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLHeader('<em>Maternal Newborn Assessment Tool</em>');
+		$this -> mpdf -> SetHTMLFooter('<em>Maternal Newborn Assessment Tool</em>');
 		$this -> mpdf -> simpleTables = true;
 		$this -> mpdf -> WriteHTML($stylesheet, 1);
 		$this -> mpdf -> WriteHTML($html, 2);
-		$report_name = 'CH Assessment Tool_Reporting Facility List' . ".pdf";
-		$this -> mpdf -> Output($report_name, 'D');
+		$report_name = 'MNH Assessment Tool_Reporting Facility List' . ".pdf";
+		$this -> mpdf -> Output($report_name, 'I');
 
 	}
 
