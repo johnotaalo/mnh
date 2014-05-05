@@ -4076,7 +4076,7 @@ class M_MNH_Survey extends MY_Model
         if ($this->input->post()) {
             $step = $this->input->post('step_name', TRUE);
             switch ($step) {
-                case 'section-1':
+                /*case 'section-1':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -4112,8 +4112,8 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         
-                        /*if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
-                         $this -> writeAssessmentTrackerLog();*/
+                        if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
+                         $this -> writeAssessmentTrackerLog();
                         if ($this->addBemoncSignalFunctionsInfo() == true && $this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
@@ -4246,12 +4246,12 @@ class M_MNH_Survey extends MY_Model
                         return $this->response = 'true';
                     }
                     
-                    break;
+                    break;*/
             }
              //close switch
             //print var_dump($this->input->post());
             
-            //return $this -> response = 'true';
+            return $this -> response = 'true';
             
         }
     }

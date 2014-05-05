@@ -700,28 +700,26 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesSectionPDF . '
 		</table>
+		<p style="margin-top:100px"></p>
 		<table>
 			<thead>
 			
-			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</br>
+			<th colspan="9"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</br>
 				WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th>
 
 				<tr>
 					
-					<th rowspan="2">
+					<th colspan="1" rowspan="2">
 						Supply Name
 					</th>
 
 					<th colspan="2">
-					<div style="width: 100px" >
-						Number Of Times the supply was unavailable
-					</div></th>
-					<th scope="col" colspan="5">
-					<div style="width: 600px" >
+						Number Of Times the supply was unavailable</th>
+					<th colspan="5">
 						When the supply was not available what happened?
 						</br>
 						<strong>(Multiple Selections Allowed)</strong>
-					</div></th>
+					</th>
 
 				</tr>
 				<tr >
@@ -729,25 +727,25 @@ class C_Pdf extends MY_Controller {
 					<th colspan="2">Times Unavailable </th>
 
 					<th colspan="1">
-					<div style="width: 100px" >
+					
 						Patient purchased the supply privately
-					</div></th>
+					</th>
 					<th colspan="1">
-					<div style="width: 100px" >
+					
 						Facility purchased the supply privately
-					</div></th>
+					</th>
 					<th colspan="1">
-					<div style="width: 100px" >
+					
 						Facility received the supply from another facility
-					</div></th>
+					</th>
 					<th colspan="1">
-					<div style="width: 100px" >
+					
 						The procedure was not conducted
-					</div></th>
+					</th>
 					<th colspan="1">
-					<div style="width: 100px" >
+					
 						The procedure was conducted without the supply
-					</div></th>
+					</th>
 
 				</tr>
 			</thead>

@@ -2175,7 +2175,7 @@ class  MY_Controller  extends  CI_Controller {
 				$unit = '';
 			}
 			$this -> suppliesSectionPDF .= '<tr>
-			<td  style="width:200px;">' . $value['supplyName'] . ' ' . $unit . ' </td>
+			<td>' . $value['supplyName'] . ' ' . $unit . ' </td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
