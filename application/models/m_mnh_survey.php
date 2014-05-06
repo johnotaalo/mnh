@@ -248,7 +248,7 @@ class M_MNH_Survey extends MY_Model
     }
     
     public function getMnhJobAidsAspectQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('commi', 'QMNH');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('job', 'QMNH');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
@@ -440,7 +440,7 @@ class M_MNH_Survey extends MY_Model
             
             //print_r($this->elements);die;
             $this->theForm->setMonth($this->elements[$i]['monthName']);
-            $this->theForm->setLmNumber($this->elements[$i]['monthData']);
+            $this->theForm->setLdNumber($this->elements[$i]['monthData']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->em->persist($this->theForm);
             
@@ -4076,7 +4076,7 @@ class M_MNH_Survey extends MY_Model
         if ($this->input->post()) {
             $step = $this->input->post('step_name', TRUE);
             switch ($step) {
-                /*case 'section-1':
+                case 'section-1':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -4102,7 +4102,7 @@ class M_MNH_Survey extends MY_Model
                     //return $this -> response = 'true';
                     break;
 
-                case 'section-2':
+                       case 'section-2':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -4111,10 +4111,9 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        
-                        if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
-                         $this -> writeAssessmentTrackerLog();
-                        if ($this->addBemoncSignalFunctionsInfo() == true && $this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true) {
+                                      if (//$this->addBemoncSignalFunctionsInfo() == true && 
+                                    //$this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true &&  $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true
+                                    $this->addDiarrhoeaByMonthInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -4126,7 +4125,11 @@ class M_MNH_Survey extends MY_Model
                         //die('Entry exsits');
                         return $this->response = 'true';
                     }
+                    
+                    //return $this -> response = 'true';
                     break;
+
+               
 
                 case 'section-3':
                     
@@ -4246,12 +4249,12 @@ class M_MNH_Survey extends MY_Model
                         return $this->response = 'true';
                     }
                     
-                    break;*/
+                    break;
             }
              //close switch
             //print var_dump($this->input->post());
             
-            return $this -> response = 'true';
+            //return $this -> response = 'true';
             
         }
     }

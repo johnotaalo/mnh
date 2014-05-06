@@ -285,26 +285,15 @@ class C_Pdf extends MY_Controller {
 <table>
 	
 		<tr>
-			<th colspan="14" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
-		</tr>
-		<tr>		
-		<th colspan="8">QUESTION</th>
-		<th colspan="6">RESPONSE</th>	
-		</tr>
-		' . $this -> mnhCEOCAspectsSectionPDF . '
-	</table>
-	<table style="display:false">
-		<tr>
-		<th colspan="12" >Health Facility Management</th>
+			<th colspan="12" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
 		</tr>
 		<tr>		
 		<th colspan="7">QUESTION</th>
 		<th colspan="5">RESPONSE</th>	
 		</tr>
-		' . $this -> mnhCommitteeAspectSectionPDF . '
+		' . $this -> mnhCEOCAspectsSectionPDF . '
 	</table>
-	
-		<table >
+	<table >
 		
 				<tr>
 					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
@@ -408,7 +397,7 @@ class C_Pdf extends MY_Controller {
 	</table>
 		
 	</div><!--\.section 2-->
-
+<p style="margin-top:100px"></p>
 <div id="section-3" class="step">
 		<p style="display:true" class="message success">
 			SECTION 3 of 7: COMMODITY AVAILABILITY
@@ -416,13 +405,13 @@ class C_Pdf extends MY_Controller {
 		<table   class="centre persist-area" >
 			<thead>
 				<tr class="persist-header">
-					<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+					<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 				</tr>
 
 				<tr>
 					<th rowspan="2" >Commodity Name</th>
 					<th rowspan="2" >Commodity Unit</th>
-					<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 					<th rowspan="2" >Available Quantities</th>
 					<th rowspan="2" > Main Supplier </th>
@@ -431,8 +420,7 @@ class C_Pdf extends MY_Controller {
 				</tr>
 				<tr>
 					<th >Available</th>
-					<th>Sometimes Available</th>
-					<th>Never Available</th>
+					<th>Not Available</th>
 					<th>Delivery room</th>
 					<th>Pharmacy</th>
 					<th>Store</th>
@@ -452,26 +440,25 @@ class C_Pdf extends MY_Controller {
 		<p style="display:true" class="message success">
 			SECTION 4 of 7: STAFF TRAINING
 		</p>
-		<table  >
+		<table >
 			<thead>
-				<tr>
-					<th colspan="4"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
-				</tr>
-				<tr>
-					<th colspan ="2" style="text-align:left"> TRAININGS</th><th style="text-align:left">Number Trained in the Last 2 Years</th>
-					<th colspan ="2" style="text-align:left">
-					<div style="width: 500px" >
-						How Many Of The Total Staff Members
-						Trained in the Last 2 Years are still Working in the Marternity Unit?
-					</div></th>
-				</tr>
-
-			</thead>
+			<tr>
+			<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+			</tr>
+			<tr>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th>
+		<th style="text-align:left">Number Trained before 2010</th>
+		<th style="text-align:left">Number Trained after 2010</th>
+		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
+		Trained are still Working in the Marternity Unit?</div></th>
+		</tr>
+		</thead>
+				
 			' . $this -> trainingGuidelineSection . '
 
 		</table>
 	</div><!--\.section-4-->
-
+<p style="margin-top:100px"></p>
 	<div id="section-5" class="step">
 		<input type="hidden" name="step_name" value="section-5"/>
 		<p style="display:true" class="message success">
@@ -544,13 +531,13 @@ class C_Pdf extends MY_Controller {
 
 		<table>
 			<thead>
-				<th colspan="10">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT.</th>
+				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT.</th>
 			
 
 			<tr>
 				<th  rowspan="2">Equipment Name</th>
 
-				<th colspan="3" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
+				<th colspan="2" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th colspan="4" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th colspan="2">Available Quantities</th>
 			</tr>
@@ -558,8 +545,7 @@ class C_Pdf extends MY_Controller {
 		
 
 				<th >Available</th>
-				<th>Sometimes Available</th>
-				<th>Never Available</th>
+				<th>Not Available</th>
 				<th>Delivery room</th>
 				<th>Pharmacy</th>
 				<th>Store</th>
@@ -575,14 +561,13 @@ class C_Pdf extends MY_Controller {
 			<tr>
 				<th scope="2" rowspan="2">Delivery Equipment Name</th>
 
-				<th colspan="3" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
+				<th colspan="2" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th colspan="4" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th colspan="2">Available Quantities</th>
 			</tr>
 			<tr >
 				<th >Available</th>
-				<th>Sometimes Available</th>
-				<th>Never Available</th>
+				<th>Not Available</th>
 				<th>Delivery room</th>
 				<th>Pharmacy</th>
 				<th>Store</th>
@@ -602,12 +587,12 @@ class C_Pdf extends MY_Controller {
 
 		<table>
 			<thead>
-				<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND MAIN SOURCE OF THE FOLLOWING.</th>
+				<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND MAIN SOURCE OF THE FOLLOWING.</th>
 			
 			<tr>
 				<th  rowspan="2">Resource Name</th>
 
-				<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+				<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th rowspan="2" > Main Source </th>
 				
@@ -615,8 +600,7 @@ class C_Pdf extends MY_Controller {
 			</tr>
 			<tr >
 				<th >Available</th>
-				<th>Sometimes Available</th>
-				<th>Never Available</th>
+				<th>Not Available</th>
 				<th>OPD</th>
 				<th>MCH</th>
 				<th>U5 Clinic</th>
@@ -646,7 +630,7 @@ class C_Pdf extends MY_Controller {
 		<tr>
 			<th rowspan="2">Resource Name</th>
 			
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th rowspan="2">
@@ -659,7 +643,6 @@ class C_Pdf extends MY_Controller {
 		</tr>
 		<tr >
 			<th >Available</th>
-			<th>Sometimes Available</th>
 			<th>Never Available</th>		
 		</tr>
 		</thead>' . $this -> hardwareMNHSectionPDF . '
@@ -669,18 +652,18 @@ class C_Pdf extends MY_Controller {
 	<div id="section-7" class="step">
 		<input type="hidden" name="step_name" value="section-7"/>
 		<p style="display:true" class="message success">
-			SECTION 7 of 7: SUPPLIES AVAILABILITY
+			SECTION 7 of 7: KITS / SETS AVAILABILITY
 		</p>
 
 		<table>
 			<thead>
 				<tr>
-					<th colspan="11">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
+					<th colspan="10">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
 				</tr>
 				<tr>
 					<th colspan="1" rowspan="2">Supplies Name</th>
 
-					<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 					<th colspan="4" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 					<th colspan="1" rowspan="2">Available Supplies</th>
 					<th colspan="1" rowspan="2"> Main Supplier </th>
@@ -690,8 +673,7 @@ class C_Pdf extends MY_Controller {
 
 				<tr>		
 					<th >Available</th>
-					<th>Sometimes Available</th>
-					<th>Never Available</th>
+					<th>Not Available</th>
 					<th>Delivery room</th>
 					<th>Pharmacy</th>
 					<th>Store</th>
@@ -700,7 +682,7 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesSectionPDF . '
 		</table>
-		<p style="margin-top:100px"></p>
+		<!--p style="margin-top:100px"></p>
 		<table>
 			<thead>
 			
@@ -750,7 +732,7 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			</thead>
 			' . $this -> suppliesUsageAndOutageSectionPDF . '
-		</table>
+		</table-->
 		
 		<table >
 			<thead>
@@ -1250,7 +1232,7 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesMCHSectionPDF . '
 		</table>
-		<p style="display:true;margin-top:50px" class="message success">
+		<p style="display:true" class="message success">
 			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
 		</p>
 		<table  class="centre" >
@@ -1325,7 +1307,7 @@ background: #91c5d4;
 			case 'mnh' :
 				$html = $this -> get_mnh_form();
 				$this -> mpdf -> SetTitle('MNH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">MNH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
 				//echo $html;die;
