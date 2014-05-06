@@ -674,21 +674,21 @@ class M_MNH_Survey extends MY_Model
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+        	//For every posted values
             if (strpos($key, 'bmsf') !== FALSE) {
-                 //select data for bemonc signal functions
+            	//select data for bemonc signal functions
                 //we separate the attribute name from the number
-                
+              
                 $this->frags = explode("_", $key);
-                
-                //$this->id = $this->frags[1];  // the id
+				
+				//$this->id = $this->frags[1];  // the id
                 
                 $this->id = $count;
                 
                 // the id
                 
                 $this->attr = $this->frags[0];
-                
+               
                 //the attribute name
                 
                 //print $key.' ='.$val.' <br />';
@@ -722,8 +722,10 @@ class M_MNH_Survey extends MY_Model
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
                 }
+				 
             }
         }
+
          //close foreach ($this -> input -> post() as $key => $val)
        // print_r($this->elements);
         
@@ -735,7 +737,7 @@ class M_MNH_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\BemoncFunctions();
+            $this->theForm = new\models\Entities\BemoncFunctions();
             
             //create an object of the model
             
@@ -4112,9 +4114,10 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         
-                        /*if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
+                      /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
                          $this -> writeAssessmentTrackerLog();*/
-                        if ($this->addBemoncSignalFunctionsInfo() == true && $this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true) {
+                      if ($this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true 
+                        	&& $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

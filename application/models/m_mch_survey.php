@@ -1252,7 +1252,7 @@ class M_MCH_Survey extends MY_Model
         $this->noOfInsertsBatch = 12;
         
         //labour and delivery Qn5 to 8 will have a single response each
-        print_r($this -> elements);
+        //print_r($this -> elements);
         
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
