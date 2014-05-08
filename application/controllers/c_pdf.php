@@ -275,7 +275,7 @@ class C_Pdf extends MY_Controller {
 
 					<th  colspan="7">SIGNAL FUNCTION</th>
 					<th   colspan="2"> WAS IT CONDUCTED? </th>
-					<th  colspan="5">INDICATE MAJOR CHALLENGE</th>
+					<th  colspan="5">INDICATE <span style="text-decoration:underline">PRIMARY</span> CHALLENGE</th>
 
 				</tr>
 			</thead>
@@ -893,13 +893,13 @@ class C_Pdf extends MY_Controller {
 	<table>
 		<thead>
 			<tr class="persist-header">
-				<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+				<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 			</tr>
 
 			<tr>
 				<th rowspan="2" >Commodity Name</th>
 				<th rowspan="2" >Commodity Unit</th>
-				<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+				<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th rowspan="2"> Main Reason For  Unavailability </th>
 				<th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th rowspan="1" colspan="2" >Available Quantities</th>
@@ -909,8 +909,7 @@ class C_Pdf extends MY_Controller {
 			</tr>
 			<tr>
 				<th >Available</th>
-				<th>Sometimes Available</th>
-				<th>Never Available</th>
+				<th>Not Available</th>
 				<th>OPD</th>
 				<th>MCH</th>
 				<th>U5 Clinic</th>
@@ -931,13 +930,13 @@ class C_Pdf extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="16">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
 		
 		<tr>
 			<th rowspan="2" >Commodity Name</th>
 			<th rowspan="2">Commodity Unit</th>
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
 			</th>
@@ -957,8 +956,7 @@ class C_Pdf extends MY_Controller {
 		<tr >
 			
 			<th>Available</th>
-			<th>Sometimes Available</th>
-			<th>Never Available</th>
+			<th>Not Available</th>
 			<th>Unavailability</th>
 			<th>OPD</th>
 			<th>MCH</th>
@@ -1070,7 +1068,7 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			</thead>
 			<tr>
-				<th>' . date("Y") . '</th>
+				<th>2013</th>
 				<td style ="text-align:center;">
 				<input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
 				</td>
@@ -1178,18 +1176,17 @@ class C_Pdf extends MY_Controller {
 		<table  class="centre" >
 			<thead>
 				<tr>
-					<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
+					<th colspan="10">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
 				</tr>
 				<tr>
 					<th colspan="1" rowspan="2">Equipment Name</th>
-					<th colspan="3" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
+					<th colspan="2" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 					<th colspan="2">Available Quantities</th>
 				</tr>
 				<tr >
 					<th >Available</th>
-					<th>Sometimes Available</th>
-					<th>Never Available</th>
+					<th>Not Available</th>
 					<th>OPD</th>
 					<th>MCH</th>
 					<th>U5 Clinic</th>
@@ -1209,20 +1206,19 @@ class C_Pdf extends MY_Controller {
 		</p>
 		<table  class="centre" >
 			<thead>
-				<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 
 				<tr>
 					<th colspan="1" rowspan="2">Supplies Name</th>
 
-					<th colspan="3" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
+					<th colspan="2" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </BR><strong> (Multiple Selections Allowed)</strong></th>
 					<th colspan="1" rowspan="2"> Main Supplier </th>
 
 				</tr>
 				<tr >
 					<th >Available</th>
-					<th>Sometimes Available</th>
-					<th>Never Available</th>
+					<th>Not Available</th>
 					<th>OPD</th>
 					<th>MCH</th>
 					<th>U5 Clinic</th>
@@ -1232,24 +1228,23 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> suppliesMCHSectionPDF . '
 		</table>
-		<p style="display:true" class="message success">
+		<p style="display:true;margin-top:150px" class="message success">
 			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
 		</p>
 		<table  class="centre" >
 			<thead>
-				<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 
 				<tr>
 					<th colspan="1" rowspan="2">Resource Name</th>
-					<th colspan="3" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 					<th colspan="1" rowspan="2"> Main Supplier </th>
 
 				</tr>
 				<tr >
 					<th>Available</th>
-					<th>Sometimes Available</th>
-					<th>Never Available</th>
+					<th>Not Available</th>
 					<th>OPD</th>
 					<th>MCH</th>
 					<th>U5 Clinic</th>

@@ -444,7 +444,7 @@ class C_Load extends MY_Controller {
 		
 			<th  colspan="7">SIGNAL FUNCTION</th>
 			<th   colspan="2"> WAS IT CONDUCTED? </th>			
-			<th  colspan="5">INDICATE MAJOR CHALLENGE</th>
+			<th  colspan="5">INDICATE <span style="text-decoration:underline">PRIMARY</span> CHALLENGE</th>
 
 		</tr>' . $this -> signalFunctionsSection . '
 	</table>
@@ -575,7 +575,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mnhCommunityStrategySectionPDF . '
 	</table>
 	</div><!--\.section 2-->
-<p style="margin-top:50px"></p>
+
 	<div id="section-3" class="step">
 	<input type="hidden" name="step_name" value="section-3"/>
 	 <p style="display:true" class="message success">SECTION 3 of 7: COMMODITY AVAILABILITY</p>
@@ -583,7 +583,7 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -711,7 +711,7 @@ class C_Load extends MY_Controller {
 		<tr>
 			<th scope="col" >Equipment Name</th>
 			
-			<th colspan=23" style="text-align:center">Availability  
+			<th colspan="2" style="text-align:center">Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="4" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
@@ -760,7 +760,7 @@ class C_Load extends MY_Controller {
 			 
 			 <table  class="centre" >
 		<thead>
-			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND MAIN SOURCE OF THE FOLLOWING.</th>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND MAIN SOURCE OF THE FOLLOWING.</th>
 		</thead>
 		<tr>
 			<th scope="col" >Resource Name</th>
@@ -802,7 +802,7 @@ class C_Load extends MY_Controller {
 		
 		<table class="centre">
 		<thead>
-			<th colspan="12" >INDICATE THE STORAGE AND ACCESS TO WATER BY THE COMMUNITY </th>
+			<th colspan="14" >INDICATE THE STORAGE AND ACCESS TO WATER BY THE COMMUNITY </th>
 				<tr>
 			<th  colspan="7">ASPECT</th>
 			<th   colspan="5"> RESPONSE </th>			
@@ -840,11 +840,11 @@ class C_Load extends MY_Controller {
            </div><!--\.section-6-->
 			<div id="section-7" class="step">
 			<input type="hidden" name="step_name" value="section-7"/>
-	 <p style="display:true" class="message success">SECTION 7 of 7: SUPPLIES AVAILABILITY</p>
+	 <p style="display:true" class="message success">SECTION 7 of 7: KITS / SETS AVAILABILITY</p>
 			
 	<table  class="centre" >
 		<thead>
-			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING SUPPLIES.INCLUDE REASON FOR UNAVAILABILITY.</th>
 		</thead>
 
 		</tr>
@@ -873,6 +873,7 @@ class C_Load extends MY_Controller {
 			<td>&nbsp;</td>
 			
 			<td >Available</td>
+			<td>Not Available</td>
 			<td>Delivery room</td>
 			<td>Pharmacy</td>
 			<td>Store</td>
@@ -885,12 +886,12 @@ class C_Load extends MY_Controller {
 			
 
 		</tr>' . $this -> suppliesSection . '
-		</table>
-		<table  class="centre" >
+		</table>'./*
+		<!--table  class="centre" >
 		<thead>
 			<!--th colspan="11"> IN THE LAST 3 MONTHS INDICATE THE USAGE, NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</BR>
 			WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th-->
-			<th colspan="11"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</BR>
+			<!--th colspan="11"> IN THE LAST 3 MONTHS INDICATE NUMBER OF TIMES THE SUPPLY WAS NOT AVAILABLE.</BR>
 			WHEN THE SUPPLY WAS NOT AVAILABLE WHAT HAPPENED? </th>
 		</thead>
 
@@ -935,8 +936,8 @@ class C_Load extends MY_Controller {
 			</div></td>
 
 		</tr>
-        ' . $this -> suppliesUsageAndOutageSection . '
-        </table>
+        ' . $this -> suppliesUsageAndOutageSection . '<d-->
+        </table>*/'
         <table >
 			<thead>
 				<tr>
@@ -1129,13 +1130,13 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="16">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
 			<th scope="col" >Commodity Name</th>
 			<th >Commodity Unit</th>
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
 			</th>
@@ -1156,8 +1157,7 @@ class C_Load extends MY_Controller {
 			<td>&nbsp;</td>
 			<td >Unit</td>
 			<td >Available</td>
-			<td>Sometimes Available</td>
-			<td>Never Available</td>
+			<td>Not Available</td>
 			<td> Unavailability</td>
 			<td>OPD</td>
 			<td>MCH</td>
@@ -1177,13 +1177,13 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="16">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
 		</thead>
 		<tr>
 			<th scope="col" >Commodity Name</th>
 			<th >Commodity Unit</th>
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
 			</th>
@@ -1204,8 +1204,7 @@ class C_Load extends MY_Controller {
 			<td>&nbsp;</td>
 			<td >Unit</td>
 			<td >Available</td>
-			<td>Sometimes Available</td>
-			<td>Never Available</td>
+			<td>Not Available</td>
 			<td> Unavailability</td>
 			<td>OPD</td>
 			<td>MCH</td>
@@ -1306,49 +1305,10 @@ class C_Load extends MY_Controller {
 
 	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
 
-		 <!--tr>
-			<td>' . (date('Y') - 1) . '</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnjanuary_12" name="january"  size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnfebruary_12" name="february" size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnmarch_12" size="8" name="march" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnapril_12" size="8" name="april" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnmay_12" size="8" name="may" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnjune_12" size="8" name="june" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnjuly_12" size="8" name="july]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnaugust_12" size="8" name="augus]t" class="cloned numbers"/>
-			</td>
-			<td  style ="text-align:center;">
-			<input type="text" id="dnseptember_12" size="8" name="september"] class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="dnoctober_12" size="8" name="october]" class="cloned numbers"/></td>
-			<td style ="text-align:center;" width="15">
-			<input type="text" id="dnnovember_12" size="8" name="november]" class="cloned numbers"/></td>
-			
-			<td style ="text-align:center;">
-			<input type="text" id="dndecember_12" size="8" name="december]" class="cloned numbers"/>
-			</td>			
-			
-
-		</tr-->
+		
 
 		<tr>
-			<td>' . date("Y") . '</td>			
+			<td>2013</td>			
 			<td style ="text-align:center;">
 			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
 			</td>
@@ -1372,7 +1332,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
 		<tr>
-		<td>' . 2013 . '</td>
+		<td>2013</td>
 			<td style ="text-align:center;">
 			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
 			</td>
@@ -1446,14 +1406,14 @@ class C_Load extends MY_Controller {
 		
 		<table  class="centre" >
 		<thead>
-			<th colspan="12">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
 		</thead>
 
 		</tr>
 		<tr>
 			<th scope="col" >Equipment Name</th>
 			
-			<th colspan="3" style="text-align:center">Availability  
+			<th colspan="2" style="text-align:center">Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
@@ -1463,8 +1423,7 @@ class C_Load extends MY_Controller {
 			<td>&nbsp;</td>
 			
 			<td >Available</td>
-			<td>Sometimes Available</td>
-			<td>Never Available</td>
+			<td>Not Available</td>
 			<td>OPD</td>
 			<td>MCH</td>
 			<td>U5 Clinic</td>
@@ -1484,12 +1443,12 @@ class C_Load extends MY_Controller {
 	 <p style="display:true" class="message success">SECTION 6 of 7: SUPPLIES AVAILABILITY</p>
 		 <table  class="centre" >
 		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 		</thead>
 		<tr>
 			<th scope="col" >Supplies Name</th>
 			
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
@@ -1508,8 +1467,7 @@ class C_Load extends MY_Controller {
 			<td>&nbsp;</td>
 			
 			<td >Available</td>
-			<td>Sometimes Available</td>
-			<td>Never Available</td>
+			<td>Not Available</td>
 			<td>OPD</td>
 			<td>MCH</td>
 			<td>U5 Clinic</td>
@@ -1528,12 +1486,12 @@ class C_Load extends MY_Controller {
 		 <p style="display:true" class="message success">SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES</p>
 		 <table  class="centre" >
 		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 		</thead>
 		<tr>
 			<th scope="col" >Resource Name</th>
 			
-			<th colspan="3" style="text-align:center"> Availability  
+			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
@@ -1549,11 +1507,9 @@ class C_Load extends MY_Controller {
 
 		</tr>
 		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Sometimes Available</td>
-			<td>Never Available</td>
+			<td>&nbsp;</td>			
+			<td >Available</td>			
+			<td>Not Available</td>
 			<td>OPD</td>
 			<td>MCH</td>
 			<td>U5 Clinic</td>

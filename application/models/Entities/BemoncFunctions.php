@@ -47,12 +47,12 @@ class BemoncFunctions
      *
      * @Column(name="sf_code", type="string", length=11, nullable=false)
      */
-    private $sf_code;
+    private $sfCode;
     
     /**
      * @var string
      *
-     * @Column(name="fac_id", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
     private $facId;
     

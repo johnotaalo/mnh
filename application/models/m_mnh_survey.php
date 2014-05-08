@@ -248,7 +248,7 @@ class M_MNH_Survey extends MY_Model
     }
     
     public function getMnhJobAidsAspectQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('job', 'QMNH');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('commi', 'QMNH');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
@@ -376,30 +376,27 @@ class M_MNH_Survey extends MY_Model
     private function addDiarrhoeaByMonthInfo() {
         
         //print_r($this -> input -> post());die;
-        foreach ($this->input->post() as $key => $vals) {
-            
-            //For every posted values
-            if (strpos($key, 'dnmonth') !== FALSE) {
-                
-                //select data for number of deliveries
+        foreach ($this->input->post() as $key => $val) {
+             //For every posted values
+            if (strpos($key, 'dnm') !== FALSE) {
+                 //select data for number of deliveries
                 $this->attr = $key;
                 
                 //the attribute name
                 
                 //split into 2 years: 2012 & 2013 --for later :-)
                 
-                if (count($vals) > 0) {
+                if (!empty($val)) {
                     
                     //We then store the value of this attribute for this element.
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 1;
-                    
-                    foreach ($vals as $key_ => $month) {
-                        if ($count > 12) {
-                            exit;
-                        }
+                   // print_r($val);die;
+                    foreach ($val as $k => $month) {
+                        $month = (int)$month;
+                        //echo ($k.' '.$month);die;
                         $this->elements[$count]['monthData'] = htmlentities($month);
-                        $this->elements[$count]['monthName'] = htmlentities($key_);
+                        $this->elements[$count]['monthName'] = htmlentities($k);
                         $count++;
                     }
                 } else {
@@ -408,11 +405,9 @@ class M_MNH_Survey extends MY_Model
                 
                 //print $key.' val='.$val.' <br />';
                 
-                
             }
         }
-        
-        //close foreach ($this -> input -> post() as $key => $val)
+         //close foreach ($this -> input -> post() as $key => $val)
         
         //exit;
         
@@ -430,8 +425,6 @@ class M_MNH_Survey extends MY_Model
             //create an object of the model
             
             $this->theForm->setCreatedAt(new DateTime());
-            
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
             /*timestamp option*/
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
@@ -455,7 +448,6 @@ class M_MNH_Survey extends MY_Model
                     //detaches all objects from doctrine
                     //return true;
                     
-                    
                 }
                 catch(Exception $ex) {
                     
@@ -464,8 +456,7 @@ class M_MNH_Survey extends MY_Model
                     
                     /*display user friendly message*/
                 }
-                
-                //end of catch
+                 //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -479,7 +470,6 @@ class M_MNH_Survey extends MY_Model
                     //detactes all objects from doctrine
                     //return true;
                     
-                    
                 }
                 catch(Exception $ex) {
                     
@@ -488,8 +478,7 @@ class M_MNH_Survey extends MY_Model
                     
                     /*display user friendly message*/
                 }
-                
-                //end of catch
+                 //end of catch
                 
                 //on the last record to be inserted, log the process and return true;
                 if ($i == $this->noOfInsertsBatch) {
@@ -502,14 +491,12 @@ class M_MNH_Survey extends MY_Model
             
             //end of batch condition
             
-            
         }
-        
-        //end of innner loop
+         //end of innner loop
         
         
     }
-     //close addDeliveryByMonthInfo()
+     //close addDiarrhoeaCasesByMonthInfo()
     
     private function addMnhCommunityStrategyInfo() {
         $this->elements = array();
@@ -673,11 +660,11 @@ class M_MNH_Survey extends MY_Model
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
-            if (strpos($key, 'bmsf') !== FALSE) {
-                 //select data for bemonc signal functions
+            //For every posted values
+            if (strpos($key, 'bms') !== FALSE) {
+                //select data for bemonc signal functions
                 //we separate the attribute name from the number
-                
+              
                 $this->frags = explode("_", $key);
                 
                 //$this->id = $this->frags[1];  // the id
@@ -687,7 +674,7 @@ class M_MNH_Survey extends MY_Model
                 // the id
                 
                 $this->attr = $this->frags[0];
-                
+               
                 //the attribute name
                 
                 //print $key.' ='.$val.' <br />';
@@ -721,15 +708,18 @@ class M_MNH_Survey extends MY_Model
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
                 }
+                 
             }
         }
+
          //close foreach ($this -> input -> post() as $key => $val)
-       // print_r($this->elements);
+        //print_r($this->elements);die;
         
         //exit;
         
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
+        //echo  $this->noOfInsertsBatch;die;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
@@ -738,12 +728,14 @@ class M_MNH_Survey extends MY_Model
             
             //create an object of the model
             
-            $this->theForm->setSfCode($this->elements[$i]['bmsfSignalCode']);
-            $this->theForm->setFacId($this->session->userdata('facilityMFL'));
             
+            $this->theForm->setFacId($this->session->userdata('facilityMFL'));
+           //echo $this->elements[$i]['bmsfSignalCode'];
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['bmsfSignalFunctionConducted'])) ? $this->theForm->setBemConducted($this->elements[$i]['bmsfSignalFunctionConducted']) : $this->theForm->setBemConducted("N/A");
-            $this->theForm->setChallengeCode($this->elements[$i]['bmsfChallenge']);
+            (isset($this->elements[$i]['bmsfSignalCode'])) ? $this->theForm->setSfCode($this->elements[$i]['bmsfSignalCode']) : $this->theForm->setSfCode("n/a");
+            (isset($this->elements[$i]['bmsfChallenge'])) ? $this->theForm->setChallengeCode($this->elements[$i]['bmsfChallenge']) : $this->theForm->setChallengeCode("N/A");
+            
             $this->theForm->setBemCreated(new DateTime());
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
@@ -764,7 +756,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -786,7 +778,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -2941,7 +2933,7 @@ class M_MNH_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -3114,7 +3106,7 @@ class M_MNH_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -3278,7 +3270,7 @@ class M_MNH_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -3934,7 +3926,7 @@ class M_MNH_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -4067,6 +4059,7 @@ class M_MNH_Survey extends MY_Model
          //end of innner loop
         
         
+
     }
      //close addResourceAvailabilityInfo
     
@@ -4085,10 +4078,8 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true
-                         //) {//Defined in MY_Model
-                         && $this->addBedsInfo() == true) {
-                            $this->writeAssessmentTrackerLog();
+                        if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true) {//Defined in MY_Model
+                         $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
                             return $this->response = 'false';
@@ -4102,7 +4093,7 @@ class M_MNH_Survey extends MY_Model
                     //return $this -> response = 'true';
                     break;
 
-                       case 'section-2':
+                case 'section-2':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -4111,9 +4102,12 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                                      if (//$this->addBemoncSignalFunctionsInfo() == true && 
-                                    //$this->addMnhCommunityStrategyInfo() == true && $this->addCEOCServicesInfo() == true &&  $this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addJobAidsInfo() == true
-                                    $this->addDiarrhoeaByMonthInfo() == true) {
+                        
+                      /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
+                         $this -> writeAssessmentTrackerLog();*/
+                      if (/*$this->addMnhCommunityStrategyInfo()&& $this->addKangarooInfo() == true && $this->addNewbornInfo() == true  && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true
+                       && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addJobAidsInfo() == true && $this->addDiarrhoeaByMonthInfo() == true*/$this -> addBemoncSignalFunctionsInfo() == true  ){//} == true  && $this->addDiarrhoeaByMonthInfo() == true 
+                            //  ) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -4125,11 +4119,7 @@ class M_MNH_Survey extends MY_Model
                         //die('Entry exsits');
                         return $this->response = 'true';
                     }
-                    
-                    //return $this -> response = 'true';
                     break;
-
-               
 
                 case 'section-3':
                     

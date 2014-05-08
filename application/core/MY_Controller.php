@@ -463,9 +463,6 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
 			</td>
 			<td width="60">
@@ -533,9 +530,6 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
 			</td>
 			<td width="60">
@@ -601,9 +595,6 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
 			</td>
 			<td width="60">
@@ -666,9 +657,6 @@ class  MY_Controller  extends  CI_Controller {
 			<td> ' . $value['commUnit'] . '</td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
-			<input name="cqAvailability_' . $counter . '" type="radio" value="Sometimes Available" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
@@ -1402,15 +1390,12 @@ class  MY_Controller  extends  CI_Controller {
 			$this -> mnhNewbornCareAspectsSection .= '<tr>
 			<td >' . $value['questionName'] . '</td>
 			<td >
-			<select name="newbornReason_' . $counter . '" id="newbornReason_' . $counter . '" class="cloned" >
+			<select name="newbornAspectResponse_' . $counter . '" id="newbornAspectResponse_' . $counter . '" class="cloned" >
 			<option value="" selected="selected">Select One</option>
-			<option value="MCH">MCH</option>
-			<option value="Gynae">Gynae</option>
-			<option value="Other">Other</option><br/>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
 			</select><br/>
-			<label id="label_reason_other_' . $counter . '">Other Reason</label><br/>
-			<input type="text"  name="newbornReasonOther_' . $counter . '" id="newbornReasonOther_' . $counter . '" value="" size="64" class="cloned" />
-			</td>
+			
 			</td>
 			<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
@@ -1435,14 +1420,7 @@ class  MY_Controller  extends  CI_Controller {
 		</td>' . '
 		<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 	</tr>
-	<tr>
-		<td colspan="7">If YES, where?</td>
-		<td colspan="5">
-		MCH<input type="checkbox">Gynae<input type="checkbox">Other(Specify)<input type="checkbox">
-		(Other)<input type="text">
-		</td>' . '
-		<input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-	</tr>';
+	';
 		}
 
 		//echo $this->mnhCEOCAspectsSection;die;
@@ -2351,9 +2329,6 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqAvailability_' . $counter . '" type="radio" value="Sometimes Available" />
-			</td>
-			<td style ="text-align:center;">
 			<input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" />
 			</td>		
 			<td style ="text-align:center;">
@@ -2417,9 +2392,6 @@ class  MY_Controller  extends  CI_Controller {
 			<input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
 			</td>
 			<td style ="text-align:center;">
-			<input name="sqAvailability_' . $counter . '" type="radio" value="Sometimes Available" />
-			</td>
-			<td style ="text-align:center;">
 			<input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" />
 			</td>		
 			<td style ="text-align:center;">
@@ -2471,9 +2443,6 @@ class  MY_Controller  extends  CI_Controller {
 			<td  style="width:200px;">' . $value['eqName'] . ' ' . $unit . ' </td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="hwAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
-			<input name="hwAvailability_' . $counter . '" id="hwAvailability_' . $counter . '" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="hwAvailability_' . $counter . '" type="radio" value="Never Available" />
@@ -2537,9 +2506,6 @@ class  MY_Controller  extends  CI_Controller {
 			<td  style="width:200px;">' . $value['eqName'] . ' ' . $unit . ' </td>
 			<td style="vertical-align: middle; margin: 0px;text-align:center;">
 			<input name="hwAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
-			<input name="hwAvailability_' . $counter . '" id="hwAvailability_' . $counter . '" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="hwAvailability_' . $counter . '" type="radio" value="Never Available" />
@@ -2878,9 +2844,6 @@ class  MY_Controller  extends  CI_Controller {
 			<td >' . $value['eqName'] . ' ' . $unit . ' </td>
 			<td style ="text-align:center;">
 			<input name="eqAvailability_' . $counter . '" id="eqAvailable_' . $counter . '" type="radio" value="Available" class="cloned"/>
-			</td>
-			<td style ="text-align:center;">
-			<input name="eqAvailability_' . $counter . '" id="eqSometimesAvailable_' . $counter . '" type="radio" value="Sometimes Available" />
 			</td>
 			<td style ="text-align:center;">
 			<input name="eqAvailability_' . $counter . '" id="eqNeverAvailable_' . $counter . '" type="radio" value="Never Available" />

@@ -15,11 +15,13 @@ class LogDiarrhoea
     /**
      * @var integer
      *
+
      * @Column(name="ld_id", type="integer", nullable=false)
      * @Id
      * @GeneratedValue(strategy="IDENTITY")
      */
     private $ldId;
+
 
     /**
      * @var \DateTime
@@ -59,6 +61,7 @@ class LogDiarrhoea
     /**
      * @var integer
      *
+
      * @Column(name="ld_number", type="integer", nullable=true)
      */
     private $ldNumber;
@@ -72,7 +75,7 @@ class LogDiarrhoea
     public function getLdId()
     {
         return $this->ldId;
-    }
+}
 
     /**
      * Set createdat
@@ -190,6 +193,7 @@ class LogDiarrhoea
     }
 
     /**
+
      * Set ldNumber
      *
      * @param integer $ldNumber
@@ -198,6 +202,7 @@ class LogDiarrhoea
     public function setLdNumber($ldNumber)
     {
         $this->ldNumber = $ldNumber;
+
     
         return $this;
     }
@@ -210,5 +215,6 @@ class LogDiarrhoea
     public function getLdNumber()
     {
         return $this->ldNumber;
+
     }
 }

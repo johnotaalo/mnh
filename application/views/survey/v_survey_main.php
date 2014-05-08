@@ -423,7 +423,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						   var end_url;
 								$(form_id).formwizard({ 
 								 	formPluginEnabled: false,
-								 	validationEnabled: true,
+								 	validationEnabled: false,
 								 	historyEnabled:true,
 								 	focusFirstInput : true,
 								 	textNext : 'Save and Go to the Next Section',
@@ -606,8 +606,18 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 									},
 									success: function(data){
-										console.log(data);
-										(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
+										survey = '<?php echo $this->session->userdata("survey");?>';
+											//alert(data);
+										if(survey=='mnh' && data==1 ){
+
+											$(form_id).formwizard('show','Yes');
+										
+										}
+										else{
+											(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
+										
+										}
+										//console.log(data);
 										
 									}}
 								);
