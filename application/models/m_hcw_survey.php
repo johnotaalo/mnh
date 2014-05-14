@@ -15,112 +15,20 @@ class M_HCW_Survey extends MY_Model
     }
     
     /*calls the query defined in MY_Model*/
-    public function getOrtAspectQuestions($for) {
-        $this->ortAspectsList = $this->getAllOrtAspects($for);
+    public function getConsultationQuestions() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('obs', 'QHC');
         
-        //var_dump($this->ortAspectsList);die;
-        return $this->ortAspectsList;
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
+     /*calls the query defined in MY_Model*/
+    public function getInterviewQuestions() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('ext', 'QHC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
     }
     
-    /*calls the query defined in MY_Model*/
-    public function getAccessChallenges() {
-        $this->challengeList = $this->getAllAccessChallenges();
-        
-        //var_dump($this->ortAspectsList);die;
-        return $this->challengeList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getMchCommunityStrategyQuestions() {
-        $this->ortAspectsList = $this->getQuestionsBySection('cms', 'QUC');
-        
-        //var_dump($this->ortAspectsList);die;
-        return $this->ortAspectsList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getGuidelineAvailabilityQuestions($for) {
-        $this->mchGuidelineAvailabilityList = $this->getAllOrtAspects($for);
-        
-        //var_dump($this->ortAspectsList);die;
-        return $this->mchGuidelineAvailabilityList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getCommodityNames() {
-        $this->commodityList = $this->getAllCommodityNames('ch');
-        
-        //var_dump($this->commodityList);die;
-        return $this->commodityList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getBundlingNames() {
-        $this->commodityList = $this->getAllCommodityNames('bun');
-        
-        //var_dump($this->commodityList);die;
-        return $this->commodityList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getCommoditySupplierNames() {
-        $this->supplierList = $this->getAllCommoditySupplierNames('mnh');
-        
-        //var_dump($this->supplierList);die;
-        return $this->supplierList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getOtherSupplierNames() {
-        $this->supplierList = $this->getAllCommoditySupplierNames('mch');
-        
-        //var_dump($this->supplierList);die;
-        return $this->supplierList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getAllHWSources() {
-        $this->supplierList = $this->getAllSources('sou');
-        
-        //var_dump($this->supplierList);die;
-        return $this->supplierList;
-    }
-    
-    /*calls the query defined in MY_Model*/
-    public function getTrainingGuidelines() {
-        $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
-        
-        //var_dump($this->trainingGuidelinesList);die;
-        return $this->trainingGuidelinesList;
-    }
-    
-    public function getEquipmentNames($section) {
-        $this->equipmentList = $this->getAllEquipmentNames($section);
-        
-        //var_dump($this->equipmentList);die;
-        return $this->equipmentList;
-    }
-    
-    public function getSupplyNames() {
-        $this->suppliesList = $this->getAllSupplyNames('ch');
-        
-        //var_dump($this->suppliesList);die;
-        return $this->suppliesList;
-    }
-    
-    public function getIndicatorNames() {
-        $this->indicatorList = $this->getAllMCHIndicators();
-        
-        //var_dump($this->indicatorList);die;
-        return $this->indicatorList;
-    }
-    
-    public function getTreatmentNames() {
-        $this->treatmentList = $this->getAllMCHTreatments();
-        
-        //var_dump($this->treatmentList);die;
-        return $this->treatmentList;
-    }
     
     private function addQuestionsInfo() {
         $count = $finalCount = 1;

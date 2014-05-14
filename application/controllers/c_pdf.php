@@ -814,7 +814,7 @@ class C_Pdf extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td  colspan="2">MCH </td><td>
+			<td  colspan="2">MCH Incharge</td><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -824,7 +824,7 @@ class C_Pdf extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td  colspan="2">Maternity </td><td>
+			<td  colspan="2">Maternity Incharge </td><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1263,38 +1263,87 @@ class C_Pdf extends MY_Controller {
 		return $this -> combined_form;
 	}
 	public function get_hcw_form(){
-		$this -> combined_form='<table>
-    <thead>
-        <tr>
-            <th colspan="4" style="font-size:22px">Follow up Support supervision checklist on IMCI after training </th>
-        </tr>
-        <tr>
-            <th colspan="4" >Facility Information</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><label for="">Name of the health centre/facility</label></td><td><input type="text"></td>
-            <td><label for="">Date of supervision</label></td><td><input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="">Facility type</label></td><td><input type="text"></td>
-            <td><label for="">Name of Supervisor</label></td><td><input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="">Level of Care</label></td><td><input type="text"></td>
-            <td><label for="">MFL Code</label></td><td><input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="">Municipality/Ward</label></td><td><input type="text"></td>
-            <td><label for="">Designation</label></td><td><input type="text"></td>
-        </tr>
-        <tr>
-            <td><label for="">Sub County</label></td><td><input type="text"></td>
-            <td><label for="">County</label></td><td><input type="text"></td>
-        </tr>
-    </tbody>
-    <tfoot></tfoot>
+		$this -> combined_form='
+		<table border="2">
+
+	<thead>
+	<tr>
+		<th colspan="9">FACILITY INFORMATION</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Facility Name </td><td>
+			<input type="text" size="40">
+			</td><td>Facility Level </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<input type="text" size="40" >
+			</td><td>County </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+		</tr>
+		<tr>
+			<td>Facility Type </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+			<td>Owned By </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+
+			<td>District/Sub County </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+		</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+	<tr>
+		<th colspan="4" >FACILITY CONTACT INFORMATION</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr >
+			<th >CADRE</th>
+			<th>NAME</th>
+			<th >MOBILE</th>
+			<th >EMAIL</th>
+		</tr>
+		<tr>
+			<td>Incharge </td><td>
+			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<td>MCH Incharge</td><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Maternity Incharge </td><td>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+	</tbody>
 </table>
 <table>
     <thead>
@@ -1405,8 +1454,8 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
         <tr>
-            <th  style="width:65%">SERVICE</th>
-            <th   style="width:35%;text-align:left"> RESPONSE </th>
+            <th  width="700px">SERVICE</th>
+            <th> RESPONSE </th>
         </tr>
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['svc'] . '
@@ -1417,8 +1466,8 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
         <tr>
-            <th  style="width:65%">SERVICE</th>
-            <th   style="width:35%;text-align:left"> RESPONSE </th>
+            <th width="700px" >SERVICE</th>
+            <th > RESPONSE </th>
         </tr>
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
@@ -1428,363 +1477,121 @@ class C_Pdf extends MY_Controller {
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2" >Response</th>
         </tr>
         <tr>
             <th>1. Cough / Pneumonia</th>
-            <th>Yes</th>
-            <th>No</th>
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
 </table>
 <table class="centre">
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2">Response</th>
         </tr>
         <tr>
             <th>2. Diarrhoea</th>
-            <th>Yes</th>
-            <th>No</th>
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
 </table>
 <table class="centre">
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2">Response</th>
         </tr>
         <tr>
             <th>3. Fever / Malaria</th>
-            <th>Yes</th>
-            <th>No</th>
+            
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
 </table>
 <p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Condition</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Condition</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
+     ' . $this -> mchIndicatorsSectionPDF['con'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Classification</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Classification</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>6) Correct Classification(s)</td>
-        </tr>
+        ' . $this -> mchIndicatorsSectionPDF['cls'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Treatment and Counselling</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Treatment and Counselling</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>7) ORT given appropriately according to plan</td>
-        </tr>
-        <tr>
-            <td>8) Children with diarrhoea treated with Zinc</td>
-        </tr>
-        <tr>
-            <td>9) Antibiotic prescribed correctly</td>
-        </tr>
-        <tr>
-            <td>10) No antibiotic needed; none given</td>
-        </tr>
-        <tr>
-            <td>11) Anti-malarial prescribed correctly</td>
-        </tr>
-        <tr>
-            <td>12) Needed Vitamin A supplementation given</td>
-        </tr>
-        <tr>
-            <td>13) Needed de-worming medication given</td>
-        </tr>
-        <tr>
-            <td>14) Appropriate counseling in feeding problems given </td>
-        </tr>
-        <tr>
-            <td>15) Appropriate follow up arranged</td>
-        </tr>
+        dy>
+        ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Referrals</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Referrals</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>16) Necessary referral made, including referral note and pre-treatment</td>
-        </tr>
+        ' . $this -> mchIndicatorsSectionPDF['ref'] . '
+    </tbody>
     </tbody>
 </table>
 <table>
     <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th colspan="2">Case 1</th>
-            <th colspan="2">Case 2</th>
-            <th colspan="2">Case 3</th>
+     	<tr>
+            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
         </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th>Yes</th>
-            <th>No</th>
-            <th>Yes</th>
-            <th>No</th>
-            <th>Yes</th>
-            <th>No</th>
-        </tr>
+        
+       
     </thead>
     <tbody>
-        <tr>
-            <th colspan="8">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
-        </tr>
-        <tr>
-            <td rowspan="4">3.1.1</td>
-            <td colspan="7">Did provider follow IMCI protocol during</td>
-        </tr>
-        <tr>
-            <td>Assessment( General danger signs and other signs)</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>  Classification</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>Treatment  </td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.2</td>
-            <td>Did provider use IMCI case recording form/register?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.3</td>
-            <td>Did she do rapid test for malaria/ microscopy correctly? (Applicable only if the child with fever)</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.4</td>
-            <td>Did she do tourniquet for Dengue correctly? (Applicable only if the child with fever less than 7 days)</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.5</td>
-            <td>Did provider inform caregiver about illness of her child?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.6</td>
-            <td>Did provider instruct caregiver how to give medicine to child?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.7</td>
-            <td>Did provider give first dose of medicine at health centre?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.8</td>
-            <td>Did provider counsel about child’s feeding?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.9</td>
-            <td>Did provider explain how to take care of child?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.10</td>
-            <td>Did provider ask caregiver for feedback</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.11</td>
-            <td>Did he/she explain when to return?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.1.12</td>
-            <td>Did he/she use mother’s card?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.13</td>
-            <td>Duration of consultation (minutes)?</td>
-            <td colspan="7"><input type="number"></td>
-        </tr>
-        <tr>
-            <th colspan="8">3.2 Interview with the caregiver/mother</th>
-        </tr>
-        <tr>
-            <td>3.2.1</td>
-            <td>Was mother/caregiver satisfied?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.2.2</td>
-            <td>Who advices mother/caregiver to seek care from this centre?</td>
-            <td colspan="6"><input type="text"></td>
-        </tr>
-        <tr>
-            <td>3.2.3</td>
-            <td>Did mother/caregiver explain correctly how to give medicine?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.2.4</td>
-            <td>Did he/she explain correctly how to take care of child at home?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.2.5</td>
-            <td>Did he/she explain when to return to health centre immediately?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
-        <tr>
-            <td>3.2.6</td>
-            <td>Did s/he explain when to return to health centre for follow-up?</td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-            <td><input type="radio"></td>
-        </tr>
+       ' . $this -> hcwConsultingAspectsSectionPDF . '
+        
     </tbody>
     <tfoot></tfoot>
 </table>
-<p style="margin-top:100px" class="message success">PROVIDER SCORE</p>
+<table>
+    <thead>
+     	<tr>
+            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        
+       
+    </thead>
+    <tbody>
+       ' . $this -> hcwInterviewAspectsSectionPDF . '
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<p class="message success">PROVIDER SCORE</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1836,7 +1643,7 @@ class C_Pdf extends MY_Controller {
         </td>
     </tr>
 </table>
-<p style="margin-top:50px"></p>
+<p style="margin-top:10px"></p>
 <table style="border:2px solid #666">
     <tr>
         <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>

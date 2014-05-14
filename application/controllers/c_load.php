@@ -211,7 +211,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">MCH </TD><td>
+			<TD  colspan="2">MCH Incharge</TD><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -221,7 +221,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">Maternity </TD><td>
+			<TD  colspan="2">Maternity Incharge</TD><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1621,7 +1621,7 @@ public function get_hcw_form() {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">MCH </TD><td>
+			<TD  colspan="2">MCH Incharge</TD><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -1631,7 +1631,7 @@ public function get_hcw_form() {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">Maternity </TD><td>
+			<TD  colspan="2">Maternity Incharge</TD><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>

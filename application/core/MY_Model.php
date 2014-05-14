@@ -241,7 +241,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHIndicators() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorCode ASC');
+			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorFor, i.indicatorCode ASC');
 			$this -> mchIndicator = $query -> getResult();
 			//die(var_dump($this->mchIndicator));
 		} catch(exception $ex) {
