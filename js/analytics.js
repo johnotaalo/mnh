@@ -619,7 +619,7 @@ function startAnalytics(base_url, county, survey) {
 				currentChart = base_url + 'c_analytics/getNursesDeployed/';
 				appendToTitle = ' ';
 				currentDiv = '#graph_3';
-				extraStat='nur';
+				extraStat = 'nur';
 				$('span.statistic').text('Nurses Deployed');
 				$('#facility-statistics-parent').addClass('active');
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
@@ -1003,7 +1003,7 @@ function startAnalytics(base_url, county, survey) {
 				break;
 
 			case 'resourcesFrequencyMnh':
-				
+
 				currentChart = base_url + 'c_analytics/getRunningWaterFrequency/';
 				appendToTitle = ' ';
 				currentDiv = '#graph_3';
@@ -1118,11 +1118,14 @@ function startAnalytics(base_url, county, survey) {
 	$('#mch-form').click(function() {
 		window.open(base_url + 'c_pdf/loadPDF/mch');
 	});
+	$('#hcw-form').click(function() {
+		window.open(base_url + 'c_pdf/loadPDF/hcw');
+	});
 
-	$('#mnh-completed').click(function(){
-			window.open(base_url+'c_statistics/reportingFacilitiesNew/complete/mnh/baseline/');
-		});
-		$('#mnh-partially').click(function(){
-			window.open(base_url+'c_statistics/reportingFacilitiesNew/partial/mnh/baseline/');
-		});
+	$('#mnh-completed').click(function() {
+		window.open(base_url + 'c_statistics/reportingFacilitiesNew/complete/mnh/baseline/');
+	});
+	$('#mnh-partially').click(function() {
+		window.open(base_url + 'c_statistics/reportingFacilitiesNew/partial/mnh/baseline/');
+	});
 }

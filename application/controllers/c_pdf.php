@@ -792,6 +792,28 @@ class C_Pdf extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
+
+<table>
+	<thead>
+		<th colspan="4">ASSESSOR INFORMATION </th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Name </td><td>
+			<input type="text" size="40">
+			</td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
+			<input type="text" size="40" >
+			</td><td>Email </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+			</td><td>Phone Number </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+		</tr>
+	</tbody>
+</table>
 <table>
 	<thead>
 		<th colspan="3" >FACILITY CONTACT INFORMATION</th>
@@ -814,7 +836,7 @@ class C_Pdf extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td  colspan="2">MCH </td><td>
+			<td  colspan="2">MCH Incharge</td><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -824,7 +846,7 @@ class C_Pdf extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td  colspan="2">Maternity </td><td>
+			<td  colspan="2">Maternity Incharge </td><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -836,31 +858,41 @@ class C_Pdf extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
-<table class="centre">
-	<thead>
-		<tr>
-			<th colspan="2" >COMMUNITY STRATEGY </th>
-		</tr>
+<table>
+  <thead>
+	<th colspan = "5">HEALTH SERVICES</th>
 	</thead>
-	<tr>
-		<th  style="width:65%">ASPECT</th>
-		<th   style="width:35%;text-align:left"> RESPONSE </th>
+	<tbody>
+	<tr>Where are sick children seen?
 	</tr>
-	' . $this -> mchCommunityStrategySection . '
+	<tr>
+		<td>OPD</td>
+		<td><input type="radio",name="opd", size="40"></td>
+		<td>U5 Clinic</td>
+		<td><input type="radio",name="usclinic",size="40"></td>
+		<td>MCH</td>
+		<td><input type="radio",name="mch",size="40"></td>
+		<td>Other</td>
+		<td><input type="radio",name="other",size="40"></td>
+		<td>If Other, Specify</td>
+		<td><input type="radio",name="specify",size="40"></td>
+		</tr>
+	</tbody>
 </table>
+
 <!--\.the section-1 -->
 
 
 <div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
 	<p style="display:true" class="message success">
-		SECTION 2 of 7: GUIDELINES, STAFF TRAINING AND COMMODITY AVAILABILITY
+		SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS
 	</p>
 
 	<table class="centre">
 		<thead>
 			<tr>
-				<th colspan="3" >GUIDELINES AVAILABILITY </th>
+				<th colspan="3" >GUIDELINES AND JOB AIDS AVAILABILITY </th>
 			</tr>
 			<tr>
 				<th  style="width:35%">ASPECT</th>
@@ -970,8 +1002,200 @@ class C_Pdf extends MY_Controller {
 		</tr></thead>' . $this -> mchBundlingPDF . '
 
 	</table>
-	</div><!--\.section 2-->
+	<table class="centre">
 
+			<thead>
+				<tr>
+					<th colspan="2" >DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
+				</tr>
+
+				<tr>
+					<th  style="width:35%">TOOL</th>
+					<th   style="width:65%;text-align:left"> RESPONSE </th>
+
+				</tr>
+			</thead>
+			' . $this -> mchIndicatorsSectionPDF['ror'] . '
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" > DATA FROM THE TOOLS </th>
+			</tr>
+			<tr>
+				<th colspan="6" > (A) MALARIA</th>
+			</tr>
+				<tr>
+
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th>Malaria</th>
+					<th>Fever No malaria</th>
+					</tr>
+					<tr >
+					<td>Artemether Lumefantrine(AL)</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Artesunate</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Chloramphenical</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr><tr >
+					<td>Paracetamol</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Quenine</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+			
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" > (B) PNEUMONIA</th>
+			</tr>
+				<tr>
+
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th>Pneumonia</th>
+					<th>Fever No Pneumonia cough/cold</th>
+					</tr>
+					<tr >
+					<td>Amoxicillin</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Cotrimoxazole</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+			
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" > (C) DIARRHOEA </th>
+			</tr>
+				<tr>
+
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th >Severe Dehydration</th>
+					<th>Some Dehydration</th>
+					<th>No Dehydration</th>
+					<th>Dysentry</th>
+					<th>No Classification</th>
+				</tr>
+			</thead>
+			' . $this -> treatmentMCHSection . '
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
+			</tr>
+				<tr>
+				<th colspan="6" style="text-align:center"> Classification</th>
+				</tr>
+				</thead>
+					<tr >
+					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
+					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>
+					<td>Some Dehydation:<input type="text", name="somedehydration"></td>
+					<td>No Dehydation:<input type="text", name="nodehydration"></td>
+					<td>Dysentry:<input type="text", name="dysentry"></td>
+					<td>No Classification:<input type="text", name="noclassification"></td>
+					</tr>
+					<tr >
+					<td>Pneumonia Total:<input type="text",name="pneumoniaTotal"></td>
+					<td>Pneumonia:<input type="text", name="pneumonia"></td>
+					<td>No Pneumonia cough/cold:<input type="text", name="nopneumonia"></td>
+					</tr>
+					<tr >
+					<td>Malaria Total:<input type="malariaTotal", name = "malariaTotal"></td>
+					<td>Confirmed:<input type="text", name="pneumonia"></td>
+					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
+					</tr>
+		</table>
+		<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="15"  > CLINICAL STAFF</th>
+			</tr>
+			<tr>
+
+				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
+				<th style="text-align:left">TOTAL IN FACILITY</th>
+				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
+				<th style="text-align:left">
+				<div style="width: 500px" >
+					How Many Of The Total Staff Members
+					Trained are still Working in Child Health?
+				</div></th>
+			</tr>
+		</thead>
+		<tr>
+			<td>Doctor</td>
+			</tr>
+			<tr>
+			<td>Nurse</td>
+			</tr>
+			<tr>
+			<td>R.C.O</td>
+			</tr>
+	</table>	
+	</div><!--\.section 2-->
 	<div id="section-3" class="step">
 		<input type="hidden" name="step_name" value="section-3"/>
 		<p style="display:true" class="message success">
@@ -1042,23 +1266,7 @@ class C_Pdf extends MY_Controller {
 
 			<thead>
 				<tr>
-					<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
-				</tr>
-
-				<tr>
-					<th  style="width:35%">TOOL</th>
-					<th   style="width:65%;text-align:left"> RESPONSE </th>
-
-				</tr>
-			</thead>
-			' . $this -> mchIndicatorsSectionPDF['ror'] . '
-		</table>
-
-		<table class="centre">
-
-			<thead>
-				<tr>
-					<th colspan="7" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS </th>
+					<th colspan="7" > (A) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS </th>
 				</tr>
 				<tr>
 					<th> MONTH</th><th>
@@ -1120,7 +1328,7 @@ class C_Pdf extends MY_Controller {
 
 			<thead>
 			<tr>
-				<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
+				<th colspan="6" > (B) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
 			</tr>
 				<tr>
 
@@ -1144,7 +1352,7 @@ class C_Pdf extends MY_Controller {
 		
 		<thead>
 		<tr>
-			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
 			(refer to Question C above)(One Selection Allowed) </th></tr>
 		</thead>
 		'.$this -> selectAccessChallenges.'
@@ -1202,12 +1410,11 @@ class C_Pdf extends MY_Controller {
 		<div id="section-6" class="step">
 		<input type="hidden" name="step_name" value="section-6"/>
 		<p style="display:true" class="message success">
-			SECTION 6 of 7: SUPPLIES AVAILABILITY
+			SECTION 6 of 7: RESOURCE AVAILABILITY
 		</p>
 		<table  class="centre" >
 			<thead>
 				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
-
 				<tr>
 					<th colspan="1" rowspan="2">Supplies Name</th>
 
@@ -1255,6 +1462,19 @@ class C_Pdf extends MY_Controller {
 			' . $this -> hardwareMCHSectionPDF . '
 		</table>
 		
+		<table class="centre">
+	<thead>
+		<tr>
+			<th colspan="2" >COMMUNITY STRATEGY </th>
+		</tr>
+	</thead>
+	<tr>
+		<th  style="width:65%">ASPECT</th>
+		<th   style="width:35%;text-align:left"> RESPONSE </th>
+	</tr>
+	' . $this -> mchCommunityStrategySection . '
+</table>
+		
 
 	</div><!--\.section-6 & 7-->
 	</div><!--\.section-5-->
@@ -1263,142 +1483,189 @@ class C_Pdf extends MY_Controller {
 		return $this -> combined_form;
 	}
 	public function get_hcw_form(){
-		$filename = 'Mentorship Form';
-		$this -> combined_form='<table>
+		$this -> combined_form='
+		<table border="2">
+
 	<thead>
 	<tr>
-			<th colspan="2" style="font-size:22px">Follow up Support supervision checklist on IMCI after training </th>
-		</tr>
-		<tr>
-			<th colspan="2" >Facility Information</th>
+		<th colspan="9">FACILITY INFORMATION</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td><label for="">Name of the health centre/facility</label><input type="text"></td>
-			<td><label for="">Date of supervision</label><input type="text"></td>
+			<td>Facility Name </td><td>
+			<input type="text" size="40">
+			</td><td>Facility Level </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<input type="text" size="40" >
+			</td><td>County </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
 		</tr>
 		<tr>
-			<td><label for="">Facility type</label><input type="text"></td>
-			<td><label for="">Name of Supervisor</label><input type="text"></td>
-		</tr>
-		<tr>
-			<td><label for="">Level of Care</label><input type="text"></td>
-			<td><label for="">MFL Code</label><input type="text"></td>
-		</tr>
-		<tr>
-			<td><label for="">Municipality/Ward</label><input type="text"></td>
-			<td><label for="">Designation</label><input type="text"></td>
-		</tr>
-		<tr>
-			<td><label for="">Sub County</label><input type="text"></td>
-			<td><label for="">County</label><input type="text"></td>
-		</tr>
+			<td>Facility Type </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+			<td>Owned By </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
 
+			<td>District/Sub County </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+		</tr>
 	</tbody>
-	<tfoot></tfoot>
 </table>
 <table>
 	<thead>
 	<tr>
-		<th colspan="2">HCW Profile </th>
-	</tr>
+		<th colspan="4" >FACILITY CONTACT INFORMATION</th>
+		</tr>
 	</thead>
 	<tbody>
-	<tr>
-	<td colspan="2">Name of Provider</td>
-	</tr>
-	<tr>
-		<td>First Name<input type="text"></td>
-		<td>Surname<input type="text"></td>
-		
-	</tr>
-	<tr>
-		<td>National ID<input type="text"></td>
-		<td>Phone Number<input type="text"></td>
-	</tr>
-	<tr>
-		<td>Year, Month when trained <input type="text"></td>
-		<td><p><b>Key coordinator of the training(Select one)</b></p>
-		<p><input type="radio">MOH/KPA/CHAI</p>
-		<p><input type="radio">MOH only</p>
-		<p><input type="radio">Other</p>
-		<p>(If other, indicate the name of the coordinator/partner)<input type="text"></p>
-		</td>
-	</tr>
-	<tr>
-		<td><label for="">Designation</label></td>
-		<td><input style="width:100px" type="text"></td>
-	</tr>
+		<tr >
+			<th >CADRE</th>
+			<th>NAME</th>
+			<th >MOBILE</th>
+			<th >EMAIL</th>
+		</tr>
+		<tr>
+			<td>Incharge </td><td>
+			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<td>MCH Incharge</td><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<td>Maternity Incharge </td><td>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
 	</tbody>
-	<tfoot></tfoot>
+</table>
+<table>
+    <thead>
+        <tr>
+            <th colspan="4">HCW Profile </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4">Name of Provider</td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text"></td>
+            <td>Surname</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>National ID</td>
+            <td><input type="text"></td>
+            <td>Phone Number</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td colspan="1">Year, Month when trained <input type="text"></td>
+            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
+                <p><input type="radio">MOH/KPA/CHAI</p>
+                <p><input type="radio">MOH only</p>
+                <p><input type="radio">Other</p>
+                <p>(If other, indicate the name of the coordinator/partner)<input type="text"></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1"><label for="">Designation</label></td>
+            <td colspan="3"><input type="text"></td>
+        </tr>
+    </tbody>
+    <tfoot></tfoot>
 </table>
 <p class="message success">Work Station Profile</p>
 <table>
-
-	<tbody>
-	<tr>
-		<td>Current Unit</td>
-		<td><input type="text"></td>
-	</tr>
-
-	</tbody>
-	
+    <tbody>
+        <tr>
+            <td>Current Unit</td>
+            <td><input type="text"></td>
+        </tr>
+    </tbody>
 </table>
 <table>
-	<thead>
-	<tr>
-			<th>Question</th>
-			<th>Yes</th>
-			<th>No</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td>
-				1.	Is the HCW still working in the original facility they were when they got trained? 
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				If No to question 1 indicate whether the HCW: 
-			</td>
-		</tr>		
-		<tr>
-			<td>
-				Transferred to another facility in the same county
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">If Yes, indicate name of the facility <input type="text"> </td>
-		</tr>
-		<tr>
-			<td>
-				Transferred to another facility in another county
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-			<td>
-				<input type="radio">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">If  Yes, indicate the name of the county <input type="text"> and facility <input type="text"> </td>
-		</tr>
-		</tbody>
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Yes</th>
+            <th>No</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.	Is the HCW still working in the original facility they were when they got trained?
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                If No to question 1 indicate whether the HCW:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Transferred to another facility in the same county
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">If Yes, indicate name of the facility <input type="text"> </td>
+        </tr>
+        <tr>
+            <td>
+                Transferred to another facility in another county
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+            <td>
+                <input type="radio">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">If  Yes, indicate the name of the county <input type="text"> and facility <input type="text"> </td>
+        </tr>
+    </tbody>
 </table>
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <table class="centre">
@@ -1407,8 +1674,8 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
         <tr>
-            <th  style="width:65%">SERVICE</th>
-            <th   style="width:35%;text-align:left"> RESPONSE </th>
+            <th  width="700px">SERVICE</th>
+            <th> RESPONSE </th>
         </tr>
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['svc'] . '
@@ -1419,8 +1686,8 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
         <tr>
-            <th  style="width:65%">SERVICE</th>
-            <th   style="width:35%;text-align:left"> RESPONSE </th>
+            <th width="700px" >SERVICE</th>
+            <th > RESPONSE </th>
         </tr>
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
@@ -1430,539 +1697,121 @@ class C_Pdf extends MY_Controller {
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2" >Response</th>
         </tr>
         <tr>
             <th>1. Cough / Pneumonia</th>
-            <th>Yes</th>
-            <th>No</th>
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
 </table>
 <table class="centre">
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2">Response</th>
         </tr>
         <tr>
             <th>2. Diarrhoea</th>
-            <th>Yes</th>
-            <th>No</th>
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
 </table>
 <table class="centre">
     <thead>
         <tr>
             <th width="700px">Symptom</th>
-            <th colspan="2">Response</th>
+            <th rowspan="2">Response</th>
         </tr>
         <tr>
             <th>3. Fever / Malaria</th>
-            <th>Yes</th>
-            <th>No</th>
+            
         </tr>
     </thead>
+     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
 </table>
 <p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Condition</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Condition</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
+     ' . $this -> mchIndicatorsSectionPDF['con'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Classification</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Classification</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>6) Correct Classification(s)</td>
-        </tr>
+        ' . $this -> mchIndicatorsSectionPDF['cls'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Treatment and Counselling</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Treatment and Counselling</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>7) ORT given appropriately according to plan</td>
-        </tr>
-        <tr>
-            <td>8) Children with diarrhoea treated with Zinc</td>
-        </tr>
-        <tr>
-            <td>9) Antibiotic prescribed correctly</td>
-        </tr>
-        <tr>
-            <td>10) No antibiotic needed; none given</td>
-        </tr>
-        <tr>
-            <td>11) Anti-malarial prescribed correctly</td>
-        </tr>
-        <tr>
-            <td>12) Needed Vitamin A supplementation given</td>
-        </tr>
-        <tr>
-            <td>13) Needed de-worming medication given</td>
-        </tr>
-        <tr>
-            <td>14) Appropriate counseling in feeding problems given </td>
-        </tr>
-        <tr>
-            <td>15) Appropriate follow up arranged</td>
-        </tr>
+        dy>
+        ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
     </tbody>
 </table>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px" rowspan="2">Referrals</th>
-            <th colspan="2">Response</th>
-        </tr>
-        <tr>
-            <th>Yes</th>
-            <th>No</th>
+            <th width="700px">Referrals</th>
+            <th>Response</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>16) Necessary referral made, including referral note and pre-treatment</td>
-        </tr>
+        ' . $this -> mchIndicatorsSectionPDF['ref'] . '
+    </tbody>
     </tbody>
 </table>
 <table>
-	<thead>
-	<tr>
-		<th></th>
-		<th></th>
-		<th colspan="2">Case 1</th>
-		<th colspan="2">Case 2</th>
-		<th colspan="2">Case 3</th>
-	</tr>
-	<tr>
-		<th></th>
-		<th></th>
-		<th>Yes</th>
-		<th>No</th>
-		<th>Yes</th>
-		<th>No</th>
-		<th>Yes</th>
-		<th>No</th>
-	</tr>
-
-	</thead>
-	<tbody>
-	<tr>
-		<th colspan="8">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
-	</tr>
-	<tr>
-		<td rowspan="4">3.1.1</td>
-		<td colspan="7">Did provider follow IMCI protocol during</td>
-		
-		
-	</tr>
-	<tr>
-		<td>Assessment( General danger signs and other signs)</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>  Classification</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>Treatment  </td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.2</td>
-		<td>Did provider use IMCI case recording form/register?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.3</td>
-		<td>Did she do rapid test for malaria/ microscopy correctly? (Applicable only if the child with fever)</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.4</td>
-		<td>Did she do tourniquet for Dengue correctly? (Applicable only if the child with fever less than 7 days)</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.5</td>
-		<td>Did provider inform caregiver about illness of her child?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.6</td>
-		<td>Did provider instruct caregiver how to give medicine to child?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.7</td>
-		<td>Did provider give first dose of medicine at health centre?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.8</td>
-		<td>Did provider counsel about child’s feeding?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.9</td>
-		<td>Did provider explain how to take care of child?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.10</td>
-		<td>Did provider ask caregiver for feedback</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.11</td>
-		<td>Did he/she explain when to return?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.1.12</td>
-		<td>Did he/she use mother’s card?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.13</td>
-		<td>Duration of consultation (minutes)?</td>
-		<td colspan="7"><input type="number"></td>
-	</tr>
-	<tr>
-		<th colspan="8">3.2 Interview with the caregiver/mother</th>
-	</tr>
-	<tr>
-		<td>3.2.1</td>
-		<td>Was mother/caregiver satisfied?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.2.2</td>
-		<td>Who advices mother/caregiver to seek care from this centre?</td>
-		<td colspan="6"><input type="text"></td>
-	</tr>
-	<tr>
-		<td>3.2.3</td>
-		<td>Did mother/caregiver explain correctly how to give medicine?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.2.4</td>
-		<td>Did he/she explain correctly how to take care of child at home?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-	<tr>
-		<td>3.2.5</td>
-		<td>Did he/she explain when to return to health centre immediately?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-		<tr>
-		<td>3.2.6</td>
-		<td>Did s/he explain when to return to health centre for follow-up?</td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-		<td><input type="radio"></td>
-	</tr>
-
-	</tbody>
-	<tfoot></tfoot>
-</table>
-<!--table>
-	<thead>
-	<tr colspan="3">
-		1. Health services organization  
-	</tr>
-	<tr>
-		<th>1.1 Has IMCI corner/room been established? </th>
-		<th>Yes</th>
-		<th>No</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label for="">1.1.1 Is there any available seating area for mother and child?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.1.2 Enough space to see patient?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.1.3 Chair and Table for health worker?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.1.4 Chair/seat for caregiver?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.1.5 Updated wall chart on the wall?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.1.6 Waiting space for mother/caregiver and children?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-
-	</tbody>
-	<tfoot></tfoot>
+    <thead>
+     	<tr>
+            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        
+       
+    </thead>
+    <tbody>
+       ' . $this -> hcwConsultingAspectsSectionPDF . '
+        
+    </tbody>
+    <tfoot></tfoot>
 </table>
 <table>
-	<tr>
-			<th colspan="2">If any problem is found related to IMCI corner, what actions are needed to be taken? Develop and ensure</th>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
+    <thead>
+     	<tr>
+            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        
+       
+    </thead>
+    <tbody>
+       ' . $this -> hcwInterviewAspectsSectionPDF . '
+        
+    </tbody>
+    <tfoot></tfoot>
 </table>
-<table>
-	<thead>
-	<tr>
-		<th>1.2 Oral rehydration therapy (ORT) corner? </th>
-		<th>Yes</th>
-		<th>No</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><label for="">1.2.1 Adequate space for giving ORT?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.2.2 Table (for mixing ORS solution and demonstrations), chairs for caretakers?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.2.3 Supplies (cup, spoon, measuring /mixing utensils)?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.2.4 Source of safe drinking water?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td><label for="">1.2.5 Functioning ORT: Children with some dehydration receive ORS solution at facility?</label></td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		
-	</tbody>
-	
-</table>
-<p style="margin-top:50px"></p>
-<table>
-	<tr>
-			<th colspan="2">If any problem is found related to ORT corner, what actions are needed to be taken? Develop and ensure</th>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-</table>
-<table>
-	<thead>
-	<tr>
-		<th colspan="7">2.	Clinical staff trained on IMCI </th>
-	</tr>
-	<tr>
-		<th>Clinical Staff</th>
-		<th>Total post (BSP wise)</th>
-		<th>Available staff against post</th>
-		<th>Number of Clinical Staff trained in IMCI</th>
-		<th>% of available clinical staff trained in IMCI</th>
-		<th>% of staff who received refresher training on Updated Module</th>
-		<th>Number of Clinical Staff supported by follow-up after Training</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td><label for="">Doctor</label></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-	</tr>
-	<tr>
-		<td><label for="">Nurse</label></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-	</tr>
-	<tr>
-		<td><label for="">R.C.O</label></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-		<td><input style="width:100px" type="text"></td>
-	</tr>
-
-	</tbody>
-	<tfoot></tfoot>
-</table>
-<table>
-	<tr>
-			<th colspan="2">If any problem related to IMCI training and staff is found, discuss with respective officer-in-charge of health
-centre and make a plan. Develop and ensure support plan also. </th>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-</table-->
-<p style="margin-top:100px" class="message success">PROVIDER SCORE</p>
+<p class="message success">PROVIDER SCORE</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1971,727 +1820,54 @@ centre and make a plan. Develop and ensure support plan also. </th>
         </tr>
     </thead>
     <tbody>
-    <tr>
-    	<td>ASSESSMENT</td>
-    	<td><input type="text"></td>
-    </tr>
-    <tr>
-    	<td>CLASSIFICATION</td>
-    	<td><input type="text"></td>
-    </tr>
-    <tr>
-    	<td>TREATMENT</td>
-    	<td><input type="text"></td>
-    </tr>
-    <tr>
-    	<td>COUNSELING</td>
-    	<td><input type="text"></td>
-    </tr>
-    <tr>
-    	<td>RETURNIN DATE FOR FOLLOW-UP</td>
-    	<td><input type="text"></td>
-    </tr>
-    <tr>
-    	<td>TOTAL</td>
-    	<td><input type="text"></td>
-    </tr>
+        <tr>
+            <td>ASSESSMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>CLASSIFICATION</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TREATMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>COUNSELING</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>RETURNIN DATE FOR FOLLOW-UP</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TOTAL</td>
+            <td><input type="text"></td>
+        </tr>
     </tbody>
 </table>
-
-
-<!--table>
-	<tr>
-			<td colspan="2" class="bordered">
-				Scoring of skills of provider: give 1 point for each YES answer (please discard 3.1.13 and 3.2.2). If the child has
-malaria (3.1.3) or Dengue ( 3.1.4) then total score will be 54, otherwise it will be 48, however, it depends on total
-observational session). Do not count N/A as point.
-
-<p> Score:                  ----------X 100= .........%</p>
-
-			 </td>
-		</tr>
-			<tr>
-			<td colspan="2" class="bordered">
-				Share your findings from observational sessions with provider.  Praise for the things done well and discuss on 
-the identified weakness, show how it could be done. Ask provider, does s/he have any problem regarding
-assessment, classification, treatment, counselling, follow-up etc. If s/he has, try to solve the problem instantly.
-Note down the decisions which have been taken to improve the skills and continue the practices:
-
-			 </td>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-</table>
-<table>
-	<thead>
-	<tr>
-		<th colspan="7">4. Qualty of records (Document review) </th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<td><label for="">4.1 Did they send monthly report of last month</label></td>
-		<td>Yes<input type="radio"></td>
-		<td>No<input type="radio"></td>
-	</tr>
-	<tr>
-		<td><label for="">4.2 Ask to show report and look for following data</label></td>
-		<td>Yes<input type="text"></td>
-		<td>No<input type="text"></td>
-	</tr>
-	<tr>
-		<td rowspan="2"><label for="">4.3 Total IMCI patients in last month</label></td>
-		<td>Male<input type="text"></td>
-		<td>Female<input type="text"></td>
-		<td>Total<input type="text"></td>
-	</tr>
-	<tr>
-		<td>First Visit<input type="text"></td>
-		<td>Follow-Up<input type="text"></td>
-		<td>Caseload<input type="text">/provider/day</td>
-	</tr>
-	<tr>
-		<td><label for="">4.4 Individual patient record or register maintained? </label></td>
-		<td>Yes<input type="radio"></td>
-		<td>No<input type="radio"></td>
-	</tr>
-	<tr>
-		<td colspan="3"><label for="">4.5 Ask to show report and look for following data</label></td>
-	</tr>
-	</tbody>
-	<tfoot></tfoot>
-</table>
-<table>
-	<thead>
-		<tr>
-			<th width="300">Indicators  2 mo – 5 yr</th>
-			<th colspan="7">Assess the register book ( tick mark when it
-is correct  and cross when it is wrong, write
-N/A when it is not applicable and make % of
-correct )
-</th>
-		</tr>
-		<tr>
-			<th>Assessment</th>
-			<th>1</th>
-			<th>2</th>
-			<th>3</th>
-			<th>4</th>
-			<th>5</th>
-			<th>Sum Yes</th>
-			<th>%</th>
-		</tr>
-		<tbody>
-			<tr>
-				<td>1) Weight and Temperature correctly charted  </td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-			</tr>
-			<tr>
-				<td>2) General Danger Signs</td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-			</tr>
-			<tr>
-				<td>3) Feeding assessment if under two yrs, anemia or very low weight</td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-			</tr>
-			<tr>
-				<td>4) Rapid Test for malaria  </td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-			</tr>
-			<tr>
-				<td>5) Microscopy for malaria according to IMCI protocol</td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-				<td><input style="width:100px" type="text"></td>
-			</tr>
-			
-		</tbody>
-		<tfoot></tfoot>
-	</thead>
-</table>
-<table>
-	<tr>
-			<th colspan="2">Ask them, what problems do they encounter in filling up the IMCI register, HMIS? And try to solve the problems. </th>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-</table>
-<table>
-	<thead>
-		<th>5. Infection control at IMCI corner/room</th>
-		<th>Yes</th>
-		<th>No</th>
-	</thead>
-	<tbody>
-		<tr>
-			<td>5.1 Do they use disposable syringes during IM/IV injection?</td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td>5.2 Safety precaution to give injection (using gloves, cleaning surface with alcohol and discarding syringes after use)?</td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td>5.3 Source of water for hand wash?  </td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td>5.4 Soap and/or disinfectant (like chlorhexidine or alcohol) for washing hand?</td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-		<tr>
-			<td>5.5 Safe disposal box with cover?</td>
-			<td><input type="radio"></td>
-			<td><input type="radio"></td>
-		</tr>
-	</tbody>
-	<tfoot>
-		
-	</tfoot>
-</table>
-<table>
-	<tr>
-			<th colspan="2">If any problems related to the IMCI corner are found, what actions are needed to be taken? Develop and ensure
-support plan also.
- </th>
-		</tr>
-		<tr>
-			<td><label for="">Action/s to be taken by supervisor:</label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> Action/s to be taken by supervisee:</label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-</table-->
-<!--table>
-	<thead>
-		<tr>
-			<th colspan="5">6. Job aid and supplies ( make a tick mark when correct)  and write N/A where not feasible</th>
-		</tr>
-		<tr>
-			<th>Logistics</th>
-			<th>Available</th>
-			<th>Adequate enough in stock for one month</th>
-			<th>Functioning</th>
-			<th>Remark</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>IMCI case recording form</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Mother’s card </td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Referral slip</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Chart booklet </td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>ARI timer(functioning)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Thermometer</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>MUAC Tape</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Weight machine</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Nebuliser Machine</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Spacer</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Microscope for malaria test</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>RDT strips and reagent for malaria</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Ambubag</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>BP Cuff for Tourniquet test </td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>IMCI reporting format (HMIS)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Suction Machine</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>NG tube</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Cup, Spoons for ORT</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Disposable Syringes</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Insulin Syringes</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Absorbent clean cloth/ soft but strong tissue for ear wicking</td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<th colspan="5">Medicine</th>
-		</tr>
-		<tr>
-			<td>ORS packet</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Capsule Vitamin A ( 100000 i.u.)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Capsule Vitamin A ( 200000 i.u.)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Amoxicillin</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Amoxicillin</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab.Paed Cotrimoxazole (120mg) </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Cotrimoxazole (480mg)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Cotrimoxazole  </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Ciprofloxacin (100mg) </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Ciprofloxacin (250mg) </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Erythromicyn</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Erythromicyn</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Inj. Cholarmphenicol</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Coartem (140mg)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Quinine (300mg)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Inj. Quinine ( 150mg/2ml)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Inj. Quinine( 300mg/2ml )</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Inj Diazepam ( 10 mg/2ml )</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab.Zinc</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Iron – folic acid </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Iron</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab/Cap. Multivitamin</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Albendazole</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Cholramphenicol eye ointment</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tetracycline eye ointment </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Paracetamol 500mg</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Tab. Paracetamol 100mg</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Paracetamol  </td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Syrp. Salbutamol</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Inhaler Salbutamol</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>Gention Violet (0.25%)</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>10% Dextrose</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>IV fluid: Ringer lactate Solution</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-		<tr>
-			<td>IV fluid: 9% Normal Saline</td>
-			<td><input style="width:100px" type="text"></td>
-			<td><input style="width:100px" type="text"></td>
-			<td class="shaded"></td>
-			<td><input style="width:100px" type="text"></td>
-		</tr>
-
-	</tbody>
-	<tfoot></tfoot>
-</table>
-<p style="margin-top:150px"></p>
-<table>
-	<tr>
-			<th colspan="2">If you found any gaps regarding drugs and logistics, discuss and make an activity and support plan to address
-the problems.
- </th>
-		</tr>
-		<tr class="bordered">
-			<td><label for=""><b>Action/s to be taken by supervisor:</b></label> </br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-			<td><label for=""> <b>Action/s to be taken by supervisee:</b></label></br>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-
-		<tr>
-			<th colspan="2">Supervision:</th>
-		</tr>
-		<tr>
-			<td><label for="">Did anybody visit this centre for IMCI supervision in
-last three months (quarter)?
-</label></td>
-			<td>
-				Yes<input type="radio">No<input type="radio">
-			</td>
-		</tr>
-		<tr>
-			<td><label for="">Ask them to give you the last supervision report?</label></td>
-			<td>
-				Date<input type="date">
-				Supervisor Designation<input type="text">
-			</td>
-		</tr>
-		<tr>
-			<td><label for="">Progress of the last decision/s which was/were taken during last visit?</label></td>
-			<td>
-				<textarea style="height:50px;width:500px"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Signature of Supervisee:<input type="text">
-Date:<input type="text">
-
-
-			</td>
-			<td>
-				Signature of Supervisor:<input type="text">
-Date:<input type="text">
-</td>
-		</tr-->
 <p class="message success">ASSESSMENT OUTCOME</p>
 <table>
-
-<tr>
-<td colspan="2">
-	<p><input type="radio">Fully Practicing IMCI</p>
-<p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
-<p><input type="radio">	Not practicing IMCI (capture reasons) </p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
-<p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
-</td>
-	
-
-</tr>
-
+    <tr>
+        <td colspan="2">
+            <p><input type="radio">Fully Practicing IMCI</p>
+            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
+            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
+            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+        </td>
+    </tr>
 </table>
-<p style="margin-top:50px"></p>
+<p style="margin-top:10px"></p>
 <table style="border:2px solid #666">
-<tr>
-		<td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
-		</tr>
+    <tr>
+        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
+    </tr>
 </table>
 
 ';
@@ -2754,7 +1930,7 @@ background: #91c5d4;
 			case 'hcw' :
 				$html = $this -> get_hcw_form();
 				$this -> mpdf -> SetTitle('Follow-Up Tool after IMCI Training');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014 (mid-term)</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014</p>');
 				$this -> mpdf -> SetHTMLFooter('<em>Follow-Up Tool after IMCI Training</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'Follow-Up Tool after IMCI Training' . ".pdf";

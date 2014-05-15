@@ -128,6 +128,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 							
 							<?php if($this->session->userdata('survey')=='mnh'){?>
 								$(".form-container").load('<?php echo base_url();?>c_load/get_mnh_form',function(){
+							<?php }elseif($this->session->userdata('survey')=='hcw'){?>
+								$(".form-container").load('<?php echo base_url();?>c_load/get_hcw_form',function(){
 							<?php }else{?>
 								$(".form-container").load('<?php echo base_url();?>c_load/get_mch_form',function(){
 							<?php }?>
@@ -446,6 +448,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 									remoteAjax[$(this).attr("id")] = {
 										<?php if($this->session->userdata('survey')=='mnh'){?>
 											url : "<?php echo base_url()?>submit/c_form/complete_mnh_survey", // the url which stores the stuff in db for each step
+										<?php }elseif($this->session->userdata('survey')=='hcw'){?>
+											url : "<?php echo base_url()?>submit/c_form/complete_hcw_survey", // the url which stores the stuff in db for each step
 										<?php }else{?>
 											url : "<?php echo base_url()?>submit/c_form/complete_ch_survey", // the url which stores the stuff in db for each step
 										<?php }?>
