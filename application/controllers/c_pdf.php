@@ -868,7 +868,7 @@ class C_Pdf extends MY_Controller {
 	<tr>
 		<td>OPD</td>
 		<td><input type="radio",name="opd", size="40"></td>
-		<td>US Clinic</td>
+		<td>U5 Clinic</td>
 		<td><input type="radio",name="usclinic",size="40"></td>
 		<td>MCH</td>
 		<td><input type="radio",name="mch",size="40"></td>
@@ -879,6 +879,7 @@ class C_Pdf extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
+
 <!--\.the section-1 -->
 
 
@@ -1020,7 +1021,102 @@ class C_Pdf extends MY_Controller {
 
 			<thead>
 			<tr>
-				<th colspan="3" >  DATA FROM THE TOOLS </th>
+				<th colspan="6" > DATA FROM THE TOOLS </th>
+			</tr>
+			<tr>
+				<th colspan="6" > (A) MALARIA</th>
+			</tr>
+				<tr>
+
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th>Malaria</th>
+					<th>Fever No malaria</th>
+					</tr>
+					<tr >
+					<td>Artemether Lumefantrine(AL)</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Artesunate</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Chloramphenical</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr><tr >
+					<td>Paracetamol</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Quenine</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+			
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" > (B) PNEUMONIA</th>
+			</tr>
+				<tr>
+
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th>Pneumonia</th>
+					<th>Fever No Pneumonia cough/cold</th>
+					</tr>
+					<tr >
+					<td>Amoxicillin</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Cotrimoxazole</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+			
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" > (C) DIARRHOEA </th>
 			</tr>
 				<tr>
 
@@ -1032,14 +1128,74 @@ class C_Pdf extends MY_Controller {
 
 					<th >Severe Dehydration</th>
 					<th>Some Dehydration</th>
-					
+					<th>No Dehydration</th>
+					<th>Dysentry</th>
+					<th>No Classification</th>
 				</tr>
 			</thead>
 			' . $this -> treatmentMCHSection . '
 		</table>
-		
-	</div><!--\.section 2-->
+		<table class="centre">
 
+			<thead>
+			<tr>
+				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
+			</tr>
+				<tr>
+				<th colspan="6" style="text-align:center"> Classification</th>
+				</tr>
+				</thead>
+					<tr >
+					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
+					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>
+					<td>Some Dehydation:<input type="text", name="somedehydration"></td>
+					<td>No Dehydation:<input type="text", name="nodehydration"></td>
+					<td>Dysentry:<input type="text", name="dysentry"></td>
+					<td>No Classification:<input type="text", name="noclassification"></td>
+					</tr>
+					<tr >
+					<td>Pneumonia Total:<input type="text",name="pneumoniaTotal"></td>
+					<td>Pneumonia:<input type="text", name="pneumonia"></td>
+					<td>No Pneumonia cough/cold:<input type="text", name="nopneumonia"></td>
+					</tr>
+					<tr >
+					<td>Malaria Total:<input type="malariaTotal", name = "malariaTotal"></td>
+					<td>Confirmed:<input type="text", name="pneumonia"></td>
+					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
+					</tr>
+		</table>
+		<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="15"  > CLINICAL STAFF</th>
+			</tr>
+			<tr>
+
+				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
+				<th style="text-align:left">TOTAL IN FACILITY</th>
+				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
+				<th style="text-align:left">
+				<div style="width: 500px" >
+					How Many Of The Total Staff Members
+					Trained are still Working in Child Health?
+				</div></th>
+			</tr>
+		</thead>
+		<tr>
+			<td>Doctor</td>
+			</tr>
+			<tr>
+			<td>Nurse</td>
+			</tr>
+			<tr>
+			<td>R.C.O</td>
+			</tr>
+	</table>	
+	</div><!--\.section 2-->
 	<div id="section-3" class="step">
 		<input type="hidden" name="step_name" value="section-3"/>
 		<p style="display:true" class="message success">
@@ -1254,12 +1410,11 @@ class C_Pdf extends MY_Controller {
 		<div id="section-6" class="step">
 		<input type="hidden" name="step_name" value="section-6"/>
 		<p style="display:true" class="message success">
-			SECTION 6 of 7: SUPPLIES AVAILABILITY
+			SECTION 6 of 7: RESOURCE AVAILABILITY
 		</p>
 		<table  class="centre" >
 			<thead>
 				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
-
 				<tr>
 					<th colspan="1" rowspan="2">Supplies Name</th>
 
