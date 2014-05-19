@@ -238,10 +238,24 @@ class  MY_Model  extends  CI_Model {
 		return $this -> questions;
 	}/*end of getAllOrtAspects*/
 
+	function getAllQuestions() {
+		/*using DQL*/
+		try {
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
+			$this -> questions = $this -> questions -> getResult();
+
+			//die(var_dump($this->mnhIndicator));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> questions;
+	}/*end of getAllOrtAspects*/
+
 	function getAllMCHIndicators() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorCode ASC');
+			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorFor, i.indicatorCode ASC');
 			$this -> mchIndicator = $query -> getResult();
 			//die(var_dump($this->mchIndicator));
 		} catch(exception $ex) {
