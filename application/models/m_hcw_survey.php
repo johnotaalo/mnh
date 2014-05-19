@@ -28,12 +28,17 @@ class M_HCW_Survey extends MY_Model
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
-    
-    
+	/*calls the query defined in MY_Model*/
+    public function gethcwProfile() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+        	//For every posted values
             if (strpos($key, 'question') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
@@ -179,15 +184,12 @@ class M_HCW_Survey extends MY_Model
     }
      //close addMchGuidelinesAvailabilityInfo
     private function addHCWProfile() {
-    	echo 'Working';
-    	print_r($this->input->post() );die;
-        $count = $finalCount = 1;
+    	$count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+        	//For every posted values
             if (strpos($key, 'hcw') !== FALSE) {
-                 //select data for bemonc signal functions
+            	//select data for bemonc signal functions
                 //we separate the attribute name from the number
-                
                 $this->frags = explode("_", $key);
                 
                 //$this->id = $this->frags[1];  // the id
@@ -237,7 +239,7 @@ class M_HCW_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        print_r($this->elements);die;
+        //print_r($this->elements);die;
         
         //exit;
         
@@ -256,12 +258,12 @@ class M_HCW_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['hcwProfile']);
             
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['hcwProfileQCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLqCreated(new DateTime());
             
@@ -282,7 +284,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -304,7 +306,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -2195,9 +2197,10 @@ class M_HCW_Survey extends MY_Model
         
         /*check assessment tracker log*/
         if ($this->input->post()) {
-            
-            $step = $this->input->post('step_name', TRUE);
-            echo $step;die;
+ 
+			
+           $step = 'section-2';//$this->input->post('step_name', TRUE);
+            //echo $step;die;
             switch ($step) {
                 case 'section-1':
                     
@@ -2236,7 +2239,7 @@ class M_HCW_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true) {
+                        if ($this->addMCHIndicatorInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

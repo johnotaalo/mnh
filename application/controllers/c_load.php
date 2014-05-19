@@ -1676,7 +1676,7 @@ public function get_hcw_form() {
         <tr>
             <td colspan="1"><label for="">Designation</label></td>
             <td colspan="3"><input type="text" name="hp_coordinator" id="hp_coordinator"></td>
-        </tr>
+        </tr>'. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
 </table>
@@ -1748,6 +1748,153 @@ public function get_hcw_form() {
 
 <div id="section-2" class="step">
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
+        </tr>
+        <tr>
+            <th  width="700px">SERVICE</th>
+            <th> RESPONSE </th>
+        </tr>
+    </thead>
+    ' . $this -> mchIndicatorsSectionPDF['svc'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
+        </tr>
+        <tr>
+            <th width="700px" >SERVICE</th>
+            <th > RESPONSE </th>
+        </tr>
+    </thead>
+    ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
+</table>
+<p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2" >Response</th>
+        </tr>
+        <tr>
+            <th>1. Cough / Pneumonia</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2">Response</th>
+        </tr>
+        <tr>
+            <th>2. Diarrhoea</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2">Response</th>
+        </tr>
+        <tr>
+            <th>3. Fever / Malaria</th>
+            
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
+</table>
+<p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Condition</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+     ' . $this -> mchIndicatorsSectionPDF['con'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Classification</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        ' . $this -> mchIndicatorsSectionPDF['cls'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Treatment and Counselling</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        dy>
+        ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Referrals</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        ' . $this -> mchIndicatorsSectionPDF['ref'] . '
+    </tbody>
+    </tbody>
+</table>
+</div>
+<div id="section-3" class="step">
+<p class="message success">CONSULTATION OBSERVATION</p>
+<table>
+    <thead>
+     	<tr>
+            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        
+       
+    </thead>
+    <tbody>
+       ' . $this -> hcwConsultingAspectsSection . '
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<table>
+    <thead>
+     	<tr>
+            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        
+       
+    </thead>
+    <tbody>
+       ' . $this -> hcwInterviewAspectsSectionPDF . '
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
 </div>
 
 <div id="sectionNavigation" class="buttonsPane">

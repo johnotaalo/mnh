@@ -5,7 +5,7 @@
 class MY_Controller extends CI_Controller
 {
     
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection;
     
     //new sections
     public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
@@ -73,6 +73,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSection();
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
+		$this->createHcwProfileSection();
         
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -1011,6 +1012,29 @@ class MY_Controller extends CI_Controller
         return $this->mnhCommunityStrategySectionPDF;
     }
     
+	   /**Function to create the section: Child Health--HCW Profile
+     * */
+    public function createHcwProfileSection() {
+        $this->data_found = $this->m_hcw_survey->gethcwProfile('imci');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->hcwProfileSection.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<input type="text"  name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" value="" class="numbers cloned"/>
+			</td>
+			<input type="hidden"  name="hcwProfileQCode_' . $counter . '" id="hcwProfileQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+        }
+        
+        //echo $this->hcwProfileSection;die;
+        return $this->hcwProfileSection;
+    }
     /**Function to create the section: mnh water availability follow up questions in Section 6 of 7 ii
      * */
     public function createMNHWaterAspectsSection() {
@@ -2139,7 +2163,7 @@ class MY_Controller extends CI_Controller
             $data[$section][] = '
 				<tr>
 			<td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td>Yes <input type="checkbox"> No <input type="checkbox">
+			<td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
 			</td>
 			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
 		</tr>';
