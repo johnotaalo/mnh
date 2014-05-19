@@ -1973,7 +1973,7 @@ class MY_Controller extends CI_Controller
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
         //var_dump($this->data_found);die;
-        $counter = 0;
+        /*$counter = 0;
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
@@ -2140,7 +2140,7 @@ class MY_Controller extends CI_Controller
         $this->mchIndicatorsSection['ref'] = $ref;
         $this->mchIndicatorsSection['cls'] = $cls;
         
-        //echo $this->mchIndicatorsSection;die;
+        //echo $this->mchIndicatorsSection;die;*/
         return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {
@@ -2149,7 +2149,7 @@ class MY_Controller extends CI_Controller
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
-        $numbering = range('a', 'z');
+        $numbering = array_merge(range('A','Z'),range('a', 'z'));
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {

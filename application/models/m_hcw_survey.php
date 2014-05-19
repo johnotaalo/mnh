@@ -29,7 +29,13 @@ class M_HCW_Survey extends MY_Model
         return $this->mnhCeocQuestionsList;
     }
     
-    
+    /*calls the query defined in MY_Model*/
+    public function gethcwProfile() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
