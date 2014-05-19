@@ -81,6 +81,20 @@ class C_Form extends MY_Controller{
 
 	}//close complete_mnh_survey()
 	
+	public function complete_hcw_survey(){		
+		$this->load->model('m_hcw_survey');
+		$this->m_hcw_survey->store_data();
+
+		if($this->m_hcw_survey->response=='true'){
+           print 'true';
+
+		}else{
+			print 'false';
+		}
+
+	}//close complete_hcw_survey()
+
+
 	public function complete_ch_survey(){
 		
 		$this->load->model('m_mch_survey');

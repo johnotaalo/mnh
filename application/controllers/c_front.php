@@ -112,7 +112,11 @@ class C_Front extends MY_Controller {
 			$this -> data['form'] = '<div class="error ui-autocomplete-loading" style="width:200px;height:76px"><br/><br/>Loading...please wait.<br/><br/></div>';
 			if ($this -> session -> userdata('survey') == 'mnh') {
 				$this -> data['title'] = strtoupper($this -> session -> userdata('survey')) . '::Commodity, Equipment and Supplies Assessment';
-			} else {
+			} 
+			elseif ($this -> session -> userdata('survey') == 'hcw') {
+				$this -> data['title'] = strtoupper($this -> session -> userdata('survey')) . '::Follow-Up Tool After IMCI Training';
+			}
+			else {
 				$this -> data['title'] = strtoupper($this -> session -> userdata('survey')) . '::Diarrhoea Treatment Scale Up Baseline Assessment';
 			}
 			$this -> data['logged'] = 1;
