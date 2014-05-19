@@ -25,6 +25,9 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	font-family: inherit;
 	vertical-align: baseline;
 }
+table{
+	width:100%;
+}
 table, caption, td, tr, th {
 	margin: 0;
 	padding: 0;

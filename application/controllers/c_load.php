@@ -211,7 +211,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">MCH </TD><td>
+			<TD  colspan="2">MCH Incharge</TD><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -221,7 +221,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<TD  colspan="2">Maternity </TD><td>
+			<TD  colspan="2">Maternity Incharge</TD><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1537,7 +1537,230 @@ class C_Load extends MY_Controller {
 		$data['form_id'] = 'form_dcah';
 		$this -> load -> view('form', $data);
 	}
+public function get_hcw_form() {
+		$this -> combined_form .='
+<h5 id="status"></h5>
+                 
+				<form class="bbq" name="hcw_tool" id="hcw_tool" method="POST">
+		<div id="section-1" class="step">
+<table>
+    <thead>
+        <tr>
+            <th colspan="6" style="font-size:22px">Follow up Support supervision checklist on IMCI after training </th>
+        </tr>
+        <tr>
+            <th colspan="6" >Facility Information</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+			<td>Facility Name </td>
+			<td>
+			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
+			<label id="facilityName"  size="40" ></label>
+			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
+			<input type="hidden" name="facilityHName" id="facilityHName" />
+			</td> 
+			<td>Facility Level </td>
+			<td>
+			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Level</option>
+							' . $this -> selectFacilityLevel . '
+						</select>
+			</td><td>County </td>
+			<td>
+			<select name="fac_county" id="fac_county" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select County</option>
+							' . $this -> selectCounties . '
+						</select>
+			</td>
+			</tr>
+			<tr>
+			<td>Facility Type </td><td>
+			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Type</option>
+							' . $this -> selectFacilityType . '
+						</select>
 
+			</td>
+			<td>Owned By </td><td>
+			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Owner</option>
+							' . $this -> selectFacilityOwner . '
+						</select>
+			</td>
+
+			<td>District/Sub County </td><td>
+			<select name="fac_district" id="fac_district" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select District/Sub County</option>
+							' . $this -> selectDistricts . '
+						</select>
+			</td>
+			</tr>
+		
+		</table>
+		<table class="centre">
+		<thead>
+		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+		</thead>
+		<tr >
+			<th scope="col" colspan="2" >CADRE</th>
+			<th>NAME</th>
+			<th >MOBILE</th>
+			<th >EMAIL</th>
+		</tr>
+		<tr>
+			<TD  colspan="2">Incharge </TD><td>
+			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<TD  colspan="2">MCH Incharge</TD><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		<tr>
+			<TD  colspan="2">Maternity Incharge</TD><td>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		</table>
+<table>
+    <thead>
+        <tr>
+            <th colspan="4">HCW Profile </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td colspan="4">Name of Provider</td>
+        </tr>
+        <tr>
+            <td>First Name</td>
+            <td><input type="text" name="hp_first_name" id="hp_first_name"></td>
+            <td>Surname</td>
+            <td><input type="text" name="hp_surname" id="hp_surname"></td>
+        </tr>
+        <tr>
+            <td>National ID</td>
+            <td><input type="text" name="hp_national_id" id="hp_national_id"></td>
+            <td>Phone Number</td>
+            <td><input type="text" name="hp_phone_number" id="hp_phone_number"></td>
+        </tr>
+        <tr>
+            <td colspan="1">Year, Month when trained <input type="text" name="hp_year" id="hp_year"></td>
+            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
+                <p><input type="radio" name="hp_coordinator" id="">MOH/KPA/CHAI</p>
+                <p><input type="radio" name="hp_coordinator" id="">MOH only</p>
+                <p><input type="radio" name="hp_coordinator" id="">Other</p>
+                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hp_other" id="hp_other"></p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1"><label for="">Designation</label></td>
+            <td colspan="3"><input type="text" name="hp_coordinator" id="hp_coordinator"></td>
+        </tr>
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<p class="message success">Work Station Profile</p>
+<table>
+    <tbody>
+        <tr>
+            <td>Current Unit</td>
+            <td><input type="text" name="ws_current_unit" id="ws_current_unit"></td>
+        </tr>
+    </tbody>
+</table>
+<table>
+    <thead>
+        <tr>
+            <td>Question</td>
+            <td>Yes</td>
+            <td>No</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                1.	Is the HCW still working in the original facility they were when they got trained?
+            </td>
+            <td>
+                <input type="radio" name="ws_original_facility" id="" value="yes">
+            </td>
+            <td>
+                <input type="radio" name="ws_original_facility" id="" value="no">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                If No to question 1 indicate whether the HCW:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Transferred to another facility in the same county
+            </td>
+            <td>
+                <input type="radio" name="ws_another_facility" id="" value="yes">
+            </td>
+            <td>
+                <input type="radio" name="ws_another_facility" id="" value="no">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">If Yes, indicate name of the facility <input type="text" name="" id=""> </td>
+        </tr>
+        <tr>
+            <td>
+                Transferred to another facility in another county
+            </td>
+            <td>
+                <input type="radio" name="ws_another_county" id="" value="yes">
+            </td>
+            <td>
+                <input type="radio" name="ws_another_county" id="" value="no">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">If  Yes, indicate the name of the county <input type="text" name="ws_county" id="ws_county"> and facility <input type="text" name="ws_facility" id="ws_facility"> </td>
+        </tr>
+    </tbody>
+</table>
+</div> <!-- end of section 1 -->
+
+<div id="section-2" class="step">
+<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+</div>
+
+<div id="sectionNavigation" class="buttonsPane">
+		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
+		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
+		</div>
+	</form>
+';
+		$data['form'] = $this -> combined_form;
+		$data['form_id'] = 'form_dcah';
+		$this -> load -> view('form', $data);
+
+	}
 	public function survey_complete() {
 		$this -> message .= '<div id="No" class="step"><!--end of assessment message section-->
 	<input type="hidden" name="step_name" value="end_of_assessment"/>
