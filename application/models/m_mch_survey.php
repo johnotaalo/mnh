@@ -86,6 +86,14 @@ class M_MCH_Survey extends MY_Model
         return $this->supplierList;
     }
     
+     /*calls the query defined in MY_Model*/
+    public function getAllQuestions() {
+        $this->supplierList = $this->getQuestions();
+        
+        //var_dump($this->supplierList);die;
+        return $this->supplierList;
+    }
+    
     /*calls the query defined in MY_Model*/
     public function getTrainingGuidelines() {
         $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
