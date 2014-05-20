@@ -51,6 +51,9 @@
 							<li id="mch-form">
 								<a href="#"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
 							</li>
+							<li id="hcw-form">
+								<a href="#"> 3. Follow-Up Tool after IMCI Training </a>
+							</li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -81,6 +84,9 @@
 		});
 		$('#mch-form').click(function(){
 			window.open('<?php echo base_url();?>c_pdf/loadPDF/mch');
+		});
+		$('#hcw-form').click(function(){
+			window.open('<?php echo base_url();?>c_pdf/loadPDF/hcw');
 		});
 
 		$('#mnh-completed').click(function(){
