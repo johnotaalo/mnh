@@ -1953,7 +1953,7 @@ class MY_Controller extends CI_Controller
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-        $numbering = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z');
+        $numbering = array_merge(range('A','Z'),range('a','z'));
         foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
@@ -2125,7 +2125,7 @@ class MY_Controller extends CI_Controller
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
-        $numbering = range('a', 'z');
+        $numbering = array_merge(range('A','Z'),range('a','z'));
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -3179,7 +3179,7 @@ class MY_Controller extends CI_Controller
     public function createTreatmentsMCHSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentNames();
         $newData = array();
-        foreach ($this->data_found as $val) {
+        if(isset($this->data_found)){foreach ($this->data_found as $val) {
             $newData[$val['treatmentFor']][$val['treatmentName']][] = array('treatmentFor' => $val['treatmentFor'], 'tcName' => $val['tcName'], 'treatmentCode' => $val['treatmentCode']);
         }
         
@@ -3223,7 +3223,7 @@ class MY_Controller extends CI_Controller
             }
             $this->treatmentMCHSection[$key].= '</tr>';
         }
-        
+        }
         //echo '<table>'.$this->treatmentMCHSection['dia'].'</table>';
         //die;
         return $this->treatmentMCHSection;
