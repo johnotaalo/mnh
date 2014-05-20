@@ -446,6 +446,7 @@ class C_Load extends MY_Controller {
 			<th   colspan="2"> WAS IT CONDUCTED? </th>			
 			<th  colspan="5">INDICATE <span style="text-decoration:underline">PRIMARY</span> CHALLENGE</th>
 
+
 		</tr>' . $this -> signalFunctionsSection . '
 	</table>
 	
