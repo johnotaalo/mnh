@@ -1748,7 +1748,6 @@ public function get_hcw_form() {
 
 <div id="section-2" class="step">
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
-<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1759,7 +1758,7 @@ public function get_hcw_form() {
             <th> RESPONSE </th>
         </tr>
     </thead>
-    ' . $this -> mchIndicatorsSectionPDF['svc'] . '
+    ' . $this -> hcwCaseManagementSection['svc'] . '
 </table>
 <table class="centre">
     <thead>
@@ -1771,7 +1770,7 @@ public function get_hcw_form() {
             <th > RESPONSE </th>
         </tr>
     </thead>
-    ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
+    ' . $this -> hcwCaseManagementSection['sgn'] . '
 </table>
 <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
@@ -1784,7 +1783,7 @@ public function get_hcw_form() {
             <th>1. Cough / Pneumonia</th>
         </tr>
     </thead>
-     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
+     ' . $this -> hcwCaseManagementSection['pne'] . '
 </table>
 <table class="centre">
     <thead>
@@ -1796,7 +1795,7 @@ public function get_hcw_form() {
             <th>2. Diarrhoea</th>
         </tr>
     </thead>
-     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+     ' . $this -> hcwCaseManagementSection['dgn'] . '
 </table>
 <table class="centre">
     <thead>
@@ -1809,7 +1808,7 @@ public function get_hcw_form() {
             
         </tr>
     </thead>
-     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
+     ' . $this -> hcwCaseManagementSection['fev'] . '
 </table>
 <p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
@@ -1820,7 +1819,7 @@ public function get_hcw_form() {
         </tr>
     </thead>
     <tbody>
-     ' . $this -> mchIndicatorsSectionPDF['con'] . '
+     ' . $this -> hcwCaseManagementSection['con'] . '
     </tbody>
 </table>
 <table class="centre">
@@ -1831,7 +1830,7 @@ public function get_hcw_form() {
         </tr>
     </thead>
     <tbody>
-        ' . $this -> mchIndicatorsSectionPDF['cls'] . '
+        ' . $this -> hcwCaseManagementSection['cls'] . '
     </tbody>
 </table>
 <table class="centre">
@@ -1843,7 +1842,7 @@ public function get_hcw_form() {
     </thead>
     <tbody>
         dy>
-        ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
+        ' . $this -> hcwCaseManagementSection['cnl'] . '
     </tbody>
 </table>
 <table class="centre">
@@ -1854,31 +1853,29 @@ public function get_hcw_form() {
         </tr>
     </thead>
     <tbody>
-        ' . $this -> mchIndicatorsSectionPDF['ref'] . '
+        ' . $this -> hcwCaseManagementSectionF['ref'] . '
     </tbody>
     </tbody>
 </table>
 </div>
 <div id="section-3" class="step">
 <p class="message success">CONSULTATION OBSERVATION</p>
-<table>
-    <thead>
+<table class="centre">
+	   <thead>
      	<tr>
             <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
             <th>Case 2</th>
             <th>Case 3</th>
         </tr>
-        
-       
-    </thead>
+        </thead>
     <tbody>
        ' . $this -> hcwConsultingAspectsSection . '
         
     </tbody>
     <tfoot></tfoot>
 </table>
-<table>
+<table class="centre">
     <thead>
      	<tr>
             <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
@@ -1886,17 +1883,69 @@ public function get_hcw_form() {
             <th>Case 2</th>
             <th>Case 3</th>
         </tr>
-        
-       
     </thead>
     <tbody>
-       ' . $this -> hcwInterviewAspectsSectionPDF . '
+       ' . $this -> hcwInterviewAspectsSection . '
         
     </tbody>
     <tfoot></tfoot>
 </table>
 </div>
+<div id="section-4" class="step">
+<p class="message success">PROVIDER SCORE</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">GIVE ONE POINT FOR EACH ANSWER</th>
+            <th >Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ASSESSMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>CLASSIFICATION</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TREATMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>COUNSELING</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>RETURNING DATE FOR FOLLOW-UP</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TOTAL</td>
+            <td><input type="text"></td>
+        </tr>
+    </tbody>
+</table>
+<p class="message success">ASSESSMENT OUTCOME</p>
+<table>
+    <tr>
+        <td colspan="2">
+            <p><input type="radio">Fully Practicing IMCI</p>
+            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
+            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
+            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+        </td>
+    </tr>
+</table>
 
+</div>
 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
 		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
