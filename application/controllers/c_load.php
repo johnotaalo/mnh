@@ -2071,7 +2071,7 @@ public function get_hcw_form() {
         </tr>
     </thead>
     <tbody>
-        ' . $this -> hcwCaseManagementSectionF['ref'] . '
+        ' . $this -> hcwCaseManagementSection['ref'] . '
     </tbody>
     </tbody>
 </table>

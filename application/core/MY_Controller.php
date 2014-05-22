@@ -1065,11 +1065,11 @@ class MY_Controller extends CI_Controller
         $this->data_found = $this->m_hcw_survey->getIndicatorNames();
         
         //var_dump($this->data_found);die;
-       /* $counter = 0;
+        $counter = 0;
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-        $numbering = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z');
+         $numbering = array_merge(range('A','Z'),range('a', 'z'));
         foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
@@ -1230,7 +1230,7 @@ class MY_Controller extends CI_Controller
         $this->hcwCaseManagementSection['con'] = $con;
         $this->hcwCaseManagementSection['cnl'] = $cnl;
         $this->hcwCaseManagementSection['ref'] = $ref;
-        $this->hcwCaseManagementSection['cls'] = $cls;*/
+        $this->hcwCaseManagementSection['cls'] = $cls;
         
         //echo $this->hcwCaseManagementSection;die;
         return $this->hcwCaseManagementSection;
