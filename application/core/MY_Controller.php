@@ -1271,22 +1271,6 @@ class MY_Controller extends CI_Controller
 
             </select>
             </td>
-            <td>
-            <select name="hcwConsultingAspectResponse_' . $counter . '" id="hcwConsultingAspectResponse_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
-            <td>
-            <select name="hcwConsultingAspectResponse_' . $counter . '" id="hcwConsultingAspectResponse_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
             <input type="hidden"  name="hcwConsultingAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
@@ -1305,14 +1289,8 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwConsultingAspectsSectionPDF.= '<tr>
-            <td><strong>3.1.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
+            <td><strong>4.1.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td colspan="1">
-        Yes<input type="checkbox">No<input type="checkbox">
-        </td>
-        <td colspan="1">
-        Yes<input type="checkbox">No<input type="checkbox">
-        </td>
-        <td colspan="1">
         Yes<input type="checkbox">No<input type="checkbox">
         </td>
             <input type="hidden"  name="hcwConsultingAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -1333,23 +1311,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwInterviewAspectsSection.= '<tr>
-            <td><strong>3.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
-            <td>
-            <select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
-            <td>
-            <select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
+            <td><strong>4.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td>
             <select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
@@ -1376,14 +1338,8 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwInterviewAspectsSectionPDF.= '<tr>
-            <td><strong>3.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
+            <td><strong>4.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td colspan="1">
-        Yes<input type="checkbox">No<input type="checkbox">
-        </td>
-        <td colspan="1">
-        Yes<input type="checkbox">No<input type="checkbox">
-        </td>
-        <td colspan="1">
         Yes<input type="checkbox">No<input type="checkbox">
         </td>
             <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />

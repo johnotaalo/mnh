@@ -23,7 +23,7 @@ class M_HCW_Survey extends MY_Model
     }
      /*calls the query defined in MY_Model*/
     public function getInterviewQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('ext', 'QHC');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('int', 'QHC');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
