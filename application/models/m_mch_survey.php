@@ -29,6 +29,13 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->ortAspectsList);die;
         return $this->challengeList;
     }
+	/*calls the query defined in MY_Model*/
+    public function getmchConsultationQuestions() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
     
     /*calls the query defined in MY_Model*/
     public function getMchCommunityStrategyQuestions() {

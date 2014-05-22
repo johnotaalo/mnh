@@ -35,6 +35,7 @@ class M_HCW_Survey extends MY_Model
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
+	
 	/*call the query defined in MY_Model */
 	public function getIndicatorNames() {
         $this->indicatorList = $this->getAllMCHIndicators();

@@ -5,7 +5,7 @@
 class MY_Controller extends CI_Controller
 {
     
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
     
     //new sections
     public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
@@ -75,6 +75,7 @@ class MY_Controller extends CI_Controller
         $this->createMCHCommunityStrategySection();
 		$this->createHcwProfileSection();
 		$this->createhcwCaseManagementSection();
+		$this->createmchConsultationSection();
         
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -1035,6 +1036,29 @@ class MY_Controller extends CI_Controller
         
         //echo $this->hcwProfileSection;die;
         return $this->hcwProfileSection;
+    }
+	   /**Function to create the section: Child Health--Consultation Questions
+     * */
+    public function createmchConsultationSection() {
+        $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->mchConsultationSection.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<input type="text"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="" class="numbers cloned"/>
+			</td>
+			<input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+        }
+        
+        //echo $this->mchConsultationSection;die;
+        return $this->mchConsultationSection;
     }
 	    /**Function to create various sections based on the indicator type * */
     public function createhcwCaseManagementSection() {
@@ -2150,12 +2174,12 @@ class MY_Controller extends CI_Controller
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
         //var_dump($this->data_found);die;
-       /* $counter = 0;
+        $counter = 0;
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-        $numbering = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z');
-        foreach ($this->data_found as $value) {
+       $numbering = array_merge(range('A','Z'),range('a', 'z'));
+	    foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
             
@@ -2315,7 +2339,7 @@ class MY_Controller extends CI_Controller
         $this->mchIndicatorsSection['con'] = $con;
         $this->mchIndicatorsSection['cnl'] = $cnl;
         $this->mchIndicatorsSection['ref'] = $ref;
-        $this->mchIndicatorsSection['cls'] = $cls;*/
+        $this->mchIndicatorsSection['cls'] = $cls;
         
         //echo $this->mchIndicatorsSection;die;
         return $this->mchIndicatorsSection;
