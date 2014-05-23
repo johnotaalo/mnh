@@ -5,7 +5,7 @@
 class MY_Controller extends CI_Controller
 {
     
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection, $mchmalariaTreatmentSection, $mchpneumoniaTreatmentSection;
     
     //new sections
     public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection;
@@ -75,7 +75,10 @@ class MY_Controller extends CI_Controller
         $this->createMCHCommunityStrategySection();
 		$this->createHcwProfileSection();
 		$this->createhcwCaseManagementSection();
-		$this->createmchConsultationSection();
+		//$this->createmchConsultationSection();
+        $this->createConSection();
+        $this->createMalariaTreatmentSection();
+        $this->createPneumoniaTreatmentTSection();
         
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -1039,7 +1042,7 @@ class MY_Controller extends CI_Controller
     }
 	   /**Function to create the section: Child Health--Consultation Questions
      * */
-    public function createmchConsultationSection() {
+    /*public function createmchConsultationSection() {
         $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
         
         //var_dump($this->data_found);die;
@@ -1059,7 +1062,29 @@ class MY_Controller extends CI_Controller
         
         //echo $this->mchConsultationSection;die;
         return $this->mchConsultationSection;
+    }*/
+
+    /**function to create section: Child Health--Consultation Questions**/
+    public function createConSection()
+    {
+        $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
+
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+            $counter++;
+
+            $this->mchConsultationSection.= '<tr>
+            <td colspan = "1">(<strong>'. $counter . '</strong>) '. $value['questionName']. '</td>
+            <td colspan = "1">
+            <input type = "text" name = "mchConsultationResponse_' .$counter. '" id "mchConsultationResponse_ '. $counter . '" value = "" class = "numbers cloned" placeholder = "mchConsultationResponse_ '.$counter.'">
+            </td>
+            <input type = "hidden" name = mchConsultationQCode_' .$counter. '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            </tr>';
+        }
+        return $this->mchConsultationSection;
     }
+
 	    /**Function to create various sections based on the indicator type * */
     public function createhcwCaseManagementSection() {
         $this->data_found = $this->m_hcw_survey->getIndicatorNames();
@@ -3603,5 +3628,43 @@ class MY_Controller extends CI_Controller
             //print 'false'; die;
             $this->districtFacilityListSection.= '<tr><td colspan="22">No Facilities Found</td></tr>';
         }
+    }
+
+    /**Function to create malaria treatment section**/
+    public function createMalariaTreatmentSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('mla');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+
+            $this->mchmalariaTreatmentSection .= '<tr>
+            <td>'.$value['treatmentName'].'</td>
+            <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
+            <td><input type = "radio" name = "'.$value['treatmentName'].'"/></td>
+            </tr>';
+        }
+        return $this->mchmalariaTreatmentSection;
+    }
+
+    /**Function to create pneumonia treatment**/
+    public function createPneumoniaTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+
+            $this->mchpneumoniaTreatmentSection.= '<tr>
+            <td>' .$value['treatmentName'].'</td>
+            <td><input type = "radio" name = "pneTreament_'.$value['treatmentName'].'"/></td>
+            <td><input type = "radio" name = "pneTreament_'.$value['treatmentName'].'"/></td>
+            </tr>';
+        }
+        return $this->mchpneumoniaTreatmentSection;
     }
 }

@@ -293,6 +293,19 @@ class  MY_Model  extends  CI_Model {
 		return $this -> mchTreatment;
 	}/*end of getAllMCHTreatments*/
 
+	function getTreatmentsByType($type)
+	{
+		try {
+			$this -> treatmentbytype = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t WHERE t.treatmentFor = :type ORDER BY t.treatmentCode ASC');
+			$this -> treatmentbytype -> setParameter('type', $type);
+			$this -> treatmentbytype = $this-> treatmentbytype -> getResult();
+			//die(var_dump($this->mchTreatment));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentbytype;
+	}
 	function getAllTrainingGuidelines($surveyName) {
 		/*using DQL*/
 		try {

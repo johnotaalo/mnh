@@ -1275,41 +1275,9 @@ class C_Load extends MY_Controller {
 				<tr >
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
-					</tr>
-					<tr >
-					<td>Artemether Lumefantrine(AL)</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Artesunate</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Chloramphenical</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr><tr >
-					<td>Paracetamol</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Quenine</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Referral for admission</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Other, specify</td>
-					<input type="text", name = "specify">
-					</tr>
-			</thead>
+				</tr>'
+				.$this -> mchmalariaTreatmentSection.
+			'</thead>
 		</table>
 		<table class="centre">
 		<thead>
@@ -1323,27 +1291,9 @@ class C_Load extends MY_Controller {
 				<tr >
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia cough/cold</th>
-					</tr>
-					<tr >
-					<td>Amoxicillin</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Cotrimoxazole</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Referral for admission</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Other, specify</td>
-					<input type="text", name = "specify">
-					</tr>
-			</thead>
+					</tr>'
+			.$this -> mchpneumoniaTreatmentSection.	
+			'</thead>
 		</table>
 		<table class="centre"><thead>
 			<tr>
