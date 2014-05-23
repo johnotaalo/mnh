@@ -237,11 +237,26 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> questions;
 	}/*end of getAllOrtAspects*/
-
-	function getQuestions() {
+	function gethcwProviderScore($for,$code) {
 		/*using DQL*/
 		try {
-			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName, q.questionFor FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q WHERE q.questionFor= :for AND q.questionCode LIKE :code ORDER BY q.questionCode ASC');
+			$this -> questions -> setParameter('for', $for);
+			$this -> questions -> setParameter('code', $code.'%');
+			$this -> questions = $this -> questions -> getResult();
+
+			//die(var_dump($this->mnhIndicator));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> questions;
+	}/*end of getAllOrtAspects*/
+	
+	function getAllQuestions() {
+		/*using DQL*/
+		try {
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
 			$this -> questions = $this -> questions -> getResult();
 
 			//die(var_dump($this->mnhIndicator));
@@ -268,7 +283,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHTreatments() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor,tc.tcName FROM models\Entities\treatments t JOIN models\Entities\treatmentclassifications tc WHERE t.treatmentFor = tc.tcFor ORDER BY t.treatmentFor, t.treatmentCode,tc.tcId ASC');
+			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentCode ASC');
 			$this -> mchTreatment = $query -> getResult();
 			//die(var_dump($this->mchTreatment));
 		} catch(exception $ex) {

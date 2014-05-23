@@ -151,7 +151,7 @@ class C_Load extends MY_Controller {
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> 
-			<td>Facility Tier </td>
+			<td>Facility Level </td>
 			<td>
 			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
@@ -967,62 +967,74 @@ class C_Load extends MY_Controller {
 		$this -> combined_form .= '<h5 id="status"></h5>
                  
 				<form class="bbq" name="mch_tool" id="mch_tool" method="POST">
-<div class="step" id="section-1">
-  				 p style="display:true" class="message success">
-	SECTION 1 of 7: FACILITY INFORMATION
-</p>
-<table border="2">
 
-	<thead>
-	<tr>
-		<th colspan="9">FACILITY INFORMATION</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Facility Name </td><td>
-			<input type="text" size="40">
-			</td><td>Facility Tier </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
-			<input type="text" size="40" >
+  				 <p id="data" class="feedback"></p>
+		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey</p>
+		         <div id="section-1" class="step">
+		         <input type="hidden" name="step_name" value="section-1"/>
+		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
+				<table class="centre" >
+
+		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
+		       
+			<tr>
+			<td>Facility Name </td>
+			<td>
+			<!--input type="text" id="fac_name" name="fac_name" class="cloned" size="40" disabled/-->
+			<label id="facilityName"  size="40" ></label>
+			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
+			<input type="hidden" name="facilityHName" id="facilityHName" />
+			</td> 
+			<td>Facility Level </td>
+			<td>
+			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Level</option>
+							' . $this -> selectFacilityLevel . '
+						</select>
 			</td><td>County </td>
 			<td>
-			<input type="text" size="40" >
+			<select name="fac_county" id="fac_county" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select County</option>
+							' . $this -> selectCounties . '
+						</select>
 			</td>
-		</tr>
-		<tr>
-			<td>Facility Type </td>
-			<td>
-			<input type="text" size="40" >
+			</tr>
+			<tr>
+			<td>Facility Type </td><td>
+			<select name="facilityType" id="facilityType" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Type</option>
+							' . $this -> selectFacilityType . '
+						</select>
+
 			</td>
-			<td>Owned By </td>
-			<td>
-			<input type="text" size="40" >
+			<td>Owned By </td><td>
+			<select name="facilityOwnedBy" id="facilityOwnedBy" class="cloned" style="width:75%">
+							<option value="" selected="selected">Select Owner</option>
+							' . $this -> selectFacilityOwner . '
+						</select>
 			</td>
 
-			<td>District/Sub County </td>
-			<td>
-			<input type="text" size="40" >
+			<td>District/Sub County </td><td>
+			<select name="fac_district" id="fac_district" class="cloned" style="width:85%">
+							<option value="" selected="selected">Select District/Sub County</option>
+							' . $this -> selectDistricts . '
+						</select>
 			</td>
-		</tr>
-	</tbody>
-</table>
-
-<table>
+			</tr>
+		
+		</table>
+		<table>
 	<thead>
-	<tr>
-		<th colspan="8">ASSESSOR INFORMATION </th>
-		</tr>
+		<th colspan="12">ASSESSOR INFORMATION </th>
 	</thead>
 	<tbody>
 		<tr>
-			<td>Name </td>
-			<td>
+			<td>Name </td><td>
 			<input type="text" size="40">
-			</td>
-			<td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
+			</td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
 			<input type="text" size="40" >
-			</td>
-			<td>Email </td>
+			</td><td>Email </td>
 			<td>
 			<input type="text" size="40" >
 			</td>
@@ -1033,21 +1045,19 @@ class C_Load extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
-<table>
-	<thead>
-		<tr>
-		<th colspan="4" >HR INFORMATION</th>
-		</tr>
-	</thead>
-	<tbody>
+		<table class="centre">
+		<thead>
+		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+		</thead>
 		<tr >
-			<th>CADRE</th>
+			<th scope="col" colspan="2" >CADRE</th>
 			<th>NAME</th>
 			<th >MOBILE</th>
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td >Incharge </td><td>
+			<td colspan="2">Incharge </td>
+			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
@@ -1057,7 +1067,8 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td >MCH Incharge</td><td>
+			<td colspan="2">MCH </td>
+			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -1066,8 +1077,9 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
-		<tr>
-			<td >Maternity Incharge </td><td>
+		<!--tr>
+			<td  colspan="2">Maternity </td>
+			<td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1076,17 +1088,15 @@ class C_Load extends MY_Controller {
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
+		</tr-->
+
+	</table>
+	<table>
   <thead>
-  <tr>
-	<th colspan = "10">HEALTH SERVICES</th>
-	</tr>
+	<th colspan = "12">HEALTH SERVICES</th>
 	</thead>
 	<tbody>
-	<tr><td colspan = "10">Where are sick children seen?</td>
+	<tr>Where are sick children seen?
 	</tr>
 	<tr>
 		<td>OPD</td>
@@ -1102,283 +1112,118 @@ class C_Load extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
-
-<table>
-    <thead>
-    	<tr>
-    		<th colspan="2">INFRASTRUCTURE: IMCI Consultation Room</th>
-    	</tr>
-        <tr>
-            <th  width="700px">QUESTION</th>
-            <th> RESPONSE </th>
-        </tr>
-    </thead>
-    ' . $this -> questionPDF['imci'] . '
-</table>
-<!--\.the section-1 -->
-
-
-<div id="section-2" class="step">
-	<input type="hidden" name="step_name" value="section-2"/>
-	<p style="display:true;margin-top:200px" class="message success">
-		SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS
-	</p>
-
-	<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="3" >GUIDELINES AND JOB AIDS AVAILABILITY </th>
-			</tr>
-			<tr>
-				<th style="width:500px">ASPECT</th>
-				<th>RESPONSE </th>
-				<th>If <strong>Yes</strong>, Indicate Total Quantities Available </th>
-			</tr>
-		</thead>
-		' . $this -> mchGuidelineAvailabilitySectionPDF . '
-	</table>
-		<table class="centre">
-
-			<thead>
-				<tr>
-					<th colspan="2" >DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
-				</tr>
-
-				<tr>
-					<th style="width:700px">TOOL</th>
-					<th> RESPONSE </th>
-
-				</tr>
-			</thead>
-			' . $this -> mchIndicatorsSectionPDF['ror'] . '
-		</table>
-		<table class="centre">
-
-			<thead>
-			<tr>
-				<th colspan="3" > DATA FROM THE TOOLS </th>
-			</tr>
-			<tr>
-				<th colspan="3" > (A) MALARIA</th>
-			</tr>
-				<tr>
-
-					<th  rowspan="2" style="width:600px">TREATMENT</th>
-					<th colspan="2" style="text-align:center"> Classification</th>
-
-				</tr>
-				<tr >
-
-					<th>Malaria</th>
-					<th>Fever No malaria</th>
-					</tr>
-					</thead>
-					' . $this -> treatmentMCHSection['fev'] . '
-		
-			
-		</table>
-		<table class="centre">
-
-			<thead>
-			<tr>
-				<th colspan="3" > (B) PNEUMONIA</th>
-			</tr>
-				<tr>
-
-					<th  rowspan="2" style="width:600px">TREATMENT</th>
-					<th colspan="2" style="text-align:center"> Classification</th>
-
-				</tr>
-				<tr >
-
-					<th >Pneumonia</th>
-					<th>No Pneumonia Cough / Cold</th>
-				</tr>
-				</thead>
-			' . $this -> treatmentMCHSection['pne'] . '
-			
-		</table>
-		<table class="centre">
-
-			<thead>
-			<tr>
-				<th colspan="6" > (C) DIARRHOEA </th>
-			</tr>
-				<tr>
-
-					<th  rowspan="2" style="width:600px">TREATMENT</th>
-					<th colspan="5" style="text-align:center"> Classification</th>
-
-				</tr>
-				<tr >
-
-					<th >Severe Dehydration</th>
-					<th>Some Dehydration</th>
-					<th>No Dehydration</th>
-					<th>Dysentry</th>
-					<th>No Classification</th>
-				</tr>
-			</thead>
-			' . $this -> treatmentMCHSection['dia'] . '
-		</table>
-	<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
-			</tr>
-			<tr>
-
-				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
-				<th rowspan ="2" style="text-align:left">Total in Facility</th>
-				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
-				<th colspan="2" ># of Staff Trained in IMCI</th>
-				<th colspan="2"># of Staff Trained in ICCM</th>
-				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
-				<th colspan="2"># of Staff Trained in Diarrhoea CMEs for U5s</th>
-				<th rowspan ="2">				
-					How Many Of The Total Staff Members
-					Trained are still Working in Child Health?</th>
-			</tr>
-			<tr>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Doctor</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-		<tr>
-			<td>Nurse</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-		<tr>
-			<td>R.C.O.</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-
-	</table>
-	<table class="centre">
-    <thead>
-        <tr>
-            <th colspan="10" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS <input type="text"></th>
-        </tr>
-        <tr>
-            <th colspan="10" style="text-align:center"> Classification</th>
-        </tr>
-    </thead>
-    <tr >
-        <th colspan="1">Diarrhoea Total:</th><th colspan="9"><input type = "text", name= "diarrhoeaTotal"></th>
-    </tr>
-    <tr>
-        <td>Severe Dehydation:</td><td><input type="text" name="severedehydration"></td>
-        <td>Some Dehydation:</td><td><input type="text" name="somedehydration"></td>
-        <td>No Dehydation:</td><td><input type="text" name="nodehydration"></td>
-        <td>Dysentry:</td><td><input type="text" name="dysentry"></td>
-        <td>No Classification:</td><td><input type="text" name="noclassification"></td>
-    </tr>
-    <tr>
-        <th >Pneumonia Total:</th><th colspan="9"><input type="text"name="pneumoniaTotal"></th>
-    </tr>
-    <tr >
-        
-        <td>Pneumonia:</td><td><input type="text" name="pneumonia"></td>
-        <td>No Pneumonia cough/cold:</td><td colspan="9"><input type="text" name="nopneumonia"></td>
-    </tr>
-    <tr>
-         <th>Malaria Total:</th><th colspan="9"><input type="malariaTotal", name = "malariaTotal"></th>
-    </tr>
-    <tr >
-       
-        <td>Confirmed:</td><td><input type="text" name="pneumonia"></td>
-        <td>Not Confirmed:</td><td colspan="9"><input type="text" name="nopneumonia"></td>
-    </tr>
-</table>	
-<p style="display:true;margin-top:200px" class="message success">
-		SECTION 3 of 7: COMMODITY AND BUNDLING AVAILABILITY
-	</p>
 	<table>
+		<thead><th colspan = "12"> INFRASTRACTURE: IMCI CONSULTATION ROOM</th></thead>
+		<tbody>
 		<thead>
-			<tr class="persist-header">
-				<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
-			</tr>
-
-			<tr>
-				<th rowspan="2" >Commodity Name</th>
-				<th rowspan="2" >Commodity Unit</th>
-				<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
-				<th rowspan="2"> Main Reason For  Unavailability </th>
-				<th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
-				<th rowspan="1" colspan="2" >Available Quantities</th>
-				<th rowspan="2" > Main Supplier </th>
-				
-
-			</tr>
-			<tr>
-				<th >Available</th>
-				<th>Not Available</th>
-				<th>OPD</th>
-				<th>MCH</th>
-				<th>U5 Clinic</th>
-				<th>Ward</th>
-				<th>Pharmacy</th>
-				<th>Other</th>
-				<th>Not Applicable</th>
-				<th>No. of Units</th>
-				<th>Expiry Date</th>
-
-			</tr>
+		<th colspan="12">Has IMCI consultation room been established?</th>
 		</thead>
-		' . $this -> mchCommodityAvailabilitySectionPDF . '
+		<tr>
+		</tr>' . $this -> mchConsultationSection . '
+		</tbody>
+	   </table>
+	
+	
+	
+	</div><!--\.the section-1 -->
+	
+	<!--div id="No" class="step"--><!--end of assessment message section-->
+	<!--input type="hidden" name="step_name" value="end_of_assessment"/>
+	<div class="block">
+	        <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
+			<p id="data" class="message success">Thanks for your participation.<br></p><br>
+			<p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p>
+			</div>
+	</div--><!--\.end of assessment message section-->
+	
+	<div id="section-2" class="step">
+	<input type="hidden" name="step_name" value="section-2"/>
+	 <p style="display:true" class="message success">SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS</p>
 
-	</table>  
-	<p style="margin-top:100px"></p>
+     <table class="centre">
+		<thead>
+			<th colspan="3" >GUIDELINES AND JOB AIDS AVAILABILITY</th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:10.5%;text-align:left"> RESPONSE </th>	
+			<th   style="width:52.5%;text-align:left"> If <strong>Yes</strong>, Indicate Total Quantities Available </th>		
+			
+
+		</tr>' . $this -> mchGuidelineAvailabilitySection . '
+	</table>
+	
+     <table class="centre">
+	<thead>
+		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
+		<th colspan ="2" style="text-align:left"> TRAININGS</th>
+		<th style="text-align:left">Number Trained before 2010</th>
+		<th style="text-align:left">Number Trained after 2010</th>
+		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
+		Trained are still Working in Child Health?</div></th>
+		
+		' . $this -> mchTrainingGuidelineSection . '
+
+	</table>
+	
 	<table  class="centre persist-area" >
+	<thead>
+	    <tr class="persist-header">
+		
+			<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+		</tr>
+		</thead>
+		<tr>
+			<th scope="col" >Commodity Name</th>
+			<th >Commodity Unit</th>
+			<th colspan="2" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></div>
+			</th>
+			<th>
+			<div style="width: 90%" >
+				Main Reason For  Unavailability
+			</div>
+			</th>
+			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="2">Available Quantities</th>
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Unit</td>
+			<td >Available</td>
+			<td>Not Available</td>
+			<td> Unavailability</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Pharmacy</th>
+			<td>Other</td>
+			<td>Not Applicable</td>
+			<td>No. of Units</td>
+			<td>Expiry Date</td>
+			<td>Supplier</td>
+
+		</tr>' . $this -> mchCommodityAvailabilitySection . '
+
+	</table>
+	 <table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
 			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
-		
+		</thead>
 		<tr>
-			<th rowspan="2" >Commodity Name</th>
-			<th rowspan="2">Commodity Unit</th>
+			<th scope="col" >Commodity Name</th>
+			<th >Commodity Unit</th>
 			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></div>
@@ -1397,162 +1242,509 @@ class C_Load extends MY_Controller {
 
 		</tr>
 		<tr >
-			
-			<th>Available</th>
-			<th>Not Available</th>
-			<th>Unavailability</th>
-			<th>OPD</th>
-			<th>MCH</th>
-			<th>U5 Clinic</th>
-			<th>Ward</th>
-			<th>Pharmacy</th>
-			<th>Other</th>
-			<th>Not Applicable</th>
-			<th>No. of Units</th>
+			<td>&nbsp;</td>
+			<td >Unit</td>
+			<td >Available</td>
+			<td>Not Available</td>
+			<td> Unavailability</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Pharmacy</th>
+			<td>Other</td>
+			<td>Not Applicable</td>
+			<td>No. of Units</td>
 
-		</tr></thead>' . $this -> mchBundlingPDF . '
+		</tr>' . $this -> mchBundling . ' 
 
 	</table>
+	<table class="centre">
 
-		
-		
-	</div><!--\.section 2-->
-		
-	<div id="section-4" class="step">
-		<input type="hidden" name="step_name" value="section-4"/>
-		<p style="display:true" class="message success">
-			SECTION 4 of 7: REVIEW OF RECORDS
-		</p>
-
-		
-
+			<thead>
+			<tr>
+				<th colspan="6" > DATA FROM THE TOOLS </th>
+			</tr>
+			<tr>
+				<th colspan="6" > (A) MALARIA</th>
+			</tr>
+				<tr>
+				<th  rowspan="2" style="width:35%">TREATMENT</th>
+				<th colspan="5" style="text-align:center"> Classification</th>
+				</tr>
+				<tr >
+					<th>Malaria</th>
+					<th>Fever No malaria</th>
+					</tr>
+					<tr >
+					<td>Artemether Lumefantrine(AL)</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Artesunate</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Chloramphenical</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr><tr >
+					<td>Paracetamol</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Quenine</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+		</table>
 		<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="6" > (B) PNEUMONIA</th>
+			</tr>
+				<tr>
+				<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+					</tr>
+				<tr >
+					<th>Pneumonia</th>
+					<th>Fever No Pneumonia cough/cold</th>
+					</tr>
+					<tr >
+					<td>Amoxicillin</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr >
+					<td>Cotrimoxazole</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Referral for admission</td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+					<tr>
+					<td>Other, specify</td>
+					<input type="text", name = "specify">
+					</tr>
+			</thead>
+		</table>
+		<table class="centre"><thead>
+			<tr>
+				<th colspan="6" > (C) DIARRHOEA </th>
+			</tr>
+				<tr>
+					<th  rowspan="2" style="width:35%">TREATMENT</th>
+					<th colspan="5" style="text-align:center"> Classification</th>
+
+				</tr>
+				<tr >
+
+					<th >Severe Dehydration</th>
+					<th>Some Dehydration</th>
+					<th>No Dehydration</th>
+					<th>Dysentry</th>
+					<th>No Classification</th>
+				</tr>
+			</thead>
+			' . $this -> treatmentMCHSection . '
+		</table>
+		<table class="centre">
+
+			<thead>
+			<tr>
+				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
+			</tr>
+				<tr>
+				<th colspan="6" style="text-align:center"> Classification</th>
+				</tr>
+				</thead>
+					<tr >
+					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
+					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>
+					<td>Some Dehydation:<input type="text", name="somedehydration"></td>
+					<td>No Dehydation:<input type="text", name="nodehydration"></td>
+					<td>Dysentry:<input type="text", name="dysentry"></td>
+					<td>No Classification:<input type="text", name="noclassification"></td>
+					</tr>
+					<tr >
+					<td>Pneumonia Total:<input type="text",name="pneumoniaTotal"></td>
+					<td>Pneumonia:<input type="text", name="pneumonia"></td>
+					<td>No Pneumonia cough/cold:<input type="text", name="nopneumonia"></td>
+					</tr>
+					<tr >
+					<td>Malaria Total:<input type="malariaTotal", name = "malariaTotal"></td>
+					<td>Confirmed:<input type="text", name="pneumonia"></td>
+					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
+					</tr>
+		</table>
+		<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="15"  > CLINICAL STAFF</th>
+			</tr>
+			<tr>
+				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
+				<th style="text-align:left">TOTAL IN FACILITY</th>
+				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
+				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
+				<th style="text-align:left">
+				<div style="width: 500px" >
+					How Many Of The Total Staff Members
+					Trained are still Working in Child Health?
+				</div></th>
+			</tr>
+		</thead>
+		<tr>
+			<td>Doctor</td>
+			</tr>
+			<tr>
+			<td>Nurse</td>
+			</tr>
+			<tr>
+			<td>R.C.O</td>
+			</tr>
+	</table>
+	
+	</div><!--\.section 2-->
+
+	<div id="section-3" class="step">
+	<input type="hidden" name="step_name" value="section-3"/>
+	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
+
+     <table class="centre">
+		<thead>
+			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA?  </th>
+		</thead>
+		
+		
+			<th  style="width:35%">SERVICE</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['svc'] . '
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">DANGER SIGN</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['sgn'] . '
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >DO HEALTH CARE WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ACTION</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['dgn'] . '
+	</table>
+	
+	<table class="centre">
+		<thead>
+			<th colspan="2" >DO HEALTH CARE WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ACTION</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['cns'] . '
+	</table>
+		
+	</div><!--\.section-3-->
+
+    <div id="section-4" class="step">
+    <input type="hidden" name="step_name" value="section-4"/>
+     <p style="display:true" class="message success">SECTION 4 of 7: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
+    
+	
+	<table class="centre">
 		
 		<thead>
+			<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
+		</thead>
+		
+			<th  style="width:35%">TOOL</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['ror'] . '
+	</table>
+	
+	<table class="centre">
+		
+	<thead>
+	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
+
+
+	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
+
+		
+
 		<tr>
-			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above)(One Selection Allowed) </th></tr>
+			<td>2013</td>			
+			<td style ="text-align:center;">
+			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
+			</td>
+
+			
+		</tr>
+		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
+		<tr>
+		<td>2013</td>
+			<td style ="text-align:center;">
+			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
+			</td>
+			<td  style ="text-align:center;">
+			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
+			</td>
+			<td style ="text-align:center;">
+			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
+			<td style ="text-align:center;" width="15">
+			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
+			
+			<td style ="text-align:center;">
+			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
+			</td>		
+		</tr>
+	</table>
+	
+	<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
+		</thead>
+		<tr>
+		     
+			<th  style="width:35%">TREATMENT</th>
+			<th colspan="5" style="text-align:center"> Classification</th>
+			
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			<td >Severe Dehydration</td>
+			<td>Some Dehydration</td>
+			<td>No Dehydration</td>
+			<td>Dysentry</td>
+			<td>No Classification</td>
+		</tr>
+		' . $this -> treatmentMCHSection . '
+	</table>
+	<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
 		</thead>
 		'.$this -> selectAccessChallenges.'
 		
 		
 	</table>
-	<table class="centre">
-			<thead>
-				<tr>
-					<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
-				</tr>
-				<tr>
-					<th  style="width:35%">ASPECT</th>
-					<th   style="width:65%;text-align:left"> RESPONSE </th>
-				</tr>
-			</thead>
-			' . $this -> ortCornerAspectsSectionPDF . '
-		</table>
-
-	</div><!--\.section-4-->
 	
-	<div id="section-5" class="step">
-		<input type="hidden" name="step_name" value="section-5"/>
-		<p style="display:true" class="message success">
-			SECTION 5 of 7: EQUIPMENT AVAILABILITY AND STATUS
-		</p>
-
-		
-
-		<table  class="centre" >
-			<thead>
-				<tr>
-					<th colspan="10">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
-				</tr>
-				<tr>
-					<th colspan="1" rowspan="2">Equipment Name</th>
-					<th colspan="2" style="text-align:center">Availability <strong></br> (One Selection Allowed) </strong></th>
-					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
-					<th colspan="2">Available Quantities</th>
-				</tr>
-				<tr >
-					<th >Available</th>
-					<th>Not Available</th>
-					<th>OPD</th>
-					<th>MCH</th>
-					<th>U5 Clinic</th>
-					<th>Ward</th>
-					<th>Other</th>
-					<th>Fully-Functional</th>
-					<th>Non-Functional</th>
-				</tr>
-			</thead>
-			' . $this -> equipmentsMCHSection . '
-
-		</table>
-		<div id="section-6" class="step">
-		<input type="hidden" name="step_name" value="section-6"/>
-		<p style="display:true;margin-top:200px" class="message success">
-			SECTION 6 of 7: RESOURCE AVAILABILITY
-		</p>
-		<table  class="centre" >
-			<thead>
-				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
-				<tr>
-					<th colspan="1" rowspan="2">Supplies Name</th>
-
-					<th colspan="2" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
-					<th colspan="5" style="text-align:center"> Location of Availability </BR><strong> (Multiple Selections Allowed)</strong></th>
-					<th colspan="1" rowspan="2"> Main Supplier </th>
-
-				</tr>
-				<tr >
-					<th >Available</th>
-					<th>Not Available</th>
-					<th>OPD</th>
-					<th>MCH</th>
-					<th>U5 Clinic</th>
-					<th>Ward</th>
-					<th>Other</th>
-				</tr>
-			</thead>
-			' . $this -> suppliesMCHSectionPDF . '
-		</table>
-		<p style="display:true" class="message success">
-			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
-		</p>
-		<table  class="centre" >
-			<thead>
-				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
-
-				<tr>
-					<th colspan="1" rowspan="2">Resource Name</th>
-					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
-					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
-					<th colspan="1" rowspan="2"> Main Supplier </th>
-
-				</tr>
-				<tr >
-					<th>Available</th>
-					<th>Not Available</th>
-					<th>OPD</th>
-					<th>MCH</th>
-					<th>U5 Clinic</th>
-					<th>Ward</th>
-					<th>Other</th>
-				</tr>
-			</thead>
-			' . $this -> hardwareMCHSectionPDF . '
-		</table>
+    </div><!--\.section-4-->
+    
+    <div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
+	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
 		
 		<table class="centre">
-	<thead>
-		<tr>
-			<th colspan="2" >COMMUNITY STRATEGY </th>
+		<thead>
+			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> ortCornerAspectsSection . '
+	</table>
+		
+		<table  class="centre" >
+		<thead>
+			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
+		</thead>
+
 		</tr>
-	</thead>
-	<tr>
-		<th  style="width:65%">ASPECT</th>
-		<th   style="width:35%;text-align:left"> RESPONSE </th>
-	</tr>
-	' . $this -> mchCommunityStrategySection . '
-</table>
+		<tr>
+			<th scope="col" >Equipment Name</th>
+			
+			<th colspan="2" style="text-align:center">Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<th colspan="2">Available Quantities</th>
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Not Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+			<td>Fully-Functional</td>
+            <!--td>Partially Functional</td-->
+			<td>Non-Functional</td>
+			</tr>
+			' . $this -> equipmentsMCHSection . '
+
+			</table>
+           </div><!--\.section-5-->
+
+	<div id="section-6" class="step">
+	<input type="hidden" name="step_name" value="section-6"/>
+	 <p style="display:true" class="message success">SECTION 6 of 7: RESOURCE AVAILABILITY</p>
+		 <table  class="centre" >
+		<thead>
+			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+		</thead>
+		<tr>
+			<th scope="col" >Supplies Name</th>
+			
+			<th colspan="2" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+			<!--th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th-->
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>
+			
+			<td >Available</td>
+			<td>Not Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+
+			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+			
+			
+
+		</tr>' . $this -> suppliesMCHSection . '
+		</table>
+		
+		 <p style="display:true" class="message success">SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES</p>
+		 <table  class="centre" >
+		<thead>
+			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+		</thead>
+		<tr>
+			<th scope="col" >Resource Name</th>
+			
+			<th colspan="2" style="text-align:center"> Availability  
+			 <strong></BR>
+			(One Selection Allowed) </strong></th>
+			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+			<th scope="col">
+			
+				Main Supplier
+			</th>
+			<!--th scope="col">
+			<div style="width: 100px" >
+				Main Reason For  Unavailability
+			</div></th-->
+
+		</tr>
+		<tr >
+			<td>&nbsp;</td>			
+			<td >Available</td>			
+			<td>Not Available</td>
+			<td>OPD</td>
+			<td>MCH</td>
+			<td>U5 Clinic</td>
+			<td>Ward</td>
+			<td>Other</td>
+
+			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+			
+			
+
+		</tr>' . $this -> hardwareMCHSection . '
+		</table>
+		<table class="centre">
+		<thead>
+			<th colspan="2" >COMMUNITY STRATEGY </th>
+		</thead>
+		
+		
+			<th  style="width:35%">ASPECT</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchCommunityStrategySection . '
+	</table>
+		
+	
+	</div><!--\.section-6 & 7-->
 	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
@@ -1587,7 +1779,7 @@ public function get_hcw_form() {
 			<input type="hidden" name="facilityMFLCode" id="facilityMFLCode" />
 			<input type="hidden" name="facilityHName" id="facilityHName" />
 			</td> 
-			<td>Facility Tier </td>
+			<td>Facility Level </td>
 			<td>
 			<!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<select name="facilityLevel" id="facilityLevel" class="cloned" style="width:75%">
@@ -1691,7 +1883,7 @@ public function get_hcw_form() {
             <td><input type="text" name="hp_phone_number" id="hp_phone_number"></td>
         </tr>
         <tr>
-            <td colspan="1">Year, Month when trained in IMCI in IMCI <input type="text" name="hp_year" id="hp_year"></td>
+            <td colspan="1">Year, Month when trained <input type="text" name="hp_year" id="hp_year"></td>
             <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
                 <p><input type="radio" name="hp_coordinator" id="">MOH/KPA/CHAI</p>
                 <p><input type="radio" name="hp_coordinator" id="">MOH only</p>
@@ -1702,7 +1894,7 @@ public function get_hcw_form() {
         <tr>
             <td colspan="1"><label for="">Designation</label></td>
             <td colspan="3"><input type="text" name="hp_coordinator" id="hp_coordinator"></td>
-        </tr>
+        </tr>'. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
 </table>
@@ -1710,7 +1902,7 @@ public function get_hcw_form() {
 <table>
     <tbody>
         <tr>
-            <td>Current Service Unit</td>
+            <td>Current Unit</td>
             <td><input type="text" name="ws_current_unit" id="ws_current_unit"></td>
         </tr>
     </tbody>
@@ -1774,8 +1966,204 @@ public function get_hcw_form() {
 
 <div id="section-2" class="step">
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
+        </tr>
+        <tr>
+            <th  width="700px">SERVICE</th>
+            <th> RESPONSE </th>
+        </tr>
+    </thead>
+    ' . $this -> hcwCaseManagementSection['svc'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
+        </tr>
+        <tr>
+            <th width="700px" >SERVICE</th>
+            <th > RESPONSE </th>
+        </tr>
+    </thead>
+    ' . $this -> hcwCaseManagementSection['sgn'] . '
+</table>
+<p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2" >Response</th>
+        </tr>
+        <tr>
+            <th>1. Cough / Pneumonia</th>
+        </tr>
+    </thead>
+     ' . $this -> hcwCaseManagementSection['pne'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2">Response</th>
+        </tr>
+        <tr>
+            <th>2. Diarrhoea</th>
+        </tr>
+    </thead>
+     ' . $this -> hcwCaseManagementSection['dgn'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Symptom</th>
+            <th rowspan="2">Response</th>
+        </tr>
+        <tr>
+            <th>3. Fever / Malaria</th>
+            
+        </tr>
+    </thead>
+     ' . $this -> hcwCaseManagementSection['fev'] . '
+</table>
+<p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Condition</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+     ' . $this -> hcwCaseManagementSection['con'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Classification</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        ' . $this -> hcwCaseManagementSection['cls'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Treatment and Counselling</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        dy>
+        ' . $this -> hcwCaseManagementSection['cnl'] . '
+    </tbody>
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">Referrals</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        ' . $this -> hcwCaseManagementSection['ref'] . '
+    </tbody>
+    </tbody>
+</table>
 </div>
+<div id="section-3" class="step">
+<p class="message success">CONSULTATION OBSERVATION</p>
+<table class="centre">
+	   <thead>
+     	<tr>
+            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+        </thead>
+    <tbody>
+       ' . $this -> hcwConsultingAspectsSection . '
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
+<table class="centre">
+    <thead>
+     	<tr>
+            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+        	<th>Case 1</th>
+            <th>Case 2</th>
+            <th>Case 3</th>
+        </tr>
+    </thead>
+    <tbody>
+       ' . $this -> hcwInterviewAspectsSection . '
+        
+    </tbody>
+    <tfoot></tfoot>
+</table>
+</div>
+<div id="section-4" class="step">
+<p class="message success">PROVIDER SCORE</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="700px">GIVE ONE POINT FOR EACH ANSWER</th>
+            <th >Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ASSESSMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>CLASSIFICATION</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TREATMENT</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>COUNSELING</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>RETURNING DATE FOR FOLLOW-UP</td>
+            <td><input type="text"></td>
+        </tr>
+        <tr>
+            <td>TOTAL</td>
+            <td><input type="text"></td>
+        </tr>
+    </tbody>
+</table>
+<p class="message success">ASSESSMENT OUTCOME</p>
+<table>
+    <tr>
+        <td colspan="2">
+            <p><input type="radio">Fully Practicing IMCI</p>
+            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
+            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
+            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+        </td>
+    </tr>
+</table>
 
+</div>
 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
 		<input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>				
