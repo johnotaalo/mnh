@@ -1,11 +1,11 @@
 <?php
 class C_Load extends MY_Controller {
-	var $rows, $combined_form, $message;
+	var $rows,$facilityList, $combined_form, $message;
 
 	public function __construct() {
 		parent::__construct();
 		//print var_dump($this->tValue); exit;
-		$this -> rows = '';
+		$this -> rows = $this->facility_list='';
 		$this -> combined_form;
 
 	}
