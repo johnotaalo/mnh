@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
 class MY_Controller extends CI_Controller
