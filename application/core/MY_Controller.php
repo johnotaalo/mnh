@@ -1491,30 +1491,13 @@ class MY_Controller extends CI_Controller
             $this->hcwConsultingAspectsSection.= '<tr>
 			<td>' . $value['questionName'] . '</td>
 			<td>
-			<select name="hcwConsultingAspectResponse_' . $counter . '" id="hcwConsultingAspectResponse_' . $counter . '" class="cloned is-guideline">
+			<select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
 				<option value="Yes">Yes</option>
 				<option value="No">No</option>
-
 			</select>
 			</td>
-			<td>
-			<select name="hcwConsultingAspectResponse_' . $counter . '" id="hcwConsultingAspectResponse_' . $counter . '" class="cloned is-guideline">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-
-			</select>
-			</td>
-			<td>
-			<select name="hcwConsultingAspectResponse_' . $counter . '" id="hcwConsultingAspectResponse_' . $counter . '" class="cloned is-guideline">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-
-			</select>
-			</td>
-			<input type="hidden"  name="hcwConsultingAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			<input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
         }
         
@@ -1559,33 +1542,17 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwInterviewAspectsSection.= '<tr>
-			<td><strong>3.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
-			<td>
-			<select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-
-			</select>
-			</td>
-			<td>
-			<select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-
-			</select>
-			</td>
-			<td>
-			<select name="hcwInterviewAspectResponse_' . $counter . '" id="hcwInterviewAspectResponse_' . $counter . '" class="cloned is-guideline">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-
-			</select>
-			</td>
-			<input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwInterviewAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-		</tr>';
+            <td>' . $value['questionName'] . '</td>
+            <td>
+            <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            </td>
+            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+        
         }
         
         //echo $this->hcwInterviewAspectsSection;die;

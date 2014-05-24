@@ -15,11 +15,11 @@ class LogDiarrhoea
     /**
      * @var integer
      *
-     * @ORM\Column(name="ld_id", type="integer", nullable=false)
+     * @ORM\Column(name="lm_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $ldId;
+    private $lmId;
 
     /**
      * @var \DateTime
@@ -59,19 +59,19 @@ class LogDiarrhoea
     /**
      * @var integer
      *
-     * @ORM\Column(name="ld_number", type="integer", nullable=true)
+     * @ORM\Column(name="lm_number", type="integer", nullable=true)
      */
-    private $ldNumber;
+    private $lmNumber;
 
 
     /**
-     * Get ldId
+     * Get lmId
      *
      * @return integer 
      */
-    public function getLdId()
+    public function getLmId()
     {
-        return $this->ldId;
+        return $this->lmId;
     }
 
     /**
@@ -190,25 +190,25 @@ class LogDiarrhoea
     }
 
     /**
-     * Set ldNumber
+     * Set lmNumber
      *
-     * @param integer $ldNumber
+     * @param integer $lmNumber
      * @return LogDiarrhoea
      */
-    public function setLdNumber($ldNumber)
+    public function setLmNumber($lmNumber)
     {
-        $this->ldNumber = $ldNumber;
+        $this->lmNumber = $lmNumber;
     
         return $this;
     }
 
     /**
-     * Get ldNumber
+     * Get lmNumber
      *
      * @return integer 
      */
-    public function getLdNumber()
+    public function getLmNumber()
     {
-        return $this->ldNumber;
+        return $this->lmNumber;
     }
 }

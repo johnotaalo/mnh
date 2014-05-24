@@ -44,6 +44,8 @@ class M_HCW_Survey extends MY_Model
         return $this->indicatorList;
     }
     private function addQuestionsInfo() {
+        $this->elements=array();
+        var_dump($this->input->post());die;
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
         	//For every posted values
@@ -100,7 +102,7 @@ class M_HCW_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+        print_r($this->elements);die;
         
         //exit;
         
@@ -119,7 +121,7 @@ class M_HCW_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse('n/a');
             
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
@@ -167,7 +169,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -177,7 +179,7 @@ class M_HCW_Survey extends MY_Model
                 //on the last record to be inserted, log the process and return true;
                 if ($i == $this->noOfInsertsBatch) {
                     
-                    //die(print $i);
+                    die(print $i);
                     // $this->writeAssessmentTrackerLog();
                     return true;
                 }
@@ -193,9 +195,10 @@ class M_HCW_Survey extends MY_Model
      //close addMchGuidelinesAvailabilityInfo
     private function addHCWProfile() {
     	$count = $finalCount = 1;
+        //var_dump($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
         	//For every posted values
-            if (strpos($key, 'hcw') !== FALSE) {
+            if (strpos($key, 'hp') !== FALSE) {
             	//select data for bemonc signal functions
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
@@ -217,7 +220,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "hcw") {
+                if ($this->attr == "hdesignation") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -257,7 +260,7 @@ class M_HCW_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = new \models\Entities\Facility_Workers();
             
             //create an object of the model
             
@@ -266,15 +269,16 @@ class M_HCW_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['hcwProfile']);
+            //(array_key_exists('hpfirstname', $this->elements[$i])) ? $this->theForm->setFwFirstName($this->elements[$i]['hpfirstname']) : $this->theForm->setFwFirstName('n/a');
+            /*(array_key_exists('hpsurname', $this->elements[$i])) ? $this->theForm->setFwLastName($this->elements[$i]['hpsurname']) : $this->theForm->setFwLastName('n/a');
+            (array_key_exists('hpnationalid', $this->elements[$i])) ? $this->theForm->setFwNationalId($this->elements[$i]['hpnationalid']) : $this->theForm->setFwNationalId('n/a');
+            (array_key_exists('hpphonenumber', $this->elements[$i])) ? $this->theForm->setFwPhoneNumber($this->elements[$i]['hpphonenumber']) : $this->theForm->setFwPhoneNumber('n/a');
+            (array_key_exists('hpcoordinator', $this->elements[$i])) ? $this->theForm->setFwCoordinator($this->elements[$i]['hpcoordinator']) : $this->theForm->setFwCoordinator('n/a');
+            (array_key_exists('hpother', $this->elements[$i])) ? $this->theForm->setFwCoordinator($this->elements[$i]['hpother']) : $this->theForm->setFwCoordinator('n/a');
             
-            (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
-            (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
-            (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['hcwProfileQCode']);
+            (array_key_exists('hpdesignation', $this->elements[$i])) ? $this->theForm->setFwesignation($this->elements[$i]['hpdesignation']) : $this->theForm->setFwDesignation('n/a');
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLqCreated(new DateTime());
-            
+            /*
             /*timestamp option*/
             $this->em->persist($this->theForm);
             
@@ -292,7 +296,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    die($ex->getMessage());
+                    //die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -314,7 +318,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    die($ex->getMessage());
+                    //die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -2495,12 +2499,12 @@ class M_HCW_Survey extends MY_Model
      //close addResourceAvailabilityInfo
     
     function store_data() {
-        
+        //var_dump($this->input->post());die;
         /*check assessment tracker log*/
         if ($this->input->post()) {
  
 			
-           $step = 'section-3';//$this->input->post('step_name', TRUE);
+           $step = $this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
                 case 'section-1':
@@ -2513,8 +2517,8 @@ class M_HCW_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if (
-                         /*$this->updateFacilityInfo()	==	true &&*/
-                        $this->addHCWProfile() == true) {
+                         //$this->updateFacilityInfo()	==	true && 
+                         $this->addHCWProfile() == true) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
@@ -2563,7 +2567,8 @@ class M_HCW_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addConsultationAspect() == true) {
+                        if ($this->addQuestionsInfo == true) {
+                            echo 'yes';die;
                         	//if($this->addInterviewAspect == true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();

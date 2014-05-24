@@ -1761,6 +1761,7 @@ public function get_hcw_form() {
                  
 				<form class="bbq" name="hcw_tool" id="hcw_tool" method="POST">
 		<div id="section-1" class="step">
+		<input type="hidden" name="step_name" value="section-1"/>
 <table>
     <thead>
         <tr>
@@ -1872,28 +1873,28 @@ public function get_hcw_form() {
         </tr>
         <tr>
             <td>First Name</td>
-            <td><input type="text" name="hp_first_name" id="hp_first_name"></td>
+            <td><input type="text" name="hpfirstname" id="hpfirstname"></td>
             <td>Surname</td>
-            <td><input type="text" name="hp_surname" id="hp_surname"></td>
+            <td><input type="text" name="hpsurname" id="hpsurname"></td>
         </tr>
         <tr>
             <td>National ID</td>
-            <td><input type="text" name="hp_national_id" id="hp_national_id"></td>
+            <td><input type="text" name="hpnationalid" id="hpnationalid"></td>
             <td>Phone Number</td>
-            <td><input type="text" name="hp_phone_number" id="hp_phone_number"></td>
+            <td><input type="text" name="hpphonenumber" id="hpphonenumber"></td>
         </tr>
         <tr>
-            <td colspan="1">Year, Month when trained <input type="text" name="hp_year" id="hp_year"></td>
+            <td colspan="1">Year, Month when trained <input type="text" name="hpyear" id="hpyear"></td>
             <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
-                <p><input type="radio" name="hp_coordinator" id="">MOH/KPA/CHAI</p>
-                <p><input type="radio" name="hp_coordinator" id="">MOH only</p>
-                <p><input type="radio" name="hp_coordinator" id="">Other</p>
-                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hp_other" id="hp_other"></p>
+                <p><input type="radio" name="hpcoordinator" value="MOH/KPA/CHAI">MOH/KPA/CHAI</p>
+                <p><input type="radio" name="hpcoordinator" value="MOH only">MOH only</p>
+                <p><input type="radio" name="hpcoordinator" value="Other">Other</p>
+                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other"></p>
             </td>
         </tr>
         <tr>
             <td colspan="1"><label for="">Designation</label></td>
-            <td colspan="3"><input type="text" name="hp_coordinator" id="hp_coordinator"></td>
+            <td colspan="3"><input type="text" name="hpdesignation" id="hpdesignation"></td>
         </tr>'. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
@@ -1965,9 +1966,11 @@ public function get_hcw_form() {
 </div> <!-- end of section 1 -->
 
 <div id="section-2" class="step">
+
+		<input type="hidden" name="step_name" value="section-2"/>
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
@@ -1975,11 +1978,11 @@ public function get_hcw_form() {
             <th  width="700px">SERVICE</th>
             <th> RESPONSE </th>
         </tr>
-    </thead>
+    
     ' . $this -> hcwCaseManagementSection['svc'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
@@ -1987,12 +1990,12 @@ public function get_hcw_form() {
             <th width="700px" >SERVICE</th>
             <th > RESPONSE </th>
         </tr>
-    </thead>
+    
     ' . $this -> hcwCaseManagementSection['sgn'] . '
 </table>
 <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2" >Response</th>
@@ -2000,11 +2003,11 @@ public function get_hcw_form() {
         <tr>
             <th>1. Cough / Pneumonia</th>
         </tr>
-    </thead>
+    
      ' . $this -> hcwCaseManagementSection['pne'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2">Response</th>
@@ -2012,11 +2015,11 @@ public function get_hcw_form() {
         <tr>
             <th>2. Diarrhoea</th>
         </tr>
-    </thead>
+    
      ' . $this -> hcwCaseManagementSection['dgn'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2">Response</th>
@@ -2025,51 +2028,50 @@ public function get_hcw_form() {
             <th>3. Fever / Malaria</th>
             
         </tr>
-    </thead>
+    
      ' . $this -> hcwCaseManagementSection['fev'] . '
 </table>
 <p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Condition</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
      ' . $this -> hcwCaseManagementSection['con'] . '
     </tbody>
 </table>
 <table class="centre">
-    <thead>
+   
         <tr>
             <th width="700px">Classification</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
         ' . $this -> hcwCaseManagementSection['cls'] . '
     </tbody>
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Treatment and Counselling</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
-        dy>
         ' . $this -> hcwCaseManagementSection['cnl'] . '
     </tbody>
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Referrals</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
         ' . $this -> hcwCaseManagementSection['ref'] . '
     </tbody>
@@ -2077,14 +2079,14 @@ public function get_hcw_form() {
 </table>
 </div>
 <div id="section-3" class="step">
+
+		<input type="hidden" name="step_name" value="section-3"/>
 <p class="message success">CONSULTATION OBSERVATION</p>
 <table class="centre">
 	   <thead>
      	<tr>
             <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
         </thead>
     <tbody>
@@ -2098,8 +2100,6 @@ public function get_hcw_form() {
      	<tr>
             <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
     </thead>
     <tbody>
@@ -2110,6 +2110,8 @@ public function get_hcw_form() {
 </table>
 </div>
 <div id="section-4" class="step">
+
+		<input type="hidden" name="step_name" value="section-4"/>
 <p class="message success">PROVIDER SCORE</p>
 <table class="centre">
     <thead>
