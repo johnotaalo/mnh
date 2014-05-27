@@ -7,46 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<title>MNCH Admin</title>
 	
-		<script src="js/modernizr.custom.js"></script>
 	</head>
 	<body>
-		<!--div class="container">
-		<nav>
-			<ul id="gn-menu" class="gn-menu-main">
-				<li class="gn-trigger">
-					<a class="gn-icon gn-icon-menu"><i class="fa fa-list"></i><span>Menu</span></a>
-					<nav class="gn-menu-wrapper">
-						<div class="gn-scroller">
-							<ul class="gn-menu">
-								<li class="gn-search-item">
-									<input placeholder="Search" type="search" class="gn-search">
-									<a class="gn-icon gn-icon-search"><span>Search</span></a>
-								</li>
-								<li>
-									<a class="gn-icon gn-icon-download">Downloads</a>
-									<ul class="gn-submenu">
-										<li><a class="gn-icon gn-icon-illustrator">Vector Illustrations</a></li>
-										<li><a class="gn-icon gn-icon-photoshop">Photoshop files</a></li>
-									</ul>
-								</li>
-								<li><a class="gn-icon gn-icon-cog">Settings</a></li>
-								<li><a class="gn-icon gn-icon-help">Help</a></li>
-								<li>
-									<a class="gn-icon gn-icon-archive">Archives</a>
-									<ul class="gn-submenu">
-										<li><a class="gn-icon gn-icon-article">Articles</a></li>
-										<li><a class="gn-icon gn-icon-pictures">Images</a></li>
-										<li><a class="gn-icon gn-icon-videos">Videos</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div><!-- /gn-scroller -->
-					<!--/nav>
-				</li>
-				<li><a href="">Stats</a></li>
-			</ul>
-		</nav>
-		</div><!-- /container -->
 
 		<div id="menu">
   <nav class="top-bar" data-topbar>
@@ -74,8 +36,5 @@
 		<script src="<?php echo base_url(); ?>assets/js/classie.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/gnmenu.js"></script>
 		<script src="<?php echo base_url(); ?>assets/javascripts/foundation/foundation.js"></script>
-		<script>
-			new gnMenu( document.getElementById( 'gn-menu' ) );
-		</script>
 	</body>
 </html>

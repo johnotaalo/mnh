@@ -73,6 +73,12 @@
 		padding:1%;
 		background:#555;
 		margin-bottom:0;
+		i{
+			color:antiquewhite;
+		}
+		i:hover{
+			color: whitesmoke;
+		}
 	}
 }
 #firepad{
@@ -80,4 +86,13 @@
 	width:95%;
 	margin:auto;
 	height:80%;
+}
+form{
+	padding:5%;
+
+	button{
+	@extend .button;
+	@extend .small;
+	background: darkcyan;
+}
 }

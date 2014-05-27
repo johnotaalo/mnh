@@ -1,13 +1,19 @@
 <?php
+
 class C_Admin extends MY_Controller
 {
     public function __construct() {
         parent::__construct();
+        $this->load->model('m_admin');
         
         //$this -> county = $this -> session -> userdata('county_analytics');
     
     }
     public function index(){
+    $components['contentView']='admin/login';
+    $this->template($components);
+    }
+    public function home(){
     $components['contentView']='admin/home';
     $this->template($components);
     }
@@ -15,10 +21,18 @@ class C_Admin extends MY_Controller
     $components['contentView']='admin/firepad/index';
     $this->template($components);
     }
+    public function login(){
+      $this->home();//redirect('c_admin/home');
+    }
     private function template($content){
     $components['contentView']=$content['contentView'];
     $this->load->view('admin/index',$components);
     }
+    public function test(){
+      $result=$this->m_admin->activity();
+      echo '<pre>';print_r($result);echo '</pre>';
+    }
+
     private function create_mail(){
       $content='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">

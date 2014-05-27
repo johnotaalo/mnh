@@ -1,3 +1,8 @@
+<script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"></script>
+<script type='text/javascript'
+        src='https://cdn.firebase.com/js/simple-login/1.4.1/firebase-simple-login.js'>
+</script>
+
 <div id="firepad"></div>
     <script>
       var firepadRef = new Firebase('https://maternal-child.firebaseio.com/firepads/mnch_docs');
