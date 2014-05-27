@@ -194,21 +194,21 @@ class M_HCW_Survey extends MY_Model
     private function addHCWProfile() {
     	$count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
+        	//print_r($this->input->post());die;
         	//For every posted values
             if (strpos($key, 'hcw') !== FALSE) {
-            	//select data for bemonc signal functions
+            	//select data for hcw profile
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
                 
                 //$this->id = $this->frags[1];  // the id
                 
                 $this->id = $count;
-                
+				
                 // the id
                 
                 $this->attr = $this->frags[0];
-                
-                //the attribute name
+				//the attribute name
                 
                 //print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
@@ -217,7 +217,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "hcw") {
+                if ($this->attr == "hcwProfileQCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -2500,7 +2500,7 @@ class M_HCW_Survey extends MY_Model
         if ($this->input->post()) {
  
 			
-           $step = 'section-3';//$this->input->post('step_name', TRUE);
+           $step = 'section-1';//$this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
                 case 'section-1':
