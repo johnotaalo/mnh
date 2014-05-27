@@ -415,8 +415,6 @@ class MY_Controller extends CI_Controller
 				<option value="Not Ordered">1. Not Ordered</option>
 				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
 				<option value="Expired">3. Expired</option>
-				<option value="All Used">4. All Used</option>
-				<option value="Not Applicable">5. Not Applicable</option>
 				
 
 			</select></td>
@@ -473,8 +471,6 @@ class MY_Controller extends CI_Controller
 			1.Not Ordered<input type="checkbox"></br>
 			2.Ordered but not yet received<input type="checkbox">
 			3.Expired<input type="checkbox">
-			4.All used<input type="checkbox">
-			5.Not Applicable<input type="checkbox">
 			</td>
 			<input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
@@ -509,8 +505,6 @@ class MY_Controller extends CI_Controller
 				<option value="Not Ordered">1. Not Ordered</option>
 				<option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
 				<option value="Expired">3. Expired</option>
-				<option value="All Used">4. All Used</option>
-				<option value="Not Applicable">5. Not Applicable</option>
 
 			</select></td>
 			<td style ="text-align:center;">
@@ -576,8 +570,6 @@ class MY_Controller extends CI_Controller
 				1. Not Ordered<input type="checkbox">
 				2. Ordered but not yet Received<input type="checkbox">
 				3. Expired<input type="checkbox">
-				4. All Used<input type="checkbox">
-				5. Not Applicable<input type="checkbox">
 			</td>
 			<td style ="text-align:center;">
 			<input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
@@ -769,7 +761,7 @@ class MY_Controller extends CI_Controller
 				<option value="Inadequate Drugs">1.Inadequate Drugs</option>
 				<option value="Inadequate Skill">2.Inadequate Skill</option>
 				<option value="Inadequate Supplies">3.Inadequate Supplies</option>
-				<option value="Inadequate Job aids">4.Inadequate Job aids</option>
+				<option value="No Job aids">4.No Job aids</option>
 				<option value="Inadequate equipment">5.Inadequate Equipment</option>
 				<option value="Case never presented">6.Case never presented</option>
 				<option value="No Challenge Experienced">7.No Challenge Experienced</option>
@@ -804,7 +796,7 @@ class MY_Controller extends CI_Controller
 			1.Inadequate Drugs<input type="checkbox">
 			2.Inadequate Skill<input type="checkbox">
 			3.Inadequate Supplies<input type="checkbox">
-			4.Inadequate Job aids<input type="checkbox">
+			4.No Job aids<input type="checkbox">
 			5.Inadequate Equipment<input type="checkbox">
 			6.Case never presented<input type="checkbox">
 			7.No Challenge Experienced<input type="checkbox">
@@ -889,7 +881,9 @@ class MY_Controller extends CI_Controller
 			</select>
 			</td>
 			<input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-		</tr>';
+		</tr>
+
+        ';
                 }
             }
         }
@@ -1514,14 +1508,8 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwConsultingAspectsSectionPDF.= '<tr>
-			<td><strong>3.1.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+			<td><strong>4.1.'.$counter .'</strong>  '. $value['questionName'] . '</td>
 			<td colspan="1">
-		Yes<input type="checkbox">No<input type="checkbox">
-		</td>
-		<td colspan="1">
-		Yes<input type="checkbox">No<input type="checkbox">
-		</td>
-		<td colspan="1">
 		Yes<input type="checkbox">No<input type="checkbox">
 		</td>
 			<input type="hidden"  name="hcwConsultingAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -1541,7 +1529,42 @@ class MY_Controller extends CI_Controller
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->hcwInterviewAspectsSection.= '<tr>
+            if($value['questionCode']=='QHC12'){
+
+                 $this->hcwInterviewAspectsSection.= '<tr>
+            <td>' . $value['questionName'] . '</td>
+            <td>
+            <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            Specify <input type="text" name="questionSpecify_'.$counter.'" >
+            </td>
+            <td><input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" /></td>
+        </tr>';
+            }
+            if($value['questionCode']=='QHC13'){
+
+                 $this->hcwInterviewAspectsSection.= '<tr>
+            <td>' . $value['questionName'] . '</td>
+            <td>
+            <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Self">Self</option>
+                <option value="Spouse">Spouse</option>
+                <option value="Relative">Relative</option>
+                <option value="Friend">Friend</option>
+                <option value="Community Health Worker">Community Health Worker</option>
+                <option value="Other">Other (Specify)</option>
+            </select>
+            Other<input type="text" name="questionAspectResponseOther_' . $counter . '" id="questionAspectResponseOther_' . $counter . '"
+            </td>
+            <td><input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" /></td>
+        </tr>';
+            }
+            else{
+                 $this->hcwInterviewAspectsSection.= '<tr>
             <td>' . $value['questionName'] . '</td>
             <td>
             <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
@@ -1552,6 +1575,9 @@ class MY_Controller extends CI_Controller
             </td>
             <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
+            }
+            
+           
         
         }
         
@@ -1566,20 +1592,54 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
+
             $counter++;
-            $this->hcwInterviewAspectsSectionPDF.= '<tr>
-			<td><strong>3.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
-			<td colspan="1">
-		Yes<input type="checkbox">No<input type="checkbox">
-		</td>
-		<td colspan="1">
-		Yes<input type="checkbox">No<input type="checkbox">
-		</td>
-		<td colspan="1">
-		Yes<input type="checkbox">No<input type="checkbox">
-		</td>
-			<input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-		</tr>';
+             if($value['questionCode']=='QHC12'){
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+            <td colspan="1">
+        Yes<input type="checkbox">No<input type="checkbox">
+         Specify <input type="text" name="questionSpecify_'.$counter.'" >
+        </td>
+            <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+             }
+             else if($value['questionCode']=='QHC13'){
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+            <td colspan="1">
+
+        Self<input type="checkbox">Spouse<input type="checkbox">Relative<input type="checkbox">
+        Friend<input type="checkbox">Community Health Worker<input type="checkbox">
+        Other (Specify)<input type="text">
+        </td>
+            <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+             }
+             else if($value['questionCode']=='QHC18'){
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+            <td colspan="1">
+
+        Mother<input type="checkbox">Father<input type="checkbox">Grandmother<input type="checkbox">
+        Frandfather<input type="checkbox">Aunt<input type="checkbox">Uncle<input type="checkbox">
+        Brother<input type="checkbox">Sister<input type="checkbox">
+        Other (Specify)<input type="text">
+        </td>
+            <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+             }
+             else{
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+            <td colspan="1">
+        Yes<input type="checkbox">No<input type="checkbox">
+        </td>
+            <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+
+             }
+           
         }
         
         //echo $this->mnhCEOCAspectsSection;die;

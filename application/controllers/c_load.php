@@ -1819,6 +1819,10 @@ public function get_hcw_form() {
 			</tr>
 		
 		</table>
+		<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+		</p>
 		<table class="centre">
 		<thead>
 		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
