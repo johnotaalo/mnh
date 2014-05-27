@@ -1357,3 +1357,8 @@ img.alignright, img.right {
 	width:60%;
 	height:100%;
 }
+.instruction{
+	background: #FAEBD7;
+	padding:3px;
+	width:100%;
+}

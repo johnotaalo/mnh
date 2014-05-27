@@ -74,7 +74,6 @@ class MY_Controller extends CI_Controller
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
 		$this->createHcwProfileSection();
-		$this->createhcwCaseManagementSection();
 		$this->createmchConsultationSection();
         
         //pdf functions
@@ -1054,181 +1053,6 @@ class MY_Controller extends CI_Controller
         //echo $this->mchConsultationSection;die;
         return $this->mchConsultationSection;
     }
-	    /**Function to create various sections based on the indicator type * */
-    public function createhcwCaseManagementSection() {
-        $this->data_found = $this->m_hcw_survey->getIndicatorNames();
-        
-        //var_dump($this->data_found);die;
-        $counter = 0;
-        $section = '';
-        $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
-        $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-         $numbering = array_merge(range('A','Z'),range('a', 'z'));
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $section = $value['indicatorFor'];
-            
-            if ($section == 'svc') {
-                $svc.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$svcn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $svcn++;
-            } else if ($section == 'dgn') {
-                $dgn.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$dgnn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $dgnn++;
-            } else if ($section == 'cns') {
-                $cns.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$cnsn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $cnsn++;
-            } else if ($section == 'ror') {
-                $ror.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$rorn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $rorn++;
-            } else if ($section == 'sgn') {
-                $sgn.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$sgnn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $sgnn++;
-            } else if ($section == 'pne') {
-                $pne.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$pnen] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $pnen++;
-            } else if ($section == 'fev') {
-                $fev.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$fevn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $fevn++;
-            } else if ($section == 'con') {
-                $con.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$conn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $conn++;
-            } else if ($section == 'cls') {
-                $cls.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$clsn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $clsn++;
-            } else if ($section == 'cnl') {
-                $cnl.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$cnln] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $cnln++;
-            } else if ($section == 'ref') {
-                $ref.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$sgnn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $refn++;
-            }
-        }
-        
-        $this->hcwCaseManagementSection['svc'] = $svc;
-        $this->hcwCaseManagementSection['dgn'] = $dgn;
-        $this->hcwCaseManagementSection['cns'] = $cns;
-        $this->hcwCaseManagementSection['ror'] = $ror;
-        $this->hcwCaseManagementSection['sgn'] = $sgn;
-        $this->hcwCaseManagementSection['pne'] = $pne;
-        $this->hcwCaseManagementSection['fev'] = $fev;
-        $this->hcwCaseManagementSection['con'] = $con;
-        $this->hcwCaseManagementSection['cnl'] = $cnl;
-        $this->hcwCaseManagementSection['ref'] = $ref;
-        $this->hcwCaseManagementSection['cls'] = $cls;
-        
-        //echo $this->hcwCaseManagementSection;die;
-        return $this->hcwCaseManagementSection;
-    }
 	
     /**Function to create the section: mnh water availability follow up questions in Section 6 of 7 ii
      * */
@@ -1483,7 +1307,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hcwConsultingAspectsSection.= '<tr>
-			<td>' . $value['questionName'] . '</td>
+			<td><strong>4.1.'.$counter .'</strong>  '. $value['questionName'] . '</td>
 			<td>
 			<select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
 				<option value="" selected="selected">Select One</option>
@@ -1532,7 +1356,7 @@ class MY_Controller extends CI_Controller
             if($value['questionCode']=='QHC12'){
 
                  $this->hcwInterviewAspectsSection.= '<tr>
-            <td>' . $value['questionName'] . '</td>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
             <td>
             <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
@@ -1541,13 +1365,13 @@ class MY_Controller extends CI_Controller
             </select>
             Specify <input type="text" name="questionSpecify_'.$counter.'" >
             </td>
-            <td><input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" /></td>
+            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
             if($value['questionCode']=='QHC13'){
 
                  $this->hcwInterviewAspectsSection.= '<tr>
-            <td>' . $value['questionName'] . '</td>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
             <td>
             <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
@@ -1560,12 +1384,34 @@ class MY_Controller extends CI_Controller
             </select>
             Other<input type="text" name="questionAspectResponseOther_' . $counter . '" id="questionAspectResponseOther_' . $counter . '"
             </td>
-            <td><input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" /></td>
+            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
+            else if($value['questionCode']=='QHC18'){
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
+             <td>
+            <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Mother">Mother</option>
+                <option value="Father">Father</option>
+                <option value="Grandmother">Grandmother</option>
+                <option value="Grandfather">Grandfather</option>
+                <option value="Aunt">Aunt</option>
+                <option value="Uncle">Uncle</option>
+                <option value="Brother">Brother</option>
+                <option value="Sister">Sister</option>
+                <option value="Aunt">Aunt</option>
+                <option value="Other">Other (Specify)</option>
+            </select>
+            <input type="text" name="questionAspectOtherResponse_' . $counter . '">
+        </td>
+            <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+             }
             else{
                  $this->hcwInterviewAspectsSection.= '<tr>
-            <td>' . $value['questionName'] . '</td>
+            <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
             <td>
             <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
@@ -2200,173 +2046,41 @@ class MY_Controller extends CI_Controller
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
-        //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
-        $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
-        $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-       $numbering = array_merge(range('A','Z'),range('a', 'z'));
-	    foreach ($this->data_found as $value) {
+        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $base = 0;
+        $current = "";
+        foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
+            $current = ($base == 0) ? $section : $current;
+            $base = ($current != $section) ? 0 : $base;
+            $current = ($base == 0) ? $section : $current;
             
-            if ($section == 'svc') {
-                $svc.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$svcn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $svcn++;
-            } else if ($section == 'dgn') {
-                $dgn.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$dgnn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $dgnn++;
-            } else if ($section == 'cns') {
-                $cns.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$cnsn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $cnsn++;
-            } else if ($section == 'ror') {
-                $ror.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$rorn] . ')</strong> ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $rorn++;
-            } else if ($section == 'sgn') {
-                $sgn.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$sgnn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $sgnn++;
-            } else if ($section == 'pne') {
-                $pne.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$pnen] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $pnen++;
-            } else if ($section == 'fev') {
-                $fev.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$fevn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $fevn++;
-            } else if ($section == 'con') {
-                $con.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$conn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $conn++;
-            } else if ($section == 'cls') {
-                $cls.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$clsn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $clsn++;
-            } else if ($section == 'cnl') {
-                $cnl.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$cnln] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $cnln++;
-            } else if ($section == 'ref') {
-                $ref.= '<tr>
-			<td colspan="1"><strong>(' . $numbering[$sgnn] . ')</strong>  ' . $value['indicatorName'] . '</td>
-			<td colspan="1">
-			<select name="mchIndicator_' . $counter . '" id="mchIndicator_' . $counter . '" class="cloned">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option>
-			</select>
-			</td>
-			<input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-		</tr>';
-                $refn++;
-            }
+            $base++;
+            $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+            <td>
+                <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+
+            </select>
+            </td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+        </tr>';
         }
         
-        $this->mchIndicatorsSection['svc'] = $svc;
-        $this->mchIndicatorsSection['dgn'] = $dgn;
-        $this->mchIndicatorsSection['cns'] = $cns;
-        $this->mchIndicatorsSection['ror'] = $ror;
-        $this->mchIndicatorsSection['sgn'] = $sgn;
-        $this->mchIndicatorsSection['pne'] = $pne;
-        $this->mchIndicatorsSection['fev'] = $fev;
-        $this->mchIndicatorsSection['con'] = $con;
-        $this->mchIndicatorsSection['cnl'] = $cnl;
-        $this->mchIndicatorsSection['ref'] = $ref;
-        $this->mchIndicatorsSection['cls'] = $cls;
+        foreach ($data as $key => $value) {
+            $this->mchIndicatorsSection[$key] = '';
+            foreach ($value as $val) {
+                $this->mchIndicatorsSection[$key].= $val;
+            }
+        }
+        return $this->mchIndicatorsSection;
         
         //echo $this->mchIndicatorsSection;die;
         return $this->mchIndicatorsSection;

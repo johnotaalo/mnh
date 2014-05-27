@@ -1912,6 +1912,9 @@ public function get_hcw_form() {
         </tr>
     </tbody>
 </table>
+<p class="instruction">
+		* If healthcare worker works in many departments, write ALL
+</p>
 <table>
     <thead>
         <tr>
@@ -1973,6 +1976,9 @@ public function get_hcw_form() {
 
 		<input type="hidden" name="step_name" value="section-2"/>
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="instruction">
+		* Assessor should indicate findings alongside Healthcare Worker findings.
+</p>
 <table class="centre">
     
         <tr>
@@ -1983,7 +1989,7 @@ public function get_hcw_form() {
             <th> RESPONSE </th>
         </tr>
     
-    ' . $this -> hcwCaseManagementSection['svc'] . '
+    ' . $this -> mchIndicatorsSection['svc'] . '
 </table>
 <table class="centre">
     
@@ -1995,7 +2001,19 @@ public function get_hcw_form() {
             <th > RESPONSE </th>
         </tr>
     
-    ' . $this -> hcwCaseManagementSection['sgn'] . '
+    ' . $this -> mchIndicatorsSection['sgn'] . '
+</table>
+<table class="centre">
+    <thead>
+    <tr>
+		<th colspan="6">CHILD PROFILE</th>
+    </tr>
+    </thead>
+        <tr>
+            <td>Gender (M or F)</td><td><input type="text"></td>
+            <td>Age (In Months)</td><td><input type="text"></td>
+            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
+        </tr>
 </table>
 <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
@@ -2008,7 +2026,7 @@ public function get_hcw_form() {
             <th>1. Cough / Pneumonia</th>
         </tr>
     
-     ' . $this -> hcwCaseManagementSection['pne'] . '
+     ' . $this -> mchIndicatorsSection['pne'] . '
 </table>
 <table class="centre">
     
@@ -2020,7 +2038,7 @@ public function get_hcw_form() {
             <th>2. Diarrhoea</th>
         </tr>
     
-     ' . $this -> hcwCaseManagementSection['dgn'] . '
+     ' . $this -> mchIndicatorsSection['dgn'] . '
 </table>
 <table class="centre">
     
@@ -2033,9 +2051,13 @@ public function get_hcw_form() {
             
         </tr>
     
-     ' . $this -> hcwCaseManagementSection['fev'] . '
+     ' . $this -> mchIndicatorsSection['fev'] . '
 </table>
-<p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
+</div>
+<div id="section-3" class="step">
+
+<input type="hidden" name="step_name" value="section-3"/>
+<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
     
         <tr>
@@ -2044,7 +2066,7 @@ public function get_hcw_form() {
         </tr>
     
     <tbody>
-     ' . $this -> hcwCaseManagementSection['con'] . '
+     ' . $this -> mchIndicatorsSection['con'] . '
     </tbody>
 </table>
 <table class="centre">
@@ -2055,7 +2077,7 @@ public function get_hcw_form() {
         </tr>
     
     <tbody>
-        ' . $this -> hcwCaseManagementSection['cls'] . '
+        ' . $this -> mchIndicatorsSection['cls'] . '
     </tbody>
 </table>
 <table class="centre">
@@ -2066,33 +2088,21 @@ public function get_hcw_form() {
         </tr>
     
     <tbody>
-        ' . $this -> hcwCaseManagementSection['cnl'] . '
-    </tbody>
-</table>
-<table class="centre">
-    
-        <tr>
-            <th width="700px">Referrals</th>
-            <th>Response</th>
-        </tr>
-    
-    <tbody>
-        ' . $this -> hcwCaseManagementSection['ref'] . '
-    </tbody>
+        ' . $this -> mchIndicatorsSection['cnl'] . '
     </tbody>
 </table>
 </div>
-<div id="section-3" class="step">
+<div id="section-4" class="step">
 
-		<input type="hidden" name="step_name" value="section-3"/>
+<input type="hidden" name="step_name" value="section-4"/>
 <p class="message success">CONSULTATION OBSERVATION</p>
 <table class="centre">
-	   <thead>
+	  
      	<tr>
-            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+            <th width="700px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
         </tr>
-        </thead>
+        
     <tbody>
        ' . $this -> hcwConsultingAspectsSection . '
         
@@ -2100,12 +2110,12 @@ public function get_hcw_form() {
     <tfoot></tfoot>
 </table>
 <table class="centre">
-    <thead>
+    
      	<tr>
-            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+            <th width="700px">4.2 Exit Interview With The Caregiver</th>
         	<th>Case 1</th>
         </tr>
-    </thead>
+    
     <tbody>
        ' . $this -> hcwInterviewAspectsSection . '
         
@@ -2113,10 +2123,10 @@ public function get_hcw_form() {
     <tfoot></tfoot>
 </table>
 </div>
-<div id="section-4" class="step">
+<div id="section-5" class="step">
 
-		<input type="hidden" name="step_name" value="section-4"/>
-<p class="message success">PROVIDER SCORE</p>
+		<input type="hidden" name="step_name" value="section-5"/>
+<!--p class="message success">PROVIDER SCORE</p>
 <table class="centre">
     <thead>
         <tr>
@@ -2150,22 +2160,81 @@ public function get_hcw_form() {
             <td><input type="text"></td>
         </tr>
     </tbody>
-</table>
-<p class="message success">ASSESSMENT OUTCOME</p>
+</table-->
 <table>
+<thead>
+	<tr>
+		<th colspan="2">ASSESSMENT OUTCOME</th>
+	</tr>
+</thead>
     <tr>
-        <td colspan="2">
-            <p><input type="radio">Fully Practicing IMCI</p>
-            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
-            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
-            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+        <td>
+            <input type="radio" name="questionAspectResponse_1" value="Fully Practicing IMCI">	Fully Practicing IMCI
         </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="radio" name="questionAspectResponse_1" value="Practicing with gaps">	Practicing with gaps
+        </td>
+        <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           	<input type="radio" name="questionAspectResponse_1" value="Not practicing at all">	Not practicing at all
+        </td>
+         <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Certification
+        </th>
+    </tr>
+     <tr>
+        <td colspan="2">
+           Health care worker approved for certification	<input type="radio" name="questionAspectResponse_2" value="Yes">YES <input type="radio" name="questionAspectResponse_2" value="No">NO
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Mentorship
+        </th>
+    </tr>
+     <tr>
+        <td colspan="2">
+            Recommended for Mentor TOT?		<input type="radio" name="questionAspectResponse_3" value="Yes">YES <input type="radio" name="questionAspectResponse_3" value="No">NO
+        </td>
+    </tr>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Share your findings from observational sessions with provider. 
+			Praise for the things done well and discuss on the identified weakness, show how it could be done. 
+			<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly. 
+			Note down the decisions which have been taken to improve the skills and continue the practices</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Action/s taken by supervisor:</td>
+			<td>Action/s taken by supervisee:</td>
+		</tr>
+		<tr>
+			<td><textarea name="actionTaken[supervisor]"style="width:400px;height:100px"></textarea></td>
+			<td><textarea name="actionTaken[supervisee]"style="width:400px;height:100px"></textarea></td>
+		</tr>
+	</tbody>
+</table>
+<p style="margin-top:0.5px"></p>
+<table style="border:2px solid #666">
+    <tr>
+        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
     </tr>
 </table>
 

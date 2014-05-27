@@ -1533,7 +1533,7 @@ class C_Pdf extends MY_Controller {
 <p class="instruction">
 		* For Facility Type(Dispensary, Health Centre etc.)
 		* For Owned By (Public/Private/FBO/MOH/NGO)
-		</p>
+</p>
 <table>
     <thead>
         <tr>
@@ -1591,7 +1591,7 @@ class C_Pdf extends MY_Controller {
 </table>
 <p class="instruction">
 		* If healthcare worker works in many departments, write ALL
-		</p>
+</p>
 <table>
     <thead>
         <tr>
@@ -1650,6 +1650,7 @@ class C_Pdf extends MY_Controller {
 <p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <p class="instruction">
 		* Assessor should indicate findings alongside Healthcare Worker findings.
+</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1809,7 +1810,7 @@ class C_Pdf extends MY_Controller {
     </tr>
     <tr>
         <td>
-            <input type="radio">	Practicing with gaps Reason
+            <input type="radio">	Practicing with gaps
         </td>
         <td>
             Reason <input type="text" size="100">
@@ -1817,7 +1818,7 @@ class C_Pdf extends MY_Controller {
     </tr>
     <tr>
         <td>
-           	<input type="radio">	Not practicing at all Reason
+           	<input type="radio">	Not practicing at all
         </td>
          <td>
             Reason <input type="text" size="100">
