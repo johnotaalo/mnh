@@ -604,7 +604,7 @@ ORDER BY ca.comm_code,location ASC";
 							}
 
 							break;
-						case 'mch' :
+						case 'ch' :
 							//collect the data_sets
 							if (strpos($value_['location'], 'OPD') !== FALSE) {
 								$data_set['OPD'][$this -> getCommodityNameById($value_['commodities'])][] = intval($value_['total_response']);
