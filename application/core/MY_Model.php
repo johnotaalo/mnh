@@ -238,21 +238,6 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> questions;
 	}/*end of getAllOrtAspects*/
-	function gethcwProviderScore($for,$code) {
-		/*using DQL*/
-		try {
-			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q WHERE q.questionFor= :for AND q.questionCode LIKE :code ORDER BY q.questionCode ASC');
-			$this -> questions -> setParameter('for', $for);
-			$this -> questions -> setParameter('code', $code.'%');
-			$this -> questions = $this -> questions -> getResult();
-
-			//die(var_dump($this->mnhIndicator));
-		} catch(exception $ex) {
-			//ignore
-			//$ex->getMessage();
-		}
-		return $this -> questions;
-	}/*end of getAllOrtAspects*/
 	
 	function getAllQuestions() {
 		/*using DQL*/

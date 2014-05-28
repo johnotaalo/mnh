@@ -93,14 +93,6 @@ class M_MCH_Survey extends MY_Model
         return $this->supplierList;
     }
     
-     /*calls the query defined in MY_Model*/
-    public function getAllQuestions() {
-        $this->supplierList = $this->getQuestions();
-        
-        //var_dump($this->supplierList);die;
-        return $this->supplierList;
-    }
-    
     /*calls the query defined in MY_Model*/
     public function getTrainingGuidelines() {
         $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
@@ -1373,10 +1365,130 @@ class M_MCH_Survey extends MY_Model
         
     }
      //close addMchGuidelinesAvailabilityInfo
-    private function addDiarrhoeaCasesByMonthInfo() {
+    private function addTotalMCHTreatment() {
         
         //print_r($this -> input -> post());die;
         foreach ($this->input->post() as $key => $val) {
+        	
+             //For every posted values
+            if (strpos($key, 'mcht') !== FALSE) {
+            	
+                 //select data for number of deliveries
+                $this->attr = $key;
+				//the attribute name
+                
+                //split into 2 years: 2012 & 2013 --for later :-)
+                
+                if (!empty($val)) {
+                	//We then store the value of this attribute for this element.
+                    // $this->elements[$this->id][$this->attr]=htmlentities($val);
+                    $count = 1;
+					foreach ($val as $k => $total) {
+                    	$this->elements[$count]['totalTreatment'] = htmlentities($total);
+                       	$this->elements[$count]['classification'] = htmlentities($k);
+                        $count++;
+                    }
+                } else {
+                    $this->elements[$this->attr] = '';
+                }
+                
+                //print $key.' val='.$val.' <br />';
+                
+            }
+        }
+         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //exit;
+        
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = 12;
+        
+        //labour and delivery Qn5 to 8 will have a single response each
+        print_r($this -> elements);die;
+        
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+            
+            //echo 'Done'.$i;
+            $this->theForm = new \models\Entities\LogMorbidity();
+            
+            //create an object of the model
+            
+            $this->theForm->setCreatedAt(new DateTime());
+            
+            /*timestamp option*/
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            
+            /*if no value set, then set to -1*/
+            
+            //print_r($this->elements);die;
+            $this->theForm->setMonth($this->elements[$i]['monthName']);
+            $this->theForm->setLmNumber($this->elements[$i]['monthData']);
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->em->persist($this->theForm);
+            
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+                    
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+            
+            //end of batch condition
+            
+        }
+         //end of innner loop
+        
+        
+    }
+     //close addDiarrhoeaCasesByMonthInfo()
+     private function addDiarrhoeaCasesByMonthInfo() {
+        foreach ($this->input->post() as $key => $val) {
+        	//print_r($this -> input -> post());die;
              //For every posted values
             if (strpos($key, 'dn') !== FALSE) {
                  //select data for number of deliveries
@@ -1392,7 +1504,7 @@ class M_MCH_Survey extends MY_Model
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 1;
                     foreach ($val as $k => $month) {
-                        $this->elements[$count]['monthData'] = htmlentities($month);
+                    	$this->elements[$count]['monthData'] = htmlentities($month);
                         $this->elements[$count]['monthName'] = htmlentities($k);
                         $count++;
                     }
@@ -2301,7 +2413,7 @@ class M_MCH_Survey extends MY_Model
             
             $step = $this->input->post('step_name', TRUE);
             switch ($step) {
-                /*case 'section-1':
+                case 'section-1':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -2313,7 +2425,7 @@ class M_MCH_Survey extends MY_Model
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
                        // $this->addMchCommunityStrategyInfo() == true) {
-                        	 /*$this->addmchConsultationQuestions() == true) {
+                        	 $this->addmchConsultationQuestions() == true) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
@@ -2339,7 +2451,8 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true) {
+                       //if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
+                            if($this->addTotalMCHTreatment()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -2385,7 +2498,7 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addAccessChallengesInfo() == true && $this->addMCHIndicatorInfo() == true && $this->addDiarrhoeaCasesByMonthInfo() == true && $this->addMCHTreatmentInfo() == true) {
+                        if ($this->addAccessChallengesInfo() == true && $this->addMCHIndicatorInfo() == true && $this->addDiarrhoeaCasesByMonthInfo() == true ) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -2449,11 +2562,11 @@ class M_MCH_Survey extends MY_Model
                         //$this->markSurveyStatusAsComplete();
                         return $this->response = 'true';
                     }
-                    break;*/
+                    break;
             }
              //close switch
             
-            return $this -> response = 'true';
+            //return $this -> response = 'true';
             
         }
     }
