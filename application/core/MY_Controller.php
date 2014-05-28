@@ -2183,8 +2183,13 @@ class MY_Controller extends CI_Controller
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
+<<<<<<< HEAD
        $numbering = array_merge(range('A','Z'),range('a', 'z'));
 	    foreach ($this->data_found as $value) {
+=======
+        $numbering = array_merge(range('A','Z'),range('a','z'));
+        foreach ($this->data_found as $value) {
+>>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
             $counter++;
             $section = $value['indicatorFor'];
             
@@ -2355,7 +2360,11 @@ class MY_Controller extends CI_Controller
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
+<<<<<<< HEAD
         $numbering = array_merge(range('A','Z'),range('a', 'z'));
+=======
+        $numbering = array_merge(range('A','Z'),range('a','z'));
+>>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -3388,6 +3397,13 @@ class MY_Controller extends CI_Controller
     
    /* public function createTreatmentsMCHSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentNames();
+<<<<<<< HEAD
+=======
+        $newData = array();
+        if(isset($this->data_found)){foreach ($this->data_found as $val) {
+            $newData[$val['treatmentFor']][$val['treatmentName']][] = array('treatmentFor' => $val['treatmentFor'], 'tcName' => $val['tcName'], 'treatmentCode' => $val['treatmentCode']);
+        }
+>>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
         
         //var_dump($this->data_found);die;
         $unit = "";
@@ -3437,8 +3453,14 @@ class MY_Controller extends CI_Controller
 		</tr>';
             }
         }
+<<<<<<< HEAD
         
         //echo $this->equipmentsMCHSection;die;
+=======
+        }
+        //echo '<table>'.$this->treatmentMCHSection['dia'].'</table>';
+        //die;
+>>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
         return $this->treatmentMCHSection;
     }*/
     
