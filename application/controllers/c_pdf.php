@@ -1197,7 +1197,7 @@ class C_Pdf extends MY_Controller {
 
 			</tr>
 			<tr>
-			<td>
+			<td colspan="15" style="background:#ffffff">
 				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
 			</td>
 			</tr>
@@ -1214,9 +1214,9 @@ class C_Pdf extends MY_Controller {
 		</tr>
 		<tr>
 			<td>
-				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+				<p class="instruction" colspan="15" style="background:#ffffff">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
 			</td>
-			</tr>
+		</tr>
 		
 		<tr>
 			<th rowspan="2" >Commodity Name</th>

@@ -1060,7 +1060,7 @@ class C_Load extends MY_Controller {
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td colspan="2">Incharge </td>
+			<td colspan="2">Incharge Incharge</td>
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
@@ -1071,7 +1071,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">MCH </td>
+			<td colspan="2">MCH Incharge</td>
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
@@ -1081,9 +1081,8 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
-		<!--tr>
-			<td  colspan="2">Maternity </td>
-			<td>
+		<tr>
+			<td >Maternity Incharge </td><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1092,7 +1091,17 @@ class C_Load extends MY_Controller {
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
-		</tr-->
+		</tr>
+		<tr>
+			<td>OPD Incharge</td><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
 
 	</table>
 	<table class="centre">
@@ -1197,7 +1206,7 @@ class C_Load extends MY_Controller {
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -1214,10 +1223,7 @@ class C_Load extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="2">Available Quantities</th>
-			<th scope="col">
 			
-				Main Supplier
-			</th>
 
 		</tr>
 		<tr >
@@ -1235,17 +1241,28 @@ class C_Load extends MY_Controller {
 			<td>Not Applicable</td>
 			<td>No. of Units</td>
 			<td>Expiry Date</td>
-			<td>Supplier</td>
+			
 
-		</tr>' . $this -> mchCommodityAvailabilitySection . '
+		</tr>
+		<tr>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
+		</tr>
+			' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>
 	 <table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="14">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
+		<tr>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
+			</tr>
 		</thead>
 		<tr>
 			<th scope="col" >Commodity Name</th>
@@ -1261,10 +1278,7 @@ class C_Load extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="1">Available Quantities</th>
-			<th colspan="1" rowspan="2">
 			
-				Main Supplier
-			</th>
 
 		</tr>
 		<tr >
@@ -1291,6 +1305,7 @@ class C_Load extends MY_Controller {
 			<tr>
 				<th colspan="6" > DATA FROM THE TOOLS </th>
 			</tr>
+			</thead>
 			<tr>
 				<th colspan="6" > (A) MALARIA</th>
 			</tr>
@@ -1298,50 +1313,15 @@ class C_Load extends MY_Controller {
 				<th  rowspan="2" style="width:35%">TREATMENT</th>
 				<th colspan="5" style="text-align:center"> Classification</th>
 				</tr>
-				<tr >
-					<th>Malaria</th>
-					<th>Fever No malaria</th>
-					</tr>
-					<tr >
-					<td>Artemether Lumefantrine(AL)</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Artesunate</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Chloramphenical</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr><tr >
-					<td>Paracetamol</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Quenine</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Referral for admission</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Other, specify</td>
-					<input type="text", name = "specify">
-					</tr>
-			</thead>
+			
+			
 		</table>
 		<table class="centre">
 		<thead>
 			<tr>
 				<th colspan="6" > (B) PNEUMONIA</th>
 			</tr>
+		</thead>
 				<tr>
 				<th  rowspan="2" style="width:35%">TREATMENT</th>
 					<th colspan="5" style="text-align:center"> Classification</th>
@@ -1369,12 +1349,14 @@ class C_Load extends MY_Controller {
 					<td>Other, specify</td>
 					<input type="text", name = "specify">
 					</tr>
-			</thead>
+			
 		</table>
-		<table class="centre"><thead>
+		<table class="centre">
+		<thead>
 			<tr>
 				<th colspan="6" > (C) DIARRHOEA </th>
 			</tr>
+		</thead>
 				<tr>
 					<th  rowspan="2" style="width:35%">TREATMENT</th>
 					<th colspan="5" style="text-align:center"> Classification</th>
@@ -1388,7 +1370,7 @@ class C_Load extends MY_Controller {
 					<th>Dysentry</th>
 					<th>No Classification</th>
 				</tr>
-			</thead>
+			
 			' . $this -> treatmentMCHSection . '
 		</table>
 		<table class="centre">
@@ -1397,10 +1379,11 @@ class C_Load extends MY_Controller {
 			<tr>
 				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
 			</tr>
+			</thead>
 				<tr>
 				<th colspan="6" style="text-align:center"> Classification</th>
 				</tr>
-				</thead>
+				
 					<tr >
 					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
 					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>

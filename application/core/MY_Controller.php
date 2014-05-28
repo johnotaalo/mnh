@@ -530,15 +530,11 @@ class MY_Controller extends CI_Controller
 			
 
 			<td style ="text-align:center;">
-			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
+			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="number" size="5" class="cloned numbers"/>
 			</td>
 			<td style ="text-align:center;">
 			<input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
 			</td>
-			<td width="50">
-			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
-			<option value="" selected="selected">Select One</option>' . $supplier_names . '
-			</select></td>
 			<input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
         }
@@ -665,10 +661,6 @@ class MY_Controller extends CI_Controller
 			<td style ="text-align:center;">
 			<input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
 			</td>
-			<td width="50">
-			<select name="cqSupplier_' . $counter . '" id="cqSupplier_' . $counter . '" class="cloned">
-			<option value="" selected="selected">Select One</option>' . $supplier_names . '
-			</select></td>
 			<input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
 	</tr>';
         }
@@ -973,7 +965,7 @@ class MY_Controller extends CI_Controller
             $this->mchCommunityStrategySection.= '<tr>
 			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<input type="text"  name="mchCommunityStrategy_' . $counter . '" id="mchCommunityStrategy_' . $counter . '" value="" class="numbers cloned"/>
+			<input type="number"  name="mchCommunityStrategy_' . $counter . '" id="mchCommunityStrategy_' . $counter . '" value="" class="numbers cloned"/>
 			</td>
 			<input type="hidden"  name="mchCommunityStrategyQCode_' . $counter . '" id="mchCommunityStrategyQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 		</tr>';
