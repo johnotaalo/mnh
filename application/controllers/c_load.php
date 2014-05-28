@@ -1,6 +1,6 @@
 <?php
 class C_Load extends MY_Controller {
-	var $rows, $combined_form, $message;
+	var $rows, $facilityList,$combined_form, $message;
 
 	public function __construct() {
 		parent::__construct();
@@ -1045,9 +1045,13 @@ class C_Load extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
+<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+</p>
 		<table class="centre">
 		<thead>
-		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+		<th colspan="12" >HR INFORMATION</th>
 		</thead>
 		<tr >
 			<th scope="col" colspan="2" >CADRE</th>
@@ -1056,7 +1060,7 @@ class C_Load extends MY_Controller {
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td colspan="2">Incharge </td>
+			<td colspan="2">Incharge Incharge</td>
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
@@ -1067,7 +1071,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">MCH </td>
+			<td colspan="2">MCH Incharge</td>
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
@@ -1077,9 +1081,8 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
-		<!--tr>
-			<td  colspan="2">Maternity </td>
-			<td>
+		<tr>
+			<td >Maternity Incharge </td><td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1088,15 +1091,58 @@ class C_Load extends MY_Controller {
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
-		</tr-->
+		</tr>
+		<tr>
+			<td>OPD Incharge</td><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
 
 	</table>
-	<table>
+	<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+			</tr>
+		</thead>
+			<tr>
+
+				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
+				<th rowspan ="2" style="text-align:left">Total in Facility</th>
+				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
+				<th colspan="2"># of Staff Trained in IMCI</th>
+				<th colspan="2"># of Staff Trained in ICCM</th>
+				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
+				<th colspan="2"># of Staff Trained in Diarrhoea and Pnemonia CMEs for U5s</th>
+				<th rowspan ="2">				
+					How Many Of The Total Staff Members
+					Trained in IMCI are still Working in Child Health Unit?</th>
+			</tr>
+			<tr>
+				<th style="text-align:left;width:50px">BEFORE 2010</th>
+				<th style="text-align:left;width:50px">AFTER 2010</th>
+				<th style="text-align:left;width:50px">BEFORE 2013</th>
+				<th style="text-align:left">AFTER 2013</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2014</th>
+				<th style="text-align:left">AFTER 2014</th>
+			</tr>
+		
+		'.$this->mchTrainingGuidelineSection.'
+
+	</table>
+<table>
   <thead>
 	<th colspan = "12">HEALTH SERVICES</th>
 	</thead>
 	<tbody>
-	<tr>Where are sick children seen?
+	<tr><th colspan = "12">Where are sick children seen?</th>
 	</tr>
 	<tr>
 		<td>OPD</td>
@@ -1154,24 +1200,13 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
 	
-     <table class="centre">
-	<thead>
-		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained before 2010</th>
-		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in Child Health?</div></th>
-		
-		' . $this -> mchTrainingGuidelineSection . '
 
-	</table>
 	
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			<th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 		</tr>
 		</thead>
 		<tr>
@@ -1188,10 +1223,7 @@ class C_Load extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="2">Available Quantities</th>
-			<th scope="col">
 			
-				Main Supplier
-			</th>
 
 		</tr>
 		<tr >
@@ -1209,17 +1241,28 @@ class C_Load extends MY_Controller {
 			<td>Not Applicable</td>
 			<td>No. of Units</td>
 			<td>Expiry Date</td>
-			<td>Supplier</td>
+			
 
-		</tr>' . $this -> mchCommodityAvailabilitySection . '
+		</tr>
+		<tr>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
+		</tr>
+			' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>
 	 <table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="14">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
+		<tr>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
+			</tr>
 		</thead>
 		<tr>
 			<th scope="col" >Commodity Name</th>
@@ -1235,10 +1278,7 @@ class C_Load extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="1">Available Quantities</th>
-			<th colspan="1" rowspan="2">
 			
-				Main Supplier
-			</th>
 
 		</tr>
 		<tr >
@@ -1259,7 +1299,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchBundling . ' 
 
 	</table>
-	<table class="centre">
+		<table class="centre">
 
 			<thead>
 			<tr>
@@ -1317,25 +1357,16 @@ class C_Load extends MY_Controller {
 			' . $this -> treatmentMCHSection . '
 		</table>
 		<table class="centre">
-		
-		<thead>
-			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above)(One Selection Allowed) </th>
-		</thead>
-		'.$this -> selectAccessChallenges.'
-		
-		
-	</table>
-		<table class="centre">
 
 			<thead>
 			<tr>
 				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
 			</tr>
+			</thead>
 				<tr>
 				<th colspan="6" style="text-align:center"> Classification</th>
 				</tr>
-				</thead>
+				
 					<tr >
 					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
 					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>
@@ -1355,35 +1386,6 @@ class C_Load extends MY_Controller {
 					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
 					</tr>
 		</table>
-		<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="15"  > CLINICAL STAFF</th>
-			</tr>
-			<tr>
-				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
-				<th style="text-align:left">TOTAL IN FACILITY</th>
-				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
-				<th style="text-align:left">
-				<div style="width: 500px" >
-					How Many Of The Total Staff Members
-					Trained are still Working in Child Health?
-				</div></th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Doctor</td>
-			</tr>
-			<tr>
-			<td>Nurse</td>
-			</tr>
-			<tr>
-			<td>R.C.O</td>
-			</tr>
 	</table>
 	
 	</div><!--\.section 2-->
@@ -1464,63 +1466,17 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchIndicatorsSection['ror'] . '
 	</table>
 	
+	
 	<table class="centre">
 		
-	<thead>
-	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
-
-
-	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
-
+		<thead>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
+		</thead>
+		'.$this -> selectAccessChallenges.'
 		
-
-		<tr>
-			<td>2013</td>			
-			<td style ="text-align:center;">
-			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
-			</td>
-
-			
-		</tr>
-		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
-		<tr>
-		<td>2013</td>
-			<td style ="text-align:center;">
-			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
-			</td>
-			<td  style ="text-align:center;">
-			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
-			<td style ="text-align:center;" width="15">
-			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
-			
-			<td style ="text-align:center;">
-			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
-			</td>		
-		</tr>
+		
 	</table>
-	
-	
 	
     </div><!--\.section-4-->
     
@@ -1692,6 +1648,7 @@ public function get_hcw_form() {
                  
 				<form class="bbq" name="hcw_tool" id="hcw_tool" method="POST">
 		<div id="section-1" class="step">
+		<input type="hidden" name="step_name" value="section-1"/>
 <table>
     <thead>
         <tr>
@@ -1749,6 +1706,10 @@ public function get_hcw_form() {
 			</tr>
 		
 		</table>
+		<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+		</p>
 		<table class="centre">
 		<thead>
 		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
@@ -1803,28 +1764,28 @@ public function get_hcw_form() {
         </tr>
         <tr>
             <td>First Name</td>
-            <td><input type="text" name="hp_first_name" id="hp_first_name"></td>
+            <td><input type="text" name="hpfirstname" id="hpfirstname"></td>
             <td>Surname</td>
-            <td><input type="text" name="hp_surname" id="hp_surname"></td>
+            <td><input type="text" name="hpsurname" id="hpsurname"></td>
         </tr>
         <tr>
             <td>National ID</td>
-            <td><input type="text" name="hp_national_id" id="hp_national_id"></td>
+            <td><input type="text" name="hpnationalid" id="hpnationalid"></td>
             <td>Phone Number</td>
-            <td><input type="text" name="hp_phone_number" id="hp_phone_number"></td>
+            <td><input type="text" name="hpphonenumber" id="hpphonenumber"></td>
         </tr>
         <tr>
-            <td colspan="1">Year, Month when trained <input type="text" name="hp_year" id="hp_year"></td>
+            <td colspan="1">Year, Month when trained <input type="text" name="hpyear" id="hpyear"></td>
             <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
-                <p><input type="radio" name="hp_coordinator" id="">MOH/KPA/CHAI</p>
-                <p><input type="radio" name="hp_coordinator" id="">MOH only</p>
-                <p><input type="radio" name="hp_coordinator" id="">Other</p>
-                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hp_other" id="hp_other"></p>
+                <p><input type="radio" name="hpcoordinator" value="MOH/KPA/CHAI">MOH/KPA/CHAI</p>
+                <p><input type="radio" name="hpcoordinator" value="MOH only">MOH only</p>
+                <p><input type="radio" name="hpcoordinator" value="Other">Other</p>
+                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other"></p>
             </td>
         </tr>
         <tr>
             <td colspan="1"><label for="">Designation</label></td>
-            <td colspan="3"><input type="text" name="hp_coordinator" id="hp_coordinator"></td>
+            <td colspan="3"><input type="text" name="hpdesignation" id="hpdesignation"></td>
         </tr>'. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
@@ -1838,6 +1799,9 @@ public function get_hcw_form() {
         </tr>
     </tbody>
 </table>
+<p class="instruction">
+		* If healthcare worker works in many departments, write ALL
+</p>
 <table>
     <thead>
         <tr>
@@ -1896,9 +1860,14 @@ public function get_hcw_form() {
 </div> <!-- end of section 1 -->
 
 <div id="section-2" class="step">
+
+		<input type="hidden" name="step_name" value="section-2"/>
 <p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="instruction">
+		* Assessor should indicate findings alongside Healthcare Worker findings.
+</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
@@ -1906,11 +1875,11 @@ public function get_hcw_form() {
             <th  width="700px">SERVICE</th>
             <th> RESPONSE </th>
         </tr>
-    </thead>
-    ' . $this -> hcwCaseManagementSection['svc'] . '
+    
+    ' . $this -> mchIndicatorsSection['svc'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
@@ -1918,12 +1887,24 @@ public function get_hcw_form() {
             <th width="700px" >SERVICE</th>
             <th > RESPONSE </th>
         </tr>
+    
+    ' . $this -> mchIndicatorsSection['sgn'] . '
+</table>
+<table class="centre">
+    <thead>
+    <tr>
+		<th colspan="6">CHILD PROFILE</th>
+    </tr>
     </thead>
-    ' . $this -> hcwCaseManagementSection['sgn'] . '
+        <tr>
+            <td>Gender (M or F)</td><td><input type="text"></td>
+            <td>Age (In Months)</td><td><input type="text"></td>
+            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
+        </tr>
 </table>
 <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2" >Response</th>
@@ -1931,11 +1912,11 @@ public function get_hcw_form() {
         <tr>
             <th>1. Cough / Pneumonia</th>
         </tr>
-    </thead>
-     ' . $this -> hcwCaseManagementSection['pne'] . '
+    
+     ' . $this -> mchIndicatorsSection['pne'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2">Response</th>
@@ -1943,11 +1924,11 @@ public function get_hcw_form() {
         <tr>
             <th>2. Diarrhoea</th>
         </tr>
-    </thead>
-     ' . $this -> hcwCaseManagementSection['dgn'] . '
+    
+     ' . $this -> mchIndicatorsSection['dgn'] . '
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2">Response</th>
@@ -1956,68 +1937,59 @@ public function get_hcw_form() {
             <th>3. Fever / Malaria</th>
             
         </tr>
-    </thead>
-     ' . $this -> hcwCaseManagementSection['fev'] . '
+    
+     ' . $this -> mchIndicatorsSection['fev'] . '
 </table>
-<p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
+</div>
+<div id="section-3" class="step">
+
+<input type="hidden" name="step_name" value="section-3"/>
+<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Condition</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
-     ' . $this -> hcwCaseManagementSection['con'] . '
+     ' . $this -> mchIndicatorsSection['con'] . '
     </tbody>
 </table>
 <table class="centre">
-    <thead>
+   
         <tr>
             <th width="700px">Classification</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
-        ' . $this -> hcwCaseManagementSection['cls'] . '
+        ' . $this -> mchIndicatorsSection['cls'] . '
     </tbody>
 </table>
 <table class="centre">
-    <thead>
+    
         <tr>
             <th width="700px">Treatment and Counselling</th>
             <th>Response</th>
         </tr>
-    </thead>
+    
     <tbody>
-        dy>
-        ' . $this -> hcwCaseManagementSection['cnl'] . '
-    </tbody>
-</table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="700px">Referrals</th>
-            <th>Response</th>
-        </tr>
-    </thead>
-    <tbody>
-        ' . $this -> hcwCaseManagementSection['ref'] . '
-    </tbody>
+        ' . $this -> mchIndicatorsSection['cnl'] . '
     </tbody>
 </table>
 </div>
-<div id="section-3" class="step">
+<div id="section-4" class="step">
+
+<input type="hidden" name="step_name" value="section-4"/>
 <p class="message success">CONSULTATION OBSERVATION</p>
 <table class="centre">
-	   <thead>
+	  
      	<tr>
-            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+            <th width="700px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
-        </thead>
+        
     <tbody>
        ' . $this -> hcwConsultingAspectsSection . '
         
@@ -2025,14 +1997,12 @@ public function get_hcw_form() {
     <tfoot></tfoot>
 </table>
 <table class="centre">
-    <thead>
+    
      	<tr>
-            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+            <th width="700px">4.2 Exit Interview With The Caregiver</th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
-    </thead>
+    
     <tbody>
        ' . $this -> hcwInterviewAspectsSection . '
         
@@ -2040,8 +2010,10 @@ public function get_hcw_form() {
     <tfoot></tfoot>
 </table>
 </div>
-<div id="section-4" class="step">
-<p class="message success">PROVIDER SCORE</p>
+<div id="section-5" class="step">
+
+		<input type="hidden" name="step_name" value="section-5"/>
+<!--p class="message success">PROVIDER SCORE</p>
 <table class="centre">
     <thead>
         <tr>
@@ -2075,22 +2047,81 @@ public function get_hcw_form() {
             <td><input type="text"></td>
         </tr>
     </tbody>
-</table>
-<p class="message success">ASSESSMENT OUTCOME</p>
+</table-->
 <table>
+<thead>
+	<tr>
+		<th colspan="2">ASSESSMENT OUTCOME</th>
+	</tr>
+</thead>
     <tr>
-        <td colspan="2">
-            <p><input type="radio">Fully Practicing IMCI</p>
-            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
-            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
-            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+        <td>
+            <input type="radio" name="questionAspectResponse_1" value="Fully Practicing IMCI">	Fully Practicing IMCI
         </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="radio" name="questionAspectResponse_1" value="Practicing with gaps">	Practicing with gaps
+        </td>
+        <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           	<input type="radio" name="questionAspectResponse_1" value="Not practicing at all">	Not practicing at all
+        </td>
+         <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Certification
+        </th>
+    </tr>
+     <tr>
+        <td colspan="2">
+           Health care worker approved for certification	<input type="radio" name="questionAspectResponse_2" value="Yes">YES <input type="radio" name="questionAspectResponse_2" value="No">NO
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Mentorship
+        </th>
+    </tr>
+     <tr>
+        <td colspan="2">
+            Recommended for Mentor TOT?		<input type="radio" name="questionAspectResponse_3" value="Yes">YES <input type="radio" name="questionAspectResponse_3" value="No">NO
+        </td>
+    </tr>
+</table>
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Share your findings from observational sessions with provider. 
+			Praise for the things done well and discuss on the identified weakness, show how it could be done. 
+			<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly. 
+			Note down the decisions which have been taken to improve the skills and continue the practices</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Action/s taken by supervisor:</td>
+			<td>Action/s taken by supervisee:</td>
+		</tr>
+		<tr>
+			<td><textarea name="actionTaken[supervisor]"style="width:400px;height:100px"></textarea></td>
+			<td><textarea name="actionTaken[supervisee]"style="width:400px;height:100px"></textarea></td>
+		</tr>
+	</tbody>
+</table>
+<p style="margin-top:0.5px"></p>
+<table style="border:2px solid #666">
+    <tr>
+        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
     </tr>
 </table>
 
