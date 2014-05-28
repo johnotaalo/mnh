@@ -2183,13 +2183,8 @@ class MY_Controller extends CI_Controller
         $section = '';
         $svc = $dgn = $cns = $ror = $sgn = $pne = $con = $fev = $cnl = $cls = $ref = '';
         $svcn = $dgnn = $cnsn = $rorn = $sgnn = $pnen = $conn = $fevn = $clsn = $cnln = $refn = 0;
-<<<<<<< HEAD
-       $numbering = array_merge(range('A','Z'),range('a', 'z'));
-	    foreach ($this->data_found as $value) {
-=======
         $numbering = array_merge(range('A','Z'),range('a','z'));
         foreach ($this->data_found as $value) {
->>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
             $counter++;
             $section = $value['indicatorFor'];
             
@@ -2360,11 +2355,7 @@ class MY_Controller extends CI_Controller
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
-<<<<<<< HEAD
-        $numbering = array_merge(range('A','Z'),range('a', 'z'));
-=======
         $numbering = array_merge(range('A','Z'),range('a','z'));
->>>>>>> a43a0aa9a6f4a553e596fe0c02aa57a6a6ee7d53
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -3635,7 +3626,7 @@ class MY_Controller extends CI_Controller
     /**Function to create malaria treatment section**/
     public function createMalariaTreatmentSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('mla');
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
 
         $counter = 0;
 
