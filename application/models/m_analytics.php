@@ -48,7 +48,7 @@ class M_Analytics extends MY_Model {
 	/**
 	 * Community Strategy
 	 */
-	public function getCommunityStrategy($criteria, $value,  $survey) {
+	public function getCommunityStrategy($criteria, $value, $survey) {
 		/*using CI Database Active Record*/
 		//$data=array();
 		$data = '';
@@ -207,7 +207,7 @@ ORDER BY lq.lq_response ASC";
 						$data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
 
 						//$data['categories'] = json_encode($data_categories);
-
+                        if(isset($guideline)){
 						foreach ($this->dataSet as $value) {
 							switch($this -> getTrainingGuidelineName($value['guideline'])) {
 								case 'Does the facility have updated 2012 IMCI guidelines?' :
@@ -230,6 +230,7 @@ ORDER BY lq.lq_response ASC";
 								$data_n[] = array($guideline => (int)$value['total_facilities']);
 							}
 							//$data['categories'][]=$guideline;
+                         }
 						}
 
 						$data['yes_values'] = $data_y;
@@ -1148,7 +1149,7 @@ ORDER BY ea.eq_code ASC";
 	/*
 	 * Services to Children with Diarrhoea
 	 */
-	public function getChildrenServices($criteria, $value,  $survey) {
+	public function getServices($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1202,7 +1203,7 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = 'mnh')".$criteria_condition.")";
+        AND st.st_name = 'ch')".$criteria_condition.")";
 
 				try {
 					$this -> dataSet = $this -> db -> query($query, array($value));
@@ -4320,7 +4321,7 @@ WHERE
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '".$survey."')
+                AND st.st_name = 'mnh')
                  ".$criteria_condition.")
 GROUP BY question_code
 ORDER BY question_code";
@@ -4415,7 +4416,7 @@ ORDER BY question_code";
 	/**
 	 * 24 Hour Service
 	 */
-	public function getService($criteria, $value,  $survey) {
+	public function I($criteria, $value,  $survey) {
 		$value = urldecode($value);
 		/*using CI Database Active Record*/
 		$data = array();
@@ -4526,7 +4527,7 @@ WHERE
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '".$survey."')
+                AND st.st_name = 'mnh')
                  ".$criteria_condition.")
             GROUP BY question_code
 ORDER BY question_code";
@@ -4549,6 +4550,7 @@ ORDER BY question_code";
 		}
 
 		return $data;
+	
 	}
 
 	/**
@@ -4878,6 +4880,86 @@ ORDER BY question_code";
 	/**
 	 * Deliveries Conducted
 	 */
+
+	public function getIndicatorsStatistics($criteria, $value, $survey,$for){
+         $value = urldecode($value);
+		$data = array();
+	
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = '';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		$query = "SELECT 
+     indicator_code,
+    sum(if(li_response = 'Yes', 1, 0)) as yes_values,
+    sum(if(li_response = 'No', 1, 0)) as no_values
+FROM
+    log_indicators li
+WHERE
+    li.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+ 
+            indicator_for = '".$for."')
+        AND li.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+
+        AND st.st_name = '".$survey."') ".$criteria_condition." )
+GROUP BY li.indicator_code
+ORDER BY li.indicator_code ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			foreach ($this->dataSet as $value_) {
+				$question = $this -> getQuestionName($value_['indicator_code']);
+				$question = trim($question, 'Does this facility have an updated');
+				$question = trim($question, '?');
+
+				if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
+					$question = 'Baby Friendly Hospital Initiative';
+				} else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
+					$question = 'Quality Obstetric and Prenatal Care';
+				} else {
+
+					//$question = trim($question, 'National Guidelines for ');
+				}
+				$yes = $value_['yes_values'];
+				$no = $value_['no_values'];
+				//1. collect the categories
+				$data[$question]['yes'] = $yes;
+				$data[$question]['no'] = $no;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		return $data;
+	}
+
+
 	public function getQuestionStatistics($criteria, $value, $survey,$for) {
 		/*using CI Database Active Record*/
 		$value = urldecode($value);
@@ -4886,7 +4968,7 @@ ORDER BY question_code";
 
 		switch($criteria) {
 			case 'national' :
-				$criteria_condition = ' ';
+				$criteria_condition = '';
 				break;
 			case 'county' :
 				$criteria_condition = 'WHERE fac_county=?';

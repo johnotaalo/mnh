@@ -122,6 +122,13 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->indicatorList);die;
         return $this->indicatorList;
     }
+    /*calls the query defined in MY_Model*/
+    public function getmchConsultationQuestions() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
     
     public function getTreatmentNames() {
         $this->treatmentList = $this->getAllMCHTreatments();

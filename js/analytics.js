@@ -62,6 +62,7 @@ function startAnalytics(base_url, county, survey) {
 	ort = encodeURI(ort);
 	$('#graph_47').load(base_url + 'c_analytics/tools_summary/' + ort);
 	$('#graph_48').load(base_url + 'c_analytics/tools_summary/Mother%20Child%20Booklet');
+	
 	$('#graph_49').load(base_url + 'c_analytics/getFacilityLevelAll/' + survey);
 	$('#graph_60').load(base_url + 'c_analytics/getFacilityOwnerAll/' + survey);
 
@@ -85,6 +86,7 @@ function startAnalytics(base_url, county, survey) {
 	$('#graph_81').load(base_url + 'c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care');
 	$('#graph_82').load(base_url + 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative');
 	$('#graph_83').load(base_url + 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines');
+	$('#graph_84').load(base_url + 'c_analytics/getIndicatorStatistics/national/n/ch/dgn');
 
 
 
@@ -229,6 +231,8 @@ function startAnalytics(base_url, county, survey) {
 			filter = $('select#' + thisID + ' option:selected').attr('value');
 			$('#graph_1').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/national/n/' + survey + '/' + filter);
 			$('#graph_2').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/county/' + county + '/' + survey + '/' + filter);
+			$('#graph_3').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/district/' + district + '/ch/' + extraStat);
+			$('#graph_4').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/facility/' + facility + '/ch/' + extraStat);
 			if (thisID == 'county') {
 				$('select.secondary-filter#district').val(filter);
 			} else {
@@ -260,6 +264,9 @@ function startAnalytics(base_url, county, survey) {
 
 				$('#graph_1').load(base_url + 'c_analytics/getCountyFacilities/1');
 				$('#graph_2').load(base_url + 'c_analytics/getCountyFacilitiesByOwner/' + county);
+			//	$('#graph_3').load(base_url + 'c_analytics/getCountyFacilitiesByOwner/district/' + district);
+			  //  $('#graph_4').load(base_url + 'c_analytics/getCountyFacilitiesByOwner/facility/' + facility);
+			
 				break;
 				/*
 				 * Facility Statistics
@@ -274,6 +281,8 @@ function startAnalytics(base_url, county, survey) {
 
 				$('#graph_1').load(base_url + 'c_analytics/getCommunityStrategy/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommunityStrategy/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommunityStrategy/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommunityStrategy/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommunityStrategy/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -288,6 +297,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getGuidelinesAvailability/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getGuidelinesAvailability/county/' + county + '/ch/' + extraStat);
+			    $('#graph_3').load(base_url + 'c_analytics/getGuidelinesAvailability/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getGuidelinesAvailability/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getGuidelinesAvailability/county/'+county+'/ch/'+extraStat);
 
 				break;
@@ -302,6 +313,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getTrainedStaffOne/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getTrainedStaffOne/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getTrainedStaffOne/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getTrainedStaffOne/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getTrainedStaff/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -316,6 +329,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getChildrenServices/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getChildrenServices/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getChildrenServices/district/' + district + '/ch/' + extraStat);
+				$('#graph_4').load(base_url + 'c_analytics/getChildrenServices/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getChildrenServices/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -330,6 +345,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getDangerSigns/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getDangerSigns/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getDangerSigns/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getDangerSigns/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDangerSigns/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -344,6 +361,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getActionsPerformed/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getActionsPerformed/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getActionsPerformed/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getActionsPerformed/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getActionsPerformed/county/'+county+'/ch/'+extraStat);
 
 				break;
@@ -359,6 +378,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCounselGiven/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCounselGiven/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCounselGiven/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCounselGiven/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCounselGiven/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -373,6 +394,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getTools/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getTools/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getTools/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getTools/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getTools/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -393,6 +416,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -405,6 +430,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -417,6 +444,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -429,6 +458,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -441,6 +472,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCHCommoditySupplier/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCHCommoditySupplier/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCHCommoditySupplier/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCHCommoditySupplier/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/ch/'+extraStat);
 				break;
 				/*
@@ -458,6 +491,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getDiarrhoeaCaseNumbers/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getDiarrhoeaCaseNumbers/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getDiarrhoeaCaseNumbers/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getDiarrhoeaCaseNumbers/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -470,6 +505,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/national/n/ch/' + filter);
 				$('#graph_2').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/county/' + county + '/ch/' + filter);
+				$('#graph_3').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/district/' + district + '/ch/' + filter);
+			    $('#graph_4').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/facility/' + facility + '/ch/' + filter);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/county/'+county+'/ch/'+extraStat);
 				break;
 				/*
@@ -487,6 +524,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getORTCornerAssessment/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getORTCornerAssessment/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getORTCornerAssessment/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getORTCornerAssessment/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getORTCornerAssessment/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -501,6 +540,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getORTCornerEquipmentFrequency/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getORTCornerEquipmentFrequency/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getORTCornerEquipmentFrequency/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getORTCornerEquipmentFrequency/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getORTCornerEquipmentFrequency/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -513,6 +554,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getORTCornerEquipmentLocation/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getORTCornerEquipmentLocation/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getORTCornerEquipmentLocation/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getORTCornerEquipmentLocation/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getORTCornerEquipmentLocation/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -525,6 +568,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getORTCornerEquipmentAvailability/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getORTCornerEquipmentAvailability/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getORTCornerEquipmentAvailability/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getORTCornerEquipmentAvailability/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getORTCornerEquipmentAvailability/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -537,6 +582,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#ORT-Corner-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getORTCornerSupplies/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getORTCornerSupplies/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getORTCornerSupplies/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getORTCornerSupplies/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getORTCornerSupplies/county/'+county+'/ch/'+extraStat);
 				break;
 				/*
@@ -556,6 +603,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getSuppliesFrequency/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getSuppliesFrequency/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getSuppliesFrequency/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getSuppliesFrequency/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -568,6 +617,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getSuppliesLocation/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getSuppliesLocation/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getSuppliesLocation/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getSuppliesLocation/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -580,6 +631,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCHSuppliesSupplier/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCHSuppliesSupplier/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCHSuppliesSupplier/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCHSuppliesSupplier/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 				/*
@@ -597,6 +650,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#resources-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getResourcesFrequency/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getResourcesFrequency/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getResourcesFrequency/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getResourcesFrequency/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -609,6 +664,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#resources-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getResourcesLocation/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getResourcesLocation/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getResourcesLocation/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getResourcesLocation/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -625,6 +682,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getNursesDeployed/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getNursesDeployed/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getNursesDeployed/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getNursesDeployed/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -637,18 +696,21 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getBeds/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getBeds/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getBeds/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getBeds/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
 			case 'services':
-				currentChart = base_url + 'c_analytics/getService/';
+				currentChart = base_url + 'c_analytics/getChildrenServices/';
 				appendToTitle = ' ';
 				currentDiv = '#graph_3';
 				$('span.statistic').text('Services in Facility');
 				$('#facility-statistics-parent').addClass('active');
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
-				$('#graph_1').load(base_url + 'c_analytics/getService/national/n/mnh/' + extraStat);
-				$('#graph_2').load(base_url + 'c_analytics/getService/county/' + county + '/mnh/' + extraStat);
+				$('#graph_1').load(base_url + 'c_analytics/getServices/national/n/mnh/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getServices/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getServices/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -661,6 +723,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getHFM/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getHFM/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getHFM/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getHFM/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 			case 'deliveries':
@@ -674,6 +738,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getDeliveries/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getDeliveries/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getDeliveries/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getDeliveries/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -689,6 +755,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getQuestionStatistics/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getQuestionStatistics/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getQuestionStatistics/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getQuestionStatistics/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -703,7 +771,9 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getQuestionStatistics/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getQuestionStatistics/county/' + county + '/mnh/' + extraStat);
-				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getQuestionStatistics/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getQuestionStatistics/facility/' + facility + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh/'+extraStat);
 				break;
 
 			case 'kmc':
@@ -717,8 +787,10 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getQuestionStatistics/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getQuestionStatistics/county/' + county + '/mnh/' + extraStat);
-				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
-				break;
+				$('#graph_3').load(base_url + 'c_analytics/getQuestionStatistics/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getQuestionStatistics/facility/' + facility + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh/'+extraStat);
+				break;n
 
 			case 'jobaids':
 				currentChart = base_url + 'c_analytics/getQuestionStatistics/';
@@ -731,7 +803,9 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getQuestionStatistics/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getQuestionStatistics/county/' + county + '/mnh/' + extraStat);
-				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getQuestionStatistics/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getQuestionStatistics/facility/' + facility + '/mnh/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh/'+extraStat);
 				break;
 
 			case 'guidelinesmnh':
@@ -745,6 +819,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getGuidelinesAvailabilityMNH/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getGuidelinesAvailabilityMNH/county/' + county + '/mnh/' + extraStat);
+                $('#graph_3').load(base_url + 'c_analytics/getGuidelinesAvailabilityMNH/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getGuidelinesAvailabilityMNH/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -757,18 +833,22 @@ function startAnalytics(base_url, county, survey) {
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommunityStrategyMNH/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommunityStrategyMNH/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommunityStrategyMNH/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommunityStrategyMNH/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
 			case 'staffTrainingMnh':
-				currentChart = base_url + 'c_analytics/getTrainedStaffOne/';
+				currentChart = base_url + 'c_analytics/getTrainedStaff/';
 				appendToTitle = ' ';
 				currentDiv = '#graph_3';
 				$('span.statistic').text('Staff Training');
 				$('#facility-statistics-parent').addClass('active');
 				$('#facility-statistics-parent a').append('<span class="selected"></span>');
-				$('#graph_1').load(base_url + 'c_analytics/getTrainedStaffOne/national/n/mnh/' + extraStat);
-				$('#graph_2').load(base_url + 'c_analytics/getTrainedStaffOne/county/' + county + '/mnh/' + extraStat);
+				$('#graph_1').load(base_url + 'c_analytics/getTrainedStaff/national/n/mnh/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getTrainedStaff/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getTrainedStaff/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getTrainedStaff/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -786,6 +866,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -798,6 +880,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -810,6 +894,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -824,6 +910,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/facility/' + facility + '/mnh/' + extraStat);
 				break;
 
 			case 'commoditySuppliersMnh':
@@ -835,6 +923,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#commodities-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCHCommoditySupplier/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCHCommoditySupplier/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCHCommoditySupplier/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCHCommoditySupplier/facility/' + facility + '/mnh/' + extraStat);
 				break;
 				/*
 				 * ------End of Commodities
@@ -854,6 +944,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getSuppliesFrequency/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getSuppliesFrequency/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getSuppliesFrequency/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getSuppliesFrequency/facility/' + facility + '/mnh/' + extraStat);
 				break;
 
 			case 'suppliesLocationMnh':
@@ -865,6 +957,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getSuppliesLocation/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getSuppliesLocation/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getSuppliesLocation/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getSuppliesLocation/facility/' + facility + '/mnh/' + extraStat);
 				break;
 
 			case 'suppliesSuppliersMnh':
@@ -876,6 +970,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#supplies-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCHSuppliesSupplier/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCHSuppliesSupplier/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCHSuppliesSupplier/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCHSuppliesSupplier/facility/' + facility + '/mnh/' + extraStat);
 				break;
 
 				/**
@@ -892,6 +988,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#signal-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCEOC/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCEOC/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCEOC/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCEOC/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -904,6 +1002,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#signal-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getCEOCReason/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getCEOCReason/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCEOCReason/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCEOCReason/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -916,6 +1016,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#signal-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getBEMONC/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getBEMONC/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getBEMONC/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getBEMONC/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -928,6 +1030,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#signal-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getBEMONCReason/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getBEMONCReason/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getBEMONCReason/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getBEMONCReason/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/mnh'+extraStat);
 				break;
 
@@ -947,6 +1051,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#equipments-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getEquipmentFrequency/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getEquipmentFrequency/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getEquipmentFrequency/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getEquipmentFrequency/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getEquipmentFrequency/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -959,6 +1065,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#equipments-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getEquipmentLocation/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getEquipmentLocation/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getEquipmentLocation/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getEquipmentLocation/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getEquipmentLocation/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -973,6 +1081,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#equipments-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getEquipmentFunctionality/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getEquipmentFunctionality/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getEquipmentFunctionality/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getEquipmentFunctionality/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getEquipmentAvailability/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -985,6 +1095,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#equipments-parent-mnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getEquipmentAvailability/national/n/ch/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getEquipmentAvailability/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getEquipmentAvailability/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getEquipmentAvailability/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getEquipmentAvailability/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -999,6 +1111,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#hardware-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getResourcesFrequency/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getResourcesFrequency/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getEquipmentFrequency/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getEquipmentFrequency/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -1012,6 +1126,8 @@ function startAnalytics(base_url, county, survey) {
 				$('#resources-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getRunningWaterFrequency/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getRunningWaterFrequency/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getRunningWaterFrequency/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getRunningWaterFrequency/facility/' + facility + '/mnh/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 
@@ -1024,6 +1140,9 @@ function startAnalytics(base_url, county, survey) {
 				$('#resources-parentMnh a').append('<span class="selected"></span>');
 				$('#graph_1').load(base_url + 'c_analytics/getRunningWaterLocation/national/n/mnh/' + extraStat);
 				$('#graph_2').load(base_url + 'c_analytics/getRunningWaterLocation/county/' + county + '/mnh/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getRunningWaterLocation/district/' + district + '/mnh/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getRunningWaterLocation/facility/' + facility + '/mnh/' + extraStat);
+
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getResources/county/'+county+'/ch/'+extraStat);
 				break;
 

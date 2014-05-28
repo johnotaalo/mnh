@@ -88,7 +88,7 @@
 		<div class="span pull-right">
 			Move to Top
 			<a href="#" class="go-top">
-				<i class="fa fa-angle-double-up fa-2x title="Top""></i>
+				<i class="fa fa-angle-double-up fa-7x title="Top""></i>
 				&nbsp; Move to Top
 			</a>
 

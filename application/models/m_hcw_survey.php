@@ -28,6 +28,20 @@ class M_HCW_Survey extends MY_Model
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
+    /*calls the query defined in MY_Model*/
+    public function gethcwProfile() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
+       /*calls the query defined in MY_Model*/
+    public function getIndicatorNames() {
+        $this->indicatorList = $this->getAllMCHIndicators();
+        
+        //var_dump($this->indicatorList);die;
+        return $this->indicatorList;
+    }
     
     
     private function addQuestionsInfo() {
@@ -179,8 +193,9 @@ class M_HCW_Survey extends MY_Model
     }
      //close addMchGuidelinesAvailabilityInfo
     private function addHCWProfile() {
-    	echo 'Working';
-    	print_r($this->input->post() );die;
+        
+    	//echo 'Working';die;
+    	//print_r($this->input->post() );die;
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -207,7 +222,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "hcw") {
+                if ($this->attr == "hcwProfileQCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -237,7 +252,7 @@ class M_HCW_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        print_r($this->elements);die;
+        //print_r($this->elements);die;
         
         //exit;
         
@@ -256,12 +271,12 @@ class M_HCW_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['hcwProfile']);
             
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['hcwProfileQCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLqCreated(new DateTime());
             
@@ -2196,8 +2211,8 @@ class M_HCW_Survey extends MY_Model
         /*check assessment tracker log*/
         if ($this->input->post()) {
             
-            $step = $this->input->post('step_name', TRUE);
-            echo $step;die;
+            $step ='section-1';// $this->input->post('step_name', TRUE);
+           // echo $step;die;
             switch ($step) {
                 case 'section-1':
                     

@@ -317,6 +317,19 @@ case 'mnh':
 				<div id="graph_83" class="chart"></div>
 			</div>
 		</div>
+		<!--
+
+            INDICATOR CHART
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Indicator Trial</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_84" class="chart"></div>
+			</div>
+		</div>-->
 
 	</div>
 </div>
@@ -337,7 +350,7 @@ break;
 						<select class="secondary-filter" id="secondary-aggregated">
 							<option value="SevereDehydration">Severe Dehydration</option>
 							<option value="SomeDehydration">Some Dehydration</option>
-							<option value="NoDehydration">No Dehydration</option>
+     						<option value="NoDehydration">No Dehydration</option>
 							<option value="Dysentry">Dysentry</option>
 							<option value="NoClassification">No Classification</option>
 						</select>
