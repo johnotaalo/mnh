@@ -2301,7 +2301,7 @@ class M_MCH_Survey extends MY_Model
             
             $step = $this->input->post('step_name', TRUE);
             switch ($step) {
-                case 'section-1':
+                /*case 'section-1':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -2313,7 +2313,7 @@ class M_MCH_Survey extends MY_Model
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
                        // $this->addMchCommunityStrategyInfo() == true) {
-                        	 $this->addmchConsultationQuestions() == true) {
+                        	 /*$this->addmchConsultationQuestions() == true) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
@@ -2449,11 +2449,11 @@ class M_MCH_Survey extends MY_Model
                         //$this->markSurveyStatusAsComplete();
                         return $this->response = 'true';
                     }
-                    break;
+                    break;*/
             }
              //close switch
             
-            //return $this -> response = 'true';
+            return $this -> response = 'true';
             
         }
     }

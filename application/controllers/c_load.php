@@ -1045,9 +1045,13 @@ class C_Load extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
+<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+</p>
 		<table class="centre">
 		<thead>
-		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
+		<th colspan="12" >HR INFORMATION</th>
 		</thead>
 		<tr >
 			<th scope="col" colspan="2" >CADRE</th>
@@ -1091,12 +1095,45 @@ class C_Load extends MY_Controller {
 		</tr-->
 
 	</table>
-	<table>
+	<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+			</tr>
+		</thead>
+			<tr>
+
+				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
+				<th rowspan ="2" style="text-align:left">Total in Facility</th>
+				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
+				<th colspan="2"># of Staff Trained in IMCI</th>
+				<th colspan="2"># of Staff Trained in ICCM</th>
+				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
+				<th colspan="2"># of Staff Trained in Diarrhoea and Pnemonia CMEs for U5s</th>
+				<th rowspan ="2">				
+					How Many Of The Total Staff Members
+					Trained in IMCI are still Working in Child Health Unit?</th>
+			</tr>
+			<tr>
+				<th style="text-align:left;width:50px">BEFORE 2010</th>
+				<th style="text-align:left;width:50px">AFTER 2010</th>
+				<th style="text-align:left;width:50px">BEFORE 2013</th>
+				<th style="text-align:left">AFTER 2013</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2014</th>
+				<th style="text-align:left">AFTER 2014</th>
+			</tr>
+		
+		'.$this->mchTrainingGuidelineSection.'
+
+	</table>
+<table>
   <thead>
 	<th colspan = "12">HEALTH SERVICES</th>
 	</thead>
 	<tbody>
-	<tr>Where are sick children seen?
+	<tr><th colspan = "12">Where are sick children seen?</th>
 	</tr>
 	<tr>
 		<td>OPD</td>
@@ -1154,18 +1191,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
 	
-     <table class="centre">
-	<thead>
-		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained before 2010</th>
-		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in Child Health?</div></th>
-		
-		' . $this -> mchTrainingGuidelineSection . '
 
-	</table>
 	
 	<table  class="centre persist-area" >
 	<thead>
@@ -1394,35 +1420,6 @@ class C_Load extends MY_Controller {
 					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
 					</tr>
 		</table>
-		<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="15"  > CLINICAL STAFF</th>
-			</tr>
-			<tr>
-				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
-				<th style="text-align:left">TOTAL IN FACILITY</th>
-				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
-				<th style="text-align:left">
-				<div style="width: 500px" >
-					How Many Of The Total Staff Members
-					Trained are still Working in Child Health?
-				</div></th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Doctor</td>
-			</tr>
-			<tr>
-			<td>Nurse</td>
-			</tr>
-			<tr>
-			<td>R.C.O</td>
-			</tr>
 	</table>
 	
 	</div><!--\.section 2-->
@@ -1503,83 +1500,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchIndicatorsSection['ror'] . '
 	</table>
 	
-	<table class="centre">
-		
-	<thead>
-	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
-
-
-	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
-
-		
-
-		<tr>
-			<td>2013</td>			
-			<td style ="text-align:center;">
-			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
-			</td>
-
-			
-		</tr>
-		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
-		<tr>
-		<td>2013</td>
-			<td style ="text-align:center;">
-			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
-			</td>
-			<td  style ="text-align:center;">
-			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
-			<td style ="text-align:center;" width="15">
-			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
-			
-			<td style ="text-align:center;">
-			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
-			</td>		
-		</tr>
-	</table>
 	
-	<table class="centre">
-		
-		<thead>
-			<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
-		</thead>
-		<tr>
-		     
-			<th  style="width:35%">TREATMENT</th>
-			<th colspan="5" style="text-align:center"> Classification</th>
-			
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			<td >Severe Dehydration</td>
-			<td>Some Dehydration</td>
-			<td>No Dehydration</td>
-			<td>Dysentry</td>
-			<td>No Classification</td>
-		</tr>
-		' . $this -> treatmentMCHSection . '
-	</table>
 	<table class="centre">
 		
 		<thead>

@@ -2081,9 +2081,6 @@ class MY_Controller extends CI_Controller
             }
         }
         return $this->mchIndicatorsSection;
-        
-        //echo $this->mchIndicatorsSection;die;
-        return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
@@ -2185,23 +2182,47 @@ class MY_Controller extends CI_Controller
     public function createMCHStaffTrainingGuidelinesSection() {
         $this->data_found = $this->m_mch_survey->getTrainingGuidelines();
         
-        //var_dump($this->data_found);die;
-        $counter = 0;
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $this->mchTrainingGuidelineSection.= '<tr>
-			<TD colspan="2" >' . $value['guideName'] . '</TD><td>
-			<input name="gstrainedbefore2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td>
-			<td>
-			<input name="gstrainedafter2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td><td>
-			<input name="gsworking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td>
-			<input type="hidden"  name="gsguideCode_' . $counter . '" id="gsguideCode_' . $counter . '" value="' . $value['guideCode'] . '" />
-		</tr>';
-        }
+       
+         $counter = 0;
+        $section = '';
+        $base = 0;
+        $current = "";
+        $titles=array('Total in Facility','Total Available On Duty');
+        $staff=array('Doctor','Nurse','R.C.O.','Pharmaceutical Staff','Lab Staff');
         
+        #Populate Titles
+        foreach ($this->data_found as $value) {
+            $titles[]=array('guide'=>$value['guideName'],'code'=>$value['guideCode'],'training'=>'train');
+        }
+        $titles[]='Total Staff Members Still Working';
+        //echo '<pre>';print_r($titles);echo '</pre>';die;
+       
+        foreach($staff as $member){
+            $row='<tr><td>'.$member.'</td>';
+            $counter++;
+                foreach($titles as $header){
+                    
+                    
+                    if(sizeof($header)==3){
+                        $row.='<td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'before_'.$counter.'" /></td><td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'after_'.$counter.'"/><input type="hidden" name="guideCode" value="'.$header['code'].'"/></td>';
+                    }
+                    else{
+                        $row.='<td><input type="number" name="'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
+                    }
+                }
+
+            $row.='</tr>'; 
+            //echo '<table>'.$row.'</table>';
+            $data[$member]=$row;
+
+        }
+         //echo '<pre>';print_r($data);echo '</pre>';die;
+
+
+        foreach ($data as $key => $value) {
+            $this->mchTrainingGuidelineSection .= $value;
+            
+        }
         //echo $this->mchTrainingGuidelineSection;die;
         return $this->mchTrainingGuidelineSection;
     }

@@ -284,7 +284,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHTreatments() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentCode ASC');
+			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor, tc.tcname FROM models\Entities\treatments t JOIN models\Entities\treatmentclassifications tc  WHERE t.treatmentfor = tc.tc_for ORDER BY t.treatmentCode ASC');
 			$this -> mchTreatment = $query -> getResult();
 			//die(var_dump($this->mchTreatment));
 		} catch(exception $ex) {
