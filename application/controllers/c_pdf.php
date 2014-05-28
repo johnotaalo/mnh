@@ -1837,7 +1837,7 @@ class C_Pdf extends MY_Controller {
             <td><input type="text"></td>
         </tr>
         <tr>
-            <td>RETURNIN DATE FOR FOLLOW-UP</td>
+            <td>RETURNING DATE FOR FOLLOW-UP</td>
             <td><input type="text"></td>
         </tr>
         <tr>

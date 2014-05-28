@@ -1275,9 +1275,9 @@ class C_Load extends MY_Controller {
 				<tr >
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
-				</tr>'
-				.$this -> mchmalariaTreatmentSection.
-			'</thead>
+				</tr>
+				</thead>'
+				.$this -> mchmalariaTreatmentSection.'
 		</table>
 		<table class="centre">
 		<thead>
@@ -1291,9 +1291,10 @@ class C_Load extends MY_Controller {
 				<tr >
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia cough/cold</th>
-					</tr>'
-			.$this -> mchpneumoniaTreatmentSection.	
-			'</thead>
+					</tr>
+					</thead>'
+			.$this -> mchpneumoniaTreatmentSection.	'
+					
 		</table>
 		<table class="centre"><thead>
 			<tr>
@@ -1315,6 +1316,16 @@ class C_Load extends MY_Controller {
 			</thead>
 			' . $this -> treatmentMCHSection . '
 		</table>
+		<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
 		<table class="centre">
 
 			<thead>
@@ -1509,37 +1520,7 @@ class C_Load extends MY_Controller {
 		</tr>
 	</table>
 	
-	<table class="centre">
-		
-		<thead>
-			<th colspan="6" > (C) HOW MANY CHILDREN WERE GIVEN THE FOLLOWING TREATMENT BASED ON THE CLASSIFICATION BELOW IN THE LAST 3 MONTHS? </th>
-		</thead>
-		<tr>
-		     
-			<th  style="width:35%">TREATMENT</th>
-			<th colspan="5" style="text-align:center"> Classification</th>
-			
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			<td >Severe Dehydration</td>
-			<td>Some Dehydration</td>
-			<td>No Dehydration</td>
-			<td>Dysentry</td>
-			<td>No Classification</td>
-		</tr>
-		' . $this -> treatmentMCHSection . '
-	</table>
-	<table class="centre">
-		
-		<thead>
-			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above)(One Selection Allowed) </th>
-		</thead>
-		'.$this -> selectAccessChallenges.'
-		
-		
-	</table>
+	
 	
     </div><!--\.section-4-->
     
