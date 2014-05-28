@@ -64,6 +64,9 @@ $route['analytics/section2/commodity-supplier']='c_analytics/analytics_section_2
 $route['session/new']='c_auth/go';#log in url
 $route['session/close']='c_auth/logout';#log out url
 
+#Admin Routes
+$route['admin']= 'c_admin/index';
+$route['firepad']= 'c_admin/firepad';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
