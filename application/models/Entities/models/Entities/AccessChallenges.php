@@ -24,14 +24,22 @@ class AccessChallenges
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="ach_code", type="string", length=45, nullable=true)
+=======
+     * @ORM\Column(name="ach_code", type="string", length=100, nullable=true)
+>>>>>>> 707e87ef972689a9651366a7a946f13b665bf362
      */
     private $achCode;
 
     /**
      * @var string
      *
+<<<<<<< HEAD
      * @ORM\Column(name="ach_name", type="string", length=45, nullable=true)
+=======
+     * @ORM\Column(name="ach_name", type="string", length=100, nullable=true)
+>>>>>>> 707e87ef972689a9651366a7a946f13b665bf362
      */
     private $achName;
 

@@ -93,6 +93,14 @@ class M_MCH_Survey extends MY_Model
         return $this->supplierList;
     }
     
+     /*calls the query defined in MY_Model*/
+    public function getAllQuestions() {
+        $this->supplierList = $this->getQuestions();
+        
+        //var_dump($this->supplierList);die;
+        return $this->supplierList;
+    }
+    
     /*calls the query defined in MY_Model*/
     public function getTrainingGuidelines() {
         $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
@@ -1369,25 +1377,22 @@ class M_MCH_Survey extends MY_Model
         
         //print_r($this -> input -> post());die;
         foreach ($this->input->post() as $key => $val) {
-        	
-             //For every posted values
+        	//For every posted values
             if (strpos($key, 'mcht') !== FALSE) {
-            	
-                 //select data for number of deliveries
+            	//select data for number of deliveries
                 $this->attr = $key;
+				print_r($this->attr);die;
 				//the attribute name
-                
-                //split into 2 years: 2012 & 2013 --for later :-)
                 
                 if (!empty($val)) {
                 	//We then store the value of this attribute for this element.
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 1;
-					foreach ($val as $k => $total) {
-                    	$this->elements[$count]['totalTreatment'] = htmlentities($total);
-                       	$this->elements[$count]['classification'] = htmlentities($k);
-                        $count++;
-                    }
+					// foreach ($val as $k => $total) {
+                    	// $this->elements[$count]['totalTreatment'] = htmlentities($total);
+                       	// $this->elements[$count]['classification'] = htmlentities($k);
+                        // $count++;
+                    // }
                 } else {
                     $this->elements[$this->attr] = '';
                 }
@@ -1488,12 +1493,11 @@ class M_MCH_Survey extends MY_Model
      //close addDiarrhoeaCasesByMonthInfo()
      private function addDiarrhoeaCasesByMonthInfo() {
         foreach ($this->input->post() as $key => $val) {
-        	//print_r($this -> input -> post());die;
-             //For every posted values
+        	//For every posted values
             if (strpos($key, 'dn') !== FALSE) {
                  //select data for number of deliveries
                 $this->attr = $key;
-                
+                //print_r( $this->attr);die;
                 //the attribute name
                 
                 //split into 2 years: 2012 & 2013 --for later :-)

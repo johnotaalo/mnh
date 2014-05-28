@@ -34,6 +34,9 @@
 								<li>
 									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
 								</li>
+								<li>
+									<a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool </a>
+								</li>
 								<!--li>Post surveys online for easy access</li>
 								<li>Conduct timely Analysis</li-->
 							</ul>
