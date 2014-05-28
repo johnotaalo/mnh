@@ -3632,12 +3632,22 @@ class MY_Controller extends CI_Controller
 
         foreach ($this->data_found as $value) {
             $counter++;
-
-            $this->mchmalariaTreatmentSection .= '<tr>
-            <td>'.$value['treatmentName'].'</td>
-            <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-            <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-            </tr>';
+            if($value['treatmentName'] != 'Others')
+            {
+                $this->mchmalariaTreatmentSection .= '<tr>
+                <td>'.$value['treatmentName'].'</td>
+                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
+                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
+                </tr>';
+            }
+            else
+            {
+                $this->mchmalariaTreatmentSection .= '<tr>
+                <td>'.$value['treatmentName'].'<input type = "text" name = malTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
+                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
+                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
+                </tr>';
+            }
         }
         return $this->mchmalariaTreatmentSection;
     }
@@ -3652,11 +3662,22 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
 
+            if($value['treatmentName'] != 'Others')
+            { 
             $this->mchpneumoniaTreatmentSection.= '<tr>
-            <td>' .$value['treatmentName'].'</td>
-            <td><input type = "radio" name = "pneTreament_'.$value['treatmentName'].'"/></td>
-            <td><input type = "radio" name = "pneTreament_'.$value['treatmentName'].'"/></td>
+             <td>'.$value['treatmentName'].'</td>
+            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
+            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
             </tr>';
+            }
+            else
+            {
+                $this->mchpneumoniaTreatmentSection.= '<tr>
+                <td>' .$value['treatmentName'].'<input type = "text" name = pneTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
+                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
+                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
+                </tr>';
+            }
         }
         return $this->mchpneumoniaTreatmentSection;
     }
