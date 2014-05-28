@@ -93,14 +93,6 @@ class M_MCH_Survey extends MY_Model
         return $this->supplierList;
     }
     
-     /*calls the query defined in MY_Model*/
-    public function getAllQuestions() {
-        $this->supplierList = $this->getQuestions();
-        
-        //var_dump($this->supplierList);die;
-        return $this->supplierList;
-    }
-    
     /*calls the query defined in MY_Model*/
     public function getTrainingGuidelines() {
         $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
@@ -137,6 +129,13 @@ class M_MCH_Survey extends MY_Model
         return $this->treatmentList;
     }
     
+    public function getTreatmentFor($type)
+    {
+        $this->treatmentList = $this->getTreatmentsByType($type);
+
+        //var_dump($this->treatmentList);
+        return $this->treatmentList;
+    }
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
