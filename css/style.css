@@ -1362,3 +1362,6 @@ img.alignright, img.right {
 	padding:3px;
 	width:100%;
 }
+td input[type="number"]{
+	width:50px;
+}

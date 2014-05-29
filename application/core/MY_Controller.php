@@ -1,5 +1,4 @@
 <?php
-error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
 class MY_Controller extends CI_Controller
@@ -8,7 +7,7 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
     
     //new sections
-    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment;
+    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment, $mchHealthService;
     
     //pdf variables
     public $hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -137,7 +136,8 @@ class MY_Controller extends CI_Controller
         $this->createConsultingAspectsSectionforPDF();
 
          $this->  createInterviewAspectsSection();
-          $this->  createInterviewAspectsSectionforPDF();
+         $this->  createInterviewAspectsSectionforPDF();
+		 $this-> createmchHealthService();
 
       
         
@@ -1030,6 +1030,32 @@ class MY_Controller extends CI_Controller
         //echo $this->hcwProfileSection;die;
         return $this->hcwProfileSection;
     }
+	/**Function to create the section: Child Health--Health Service Questions
+     * */
+	public function createmchHealthService(){
+		$this->data_found = $this->m_mch_survey->getmchHealthServiceQuestions('hs');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->mchHealthService.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<td>OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
+			<td>U5 Clinic<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="U5 Clinic" class="numbers cloned"/></td>
+			<td>MCH<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="MCH" class="numbers cloned"/></td>
+			<td>Other<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="Other" class="numbers cloned"/></td>
+			<td><input type="hidden"  name="mchHealthServiceQCode" id="mchHealthServiceQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			</td>
+		</tr>';
+        }
+        
+        //echo $this->mchHealthService;die;
+        return $this->mchHealthService;
+	}
 	   /**Function to create the section: Child Health--Consultation Questions
      * */
     public function createmchConsultationSection() {
@@ -2081,9 +2107,6 @@ class MY_Controller extends CI_Controller
             }
         }
         return $this->mchIndicatorsSection;
-        
-        //echo $this->mchIndicatorsSection;die;
-        return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
@@ -2185,23 +2208,47 @@ class MY_Controller extends CI_Controller
     public function createMCHStaffTrainingGuidelinesSection() {
         $this->data_found = $this->m_mch_survey->getTrainingGuidelines();
         
-        //var_dump($this->data_found);die;
-        $counter = 0;
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $this->mchTrainingGuidelineSection.= '<tr>
-			<TD colspan="2" >' . $value['guideName'] . '</TD><td>
-			<input name="gstrainedbefore2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td>
-			<td>
-			<input name="gstrainedafter2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td><td>
-			<input name="gsworking_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-			</td>
-			<input type="hidden"  name="gsguideCode_' . $counter . '" id="gsguideCode_' . $counter . '" value="' . $value['guideCode'] . '" />
-		</tr>';
-        }
+       
+         $counter = 0;
+        $section = '';
+        $base = 0;
+        $current = "";
+        $titles=array('Total in Facility','Total Available On Duty');
+        $staff=array('Doctor','Nurse','R.C.O.','Pharmaceutical Staff','Lab Staff');
         
+        #Populate Titles
+        foreach ($this->data_found as $value) {
+            $titles[]=array('guide'=>$value['guideName'],'code'=>$value['guideCode'],'training'=>'train');
+        }
+        $titles[]='Total Staff Members Still Working';
+        //echo '<pre>';print_r($titles);echo '</pre>';die;
+       
+        foreach($staff as $member){
+            $row='<tr><td>'.$member.'</td>';
+            $counter++;
+                foreach($titles as $header){
+                    
+                    
+                    if(sizeof($header)==3){
+                        $row.='<td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'before_'.$counter.'" /></td><td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'after_'.$counter.'"/><input type="hidden" name="guideCode" value="'.$header['code'].'"/></td>';
+                    }
+                    else{
+                        $row.='<td><input type="number" name="'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
+                    }
+                }
+
+            $row.='</tr>'; 
+            //echo '<table>'.$row.'</table>';
+            $data[$member]=$row;
+
+        }
+         //echo '<pre>';print_r($data);echo '</pre>';die;
+
+
+        foreach ($data as $key => $value) {
+            $this->mchTrainingGuidelineSection .= $value;
+            
+        }
         //echo $this->mchTrainingGuidelineSection;die;
         return $this->mchTrainingGuidelineSection;
     }
@@ -3130,7 +3177,6 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
             if ($value['treatmentName'] == 'Others') {
                 $this->treatmentMCHSection.= '<tr>
 			<td >' . $value['treatmentName'] . ' ' . $unit . '<input name="mchtTreatmentOther_' . $counter . '" type="text"  size="64" placeholder="please specify"/> </td>
@@ -3177,7 +3223,6 @@ class MY_Controller extends CI_Controller
         //echo $this->equipmentsMCHSection;die;
         return $this->treatmentMCHSection;
     }
-    
     public function createSuppliesUsageAndOutageSection() {
         $this->data_found = $this->m_mnh_survey->getSupplyNames();
         
@@ -3287,7 +3332,7 @@ class MY_Controller extends CI_Controller
         //var_dump($result);die;
         $section = (($result) != NULL) ? $result[0]['ast_section'] : NULL;
         return json_encode((int)trim($section, 'section-'));
-    }
+    } 
     
     public function createFacilitiesListSection() {
         
