@@ -1370,22 +1370,22 @@ class M_MCH_Survey extends MY_Model
         
         //print_r($this -> input -> post());die;
         foreach ($this->input->post() as $key => $val) {
+            //print_r($this -> input -> post());die;
         	//For every posted values
-            if (strpos($key, 'mcht') !== FALSE) {
+            if (strpos($key, 'mchto') !== FALSE) {
             	//select data for number of deliveries
                 $this->attr = $key;
-				print_r($this->attr);die;
 				//the attribute name
                 
                 if (!empty($val)) {
-                	//We then store the value of this attribute for this element.
+                   //We then store the value of this attribute for this element.
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 1;
-					// foreach ($val as $k => $total) {
-                    	// $this->elements[$count]['totalTreatment'] = htmlentities($total);
-                       	// $this->elements[$count]['classification'] = htmlentities($k);
-                        // $count++;
-                    // }
+					 foreach ($val as $key => $total) {
+                        $this->elements[$count]['totalTreatment'] = htmlentities($total);
+                       	 $this->elements[$count]['classification'] = htmlentities($key);
+                         $count++;
+                     }
                 } else {
                     $this->elements[$this->attr] = '';
                 }
@@ -1402,25 +1402,25 @@ class M_MCH_Survey extends MY_Model
         $this->noOfInsertsBatch = 12;
         
         //labour and delivery Qn5 to 8 will have a single response each
-        print_r($this -> elements);die;
+       // print_r($this -> elements);die;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //echo 'Done'.$i;
-            $this->theForm = new \models\Entities\LogMorbidity();
+            $this->theForm = new \models\Entities\LogTreatments();
             
             //create an object of the model
             
-            $this->theForm->setCreatedAt(new DateTime());
+            $this->theForm->setLtCreated(new DateTime());
             
             /*timestamp option*/
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
             
             /*if no value set, then set to -1*/
             
             //print_r($this->elements);die;
-            $this->theForm->setMonth($this->elements[$i]['monthName']);
-            $this->theForm->setLmNumber($this->elements[$i]['monthData']);
+            $this->theForm->setLtOtherTreatment($this->elements[$i]['totalTreatment']);
+            $this->theForm->setLtClassification($this->elements[$i]['classification']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->em->persist($this->theForm);
             

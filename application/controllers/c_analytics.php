@@ -2437,6 +2437,7 @@ ORDER BY fac_level;");
      *  Summary Data
      */
     
+
     public function case_summary($choice) {
         
         //Get All Reporting Counties
@@ -2700,6 +2701,9 @@ ORDER BY fac_level;");
         $this->load->view('charts/chart_stacked_v', $datas);
     }
     
+
+
+
     public function training_summaryMNH($training) {
         $training = urldecode($training);
         

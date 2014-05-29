@@ -252,6 +252,9 @@ ORDER BY lq.lq_response ASC";
 		return $this -> dataSet;
 	}
 
+
+
+
 	/*
 	 * Trained Staff
 	 */
@@ -4171,6 +4174,8 @@ ORDER BY ra.eq_code ASC";
 		}
 	}
 
+
+
 	public function case_summary($county, $choice) {
 		$final = array();
 		$query = '';
@@ -5442,5 +5447,7 @@ WHERE
 		}
 
 	}
+
+	
 
 }

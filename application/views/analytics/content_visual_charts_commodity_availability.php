@@ -157,8 +157,7 @@ case 'ch' :
 				<div id="graph_85" class="chart"></div>
 			</div>
 		</div>
-
-	</div>
+        
 </div>
 
 <!-- END CHART PORTLET-->
