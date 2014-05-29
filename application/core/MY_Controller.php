@@ -23,7 +23,7 @@ class MY_Controller extends CI_Controller
         $this->em = $this->doctrine->em;
         $this->load->model('m_mnh_survey');
         $this->load->model('m_mch_survey');
-        $this->load->model('m_hcw_survey');
+         $this->load->model('m_hcw_survey');
         $this->load->model('m_analytics');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
         $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
@@ -929,8 +929,6 @@ class MY_Controller extends CI_Controller
 			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
 			<label for="" style="font-weight:normal">MCH</label><br/>
 			
-			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="U5 Clinic"/>
-			<label for="" style="font-weight:normal">U5 Clinic</label><br/>
 			
 			<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="OPD"/>
 			<label for="" style="font-weight:normal">OPD</label><br/>

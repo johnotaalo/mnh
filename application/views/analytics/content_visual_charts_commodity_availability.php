@@ -148,6 +148,15 @@ case 'ch' :
 				<div id="graph_52" class="chart"></div>
 			</div>
 		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Consultation</span>IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_85" class="chart"></div>
+			</div>
+		</div>
 
 	</div>
 </div>

@@ -605,7 +605,7 @@ ORDER BY ca.comm_code,location ASC";
 							}
 
 							break;
-						case 'mch' :
+						case 'ch' :
 							//collect the data_sets
 							if (strpos($value_['location'], 'OPD') !== FALSE) {
 								$data_set['OPD'][$this -> getCommodityNameById($value_['commodities'])][] = intval($value_['total_response']);
@@ -4959,6 +4959,83 @@ ORDER BY li.indicator_code ASC";
 		return $data;
 	}
 
+
+public function getConsultationStatistics($criteria, $value, $survey,$for) {
+		/*using CI Database Active Record*/
+		$value = urldecode($value);
+		$data = array();
+	
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = '';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+		$query = "SELECT 
+     question_code,
+    sum(if(lq_response = 'Yes', 1, 0)) as yes_values,
+    sum(if(lq_response = 'No', 1, 0)) as no_values
+FROM
+    log_questions lq
+WHERE
+    lq.question_code IN (SELECT 
+            question_code
+        FROM
+            questions
+        WHERE
+            question_for = 'imci')
+        AND lq.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = 'ch') ".$criteria_condition." )
+GROUP BY lq.question_code
+ORDER BY lq.question_code ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			foreach ($this->dataSet as $value_) {
+				$question = $this -> getQuestionName($value_['question_code']);
+				$question = trim($question, 'Does this facility have an updated');
+				$question = trim($question, '?');
+
+				if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
+					$question = 'Baby Friendly Hospital Initiative';
+				} else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
+					$question = 'Quality Obstetric and Prenatal Care';
+				} else {
+
+					//$question = trim($question, 'National Guidelines for ');
+				}
+				$yes = $value_['yes_values'];
+				$no = $value_['no_values'];
+				//1. collect the categories
+				$data[$question]['yes'] = $yes;
+				$data[$question]['no'] = $no;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		return $data;
+	}
 
 	public function getQuestionStatistics($criteria, $value, $survey,$for) {
 		/*using CI Database Active Record*/

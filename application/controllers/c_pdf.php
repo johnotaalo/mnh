@@ -28,7 +28,7 @@ class C_Pdf extends MY_Controller {
 				<tr>
 					<td>Facility Name </td><td>
 					<input type="text" size="40">
-					</td><td>Facility Level </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+					</td><td>Facility Tier </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 					<input type="text" size="40" >
 					</td><td>County </td>
 					<td>
@@ -52,6 +52,10 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			</tbody>
 		</table>
+		<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+		</p>
 		<table>
 			<thead>
 				<th colspan="3" >FACILITY CONTACT INFORMATION</th>
@@ -64,7 +68,7 @@ class C_Pdf extends MY_Controller {
 					<th >EMAIL</th>
 				</tr>
 				<tr>
-					<td  colspan="2">Incharge </td><td>
+					<td  colspan="2">Facility Incharge </td><td>
 					<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 					</td><td>
 					<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
@@ -74,7 +78,7 @@ class C_Pdf extends MY_Controller {
 					</td>
 				</tr>
 				<tr>
-					<td  colspan="2">MCH </td><td>
+					<td  colspan="2">MCH Incharge </td><td>
 					<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 					</td><td>
 					<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -84,7 +88,7 @@ class C_Pdf extends MY_Controller {
 					</td>
 				</tr>
 				<tr>
-					<td  colspan="2">Maternity </td><td>
+					<td  colspan="2">Maternity Incharge </td><td>
 					<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 					</td>
 					<td>
@@ -95,64 +99,8 @@ class C_Pdf extends MY_Controller {
 					</td>
 				</tr>
 			</tbody>
-		</table>	
-		
-		
-	
-			
-			
-			<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Nurses</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> nurses . '
-		</table>	
-		<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Beds</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> beds . '
 		</table>
 		<table>
-			<thead>
-				
-					<th colspan="2" >PROVISION OF Services</th>
-			
-				<tr>
-					<th >QUESTION</th>
-					<th>RESPONSE</th>
-
-				</tr>
-			</thead>
-			' . $this -> servicesPDF . '
-		</table>	
-		
-		
-		<table>
-		<tr>
-		<th colspan="12" >Health Facility Management</th>
-		</tr>
-		<tr>		
-		<th colspan="7">QUESTION</th>
-		<th colspan="5">RESPONSE</th>	
-		</tr>
-		' . $this -> mnhCommitteeAspectSectionPDF . '
-	</table>
-	<table>
 		<tr>
 			<td>
 				<th> DOES THIS FACILITY CONDUCT DELIVERIES?</th>
@@ -204,7 +152,59 @@ class C_Pdf extends MY_Controller {
 					</td>
 
 				</tr>
-			</table>
+			</table>	
+		<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Nurses</th>
+			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			</thead>
+			' . $this -> nurses . '
+		</table>	
+		<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Beds</th>
+			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			</thead>
+			' . $this -> beds . '
+		</table>
+		<table>
+			<thead>
+				
+					<th colspan="2" >PROVISION OF Services</th>
+			
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			</thead>
+			' . $this -> servicesPDF . '
+		</table>	
+		
+		
+		<table>
+		<tr>
+		<th colspan="12" >Health Facility Management</th>
+		</tr>
+		<tr>		
+		<th colspan="7">QUESTION</th>
+		<th colspan="5">RESPONSE</th>	
+		</tr>
+		' . $this -> mnhCommitteeAspectSectionPDF . '
+	</table>
+	
 	</div><!--\.the section-1 -->
 
 	<div id="Yes" class="step">
@@ -224,13 +224,11 @@ class C_Pdf extends MY_Controller {
 				</tr>
 			</thead>
 			<tr>
-				<td>2013</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnjanuary_13" size="8" name="dnjanuary_13" class="cloned numbers"/>
+				<td>'.date('Y').'</td>
+				<td style ="text-align:center;" class="not-read">
 				</td>
 
-				<td style ="text-align:center;">
-				<input type="text" id="dnfebruary_13" name="dnfebruary_13" size="8"class="cloned numbers"/>
+				<td style ="text-align:center;" class="not-read">
 				</td>
 				<td style ="text-align:center;">
 				<input type="text" id="dnmarch_13" name="dnmarch_13" size="8"class="cloned numbers"/>
@@ -241,27 +239,20 @@ class C_Pdf extends MY_Controller {
 				<td style ="text-align:center;">
 				<input type="text" id="dnmay_13" name="dnmay_13" size="8"class="cloned numbers" />
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnjune_13" name="dnjune_13" size="8"class="cloned numbers" />
+				<td style ="text-align:center;" class="not-read">
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnjuly_13" size="8" name="dnjuly_13" class="cloned numbers" >
+				<td style ="text-align:center;" class="not-read">
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnaugust_13" size="8" name="dnaugust_13" class="cloned numbers" >
+				<td style ="text-align:center;" class="not-read">
 				</td>
-				<td  style ="text-align:center;">
-				<input type="text" id="dnseptember_13" size="8" name="dnseptember_13" class="cloned numbers" >
+				<td  style ="text-align:center;" class="not-read">
 				</td>
-				<td style ="text-align:center;">
-				<input type="text" id="dnoctober_13" size="8" name="dnoctober_13" class="cloned numbers" >
+				<td style ="text-align:center;" class="not-read">
 				</td>
-				<td style ="text-align:center;" width="15">
-				<input type="text" id="dnnovember_13" size="8" name="dnnovember_13" class="cloned numbers">
+				<td style ="text-align:center;" width="15" class="not-read">
 				</td>
 
-				<td style ="text-align:center;">
-				<input type="text" id="dndecember_13" size="8" name="dndecember_13" class="cloned numbers" >
+				<td style ="text-align:center;" class="not-read">
 				</td>
 			</tr>
 		</table>
@@ -269,8 +260,11 @@ class C_Pdf extends MY_Controller {
 		<table>
 			<thead>
 				<tr>
-					<th colspan="14" >PROVISION OF BEmONC SIGNAL FUNCTIONS  IN THE LAST THREE MONTHS </th>
+					<th colspan="14" >PROVISION OF Basic Emergency Obstetric Neonatal Care(BEmONC) SIGNAL FUNCTIONS</th>
 				</tr>
+				<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files, Registers and Partograph
+		</p></td></tr>
 				<tr>
 
 					<th  colspan="7">SIGNAL FUNCTION</th>
@@ -283,10 +277,14 @@ class C_Pdf extends MY_Controller {
 		</table>
 	
 <table>
+
 	
 		<tr>
-			<th colspan="12" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
+			<th colspan="12" >PROVISION OF Comprehensive Emergency Obstetric and Newborn Care (CEmONC) SERVICES IN THE LAST THREE MONTHS</th>
 		</tr>
+		<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files, Registers and Partograph
+		</p></td></tr>
 		<tr>		
 		<th colspan="7">QUESTION</th>
 		<th colspan="5">RESPONSE</th>	
@@ -298,6 +296,9 @@ class C_Pdf extends MY_Controller {
 				<tr>
 					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
 				</tr>
+				<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files and Registers
+		</p></td></tr>
 				<tr>
 					<th style="width:35%">QUESTION</th>
 					<th style="width:65%;text-align:left">RESPONSE</th>
@@ -345,8 +346,8 @@ class C_Pdf extends MY_Controller {
 				<tr>
 					<th colspan="12" style="background=#fff"> 
 					<strong>Criteria : </strong>Adult Resuscitation Kit Complete, Working and Clean	; Newborn Resuscitation Kit Complete, working and clean;
-				 Receiving Place ; Adequate Light ; No draft(cold air); Clean (delivery beds and all surfaces)	; Waste Disposal System	
-				; Sterilization color-coded	;Sharp Container; Privacy		
+				 Receiving Place ; Adequate Light ; No draft(cold air); Clean (delivery beds, recovery beds and all surfaces)	; Waste Disposal System	
+				; Sterilization color-coded	;Sharp Container; Privacy; Delivery Kit		
 					</th>
 				</tr>
 				<tr>
@@ -450,7 +451,7 @@ class C_Pdf extends MY_Controller {
 		<th style="text-align:left">Number Trained before 2010</th>
 		<th style="text-align:left">Number Trained after 2010</th>
 		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in the Marternity Unit?</div></th>
+		Trained are still Working in the Marternity/ MCH/ Gynaecological Ward?</div></th>
 		</tr>
 		</thead>
 				
@@ -770,7 +771,7 @@ class C_Pdf extends MY_Controller {
 		<tr>
 			<td>Facility Name </td><td>
 			<input type="text" size="40">
-			</td><td>Facility Level </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			</td><td>Facility Tier </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<input type="text" size="40" >
 			</td><td>County </td>
 			<td>
@@ -797,7 +798,7 @@ class C_Pdf extends MY_Controller {
 
 <table>
 	<thead>
-	<tr>
+		<tr>
 		<th colspan="8">ASSESSOR INFORMATION </th>
 		</tr>
 	</thead>
@@ -821,6 +822,10 @@ class C_Pdf extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
+<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+</p>
 <table>
 	<thead>
 		<tr>
@@ -835,7 +840,7 @@ class C_Pdf extends MY_Controller {
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td >Incharge </td><td>
+			<td >Facility Incharge </td><td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
@@ -865,28 +870,139 @@ class C_Pdf extends MY_Controller {
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
+		<tr>
+			<td>OPD Incharge</td><td>
+			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			</td><td>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
 	</tbody>
 </table>
+<table class="centre">
+		<thead>
+			<tr>
+				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+			</tr>
+			<tr>
+
+				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
+				<th rowspan ="2" style="text-align:left">Total in Facility</th>
+				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
+				<th colspan="2" ># of Staff Trained in IMCI</th>
+				<th colspan="2"># of Staff Trained in ICCM</th>
+				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
+				<th colspan="2"># of Staff Trained in Diarrhoea and Pnemonia CMEs for U5s</th>
+				<th rowspan ="2">				
+					How Many Of The Total Staff Members
+					Trained in IMCI are still Working in Child Health Unit?</th>
+			</tr>
+			<tr>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2013</th>
+				<th style="text-align:left">AFTER 2013</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2014</th>
+				<th style="text-align:left">AFTER 2014</th>
+			</tr>
+		</thead>
+		<tr>
+			<td>Doctor</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Nurse</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>R.C.O.</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Pharmaceutical Staff</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+		</tr>
+		<tr>
+			<td>Lab Staff</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
+		</tr>
+
+	</table>
 <table>
   <thead>
   <tr>
-	<th colspan = "10">HEALTH SERVICES</th>
+	<th colspan = "12">HEALTH SERVICES</th>
 	</tr>
 	</thead>
 	<tbody>
 	<tr><td colspan = "10">Where are sick children seen?</td>
 	</tr>
 	<tr>
-		<td>OPD</td>
-		<td><input type="radio",name="opd", size="40"></td>
-		<td>U5 Clinic</td>
-		<td><input type="radio",name="usclinic",size="40"></td>
+		<td>General OPD</td>
+		<td><input type="radio" name="children_seen" value="opd", size="40"></td>
+		<td>Paediatric OPD</td>
+		<td><input type="radio" name="children_seen" value="usclinic",size="40"></td>
 		<td>MCH</td>
-		<td><input type="radio",name="mch",size="40"></td>
+		<td><input type="radio" name="children_seen" value="mch",size="40"></td>
 		<td>Other</td>
-		<td><input type="radio",name="other",size="40"></td>
+		<td><input type="radio" name="children_seen" value="other",size="40"></td>
 		<td>If Other, Specify</td>
-		<td><input type="radio",name="specify",size="40"></td>
+		<td><input type="text" size="100" name="specify",size="40"></td>
 		</tr>
 	</tbody>
 </table>
@@ -908,7 +1024,7 @@ class C_Pdf extends MY_Controller {
 
 <div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	<p style="display:true;margin-top:200px" class="message success">
+	<p style="display:true" class="message success">
 		SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS
 	</p>
 
@@ -1009,83 +1125,11 @@ class C_Pdf extends MY_Controller {
 			</thead>
 			' . $this -> treatmentMCHSection['dia'] . '
 		</table>
-	<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
-			</tr>
-			<tr>
-
-				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
-				<th rowspan ="2" style="text-align:left">Total in Facility</th>
-				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
-				<th colspan="2" ># of Staff Trained in IMCI</th>
-				<th colspan="2"># of Staff Trained in ICCM</th>
-				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
-				<th colspan="2"># of Staff Trained in Diarrhoea CMEs for U5s</th>
-				<th rowspan ="2">				
-					How Many Of The Total Staff Members
-					Trained are still Working in Child Health?</th>
-			</tr>
-			<tr>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2010</th>
-				<th style="text-align:left">AFTER 2010</th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Doctor</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-		<tr>
-			<td>Nurse</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-		<tr>
-			<td>R.C.O.</td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-			<td><input type="text"></td>
-		</tr>
-
-	</table>
+	
 	<table class="centre">
     <thead>
         <tr>
-            <th colspan="10" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS <input type="text"></th>
+            <th colspan="10" >TOTAL U5 CHILDREN SEEN IN THE 1 MONTHS <input type="text"></th>
         </tr>
         <tr>
             <th colspan="10" style="text-align:center"> Classification</th>
@@ -1106,8 +1150,8 @@ class C_Pdf extends MY_Controller {
     </tr>
     <tr >
         
-        <td>Pneumonia:</td><td><input type="text" name="pneumonia"></td>
-        <td>No Pneumonia cough/cold:</td><td colspan="9"><input type="text" name="nopneumonia"></td>
+        <td>Severe Pneumonia:</td><td><input type="text" name="severepneumonia"></td>
+        <td>Pneumonia:</td><td colspan="9"><input type="text" name="pneumonia"></td>
     </tr>
     <tr>
          <th>Malaria Total:</th><th colspan="9"><input type="malariaTotal", name = "malariaTotal"></th>
@@ -1115,7 +1159,7 @@ class C_Pdf extends MY_Controller {
     <tr >
        
         <td>Confirmed:</td><td><input type="text" name="pneumonia"></td>
-        <td>Not Confirmed:</td><td colspan="9"><input type="text" name="nopneumonia"></td>
+        <td>Not Confirmed(Include Clinical Malaria):</td><td colspan="9"><input type="text" name="nopneumonia"></td>
     </tr>
 </table>	
 <p style="display:true;margin-top:200px" class="message success">
@@ -1152,6 +1196,11 @@ class C_Pdf extends MY_Controller {
 				<th>Expiry Date</th>
 
 			</tr>
+			<tr>
+			<td colspan="15" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
+			</tr>
 		</thead>
 		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
@@ -1162,6 +1211,11 @@ class C_Pdf extends MY_Controller {
 	    <tr class="persist-header">
 		
 			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+		</tr>
+		<tr>
+			<td>
+				<p class="instruction" colspan="15" style="background:#ffffff">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
 		</tr>
 		
 		<tr>
@@ -1218,7 +1272,7 @@ class C_Pdf extends MY_Controller {
 		
 		<thead>
 		<tr>
-			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA FROM RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 REGISTERS IN THE LAST 3 MONTHS
 			(refer to Question C above)(One Selection Allowed) </th></tr>
 		</thead>
 		'.$this -> selectAccessChallenges.'
@@ -1230,6 +1284,11 @@ class C_Pdf extends MY_Controller {
 				<tr>
 					<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 				</tr>
+				<tr>
+			<td colspan="2" style="background:#fff">
+				<p class="instruction">* Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</p>
+			</td>
+			</tr>
 				<tr>
 					<th  style="width:35%">ASPECT</th>
 					<th   style="width:65%;text-align:left"> RESPONSE </th>
@@ -1276,7 +1335,7 @@ class C_Pdf extends MY_Controller {
 		</table>
 		<div id="section-6" class="step">
 		<input type="hidden" name="step_name" value="section-6"/>
-		<p style="display:true;margin-top:200px" class="message success">
+		<p style="display:true;margin-top:250px" class="message success">
 			SECTION 6 of 7: RESOURCE AVAILABILITY
 		</p>
 		<table  class="centre" >
@@ -1351,7 +1410,8 @@ class C_Pdf extends MY_Controller {
 	}
 	public function get_hcw_form(){
 		$this -> combined_form='
-		<table border="2">
+	<p class="message success">SECTION 1 : FACILITY,HCW and WORK STATION INFORMATION</p>	
+	<table border="2">
 
 	<thead>
 	<tr>
@@ -1362,7 +1422,7 @@ class C_Pdf extends MY_Controller {
 		<tr>
 			<td>Facility Name </td><td>
 			<input type="text" size="40">
-			</td><td>Facility Level </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+			</td><td>Facility Tier </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
 			<input type="text" size="40" >
 			</td><td>County </td>
 			<td>
@@ -1430,8 +1490,50 @@ class C_Pdf extends MY_Controller {
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
+		<tr>
+			<td>Team Lead </td><td>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			</td>
+			<td>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			</td>
+		</tr>
+		
 	</tbody>
 </table>
+<table>
+	<thead>
+		<tr>
+		<th colspan="8">ASSESSOR INFORMATION </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Name </td>
+			<td>
+			<input type="text" size="40">
+			</td>
+			<td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
+			<input type="text" size="40" >
+			</td>
+			<td>Email </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+			</td><td>Phone Number </td>
+			<td>
+			<input type="text" size="40" >
+			</td>
+		</tr>
+	</tbody>
+</table>
+<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+</p>
 <table>
     <thead>
         <tr>
@@ -1453,9 +1555,12 @@ class C_Pdf extends MY_Controller {
             <td><input type="text"></td>
             <td>Phone Number</td>
             <td><input type="text"></td>
+        </tr><tr>
+            <td>Personal Number</td>
+            <td colspan="3"><input type="text"></td>
         </tr>
         <tr>
-            <td colspan="1">Year, Month when trained <input type="text"></td>
+            <td colspan="1">Year, Month when trained in IMCI <input type="text"></td>
             <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
                 <p><input type="radio">MOH/KPA/CHAI</p>
                 <p><input type="radio">MOH only</p>
@@ -1470,15 +1575,23 @@ class C_Pdf extends MY_Controller {
     </tbody>
     <tfoot></tfoot>
 </table>
-<p class="message success">Work Station Profile</p>
 <table>
+<thead>
+ <tr>
+            <th colspan="2">Work Station Profile </th>
+        </tr>
+</thead>
     <tbody>
         <tr>
-            <td>Current Unit</td>
+            <td>Current Service Unit</td>
             <td><input type="text"></td>
         </tr>
+
     </tbody>
 </table>
+<p class="instruction">
+		* If healthcare worker works in many departments, write ALL
+</p>
 <table>
     <thead>
         <tr>
@@ -1534,7 +1647,10 @@ class C_Pdf extends MY_Controller {
         </tr>
     </tbody>
 </table>
-<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="instruction">
+		* Assessor should indicate findings alongside Healthcare Worker findings.
+</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1559,9 +1675,23 @@ class C_Pdf extends MY_Controller {
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
 </table>
-<p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
     <thead>
+    <tr>
+		<th colspan="6">CHILD PROFILE</th>
+    </tr>
+    </thead>
+        <tr>
+            <td>Gender (M or F)</td><td><input type="text"></td>
+            <td>Age (In Months)</td><td><input type="text"></td>
+            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
+        </tr>
+</table>
+<table class="centre">
+    <thead>
+    <tr>
+		<th colspan="2">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
+    </tr>
         <tr>
             <th width="700px">Symptom</th>
             <th rowspan="2" >Response</th>
@@ -1597,7 +1727,7 @@ class C_Pdf extends MY_Controller {
     </thead>
      ' . $this -> mchIndicatorsSectionPDF['fev'] . '
 </table>
-<p class="message success">DOES THE HCW CHECK FOR THE FOLLOWING</p>
+<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
     <thead>
         <tr>
@@ -1632,25 +1762,12 @@ class C_Pdf extends MY_Controller {
         ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
     </tbody>
 </table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="700px">Referrals</th>
-            <th>Response</th>
-        </tr>
-    </thead>
-    <tbody>
-        ' . $this -> mchIndicatorsSectionPDF['ref'] . '
-    </tbody>
-    </tbody>
-</table>
+<p class="message success">SECTION 4: CONSULTATION AND EXIT INTERVIEWS</p>
 <table>
     <thead>
      	<tr>
-            <th width="700px">3.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+            <th width="700px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
         
        
@@ -1664,10 +1781,8 @@ class C_Pdf extends MY_Controller {
 <table>
     <thead>
      	<tr>
-            <th width="700px">3.2 Exit Interview With The Caregiver / Mother </th>
+            <th width="700px">4.2 Exit Interview With The Caregiver</th>
         	<th>Case 1</th>
-            <th>Case 2</th>
-            <th>Case 3</th>
         </tr>
         
        
@@ -1678,59 +1793,79 @@ class C_Pdf extends MY_Controller {
     </tbody>
     <tfoot></tfoot>
 </table>
-<p class="message success">PROVIDER SCORE</p>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="700px">GIVE ONE POINT FOR EACH ANSWER</th>
-            <th >Response</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ASSESSMENT</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>CLASSIFICATION</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>TREATMENT</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>COUNSELING</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>RETURNIN DATE FOR FOLLOW-UP</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>TOTAL</td>
-            <td><input type="text"></td>
-        </tr>
-    </tbody>
-</table>
-<p class="message success">ASSESSMENT OUTCOME</p>
+<p class="message success">SECTION 5: ASSESSMENT OUTCOME</p>
+
 <table>
+<thead>
+	<tr>
+		<th colspan="2">ASSESSMENT OUTCOME</th>
+	</tr>
+</thead>
     <tr>
+        <td>
+            <input type="radio">	Fully Practicing IMCI
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="radio">	Practicing with gaps
+        </td>
+        <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           	<input type="radio">	Not practicing at all
+        </td>
+         <td>
+            Reason <input type="text" size="100">
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Certification
+        </th>
+    </tr>
+     <tr>
         <td colspan="2">
-            <p><input type="radio">Fully Practicing IMCI</p>
-            <p><input type="radio">	Partially practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Has some knowledge gaps (specify the gaps)<input type="text"></p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Others (specify)<input type="text"></p>
-            <p><input type="radio">	Not practicing IMCI (capture reasons) </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Could not be traced</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to another county</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Transferred to a non-pardiatric unit</p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio">	Other (specify)<input type="text"></p>
-            <p>Certificatied:<input type="radio">YES <input type="radio">NO</p>
+           Health care worker approved for certification	<input type="radio">YES <input type="radio">NO
+        </td>
+    </tr>
+     <tr>
+        <th colspan="2">
+            Mentorship
+        </th>
+    </tr>
+     <tr>
+        <td colspan="2">
+            Recommended for Mentor TOT?		<input type="radio">YES <input type="radio">NO
         </td>
     </tr>
 </table>
-<p style="margin-top:10px"></p>
+<table>
+	<thead>
+		<tr>
+			<th colspan="2">Share your findings from observational sessions with provider. 
+			Praise for the things done well and discuss on the identified weakness, show how it could be done. 
+			<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly. 
+			Note down the decisions which have been taken to improve the skills and continue the practices</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Action/s taken by supervisor:</td>
+			<td>Action/s taken by supervisee:</td>
+		</tr>
+		<tr>
+			<td><textarea style="width:400px;height:100px"></textarea></td>
+			<td><textarea style="width:400px;height:100px"></textarea></td>
+		</tr>
+	</tbody>
+</table>
+<p style="margin-top:0.5px"></p>
 <table style="border:2px solid #666">
     <tr>
         <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
@@ -1742,9 +1877,10 @@ return $this -> combined_form;
 	}
 
 	public function loadPDF($survey) {
-		$stylesheet = ('<style>
+		$stylesheet = ('
+			<style>
 		input[type="text"]{
-			width:600px;
+			width:200%;
 		}
 		input[type="number"]{
 			width:400px;
@@ -1768,6 +1904,11 @@ background: #91c5d4;
 .not-read{
 	background:#aaa;
 }
+.instruction{
+	background: #FAEBD7;
+	padding:3px;
+	width:100%;
+}
 		</style>
 		');
 
@@ -1780,7 +1921,7 @@ background: #91c5d4;
 			case 'mnh' :
 				$html = $this -> get_mnh_form();
 				$this -> mpdf -> SetTitle('MNH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">MNH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">MNH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
 				//echo $html;die;
@@ -1788,7 +1929,7 @@ background: #91c5d4;
 			case 'mch' :
 				$html = $this -> get_mch_form();
 				$this -> mpdf -> SetTitle('CH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>CH Assessment Tool</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'CH Assessment Tool' . ".pdf";
@@ -1797,7 +1938,7 @@ background: #91c5d4;
 			case 'hcw' :
 				$html = $this -> get_hcw_form();
 				$this -> mpdf -> SetTitle('Follow-Up Tool after IMCI Training');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014</p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>Follow-Up Tool after IMCI Training</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'Follow-Up Tool after IMCI Training' . ".pdf";

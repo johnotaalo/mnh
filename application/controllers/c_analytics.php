@@ -3145,6 +3145,11 @@ ORDER BY fac_level;");
     }
 
 
+     /**
+     * Deliveries Conducted
+     */
+
+
     public function getIndicatorsStatistics($criteria, $value, $survey, $for){
       $results = $this->m_analytics->getIndicatorsStatistics($criteria, $value, $survey, $for);
         
@@ -3183,9 +3188,49 @@ ORDER BY fac_level;");
         $this->load->view('charts/chart_stacked_v', $datas);
     }
     
-    /**
-     * Deliveries Conducted
-     */
+    
+    public function getConsultationStatistics($criteria, $value, $survey, $for) {
+        
+        $results = $this->m_analytics->getConsultationStatistics($criteria, $value, $survey, $for);
+    
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+
+
+        if(isset($results)){
+        foreach ($results as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $resultArray = json_encode($resultArray);
+        }
+        //echo $resultArray;
+        $datas = array();
+        $resultArraySize = 1;
+        
+        $datas['resultArraySize'] = $resultArraySize;
+        
+        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+        
+        $datas['chartType'] = 'bar';
+        $datas['chartMargin'] = 70;
+        $datas['title'] = 'Chart';
+        $datas['chartTitle'] = ' ';
+        
+        //$datas['chartTitle'] = 'Danger Signs';
+        $datas['categories'] = json_encode($category);
+        $datas['yAxis'] = 'Occurence';
+        $datas['resultArray'] = $resultArray;
+        $this->load->view('charts/chart_stacked_v', $datas);
+    }
+
+
+    
     public function getQuestionStatistics($criteria, $value, $survey, $for) {
         
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
