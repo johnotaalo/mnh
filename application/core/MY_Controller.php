@@ -138,6 +138,10 @@ class MY_Controller extends CI_Controller
          $this->  createInterviewAspectsSection();
          $this->  createInterviewAspectsSectionforPDF();
 		 $this-> createmchHealthService();
+                 $this->createDiarrhoeaTreatmentTSection();
+        $this->createPneumoniaTreatmentTSection();
+        $this->createMalariaTreatmentSection();
+
 
       
         
