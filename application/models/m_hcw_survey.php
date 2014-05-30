@@ -218,7 +218,6 @@ class M_HCW_Survey extends MY_Model
                 
                 //mark the end of 1 row...for record count
                 if ($this->attr == "hcwProfileQCode") {
-                    
                     // print 'count at:'.$count.'<br />';
                     
                     $finalCount = $count;
@@ -2497,14 +2496,11 @@ class M_HCW_Survey extends MY_Model
     function store_data() {
         
         /*check assessment tracker log*/
-        if ($this->input->post()) {
- 
-			
-           $step = 'section-1';//$this->input->post('step_name', TRUE);
+        if ($this->input->post()) {			
+          $step = 'section-1';//$this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
-                case 'section-1':
-                    
+                case 'section-1':                    
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
                     
