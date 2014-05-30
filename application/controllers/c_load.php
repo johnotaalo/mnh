@@ -1316,8 +1316,21 @@ class C_Load extends MY_Controller {
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
 				</tr>
-				</thead>'
+				</thead>
+				<tr>
+				<td>
+				<div style="height: 15em; width: 30em; overflow: auto;" id ="treat">
+				<span id = "malTreatmentSection">&nbsp</span>'
 				.$this -> mchmalariaTreatmentSection.'
+				</div>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtMalariaTreatment" value = "1"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtMalariaTreatment" value = "0"/>
+				</td>
+				</tr>
 		</table>
 		<table class="centre">
 		<thead>
@@ -1332,8 +1345,20 @@ class C_Load extends MY_Controller {
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia cough/cold</th>
 					</tr>
-					</thead>'
-			.$this -> mchpneumoniaTreatmentSection.	'
+					</thead>
+					<tr>
+				<td>
+				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">'
+			.$this -> mchpneumoniaTreatmentSection.
+			'</div>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtPneumoniaTreatment" value = "1"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtPneumoniaTreatment" value = "0"/>
+				</td>
+				</tr>
 					
 		</table>
 		<table class="centre"><thead>
@@ -1354,7 +1379,28 @@ class C_Load extends MY_Controller {
 					<th>No Classification</th>
 				</tr>
 			</thead>
-			' . $this -> treatmentMCHSection . '
+			<tr>
+				<td>
+				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">'
+			. $this -> treatmentMCHSection . '
+			</div>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtdiaTreatment" value = "severe_dehydration"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtdiaTreatment" value = "some_dehydration"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtdiaTreatment" value = "no_dehydration"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtdiaTreatment" value = "dysentry"/>
+				</td>
+				<td>
+				<input type = "radio" name = "mchtdiaTreatment" value = "no_classification"/>
+				</td>
+				</tr>
 		</table>
 		<table class="centre">
 
