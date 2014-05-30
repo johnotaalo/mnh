@@ -1861,8 +1861,6 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
 
-	
-
 		switch($criteria) {
 			case 'national' :
 				$criteria_condition = ' ';
@@ -1881,8 +1879,8 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 				break;
 		}
 
-		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration,
-SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
+		$query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, 
+SUM(tl.someDehydrationNo) AS some_dehydration, SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
 FROM log_treatment tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
 WHERE treatmentFor='dia') AND tl.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . "  " . $criteria_condition . ")
 GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
@@ -1919,6 +1917,95 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		}
 	}
 
+
+
+     public function getDiarrhoeaU5Challenges(){
+
+/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+$query = "SELECT 
+    sum(if(ach_code = 'ACH01')) as one,
+    sum(if(ach_code = 'ACH02')) as two,
+    sum(if(ach_code = 'ACH03')) as three,
+    sum(if(ach_code = 'ACH04')) as four,
+    sum(if(ach_code = 'ACH05')) as five,
+FROM
+    log_challenges lc
+WHERE
+    lc.ach_code IN (SELECT 
+            ach_code
+        FROM
+            access_challenges )
+        AND lc.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+
+        AND st.st_name = 'ch') ".$criteria_condition." )
+GROUP BY lc.ach_code
+ORDER BY lc.ach_code ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			foreach ($this->dataSet as $value_) {
+				$question = $this -> getQuestionName($value_['indicator_code']);
+				$question = trim($question, 'Does this facility have an updated');
+				$question = trim($question, '?');
+
+				if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
+					$question = 'Baby Friendly Hospital Initiative';
+				} else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
+					$question = 'Quality Obstetric and Prenatal Care';
+				} else {
+
+					//$question = trim($question, 'National Guidelines for ');
+				}
+				$yes = $value_['yes_values'];
+				$no = $value_['no_values'];
+				//1. collect the categories
+				$data[$question]['yes'] = $yes;
+				$data[$question]['no'] = $no;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+
+		return $data;
+		
+
+       
+     }
+
+
 	/*
 	 * ORT Corner Assessment
 	 */
@@ -1935,8 +2022,6 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		 * something of this kind:
 		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
 		 */
-
-	
 
 		switch($criteria) {
 			case 'national' :

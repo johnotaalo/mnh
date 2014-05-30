@@ -93,6 +93,9 @@ switch($this->session->userdata('survey')) {
 				<li id="caseTreatment">
 					<a href="#">Case Treatment</a>
 				</li>
+				<li id="u5Total">
+					<a href="#">U5 Children</a>
+				</li>
 			</ul>
 		</li>
 		<li id="ORT-Corner-parent" class="has-sub start">
@@ -191,6 +194,7 @@ case 'mnh' :
 
 			</ul>
 		</li>
+
 		<li id="signal-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Signal Functions</span> <span class="arrow "></span> </a>
 			<ul class="sub">

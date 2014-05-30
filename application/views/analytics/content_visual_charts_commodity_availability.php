@@ -300,7 +300,7 @@ case 'mnh':
 		</div>
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric & Prenatal Care</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric and Prenatal Care</h4>
 			</div>
 			<div class="portlet-body">
 
@@ -323,6 +323,15 @@ case 'mnh':
 			<div class="portlet-body">
 
 				<div id="graph_83" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5</span>IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_85" class="chart"></div>
 			</div>
 		</div>
 		<!--

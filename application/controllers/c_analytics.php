@@ -643,6 +643,7 @@ ORDER BY fac_level;");
         $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
         $mch = $other = $opd = $ward = $clinic = array();
         //echo $resultArray;
+        //var_dump($resultArray);
         //$category = $frequencyCategories;
         switch ($choice) {
             case 'Frequency':
@@ -1427,6 +1428,12 @@ ORDER BY fac_level;");
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_pie_v', $datas);
     }
+
+
+
+    public function getU5Total($query){
+       
+    }
     
     /*
      * ORT Corner Assessment
@@ -1510,6 +1517,7 @@ ORDER BY fac_level;");
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
     }
+
     
     /*
      * Availability, Location and Functionality of Equipement at ORT Corner

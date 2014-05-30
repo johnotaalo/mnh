@@ -87,7 +87,7 @@ function startAnalytics(base_url, county, survey) {
 	$('#graph_82').load(base_url + 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative');
 	$('#graph_83').load(base_url + 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines');
 	$('#graph_84').load(base_url + 'c_analytics/getIndicatorStatistics/national/n/ch/dgn');
-	//$('#graph_85').load(base_url + 'c_analytics/getConsultationStatistics/national/n/ch/IMCI');
+	$('#graph_85').load(base_url + 'c_analytics/getU5Total/national/n/ch/IMCI');
 
 
 
@@ -602,6 +602,21 @@ function startAnalytics(base_url, county, survey) {
 			    $('#graph_4').load(base_url + 'c_analytics/getDiarrhoeaCaseTreatment/facility/' + facility + '/ch/' + filter);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/county/'+county+'/ch/'+extraStat);
 				break;
+
+				case 'u5Total':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getU5Total/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Total U5 Children seen');
+				$('#diarrhoea-cases-parent').addClass('active');
+				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getU5Total/national/n/ch/' + filter);
+				$('#graph_2').load(base_url + 'c_analytics/getU5Total/county/' + county + '/ch/' + filter);
+				$('#graph_3').load(base_url + 'c_analytics/getU5Total/district/' + district + '/ch/' + filter);
+			    $('#graph_4').load(base_url + 'c_analytics/getU5Total/facility/' + facility + '/ch/' + filter);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getU5Total/county/'+county+'/ch/'+extraStat);
+				break;
+
 				/*
 				 * ------End of Diarrhoea Cases
 				 */
