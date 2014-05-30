@@ -1263,13 +1263,8 @@ class C_Load extends MY_Controller {
 
 			<thead>
 				<th colspan="6" > DATA FROM THE TOOLS </th>
-<<<<<<< HEAD
-			</thead>
-			<thead>
-=======
 			</tr>
 			<tr>
->>>>>>> 91daca563293fc7cad5c5ed1d747901ac1075791
 				<th colspan="6" > (A) MALARIA</th>
 			</thead>
 				<tr>
@@ -1279,57 +1274,18 @@ class C_Load extends MY_Controller {
 				<tr >
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
-<<<<<<< HEAD
-					</tr>
-					<tr >
-					<td>Artemether Lumefantrine(AL)</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Artesunate</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Chloramphenical</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr><tr >
-					<td>Paracetamol</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Quenine</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Referral for admission</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Other, specify</td>
-					<td><input type="text", name = "specify"></td>
-					</tr>
-			</table>
-			
-=======
+
 				</tr>
 				</thead>'
 				.$this -> mchmalariaTreatmentSection.'
 		</table>
->>>>>>> 91daca563293fc7cad5c5ed1d747901ac1075791
+
 		<table class="centre">
 		<thead>
 				<th colspan="6" > (B) PNEUMONIA</th>
-<<<<<<< HEAD
-			</thead>
-=======
+
 			</tr>
->>>>>>> 91daca563293fc7cad5c5ed1d747901ac1075791
+
 				<tr>
 				<th  rowspan="2" style="width:35%">TREATMENT</th>
 				<th colspan="5" style="text-align:center"> Classification</th>
@@ -1338,34 +1294,7 @@ class C_Load extends MY_Controller {
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia Cough/No Cough</th>
 					</tr>
-<<<<<<< HEAD
-					<tr >
-					<td>Amoxicillin</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr >
-					<td>Cotrimoxazole</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Referral for admission</td>
-					<td><input type="radio"></td>
-					<td><input type="radio"></td>
-					</tr>
-					<tr>
-					<td>Other, specify</td>
-					<td><input type="text", name = "specify"></td>
-					</tr>
-			
-		</table>
-		<table class="centre">
-		<thead>
-			<th colspan="6" > (C) DIARRHOEA </th>
-		</thead>
-				<thead>
-=======
+
 					</thead>'
 			.$this -> mchpneumoniaTreatmentSection.	'
 					
@@ -1375,7 +1304,7 @@ class C_Load extends MY_Controller {
 				<th colspan="6" > (C) DIARRHOEA </th>
 			</tr>
 				<tr>
->>>>>>> 91daca563293fc7cad5c5ed1d747901ac1075791
+
 					<th  rowspan="2" style="width:35%">TREATMENT</th>
 					<th colspan="5" style="text-align:center"> Classification</th>
 		</thead>
@@ -1429,7 +1358,7 @@ class C_Load extends MY_Controller {
 		<table class="centre">
 		<thead>
 			<tr>
-				<th colspan="15"  > CLINICAL STAFF</th>
+				<th colspan="15" > CLINICAL STAFF</th>
 			</tr>
 			<tr>
 				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
