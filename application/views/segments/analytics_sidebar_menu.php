@@ -39,9 +39,9 @@ switch($this->session->userdata('survey')) {
 				<li id="consultation">
 					<a href="#">Consultation</a>
 				</li>
-				
 			</ul>
 		</li>
+
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -62,6 +62,28 @@ switch($this->session->userdata('survey')) {
 				</li>
 			</ul>
 		</li>
+
+<li id="commodities-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="bundlingFrequency">
+					<a href="#">Commodity Bundling Availability</a>
+				</li>
+				<li id="bundlingUnavailability">
+					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+				</li>
+				<li id="bundlingLocation">
+					<a href="#">Bundling Location</a>
+				</li>
+				<li id="bundlingQuantities">
+					<a href="#">Bundling Quantities</a>
+				</li>
+				<li id="bundlingSuppliers">
+					<a href="#">Bundling Suppliers</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">

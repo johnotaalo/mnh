@@ -130,6 +130,13 @@ class M_MCH_Survey extends MY_Model
         return $this->treatmentList;
     }
     
+    public function getTreatmentFor($type)
+    {
+        $this->treatmentList = $this->getTreatmentsByType($type);
+
+        //var_dump($this->treatmentList);
+        return $this->treatmentList;
+    }
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
@@ -2448,8 +2455,8 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                       //if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                            if($this->addTotalMCHTreatment()== true){
+                       if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true && $this->addTotalMCHTreatment()== true) {
+                           // if($this->addTotalMCHTreatment()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

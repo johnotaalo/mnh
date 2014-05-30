@@ -59,3 +59,13 @@
 
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">
 
+    
+
+    <!-- CODEMIRROR: Download from http://codemirror.net/codemirror.zip -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/third-party/codemirror/codemirror.css" />
+    <script src="<?php echo base_url(); ?>assets/third-party/codemirror/codemirror.js"></script>
+
+    <!-- Download from http://www.firepad.io/firepad.zip -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/third-party/firepad/firepad.css" />
+    <script src="<?php echo base_url(); ?>assets/third-party/firepad/firepad.js"></script>
+

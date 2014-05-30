@@ -424,6 +424,8 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/ch/'+extraStat);
 				break;
 
+		    
+
 			case 'commodityUnavailability':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getCommodityAvailabilityUnavailability/';
@@ -437,6 +439,8 @@ function startAnalytics(base_url, county, survey) {
 			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/ch/'+extraStat);
 				break;
+
+			
 
 			case 'commodityLocation':
 				appendToTitle = ' ';
@@ -452,6 +456,8 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/ch/'+extraStat);
 				break;
 
+			
+
 			case 'commodityQuantities':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getCommodityAvailabilityQuantities/';
@@ -466,6 +472,8 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/ch/'+extraStat);
 				break;
 
+			
+
 			case 'commoditySuppliers':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getCHCommoditySupplier/';
@@ -479,9 +487,91 @@ function startAnalytics(base_url, county, survey) {
 			    $('#graph_4').load(base_url + 'c_analytics/getCHCommoditySupplier/facility/' + facility + '/ch/' + extraStat);
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/ch/'+extraStat);
 				break;
+
+
 				/*
 				 * ------End of Commodities
 				 */
+
+				 /*
+				 *  Bundling Commodities
+				 */  
+            case 'bundlingFrequency':
+				$('#facility_list_never').show();
+				neverList = 'Bundling';
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getCommodityAvailabilityFrequency/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Commodity Bundling Frequency');
+				$('#commodities-parent').addClass('active');
+				$('#commodities-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/national/n/bun/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/county/' + county + '/bun/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/district/' + district + '/bun/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityFrequency/facility/' + facility + '/bun/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityFrequency/county/'+county+'/ch/'+extraStat);
+				break;
+
+            case 'bundlingUnavailability':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getCommodityAvailabilityUnavailability/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Commodity Reasons For Bundling Unavailability');
+				$('#commodities-parent').addClass('active');
+				$('#commodities-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/national/n/bun/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/county/' + county + '/bun/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/district/' + district + '/bun/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityUnavailability/facility/' + facility + '/bun/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityUnavailability/county/'+county+'/ch/'+extraStat);
+				break;
+
+            case 'bundlingLocation':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getCommodityAvailabilityLocation/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Commodity Bundling Location');
+				$('#commodities-parent').addClass('active');
+				$('#commodities-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/national/n/bun/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/county/' + county + '/bun/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/district/' + district + '/bun/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityLocation/facility/' + facility + '/bun/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityLocation/county/'+county+'/ch/'+extraStat);
+				break;
+
+            case 'bundlingQuantities':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getCommodityAvailabilityQuantities/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Commodity Bundling Quantities');
+				$('#commodities-parent').addClass('active');
+				$('#commodities-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/national/n/bun/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/county/' + county + '/bun/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/district/' + district + '/bun/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCommodityAvailabilityQuantities/facility/' + facility + '/bun/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCommodityAvailabilityQuantities/county/'+county+'/ch/'+extraStat);
+				break;
+
+            case 'bundlingSuppliers':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getCHCommoditySupplier/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Commodity Bundling Suppliers');
+				$('#commodities-parent').addClass('active');
+				$('#commodities-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getCHCommoditySupplier/national/n/bun/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getCHCommoditySupplier/county/' + county + '/bun/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getCHCommoditySupplier/district/' + district + '/bun/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getCHCommoditySupplier/facility/' + facility + '/bun/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getCHCommoditySupplier/county/'+county+'/ch/'+extraStat);
+				break;
+
+				 /*
+				 * ------End of Bundling Commodities
+				 */
+
 				/*
 				 * Diarrhoea Cases
 				 */
