@@ -36,6 +36,14 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
+    public function getTreatmentFor($type)
+    {
+        $this->treatmentList = $this->getTreatmentsByType($type);
+
+        //var_dump($this->treatmentList);
+        return $this->treatmentList;
+    }
+
     
     /*calls the query defined in MY_Model*/
     public function getMchCommunityStrategyQuestions() {

@@ -64,7 +64,7 @@ class MY_Controller extends CI_Controller
         $this->createDeliveryEquipmentSection();
         $this->createCommodityUsageAndOutageSection();
         $this->createSuppliesUsageAndOutageSection();
-        $this->createTreatmentsMCHSection();
+        //$this->createTreatmentsMCHSection();
         $this->createFacilitiesListSection();
         $this->createMCHIndicatorsSection();
         $this->createORTCornerAspectsSection();
@@ -138,6 +138,10 @@ class MY_Controller extends CI_Controller
          $this->  createInterviewAspectsSection();
          $this->  createInterviewAspectsSectionforPDF();
 		 $this-> createmchHealthService();
+                 $this->createDiarrhoeaTreatmentTSection();
+        $this->createPneumoniaTreatmentTSection();
+        $this->createMalariaTreatmentSection();
+
 
       
         
@@ -3483,7 +3487,5 @@ class MY_Controller extends CI_Controller
         }
         return $this->treatmentMCHSection;
     }
-
-}
 
 }
