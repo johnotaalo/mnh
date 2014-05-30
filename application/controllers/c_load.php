@@ -1030,10 +1030,10 @@ class C_Load extends MY_Controller {
 	</thead>
 	<tbody>
 		<tr>
-			<td>Name:<input type="text" name="assessor[name]" size="40" class="cloned" /></td>
-			<td>Designation:<input type="text" name="assessor[designation]" class="cloned"  size="40"/></td>
-			<td>Email:<input type="text" name="assessor[email]" class="cloned"  size="40"/> </td>
-			<td>Phone Number:<input type = "text" name="assessor[phoneNumber]" class="cloned"  size="40"/> </td>
+			<td>Name <input type="text" name="assesorname_1"size="40" class="cloned" /></td>
+			<td>Designation <input type="text" name="assesordesignation_1" class="cloned"  size="40"/></td>
+			<td>Email <input type="text" name="assesoremail_1" class="cloned"  size="40"/> </td>
+			<td>Phone Number <input type = "text" name="assesorphoneNumber_1" class="cloned"  size="40"/> </td>
 			</tr>
 	</tbody>
 </table>
