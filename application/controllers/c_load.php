@@ -1054,13 +1054,13 @@ class C_Load extends MY_Controller {
 		<th colspan="12" >HR INFORMATION</th>
 		</thead>
 		<tr >
-			<th scope="col" colspan="2" >CADRE</th>
+			<th >CADRE</th>
 			<th>NAME</th>
 			<th >MOBILE</th>
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td colspan="2">Incharge Incharge</td>
+			<td>Incharge Incharge</td>
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
@@ -1071,7 +1071,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">MCH Incharge</td>
+			<td>MCH Incharge</td>
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>

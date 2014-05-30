@@ -1013,18 +1013,18 @@ class C_Pdf extends MY_Controller {
     		<th colspan="2">INFRASTRUCTURE: IMCI Consultation Room</th>
     	</tr>
         <tr>
-            <th  width="700px">QUESTION</th>
+            <th  width="500px">QUESTION</th>
             <th> RESPONSE </th>
         </tr>
     </thead>
-    ' . $this -> questionPDF['imci'] . '
+    ' . $this -> mchConsultationSection . '
 </table>
 <!--\.the section-1 -->
 
 
 <div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	<p style="display:true" class="message success">
+	<p style="display:true;margin-top:100px" class="message success">
 		SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS
 	</p>
 
@@ -1071,14 +1071,25 @@ class C_Pdf extends MY_Controller {
 					<th colspan="2" style="text-align:center"> Classification</th>
 
 				</tr>
+				
 				<tr >
 
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
 					</tr>
+					<tr>
+				<td colspan="3" style="background:#ffffff">
+				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
+			</td>
+			</tr>
 					</thead>
-					' . $this -> treatmentMCHSection['fev'] . '
-		
+					<tr>
+					<td><textarea style="width:600px;height:100px"></textarea></td>
+					<td><input type="radio"></td>
+					<td><input type="radio"></td>
+					</tr>
+
+
 			
 		</table>
 		<table class="centre">
@@ -1095,11 +1106,20 @@ class C_Pdf extends MY_Controller {
 				</tr>
 				<tr >
 
-					<th >Pneumonia</th>
-					<th>No Pneumonia Cough / Cold</th>
+					<th >Severe Pneumonia</th>
+					<th>Pneumonia</th>
 				</tr>
+				<tr>
+				<td colspan="3" style="background:#ffffff">
+				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
+			</td>
+			</tr>
 				</thead>
-			' . $this -> treatmentMCHSection['pne'] . '
+			<tr>
+			<td><textarea style="width:600px;height:100px"></textarea></td>
+			<td><input type="radio"></td>
+			<td><input type="radio"></td>
+			</tr>
 			
 		</table>
 		<table class="centre">
@@ -1122,8 +1142,20 @@ class C_Pdf extends MY_Controller {
 					<th>Dysentry</th>
 					<th>No Classification</th>
 				</tr>
+				<tr>
+			<td colspan="6" style="background:#ffffff">
+				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
+			</td>
+		</tr>
 			</thead>
-			' . $this -> treatmentMCHSection['dia'] . '
+			<tr>
+			<td><textarea style="width:600px;height:100px"></textarea></td>
+			<td><input type="radio"></td>
+			<td><input type="radio"></td>
+			<td><input type="radio"></td>
+<td><input type="radio"></td>
+<td><input type="radio"></td>
+			</tr>
 		</table>
 	
 	<table class="centre">
@@ -1161,14 +1193,128 @@ class C_Pdf extends MY_Controller {
         <td>Confirmed:</td><td><input type="text" name="pneumonia"></td>
         <td>Not Confirmed(Include Clinical Malaria):</td><td colspan="9"><input type="text" name="nopneumonia"></td>
     </tr>
+</table>
+<table class="centre">
+    <thead>
+    <tr>
+		<th colspan="5">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
+    </tr>
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>1. Cough / Pneumonia</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>2. Diarrhoea</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+</table>
+<table class="centre">
+    <thead>
+       <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>3. Fever / Malaria</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>4. Ear Infection</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['ear'] . '
+</table>
+<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="500px" rowspan="2">Condition</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+        <th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        	</tr>
+    </thead>
+    <tbody>
+     ' . $this -> mchIndicatorsSectionPDF['con'] . '
+    </tbody>
 </table>	
-<p style="display:true;margin-top:200px" class="message success">
+<p style="display:true;margin-top:100px" class="message success">
 		SECTION 3 of 7: COMMODITY AND BUNDLING AVAILABILITY
 	</p>
 	<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the following Commodities<strong>Below</strong>?</td>
+            <td>'.$this->selectMCHCommoditySuppliersPDF.'</td>
+        </tr>
+	</tr>
+	</table>
+	<table>
 		<thead>
 			<tr class="persist-header">
-				<th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+				<th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+			</tr>
+			<tr>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			</td>
 			</tr>
 
 			<tr>
@@ -1178,7 +1324,7 @@ class C_Pdf extends MY_Controller {
 				<th rowspan="2"> Main Reason For  Unavailability </th>
 				<th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
 				<th rowspan="1" colspan="2" >Available Quantities</th>
-				<th rowspan="2" > Main Supplier </th>
+				
 				
 
 			</tr>
@@ -1196,25 +1342,32 @@ class C_Pdf extends MY_Controller {
 				<th>Expiry Date</th>
 
 			</tr>
-			<tr>
-			<td colspan="15" style="background:#ffffff">
-				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
-			</td>
-			</tr>
+			
 		</thead>
 		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
 	</table>  
 	<p style="margin-top:100px"></p>
+	<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
+            <td>'.$this->selectMCHCommoditySuppliersPDF.'</td>
+        </tr>
+	</tr>
+	</table>
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
-			<th colspan="15">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
+			<th colspan="14">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
 		</tr>
 		<tr>
-			<td>
-				<p class="instruction" colspan="15" style="background:#ffffff">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
+			<td colspan="14" style="background:#ffffff">
+				<p class="instruction" >* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
 			</td>
 		</tr>
 		
@@ -1232,10 +1385,7 @@ class C_Pdf extends MY_Controller {
 			</th>
 			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th colspan="1">Available Quantities</th>
-			<th colspan="1" rowspan="2">
 			
-				Main Supplier
-			</th>
 
 		</tr>
 		<tr >
@@ -1338,6 +1488,17 @@ class C_Pdf extends MY_Controller {
 		<p style="display:true;margin-top:250px" class="message success">
 			SECTION 6 of 7: RESOURCE AVAILABILITY
 		</p>
+		<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the Supplies <strong>Below</strong>?</td>
+            <td>'.$this->selectMCHOtherSuppliersPDF.'</td>
+        </tr>
+	</tr>
+	</table>
 		<table  class="centre" >
 			<thead>
 				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
@@ -1346,7 +1507,7 @@ class C_Pdf extends MY_Controller {
 
 					<th colspan="2" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </BR><strong> (Multiple Selections Allowed)</strong></th>
-					<th colspan="1" rowspan="2"> Main Supplier </th>
+					
 
 				</tr>
 				<tr >
@@ -1364,6 +1525,17 @@ class C_Pdf extends MY_Controller {
 		<p style="display:true" class="message success">
 			SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES
 		</p>
+			<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the Resources <strong>Below</strong>?</td>
+            <td>'.$this->selectMCHOtherSuppliersPDF.'</td>
+        </tr>
+	</tr>
+	</table>
 		<table  class="centre" >
 			<thead>
 				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
@@ -1372,7 +1544,7 @@ class C_Pdf extends MY_Controller {
 					<th colspan="1" rowspan="2">Resource Name</th>
 					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
-					<th colspan="1" rowspan="2"> Main Supplier </th>
+			
 
 				</tr>
 				<tr >
@@ -1657,7 +1829,7 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
         <tr>
-            <th  width="700px">SERVICE</th>
+            <th  width="500px">SERVICE</th>
             <th> RESPONSE </th>
         </tr>
     </thead>
@@ -1669,7 +1841,7 @@ class C_Pdf extends MY_Controller {
             <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
         <tr>
-            <th width="700px" >SERVICE</th>
+            <th width="500px" >SERVICE</th>
             <th > RESPONSE </th>
         </tr>
     </thead>
@@ -1690,14 +1862,21 @@ class C_Pdf extends MY_Controller {
 <table class="centre">
     <thead>
     <tr>
-		<th colspan="2">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
+		<th colspan="5">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
     </tr>
         <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2" >Response</th>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>1. Cough / Pneumonia</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
         </tr>
     </thead>
      ' . $this -> mchIndicatorsSectionPDF['pne'] . '
@@ -1705,35 +1884,74 @@ class C_Pdf extends MY_Controller {
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2">Response</th>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>2. Diarrhoea</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
         </tr>
     </thead>
      ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
 </table>
 <table class="centre">
     <thead>
-        <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2">Response</th>
+       <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>3. Fever / Malaria</th>
-            
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
         </tr>
     </thead>
      ' . $this -> mchIndicatorsSectionPDF['fev'] . '
+</table>
+<table class="centre">
+    <thead>
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>4. Ear Infection</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['ear'] . '
 </table>
 <p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px">Condition</th>
-            <th>Response</th>
+            <th width="500px" rowspan="2">Condition</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
+        <tr>
+        <th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        	</tr>
     </thead>
     <tbody>
      ' . $this -> mchIndicatorsSectionPDF['con'] . '
@@ -1742,9 +1960,16 @@ class C_Pdf extends MY_Controller {
 <table class="centre">
     <thead>
         <tr>
-            <th width="700px">Classification</th>
-            <th>Response</th>
+            <th width="500px" rowspan="2">Classification</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
+        <tr>
+        <th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        	</tr>
     </thead>
     <tbody>
         ' . $this -> mchIndicatorsSectionPDF['cls'] . '
@@ -1752,13 +1977,20 @@ class C_Pdf extends MY_Controller {
 </table>
 <table class="centre">
     <thead>
-        <tr>
-            <th width="700px">Treatment and Counselling</th>
-            <th>Response</th>
+    <tr>
+            <th width="500px" rowspan="2">Treatment and Counselling</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
+        <tr>
+        <th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        	</tr>
+        
     </thead>
     <tbody>
-        dy>
         ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
     </tbody>
 </table>
@@ -1766,7 +1998,7 @@ class C_Pdf extends MY_Controller {
 <table>
     <thead>
      	<tr>
-            <th width="700px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
+            <th width="500px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
         </tr>
         
@@ -1781,7 +2013,7 @@ class C_Pdf extends MY_Controller {
 <table>
     <thead>
      	<tr>
-            <th width="700px">4.2 Exit Interview With The Caregiver</th>
+            <th width="500px">4.2 Exit Interview With The Caregiver</th>
         	<th>Case 1</th>
         </tr>
         
@@ -1824,6 +2056,34 @@ class C_Pdf extends MY_Controller {
             Reason <input type="text" size="100">
         </td>
     </tr>
+    <tr>
+
+<th colspan="2">CRITERIA FOR CERTIFICATION	KEY AREAS IN IMCI	POINTS	GUIDING NOTES TO ASSESSOR</td>
+</tr>
+<tr>
+<td colspan="2">A: PRE-REQUISITE TO CERTIFICATION	
+<p>THE HEALTH WORKER HAS TO OBTAIN ALL <strong>12</strong> POINTS IN SECTION A TO BE CERTIFIED</p>
+<p>&nbsp;&nbsp;&nbsp;CORRECT ASSESMENT OF 5 DANGER SIGNS	<strong>5</strong>	</p>
+	<p>&nbsp;&nbsp;&nbsp;CORRECT IDENTIFICATION OF FOUR(4) MAIN SYMPTOMS	<strong>4</strong>	</p>
+	<p>&nbsp;&nbsp;&nbsp;HIV ASSESMENT	<strong>1</strong>	</p>
+	<p>&nbsp;&nbsp;&nbsp;CORRECT CLASSIFICATION	<strong>1</strong>	</p>
+	<p>&nbsp;&nbsp;&nbsp;CORRECT TREATMENT AND COUNSELLING	<strong>1</strong>	</p></td></tr>
+	<tr>
+<td colspan="2">B: ADDITIONAL CERTIFICATION CRITERIA			
+	<p>&nbsp;&nbsp;&nbsp;MALNUTRITION/ANAEMIA	<strong>1</strong>	</p>
+	<p>&nbsp;&nbsp;&nbsp;IF THE HEALTH WORKER OBTAINS BELOW 12 POINTS IN SECTION A, MENTORSHIP IS RECOMMENDED FOR THE HEALTH CARE WORKER AND CERTIFICATION WILL FOLLOW AFTER MENTORSHIP (DONE SEPERATELY NOT TOGETHER WITH IMCI ASSSESSMENT)
+	IMMUNIZATION	<strong>1</strong></p>	
+		<p></p><p>TOTAL:<strong>14 POINTS</strong></p>	
+			IF THE HEALTHCARE WORKER OBTAINS ALL 14 POINTS THE HEALTHCARE WORKER IS RECOMMENDED FOR MENTOR TOT.</td>
+			</tr>
+		<tr>	
+			
+<th colspan="2">(NOTE:-  IF HEALTHCARE WORKER FAILS TO ATTAIN THE PRE-REQUISITE 12 POINTS, A SECOND CHANCE SHOULD BE GIVEN.			
+             - IF HEALTHCARE WORKER FAILS TO ATTAIN ALL THE 12 PRE-REQUISITE POINTS AFTER A SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT.)	</td>		
+    </tr>
+    <tr>
+    	<td>Score</td><td><input type="text"></td>
+    </tr>
      <tr>
         <th colspan="2">
             Certification
@@ -1833,6 +2093,17 @@ class C_Pdf extends MY_Controller {
         <td colspan="2">
            Health care worker approved for certification	<input type="radio">YES <input type="radio">NO
         </td>
+        </tr>
+        <tr>
+        <td colspan="2">
+           Health care worker approved for certification	<input type="radio">YES <input type="radio">NO
+        </td>
+        </tr>
+        <tr>
+        <td colspan="2">
+          Health care worker certified and approved for mentorship TOT	<input type="radio">YES <input type="radio">NO
+        </td>
+        
     </tr>
      <tr>
         <th colspan="2">
@@ -1907,7 +2178,8 @@ background: #91c5d4;
 .instruction{
 	background: #FAEBD7;
 	padding:3px;
-	width:100%;
+	width:1000px;
+	margin:0;
 }
 		</style>
 		');

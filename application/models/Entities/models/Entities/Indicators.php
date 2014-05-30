@@ -2,45 +2,52 @@
 
 namespace models\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Mapping as ORM;
 
 /**
  * Indicators
  *
- * @ORM\Table(name="indicators")
- * @ORM\Entity
+ * @Table(name="indicators")
+ * @Entity
  */
 class Indicators
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="indicator_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Column(name="indicator_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $indicatorId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="indicator_name", type="string", length=255, nullable=false)
+     * @Column(name="indicator_name", type="string", length=255, nullable=false)
      */
     private $indicatorName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="indicator_code", type="string", length=6, nullable=false)
+     * @Column(name="indicator_code", type="string", length=6, nullable=false)
      */
     private $indicatorCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="indicator_for", type="string", length=3, nullable=false)
+     * @Column(name="indicator_for", type="string", length=3, nullable=false)
      */
     private $indicatorFor;
+
+    /**
+     * @var string
+     *
+     * @Column(name="indicator_findings", type="text", nullable=true)
+     */
+    private $indicatorFindings;
 
 
     /**
@@ -120,5 +127,28 @@ class Indicators
     public function getIndicatorFor()
     {
         return $this->indicatorFor;
+    }
+
+    /**
+     * Set indicatorFindings
+     *
+     * @param string $indicatorFindings
+     * @return Indicators
+     */
+    public function setIndicatorFindings($indicatorFindings)
+    {
+        $this->indicatorFindings = $indicatorFindings;
+    
+        return $this;
+    }
+
+    /**
+     * Get indicatorFindings
+     *
+     * @return string 
+     */
+    public function getIndicatorFindings()
+    {
+        return $this->indicatorFindings;
     }
 }
