@@ -24,7 +24,7 @@ class LogTreatments
     /**
      * @var string
      *
-     * @Column(name="lt_other_treatment", type="string", length=255, nullable=true)
+     * @Column(name="lt_total", type="string", length=255, nullable=true)
      */
     private $ltOtherTreatment;
 
