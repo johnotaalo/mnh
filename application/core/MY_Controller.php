@@ -1015,8 +1015,9 @@ class MY_Controller extends CI_Controller
             
             $this->hcwProfileSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
-            <td colspan="1">
-            <input type="text"  name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" value="" class="numbers cloned"/>
+            <td colspan="3">
+            Yes<input type="radio" value="Yes" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
+            No<input type="radio" value="No" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
             </td>
             <input type="hidden"  name="hcwProfileQCode_' . $counter . '" id="hcwProfileQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -2045,8 +2046,7 @@ class MY_Controller extends CI_Controller
         $section = '';
         $numbering = array_merge(range('A','Z'),range('a', 'z'));
         $base = 0;
-        $current = "";
-        foreach ($this->data_found as $value) {
+         foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
             $current = ($base == 0) ? $section : $current;
@@ -2054,7 +2054,57 @@ class MY_Controller extends CI_Controller
             $current = ($base == 0) ? $section : $current;
             
             $base++;
+            $findingHCWRow=$findingAssessorRow='';
+             if($section!='sgn'&&$section!='svc'&&$section!='ror'){
+                if($value['indicatorFindings']!=null){
+                  $findings = explode(';', $value['indicatorFindings']);
+                  if(sizeof($findings)==1){
+                    foreach($findings as $finding){
+                    $findingHCWRow = $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" type="text">';
+                    $findingAssessorRow = $finding.' <input name="mchIndicatorAssessorFinding_'.$counter.'" type="text">';
+                  }  
+                  }
+                  else{
+                    foreach($findings as $finding){
+                        if($finding=='other (specify)'){
+                            $findingHCWRow .= $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" type="text">';
+                            $findingAssessorRow .= $finding.' <input name="mchIndicatorAssessorFinding_'.$counter.'" type="text">';
+                        }
+                        else{
+                            $findingHCWRow .= $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" value="'.$finding.'" type="radio">';
+                            $findingAssessorRow.= $finding.' <input name="mchIndicatorHAssessorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
+                        }
+                  
+                  }  
+                  }
+                  }
             $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+            <td>
+                <select name="mchIndicatorHCWResponse_'.$counter.'" id="mchIndicatorHCWResponse_'.$counter.'" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+
+            </select>
+            </td>
+            <td>'.$findingHCWRow.'</td>
+            <td>
+                <select name="mchIndicatorAssessorResponse_'.$counter.'" id="mchIndicatorAssessorResponse_'.$counter.'" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+
+            </select>
+            </td>
+            </td>
+            <td>'.$findingAssessorRow.'</td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+        </tr>';
+            }
+            else{
+                $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>
@@ -2067,7 +2117,10 @@ class MY_Controller extends CI_Controller
             </td>
             <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-        }
+  
+
+             }
+         }
         
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
@@ -2105,7 +2158,12 @@ class MY_Controller extends CI_Controller
                   }
                   else{
                     foreach($findings as $finding){
-                   $findingRow .= $finding.' <input type="radio">';
+                        if($finding=='other (specify)'){
+                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'" value="'.$finding.'" type="text">';
+                        }
+                        else{
+                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
+                        }
                   }  
                   }
                   }

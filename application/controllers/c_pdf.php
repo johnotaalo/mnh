@@ -1744,6 +1744,7 @@ class C_Pdf extends MY_Controller {
             <td colspan="1"><label for="">Designation</label></td>
             <td colspan="3"><input type="text"></td>
         </tr>
+        '. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
 </table>

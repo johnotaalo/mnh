@@ -9,7 +9,7 @@ UPDATE `mnh_rest`.`indicators` SET `indicator_findings`='duration' WHERE `indica
 UPDATE `mnh_rest`.`indicators` SET `indicator_findings`='degrees' WHERE `indicator_id`='30';
 UPDATE `mnh_rest`.`indicators` SET `indicator_findings`='present;not present' WHERE `indicator_id`='31';
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`, `indicator_findings`) VALUES ('Malaria Blood Tested', 'CHI65', 'fev', 'positive;negative');
-INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`, `indicator_findings`) VALUES ('If Malaria Blood test was not taken, give reason', 'CHI66', 'fev', 'No test kits;No lab;No skills;Forgot;other (specifiy)');
+INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`, `indicator_findings`) VALUES ('If Malaria Blood test was not taken, give reason', 'CHI66', 'fev', 'No test kits;No lab;No skills;Forgot;other (specify)');
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`, `indicator_findings`) VALUES ('Classification DOne', 'CHI67', 'fev', 'Fever/No malaria;Malaria;Very severe febrile disease ');
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`, `indicator_findings`) VALUES ('Ear Infection', 'CHI68', 'con', 'present;not present');
 UPDATE `mnh_rest`.`indicators` SET `indicator_findings`='present;not present' WHERE `indicator_id`='32';
