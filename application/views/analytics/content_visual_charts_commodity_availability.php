@@ -30,6 +30,7 @@ case 'ch' :
 				<div id="graph_41" class="chart"></div>
 			</div>
 		</div>
+
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>2012 IMCI</h4>
@@ -148,15 +149,27 @@ case 'ch' :
 				<div id="graph_52" class="chart"></div>
 			</div>
 		</div>
+
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Consultation</span>IMCI</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Total U5 Children Seen</span>U5</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_86" class="chart"></div>
+			</div>
+		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">DIARRHOEA CASES IN CHILDREN U5</span>Diarrhoea</h4>
 			</div>
 			<div class="portlet-body">
 
 				<div id="graph_85" class="chart"></div>
 			</div>
 		</div>
+		
         
 </div>
 
@@ -325,15 +338,30 @@ case 'mnh':
 				<div id="graph_83" class="chart"></div>
 			</div>
 		</div>
+
+
+
+		<!--Trial graph-->
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5</span>IMCI</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5Challenge</span>IMCI</h4>
 			</div>
 			<div class="portlet-body">
 
 				<div id="graph_85" class="chart"></div>
 			</div>
 		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5Total</span>IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_86" class="chart"></div>
+			</div>
+		</div>
+
 		<!--
 
             INDICATOR CHART

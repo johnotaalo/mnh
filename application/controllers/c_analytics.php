@@ -1307,6 +1307,131 @@ ORDER BY fac_level;");
         $this->load->view('charts/chart_stacked_v', $datas);
     }
     
+     /*
+     * Pneumonia case numbers per Month
+    */
+    public function getPneumoniaCaseNumbers($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getPneumoniaCaseNumbers($criteria, $value, $survey);
+        $resultData = $results['num_of_Pneumonia_cases'];
+        $category = $results['categories'];
+        
+        $monthArray = array('jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'december');
+        $monthCounter = 0;
+        foreach ($monthArray as $value) {
+            
+            //echo $value;
+            $dataArray[] = (int)$resultData[0][$value];
+            $monthCounter++;
+        }
+        $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
+        $resultArray = json_encode($resultArray);
+        //echo $resultArray;
+        //var_dump($resultArray);
+        $datas = array();
+        $resultArraySize = 5;
+        
+        //$resultArraySize =  5;
+        
+        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+        //$resultArray = 5;
+        //var_dump($category);
+        $datas['resultArraySize'] = $resultArraySize;
+        
+        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+        
+        $datas['chartType'] = 'bar';
+        $datas['chartMargin'] = 70;
+        $datas['title'] = 'Chart';
+        $datas['chartTitle'] = ' ';
+        
+        //$datas['chartTitle'] = 'Pneumonia Case Numbers';
+        $datas['categories'] = json_encode($category);
+        $datas['yAxis'] = 'Occurence';
+        $datas['resultArray'] = $resultArray;
+        $this->load->view('charts/chart_v', $datas);
+    }
+    
+    /*
+     * Diarrhoea case treatments
+    */
+    
+    public function getPneumoniaCaseTreatment($criteria, $value, $survey, $filter) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getPneumoniaCaseTreatment($criteria, $value, $survey);
+        
+        //var_dump($results);die;
+        $categories = $results['categories'];
+        $categoriesCount = 0;
+        $resultArray = array();
+        if ($results != null && count($results) > 0) {
+            foreach ($results as $result => $val) {
+                
+                if ($categoriesCount < 6) {
+                    $index = $categories[$categoriesCount];
+                    if ($result == $index) {
+                        $severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
+                        $some_dehydration[] = array($result, (int)$val['some_dehydration']);
+                        $no_dehydration[] = array($result, (int)$val['no_dehydration']);
+                        $dysentry[] = array($result, (int)$val['dysentry']);
+                        $no_classification[] = array($result, (int)$val['no_classification']);
+                        $category[] = $index;
+                        $categoriesCount++;
+                    }
+                }
+            }
+        }
+        switch ($filter) {
+            case 'SevereDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
+                break;
+
+            case 'SomeDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
+                break;
+
+            case 'NoDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
+                break;
+
+            case 'Dysentry':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
+                break;
+
+            case 'NoClassification':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
+                break;
+        }
+        
+        $resultArray = json_encode($resultArray);
+        //echo $resultArray;
+        //var_dump($resultArray);
+        $datas = array();
+        $resultArraySize = count($categories);
+        
+        //$resultArraySize =  1;
+        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+        //$resultArray = 5;
+        //var_dump($category);
+        $datas['resultArraySize'] = $resultArraySize;
+        
+        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+        
+        $datas['chartType'] = 'bar';
+        $datas['chartMargin'] = 70;
+        $datas['title'] = 'Chart';
+        $datas['chartTitle'] = ' ';
+        
+        //$datas['chartTitle'] = 'Case Treatment';
+        $datas['categories'] = '';
+        $datas['yAxis'] = 'Occurence';
+        $datas['resultArray'] = $resultArray;
+        $this->load->view('charts/chart_pie_v', $datas);
+    }
+
+
+
+
     /*
      * Diarrhoea case numbers per Month
     */
@@ -1431,10 +1556,147 @@ ORDER BY fac_level;");
 
 
 
-    public function getU5Total($query){
+    public function getDiarrhoeaU5Challenges($criteria, $value, $survey){
+        $value = urldecode($value);
+        $results = $this->m_analytics->getDiarrhoeaU5Challenges($criteria, $value, $survey);
+        $resp = $results['ach_name'];
+
+        $category = array($data);
+    
+        
+        
+        //var_dump($no);
+        
+     
+       // var_dump($results);
+        if ($results != null) {
+            if ($resp != null) {
+                foreach ($resp as $value) {
+                    
+                    //echo $value;
+                    //$category[] = $value[0];
+                    $yesData[] = (int)$value;
+                    $yCount--;
+                    
+                    //$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);  
+                }
+            }
+                    }
+        
+        //Fill up Arrays
        
+       $number = $resultArray = array();
+        foreach ($results as $key => $value) {
+            $number[] = (int)$value[0];
+            $number[] = (int)$value[1];
+            $number[] = (int)$value[2];
+            $number[] = (int)$value[3];
+            $number[] = (int)$value[4];
+
+             $resultArray = array(array('name' => 'Challenge value', 'data' => $number));
+            $number = array();
+        }
+       
+
+
+
+       
+        $resultArray = json_encode($resultArray);
+        echo $resultArray;
+        $datas = array();
+        $resultArraySize = count($category);
+        
+        //$resultArraySize =  5;
+        //var_dump($resultArray);
+        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+        //$resultArray = 5;
+        //var_dump($category);
+        $datas['resultArraySize'] = $resultArraySize;
+        
+        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+        
+        $datas['chartType'] = 'bar';
+        $datas['chartMargin'] = 70;
+        $datas['title'] = 'Chart';
+        $datas['chartTitle'] = ' ';
+        
+        //$datas['chartTitle'] = 'ORT Corner Assessment';
+        $datas['categories'] = json_encode($category);
+        $datas['yAxis'] = 'Occurence';
+        $datas['resultArray'] = $resultArray;
+        $this->load->view('charts/chart_stacked_v', $datas);
     }
     
+
+     public function getTotalU5($criteria, $value, $survey){
+       $value = urldecode($value);
+        $results = $this->m_analytics->getTotalU5($criteria, $value, $survey);
+        $resp = $results['response'];
+
+        $category = array();
+        $category[] = $results['categories'][0];
+        $category[] = $results['categories'][1];
+        $category[] = $results['categories'][2];
+        $category[] = $results['categories'][3];
+        $category[] = $results['categories'][4];
+        $yCount = 5;
+        
+        
+        //var_dump($no);
+        
+     
+        //var_dump($results);
+        if ($results != null) {
+            if ($resp != null) {
+                foreach ($resp as $value) {
+                    
+                    //echo $value;
+                    //$category[] = $value[0];
+                    $yesData[] = (int)$value;
+                    $yCount--;
+                    
+                    //$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);  
+                }
+            }
+                    }
+        
+        //Fill up Arrays
+        for ($x = 0; $x < $yCount; $x++) {
+            $yesData[] = 0;
+        }
+        /*for ($x = 0; $x < $nCount; $x++) {
+            if ($no != null) {
+                array_unshift($noData, 0);
+            } else {
+                $noData[] = 0;
+            }
+        }*/
+        $resultArray = array(array('name' => 'Challenge', 'data' => $yesData));
+        $resultArray = json_encode($resultArray);
+        //echo $resultArray;
+        $datas = array();
+        $resultArraySize = count($category);
+        
+        //$resultArraySize =  5;
+        //var_dump($resultArray);
+        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+        //$resultArray = 5;
+        //var_dump($category);
+        $datas['resultArraySize'] = $resultArraySize;
+        
+        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
+        
+        $datas['chartType'] = 'bar';
+        $datas['chartMargin'] = 70;
+        $datas['title'] = 'Chart';
+        $datas['chartTitle'] = ' ';
+        
+        //$datas['chartTitle'] = 'ORT Corner Assessment';
+        $datas['categories'] = json_encode($category);
+        $datas['yAxis'] = 'Occurence';
+        $datas['resultArray'] = $resultArray;
+        $this->load->view('charts/chart_stacked_v', $datas);
+    }
     /*
      * ORT Corner Assessment
     */
@@ -1451,6 +1713,7 @@ ORDER BY fac_level;");
         
         //var_dump($no);
         
+     
         //var_dump($results);
         if ($results != null) {
             if ($yes != null) {

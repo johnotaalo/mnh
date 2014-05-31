@@ -98,6 +98,31 @@ switch($this->session->userdata('survey')) {
 				</li>
 			</ul>
 		</li>
+
+        <li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Pneumonia Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="caseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="caseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
+		<li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Malaria Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="caseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="caseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="ORT-Corner-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">ORT Corner</span> <span class="arrow "></span> </a>
 			<ul class="sub">

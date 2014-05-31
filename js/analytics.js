@@ -87,7 +87,8 @@ function startAnalytics(base_url, county, survey) {
 	$('#graph_82').load(base_url + 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative');
 	$('#graph_83').load(base_url + 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines');
 	$('#graph_84').load(base_url + 'c_analytics/getIndicatorStatistics/national/n/ch/dgn');
-	$('#graph_85').load(base_url + 'c_analytics/getU5Total/national/n/ch/IMCI');
+	$('#graph_85').load(base_url + 'c_analytics/getDiarrhoeaU5Challenges/national/n/ch/DIARRHOEA CASES IN CHILDREN U5');
+	$('#graph_86').load(base_url + 'c_analytics/getTotalU5/national/n/ch/Total U5 Children Seen');
 
 
 
@@ -571,6 +572,39 @@ function startAnalytics(base_url, county, survey) {
 				 /*
 				 * ------End of Bundling Commodities
 				 */
+
+                 /*
+				 * Pneumonia Cases
+				 */
+			case 'PcaseNumbers':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getPneumoniaCaseNumbers/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Case Numbers');
+				$('#diarrhoea-cases-parent').addClass('active');
+				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getPneumoniaCaseNumbers/national/n/ch/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getPneumoniaCaseNumbers/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getPneumoniaCaseNumbers/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getPneumoniaCaseNumbers/facility/' + facility + '/ch/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers/county/'+county+'/ch/'+extraStat);
+				break;
+
+			case 'PcaseTreatment':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getPneumoniaCaseTreatment/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Case Treatment');
+				$('#diarrhoea-cases-parent').addClass('active');
+				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getPneumoniaCaseTreatment/national/n/ch/' + filter);
+				$('#graph_2').load(base_url + 'c_analytics/getPneumoniaCaseTreatment/county/' + county + '/ch/' + filter);
+				$('#graph_3').load(base_url + 'c_analytics/getPneumoniaCaseTreatment/district/' + district + '/ch/' + filter);
+			    $('#graph_4').load(base_url + 'c_analytics/getPneumoniaCaseTreatment/facility/' + facility + '/ch/' + filter);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/county/'+county+'/ch/'+extraStat);
+				break;
+
+
 
 				/*
 				 * Diarrhoea Cases

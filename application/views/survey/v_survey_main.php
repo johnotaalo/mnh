@@ -415,10 +415,93 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						}//end of select_option_changed 
 				
 							
-
+//Using Jquery
+$("body").on('click','li.treatment',function(){
+alert ($(this).val());
+});
 						}); /*close document ready*/
+
+
 								
-								
+				function selectpneTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "pneTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'treatments[]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class','treatment');
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+				function selectmalTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "malTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'treatments[]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						var code = select.options[select.selectedIndex].value;
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "malTreat[]");
+
+						var diver = document.getElementById("malTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+
+				function selectdiaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "diaTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'treatments[]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						ul.appendChild(li);
+					 }
+				}// close select treatment
 				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
 						   //alert(form_id);	
