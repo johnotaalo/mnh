@@ -1319,6 +1319,12 @@ class C_Load extends MY_Controller {
 				</thead>
 				<tr>
 				<td>
+				<style type = "text/css">
+					.treatment
+					{
+						cursor: pointer;
+					}
+				</style>
 				<div style="height: 15em; width: 30em; overflow: auto;" id ="treat">
 				<span id = "malTreatmentSection">&nbsp</span>'
 				.$this -> mchmalariaTreatmentSection.'
@@ -1348,7 +1354,8 @@ class C_Load extends MY_Controller {
 					</thead>
 					<tr>
 				<td>
-				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">'
+				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
 				</td>

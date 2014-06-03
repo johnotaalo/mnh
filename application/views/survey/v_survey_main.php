@@ -414,11 +414,6 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				 
 						}//end of select_option_changed 
 				
-							
-//Using Jquery
-$("body").on('click','li.treatment',function(){
-alert ($(this).val());
-});
 						}); /*close document ready*/
 
 
@@ -438,14 +433,25 @@ alert ($(this).val());
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'treatments[]';
+						input.name = 'pnetreatments[]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
+						li.setAttribute("id", code);
 						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
 						li.setAttribute('class','treatment');
 						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "pneTreat[]");
+
+						var diver = document.getElementById("pneTreatmentSection");
+
+						diver.appendChild(txt);
 					 }
 				}// close select treatment
+
 				function selectmalTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
@@ -461,12 +467,12 @@ alert ($(this).val());
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'treatments[]';
+						input.name = 'maltreatments[]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
-						var code = select.options[select.selectedIndex].value;
 						li.setAttribute("id", code);
 						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class', 'treatment');
 						ul.appendChild(li);
 						var code = select.options[select.selectedIndex].value;
 						var txt = document.createElement("input");
@@ -495,10 +501,13 @@ alert ($(this).val());
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'treatments[]';
+						input.name = 'diatreatments[]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
 						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
 						ul.appendChild(li);
 					 }
 				}// close select treatment
