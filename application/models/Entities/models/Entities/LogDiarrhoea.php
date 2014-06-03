@@ -260,4 +260,53 @@ class LogDiarrhoea
     {
         return $this->ldNumber;
     }
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ld_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $ldId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ld_number", type="integer", nullable=true)
+     */
+    private $ldNumber;
+
+
+    /**
+     * Get ldId
+     *
+     * @return integer 
+     */
+    public function getLdId()
+    {
+        return $this->ldId;
+    }
+
+    /**
+     * Set ldNumber
+     *
+     * @param integer $ldNumber
+     * @return LogDiarrhoea
+     */
+    public function setLdNumber($ldNumber)
+    {
+        $this->ldNumber = $ldNumber;
+    
+        return $this;
+    }
+
+    /**
+     * Get ldNumber
+     *
+     * @return integer 
+     */
+    public function getLdNumber()
+    {
+        return $this->ldNumber;
+    }
 }
