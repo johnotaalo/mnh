@@ -1950,7 +1950,7 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 
 		switch($criteria) {
 			case 'national' :
-				$criteria_condition = ' ';
+				$criteria_condition = '';
 				break;
 			case 'county' :
 				$criteria_condition = 'WHERE fac_county=?';
@@ -1966,24 +1966,16 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 				break;
 		}
 
-		$query = "SELECT 
-         lo.lt_classification AS classification,
-    count(lo.lt_classification) AS treatment_times_used
-FROM
-    log_treatmentmalnpne lo, treatments t
-WHERE
-    lo.facility_mfl IN (SELECT 
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
+		$query = "SELECT COUNT(d.treatment_code) AS treatment_times, t.treatment_name AS Name 
+FROM log_treatmentmalnpne d ,treatments t
+WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
+     JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = 'ch')
-                 ".$criteria_condition.")
-            GROUP BY lt_classification
-            ORDER BY lt_classification ASC";
+                 ".$criteria_condition.") 
+					AND d.treatment_code IN (SELECT treatment_code FROM treatments WHERE treatment_for='fev')
+					GROUP BY t.treatment_name
+					ORDER BY t.treatment_name ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
