@@ -29,6 +29,14 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->ortAspectsList);die;
         return $this->challengeList;
     }
+	 /*calls the query defined in MY_Model*/
+	public function getTreatmentFor($type)
+    {
+        $this->treatmentList = $this->getTreatmentsByType($type);
+
+        //var_dump($this->treatmentList);
+        return $this->treatmentList;
+    }
 	/*calls the query defined in MY_Model*/
     public function getmchConsultationQuestions() {
         $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
@@ -2725,7 +2733,8 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
-                        $this->addMchCommunityStrategyInfo() == true && $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true) {
+                          $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true ) {
+                        	//$this->addMchAssessorInfo() == true ){
                         	//Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             

@@ -64,7 +64,7 @@ class MY_Controller extends CI_Controller
         $this->createDeliveryEquipmentSection();
         $this->createCommodityUsageAndOutageSection();
         $this->createSuppliesUsageAndOutageSection();
-        $this->createTreatmentsMCHSection();
+        //$this->createTreatmentsMCHSection();
         $this->createFacilitiesListSection();
         $this->createMCHIndicatorsSection();
         $this->createORTCornerAspectsSection();
@@ -3403,20 +3403,20 @@ class MY_Controller extends CI_Controller
 
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['treatmentName'] !=='Others')
             {
-                $this->mchmalariaTreatmentSection .= '<tr>
+                $this->mchmalariaTreatmentSection.= '<tr>
                 <td>'.$value['treatmentName'].'</td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
+                <td><input type = "radio" name = "malTreatment_'.$value['treatmentName'].'"/></td>
+                <td><input type = "radio" name = "malTreatment_'.$value['treatmentName'].'"/></td>
                 </tr>';
             }
             else
             {
                 $this->mchmalariaTreatmentSection .= '<tr>
                 <td>'.$value['treatmentName'].'<input type = "text" name = malTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
+                <td><input type = "text" name = "malTreatment_'.$value['treatmentName'].'" /></td>
+                <td><input type = "text" name = "malTreatment_'.$value['treatmentName'].'" /></td>
                 </tr>';
             }
         }
@@ -3433,7 +3433,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
 
-            if($value['treatmentName'] != 'Others')
+            if($value['treatmentName']!=='Others')
             { 
             $this->mchpneumoniaTreatmentSection.= '<tr>
              <td>'.$value['treatmentName'].'</td>
@@ -3463,7 +3463,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             //echo "count at: " . $counter;
-            if($value['treatmentName']!='Others'){
+            if($value['treatmentName']!=='Others'){
                 $this->treatmentMCHSection.='<tr>
                 <td>' .$value['treatmentName']. '</td>
                 <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
@@ -3490,4 +3490,4 @@ class MY_Controller extends CI_Controller
 
 }
 
-}
+

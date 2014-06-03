@@ -1297,8 +1297,8 @@ class C_Load extends MY_Controller {
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
 				</tr>
-				</thead>'
-				.$this -> mchmalariaTreatmentSection.'
+				</thead>'.$this->mchmalariaTreatmentSection.'
+				
 		</table>
 		<table class="centre">
 		<thead>
@@ -1313,8 +1313,8 @@ class C_Load extends MY_Controller {
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia cough/cold</th>
 					</tr>
-					</thead>'
-			.$this -> mchpneumoniaTreatmentSection.	'
+					</thead>'.$this->mchpneumoniaTreatmentSection.'</tr>	
+			
 					
 		</table>
 		<table class="centre"><thead>
@@ -1335,7 +1335,7 @@ class C_Load extends MY_Controller {
 					<th>No Classification</th>
 				</tr>
 			</thead>
-			' . $this -> treatmentMCHSection . '
+			'.$this->treatmentMCHSection.'
 		</table>
 		
 		<table class="centre">
