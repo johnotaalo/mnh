@@ -573,10 +573,41 @@ function startAnalytics(base_url, county, survey) {
 				 * ------End of Bundling Commodities
 				 */
 
+
+                /*
+				 * Malaria Cases
+				 */
+			case 'MalcaseNumbers':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getPneumoniaCaseNumbers/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Case Numbers');
+				$('#diarrhoea-cases-parent').addClass('active');
+				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getMalariaCaseNumbers/national/n/ch/' + extraStat);
+				$('#graph_2').load(base_url + 'c_analytics/getMalariaCaseNumbers/county/' + county + '/ch/' + extraStat);
+				$('#graph_3').load(base_url + 'c_analytics/getMalariaCaseNumbers/district/' + district + '/ch/' + extraStat);
+			    $('#graph_4').load(base_url + 'c_analytics/getMalariaCaseNumbers/facility/' + facility + '/ch/' + extraStat);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers/county/'+county+'/ch/'+extraStat);
+				break;
+
+			case 'MalcaseTreatment':
+				appendToTitle = ' ';
+				currentChart = base_url + 'c_analytics/getMalariaCaseTreatment/';
+				currentDiv = '#graph_3';
+				$('span.statistic').text('Case Treatment');
+				$('#diarrhoea-cases-parent').addClass('active');
+				$('#diarrhoea-cases-parent a').append('<span class="selected"></span>');
+				$('#graph_1').load(base_url + 'c_analytics/getMalariaCaseTreatment/national/n/ch/' + filter);
+				$('#graph_2').load(base_url + 'c_analytics/getMalariaCaseTreatment/county/' + county + '/ch/' + filter);
+				$('#graph_3').load(base_url + 'c_analytics/getMalariaCaseTreatment/district/' + district + '/ch/' + filter);
+			    $('#graph_4').load(base_url + 'c_analytics/getMalariaCaseTreatment/facility/' + facility + '/ch/' + filter);
+				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/county/'+county+'/ch/'+extraStat);
+				break;
                  /*
 				 * Pneumonia Cases
 				 */
-			case 'PcaseNumbers':
+			case 'PnecaseNumbers':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getPneumoniaCaseNumbers/';
 				currentDiv = '#graph_3';
@@ -590,7 +621,7 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseNumbers/county/'+county+'/ch/'+extraStat);
 				break;
 
-			case 'PcaseTreatment':
+			case 'PnecaseTreatment':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getPneumoniaCaseTreatment/';
 				currentDiv = '#graph_3';
@@ -637,7 +668,7 @@ function startAnalytics(base_url, county, survey) {
 				//$('#graph_2').load('<?php //echo base_url();?>c_analytics/getDiarrhoeaCaseTreatment/county/'+county+'/ch/'+extraStat);
 				break;
 
-				case 'u5Total':
+			case 'u5Total':
 				appendToTitle = ' ';
 				currentChart = base_url + 'c_analytics/getU5Total/';
 				currentDiv = '#graph_3';

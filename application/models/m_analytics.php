@@ -1665,7 +1665,7 @@ WHERE
 	 * Get Tools in Units
 	 */
 
-	public function getTools($criteria, $value,  $survey) {
+	public function ($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -1774,7 +1774,7 @@ WHERE
 	}
 
       /*
-	 * Pneumonia case numbers per Month
+	 * Pneumonia case numbers 
 	 */
 	public function getPneumoniaCaseNumbers($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
@@ -1783,10 +1783,8 @@ WHERE
 
 		/**
 		 * something of this kind:
-		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0]  )
 		 */
-
-	
 
 		switch($criteria) {
 			case 'national' :
@@ -1806,11 +1804,26 @@ WHERE
 				break;
 		}
 
-		$query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr,
-SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug,
-SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december
-FROM morbidity_data_log d WHERE d.fac_mfl IN (SELECT fac_mfl FROM facilities
-WHERE " . $status_condition . "  " . $criteria_condition . ")";
+
+         $query = "SELECT 
+         lo.lt_classification AS classification,
+    count(lo.lt_classification) AS treatment_times_used
+FROM
+    log_treatmentmalnpne lo
+WHERE
+    lo.facility_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')
+                 ".$criteria_condition.")
+            GROUP BY lt_classification
+            ORDER BY lt_classification ASC";
+
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1845,6 +1858,166 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 	}
 
 	/*
+	 * Malaria case treatments
+	 */
+
+
+	public function getMalariaCaseTreatment($criteria, $value,  $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		$query = "SELECT COUNT(d.treatment_code) AS treatment_times, t.treatment_name AS Name 
+FROM log_treatmentmalnpne d ,treatments t
+WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
+     JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')
+                 ".$criteria_condition.") 
+					AND d.treatment_code IN (SELECT treatment_code FROM treatments WHERE treatment_for='mal')
+					GROUP BY t.treatment_name
+					ORDER BY t.treatment_name ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
+			if ($this -> dataSet !== NULL) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					//get a set of the 5 diarrhoea treatment types available
+					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatment']);
+
+					//get the responses by classification per given treatment type
+					$data[$this -> getChildHealthTreatmentName($value['treatment'])] = array('severe_dehydration' => intval($value['severe_dehydration']), 'some_dehydration' => intval($value['some_dehydration']), 'no_dehydration' => intval($value['no_dehydration']), 'dysentry' => intval($value['dysentry']), 'no_classification' => intval($value['no_classification']));
+				}
+
+				$data['categories'] = $data_categories;
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+	}
+
+	/*
+	 * Malaria case numbers
+	 */
+
+
+	public function getMalariaCaseNumbers($criteria, $value,  $survey) {
+		/*using CI Database Active Record*/
+		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+		/**
+		 * something of this kind:
+		 * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
+		 */
+
+		switch($criteria) {
+			case 'national' :
+				$criteria_condition = ' ';
+				break;
+			case 'county' :
+				$criteria_condition = 'WHERE fac_county=?';
+				break;
+			case 'district' :
+				$criteria_condition = 'WHERE fac_district=?';
+				break;
+			case 'facility' :
+				$criteria_condition = 'WHERE fac_mfl=?';
+				break;
+			case 'none' :
+				$criteria_condition = '';
+				break;
+		}
+
+		$query = "SELECT 
+         lo.lt_classification AS classification,
+    count(lo.lt_classification) AS treatment_times_used
+FROM
+    log_treatmentmalnpne lo, treatments t
+WHERE
+    lo.facility_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')
+                 ".$criteria_condition.")
+            GROUP BY lt_classification
+            ORDER BY lt_classification ASC";
+		try {
+			$this -> dataSet = $this -> db -> query($query, array($value));
+			$this -> dataSet = $this -> dataSet -> result_array();
+			//echo $this->db->last_query();die;
+			if ($this -> dataSet !== NULL) {
+				//prep data for the pie chart format
+				$size = count($this -> dataSet);
+				$i = 0;
+
+				foreach ($this->dataSet as $value) {
+					//get a set of the 5 diarrhoea treatment types available
+					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatment']);
+
+					//get the responses by classification per given treatment type
+					$data[$this -> getChildHealthTreatmentName($value['treatment'])] = array('severe_dehydration' => intval($value['severe_dehydration']), 'some_dehydration' => intval($value['some_dehydration']), 'no_dehydration' => intval($value['no_dehydration']), 'dysentry' => intval($value['dysentry']), 'no_classification' => intval($value['no_classification']));
+				}
+
+				$data['categories'] = $data_categories;
+
+				$this -> dataSet = $data;
+
+				//var_dump($this->dataSet);die;
+				return $this -> dataSet;
+			} else {
+				return $this -> dataSet = null;
+			}
+			//die(var_dump($this->dataSet));
+		} catch(exception $ex) {
+			//ignore
+			//die($ex->getMessage());//exit;
+		}
+	}
+
+	/*
 	 * Pneumonia case treatments
 	 */
 
@@ -1876,11 +2049,16 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
 				break;
 		}
 
-		$query = "SELECT tl.lc_id AS treatment, SUM(tl.severeDehydrationNo) AS severe_dehydration, 
-SUM(tl.someDehydrationNo) AS some_dehydration, SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
-FROM log_treatment tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
-WHERE treatmentFor='dia') AND tl.fac_mfl IN (SELECT fac_mfl FROM facilities WHERE " . $status_condition . "  " . $criteria_condition . ")
-GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
+		$query = "SELECT COUNT(d.treatment_code) AS treatment_times, t.treatment_name AS Name 
+FROM log_treatmentmalnpne d ,treatments t
+WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
+     JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = 'ch')
+                 ".$criteria_condition.") 
+					AND d.treatment_code IN (SELECT treatment_code FROM treatments WHERE treatment_for='pne')
+					GROUP BY t.treatment_name
+					ORDER BY t.treatment_name ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -1953,7 +2131,7 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
 		$query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr,
 SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug,
 SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december
-FROM morbidity_data_log d WHERE d.fac_mfl IN (SELECT fac_mfl FROM facilities
+FROM log_treatment d WHERE d.fac_mfl IN (SELECT fac_mfl FROM facilities
 WHERE " . $status_condition . "  " . $criteria_condition . ")";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));

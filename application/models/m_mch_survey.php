@@ -2412,130 +2412,59 @@ class M_MCH_Survey extends MY_Model
     
     private function addmalariatreatmentinfo()
     {
-        $count = $finalCount = 1;
-        foreach ($this->input->post() as $key => $val) {
-            //print_r($this->input->post());die;
-             //For every posted values
-            if (strpos($key, 'mchtm')!== FALSE) {
-                //select data from mch treatment
-                // we separate the attribute name from the number
-                $this->frags = explode("_", $key);
-               // print_r($this->frags);die;
-                $thid->id = $count;
+        //$count = $finalCount =0;
+        $count = count($_POST['maltreatments']);
+        $values = $_POST['maltreatments'];
+        for ($i=0; $i < $count; $i++) {
+           //echo $_POST['mchtMalariaTreatment'];die;
+             $this->theForm = new \models\Entities\LogTreatmentmalnpne();
+             //echo "Treatment " .$i . " " . $values[$i];
+             $this->theForm->setTreatmentCode($values[$i]);
+             $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
+             $this->theForm->setLtClassification($_POST['mchtMalariaTreatment']);
+             $this->theForm->setLtCreated(new DateTime);
+             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
-                $this->attr = $this->frags[0];
-
-                //the attribute name
-                //print $key.' ='.$val.' <br />';
-                //print 'ids: '.$this->id.'<br />';
-
-                //mark the end of 1 row...for record count
-                if ($this->attr == "mchtMalTreatmentCode") {
-                    
-                    //print 'count at: '.$count.'<br />';
-                    $finalCount = $count;
-                    $count++;
-
-                    //print 'count at: '.$count.'<br />';
-                    //print 'final count at:'.$finalCount.'<br />';
-                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
-                }
-
-                //collect key and value to an array
-                if(!empty($val))
-                {
-
-                    //we then store the value of this attribute for this element.
-                    $this->elements[$this->id][$this->attr] = htmlentities($val);
-                    print_r($this->elements[$this->id][$this->attr]);die;
-
-                }
-                else
-                {
-                    $this->elements[$this->id][$this->attr] = '';
-                }
-            }
+             $this->em->persist($this->theForm);
         }
-        //close the foreach ($this -> input -> post() as $key => $val)
-       // print_r($this->elements);die;
+         return true;
+    }
 
-        //exit;
-        //get the highest value of the array that will control the number of inserts to be done
-        $this->noOfInsertsBatch = $finalCount;
+     private function addpneumoniatreatmentinfo()
+    {
+        //$count = $finalCount =0;
+        $count = count($_POST['pnetreatments']);
+        $values = $_POST['pnetreatments'];
+        for ($i=0; $i < $count; $i++) {
+           //echo $_POST['mchtMalariaTreatment'];die;
+             $this->theForm = new \models\Entities\LogTreatmentmalnpne();
+             //echo "Treatment " .$i . " " . $values[$i];
+             $this->theForm->setTreatmentCode($values[$i]);
+             $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
+             $this->theForm->setLtClassification($_POST['mchtPneumoniaTreatment']);
+             $this->theForm->setLtCreated(new DateTime);
+             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
-        for ($i=1; $i<=$this->noOfInsertsBatch ; $i++) { 
-           //go ahead and persist data posted
-            $this->theForm = new\models\Entities\LogTreatmentmalnpne();
-            //create an object of the model
+             $this->em->persist($this->theForm);
+        }
+         return true;
+    }
 
-            $this->theForm->setTreatmentCode($this->elements[$i]['mchtMalTreatmentCode']);
+    private function adddiatreatmentinfo()
+    {
+        $couny = count($_POST['diatreatments']);
+        $values = $_POST['diatreatments'];
+        for ($i=0; $i < $count; $i++) { 
+            $this->theForm->setTreatmentCode($values[$i]);
             $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
-
-            //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['mchtmaltreatment']) && $this->elements[$i]['mchtmaltreatment'] != '') ? $this->theForm->setLtClassification($this->elements[$i]['mchtmaltreatment']) : $this->theForm->setLtClassification(1);
-            (isset($this->elements[$i]['mchtMalTreatmentCode']) && $this->elements[$i]['mchtMalTreatmentCode'] != '') ? $this->theForm->setTreatmentCode($this->elements[$i]['mchtMalTreatmentCode']) : $this->theForm->setTreatmentCode(00);
+            $this->theForm->setLtClassification($_POST['mchtdiaTreatment']);
+            $this->theForm->setLtCreated(new DateTime);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLtCreated(new DateTime());
-            
-            /*timestamp option*/
+
             $this->em->persist($this->theForm);
-            
-            //now do a batched insert, default at 5
-            $this->batchSize = 5;
-            if ($i % $this->batchSize == 0) {
-                try {
-                    
-                    $this->em->flush();
-                    $this->em->clear();
-                    
-                    //detaches all objects from doctrine
-                    
-                    //on the last record to be inserted, log the process and return true;
-                    if ($i == $this->noOfInsertsBatch) {
-                        
-                        //die(print 'Limit: '.$this->noOfInsertsBatch);
-                        //$this->writeAssessmentTrackerLog();
-                        return true;
-                    }
-                }
-                catch(Exception $ex) {
-                    
-                    //die($ex->getMessage());
-                    return false;
-                    
-                    /*display user friendly message*/
-                }
-                 //end of catch
-                
-                
-            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
-                
-                //total records less than a batch, insert all of them
-                try {
-                    
-                    $this->em->flush();
-                    $this->em->clear();
-                    
-                    //detactes all objects from doctrine
-                    
-                    //on the last record to be inserted, log the process and return true;
-                    if ($i == $this->noOfInsertsBatch) {
-                        
-                        //die(print 'Limit: '.$this->noOfInsertsBatch);
-                        //$this->writeAssessmentTrackerLog();
-                        return true;
-                    }
-                }
-                catch(Exception $ex) {
-                    
-                    //die($ex->getMessage());
-                    return false;
-                    
-                    /*display user friendly message*/
-                }
-                 //end of catch
-            }
         }
+
+        return true;
     }
     function store_data() {
         
@@ -2585,7 +2514,8 @@ class M_MCH_Survey extends MY_Model
 
                        //if ($this->addQuestionsInfo() == true && $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
                            // if($this->addTotalMCHTreatment()== true){
-                        if($this->addmalariatreatmentinfo()== true){
+
+                        if($this->addmalariatreatmentinfo()== true && $this->addpneumoniatreatmentinfo()==true){
 
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
