@@ -111,7 +111,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommodityNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commId ASC');
+			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commCode ASC');
 			$this -> commodity -> setParameter('surveyName', $surveyName);
 			$this -> commodity = $this -> commodity -> getResult();
 			//die(var_dump($this->commodity));
@@ -127,6 +127,20 @@ class  MY_Model  extends  CI_Model {
 		try {
 			$this -> supplies = $this -> em -> createQuery('SELECT s.supplyId, s.supplyCode, s.supplyName, s.supplyUnit FROM models\Entities\Supplies s WHERE s.supplyFor= :survey ORDER BY s.supplyId ASC');
 			$this -> supplies -> setParameter('survey', $surveyName);
+			$this -> supplies = $this -> supplies -> getResult();
+			// die(var_dump($this->supplies));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> supplies;
+	}/*end of getAllSupplyNames*/
+
+	function getTotalSupplyNames() {
+		/*using DQL*/
+		try {
+			$this -> supplies = $this -> em -> createQuery('SELECT s.supplyId, s.supplyCode, s.supplyName, s.supplyUnit,s.supplyFor FROM models\Entities\Supplies s ORDER BY s.supplyFor, s.supplyId ASC');
+			
 			$this -> supplies = $this -> supplies -> getResult();
 			// die(var_dump($this->supplies));
 		} catch(exception $ex) {
@@ -242,7 +256,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllQuestions() {
 		/*using DQL*/
 		try {
-			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName,q.questionFor FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
 			$this -> questions = $this -> questions -> getResult();
 
 			//die(var_dump($this->mnhIndicator));

@@ -248,7 +248,7 @@ class M_MNH_Survey extends MY_Model
     }
     
     public function getMnhJobAidsAspectQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('commi', 'QMNH');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('job', 'QMNH');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;

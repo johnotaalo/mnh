@@ -92,6 +92,13 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->supplierList);die;
         return $this->supplierList;
     }
+    /*calls the query defined in MY_Model*/
+    public function getEverySupplyName() {
+        $this->supplierList = $this->getTotalSupplyNames();
+        
+        //var_dump($this->supplierList);die;
+        return $this->supplierList;
+    }
     
     /*calls the query defined in MY_Model*/
     public function getAllHWSources() {
