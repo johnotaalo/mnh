@@ -2075,7 +2075,6 @@ class MY_Controller extends CI_Controller
     /**Function to create various sections based on the indicator type * */
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-        
         $counter = 0;
         $section = '';
         $numbering = array_merge(range('A','Z'),range('a', 'z'));
@@ -2093,14 +2092,22 @@ class MY_Controller extends CI_Controller
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>
-                <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
+                <select name="mchhcwResponse['.$counter.']" " class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
-
-            </select>
+			</select>
+			<td><input type = "hidden" name="mchhcwFindings['.$counter.']" id="hcwFindings"></td>
+			<td>
+                <select name="mchassessorResponse['.$counter.']" " class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+			</select>
+			</td>
+			<td><input type = "hidden" name="mchassessorFindings['.$counter.']" id="assessorFindings"></td>
             </td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+            <input type="hidden"  name="mchIndicatorCode[' . $counter . ']" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
         }
         
@@ -2112,6 +2119,7 @@ class MY_Controller extends CI_Controller
         }
         return $this->mchIndicatorsSection;
     }
+    
     public function createMCHIndicatorsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         

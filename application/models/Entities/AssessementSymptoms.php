@@ -2,85 +2,85 @@
 
 namespace models\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Mapping as ORM;
 
 /**
  * AssessementSymptoms
  *
- * @ORM\Table(name="assessement_symptoms")
- * @ORM\Entity
+ * @Table(name="assessement_symptoms")
+ * @Entity
  */
 class AssessementSymptoms
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="lq_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Column(name="lq_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $lqId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_HCWResponse", type="string", length=55, nullable=true)
+     * @Column(name="lq_HCWResponse", type="string", length=55, nullable=true)
      */
     private $lqHcwresponse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_HCWFindings", type="string", length=200, nullable=false)
+     * @Column(name="lq_HCWFindings", type="string", length=200, nullable=false)
      */
     private $lqHcwfindings;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_assessorResponse", type="string", length=55, nullable=true)
+     * @Column(name="lq_assessorResponse", type="string", length=55, nullable=true)
      */
     private $lqAssessorresponse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_assessorFindings", type="string", length=200, nullable=false)
+     * @Column(name="lq_assessorFindings", type="string", length=200, nullable=false)
      */
     private $lqAssessorfindings;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lq_created", type="datetime", nullable=false)
+     * @Column(name="lq_created", type="datetime", nullable=false)
      */
     private $lqCreated;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="lq_response_count", type="integer", nullable=false)
+     * @Column(name="lq_response_count", type="integer", nullable=false)
      */
     private $lqResponseCount;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="question_code", type="string", length=8, nullable=false)
+     * @Column(name="question_code", type="string", length=8, nullable=false)
      */
     private $questionCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fac_mfl", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
     private $facMfl;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="ss_id", type="integer", nullable=true)
+     * @Column(name="ss_id", type="integer", nullable=true)
      */
     private $ssId;
 
