@@ -119,6 +119,8 @@ class  MY_Controller  extends  CI_Controller {
 		
 		$this->createMCHBundlingAvailabilitySection();
 		$this->createMCHBundlingAvailabilitySectionforPDF();
+		$this->createmchConsultationSection();
+		$this->createmchHealthService();
 
 		$this->getAccessChallenges();
 
@@ -1706,6 +1708,56 @@ class  MY_Controller  extends  CI_Controller {
 		}
 		return $this -> services;
 	}
+	/**Function to create the section: Child Health--Health Service Questions
+     * */
+	public function createmchHealthService(){
+		$this->data_found = $this->m_mch_survey->getmchHealthService('hs');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->mchHealthService.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<td>OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
+			<td>U5 Clinic<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="U5 Clinic" class="numbers cloned"/></td>
+			<td>MCH<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="MCH" class="numbers cloned"/></td>
+			<td>Other<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="Other" class="numbers cloned"/></td>
+			<td><input type="hidden"  name="mchHealthServiceQCode" id="mchHealthServiceQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+			</td>
+		</tr>';
+        }
+        
+        //echo $this->mchHealthService;die;
+        return $this->mchHealthService;
+	}
+	   /**Function to create the section: Child Health--Consultation Questions
+     * */
+    public function createmchConsultationSection() {
+        $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->mchConsultationSection.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<input type="text"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="" class="numbers cloned"/>
+			</td>
+			<input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+		</tr>';
+        }
+        
+        //echo $this->mchConsultationSection;die;
+        return $this->mchConsultationSection;
+    }
+	
 
 	/**Function to create the section: CH Guideline Availability
 	 * */

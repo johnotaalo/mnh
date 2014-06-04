@@ -1095,7 +1095,7 @@ class C_Load extends MY_Controller {
 
 
 	<tr>
-		'.$this-> mchHealthService.'
+		'.$this -> mchHealthService.'
 		</tr>
 	</tbody>
 </table>
