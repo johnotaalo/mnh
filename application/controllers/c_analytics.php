@@ -1359,49 +1359,18 @@ ORDER BY fac_level;");
     public function getPneumoniaCaseTreatment($criteria, $value, $survey, $filter) {
         $value = urldecode($value);
         $results = $this->m_analytics->getPneumoniaCaseTreatment($criteria, $value, $survey);
+        $resultData = $results['num_of_Pneumonia_cases'];
+        $category = $results['categories'];
         
-        //var_dump($results);die;
-        $categories = $results['categories'];
-        $categoriesCount = 0;
-        $resultArray = array();
-        if ($results != null && count($results) > 0) {
-            foreach ($results as $result => $val) {
-                
-                if ($categoriesCount < 6) {
-                    $index = $categories[$categoriesCount];
-                    if ($result == $index) {
-                        $severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
-                        $some_dehydration[] = array($result, (int)$val['some_dehydration']);
-                        $no_dehydration[] = array($result, (int)$val['no_dehydration']);
-                        $dysentry[] = array($result, (int)$val['dysentry']);
-                        $no_classification[] = array($result, (int)$val['no_classification']);
-                        $category[] = $index;
-                        $categoriesCount++;
-                    }
-                }
-            }
+        $monthArray = array('jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'december');
+        $monthCounter = 0;
+        foreach ($monthArray as $value) {
+            
+            //echo $value;
+            $dataArray[] = (int)$resultData[0][$value];
+            $monthCounter++;
         }
-        switch ($filter) {
-            case 'SevereDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
-                break;
-
-            case 'SomeDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
-                break;
-
-            case 'NoDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
-                break;
-
-            case 'Dysentry':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
-                break;
-
-            case 'NoClassification':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
-                break;
-        }
+        $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
         
         $resultArray = json_encode($resultArray);
         //echo $resultArray;

@@ -534,6 +534,7 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
+	
 	public function getChildHealthTreatmentName($id) {
 		try {
 			$this -> mchTreatmentName = $this -> em -> getRepository('models\Entities\treatments') -> findOneBy(array('treatmentCode' => $id));

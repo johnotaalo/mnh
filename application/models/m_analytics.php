@@ -1665,7 +1665,7 @@ WHERE
 	 * Get Tools in Units
 	 */
 
-	public function ($criteria, $value,  $survey) {
+	public function getTools($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
 		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
 		$data_y = array();
@@ -2015,7 +2015,7 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 
 	public function getPneumoniaCaseTreatment($criteria, $value,  $survey) {
 		/*using CI Database Active Record*/
-		$data = $data_set = $data_series = $analytic_var = $data_categories = array();
+		$data = $data_set = $data_series = $data_categories = array();
 		//data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
 		/**
@@ -2042,15 +2042,15 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 		}
 
 		$query = "SELECT COUNT(d.treatment_code) AS treatment_times, t.treatment_name AS Name 
-FROM log_treatmentmalnpne d ,treatments t
-WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
-     JOIN survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'ch')
-                 ".$criteria_condition.") 
-					AND d.treatment_code IN (SELECT treatment_code FROM treatments WHERE treatment_for='pne')
-					GROUP BY t.treatment_name
-					ORDER BY t.treatment_name ASC";
+                    FROM log_treatmentmalnpne d ,treatments t
+                 WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
+              JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+                 JOIN survey_types st ON (st.st_id = ss.st_id
+                    AND st.st_name = 'ch')
+                       ".$criteria_condition.") 
+			 AND d.treatment_code IN (SELECT treatment_code FROM treatments WHERE treatment_for='pne')
+			 GROUP BY t.treatment_name
+			 ORDER BY t.treatment_name ASC";
 		try {
 			$this -> dataSet = $this -> db -> query($query, array($value));
 			$this -> dataSet = $this -> dataSet -> result_array();
@@ -2062,10 +2062,10 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 
 				foreach ($this->dataSet as $value) {
 					//get a set of the 5 diarrhoea treatment types available
-					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatment']);
+					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatments']);
 
 					//get the responses by classification per given treatment type
-					$data[$this -> getChildHealthTreatmentName($value['treatment'])] = array('severe_dehydration' => intval($value['severe_dehydration']), 'some_dehydration' => intval($value['some_dehydration']), 'no_dehydration' => intval($value['no_dehydration']), 'dysentry' => intval($value['dysentry']), 'no_classification' => intval($value['no_classification']));
+					$data[$this -> getChildHealthTreatmentName($value['treatments'])] = array();
 				}
 
 				$data['categories'] = $data_categories;
