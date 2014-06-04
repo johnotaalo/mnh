@@ -183,15 +183,7 @@ case 'mnh':
 <div class="row-fluid" id="reporting-parent">
 	<div class="span6" id="span1">
 
-<div class="portlet box ">
-			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Treatment</span>Pneumonia Cases</h4>
-			</div>
-			<div class="portlet-body">
 
-				<div id="graph_85" class="chart"></div>
-			</div>
-		</div>
 
 		
 		<div class="portlet box ">
@@ -355,7 +347,15 @@ case 'mnh':
 
 		<!--Trial graph-->
 		
+        <div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Treatment</span>Pneumonia Cases</h4>
+			</div>
+			<div class="portlet-body">
 
+				<div id="graph_85" class="chart"></div>
+			</div>
+		</div>
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5Total</span>IMCI</h4>

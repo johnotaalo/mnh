@@ -1030,19 +1030,11 @@ class C_Load extends MY_Controller {
 	</thead>
 	<tbody>
 		<tr>
-			<td>Name </td><td>
-			<input type="text" size="40">
-			</td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
-			<input type="text" size="40" >
-			</td><td>Email </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-			</td><td>Phone Number </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-		</tr>
+			<td>Name <input type="text" name="assesorname_1"size="40" class="cloned" /></td>
+			<td>Designation <input type="text" name="assesordesignation_1" class="cloned"  size="40"/></td>
+			<td>Email <input type="text" name="assesoremail_1" class="cloned"  size="40"/> </td>
+			<td>Phone Number <input type = "text" name="assesorphoneNumber_1" class="cloned"  size="40"/> </td>
+			</tr>
 	</tbody>
 </table>
 		<table class="centre">
@@ -1050,13 +1042,15 @@ class C_Load extends MY_Controller {
 		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
 		</thead>
 		<tr >
-			<th scope="col" colspan="2" >CADRE</th>
+			<th >CADRE</th>
 			<th>NAME</th>
 			<th >MOBILE</th>
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td colspan="2">Incharge </td>
+
+			<td>Incharge Incharge</td>
+
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td><td>
@@ -1067,7 +1061,9 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">MCH </td>
+
+			<td>MCH Incharge</td>
+
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
@@ -1096,19 +1092,10 @@ class C_Load extends MY_Controller {
 	<th colspan = "12">HEALTH SERVICES</th>
 	</thead>
 	<tbody>
-	<tr>Where are sick children seen?
-	</tr>
+
+
 	<tr>
-		<td>OPD</td>
-		<td><input type="radio",name="opd", size="40"></td>
-		<td>U5 Clinic</td>
-		<td><input type="radio",name="usclinic",size="40"></td>
-		<td>MCH</td>
-		<td><input type="radio",name="mch",size="40"></td>
-		<td>Other</td>
-		<td><input type="radio",name="other",size="40"></td>
-		<td>If Other, Specify</td>
-		<td><input type="radio",name="specify",size="40"></td>
+		'.$this-> mchHealthService.'
 		</tr>
 	</tbody>
 </table>
@@ -1372,6 +1359,17 @@ class C_Load extends MY_Controller {
 				</td>
 				</tr>
 		</table>
+		
+		<table class="centre">
+		
+		<thead>
+			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
+			(refer to Question C above)(One Selection Allowed) </th>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
 		<table class="centre">
 		
 		<thead>
@@ -1389,24 +1387,26 @@ class C_Load extends MY_Controller {
 				<tr>
 				<th colspan="6" style="text-align:center"> Classification</th>
 				</tr>
-				</thead>
-					<tr>
-					<td>Diarrhoea Total:<input type = "text", name= "mchtotal[diarrhoeaTotal]"></td>
-					<td>Severe Dehydation:<input type="text", name="mchtotal[severedehydration]"></td>
-					<td>Some Dehydation:<input type="text", name="mchtotal[somedehydration]"></td>
-					<td>No Dehydation:<input type="text", name="mchtotal[nodehydration]"></td>
-					<td>Dysentry:<input type="text", name="mchtotal[dysentry]"></td>
-					<td>No Classification:<input type="text", name="mchtotal[noclassification]"></td>
+
+				
+					<tr >
+					<td>Diarrhoea Total:<input type = "text" readonly></td>
+					<td>Severe Dehydation:<input type="text", name="mchttotal[severedehydration]"></td>
+					<td>Some Dehydation:<input type="text", name="mchttotal[somedehydration]"></td>
+					<td>No Dehydation:<input type="text", name="mchttotal[nodehydration]"></td>
+					<td>Dysentry:<input type="text", name="mchttotal[dysentry]"></td>
+					<td>No Classification:<input type="text", name="mchttotal[noclassification]"></td>
 					</tr>
-					<tr>
-					<td>Pneumonia Total:<input type="text", name="mchtotal[pneumoniaTotal]"></td>
-					<td>Pneumonia:<input type="text", name="mchtotal[pneumonia]"></td>
-					<td>No Pneumonia cough/cold:<input type="text", name="mchtotal[nopneumonia]"></td>
+					<tr >
+					<td>Pneumonia Total:<input type="text" readonly></td>
+					<td>Pneumonia:<input type="text", name="mchttotal[pneumonia]"></td>
+					<td>No Pneumonia cough/cold:<input type="text", name="mchttotal[nopneumonia]"></td>
 					</tr>
-					<tr>
-					<td>Malaria Total:<input type="malariaTotal", name = "mchtotal[malariaTotal]"></td>
-					<td>Confirmed:<input type="text",  name="mchtotal[confirmedmalaria]"></td>
-					<td>Not Confirmed:<input type="text",  name="mchtotal[notconfirmedMalaria]"></td>
+					<tr >
+					<td>Malaria Total:<input type="malariaTotal" readonly></td>
+					<td>Confirmed:<input type="text", name="mchttotal[confirmedMalaria]"></td>
+					<td>Not Confirmed:<input type="text", name="mchttotal[notConfirmedMalaria]"></td>
+
 					</tr>
 		</table>
 		<table class="centre">
@@ -1446,133 +1446,102 @@ class C_Load extends MY_Controller {
 	<input type="hidden" name="step_name" value="section-3"/>
 	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
 
-     <table class="centre">
-		<thead>
-			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA?  </th>
-		</thead>
-		
-		
-			<th  style="width:35%">SERVICE</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['svc'] . '
-	</table>
-	
-	<table class="centre">
-		<thead>
-			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
-		</thead>
-		
-		
-			<th  style="width:35%">DANGER SIGN</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['sgn'] . '
-	</table>
-	
-	<table class="centre">
-		<thead>
-			<th colspan="2" >DO HEALTH CARE WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
-		</thead>
-		
-		
-			<th  style="width:35%">ACTION</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['dgn'] . '
-	</table>
-	
-	<table class="centre">
-		<thead>
-			<th colspan="2" >DO HEALTH CARE WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
-		</thead>
-		
-		
-			<th  style="width:35%">ACTION</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['cns'] . '
-	</table>
-		
-	</div><!--\.section-3-->
-
-    <div id="section-4" class="step">
-    <input type="hidden" name="step_name" value="section-4"/>
-     <p style="display:true" class="message success">SECTION 4 of 7: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
+     <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
+<table class="centre">
     
-	
-	<table class="centre">
-		
-		<thead>
-			<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
-		</thead>
-		
-			<th  style="width:35%">TOOL</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
+          <tr>
+            <th width="500px">Symptom</th>
 
-		</tr>' . $this -> mchIndicatorsSection['ror'] . '
-	</table>
-	
-	<table class="centre">
-		
-	<thead>
-	<th colspan="13" > (B) INDICATE THE NUMBER OF DIARRHOEA CASES SEEN IN THIS FACILITY FOR THE FOLLOWING PERIODS  </th></thead>
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>1. Cough / Pneumonia</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        </tr>
+    
+     ' . $this -> mchIndicatorsSection['pne'] . '
+</table>
+<table class="centre">
+    
+         <tr>
+            <th width="500px">Symptom</th>
 
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>2. Diarrhoea</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        </tr>
+    
+     ' . $this -> mchIndicatorsSection['dgn'] . '
+</table>
+<table class="centre">
+    
+          <tr>
+            <th width="500px">Symptom</th>
 
-	<th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>3. Fever / Malaria</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        </tr>
+    
+     ' . $this -> mchIndicatorsSection['fev'] . '
+</table>
+<table class="centre">
+        <tr>
+            <th width="500px">Symptom</th>
 
-		
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>4. Ear Infection</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        </tr>
+     ' . $this -> mchIndicatorsSection['ear'] . '
+</table>
 
-		<tr>
-			<td>2013</td>			
-			<td style ="text-align:center;">
-			<input type="text" id="january" name="dnmonth[january]"  size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="february" name="dnmonth[february]" size="8" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="march" size="8" name="dnmonth[march]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="april" size="8" name="dnmonth[april]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="may" size="8" name="dnmonth[may]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="june" size="8" name="dnmonth[june]" class="cloned numbers"/>
-			</td>
+<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
+<table class="centre">
+    
 
-			
-		</tr>
-		<th> MONTH</th><th> JULY</th><th> AUGUST</th><th> SEPTEMBER</th><th> OCTOBER</th><th> NOVEMBER</th><th> DECEMBER</th>
-		<tr>
-		<td>2013</td>
-			<td style ="text-align:center;">
-			<input type="text" id="july" size="8" name="dnmonth[july]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="august" size="8" name="dnmonth[august]" class="cloned numbers"/>
-			</td>
-			<td  style ="text-align:center;">
-			<input type="text" id="september" size="8" name="dnmonth[september]" class="cloned numbers"/>
-			</td>
-			<td style ="text-align:center;">
-			<input type="text" id="october" size="8" name="dnmonth[october]" class="cloned numbers"/></td>
-			<td style ="text-align:center;" width="15">
-			<input type="text" id="november" size="8" name="dnmonth[november]" class="cloned numbers"/></td>
-			
-			<td style ="text-align:center;">
-			<input type="text" id="december" size="8" name="dnmonth[december]" class="cloned numbers"/>
-			</td>		
-		</tr>
-	</table>
+        <tr>
+            <th width="700px" rowspan="2">Condition</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+    <tr>
+    <th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	</tr>
+    <tbody>
+     ' . $this -> mchIndicatorsSection['con'] . '
+    </tbody>
+</table>
+
 	
 <table class="centre">
 	<thead><th colspan="13" > CASE MANAGEMENT TOOL </th></thead>
@@ -1938,13 +1907,11 @@ public function get_hcw_form() {
 		* If healthcare worker works in many departments, write ALL
 </p>
 <table>
-    <thead>
         <tr>
-            <td>Question</td>
-            <td>Yes</td>
-            <td>No</td>
+            <th>Question</th>
+            <th>Yes</th>
+            <th>No</th>
         </tr>
-    </thead>
     <tbody>
         <tr>
             <td>
@@ -2040,40 +2007,77 @@ public function get_hcw_form() {
 <p class="message success">ASSESSMENT FOR THE 3 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
     
-        <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2" >Response</th>
+          <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>1. Cough / Pneumonia</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
         </tr>
     
      ' . $this -> mchIndicatorsSection['pne'] . '
 </table>
 <table class="centre">
     
-        <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2">Response</th>
+         <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>2. Diarrhoea</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
         </tr>
     
      ' . $this -> mchIndicatorsSection['dgn'] . '
 </table>
 <table class="centre">
     
-        <tr>
-            <th width="700px">Symptom</th>
-            <th rowspan="2">Response</th>
+          <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
         <tr>
             <th>3. Fever / Malaria</th>
-            
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
         </tr>
     
      ' . $this -> mchIndicatorsSection['fev'] . '
+</table>
+<table class="centre">
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>4. Ear Infection</th>
+       
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        </tr>
+     ' . $this -> mchIndicatorsSection['ear'] . '
 </table>
 </div>
 <div id="section-3" class="step">
@@ -2083,10 +2087,16 @@ public function get_hcw_form() {
 <table class="centre">
     
         <tr>
-            <th width="700px">Condition</th>
-            <th>Response</th>
+            <th width="700px" rowspan="2">Condition</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
-    
+    <tr>
+    <th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	</tr>
     <tbody>
      ' . $this -> mchIndicatorsSection['con'] . '
     </tbody>
@@ -2094,9 +2104,11 @@ public function get_hcw_form() {
 <table class="centre">
    
         <tr>
-            <th width="700px">Classification</th>
-            <th>Response</th>
+            <th width="700px" rowspan="2">Classification</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
+
     
     <tbody>
         ' . $this -> mchIndicatorsSection['cls'] . '
@@ -2105,9 +2117,16 @@ public function get_hcw_form() {
 <table class="centre">
     
         <tr>
-            <th width="700px">Treatment and Counselling</th>
-            <th>Response</th>
+            <th width="700px" rowspan="2">Treatment and Counselling</th>
+            <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
         </tr>
+        <tr>
+        <th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	<th style="width:100px">Response</th>
+        	<th style="width:400px">Findings</th>
+        	</tr>
     
     <tbody>
         ' . $this -> mchIndicatorsSection['cnl'] . '

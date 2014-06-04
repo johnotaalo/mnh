@@ -1359,18 +1359,21 @@ ORDER BY fac_level;");
     public function getPneumoniaCaseTreatment($criteria, $value, $survey, $filter) {
         $value = urldecode($value);
         $results = $this->m_analytics->getPneumoniaCaseTreatment($criteria, $value, $survey);
-        $resultData = $results['num_of_Pneumonia_cases'];
-        $category = $results['categories'];
         
-        $monthArray = array('jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'december');
-        $monthCounter = 0;
-        foreach ($monthArray as $value) {
-            
-            //echo $value;
-            $dataArray[] = (int)$resultData[0][$value];
-            $monthCounter++;
+            //var_dump($results);die;
+        $categories = $results['categories'];
+        $categoriesCount = 0;
+        $resultArray = array();
+        if ($results != null && count($results) > 0) {
+            foreach ($results as $result => $val) {
+                   
+                
+
+
+
+
+             }
         }
-        $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
         
         $resultArray = json_encode($resultArray);
         //echo $resultArray;

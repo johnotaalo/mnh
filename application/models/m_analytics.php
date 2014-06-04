@@ -2065,7 +2065,7 @@ WHERE d.facility_mfl IN (SELECT fac_mfl FROM facilities f
 					$data_categories[] = $this -> getChildHealthTreatmentName($value['treatments']);
 
 					//get the responses by classification per given treatment type
-					$data[$this -> getChildHealthTreatmentName($value['treatments'])] = array();
+					$data[$this -> getChildHealthTreatmentName($value['treatments'])] = array($value_['treatment_times']);
 				}
 
 				$data['categories'] = $data_categories;
