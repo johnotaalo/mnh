@@ -1772,7 +1772,7 @@ ORDER BY fac_level;");
     
     public function getORTCornerEquipment($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
-        $results = $this->m_analytics->getORTCornerEquipmement($criteria, $value, $survey);
+        $results = $this->m_analytics->getORTCornerEquipment($criteria, $value, $survey);
         
         //var_dump($results);die;
         $datas = array();

@@ -641,7 +641,7 @@ class C_Load extends MY_Controller {
 
 	</table>
 	
-    </div><!--\.section-4-->
+    </div><!--\.section-3-->
 
 	<div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
@@ -1582,160 +1582,209 @@ class C_Load extends MY_Controller {
      ' . $this -> mchIndicatorsSection['fev'] . '
 </table>
 	
-    </div><!--\.section-4-->
-    
-    <div id="section-5" class="step">
-	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
+    </div><!--\.section-3-->
+
+      <div id="section-4" class="step">
+	<input type="hidden" name="step_name" value="section-4"/>
+	 <p style="display:true" class="message success">SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY </p>
 		
+        <table>
+            <thead>
+			<th colspan="2" style="text-align:left"><strong>Main Supplier</th></strong>
+			</thead>
+		<tr>
+        <td> Who is the main supplier of the commodities <strong>Below</strong> ?</td>
+        <td>' . $this -> selectMCHCommoditySuppliersPDF . '</td>
+        </tr>
+        </table>
+
+
 		<table class="centre">
 		<thead>
-			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+			<th colspan="14" style="text-align:left"><strong>INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY.</strong></th>
 		</thead>
-		
-		
-			<th  style="width:35%">ASPECT</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
 
-		</tr>' . $this -> ortCornerAspectsSection . '
-	</table>
-		
-		<table  class="centre" >
-		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
-		</thead>
+		<h4 class="indi">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</h4>
+
+			<tr>
+			<th scope="col" rowspan="2" ><strong>Commodity Name</strong></th>
+			<th scope="col" rowspan="2" ><strong>Commodity Unit</strong></th>
+			
+			<th colspan="2" style="text-align:center"><strong> Availability  
+			 </BR>
+			(One Selection Allowed) </strong></th>
+
+			<th scope="col" rowspan="2" ><strong>Main Reason For Unavailability</strong></th>
+
+			<th colspan="7" style="text-align:center"> <strong>Location of Availability  </BR> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+
+			
+				<th colspan="2" style="text-align:left"><strong>Available Quantities</strong></th>
 
 		</tr>
 		<tr>
-			<th scope="col" >Equipment Name</th>
-			
-			<th colspan="2" style="text-align:center">Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-			<td>Fully-Functional</td>
-            <!--td>Partially Functional</td-->
-			<td>Non-Functional</td>
-			</tr>
-			' . $this -> equipmentsMCHSection . '
+			<th style="text-align:left"><strong> Available </strong></th>
+			<th style="text-align:left"><strong> Not Available </strong></th>
+			<th style="text-align:left"><strong> OPD </strong></th>
+			<th style="text-align:left"><strong> MCH </strong></th>
+			<th style="text-align:left"><strong> U5 Clinic </strong></th>
+			<th style="text-align:left"><strong> Ward </strong></th>
+			<th style="text-align:left"><strong> Pharmacy </strong></th>
+			<th style="text-align:left"><strong> Other </strong></th>
+			<th style="text-align:left"><strong> Not Applicable </strong></th>
+			<th style="text-align:left"><strong> No. of Units </strong></th>
+			<th style="text-align:left"><strong> Expiry Date </strong></th>
 
-			</table>
+			<!--td style="text-align:left">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+
+		    </tr>			
+		    <tr>' . $this -> mchCommodityAvailabilitySectionPDF . '</tr>
+	</table>
+		
+		
+           </div><!--\.section-4-->
+    
+    <div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
+	 <p style="display:true" class="message success">SECTION 5 of 9: REVIEW OF RECORDS </p>
+		
+        <table>
+        <thead>
+			<th colspan="2" style="text-align:left"><strong>(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS </th>
+		</strong></thead>
+
+        ' . $this -> selectAccessChallenges . '
+
+        </table>
+
+
+		<table class="centre">
+		<thead>
+			<th colspan="2" style="text-align:left"><strong>ORAL REHYDRATION THERAPY CORNER ASSESSMENT </strong></th>
+		</thead>
+		<thead>
+			<h4 class="indi">*Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</h4>
+		</thead>
+		  
+			<th  style="width:35%;text-align:left"><strong>ASPECT</strong></th>
+			<th   style="width:65%;text-align:left"><strong> RESPONSE </strong></th>			
+		    <tr>' . $this -> ortCornerAspectsSection . '</tr>
+	</table>
+		
+		
+           </div><!--\.section-5-->
+
+
+    <div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
+	 <p style="display:true" class="message success">SECTION 5 of 9: REVIEW OF RECORDS </p>
+		
+        <table>
+        <thead>
+			<th colspan="2" style="text-align:left"><strong>(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS </th>
+		</strong></thead>
+
+        ' . $this -> selectAccessChallenges . '
+
+        </table>
+
+
+		<table class="centre">
+		<thead>
+			<th colspan="2" style="text-align:left"><strong>ORAL REHYDRATION THERAPY CORNER ASSESSMENT </strong></th>
+		</thead>
+		<thead>
+			<th colspan="2" style="text-align:left">*Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</th>
+		</thead>
+		  
+			<th  style="width:35%;text-align:left"><strong>ASPECT</strong></th>
+			<th   style="width:65%;text-align:left"><strong> RESPONSE </strong></th>			
+		    <tr>' . $this -> ortCornerAspectsSection . '</tr>
+	</table>
+		
+		
+           </div><!--\.section-5-->
+    
+    <div id="section-5" class="step">
+	<input type="hidden" name="step_name" value="section-5"/>
+	 <p style="display:true" class="message success">SECTION 5 of 9: REVIEW OF RECORDS </p>
+		
+        <table>
+        <thead>
+			<th colspan="2" style="text-align:left"><strong>(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS </th>
+		</strong></thead>
+
+        ' . $this -> selectAccessChallenges . '
+
+        </table>
+
+
+		<table class="centre">
+		<thead>
+			<th colspan="2" style="text-align:left"><strong>ORAL REHYDRATION THERAPY CORNER ASSESSMENT </strong></th>
+		</thead>
+		<thead>
+			<h4 class="indi">*Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</h4>
+		</thead>
+		  
+			<th  style="width:35%;text-align:left"><strong>ASPECT</strong></th>
+			<th   style="width:65%;text-align:left"><strong> RESPONSE </strong></th>			
+		    <tr>' . $this -> ortCornerAspectsSection . '</tr>
+	</table>
+		
+		
            </div><!--\.section-5-->
 
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
-	 <p style="display:true" class="message success">SECTION 6 of 7: RESOURCE AVAILABILITY</p>
+	 <p style="display:true" class="message success">SECTION 6 of 9: EQUIPMENT AVAILABILITY AND STATUS</p>
 		 <table  class="centre" >
 		<thead>
-			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND FUNCTIONALITYOF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
 		</thead>
 		<tr>
-			<th scope="col" >Supplies Name</th>
+			<th scope="col" rowspan="2" ><strong>Equipment Name</strong></th>
 			
-			<th colspan="2" style="text-align:center"> Availability  
-			 <strong></BR>
+			<th colspan="2" style="text-align:center"><strong> Availability  
+			 </BR>
 			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+
+			<th colspan="5" style="text-align:center"> <strong>Location of Availability  </BR> (Multiple Selections Allowed)</strong></th>
 			<!--th>Available Supplies</th-->
-			<th scope="col">
+
 			
-				Main Supplier
-			</th>
+				<th colspan="2" style="text-align:left"><strong>Available Quantities</strong></th>
+			
 			<!--th scope="col">
 			<div style="width: 100px" >
 				Main Reason For  Unavailability
 			</div></th-->
 
 		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-
-			<!--td style="text-align:center">No.of Supplies</td-->
-			<!--td></td-->
-			<td></td>
-			
-			
-
-		</tr>' . $this -> suppliesMCHSection . '
-		</table>
-		
-		 <p style="display:true" class="message success">SECTION 7 of 7: ELECTRICTY AND HARDWARE RESOURCES</p>
-		 <table  class="centre" >
-		<thead>
-			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
-		</thead>
 		<tr>
-			<th scope="col" >Resource Name</th>
-			
-			<th colspan="2" style="text-align:center"> Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<!--th>Available Supplies</th-->
-			<th scope="col">
-			
-				Main Supplier
-			</th>
-			<!--th scope="col">
-			<div style="width: 100px" >
-				Main Reason For  Unavailability
-			</div></th-->
+			<th style="text-align:left"><strong> Available </strong></th>
+			<th style="text-align:left"><strong> Not Available </strong></th>
+			<th style="text-align:left"><strong> OPD </strong></th>
+			<th style="text-align:left"><strong> MCH </strong></th>
+			<th style="text-align:left"><strong> U5 Clinic </strong></th>
+			<th style="text-align:left"><strong> Ward </strong></th>
+			<th style="text-align:left"><strong> Other </strong></th>
+			<th style="text-align:left"><strong> Fully-Functional </strong></th>
+			<th style="text-align:left"><strong> Non-Functional </strong></th>
 
-		</tr>
-		<tr >
-			<td>&nbsp;</td>			
-			<td >Available</td>			
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-
-			<!--td style="text-align:center">No.of Supplies</td-->
+			<!--td style="text-align:left">No.of Supplies</td-->
 			<!--td></td-->
 			<td></td>
 			
 			
 
-		</tr>' . $this -> hardwareMCHSection . '
+		</tr>' . $this -> equipmentsMCHSection . '
 		</table>
-		<table class="centre">
-		<thead>
-			<th colspan="2" >COMMUNITY STRATEGY </th>
-		</thead>
 		
-		
-			<th  style="width:35%">ASPECT</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchCommunityStrategySection . '
-	</table>
-		
-	
-	</div><!--\.section-6 & 7-->
+	</div><!--\.section-6 -->
 	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
@@ -2080,7 +2129,9 @@ public function get_hcw_form() {
      ' . $this -> mchIndicatorsSection['ear'] . '
 </table>
 </div>
-<div id="section-3" class="step">
+
+
+<div id="section-4" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>
 <p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>

@@ -2740,7 +2740,8 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()  ==  true &&*/
-                        $this->addMchCommunityStrategyInfo() == true && $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true) {
+                         $this->addmchConsultationQuestions()==true
+                        ) {
                             //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
@@ -2859,7 +2860,7 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addSuppliesQuantityAvailabilityInfo() == true && $this->addResourceAvailabilityInfo() == true &&$this->addMchCommunityStrategyInfo() == true) {
+                        if ($this->addSuppliesQuantityAvailabilityInfo() == true && $this->addResourceAvailabilityInfo() == true && $this->addMchCommunityStrategyInfo() == true  && $this->addMchCommunityStrategyInfo() == true && $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             
