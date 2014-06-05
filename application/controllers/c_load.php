@@ -1022,8 +1022,11 @@ class C_Load extends MY_Controller {
 						</select>
 			</td>
 			</tr>
-		
 		</table>
+		<p class="instruction">
+		* For Facility Type(Dispensary, Health Centre etc.)
+		* For Owned By (Public/Private/FBO/MOH/NGO)
+		</p>
 		<table>
 	<thead>
 		<th colspan="12">ASSESSOR INFORMATION </th>
@@ -1045,10 +1048,6 @@ class C_Load extends MY_Controller {
 		</tr>
 	</tbody>
 </table>
-<p class="instruction">
-		* For Facility Type(Dispensary, Health Centre etc.)
-		* For Owned By (Public/Private/FBO/MOH/NGO)
-</p>
 		<table class="centre">
 		<thead>
 		<th colspan="12" >HR INFORMATION</th>
@@ -1060,10 +1059,11 @@ class C_Load extends MY_Controller {
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-			<td colspan="2">Incharge Incharge</td>
+			<td colspan = "2">Facility Incharge</td>
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
-			</td><td>
+			</td>
+			<td>
 			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
 			</td>
 			<td>
@@ -1071,7 +1071,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2">MCH Incharge</td>
+			<td colspan = "2">MCH Incharge</td>
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
@@ -1082,7 +1082,8 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td >Maternity Incharge </td><td>
+			<td colspan = "2">Maternity Incharge </td>
+			<td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
 			<td>
@@ -1093,7 +1094,7 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-			<td>OPD Incharge</td><td>
+			<td colspan = "2">OPD Incharge</td><td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
 			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
@@ -1145,16 +1146,16 @@ class C_Load extends MY_Controller {
 	<tr><th colspan = "12">Where are sick children seen?</th>
 	</tr>
 	<tr>
-		<td>OPD</td>
+		<td>General OPD</td>
 		<td><input type="radio",name="opd", size="40"></td>
-		<td>U5 Clinic</td>
+		<td>Paedriatic OPD</td>
 		<td><input type="radio",name="usclinic",size="40"></td>
 		<td>MCH</td>
 		<td><input type="radio",name="mch",size="40"></td>
 		<td>Other</td>
 		<td><input type="radio",name="other",size="40"></td>
 		<td>If Other, Specify</td>
-		<td><input type="radio",name="specify",size="40"></td>
+		<td><input type="text",name="specify",size="40"></td>
 		</tr>
 	</tbody>
 </table>
@@ -1199,10 +1200,22 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
-	
+
+	<table class="centre">
+		
+		<thead>
+			<th colspan="2" > DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
+		</thead>
+		
+			<th  style="width:35%">TOOL</th>
+			<th   style="width:65%;text-align:left"> RESPONSE </th>			
+			
+
+		</tr>' . $this -> mchIndicatorsSection['ror'] . '
+	</table>
 
 	
-	<table  class="centre persist-area" >
+	<!--<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
 		
@@ -1298,12 +1311,12 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchBundling . ' 
 
-	</table>
+	</table>-->
 		<table class="centre">
 
-			<thead>
+			<!--<thead>
 			<tr>
-				<th colspan="6" > DATA FROM THE TOOLS </th>
+				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH <input type = "text" placeholder = "Insert text here"></th>
 			</tr>
 			<tr>
 				<th colspan="6" > (A) MALARIA</th>
@@ -1316,30 +1329,69 @@ class C_Load extends MY_Controller {
 					<th>Malaria</th>
 					<th>Fever No malaria</th>
 				</tr>
-				</thead>
-				<tr>
+			</thead>-->
+			<tbody>
+				<th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
+				<th><input type = "text"></th>
+				<th colspan = "2"></th>
+
+			<tr>
+				<th colspan = "5">Classification</th>
+			</tr>
+			<tr>
+				<th colspan="2">Diarrhoea Total</th>
+				<th><input type = "text"></th>
+				<th colspan = "2"></th>
+			</tr>
+			</tbody>
+			<tr>
+			<td>Severe Dehydration: <input type = "text"></td>
+			<td>Some Dehydration: <input type = "text"></td>
+			<td>No Dehydration: <input type = "text"></td>
+			<td>Dysentry: <input type = "text"></td>
+			<td>No Classification: <input type = "text"></td>
+			</tr>
+			<tr>
 				<td>
-				<style type = "text/css">
-					.treatment
-					{
-						cursor: pointer;
-					}
-				</style>
-				<div style="height: 15em; width: 30em; overflow: auto;" id ="treat">
-				<span id = "malTreatmentSection">&nbsp</span>'
-				.$this -> mchmalariaTreatmentSection.'
-				</div>
+					<style type = "text/css">
+						.treatment
+						{
+							cursor: pointer;
+						}
+					</style>
+					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<span id = "malTreatmentSection">&nbsp</span>'
+					.$this -> treatmentMCHSection.'
+					</div>
 				</td>
 				<td>
-				<input type = "radio" name = "mchtMalariaTreatment" value = "1"/>
+					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<span id = "malTreatmentSection">&nbsp</span>'
+					.$this -> treatmentMCHSection.'
+					</div>
 				</td>
 				<td>
-				<input type = "radio" name = "mchtMalariaTreatment" value = "0"/>
+					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<span id = "malTreatmentSection">&nbsp</span>'
+					.$this -> treatmentMCHSection.'
+					</div>
 				</td>
-				</tr>
+				<td>
+					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<span id = "malTreatmentSection">&nbsp</span>'
+					.$this -> treatmentMCHSection.'
+					</div>
+				</td>
+				<td>
+					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<span id = "malTreatmentSection">&nbsp</span>'
+					.$this -> treatmentMCHSection.'
+					</div>
+				</td>
+			</tr>
 		</table>
 		<table class="centre">
-		<thead>
+		<!--<thead>
 			<tr>
 				<th colspan="6" > (B) PNEUMONIA</th>
 			</tr>
@@ -1351,24 +1403,36 @@ class C_Load extends MY_Controller {
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia cough/cold</th>
 					</tr>
-					</thead>
+					</thead>-->
+				<tbody>
 					<tr>
-				<td>
-				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+					<th colspan = "2">Pneumonia Total: </th>
+					<th><input type = "text"></th>
+					<th colspan = "3"></th>
+					</tr>
+				</tbody>
+				<tr>
+					<td colspan = "3">Severe Pneumonia: <input type = "text"></td>
+					<td colspan = "3">Pneumonia: <input type = "text"></td>
+				</tr>
+				<tr>
+				<td colspan = "3">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
 				</td>
-				<td>
-				<input type = "radio" name = "mchtPneumoniaTreatment" value = "1"/>
-				</td>
-				<td>
-				<input type = "radio" name = "mchtPneumoniaTreatment" value = "0"/>
+				<td colspan = "3">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> mchpneumoniaTreatmentSection.
+			'</div>
 				</td>
 				</tr>
 					
 		</table>
-		<table class="centre"><thead>
+		<table class="centre">
+		<!--<thead>
 			<tr>
 				<th colspan="6" > (C) DIARRHOEA </th>
 			</tr>
@@ -1385,59 +1449,75 @@ class C_Load extends MY_Controller {
 					<th>Dysentry</th>
 					<th>No Classification</th>
 				</tr>
-			</thead>
-			<tr>
-				<td>
-				<div style="height: 6em; width: 30em; overflow: auto;" class = "pneumoniatreatments">'
-			. $this -> treatmentMCHSection . '
-			</div>
+			</thead>-->
+			<tbody>
+					<tr>
+					<th colspan = "2">Malaria Total: </th>
+					<th><input type = "text"></th>
+					<th colspan = "3"></th>
+					</tr>
+				</tbody>
+				<tr>
+					<td colspan = "3">Confirmed: <input type = "text"></td>
+					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text"></td>
+				<tr>
+				<td colspan = "3">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> mchmalariaTreatmentSection.
+			'</div>
 				</td>
-				<td>
-				<input type = "radio" name = "mchtdiaTreatment" value = "severe_dehydration"/>
-				</td>
-				<td>
-				<input type = "radio" name = "mchtdiaTreatment" value = "some_dehydration"/>
-				</td>
-				<td>
-				<input type = "radio" name = "mchtdiaTreatment" value = "no_dehydration"/>
-				</td>
-				<td>
-				<input type = "radio" name = "mchtdiaTreatment" value = "dysentry"/>
-				</td>
-				<td>
-				<input type = "radio" name = "mchtdiaTreatment" value = "no_classification"/>
+				<td colspan = "3">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> mchmalariaTreatmentSection.
+			'</div>
 				</td>
 				</tr>
 		</table>
 		<table class="centre">
 
-			<thead>
+			<tbody>
 			<tr>
-				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 3 MONTHS OF THOSE, HOW MANY CAME IN WITH THE FOLLOWING</th>
+				<th colspan="2" >Others Total:</th>
+				<th><input type = "text"></th>
 			</tr>
+			</tbody>
+		</table>
+		<table class="centre">
+			<thead>
+				<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
 			</thead>
-				<tr>
-				<th colspan="6" style="text-align:center"> Classification</th>
-				</tr>
-				
-					<tr >
-					<td>Diarrhoea Total:<input type = "text", name= "diarrhoeaTotal"></td>
-					<td>Severe Dehydation:<input type="text", name="severedehydration"></td>
-					<td>Some Dehydation:<input type="text", name="somedehydration"></td>
-					<td>No Dehydation:<input type="text", name="nodehydration"></td>
-					<td>Dysentry:<input type="text", name="dysentry"></td>
-					<td>No Classification:<input type="text", name="noclassification"></td>
-					</tr>
-					<tr >
-					<td>Pneumonia Total:<input type="text",name="pneumoniaTotal"></td>
-					<td>Pneumonia:<input type="text", name="pneumonia"></td>
-					<td>No Pneumonia cough/cold:<input type="text", name="nopneumonia"></td>
-					</tr>
-					<tr >
-					<td>Malaria Total:<input type="malariaTotal", name = "malariaTotal"></td>
-					<td>Confirmed:<input type="text", name="pneumonia"></td>
-					<td>Not Confirmed:<input type="text", name="nopneumonia"></td>
-					</tr>
+				<th  style="width:35%">SERVICE</th>
+				<th   style="width:65%;text-align:left">RESPONSE</th>		
+			</tr>' . $this -> mchIndicatorsSection['sgn'] . '
+		</table>
+		<table class = "centre">
+			<thead>
+				<th colspan = "6">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
+			</thead>
+			<tbody>
+				<th colspan = "3">DOES THE CHILD HAVE THE SYMPTOM BELOW?</th>
+				<th colspan = "3">
+					<input type = "radio" name = "mchCheckSympton" value = "yes">Yes</input>
+					<input type = "radio" name = "mchCheckSympton" value = "no">No</input>
+				</th>
+				<p class = "instruction">* If NO proceed to the next symptom.</p>
+			</tbody>
+			<tbody>
+				<th colspan = "2">Symptom</th>
+				<th colspan = "2">HCW Response</th>
+				<th colspan = "2">Assessor Response</th>
+			</tbody>
+        	<tr>
+            	<th colspan = "2">1. Cough / Difficulty Breathing</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+        	</tr>
+    
+     		' . $this -> mchIndicatorsSection['pne'] . '
 		</table>
 	</table>
 	
@@ -1458,19 +1538,6 @@ class C_Load extends MY_Controller {
 			
 
 		</tr>' . $this -> mchIndicatorsSection['svc'] . '
-	</table>
-	
-	<table class="centre">
-		<thead>
-			<th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
-		</thead>
-		
-		
-			<th  style="width:35%">DANGER SIGN</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['sgn'] . '
 	</table>
 	
 	<table class="centre">
@@ -1504,22 +1571,7 @@ class C_Load extends MY_Controller {
     <div id="section-4" class="step">
     <input type="hidden" name="step_name" value="section-4"/>
      <p style="display:true" class="message success">SECTION 4 of 7: REVIEW OF RECORDS, DIARRHOEA MORBIDITY DATA</p>
-    
-	
-	<table class="centre">
-		
-		<thead>
-			<th colspan="2" > (A) DOES THE UNIT HAVE THE FOLLOWING TOOLS? </th>
-		</thead>
-		
-			<th  style="width:35%">TOOL</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['ror'] . '
-	</table>
-	
-	
+ 
 	<table class="centre">
 		
 		<thead>

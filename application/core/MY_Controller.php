@@ -1879,12 +1879,14 @@ class MY_Controller extends CI_Controller
             $this->mchGuidelineAvailabilitySection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
-            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
+            <!--<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
 
-            </select>
+            </select>-->
+            <input type = "radio"  name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class = "cloned is-guideline" value = "Yes">Yes</input>
+            <input type = "radio"  name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class = "cloned is-guideline" value = "No">No</input>
             </td>
             <td><input type="text" name="questionCount_' . $counter . '" id="questionCount_' . $counter . '" size="6" class="numbers" disabled/></td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -2062,7 +2064,6 @@ class MY_Controller extends CI_Controller
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
-
             </select>
             </td>
             <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
@@ -3367,7 +3368,7 @@ class MY_Controller extends CI_Controller
         $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
 
         $this->mchmalariaTreatmentSection .= '
-        <select name = "malTreatment" onchange="selectmalTreatment(this);">
+        <select name = "malTreatment" onchange="selectmalTreatment(this);" id = "malariatreatment">
         <option value = "malTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {
