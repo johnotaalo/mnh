@@ -1733,65 +1733,7 @@ class C_Load extends MY_Controller {
            </div><!--\.section-5-->
 
 
-    <div id="section-5" class="step">
-	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 9: REVIEW OF RECORDS </p>
-		
-        <table>
-        <thead>
-			<th colspan="2" style="text-align:left"><strong>(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS </th>
-		</strong></thead>
-
-        ' . $this -> selectAccessChallenges . '
-
-        </table>
-
-
-		<table class="centre">
-		<thead>
-			<th colspan="2" style="text-align:left"><strong>ORAL REHYDRATION THERAPY CORNER ASSESSMENT </strong></th>
-		</thead>
-		<thead>
-			<th colspan="2" style="text-align:left">*Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</th>
-		</thead>
-		  
-			<th  style="width:35%;text-align:left"><strong>ASPECT</strong></th>
-			<th   style="width:65%;text-align:left"><strong> RESPONSE </strong></th>			
-		    <tr>' . $this -> ortCornerAspectsSection . '</tr>
-	</table>
-		
-		
-           </div><!--\.section-5-->
-    
-    <div id="section-5" class="step">
-	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 9: REVIEW OF RECORDS </p>
-		
-        <table>
-        <thead>
-			<th colspan="2" style="text-align:left"><strong>(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS </th>
-		</strong></thead>
-
-        ' . $this -> selectAccessChallenges . '
-
-        </table>
-
-
-		<table class="centre">
-		<thead>
-			<th colspan="2" style="text-align:left"><strong>ORAL REHYDRATION THERAPY CORNER ASSESSMENT </strong></th>
-		</thead>
-		<thead>
-			<h4 class="indi">*Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner</h4>
-		</thead>
-		  
-			<th  style="width:35%;text-align:left"><strong>ASPECT</strong></th>
-			<th   style="width:65%;text-align:left"><strong> RESPONSE </strong></th>			
-		    <tr>' . $this -> ortCornerAspectsSection . '</tr>
-	</table>
-		
-		
-           </div><!--\.section-5-->
+   
 
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
