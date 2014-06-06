@@ -333,7 +333,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->hardwareSourcesPDF.= $value['supplierName'] . '<input type="checkbox">';
+            $this->hardwareSourcesPDF.= $value['supplierName'] . '<input type="checkbox">' ;
         }
         
         //echo $this -> hardwareSourcesPDF;die;
@@ -598,8 +598,7 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
             </td>
-            <td width="200">' . $supplier_names . '
-            </td>
+            
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
@@ -723,8 +722,7 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
             </td>
-            <td width="200">' . $supplier_names . '
-            </td>
+            
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
