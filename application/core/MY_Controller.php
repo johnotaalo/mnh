@@ -2067,7 +2067,7 @@ class MY_Controller extends CI_Controller
             </select>
             </td>
             <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
+    </tr>';
         }
         
         foreach ($data as $key => $value) {

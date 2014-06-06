@@ -972,7 +972,7 @@ class C_Load extends MY_Controller {
 		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
+		          <p style="display:true" class="message success">SECTION 1 of 9: FACILITY INFORMATION</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -1185,7 +1185,7 @@ class C_Load extends MY_Controller {
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS</p>
+	 <p style="display:true" class="message success">SECTION 2 of 9: GUIDELINES, JOB AIDS AND TOOLS</p>
 
      <table class="centre">
 		<thead>
@@ -1510,7 +1510,7 @@ class C_Load extends MY_Controller {
 				<th colspan = "2">Assessor Response</th>
 			</tbody>
         	<tr>
-            	<th colspan = "2">1. Cough / Difficulty Breathing</th>
+            	<th>1. Cough / Difficulty Breathing</th>
             	<th>Response</th>
             	<th>Findings</th>
             	<th>Response</th>
@@ -1518,6 +1518,94 @@ class C_Load extends MY_Controller {
         	</tr>
     
      		' . $this -> mchIndicatorsSection['pne'] . '
+     		<th colspan = "6">Treatment</th>
+     		<tr>
+     		<td colspan = "6">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> mchpneumoniaTreatmentSection.
+			'</div>
+			</td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<th colspan = "3">DOES THE CHILD HAVE THE SYMPTOM BELOW?</th>
+				<th colspan = "3">
+					<input type = "radio" name = "mchCheckSympton" value = "yes">Yes</input>
+					<input type = "radio" name = "mchCheckSympton" value = "no">No</input>
+				</th>
+			</tr>
+			<p class = "instruction">* If NO proceed to the next symptom.</p>
+			<tr>
+				<th colspan = "2">Symptom</th>
+				<th colspan = "2">HCW Response</th>
+				<th colspan = "2">Assessor Response</th>
+			</tr>
+			<tr>
+            	<th>2. Diarrhoea</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+        	</tr>
+        	' . $this -> mchIndicatorsSection['dgn'] . '
+        	<th colspan = "6">Treatment</th>
+     		<tr>
+     		<td colspan = "6">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> treatmentMCHSection.
+			'</div>
+			</td>
+			</tr>
+		</table>
+		<table class = "centre">
+		<tr>
+				<th colspan = "3">DOES THE CHILD HAVE THE SYMPTOM BELOW?</th>
+				<th colspan = "3">
+					<input type = "radio" name = "mchCheckSympton" value = "yes">Yes</input>
+					<input type = "radio" name = "mchCheckSympton" value = "no">No</input>
+				</th>
+			</tr>
+			<tr>
+			<p class = "instruction">* If NO proceed to the next symptom.</p>
+				<th colspan = "2">Symptom</th>
+				<th colspan = "2">HCW Response</th>
+				<th colspan = "2">Assessor Response</th>
+			</tr>
+			<tr>
+            	<th>3. Fever</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+        	</tr>
+        	'. $this -> mchIndicatorsSection['fev'].'
+		</table>
+
+		<table class = "centre">
+		<tr>
+				<th colspan = "3">DOES THE CHILD HAVE THE SYMPTOM BELOW?</th>
+				<th colspan = "3">
+					<input type = "radio" name = "mchCheckSympton" value = "yes">Yes</input>
+					<input type = "radio" name = "mchCheckSympton" value = "no">No</input>
+				</th>
+			</tr>
+			<tr>
+			<p class = "instruction">* If NO proceed to the next symptom.</p>
+				<th colspan = "2">Symptom</th>
+				<th colspan = "2">HCW Response</th>
+				<th colspan = "2">Assessor Response</th>
+			</tr>
+			<tr>
+            	<th>4. Ear Infection</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+            	<th>Response</th>
+            	<th>Findings</th>
+        	</tr>
+        	'. $this -> mchIndicatorsSection['ear'].'
 		</table>
 	</table>
 	
@@ -1525,47 +1613,52 @@ class C_Load extends MY_Controller {
 
 	<div id="section-3" class="step">
 	<input type="hidden" name="step_name" value="section-3"/>
-	 <p style="display:true" class="message success">SECTION 3 of 7: SERVICE DELIVERY, QUALITY OF DIAGNOSIS </p>
+	 <p style="display:true" class="message success">SECTION 3 of 9: DOES THE HCW CHECK FOR THE FOLLOWING CONDITIONS</p>
 
      <table class="centre">
-		<thead>
-			<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD WITH DIARRHOEA?  </th>
-		</thead>
-		
-		
-			<th  style="width:35%">SERVICE</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['svc'] . '
+     <tr>
+     <th rowspan = "2">Malnutrition</th>
+     <th colspan = "2">HCW Response</th>
+     <th colspan = "2">Assessor Response</th>
+     </tr>
+     <tr>
+     <th>Response</th>
+     <th>Findings</th>
+      <th>Response</th>
+     <th>Findings</th>
+     </tr>
+' . $this -> mchIndicatorsSection['mal'] . '
 	</table>
 	
 	<table class="centre">
-		<thead>
-			<th colspan="2" >DO HEALTH CARE WORKERS PERFORM THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA? </th>
-		</thead>
-		
-		
-			<th  style="width:35%">ACTION</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['dgn'] . '
+     <tr>
+     <th rowspan = "2">Anaemia</th>
+     <th colspan = "2">HCW Response</th>
+     <th colspan = "2">Assessor Response</th>
+     </tr>
+     <tr>
+     <th>Response</th>
+     <th>Findings</th>
+      <th>Response</th>
+     <th>Findings</th>
+     </tr>
+' . $this -> mchIndicatorsSection['anm'] . '
 	</table>
 	
 	<table class="centre">
-		<thead>
-			<th colspan="2" >DO HEALTH CARE WORKERS COUNSEL ON THE FOLLOWING IN ONGOING SESSION FOR A CHILD WITH DIARRHOEA?  </th>
-		</thead>
-		
-		
-			<th  style="width:35%">ACTION</th>
-			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
-
-		</tr>' . $this -> mchIndicatorsSection['cns'] . '
+     <tr>
+     <th rowspan = "2">Condition</th>
+     <th colspan = "2">HCW Response</th>
+     <th colspan = "2">Assessor Response</th>
+     </tr>
+     <tr>
+     <th>Response</th>
+     <th>Findings</th>
+      <th>Response</th>
+     <th>Findings</th>
+     </tr>
+' . $this -> mchIndicatorsSection['con'] . '
 	</table>
-		
 	</div><!--\.section-3-->
 
     <div id="section-4" class="step">
