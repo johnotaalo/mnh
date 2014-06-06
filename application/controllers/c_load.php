@@ -1505,7 +1505,7 @@ class C_Load extends MY_Controller {
 				<p class = "instruction">* If NO proceed to the next symptom.</p>
 			</tbody>
 			<tbody>
-				<th colspan = "2">Symptom</th>
+				<th>Symptom</th>
 				<th colspan = "2">HCW Response</th>
 				<th colspan = "2">Assessor Response</th>
 			</tbody>
@@ -1538,7 +1538,7 @@ class C_Load extends MY_Controller {
 			</tr>
 			<p class = "instruction">* If NO proceed to the next symptom.</p>
 			<tr>
-				<th colspan = "2">Symptom</th>
+				<th>Symptom</th>
 				<th colspan = "2">HCW Response</th>
 				<th colspan = "2">Assessor Response</th>
 			</tr>
@@ -1570,7 +1570,7 @@ class C_Load extends MY_Controller {
 			</tr>
 			<tr>
 			<p class = "instruction">* If NO proceed to the next symptom.</p>
-				<th colspan = "2">Symptom</th>
+				<th>Symptom</th>
 				<th colspan = "2">HCW Response</th>
 				<th colspan = "2">Assessor Response</th>
 			</tr>
@@ -1594,7 +1594,7 @@ class C_Load extends MY_Controller {
 			</tr>
 			<tr>
 			<p class = "instruction">* If NO proceed to the next symptom.</p>
-				<th colspan = "2">Symptom</th>
+				<th>Symptom</th>
 				<th colspan = "2">HCW Response</th>
 				<th colspan = "2">Assessor Response</th>
 			</tr>
