@@ -1643,7 +1643,62 @@ class C_Load extends MY_Controller {
 		    </tr>			
 		    <tr>' . $this -> mchCommodityAvailabilitySectionPDF . '</tr>
 	</table>
-		
+		<table>
+            <thead>
+			<th colspan="2" style="text-align:left"><strong>Main Supplier</th></strong>
+			</thead>
+		<tr>
+        <td> Who is the main supplier of the commodities <strong>Below</strong> ?</td>
+        <td>' . $this -> selectMCHCommoditySuppliersPDF . '</td>
+        </tr>
+        </table>
+
+
+		<table class="centre">
+		<thead>
+			<th colspan="14" style="text-align:left"><strong>BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.</strong></th>
+		</thead>
+
+		<h4 class="indi">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</h4>
+
+			<tr>
+			<th scope="col" rowspan="2" ><strong>Commodity Name</strong></th>
+			<th scope="col" rowspan="2" ><strong>Commodity Unit</strong></th>
+			
+			<th colspan="2" style="text-align:center"><strong> Availability  
+			 </BR>
+			(One Selection Allowed) </strong></th>
+
+			<th scope="col" rowspan="1" ><strong>Main Reason For Unavailability</strong></th>
+
+			<th colspan="7" style="text-align:center"> <strong>Location of Availability  </BR> (Multiple Selections Allowed)</strong></th>
+			<!--th>Available Supplies</th-->
+
+			
+				<th colspan="1" style="text-align:left"><strong>Available Quantities</strong></th>
+
+		</tr>
+		<tr>
+			<th style="text-align:left"><strong> Available </strong></th>
+			<th style="text-align:left"><strong> Not Available </strong></th>
+			<th style="text-align:left"><strong> Unavailability </strong></th>
+			<th style="text-align:left"><strong> OPD </strong></th>
+			<th style="text-align:left"><strong> MCH </strong></th>
+			<th style="text-align:left"><strong> U5 Clinic </strong></th>
+			<th style="text-align:left"><strong> Ward </strong></th>
+			<th style="text-align:left"><strong> Pharmacy </strong></th>
+			<th style="text-align:left"><strong> Other </strong></th>
+			<th style="text-align:left"><strong> Not Applicable </strong></th>
+			<th style="text-align:left"><strong> No. of Units </strong></th>
+			
+
+			<!--td style="text-align:left">No.of Supplies</td-->
+			<!--td></td-->
+			<td></td>
+
+		    </tr>			
+		    <tr>' . $this -> mchBundlingPDF . '</tr>
+	</table>
 		
            </div><!--\.section-4-->
     
@@ -2131,7 +2186,7 @@ public function get_hcw_form() {
 </div>
 
 
-<div id="section-4" class="step">
+<div id="section-3" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>
 <p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
