@@ -538,6 +538,7 @@ class  MY_Model  extends  CI_Model {
 
 			if ($this -> mchIndicatorName) {
 				$this -> mchIndicatorName = $this -> mchIndicatorName -> getIndicatorName();
+				echo $this -> mchIndicatorName;die;
 				return $this -> mchIndicatorName;
 			}
 		} catch(exception $ex) {
