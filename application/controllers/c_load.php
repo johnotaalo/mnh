@@ -232,6 +232,56 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		</table>
+				<table>
+		<tr>
+			<td>
+				<th> DOES THIS FACILITY CONDUCT DELIVERIES?</th>
+			</td>
+				<tr><th colspan ="8"><select name="facDeliveriesDone" id="facDeliveriesDone" class="cloned link">
+				<option value="" selected="selected">Select One</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option></th></tr>
+				</tr>
+			
+		</table>
+		<table>
+
+				<thead>
+				<tr>
+					<th colspan ="12">IF NO, WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th>
+			</tr>
+				<tr>
+					<th colspan ="2">Inadequate skill</th>
+					<th colspan ="2">Inadequate staff</th>
+					<th colspan ="2"> Inadequate infrastructure </th>
+					<th colspan="2">Inadequate Equipment</th>
+					<th colspan ="2"> Inadequate commodities and supplies</th>
+					<th colspan ="2"> Other (Please specify)</th>
+				</tr>
+	</thead>
+				<tr>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="Inadequate skill" class="cloned" />
+					</td>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate staff" />
+					</td>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate infrastructure" />
+					</td>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="Inadequate Equipment" />
+					</td>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="Inadequate commodities and supplies" />
+					</td>
+					<td style ="text-align:center;" colspan ="2">
+					<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="Other (Please specify)" />
+					<input type="text" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="" />
+					</td>
+					<input type="hidden" name="facRsnNoDeliveriesCode" id="rsnDeliveriesCode" value=""
+				</tr>
+			</table>
 <table>
 			<thead>				
 					<th colspan="2" >PROVISION OF Nurses</th>
@@ -283,50 +333,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		' . $this ->  mnhCommitteeAspectSection  . '
 	</table>
-	<table class="centre">
-	<thead>
-	<th colspan ="8"> DOES THIS FACILITY CONDUCT DELIVERIES?</th> </thead>
-	<tr><th colspan ="8"><select name="facDeliveriesDone" id="facDeliveriesDone" class="cloned link">
-				<option value="" selected="selected">Select One</option>
-				<option value="Yes">Yes</option>
-				<option value="No">No</option></th></tr>
-	</table>
-	<div  style="display:none" id="delivery_centre" class="cloned">
-	<table class="centre">
 	
-	<thead><th colspan ="12">WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th></thead>
-	<tr>
-	<th colspan ="2">Inadequate skill</th>
-	<th colspan ="2">Inadequate staff</th>
-	<th colspan ="2"> Inadequate infrastructure </th>
-	<th colspan="2">Inadequate Equipment</th>
-	<th colspan ="2">  Inadequate commodities and supplies</th>
-	<th colspan ="2">  Other (Please specify)</th>
-	</tr>
-	
-	<tr>
-	<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="1" class="cloned" />
-			</td>
-			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="6" />
-			</td>
-			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="2" />
-			</td>
-			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="3" />
-			</td>
-			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="5" />
-			</td>
-			<td style ="text-align:center;" colspan ="2">
-			<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="4" />
-			<input type="text" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="" />
-			</td>
-	
-	</tr>
-	</table>
 	</div><!--\.delivery_cenre-->
 	
 	</div><!--\.the section-1 -->
@@ -438,10 +445,11 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="14" >PROVISION OF BEmONC SIGNAL FUNCTIONS  IN THE LAST THREE MONTHS </th>
+			<th colspan="14" >PROVISION OF Basic Emergency Obstetric Neonatal Care(BEmONC) SIGNAL FUNCTIONS</th>
+				<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files, Registers and Partograph
+		</p></td></tr>
 		</thead>
-		
-		
 			<th  colspan="7">SIGNAL FUNCTION</th>
 			<th   colspan="2"> WAS IT CONDUCTED? </th>			
 			<th  colspan="5">INDICATE <span style="text-decoration:underline">PRIMARY</span> CHALLENGE</th>
@@ -451,7 +459,10 @@ class C_Load extends MY_Controller {
 	
 	<table class="centre">
 		<thead>
-			<th colspan="12" >PROVISION OF CEmONC SERVICES IN THE LAST THREE MONTHS</th>
+			<th colspan="12" >PROVISION OF Comprehensive Emergency Obstetric and Newborn Care (CEmONC) SERVICES IN THE LAST THREE MONTHS</th>
+		<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files, Registers and Partograph
+		</p></td></tr>
 		</thead>
 		
 		
@@ -464,7 +475,9 @@ class C_Load extends MY_Controller {
 	<table >
 			<thead>
 					<th colspan="12" >PROVISION OF HIV Testing and Counselling</th>
-				
+				<tr><td style="background:#fff" colspan="13"><p class="instruction">
+		* Verify this information by looking at patients records: 5 Patients Files and Registers
+		</p></td></tr>
 				</thead>
 				
 					<th colspan="7">QUESTION</th>
@@ -501,28 +514,19 @@ class C_Load extends MY_Controller {
 				
 			
 			' . $this -> mnhKangarooMotherCare . '
-		</table>
-		<p>
-		<h4>Criteria for Preparedness</h4>
-		 <ol>
-		 	<li>Adult Resuscitation Kit. Complete, working and clean</li>
-		 	<li>Newborn Resuscitation Kit. Complete, working and clean</li>
-		 	<li>Receiving Place</li>
-		 	<li>Adequate Light</li>
-		 	<li>No draft(cold air)</li>
-		 	<li>Clean (delivery beds and all surfaces)</li>
-		 	<li>Waste Disposal System</li>
-		 	<li>Sterilization color-coded</li>
-		 	<li>Sharp Container</li>
-		 	<li>Privacy</li>		
-		 </ol>
-		</p>
-		
+		</table>	
 		<table >
 			<thead>
 				
 					<th colspan="12" >Preparedness for Delivery</th>
 				
+				<tr>
+					<th colspan="12" style="background=#fff"> 
+					<strong>Criteria : </strong>Adult Resuscitation Kit Complete, Working and Clean	; Newborn Resuscitation Kit Complete, working and clean;
+				 Receiving Place ; Adequate Light ; No draft(cold air); Clean (delivery beds, recovery beds and all surfaces)	; Waste Disposal System	
+				; Sterilization color-coded	;Sharp Container; Privacy; Delivery Kit		
+					</th>
+				</tr>
 				</thead>
 			
 					<th colspan="7">QUESTION</th>
@@ -630,12 +634,32 @@ class C_Load extends MY_Controller {
      
 	 <table class="centre">
 	<thead>
-		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained before 2010</th>
-		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in Child Health?</div></th>
+		<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+			
+		</thead>
+			<tr>
+
+				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
+				<th rowspan ="2" style="text-align:left">Total in Facility</th>
+				<th rowspan ="2" style="text-align:left">Total Available On Duty</th>
+				<th colspan="2"># of Staff Trained in IMCI</th>
+				<th colspan="2"># of Staff Trained in ICCM</th>
+				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
+				<th colspan="2"># of Staff Trained in Diarrhoea and Pnemonia CMEs for U5s</th>
+				<th rowspan ="2">				
+				How Many Of The Total Staff Members 
+		        Trained are still Working in the Marternity/MCH/Gynaecological Ward?</th>
+			</tr>
+			<tr>
+				<th style="text-align:left;width:50px">BEFORE 2010</th>
+				<th style="text-align:left;width:50px">AFTER 2010</th>
+				<th style="text-align:left;width:50px">BEFORE 2013</th>
+				<th style="text-align:left">AFTER 2013</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2014</th>
+				<th style="text-align:left">AFTER 2014</th>
+			</tr>
 		
 		' . $this -> trainingGuidelineSection . '
 
@@ -1388,7 +1412,6 @@ class C_Load extends MY_Controller {
 
      <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
 <table class="centre">
-    
           <tr>
             <th width="500px">Symptom</th>
 

@@ -450,7 +450,7 @@ class C_Pdf extends MY_Controller {
 		<th colspan ="2" style="text-align:left"> TRAININGS</th>
 		<th style="text-align:left">Number Trained before 2010</th>
 		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
+		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
 		Trained are still Working in the Marternity/ MCH/ Gynaecological Ward?</div></th>
 		</tr>
 		</thead>

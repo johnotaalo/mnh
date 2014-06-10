@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
     
     //new sections
-    public $mchmalariaTreatmentSection,$mchpneumoniaTreatmentSection,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment, $mchHealthService;
+    public $mchmalariaTreatmentSection,$mchpneumoniaTreatmentSection,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment, $mchHealthService, $supplierName;
     
     //pdf variables
     public $hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -344,13 +344,22 @@ class MY_Controller extends CI_Controller
     
     public function getMNHOtherSuppliers() {
         $this->data_found = $this->m_mnh_survey->getOtherSupplierNames();
+        //print_r($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
             $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
-    
+    public function getMNHSuppliers() {
+        $this->data_found = $this->m_mnh_survey->getCommoditySupplierNames();
+        //print_r($this->data_found);die;
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->selectMNHSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
+        }
+    }
     public function getMNHOtherSuppliersPDF() {
         $this->data_found = $this->m_mnh_survey->getOtherSupplierNames();
         $counter = 0;
@@ -1048,10 +1057,10 @@ class MY_Controller extends CI_Controller
             $this->mchHealthService.= '<tr>
 			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
 			<td colspan="1">
-			<td>OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
+			<td>General OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
 			<td>U5 Clinic<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="U5 Clinic" class="numbers cloned"/></td>
 			<td>MCH<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="MCH" class="numbers cloned"/></td>
-			<td>Other<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="Other" class="numbers cloned"/></td>
+			<td>Other, Specify<input type="text"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="Other" class="numbers cloned"/></td>
 			<td><input type="hidden"  name="mchHealthServiceQCode" id="mchHealthServiceQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
 			</td>
 		</tr>';
@@ -1059,6 +1068,28 @@ class MY_Controller extends CI_Controller
         
         //echo $this->mchHealthService;die;
         return $this->mchHealthService;
+	}
+/**Function to create the section: MNH--Supplier Names
+     * */
+	public function createmnhSupplierNames(){
+		$this->data_found = $this->m_mnh_survey->getCommoditySupplierNames('mnh');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $aspect = '';
+        foreach ($this->data_found as $value) {
+        	$counter++;
+            
+            $this->supplierName.= '<tr>
+			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
+			<td colspan="1">
+			<td>General OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
+			<
+		</tr>';
+        }
+        
+        //echo $this->mchHealthService;die;
+        return $this->supplierName;
 	}
 	   /**Function to create the section: Child Health--Consultation Questions
      * */
@@ -2146,12 +2177,12 @@ class MY_Controller extends CI_Controller
 		</tr>';
         }
         
-        foreach ($data as $key => $value) {
-            $this->mchIndicatorsSectionPDF[$key] = '';
-            foreach ($value as $val) {
-                $this->mchIndicatorsSectionPDF[$key].= $val;
-            }
-        }
+        // foreach ($data as $key => $value) {
+            // $this->mchIndicatorsSectionPDF[$key] = '';
+            // foreach ($value as $val) {
+                // $this->mchIndicatorsSectionPDF[$key].= $val;
+            // }
+        //}
         return $this->mchIndicatorsSectionPDF;
     }
     public function createQuestionsSectionPDF() {

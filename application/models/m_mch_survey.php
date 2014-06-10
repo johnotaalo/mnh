@@ -437,12 +437,11 @@ class M_MCH_Survey extends MY_Model
      //close addMchHealthServiceQuestion
     
     private function addMchAssessorInfo() {
-        
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//For every posted values
-            if (strpos($key, 'assessor') !== FALSE) {
-                 //select data for mch assessor information
+             //For every posted values
+            if (strpos($key, 'assesor') !== FALSE) {
+                 //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -454,21 +453,26 @@ class M_MCH_Survey extends MY_Model
                 // the id
                 
                 $this->attr = $this->frags[0];
-				
+                
                 //the attribute name
                 
-                //print $key.' ='.$val.' <br />';
+                //stringify any array value
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+                
+                // print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
                 if ($this->attr == "assesorphoneNumber") {
                     
-                    // print 'count at:'.$count.'<br />';
+                    //print 'count at:'.$count.'<br />';
                     
                     $finalCount = $count;
                     $count++;
                     
-                    // print 'count at:'.$count.'<br />';
+                    //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
@@ -491,7 +495,7 @@ class M_MCH_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print_r($this->elements);die;
+        //print var_dump($this->elements);die;
        
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
@@ -1431,27 +1435,26 @@ class M_MCH_Survey extends MY_Model
                 
                 //collect key and value to an array
                 if (!empty($val)) {
+                	$count = 1;
+					foreach ($val as $key => $value) {
+						$this->elements[$this->id][$this->attr] = htmlentities($key); 
+						$this->elements[$this->id][$this->attr] = htmlentities($value); 
+					}
                     //We then store the value of this attribute for this element.
-                    $count=1;
-                    foreach ($val as $key => $value) {
-                     $this->elements[$this->id]['response'] = htmlentities($value); 
-					 $this->elements[$this->id]['findings'] = htmlentities($key); 
-					 $count++; 
-                    }
+                    //$this->elements[$this->id][$this->attr] = htmlentities($val); 
+					
+					//$this->elements[$this->attr]=htmlentities($val);
                     
-                    
-                    //$this->elements[$this->attr]=htmlentities($val);
-                    
-                } else {
-                    $this->elements[$this->id][$this->attr] = '';
+               // } else {
+                   // $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
-                }
+                //}
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-       		print var_dump($this->elements);die;
+       	print var_dump($this->elements);die;
         
         //exit;
         
@@ -1535,7 +1538,7 @@ class M_MCH_Survey extends MY_Model
             
         }
          //end of innner loop
-        
+         }
         
     }
      //close addMCHIndicatorInfo
@@ -2738,8 +2741,8 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
-                          $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true ) {
-                        	//$this->addMchAssessorInfo() == true ){
+                          //$this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true ) {
+                        	$this->addMchAssessorInfo() == true ){
                         	//Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
