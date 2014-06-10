@@ -1,5 +1,5 @@
 <?php
-error_reporting(1);
+//error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
 class MY_Controller extends CI_Controller
@@ -2049,7 +2049,7 @@ class MY_Controller extends CI_Controller
     /**Function to create various sections based on the indicator type * */
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-        
+        //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
         $numbering = array_merge(range('A','Z'),range('a', 'z'));
