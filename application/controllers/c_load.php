@@ -1404,7 +1404,7 @@ class C_Load extends MY_Controller {
         	<th style="width:400px">Findings</th>
         </tr>
     
-     ' . $this -> mchIndicatorsSection['pne'] . '
+     '.$this -> mchIndicatorsSection['pne'].'
 </table>
 <table class="centre">
     

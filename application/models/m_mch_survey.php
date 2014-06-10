@@ -29,6 +29,14 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->ortAspectsList);die;
         return $this->challengeList;
     }
+	 /*calls the query defined in MY_Model*/
+	public function getTreatmentFor($type)
+    {
+        $this->treatmentList = $this->getTreatmentsByType($type);
+
+        //var_dump($this->treatmentList);
+        return $this->treatmentList;
+    }
 	/*calls the query defined in MY_Model*/
     public function getmchConsultationQuestions() {
         $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
@@ -1402,8 +1410,8 @@ class M_MCH_Survey extends MY_Model
     private function addMCHIndicatorInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
-            if (strpos($key, 'mchI') !== FALSE) {
+        	//For every posted values
+            if (strpos($key, 'mch') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
                 
@@ -1438,9 +1446,14 @@ class M_MCH_Survey extends MY_Model
                 
                 //collect key and value to an array
                 if (!empty($val)) {
-                    
                     //We then store the value of this attribute for this element.
-                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    $count=1;
+                    foreach ($val as $key => $value) {
+                     $this->elements[$this->id]['response'] = htmlentities($value); 
+					 $this->elements[$this->id]['findings'] = htmlentities($key); 
+					 $count++; 
+                    }
+                    
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
@@ -1453,7 +1466,7 @@ class M_MCH_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+       		print var_dump($this->elements);die;
         
         //exit;
         
@@ -1470,7 +1483,10 @@ class M_MCH_Survey extends MY_Model
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['mchIndicator'])) ? $this->theForm->setLiResponse($this->elements[$i]['mchIndicator']) : $this->theForm->setLiResponse("N/A");
+            (isset($this->elements[$i]['mchhcwResponse'])) ? $this->theForm->setLiResponse($this->elements[$i]['mchhcwResponse']) : $this->theForm->setLiResponse("N/A");
+            (isset($this->elements[$i]['mchhcwFindings'])) ? $this->theForm->setLiHcwresponse($this->elements[$i]['mchhcwFindings']) : $this->theForm->setLiHcwresponse("N/A");
+            (isset($this->elements[$i]['mchassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['mchassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
+            (isset($this->elements[$i]['mchassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['mchassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
             $this->theForm->setIndicatorCode($this->elements[$i]['mchIndicatorCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLiCreated(new DateTime());
@@ -2078,11 +2094,8 @@ class M_MCH_Survey extends MY_Model
             
         }
          //end of innner loop
-        
-        
     }
      //close addMCHTreatmentInfo
-    
     private function addMchOrtConerAssessmentInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
@@ -2740,7 +2753,8 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
-                        $this->addMchCommunityStrategyInfo() == true && $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true) {
+                          $this->addMchHealthServiceQuestion() == true && $this->addmchConsultationQuestions() == true ) {
+                        	//$this->addMchAssessorInfo() == true ){
                         	//Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
@@ -2789,7 +2803,8 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addMCHIndicatorInfo() == true) {
+                        //if ($this->addMCHIndicatorInfo() == true) {
+                        	if ($this->addMCHIndicatorInfo()== true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
