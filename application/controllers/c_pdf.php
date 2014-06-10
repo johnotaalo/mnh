@@ -406,6 +406,8 @@ class C_Pdf extends MY_Controller {
 			' . $this -> mchIndicatorsSectionPDF['tl'] . '
 		</table>
 		
+		<p style="display:true;margin-top:100px" class="message success">SECTION 4 of 8: STAFF TRAINING
+		</p>
 		<table class="centre">
 		<thead>
 			<tr>
@@ -422,17 +424,17 @@ class C_Pdf extends MY_Controller {
 				<th colspan="2"># of Staff Trained in Essential Newborn Care</th>
 				<th rowspan ="2">				
 					How Many Of The Total Staff Members
-					Trained in IMCI are still Working in Child Health Unit?</th>
+					Trained  are still Working in the Marternity/ MCH/ Gynaecological Ward?</th>
 			</tr>
 			<tr>
 				<th style="text-align:left">BEFORE 2010</th>
 				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2013</th>
-				<th style="text-align:left">AFTER 2013</th>
 				<th style="text-align:left">BEFORE 2010</th>
 				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2014</th>
-				<th style="text-align:left">AFTER 2014</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
 			</tr>
 		</thead>
 		<tr>
@@ -478,8 +480,7 @@ class C_Pdf extends MY_Controller {
 			<td><input type="text"></td>
 		</tr>
 	</table>
-	<p style="display:true" class="message success">SECTION 4 of 8: STAFF TRAINING
-		</p>
+	
 	<table class="centre">
 		<thead>
 			<tr>
@@ -496,13 +497,13 @@ class C_Pdf extends MY_Controller {
 				<th colspan="2"># of Staff Trained in PP IUCD</th>
 				<th rowspan ="2">				
 					How Many Of The Total Staff Members
-					Trained in IMCI are still Working in the Marternity/ MCH/ Gynaecological Ward?</th>
+					Trained are still Working in the Marternity/ MCH/ Gynaecological Ward?</th>
 			</tr>
 			<tr>
 				<th style="text-align:left">BEFORE 2010</th>
 				<th style="text-align:left">AFTER 2010</th>
-				<th style="text-align:left">BEFORE 2013</th>
-				<th style="text-align:left">AFTER 2013</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
 				<th style="text-align:left">BEFORE 2010</th>
 				<th style="text-align:left">AFTER 2010</th>
 				<th style="text-align:left">BEFORE 2010</th>
@@ -1084,7 +1085,7 @@ class C_Pdf extends MY_Controller {
 <table class="centre">
 		<thead>
 			<tr>
-				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
+				<th colspan="15"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
 			</tr>
 			<tr>
 
@@ -1095,6 +1096,7 @@ class C_Pdf extends MY_Controller {
 				<th colspan="2"># of Staff Trained in ICCM</th>
 				<th colspan="2"># of Staff Trained in Enhanced Diarrhoea Management</th>
 				<th colspan="2"># of Staff Trained in Diarrhoea and Pnemonia CMEs for U5s</th>
+				<th colspan="2"># of Staff Trained in EID sample collection training</th>
 				<th rowspan ="2">				
 					How Many Of The Total Staff Members
 					Trained in IMCI are still Working in Child Health Unit?</th>
@@ -1108,10 +1110,14 @@ class C_Pdf extends MY_Controller {
 				<th style="text-align:left">AFTER 2010</th>
 				<th style="text-align:left">BEFORE 2014</th>
 				<th style="text-align:left">AFTER 2014</th>
+				<th style="text-align:left">BEFORE 2010</th>
+				<th style="text-align:left">AFTER 2010</th>
 			</tr>
 		</thead>
 		<tr>
 			<td>Doctor</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
@@ -1137,9 +1143,13 @@ class C_Pdf extends MY_Controller {
 			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 		</tr>
 		<tr>
 			<td>R.C.O.</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
@@ -1165,9 +1175,13 @@ class C_Pdf extends MY_Controller {
 			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 		</tr>
 		<tr>
 			<td>Lab Staff</td>
+			<td><input type="text"></td>
+			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
 			<td><input type="text"></td>
@@ -1199,6 +1213,21 @@ class C_Pdf extends MY_Controller {
 		<td>MCH</td>
 		<td><input type="radio" name="children_seen" value="mch",size="40"></td>
 		<td>Other</td>
+		<td><input type="radio" name="children_seen" value="other",size="40"></td>
+		<td>If Other, Specify</td>
+		<td><input type="text" size="100" name="specify",size="40"></td>
+		</tr>
+
+	<tr><td colspan = "10">Where are Early Infant Diagnosis(EID) samples collected in the facility?</td>
+	</tr>
+	<tr>
+		<td>LAB</td>
+		<td><input type="radio" name="children_seen" value="opd", size="40"></td>
+		<td>MCH</td>
+		<td><input type="radio" name="children_seen" value="usclinic",size="40"></td>
+		<td>Ward</td>
+		<td><input type="radio" name="children_seen" value="mch",size="40"></td>
+		<td>CCC</td>
 		<td><input type="radio" name="children_seen" value="other",size="40"></td>
 		<td>If Other, Specify</td>
 		<td><input type="text" size="100" name="specify",size="40"></td>
@@ -1354,7 +1383,8 @@ class C_Pdf extends MY_Controller {
 <td><input type="radio"></td>
 			</tr>
 		</table-->
-	<p style="height:100px"> </p>
+
+	<p style="margin-top:300px"> </p>
 	<table class="centre">
 	<tr>
             <th colspan="10" >TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH <input type="text"></th>
@@ -1681,7 +1711,7 @@ class C_Pdf extends MY_Controller {
      ' . $this -> mchIndicatorsSectionPDF['con'] . '
     </tbody>
 </table>	
-<p style="display:true;margin-top:100px" class="message success">
+<p style="display:true;margin-top:300px" class="message success">
 		SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY
 	</p>
 	<table>
@@ -1736,7 +1766,7 @@ class C_Pdf extends MY_Controller {
 		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
 	</table>  
-	<p style="margin-top:100px"></p>
+	<p style="margin-top:200px"></p>
 	<table>
 	<tr>
 		<tr>
@@ -1839,7 +1869,7 @@ class C_Pdf extends MY_Controller {
 	
 	<div id="section-5" class="step">
 		<input type="hidden" name="step_name" value="section-5"/>
-		<p style="display:true;margin-top:200px" class="message success">
+		<p style="display:true;margin-top:300px" class="message success">
 			SECTION 6 of 9: EQUIPMENT AVAILABILITY AND STATUS
 		</p>
 
@@ -1970,7 +2000,7 @@ class C_Pdf extends MY_Controller {
 			' . $this -> hardwareMCHSectionPDF . '
 		</table>
 		<p style="display:true;margin-top:50px" class="message success">
-			SECTION 9 of 9: RESOURCE AVAILABILITY
+			SECTION 9 of 9: COMMUNITY STRATEGY
 		</p>
 		<table class="centre">
 	<thead>
@@ -2837,6 +2867,10 @@ If YES to all, consider HCW for TOT and Mentorship Training
 			<td>Supervisor Signature<input type="text" style="width:500px;padding:10px"></td>
 			<td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
 		</tr>
+		<tr>
+			<td>Date	<input type="text" style="width:500px;padding:10px"></td>
+			<td>Date	<input type="text" style="width:500px;padding:10px"></td>
+		</tr>
 	</tbody>
 </table>
 <p style="margin-top:0.5px"></p>
@@ -2898,7 +2932,7 @@ background: #91c5d4;
 			case 'mnh' :
 				$html = $this -> get_mnh_form();
 				$this -> mpdf -> SetTitle('MNH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">MNH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">MNH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date Printed: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>MNH Assessment Tool</em> <p style="display:inline-block;vertical-align:top;font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 				$report_name = 'MNH Assessment Tool' . ".pdf";
 				//echo $html;die;
@@ -2906,7 +2940,7 @@ background: #91c5d4;
 			case 'mch' :
 				$html = $this -> get_mch_form();
 				$this -> mpdf -> SetTitle('CH Assessment Tool');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">CH Assessment Tool:</em> October 2013 - March 2014 (mid-term)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date Printed: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>CH Assessment Tool</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'CH Assessment Tool' . ".pdf";
@@ -2915,7 +2949,7 @@ background: #91c5d4;
 			case 'hcw' :
 				$html = $this -> get_hcw_form();
 				$this -> mpdf -> SetTitle('Follow-Up Tool after IMCI Training');
-				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date of Assessment: </em>'.date('D, d-M-Y').'</span></p>');
+				$this -> mpdf -> SetHTMLHeader('<p style="border-bottom:2px solid #000;font-size:15px;margin-bottom:40px"><em style="font-weight:bold;padding-right:10px">Follow-Up Tool after IMCI Training:</em> October 2013 - March 2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><em style="font-weight:bold">Date Printed: </em>'.date('D, d-M-Y').'</span></p>');
 				$this -> mpdf -> SetHTMLFooter('<em>Follow-Up Tool after IMCI Training</em> <p style="font-size:14px;font-weight:bold;margin-left:900px">{PAGENO} of {nb}<p>');
 
 				$report_name = 'Follow-Up Tool after IMCI Training' . ".pdf";
