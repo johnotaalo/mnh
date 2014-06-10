@@ -289,13 +289,15 @@ class MY_Controller extends CI_Controller
             $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="radio" name="radiosup">';
         }
     }
+
+    
     
     public function getAccessChallenges() {
         $this->data_found = $this->m_mch_survey->getAccessChallenges();
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "" type="radio">' . $value['achName'] . '</td></tr>';
+            $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "achResponse" type="radio">' . $value['achName'] . '</td></tr>';
         }
     }
     
@@ -821,9 +823,9 @@ class MY_Controller extends CI_Controller
             <td >
 
             <label for="questionResponse_Yes" style="font-weight:normal">Yes</label>
-             <input type="radio" name="questionResponse_' . $counter . '[]" id="questionResponse_Yes' . $counter . '" class="cloned"/>
+             <input type="radio" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_Yes' . $counter . '" class="cloned"/>
             <label for="questionResponse_No" style="font-weight:normal">No</label>
-             <input type="radio" name="questionResponse_' . $counter . '[]" id="questionResponse_No' . $counter . '" class="cloned"/>
+             <input type="radio" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_No' . $counter . '" class="cloned"/>
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -867,10 +869,10 @@ class MY_Controller extends CI_Controller
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
 
-            <label value="Yes" for="questionResponse_Yes" style="font-weight:normal">Yes</label>
-            <input type="radio" name="questionResponse_' . $counter . '[]" id="questionResponse_Yes' . $counter . '" class="cloned"/>
+            <label for="questionResponse_Yes" style="font-weight:normal">Yes</label>
+            <input type="radio" value="Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_Yes' . $counter . '" class="cloned"/>
             <label for="questionResponse_No" style="font-weight:normal">No</label>
-            <input value="No" type="radio" name="questionResponse_' . $counter . '[]" id="questionResponse_No' . $counter . '" class="cloned"/>
+            <input value="No" value="No" type="radio" name="questionResponse_' . $counter . '[]" id="questionResponse_No' . $counter . '" class="cloned"/>
 
            <!-- <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>

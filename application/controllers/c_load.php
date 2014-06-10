@@ -1051,13 +1051,9 @@ class C_Load extends MY_Controller {
 			<th >EMAIL</th>
 		</tr>
 		<tr>
-<<<<<<< HEAD
 
-			<td>Incharge Incharge</td>
-
-=======
 			<td colspan = "2">Facility Incharge</td>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 			<td>
 			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
 			</td>
@@ -1069,13 +1065,9 @@ class C_Load extends MY_Controller {
 			</td>
 		</tr>
 		<tr>
-<<<<<<< HEAD
 
-			<td>MCH Incharge</td>
-
-=======
 			<td colspan = "2">MCH Incharge</td>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 			<td>
 			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
 			</td><td>
@@ -1085,13 +1077,10 @@ class C_Load extends MY_Controller {
 			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
 			</td>
 		</tr>
-<<<<<<< HEAD
-		<!--tr>
-			<td  colspan="2">Maternity </td>
-=======
+
 		<tr>
 			<td colspan = "2">Maternity Incharge </td>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 			<td>
 			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
 			</td>
@@ -1101,9 +1090,7 @@ class C_Load extends MY_Controller {
 			<td>
 			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
 			</td>
-<<<<<<< HEAD
-		</tr-->
-=======
+
 		</tr>
 		<tr>
 			<td colspan = "2">OPD Incharge</td><td>
@@ -1147,8 +1134,8 @@ class C_Load extends MY_Controller {
 				<th style="text-align:left">AFTER 2014</th>
 			</tr>
 		
-		'.$this->mchTrainingGuidelineSection.'
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+		'.$this-> mchTrainingGuidelineSection.'
+
 
 	</table>
 	<table>
@@ -1159,9 +1146,7 @@ class C_Load extends MY_Controller {
 
 
 	<tr>
-<<<<<<< HEAD
-		'.$this -> mchHealthService.'
-=======
+
 		<td>General OPD</td>
 		<td><input type="radio",name="opd", size="40"></td>
 		<td>Paedriatic OPD</td>
@@ -1172,7 +1157,7 @@ class C_Load extends MY_Controller {
 		<td><input type="radio",name="other",size="40"></td>
 		<td>If Other, Specify</td>
 		<td><input type="text",name="specify",size="40"></td>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 		</tr>
 	</tbody>
 </table>
@@ -1217,19 +1202,7 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
-<<<<<<< HEAD
-	
-     <table class="centre">
-	<thead>
-		<th colspan="5"  >IN THE LAST 2 YEARS, HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th></thead>
-		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained before 2010</th>
-		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="1" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in Child Health?</div></th>
-		
-		' . $this -> mchTrainingGuidelineSection . '
-=======
+
 
 	<table class="centre">
 		
@@ -1243,7 +1216,7 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchIndicatorsSection['ror'] . '
 	</table>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 
 	</table>
 	
@@ -1341,14 +1314,11 @@ class C_Load extends MY_Controller {
 	</table>-->
 		<table class="centre">
 
-<<<<<<< HEAD
-			<thead>
-				<th colspan="6" > DATA FROM THE TOOLS </th>
-=======
+
 			<!--<thead>
 			<tr>
 				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH <input type = "text" placeholder = "Insert text here"></th>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 			</tr>
 			<tr>
 				<th colspan="6" > (A) MALARIA</th>
@@ -1425,12 +1395,10 @@ class C_Load extends MY_Controller {
 		</table>
 
 		<table class="centre">
-<<<<<<< HEAD
-		<thead>
-=======
+
 		<!--<thead>
 			<tr>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 				<th colspan="6" > (B) PNEUMONIA</th>
 
 			</tr>
@@ -1443,13 +1411,10 @@ class C_Load extends MY_Controller {
 					<th>Pneumonia</th>
 					<th>Fever No Pneumonia Cough/No Cough</th>
 					</tr>
-<<<<<<< HEAD
 
-					</thead>
-=======
 					</thead>-->
 				<tbody>
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 					<tr>
 					<th colspan = "2">Pneumonia Total: </th>
 					<th><input type = "text"></th>
@@ -1521,16 +1486,7 @@ class C_Load extends MY_Controller {
 				</tr>
 		</table>
 		
-		<table class="centre">
-		
-		<thead>
-			<th colspan="6" > (D) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA TREATMENT RECORDS</span> FOR DIARRHOEA CASES IN CHILDREN U5 IN THE LAST 3 MONTHS
-			(refer to Question C above)(One Selection Allowed) </th>
-		</thead>
-		'.$this -> selectAccessChallenges.'
-		
-		
-	</table>
+
 		<table class="centre">
 		
 		<thead>
@@ -1546,32 +1502,7 @@ class C_Load extends MY_Controller {
 				<th colspan="2" >Others Total:</th>
 				<th><input type = "text"></th>
 			</tr>
-<<<<<<< HEAD
-				<tr>
-				<th colspan="6" style="text-align:center"> Classification</th>
-				</tr>
 
-				
-					<tr >
-					<td>Diarrhoea Total:<input type = "text" readonly></td>
-					<td>Severe Dehydation:<input type="text", name="mchttotal[severedehydration]"></td>
-					<td>Some Dehydation:<input type="text", name="mchttotal[somedehydration]"></td>
-					<td>No Dehydation:<input type="text", name="mchttotal[nodehydration]"></td>
-					<td>Dysentry:<input type="text", name="mchttotal[dysentry]"></td>
-					<td>No Classification:<input type="text", name="mchttotal[noclassification]"></td>
-					</tr>
-					<tr >
-					<td>Pneumonia Total:<input type="text" readonly></td>
-					<td>Pneumonia:<input type="text", name="mchttotal[pneumonia]"></td>
-					<td>No Pneumonia cough/cold:<input type="text", name="mchttotal[nopneumonia]"></td>
-					</tr>
-					<tr >
-					<td>Malaria Total:<input type="malariaTotal" readonly></td>
-					<td>Confirmed:<input type="text", name="mchttotal[confirmedMalaria]"></td>
-					<td>Not Confirmed:<input type="text", name="mchttotal[notConfirmedMalaria]"></td>
-
-					</tr>
-=======
 			</tbody>
 		</table>
 		<table class="centre">
@@ -1696,7 +1627,7 @@ class C_Load extends MY_Controller {
             	<th>Findings</th>
         	</tr>
         	'. $this -> mchIndicatorsSection['ear'].'
->>>>>>> 0ea72c0c6ce8299c2b066603011f03aaf1d6aa7d
+
 		</table>
 		<table class="centre">
 		<thead>
@@ -1735,104 +1666,7 @@ class C_Load extends MY_Controller {
 	<input type="hidden" name="step_name" value="section-3"/>
 	 <p style="display:true" class="message success">SECTION 3 of 9: DOES THE HCW CHECK FOR THE FOLLOWING CONDITIONS</p>
 
-<<<<<<< HEAD
-     <p class="message success">ASSESSMENT FOR THE 4 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
-<table class="centre">
-    
-          <tr>
-            <th width="500px">Symptom</th>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>1. Cough / Pneumonia</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-    
-     ' . $this -> mchIndicatorsSection['pne'] . '
-</table>
-<table class="centre">
-    
-         <tr>
-            <th width="500px">Symptom</th>
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>2. Diarrhoea</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-    
-     ' . $this -> mchIndicatorsSection['dgn'] . '
-</table>
-<table class="centre">
-    
-          <tr>
-            <th width="500px">Symptom</th>
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>3. Fever / Malaria</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-    
-     ' . $this -> mchIndicatorsSection['fev'] . '
-</table>
-<table class="centre">
-        <tr>
-            <th width="500px">Symptom</th>
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>4. Ear Infection</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-     ' . $this -> mchIndicatorsSection['ear'] . '
-</table>
-
-<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
-<table class="centre">
-    
-
-        <tr>
-            <th width="700px" rowspan="2">Condition</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-    <tr>
-    <th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	</tr>
-    <tbody>
-     ' . $this -> mchIndicatorsSection['con'] . '
-    </tbody>
-</table>
-
-=======
      <table class="centre">
      <tr>
      <th rowspan = "2">Malnutrition</th>
