@@ -3749,6 +3749,166 @@ class M_MNH_Survey extends MY_Model
         
     }
      //close addCommodityUsageAndStockOutageInfo
+     private function addNoReasonForDeliveries() {
+        $count = $finalCount = 1;
+        foreach ($this->input->post() as $key => $val) {
+             //For every posted values
+            if (strpos($key, 'facRsn') !== FALSE) {
+                 //select data for availability of commodities
+                //we separate the attribute name from the number
+                
+                $this->frags = explode("_", $key);
+                
+                //$this->id = $this->frags[1];  // the id
+                
+                $this->id = $count;
+                
+                // the id
+                
+                $this->attr = $this->frags[0];
+                
+                //the attribute name
+                
+                //stringify any array value
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+                
+                // print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                
+                //mark the end of 1 row...for record count
+                if ($this->attr == "facRsnNoDeliveries") {
+                    
+                    //print 'count at:'.$count.'<br />';
+                    
+                    $finalCount = $count;
+                    $count++;
+                    
+                    //print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
+                }
+                
+                //collect key and value to an array
+                if (!empty($val)) {
+                    
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    
+                    //$this->elements[$this->attr]=htmlentities($val);
+                    
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+                    
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+                    
+                }
+            }
+        }
+        //print var_dump($this->elements);die;
+        //exit;
+        //get the highest value of the array that will control the number of inserts to be done
+        
+        $this->noOfInsertsBatch = $finalCount;
+        
+        for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
+            
+            //echo $this -> elements[$i]['mnhceocReason'];exit;
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\logQuestions();
+            
+            //create an object of the model
+            
+            $this->theForm->setLqReason($this->elements[$i]['facRsnNoDeliveries']);
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            
+            //check if that key exists, else set it to some default value
+            //(isset($this->elements[$i]['mnhGuidelinesAspectCount'])) ? $this->theForm->setLqResponseCount($this->elements[$i]['mnhGuidelinesAspectCount']) : $this->theForm->setLqResponseCount(0);
+            $this->theForm->setLqResponseCount('n/a');
+            $this->theForm->setLqResponse('No');
+            $this->theForm->getQuestionCode('n/a');
+            
+            $this->theForm->setLqSpecifiedOrFollowUp('n/a');
+            
+            $this->theForm->setLqCreated(new DateTime());
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
+            /*timestamp option*/
+            $this->em->persist($this->theForm);        
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    
+                    //on the last record to be inserted, log the process and return true;
+                    if ($i == $this->noOfInsertsBatch) {
+                        
+                        //die(print 'Limit: '.$this->noOfInsertsBatch);
+                        //$this->writeAssessmentTrackerLog();
+                        return true;
+                    }
+                    
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex -> getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    
+                    //on the last record to be inserted, log the process and return true;
+                    if ($i == $this->noOfInsertsBatch) {
+                        
+                        //die(print 'Limit: '.$this->noOfInsertsBatch);
+                        //$this->writeAssessmentTrackerLog();
+                        return true;
+                    }
+                    
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex -> getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                
+            }
+            
+            //end of batch condition
+            
+        }
+         //end of innner loop
+        
+    }
+     //close addNoReasonForDeliveries()
+    
     
     private function addSuppliesUsageAndStockOutageInfo() {
         $count = $finalCount = 1;
@@ -4080,7 +4240,8 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true) {//Defined in MY_Model
+                       if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries()== true) {//Defined in MY_Model
+                         //if($this->addNoReasonForDeliveries()== true){
                          $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
