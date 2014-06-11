@@ -1057,7 +1057,8 @@ class MY_Controller extends CI_Controller
             $this->mchConsultationSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
-            <input type="text"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="" class="numbers cloned"/>
+            <input type="radio"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="Yes" class="numbers cloned">Yes</input>
+            <input type="radio"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="No" class="numbers cloned">No</input>
             </td>
             <input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -2142,7 +2143,6 @@ class MY_Controller extends CI_Controller
              }
              
          }
-        
         
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
@@ -3612,27 +3612,20 @@ class MY_Controller extends CI_Controller
     {
         $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
 
+        $this->mchmalariaTreatmentSection .= '
+    <select name = "malTreatment" onchange="selectmalTreatment(this);" id = "malariatreatment">
+    <option value = "malTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
-
         foreach ($this->data_found as $value) {
             $counter++;
             if($value['treatmentName'] != 'Others')
             {
-                $this->mchmalariaTreatmentSection .= '<tr>
-                <td>'.$value['treatmentName'].'</td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-                </tr>';
-            }
-            else
-            {
-                $this->mchmalariaTreatmentSection .= '<tr>
-                <td>'.$value['treatmentName'].'<input type = "text" name = malTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
-                </tr>';
+                $this->mchmalariaTreatmentSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "malTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->mchmalariaTreatmentSection .= '</select>';
+        $this->mchmalariaTreatmentSection .= '<ol></ol>';
         return $this->mchmalariaTreatmentSection;
     }
 
@@ -3640,32 +3633,22 @@ class MY_Controller extends CI_Controller
     public function createPneumoniaTreatmentTSection()
     {
         $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
-
+        $this->mchpneumoniaTreatmentSection .= '
+<select name = "pneTreatment" onchange="selectpneTreatment(this);">
+<option value = "pneTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
-
         foreach ($this->data_found as $value) {
             $counter++;
-
             if($value['treatmentName'] != 'Others')
-            { 
-            $this->mchpneumoniaTreatmentSection.= '<tr>
-             <td>'.$value['treatmentName'].'</td>
-            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-            </tr>';
-            }
-            else
             {
-                $this->mchpneumoniaTreatmentSection.= '<tr>
-                <td>' .$value['treatmentName'].'<input type = "text" name = pneTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
-                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-                </tr>';
+                $this->mchpneumoniaTreatmentSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "pneTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->mchpneumoniaTreatmentSection .= '</select>';
+        $this->mchpneumoniaTreatmentSection .= '<ol></ol>';
         return $this->mchpneumoniaTreatmentSection;
     }
-
     /**Function to create diarrhoea section**/
     public function createDiarrhoeaTreatmentTSection()
     {
@@ -3673,31 +3656,20 @@ class MY_Controller extends CI_Controller
 
         $counter = 0;
 
+        $this->treatmentMCHSection .= '
+        <select name = "diaTreatment" onchange="selectdiaTreatment(this);">
+        <option value = "diaTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            //echo "count at: " . $counter;
-            if($value['treatmentName']!='Others'){
-                $this->treatmentMCHSection.='<tr>
-                <td>' .$value['treatmentName']. '</td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentName'].'"/></td>
-                </tr>';
-            }
-            else
+            if($value['treatmentName'] != 'Others')
             {
-                $this->treatmentMCHSection.='<tr>
-                <td>'.$value['treatmentName'].'<br><input type = "text" placeholder = "Specify Others"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                </tr>';
+                $this->treatmentMCHSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "diaTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->treatmentMCHSection .= '</select>';
+        $this->treatmentMCHSection .= '<ol></ol>';
         return $this->treatmentMCHSection;
     }
 
