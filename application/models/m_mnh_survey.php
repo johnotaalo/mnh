@@ -980,7 +980,7 @@ class M_MNH_Survey extends MY_Model
 		
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	print_r ($this->input->post()); die;
+        	//print_r ($this->input->post()); die;
              //For every posted values
             if (strpos($key, 'service') !== FALSE) {
                  //select data for mnh community strategy

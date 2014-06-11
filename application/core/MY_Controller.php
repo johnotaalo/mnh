@@ -11,7 +11,7 @@ class MY_Controller extends CI_Controller
     public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment;
     
     //pdf variables
-    public $mchpneumoniaTreatmentSection,$mchmalariaTreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
+    public $hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
     
     function __construct() {
         parent::__construct();
@@ -94,8 +94,6 @@ class MY_Controller extends CI_Controller
         $this->createMalariaTreatmentSection();
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
-        $this->createQuestionsSectionPDF();
-        $this->createSuppliesSectionPDF();
         
         //new functions
         $this->getMCHOtherSuppliersforPDF();
@@ -288,13 +286,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-          
-            if($value['supplierName']=='Other'){
-                  $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="checkbox">     Other (specify)<input type="text">';
-            }
-            else{
-                  $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="checkbox">';
-            }
+            $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="checkbox">';
         }
     }
     
@@ -455,29 +447,17 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
             </td>
-            <td width="60">
-
-                1. Not Ordered<input type="checkbox">
-                2. Ordered but not yet Received<input type="checkbox">
-                3. Expired<input type="checkbox">
-            </td>
             <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
+            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Delivery Room" class="cloned"/>
             </td>
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
             </td>
             <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Other" />
+            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Store" />
+            </td>
+            <td style ="text-align:center;">
+            <input name="cqLocation_' . $counter . '[]" id="cqLocOther_' . $counter . '" type="checkbox" value="Other" />
             </td>
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" id="cqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
@@ -487,11 +467,14 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
             </td>
-            <td style ="text-align:center;">
-            <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
+            <td width="200">
+            ' . $supplier_names . '</td>
+            <td width="60">
+            1.Not Ordered<input type="checkbox"></br>
+            2.Ordered but not yet received<input type="checkbox">
+            3.Expired<input type="checkbox">
             </td>
-           
-            <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
+            <input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
         
@@ -569,8 +552,6 @@ class MY_Controller extends CI_Controller
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectMCHCommoditySuppliersPDF;
-
-      
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchCommodityAvailabilitySectionPDF.= '<tr>
@@ -617,7 +598,8 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="15" class="cloned expiryDate"/>
             </td>
-           
+            <td width="200">' . $supplier_names . '
+            </td>
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
@@ -741,7 +723,8 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
             </td>
-           
+            <td width="200">' . $supplier_names . '
+            </td>
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
@@ -955,17 +938,7 @@ class MY_Controller extends CI_Controller
         </tr>';
                     
                     $this->ortCornerAspectsSectionPDF.= $ort_location;
-                } 
-                elseif($value['questionCode'] == 'QUC02a'){
-                    $ort_functional=$this->questionPDF['ortf'];
-                    $this->ortCornerAspectsSectionPDF.= '<tr>
-            <td colspan="1">' . $value['questionName'] . '</td>
-            <td colspan="1">
-            Yes <input type="checkbox"> No <input type="checkbox">
-            <input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>'.$ort_functional;
-                }
-                else {
+                } else {
                     
                     $this->ortCornerAspectsSectionPDF.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
@@ -1042,9 +1015,8 @@ class MY_Controller extends CI_Controller
             
             $this->hcwProfileSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
-            <td colspan="3">
-            Yes<input type="radio" value="Yes" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
-            No<input type="radio" value="No" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
+            <td colspan="1">
+            <input type="text"  name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" value="" class="numbers cloned"/>
             </td>
             <input type="hidden"  name="hcwProfileQCode_' . $counter . '" id="hcwProfileQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -1262,11 +1234,11 @@ class MY_Controller extends CI_Controller
     <input type="text"  name="mnhceocReasonOther_' . $counter . '" id="mnhceocReasonOther_' . $counter . '" value="" size="64" class="cloned" />
     </td>
 </tr>';
-            } elseif ($value['questionCode'] == 'QMNH06a' || $value['questionCode'] == 'QMNH06b') {
+            } elseif ($value['questionCode'] == 'QMNH06b' || $value['questionCode'] == 'QMNH06c') {
                 $follow_up_question = '';
             } else {
                 $follow_up_question = '<tr id="csdone_n">
-    <td colspan="7">If NO, Give the MAIN reason for <strong>not</strong> conducting Caeserian Section</td>
+    <td colspan="7">Give a main reason for <strong>not</strong> conducting Caeserian Section</td>
     <td colspan="5">
     1. Supplies and equipment not available<input type="checkbox">
     2. Theatre space not available<input type="checkbox">
@@ -1411,7 +1383,7 @@ class MY_Controller extends CI_Controller
         </tr>';
             }
             else if($value['questionCode']=='QHC18'){
-                 $this->hcwInterviewAspectsSection.= '<tr>
+                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
             <td><strong>4.2.'.$counter .'</strong>  '. $value['questionName'] . '</td>
              <td>
             <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
@@ -1479,8 +1451,8 @@ class MY_Controller extends CI_Controller
             <td colspan="1">
 
         Self<input type="checkbox">Spouse<input type="checkbox">Relative<input type="checkbox">
-        Friend<input type="checkbox">Community Health Worker<input type="checkbox">Media e.g. Radio <input type="checkbox">
-        Specify Station<input type="text"> Other (Specify)<input type="text">
+        Friend<input type="checkbox">Community Health Worker<input type="checkbox">
+        Other (Specify)<input type="text">
         </td>
             <input type="hidden"  name="hcwInterviewAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -1491,7 +1463,7 @@ class MY_Controller extends CI_Controller
             <td colspan="1">
 
         Mother<input type="checkbox">Father<input type="checkbox">Grandmother<input type="checkbox">
-        Grandfather<input type="checkbox">Aunt<input type="checkbox">Uncle<input type="checkbox">
+        Frandfather<input type="checkbox">Aunt<input type="checkbox">Uncle<input type="checkbox">
         Brother<input type="checkbox">Sister<input type="checkbox">
         Other (Specify)<input type="text">
         </td>
@@ -1527,7 +1499,7 @@ class MY_Controller extends CI_Controller
             $this->mnhHIVTestingAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
-        Yes<input type="checkbox">No<input type="checkbox">     If NO, give MAIN reason <input type="text" style="width:300px">
+        Yes<input type="checkbox">No<input type="checkbox">
         </td>' . '
         <input type="hidden"  name="mnhhivAspectCode_' . $counter . '" id="mnhhivAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
@@ -1907,12 +1879,14 @@ class MY_Controller extends CI_Controller
             $this->mchGuidelineAvailabilitySection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
-            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
+            <!--<select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
 
-            </select>
+            </select>-->
+            <input type = "radio"  name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class = "cloned is-guideline" value = "Yes">Yes</input>
+            <input type = "radio"  name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class = "cloned is-guideline" value = "No">No</input>
             </td>
             <td><input type="text" name="questionCount_' . $counter . '" id="questionCount_' . $counter . '" size="6" class="numbers" disabled/></td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -2068,12 +2042,13 @@ class MY_Controller extends CI_Controller
     /**Function to create various sections based on the indicator type * */
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-         //var_dump($this->data_found);die;
+        
         $counter = 0;
         $section = '';
         $numbering = array_merge(range('A','Z'),range('a', 'z'));
         $base = 0;
-         foreach ($this->data_found as $value) {
+        $current = "";
+        foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
             $current = ($base == 0) ? $section : $current;
@@ -2081,94 +2056,19 @@ class MY_Controller extends CI_Controller
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-            $findingHCWRow=$findingAssessorRow='';
-             if($section!='sgn'&&$section!='svc'&&$section!='ror'&&$section!='tl'){
-                if($value['indicatorFindings']!=null){
-                  $findings = explode(';', $value['indicatorFindings']);
-                  if(sizeof($findings)==1){
-                    foreach($findings as $finding){
-                    $findingHCWRow = $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" type="text">';
-                    $findingAssessorRow = $finding.' <input name="mchIndicatorAssessorFinding_'.$counter.'" type="text">';
-                  }  
-                  }
-                  else{
-                    foreach($findings as $finding){
-                        if($finding=='other (specify)'){
-                            $findingHCWRow .= $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" type="text">';
-                            $findingAssessorRow .= $finding.' <input name="mchIndicatorAssessorFinding_'.$counter.'" type="text">';
-                        }
-                        else{
-                            $findingHCWRow .= $finding.' <input name="mchIndicatorHCWFinding_'.$counter.'" value="'.$finding.'" type="radio">';
-                            $findingAssessorRow.= $finding.' <input name="mchIndicatorHAssessorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
-                        }
-                  
-                  }  
-                  }
-                  }
             $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>
-                <select name="mchIndicatorHCWResponse_'.$counter.'" id="mchIndicatorHCWResponse_'.$counter.'" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
-            <td>'.$findingHCWRow.'</td>
-            <td>
-                <select name="mchIndicatorAssessorResponse_'.$counter.'" id="mchIndicatorAssessorResponse_'.$counter.'" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
-            </td>
-            <td>'.$findingAssessorRow.'</td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-            }
-            elseif($section!='dgn'){
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>
                 <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
-
-            </select>
-            <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Present">Present</option>
-                <option value="Not Present">Not Present</option>
-
             </select>
             </td>
             <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-            }
-            else{
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>
-                <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-
-            </select>
-            </td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-  
-
-             }
-         }
+    </tr>';
+        }
         
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
@@ -2195,73 +2095,14 @@ class MY_Controller extends CI_Controller
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-            $findingRow='';
-             if($section!='sgn'&&$section!='svc'&&$section!='ror'&&$section!='tl'){
-                if($value['indicatorFindings']!=null){
-                  $findings = explode(';', $value['indicatorFindings']);
-                  if(sizeof($findings)==1){
-                    foreach($findings as $finding){
-                    $findingRow = $finding.' <input type="text">';
-                  }  
-                  }
-                  else{
-                    foreach($findings as $finding){
-                        if($finding=='other (specify)'){
-                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'"  type="text">';
-                        }
-                        else{
-                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
-                        }
-                  }  
-                  }
-                  }
-                  if($value['indicatorName']=='Correct Classification'){
-                 $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td></td><td></td><td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio"></td><td></td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>'; 
-            }
-            else{
             $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
             </td>
-            <td>'.$findingRow.'</td>
-            <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
-            </td>
-            <td>'.$findingRow.'</td>
             <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-    }
-            }
-            elseif($section=='sgn'){
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
-            </td>
-            <td>Present <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> Not Present <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
-            </td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>'; 
-            }
-            else{
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="mchIndicator_'.$counter.'"  type="radio">
-            </td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-  
-
-             }
-             
-         }
-        
+        }
         
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSectionPDF[$key] = '';
@@ -2275,9 +2116,9 @@ class MY_Controller extends CI_Controller
         $this->data_found = $this->m_mch_survey->getAllQuestions();
         
         //var_dump($this->data_found);die;
-         $counter = 0;
+        $counter = 0;
         $section = '';
-        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $numbering = range('a', 'z');
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -2288,94 +2129,22 @@ class MY_Controller extends CI_Controller
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-                 if($value['questionName']=='Document cases seen over 3 months'){
-                    $data[$section][] = '
+            $data[$section][] = '
                 <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td>March <input name="questionResponse_'.$counter.'"  type="text">  April <input name="questionResponse_'.$counter.'"  type="text">
-            May <input name="questionResponse_'.$counter.'"  type="text"></td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>'; 
-                 }
-                 else{
-                    $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="checkbox"> No <input value="No" name="mchIndicator_'.$counter.'"  type="checkbox"></td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>'; 
-                 }
-                 
-            }
-         //echo '<pre>'; print_r( $data);echo '</pre>';die;
-        foreach ($data as $key => $value) {
-            $this->mchIndicatorsSectionPDF[$key] = '';
-            foreach ($value as $val) {
-                $this->mchIndicatorsSectionPDF[$key].= $val;
-            }
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionFor'] . '</td>
+            <td>Yes <input type="checkbox"> No <input type="checkbox">
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionFor'] . '" />
+        </tr>';
         }
-        //var_dump($this->questionPDF);die;
-        return $this->questionPDF;
-    }
-     public function createSuppliesSectionPDF() {
-        $this->data_found = $this->m_mch_survey->getEverySupplyName();
         
-       //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
-         $counter = 0;
-        $section = '';
-       
-        $base = 0;
-        $current = "";
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $section = $value['supplyFor'];
-            $current = ($base == 0) ? $section : $current;
-            $base = ($current != $section) ? 0 : $base;
-            $current = ($base == 0) ? $section : $current;
-            
-            $base++;
-                 
-                    $data[$section][] = '<tr>
-            <td  style="width:200px;">' . $value['supplyName'] .'</td>
-            <td style="vertical-align: middle; margin: 0px;text-align:center;">
-            <input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" />
-            </td>       
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other" />
-            </td>
-            <!--td style ="text-align:center;">
-            <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-            </td-->
-            
-            
-            <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
-        </tr>'; 
-                 
-            }
-            //var_dump( $data);die;
-         
         foreach ($data as $key => $value) {
+            $this->questionPDF[$key] = '';
             foreach ($value as $val) {
-                $this->mchSuppliesPDF[$key].= $val;
+                $this->questionPDF[$key].= $val;
             }
         }
-        //var_dump($this->mchSuppliesPDF);die;
-        return $this->mchSuppliesPDF;
+        return $this->questionPDF;
     }
     
     /**Function to create the section: INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIdELINES
@@ -2425,16 +2194,16 @@ class MY_Controller extends CI_Controller
         //echo '<pre>';print_r($titles);echo '</pre>';die;
        
         foreach($staff as $member){
+            $row='<tr><td>'.$member.'</td>';
             $counter++;
-            $row='<tr><td>'.$member.'<input type="hidden" name="mchTrainingStaff_'.$counter.'" id="mchTrainingStaff_'.$counter.'" value="'.$member.'"></td>';
                 foreach($titles as $header){
                     
                     
                     if(sizeof($header)==3){
-                        $row.='<td><input size="50" type="number" name="mchTrainingBefore_'.$counter.'['.str_replace(' ', '', $header['code']).']" id="mchTrainingBefore_'.$counter.'" /></td><td><input size="50" type="number" id="mchTrainingAfter_'.$counter.'"  name=mchTrainingAfter_'.$counter.'['.str_replace(' ', '', $header['code']).']" /></td>';
+                        $row.='<td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'before_'.$counter.'" /></td><td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'after_'.$counter.'"/><input type="hidden" name="guideCode" value="'.$header['code'].'"/></td>';
                     }
                     else{
-                        $row.='<td><input type="number" name="mchTraining'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
+                        $row.='<td><input type="number" name="'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
                     }
                 }
 
@@ -2530,10 +2299,10 @@ class MY_Controller extends CI_Controller
             <input name="usocUsage_' . $counter . '" type="text" size="5" class="cloned numbers"/>
             </td>
             <td colspan="2">
-                a. 1 week<input type="checkbox">
-                b. 2 weeks <input type="checkbox">
-                c. 1 month<input type="checkbox"> 
-                d. more than 1 month <input type="checkbox">
+                a. Once<input type="checkbox">
+                b. 2-3 <input type="checkbox">
+                c. 4-5<input type="checkbox"> 
+                d. more than 5 <input type="checkbox">
             </td>
                         
             
@@ -2646,12 +2415,7 @@ class MY_Controller extends CI_Controller
             </td>
             <td style ="text-align:center;">
             <input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" />
-            </td>
-            <td>
-            1. Not Ordered<input type="checkbox">
-            2. Ordered but not yet received<input type="checkbox">
-            3. Expired<input type="checkbox">
-            4. All Used<input type="checkbox"></td>       
+            </td>       
             <td style ="text-align:center;">
             <input name="sqLocation_' . $counter . '[]" type="checkbox" value="Delivery room" class="cloned"/>
             </td>
@@ -2664,11 +2428,21 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other" />
             </td>
-            </td>
-            
             <td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" id="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-            
+            </td>
+            <td>
+            1. KEMSA/GoK<input type="checkbox">
+            2. Donor<input type="checkbox">
+            3. Purchase by Patient<input type="checkbox">
+            4. Private purchase by Facility<input type="checkbox">
+            5. Other <input type="checkbox">
+            </td>
+            <td>
+            1. Not Ordered<input type="checkbox">
+            2. Ordered but not yet received<input type="checkbox">
+            3. Expired<input type="checkbox">
+            4. All Used<input type="checkbox"></td>
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
@@ -2903,7 +2677,9 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-            
+            <td width="100">
+            ' . $ch_supplier_names . '
+            </td>
             
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
@@ -2954,7 +2730,10 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-            
+            <td width="50">
+            <select name="hwSupplier_' . $counter . '" id="hwSupplier_' . $counter . '" class="cloned">
+            <option value="" selected="selected">Select One</option>' . $ch_supplier_names . '
+            </select></td>
             <!--td width="50">
             <select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>
@@ -3013,8 +2792,19 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-           
-            
+            <td width="50">
+            ' . $ch_supplier_names . '
+            </td>
+            <!--td width="50">
+            <select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
+                <option value="" selected="selected">Select One</option>
+                <option value="Not Ordered">1. Not Ordered</option>
+                <option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+                <option value="Expired">3. Expired</option>
+                <option value="All Used">4. All Used</option>
+                
+
+            </select></td-->
             <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
@@ -3577,27 +3367,20 @@ class MY_Controller extends CI_Controller
     {
         $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
 
+        $this->mchmalariaTreatmentSection .= '
+        <select name = "malTreatment" onchange="selectmalTreatment(this);" id = "malariatreatment">
+        <option value = "malTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
-
         foreach ($this->data_found as $value) {
             $counter++;
             if($value['treatmentName'] != 'Others')
-            {
-                $this->mchmalariaTreatmentSection .= '<tr>
-                <td>'.$value['treatmentName'].'</td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-                <td><input type = "radio" name = malTreatment_"'.$value['treatmentName'].'"/></td>
-                </tr>';
-            }
-            else
-            {
-                $this->mchmalariaTreatmentSection .= '<tr>
-                <td>'.$value['treatmentName'].'<input type = "text" name = malTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
-                <td><input type = "text" name = malTreatment_"'.$value['treatmentName'].'" /></td>
-                </tr>';
+            { 
+                $this->mchmalariaTreatmentSection.= 
+                '<option value = "'.$value['treatmentCode'].'" id = "malTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->mchmalariaTreatmentSection .= '</select>';
+        $this->mchmalariaTreatmentSection .= '<ol></ol>';
         return $this->mchmalariaTreatmentSection;
     }
 
@@ -3605,29 +3388,20 @@ class MY_Controller extends CI_Controller
     public function createPneumoniaTreatmentTSection()
     {
         $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
-
+        $this->mchpneumoniaTreatmentSection .= '
+        <select name = "pneTreatment" onchange="selectpneTreatment(this);">
+        <option value = "pneTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
-
         foreach ($this->data_found as $value) {
             $counter++;
-
             if($value['treatmentName'] != 'Others')
             { 
-            $this->mchpneumoniaTreatmentSection.= '<tr>
-             <td>'.$value['treatmentName'].'</td>
-            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-            <td><input type = "radio" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-            </tr>';
-            }
-            else
-            {
-                $this->mchpneumoniaTreatmentSection.= '<tr>
-                <td>' .$value['treatmentName'].'<input type = "text" name = pneTreatment_"'.$value['treatmentName'].'" placeholder = "Others. Please specify"/></td>
-                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-                <td><input type = "text" name = "pneTreatment_'.$value['treatmentName'].'"/></td>
-                </tr>';
+                $this->mchpneumoniaTreatmentSection.= 
+                '<option value = "'.$value['treatmentCode'].'" id = "pneTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->mchpneumoniaTreatmentSection .= '</select>';
+        $this->mchpneumoniaTreatmentSection .= '<ol></ol>';
         return $this->mchpneumoniaTreatmentSection;
     }
 
@@ -3638,31 +3412,20 @@ class MY_Controller extends CI_Controller
 
         $counter = 0;
 
+        $this->treatmentMCHSection .= '
+        <select name = "diaTreatment" onchange="selectdiaTreatment(this);">
+        <option value = "diaTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            //echo "count at: " . $counter;
-            if($value['treatmentName']!='Others'){
-                $this->treatmentMCHSection.='<tr>
-                <td>' .$value['treatmentName']. '</td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentCode'].'"/></td>
-                <td><input type = "radio" name = "diaTreatment_'.$value['treatmentName'].'"/></td>
-                </tr>';
-            }
-            else
-            {
-                $this->treatmentMCHSection.='<tr>
-                <td>'.$value['treatmentName'].'<br><input type = "text" placeholder = "Specify Others"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                <td><input type = "text" size = "8" name = "diaTreatment_'.$counter.'"/></td>
-                </tr>';
+            if($value['treatmentName'] != 'Others')
+            { 
+                $this->treatmentMCHSection.= 
+                '<option value = "'.$value['treatmentCode'].'" id = "diaTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
             }
         }
+        $this->treatmentMCHSection .= '</select>';
+        $this->treatmentMCHSection .= '<ol></ol>';
         return $this->treatmentMCHSection;
     }
 
