@@ -30,6 +30,7 @@ case 'ch' :
 				<div id="graph_41" class="chart"></div>
 			</div>
 		</div>
+
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>2012 IMCI</h4>
@@ -149,7 +150,27 @@ case 'ch' :
 			</div>
 		</div>
 
-	</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Total U5 Children Seen</span>U5</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_86" class="chart"></div>
+			</div>
+		</div>
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">DIARRHOEA CASES IN CHILDREN U5</span>Diarrhoea</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_87" class="chart"></div>
+			</div>
+		</div>
+		
+        
 </div>
 
 <!-- END CHART PORTLET-->
@@ -161,6 +182,10 @@ case 'mnh':
 ?>
 <div class="row-fluid" id="reporting-parent">
 	<div class="span6" id="span1">
+
+
+
+		
 		<div class="portlet box ">
 			<div class="portlet-title">
 				<h4 id="countyHeader">County</h4>
@@ -292,7 +317,7 @@ case 'mnh':
 		</div>
 		<div class="portlet box ">
 			<div class="portlet-title">
-				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric & Prenatal Care</h4>
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric and Prenatal Care</h4>
 			</div>
 			<div class="portlet-body">
 
@@ -318,6 +343,43 @@ case 'mnh':
 			</div>
 		</div>
 
+
+
+		<!--Trial graph-->
+		
+        <div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Treatment</span>Pneumonia Cases</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_85" class="chart"></div>
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">u5Total</span>IMCI</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_86" class="chart"></div>
+			</div>
+		</div>
+
+		<!--
+
+            INDICATOR CHART
+
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Indicator Trial</h4>
+			</div>
+			<div class="portlet-body">
+
+				<div id="graph_84" class="chart"></div>
+			</div>
+		</div>-->
+
 	</div>
 </div>
 <?php
@@ -337,7 +399,7 @@ break;
 						<select class="secondary-filter" id="secondary-aggregated">
 							<option value="SevereDehydration">Severe Dehydration</option>
 							<option value="SomeDehydration">Some Dehydration</option>
-							<option value="NoDehydration">No Dehydration</option>
+     						<option value="NoDehydration">No Dehydration</option>
 							<option value="Dysentry">Dysentry</option>
 							<option value="NoClassification">No Classification</option>
 						</select>

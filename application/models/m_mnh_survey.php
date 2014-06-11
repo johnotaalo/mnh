@@ -248,7 +248,7 @@ class M_MNH_Survey extends MY_Model
     }
     
     public function getMnhJobAidsAspectQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('commi', 'QMNH');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('job', 'QMNH');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
@@ -977,7 +977,7 @@ class M_MNH_Survey extends MY_Model
     
     private function addServicesInfo() {
         $this->elements = array();
-		
+        
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
         	//print_r ($this->input->post()); die;

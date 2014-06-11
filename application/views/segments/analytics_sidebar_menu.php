@@ -36,8 +36,12 @@ switch($this->session->userdata('survey')) {
 				<li id="tools">
 					<a href="#">Tools in a given Unit</a>
 				</li>
+				<li id="consultation">
+					<a href="#">Consultation</a>
+				</li>
 			</ul>
 		</li>
+
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -58,6 +62,28 @@ switch($this->session->userdata('survey')) {
 				</li>
 			</ul>
 		</li>
+
+<li id="commodities-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="bundlingFrequency">
+					<a href="#">Commodity Bundling Availability</a>
+				</li>
+				<li id="bundlingUnavailability">
+					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+				</li>
+				<li id="bundlingLocation">
+					<a href="#">Bundling Location</a>
+				</li>
+				<li id="bundlingQuantities">
+					<a href="#">Bundling Quantities</a>
+				</li>
+				<li id="bundlingSuppliers">
+					<a href="#">Bundling Suppliers</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -67,8 +93,36 @@ switch($this->session->userdata('survey')) {
 				<li id="caseTreatment">
 					<a href="#">Case Treatment</a>
 				</li>
+				<li id="u5Total">
+					<a href="#">U5 Children</a>
+				</li>
 			</ul>
 		</li>
+
+        <li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Pneumonia Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="PnecaseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="PnecaseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
+		<li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Malaria Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="MalcaseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="MalcaseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="ORT-Corner-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">ORT Corner</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -165,6 +219,7 @@ case 'mnh' :
 
 			</ul>
 		</li>
+
 		<li id="signal-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Signal Functions</span> <span class="arrow "></span> </a>
 			<ul class="sub">
