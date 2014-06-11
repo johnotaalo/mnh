@@ -15,10 +15,10 @@ switch($this->session->userdata('survey')) {
 				<li id="communityStrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="guidelines">
+				<li id="guidelinesAvailability">
 					<a href="#">Guidelines Availability</a>
 				</li>
-				<li id="training">
+				<li id="trainedStaffOne">
 					<a href="#">Staff Trainings</a>
 				</li>
 				<li id="childrenServices">
@@ -36,28 +36,54 @@ switch($this->session->userdata('survey')) {
 				<li id="tools">
 					<a href="#">Tools in a given Unit</a>
 				</li>
+				<li id="consultation">
+					<a href="#">Consultation</a>
+				</li>
 			</ul>
 		</li>
+
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityFrequency">
+				<li id="commodityAvailabilityFrequency">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="commodityUnavailability">
+				<li id="commodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="commodityLocation">
+				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityQuantities">
+				<li id="commodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="commoditySuppliers">
+				<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
 				</li>
 			</ul>
 		</li>
+
+<li id="commodities-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="bundlingFrequency">
+					<a href="#">Commodity Bundling Availability</a>
+				</li>
+				<li id="bundlingUnavailability">
+					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+				</li>
+				<li id="bundlingLocation">
+					<a href="#">Bundling Location</a>
+				</li>
+				<li id="bundlingQuantities">
+					<a href="#">Bundling Quantities</a>
+				</li>
+				<li id="bundlingSuppliers">
+					<a href="#">Bundling Suppliers</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -67,21 +93,49 @@ switch($this->session->userdata('survey')) {
 				<li id="caseTreatment">
 					<a href="#">Case Treatment</a>
 				</li>
+				<li id="u5Total">
+					<a href="#">U5 Children</a>
+				</li>
 			</ul>
 		</li>
+
+        <li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Pneumonia Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="PnecaseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="PnecaseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
+		<li id="diarrhoea-cases-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Malaria Cases</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="MalcaseNumbers">
+					<a href="#">Case Numbers</a>
+				</li>
+				<li id="MalcaseTreatment">
+					<a href="#">Case Treatment</a>
+				</li>
+			</ul>
+		</li>
+
 		<li id="ORT-Corner-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">ORT Corner</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="ORTAssessment">
+				<li id="ORTCornerAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li id="ORTEquipmentAvailability">
+				<li id="ORTCornerEquipmentFrequency">
 					<a href="#">ORT Corner Equipment Availability</a>
 				</li>
-				<li id="ORTEquipmentFunctionality">
+				<li id="ORTCornerEquipmentFunctionality">
 					<a href="#">ORT Corner Equipment Functionality</a>
 				</li>
-				<li id="ORTEquipmentLocation">
+				<li id="ORTCornerEquipmentLocation">
 					<a href="#">ORT Corner Equipment Location</a>
 				</li>
 			</ul>
@@ -92,7 +146,7 @@ switch($this->session->userdata('survey')) {
 				<li id="suppliesFrequency">
 					<a href="#">Supplies Availability</a>
 				</li>
-				<li id="suppliesSuppliers">
+				<li id="CHSuppliesSupplier">
 					<a href="#">Suppliers</a>
 				</li>
 			</ul>
@@ -101,7 +155,7 @@ switch($this->session->userdata('survey')) {
 		<li id="resources-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="resourceAvailability">
+				<li id="resourceFrequency">
 					<a href="#">Resource Availability</a>
 				</li>
 				<li id="resourceLocation">
@@ -153,18 +207,19 @@ case 'mnh' :
 				<li id="jobaids">
 					<a href="#" >Job Aids</a>
 				</li>
-				<li id="guidelinesmnh">
+				<li id="guidelinesAvailabilitymnh">
 					<a href="#" >Guidelines Availability</a>
 				</li>
 				<li id="communitystrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="staffTrainingMnh">
+				<li id="trainedStaff">
 					<a href="#" >Staff Training</a>
 				</li>
 
 			</ul>
 		</li>
+
 		<li id="signal-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Signal Functions</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -191,19 +246,19 @@ case 'mnh' :
 		<li id="commodities-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityFrequencyMnh">
+				<li id="commodityAvailabilityFrequency">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="commodityUnavailabilityMnh">
+				<li id="commodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="commodityLocationMnh">
+				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityQuantitiesMnh">
+				<li id="commodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="commoditySuppliersMnh">
+				<li id="commoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
 				</li>
 			</ul>
@@ -225,13 +280,13 @@ case 'mnh' :
 		<li id="supplies-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="icon-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="suppliesFrequencyMnh">
+				<li id="suppliesFrequency">
 					<a href="#">Supplies Availability</a>
 				</li>
-				<li id="suppliesLocationMnh">
+				<li id="suppliesLocation">
 					<a href="#">Supplies Location</a>
 				</li>
-				<li id="suppliesSuppliersMnh">
+				<li id="suppliesSuppliers">
 					<a href="#">Suppliers</a>
 				</li>
 			</ul>

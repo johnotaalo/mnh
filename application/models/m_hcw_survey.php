@@ -23,12 +23,12 @@ class M_HCW_Survey extends MY_Model
     }
      /*calls the query defined in MY_Model*/
     public function getInterviewQuestions() {
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('ext', 'QHC');
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('int', 'QHC');
         
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
-	/*calls the query defined in MY_Model*/
+    /*calls the query defined in MY_Model*/
     public function gethcwProfile() {
         $this->mnhCeocQuestionsList = $this->getQuestionsBySection('imci', 'QUC');
         
@@ -36,8 +36,8 @@ class M_HCW_Survey extends MY_Model
         return $this->mnhCeocQuestionsList;
     }
 
-	/*call the query defined in MY_Model */
-	public function getIndicatorNames() {
+    /*call the query defined in MY_Model */
+    public function getIndicatorNames() {
         $this->indicatorList = $this->getAllMCHIndicators();
         
         //var_dump($this->indicatorList);die;
@@ -46,7 +46,7 @@ class M_HCW_Survey extends MY_Model
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//For every posted values
+            //For every posted values
             if (strpos($key, 'question') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
@@ -192,23 +192,23 @@ class M_HCW_Survey extends MY_Model
     }
      //close addMchGuidelinesAvailabilityInfo
     private function addHCWProfile() {
-    	$count = $finalCount = 1;
+        $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//print_r($this->input->post());die;
-        	//For every posted values
+            //print_r($this->input->post());die;
+            //For every posted values
             if (strpos($key, 'hcw') !== FALSE) {
-            	//select data for hcw profile
+                //select data for hcw profile
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
                 
                 //$this->id = $this->frags[1];  // the id
                 
                 $this->id = $count;
-				
+                
                 // the id
                 
                 $this->attr = $this->frags[0];
-				//the attribute name
+                //the attribute name
                 
                 //print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
@@ -218,7 +218,6 @@ class M_HCW_Survey extends MY_Model
                 
                 //mark the end of 1 row...for record count
                 if ($this->attr == "hcwProfileQCode") {
-                    
                     // print 'count at:'.$count.'<br />';
                     
                     $finalCount = $count;
@@ -338,11 +337,11 @@ class M_HCW_Survey extends MY_Model
     }
      //close addMchGuidelinesAvailabilityInfo
      private function addConsultationAspect() {
-    	$count = $finalCount = 1;
+        $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//For every posted values
+            //For every posted values
             if (strpos($key, 'hcw') !== FALSE) {
-            	//select data for bemonc signal functions
+                //select data for bemonc signal functions
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
                 
@@ -485,11 +484,11 @@ class M_HCW_Survey extends MY_Model
     }
      //close addMchGuidelinesAvailabilityInfo
      private function addInterviewAspect() {
-    	$count = $finalCount = 1;
+        $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//For every posted values
+            //For every posted values
             if (strpos($key, 'hcw') !== FALSE) {
-            	//select data for bemonc signal functions
+                //select data for bemonc signal functions
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
                 
@@ -1112,7 +1111,7 @@ class M_HCW_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -1285,7 +1284,7 @@ class M_HCW_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -2034,7 +2033,7 @@ class M_HCW_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -2200,7 +2199,7 @@ class M_HCW_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -2360,7 +2359,7 @@ class M_HCW_Survey extends MY_Model
                     $val = implode(',', $val);
                 }
                 
-                //	print $key.' ='.$val.' <br />';
+                //  print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
@@ -2497,14 +2496,11 @@ class M_HCW_Survey extends MY_Model
     function store_data() {
         
         /*check assessment tracker log*/
-        if ($this->input->post()) {
- 
-			
-           $step = 'section-1';//$this->input->post('step_name', TRUE);
+        if ($this->input->post()) {         
+          $step = 'section-1';//$this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
-                case 'section-1':
-                    
+                case 'section-1':                    
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
                     
@@ -2513,7 +2509,7 @@ class M_HCW_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if (
-                         /*$this->updateFacilityInfo()	==	true &&*/
+                         /*$this->updateFacilityInfo()  ==  true &&*/
                         $this->addHCWProfile() == true) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
@@ -2564,7 +2560,7 @@ class M_HCW_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if ($this->addConsultationAspect() == true) {
-                        	//if($this->addInterviewAspect == true){
+                            //if($this->addInterviewAspect == true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
