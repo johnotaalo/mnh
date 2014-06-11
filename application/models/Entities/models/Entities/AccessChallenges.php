@@ -25,14 +25,20 @@ class AccessChallenges
      * @var string
      *
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> fc3a1360831c565c4006e982024da828d31ba1b5
 <<<<<<< HEAD
      * @ORM\Column(name="ach_code", type="string", length=45, nullable=true)
 =======
      * @ORM\Column(name="ach_code", type="string", length=100, nullable=true)
 >>>>>>> 707e87ef972689a9651366a7a946f13b665bf362
+<<<<<<< HEAD
+=======
 =======
      * @ORM\Column(name="ach_code", type="string", length=100, nullable=true)
 >>>>>>> ec66cdc5dc1de90419a15f0ac8842fc34ce36566
+>>>>>>> fc3a1360831c565c4006e982024da828d31ba1b5
      */
     private $achCode;
 
@@ -40,14 +46,20 @@ class AccessChallenges
      * @var string
      *
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> fc3a1360831c565c4006e982024da828d31ba1b5
 <<<<<<< HEAD
      * @ORM\Column(name="ach_name", type="string", length=45, nullable=true)
 =======
      * @ORM\Column(name="ach_name", type="string", length=100, nullable=true)
 >>>>>>> 707e87ef972689a9651366a7a946f13b665bf362
+<<<<<<< HEAD
+=======
 =======
      * @ORM\Column(name="ach_name", type="string", length=100, nullable=true)
 >>>>>>> ec66cdc5dc1de90419a15f0ac8842fc34ce36566
+>>>>>>> fc3a1360831c565c4006e982024da828d31ba1b5
      */
     private $achName;
 

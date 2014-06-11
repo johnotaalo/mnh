@@ -111,7 +111,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommodityNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commCode ASC');
+			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit, c.commFor FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commCode ASC');
 			$this -> commodity -> setParameter('surveyName', $surveyName);
 			$this -> commodity = $this -> commodity -> getResult();
 			//die(var_dump($this->commodity));
@@ -180,7 +180,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommoditySupplierNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName, s.supplierFor FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();
@@ -508,6 +508,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> mnhQuestion) {
+				
 				$this -> mnhQuestion = $this -> mnhQuestion -> getQuestionName();
 				return $this -> mnhQuestion;
 			}
@@ -548,6 +549,7 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
+	
 	public function getChildHealthTreatmentName($id) {
 		try {
 			$this -> mchTreatmentName = $this -> em -> getRepository('models\Entities\treatments') -> findOneBy(array('treatmentCode' => $id));

@@ -7,6 +7,7 @@
 	<meta charset="utf-8" />
 	<?php $this->load->view('segments/meta');?>
 	<?php $this->load->view('segments/analytics_css');?>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<script src="<?php echo base_url()?>/js/jquery-1.8.2.min.js"></script>	
 </head>
 <!-- END HEAD -->
@@ -80,11 +81,18 @@
 		<!-- END PAGE -->	
 	</div>
 	<!-- END CONTAINER -->
+
 	<!-- BEGIN FOOTER -->
 	<div class="footer">
 	      &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
 		<div class="span pull-right">
-			<span class="go-top"><i class="icon-angle-up"></i></span>
+			Move to Top
+			<a href="#" class="go-top">
+				<i class="fa fa-angle-double-up fa-7x title="Top""></i>
+				&nbsp; Move to Top
+			</a>
+
+		
 		</div>
 	</div>
 	<!-- END FOOTER -->

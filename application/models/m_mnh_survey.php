@@ -977,7 +977,7 @@ class M_MNH_Survey extends MY_Model
     
     private function addServicesInfo() {
         $this->elements = array();
-		
+        
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
         	//print_r ($this->input->post()); die;
