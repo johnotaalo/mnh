@@ -2079,17 +2079,20 @@ class MY_Controller extends CI_Controller
                   $findings = explode(';', $value['indicatorFindings']);
                   if(sizeof($findings)==1){
                     foreach($findings as $finding){
-                    $findingRow = $finding.' <input type="text">';
+                    $findingHCWRow = $finding.' <input type="text" name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'">';
+                    $findingAssessorRow = $finding.' <input type="text" name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'">';
                   }  
                   }
                   else{
                     foreach($findings as $finding){
                         if($finding=='other (specify)'){
-                            $findingRow .= $finding.' <input name="indicatorFinding_'.$counter.'"  type="text">';
+                            $findingHCWRow .= $finding.' <input name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'"  type="text">';
+                            $findingAssessorRow .= $finding.' <input name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'"  type="text">';
                         }
                         else{
-                            $findingRow .= $finding.' <input name="indicatorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
-                        }
+                              $findingHCWRow .= $finding.' <input name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'"  type="text">';
+                            $findingAssessorRow .= $finding.' <input name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'"  type="text">';
+                       }
                   }  
                   }
                   }
@@ -2107,10 +2110,10 @@ class MY_Controller extends CI_Controller
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>Yes <input id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'"  type="radio">
             </td>
-            <td>'.$findingRow.'</td>
+            <td>'.$findingHCWRow.'</td>
             <td>Yes <input name="indicatorassessorResponse_'.$counter.'" id="indicatorassessorResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_'.$counter.'" id="indicatorassessorResponse_'.$counter.'" type="radio">
             </td>
-            <td>'.$findingRow.'</td>
+            <td>'.$findingAssessorRow.'</td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
     }
