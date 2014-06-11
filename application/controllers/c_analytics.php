@@ -363,31 +363,17 @@ ORDER BY fac_level;");
         
         if ($results != "") {
             foreach ($results as $result) {
-                $categories[] = $result[0];
+                $category[] = $result[0];
                 $resultData[] = (int)$result[1];
             }
         } else {
-            $categories = "";
+            $category = "";
             $resultData = 0;
         }
-        $resultArraySize = count($categories);
+        
         $resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
         
-        ////$resultArraySize =  ; 5;
-        $datas['resultArraySize'] = $resultArraySize;
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Guidelines';
-        $datas['categories'] = json_encode($categories);
-        $datas['yAxis'] = 'Availability';
-        $datas['resultArray'] = json_encode($resultArray);
-        
-        //var_dump($datas['categories']);die;
-        $this->load->view('charts/chart_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
     /*
@@ -442,6 +428,7 @@ ORDER BY fac_level;");
         }
         
         $resultArray = array(array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
 
@@ -493,19 +480,10 @@ ORDER BY fac_level;");
         $resultArraySize = 6;
         
         $datas['resultArraySize'] = $resultArraySize;
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
         
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
     /*
@@ -516,10 +494,10 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey);
         
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';
-        //die ;
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        die;
         
         foreach ($results as $county) {
             foreach ($county['trained_values'] as $k => $t) {
@@ -538,30 +516,7 @@ ORDER BY fac_level;");
         
         //echo '<pre>';print_r($finalYes);echo '</pre>';
         $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        $resultArray = json_encode($resultArray);
-        
-        //echo $resultArray;
-        //die ;
-        $resultArraySize = count($categories);
-        
-        //$resultArraySize =  5;
-        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-        //$resultArray = 5;
-        //var_dump($category);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Trained Staff vs Working with Children';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Ratio';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
     public function getTrainedStaffOne($criteria, $value, $survey) {
@@ -586,30 +541,7 @@ ORDER BY fac_level;");
         
         //echo '<pre>';print_r($finalYes);echo '</pre>';
         $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        $resultArray = json_encode($resultArray);
-        
-        //echo $resultArray;
-        //die ;
-        $resultArraySize = count($category);
-        
-        //$resultArraySize =  5;
-        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
-        //$resultArray = 5;
-        //var_dump($category);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Trained Staff vs Working with Children';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Ratio';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
     public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
@@ -687,6 +619,7 @@ ORDER BY fac_level;");
                 }
                 
                 $resultArray = array(array('name' => 'Always', 'data' => $finalAlways), array('name' => 'Sometimes', 'data' => $finalSometimes), array('name' => 'Never', 'data' => $finalNever));
+                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
                 break;
 
             case 'Unavailability':
@@ -700,6 +633,7 @@ ORDER BY fac_level;");
                 } else {
                 }
                 
+                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
                 break;
 
             case 'Location':
@@ -725,6 +659,7 @@ ORDER BY fac_level;");
                     $numbers = array();
                 }
                 
+                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
                 break;
 
             case 'Quantities':
@@ -739,28 +674,13 @@ ORDER BY fac_level;");
                 
                 $resultArray[] = array('name' => 'Quantities', 'data' => $currentData);
                 $stackorno = 'charts/chart_v';
+<<<<<<< HEAD
 
+=======
+                $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
                 break;
         }
-        
-        $resultArray = json_encode($resultArray);
-        
-        //echo($resultArray);
-        //die;
-        
-        $resultArraySize = count($category);
-        $datas['resultArraySize'] = $resultArraySize;
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Commodity ' . $choice;
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view($stackorno, $datas);
     }
     
     public function getEquipmentFrequency($criteria, $value, $survey) {
@@ -866,6 +786,7 @@ ORDER BY fac_level;");
                 $stackorno = 'charts/chart_stacked_v';
                 break;
         }
+<<<<<<< HEAD
         
         //var_dump($quantitiesFullyFunctional);
         //die;
@@ -886,9 +807,12 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view($stackorno, $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
-    public function getCHCommoditySupplier($criteria, $value, $survey) {
+    public function getCHCommoditySuppliers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getCHCommoditySupplier($criteria, $value, $survey);
         $category = $results['analytic_variables'];
@@ -910,12 +834,160 @@ ORDER BY fac_level;");
             unset($finalD);
         }
         $newCat[] = 'Metronidazole (Flagyl)';
+        $category = $newCat;
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getChildrenServices($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey, 'svc');
+        foreach ($results['response'] as $service) {
+            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
+            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        }
+        $category = $results['categories'];
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getDangerSigns($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey, 'sgn');
+        foreach ($results['response'] as $service) {
+            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
+            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        }
+        $category = $results['categories'];
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getActionsPerformed($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey, 'svc');
+        foreach ($results['response'] as $service) {
+            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
+            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        }
+        $category = $results['categories'];
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getCounselGiven($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey, 'cns');
+        foreach ($results['response'] as $service) {
+            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
+            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        }
+        $category = $results['categories'];
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getTools($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getTools($criteria, $value, $survey);
+        foreach ($results['response'] as $tool) {
+            $yes[] = (array_key_exists('Yes', $tool)) ? $tool['Yes'] : 0;
+            $no[] = (array_key_exists('No', $tool)) ? $tool['No'] : 0;
+        }
+        $category = $results['categories'];
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    /*
+     * Diarrhoea case numbers per Month
+    */
+    public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);
+        $resultData = $results['num_of_diarrhoea_cases'];
+        $category = $results['categories'];
+        
+        $monthArray = array('jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sept', 'oct', 'nov', 'december');
+        $monthCounter = 0;
+        foreach ($monthArray as $value) {
+            
+            //echo $value;
+            $dataArray[] = (int)$resultData[0][$value];
+            $monthCounter++;
+        }
+        $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    /*
+     * Diarrhoea case treatments
+    */
+    
+    public function getDiarrhoeaCaseTreatment($criteria, $value, $survey, $filter) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getDiarrhoeaCaseTreatment($criteria, $value, $survey);
+        
+        //var_dump($results);die;
+        $categories = $results['categories'];
+        $categoriesCount = 0;
+        $resultArray = array();
+        if ($results != null && count($results) > 0) {
+            foreach ($results as $result => $val) {
+                
+                if ($categoriesCount < 6) {
+                    $index = $categories[$categoriesCount];
+                    if ($result == $index) {
+                        $severe_dehydration[] = array($result, (int)$val['severe_dehydration']);
+                        $some_dehydration[] = array($result, (int)$val['some_dehydration']);
+                        $no_dehydration[] = array($result, (int)$val['no_dehydration']);
+                        $dysentry[] = array($result, (int)$val['dysentry']);
+                        $no_classification[] = array($result, (int)$val['no_classification']);
+                        $category[] = $index;
+                        $categoriesCount++;
+                    }
+                }
+            }
+        }
+        switch ($filter) {
+            case 'SevereDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
+                break;
+
+            case 'SomeDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
+                break;
+
+            case 'NoDehydration':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
+                break;
+
+            case 'Dysentry':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
+                break;
+
+            case 'NoClassification':
+                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
+                break;
+        }
+        
         $resultArray = json_encode($resultArray);
+<<<<<<< HEAD
         $datas = array();
         $resultArraySize = count($newCat);
         //echo $resultArray;
         //$resultArraySize =  8;
+=======
         
+        //var_dump($resultArray);
+        $datas = array();
+        $resultArraySize = count($categories);
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+        
+        //$resultArraySize =  1;
+        //$result[]=array('name'=>'Test','data'=>array(1,2,7,8,0,8,3,5));
+        //$resultArray = 5;
+        //var_dump($category);
         $datas['resultArraySize'] = $resultArraySize;
         
         $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
@@ -925,13 +997,14 @@ ORDER BY fac_level;");
         $datas['title'] = 'Chart';
         $datas['chartTitle'] = ' ';
         
-        //$datas['chartTitle'] = 'Commodity Suppliers';
-        $datas['categories'] = json_encode($newCat);
+        //$datas['chartTitle'] = 'Case Treatment';
+        $datas['categories'] = '';
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $this->load->view('charts/chart_pie_v', $datas);
     }
     
+<<<<<<< HEAD
     public function getServices($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getServices($criteria, $value, $survey);
@@ -1677,6 +1750,16 @@ ORDER BY fac_level;");
         $results = $this->m_analytics->getORTCornerAssessment($criteria, $value, $survey);
         $yes = $results['yes_values'];
         $no = $results['no_values'];
+=======
+    /*
+     * ORT Corner Assessment
+    */
+    public function getORTCornerAssessment($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getORTCornerAssessment($criteria, $value, $survey);
+        $yes = $results['yes_values'];
+        $no = $results['no_values'];
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
         $category = array();
         $category[] = $results['categories'][0];
         $category[] = $results['categories'][1];
@@ -1727,6 +1810,7 @@ ORDER BY fac_level;");
             }
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
         $datas = array();
@@ -1751,6 +1835,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
 
     
@@ -1762,7 +1849,7 @@ ORDER BY fac_level;");
         $this->getORTCornerEquipment($criteria, $value, $survey, 'Frequency');
     }
     
-    public function getORTCornerEquipmentAvailability($criteria, $value, $survey) {
+    public function getORTCornerEquipmentFunctionality($criteria, $value, $survey) {
         $this->getORTCornerEquipment($criteria, $value, $survey, 'Functionality');
     }
     
@@ -1865,6 +1952,7 @@ ORDER BY fac_level;");
                 $stackorno = 'charts/chart_stacked_v';
                 break;
         }
+<<<<<<< HEAD
         
         //var_dump($quantitiesFullyFunctional);
         //die;
@@ -1885,6 +1973,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view($stackorno, $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function getSuppliesFrequency($criteria, $value, $survey) {
@@ -2015,6 +2106,7 @@ ORDER BY fac_level;");
                 break;
         }
         $category = $categories;
+<<<<<<< HEAD
         
         //var_dump($quantitiesFullyFunctional);
         //die;
@@ -2034,6 +2126,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view($stackorno, $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function getRunningWaterFrequency($criteria, $value, $survey) {
@@ -2122,6 +2217,7 @@ ORDER BY fac_level;");
         }
         
         $category = $categories;
+<<<<<<< HEAD
         
         //var_dump($quantitiesFullyFunctional);
         //die;
@@ -2141,6 +2237,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     /**
@@ -2170,6 +2269,7 @@ ORDER BY fac_level;");
             unset($finalD);
         }
         
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
         $datas = array();
@@ -2191,13 +2291,16 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
-    public function getResourcesFrequency($criteria, $value, $survey) {
+    public function getResourceFrequency($criteria, $value, $survey) {
         $this->getResources($criteria, $value, $survey, 'Frequency');
     }
     
-    public function getResourcesLocation($criteria, $value, $survey) {
+    public function getResourceLocation($criteria, $value, $survey) {
         $this->getResources($criteria, $value, $survey, 'Location');
     }
     
@@ -2208,10 +2311,11 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getResources($criteria, $value, $survey);
         $datas = array();
-        $frequency = $results['frequency'];
-        $categories = $results['frequency']['categories'];
+        $frequency = $results['response'];
+        $categories = $results['categories'];
         
-        //var_dump($results['frequency']);die;
+        var_dump($results['response']);
+        die;
         $resultArray = array();
         $stackorno;
         
@@ -2279,6 +2383,7 @@ ORDER BY fac_level;");
                 break;
         }
         $category = $categories;
+<<<<<<< HEAD
         
         //var_dump($quantitiesFullyFunctional);
         //die;
@@ -2300,6 +2405,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view($stackorno, $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     /**
@@ -2398,32 +2506,7 @@ ORDER BY fac_level;");
         }
         $finalResult = $resultArray;
         
-        //}
-        //$category=$category[0];
-        //$finalResult=$finalResult[0];
-        $resultArraySize = count($category);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_one';
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 100;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Guidelines';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Facilities';
-        $datas['resultArray'] = json_encode($finalResult);
-        
-        //var_dump($datas['categories']);die;
-        $this->load->view('charts/chart_stacked_v', $datas);
-        
-        //echo '<pre>';
-        //print_r($finalResult);
-        //echo '</pre>';
-        
-        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
     /**
@@ -2444,32 +2527,7 @@ ORDER BY fac_level;");
             $data[] = (int)$value['level_total'];
             $resultArray[] = array('name' => $name, 'data' => $data);
         }
-        $finalResult = $resultArray;
-        
-        //}
-        $resultArraySize = count($category);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_two';
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Guidelines';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Facilities';
-        $datas['resultArray'] = json_encode($finalResult);
-        
-        //var_dump($datas['categories']);die;
-        $this->load->view('charts/chart_stacked_v', $datas);
-        
-        //echo '<pre>';
-        //print_r($finalResult);
-        //echo '</pre>';
-        
-        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
     public function getFacilityLevelAll($survey) {
@@ -2494,37 +2552,7 @@ ORDER BY fac_level;");
         foreach ($data as $key => $val) {
             $resultArray[] = array('name' => 'Level ' . $key, 'data' => $val);
         }
-        
-        //echo '<pre>';
-        //print_r($resultArray);
-        //echo '</pre>';die;
-        
-        $finalResult = $resultArray;
-        
-        //}
-        $resultArraySize = count($categories);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_levels' . rand(5, 300);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Guidelines';
-        $datas['categories'] = json_encode($categories);
-        $datas['yAxis'] = 'Facilities';
-        $datas['resultArray'] = json_encode($finalResult);
-        
-        //var_dump($datas['categories']);die;
-        $this->load->view('charts/chart_stacked_v', $datas);
-        
-        //echo '<pre>';
-        //print_r($finalResult);
-        //echo '</pre>';
-        
-        
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
     public function getFacilityOwnerAll($survey) {
@@ -2533,11 +2561,6 @@ ORDER BY fac_level;");
             $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey);
             $categories[] = $county['county'];
         }
-        
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';die;
-        
         $resultArray = array();
         foreach ($results as $county) {
             foreach ($county as $level) {
@@ -2548,32 +2571,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $val);
         }
         
-        $finalResult = $resultArray;
-        
-        //}
-        $resultArraySize = sizeof($categories);
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_ownership' . rand(5, 300);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 120;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Guidelines';
-        $datas['categories'] = json_encode($categories);
-        $datas['yAxis'] = 'Facilities';
-        $datas['resultArray'] = json_encode($finalResult);
-        
-        //var_dump($datas['categories']);die;
-        $this->load->view('charts/chart_stacked_v', $datas);
-        
-        //echo '<pre>';
-        //print_r($finalResult);
-        //echo '</pre>';
-        
-        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -2586,10 +2584,6 @@ ORDER BY fac_level;");
         $options = '<option selected=selected>Viewing All</option>';
         foreach ($results as $result) {
             $options.= '<option>' . $result['facDistrict'] . '</option>';
-            
-            //$dataArray.='<option>'.$result['fac_district'].'</option>';
-            
-            
         }
         
         //return $dataArray;
@@ -2607,6 +2601,7 @@ ORDER BY fac_level;");
         $category = $county;
         $resultArray[] = array('type' => 'column', 'name' => 'Facilities', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
+<<<<<<< HEAD
         //echo $resultArray;
         //var_dump($resultArray);
         $datas = array();
@@ -2630,6 +2625,9 @@ ORDER BY fac_level;");
         //var_dump($result);
         
         
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function getCountyFacilitiesByOwner($criteria) {
@@ -2643,6 +2641,7 @@ ORDER BY fac_level;");
         $category = $owners;
         $resultArray[] = array('type' => 'column', 'name' => 'Facility Owners', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
+<<<<<<< HEAD
         //echo $resultArray;
         //var_dump($resultArray);
         $datas = array();
@@ -2666,6 +2665,10 @@ ORDER BY fac_level;");
         //var_dump($result);
         
         
+=======
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function getFacilitiesByDistrictOptions($district, $survey) {
@@ -2712,14 +2715,11 @@ ORDER BY fac_level;");
                 }
                 foreach ($formattedArray as $key => $arr) {
                     $resultArray[] = array('name' => $key, 'data' => $arr);
-                    
-                    //$categories[]=$key;
-                    
-                    
                 }
                 break;
         }
         
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
         $resultArraySize = count($categories);
@@ -2737,6 +2737,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function guidelines_summary($guideline) {
@@ -2772,6 +2775,7 @@ ORDER BY fac_level;");
         }
         
         $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+<<<<<<< HEAD
         $guideline = str_replace(" ", "_", $guideline);
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
@@ -2790,6 +2794,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function guidelines_summaryMNH($guideline) {
@@ -2819,10 +2826,8 @@ ORDER BY fac_level;");
                 }
             }
         }
-        
-        //echo '<pre>';print_r($finalYes);echo '</pre>';
-        //echo '<pre>';print_r($finalNo);echo '</pre>';
         $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+<<<<<<< HEAD
         $guideline = str_replace(" ", "_", $guideline);
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
@@ -2841,6 +2846,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function training_summary($training) {
@@ -2872,6 +2880,7 @@ ORDER BY fac_level;");
         
         //echo '<pre>';print_r($finalYes);echo '</pre>';
         $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+<<<<<<< HEAD
         $training = str_replace(" ", "_", $training);
         $resultArray = json_encode($resultArray);
         //echo $resultArray;
@@ -2890,6 +2899,9 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     public function tools_summary($tool) {
@@ -2905,21 +2917,14 @@ ORDER BY fac_level;");
         if(isset($results)){
         //echo '<pre>';print_r($results);echo '</pre>';die;
         foreach ($results as $county) {
-            foreach ($county['yes_values'] as $yes => $y) {
-                
-                //var_dump($yes);
-                
-                if ($yes == $tool) {
-                    $finalYes[] = $y;
-                }
-            }
-            
-            foreach ($county['no_values'] as $no => $n) {
-                if ($no == $tool) {
-                    $finalNo[] = $n;
+            foreach ($county['response'] as $key => $currentTool) {
+                if ($key == $tool) {
+                    $yes[] = $currentTool['Yes'];
+                    $no[] = $currentTool['No'];
                 }
             }
         }
+<<<<<<< HEAD
         
         $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
         
@@ -2936,12 +2941,12 @@ ORDER BY fac_level;");
         $datas['chartMargin'] = 100;
         $datas['title'] = 'Chart';
         $datas['chartTitle'] = ' ';
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
         
-        //$datas['chartTitle'] = 'Facilities per County';
-        $datas['categories'] = json_encode($categories);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
 
@@ -2955,17 +2960,7 @@ ORDER BY fac_level;");
         $counties = $this->m_analytics->getReportingCounties('mnh');
         foreach ($counties as $county) {
             $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], 'mnh');
-            
-            //$categories[] = $county['county'];
-            
-            
         }
-        
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';
-        //die ;
-        
         foreach ($results as $key => $county) {
             foreach ($county['trained_values'] as $k => $t) {
                 
@@ -2986,6 +2981,7 @@ ORDER BY fac_level;");
         $categories = array_unique($categories);
         foreach ($categories as $c) {
             $cat[] = $c;
+<<<<<<< HEAD
         
         $categories = $cat;
         }
@@ -3036,6 +3032,11 @@ ORDER BY fac_level;");
         $this->mpdf->WriteHTML($html, 2);
         $report_name = 'CH Assessment Tool_Facility List' . ".pdf";
         $this->mpdf->Output($report_name, 'I');
+=======
+        }
+        $categories = $cat;
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     /**
@@ -3060,26 +3061,8 @@ ORDER BY fac_level;");
         }
         $category[] = 'Numbers';
         $resultArray[] = array('name' => 'Nurses Deployed', 'data' => $number);
-        $resultArray = json_encode($resultArray);
         
-        //echo $resultArray;
-        $datas = array();
-        $resultArraySize = 1;
-        
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
     /**
@@ -3094,33 +3077,20 @@ ORDER BY fac_level;");
             $number = array();
         }
         $category[] = 'Numbers';
-        $resultArray = json_encode($resultArray);
         
-        //echo $resultArray;
-        $datas = array();
-        $resultArraySize = 1;
-        
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
     }
     
     /**
      * 24 Hour Service
      */
+<<<<<<< HEAD
     public function getChildrenService($criteria, $value, $survey) {
         $results = $this->m_analytics->getChildrenService($criteria, $value, $survey);
+=======
+    public function getServices($criteria, $value, $survey) {
+        $results = $this->m_analytics->getService($criteria, $value, $survey);
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
         $number = $resultArray = array();
         foreach ($results as $key => $value) {
             $number[] = (int)$value[0];
@@ -3128,26 +3098,7 @@ ORDER BY fac_level;");
         }
         
         $category[] = 'Numbers';
-        $resultArray = json_encode($resultArray);
-        
-        //echo $resultArray;
-        $datas = array();
-        $resultArraySize = 1;
-        
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
     /**
@@ -3158,6 +3109,7 @@ ORDER BY fac_level;");
 
         //echo '<pre>';print_r($results);echo '</pre>';die;
         foreach ($results as $key => $val) {
+<<<<<<< HEAD
             
            $yes[] = (int)$val['yes'];
        
@@ -3194,6 +3146,17 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+            $yes[] = (int)$val['yes'];
+            $no[] = (int)$val['no'];
+            $committee = trim($key, 'Does this facility have a');
+            $committee = trim($committee, '?');
+            $category[] = $committee;
+        }
+        
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     /**
@@ -3220,6 +3183,7 @@ ORDER BY fac_level;");
         $drilldownArray[] = array('id' => 'levels' . $criteria, 'name' => 'Facility Levels', 'data' => $drilldownData);
         
         $category[] = $q;
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         $drilldownArray = json_encode($drilldownArray);
     
@@ -3244,6 +3208,9 @@ ORDER BY fac_level;");
         $datas['resultArray'] = $resultArray;
         $datas['drilldown'] = $drilldownArray;
         $this->load->view('charts/chart_pie_v', $datas);
+=======
+        $this->populateGraph($resultArray, $drilldownArray, $category, $criteria, 'percent', 0, 'pie');
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     }
     
@@ -3269,10 +3236,6 @@ ORDER BY fac_level;");
         $results['conducted'] = array();
         $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
         
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';die;
-        
         $number = $q = $resultArray = $yes = $no = array();
         foreach ($results['conducted'] as $key => $value) {
             $q[] = $key;
@@ -3282,26 +3245,8 @@ ORDER BY fac_level;");
         $resultArray = array(array('name' => 'Deliveries', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
         $category = $q;
-        $resultArray = json_encode($resultArray);
         
-        //echo $resultArray;
-        $datas = array();
-        $resultArraySize = 1;
-        
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 70;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($category);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getBEMONCReason($criteria, $value, $survey) {
@@ -3317,11 +3262,11 @@ ORDER BY fac_level;");
         $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
         
         //echo '<pre>';
-       // print_r($results);
+        // print_r($results);
         //echo '</pre>';
         //die ;
-        foreach( $results['categories'] as $cat){
-            $categories[]=$cat;
+        foreach ($results['categories'] as $cat) {
+            $category[] = $cat;
         }
         
         //$categories = $results['categories'];
@@ -3333,14 +3278,17 @@ ORDER BY fac_level;");
                 
                 foreach ($results['reason'] as $key => $value) {
                     foreach ($value as $level => $val) {
-                        $data['Level '.$level][] = $val;
+                        $data['Level ' . $level][] = $val;
                     }
-                   
+                    
                     //$data = array();;
+                    
+                    
                 }
-                 $resultArray = array(array('name' => 'Level 1','data'=>$data['Level 1']),array('name' => 'Level 2','data'=>$data['Level 2']),array('name' => 'Level 3','data'=>$data['Level 3']));
+                $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
+                
                 //echo '<pre>';
-               // print_r($resultArray);
+                // print_r($resultArray);
                 //echo '</pre>';
                 //die;
                 break;
@@ -3361,39 +3309,31 @@ ORDER BY fac_level;");
                 break;
         }
         
-        $resultArray = json_encode($resultArray);
-        
-        //echo $resultArray;
-        $datas = array();
-        $resultArraySize = 1;
-        
-        $datas['resultArraySize'] = $resultArraySize;
-        
-        $datas['container'] = 'chart_' . $criteria . rand(1, 10000);
-        
-        $datas['chartType'] = 'bar';
-        $datas['chartMargin'] = 100;
-        $datas['title'] = 'Chart';
-        $datas['chartTitle'] = ' ';
-        
-        //$datas['chartTitle'] = 'Danger Signs';
-        $datas['categories'] = json_encode($categories);
-        $datas['yAxis'] = 'Occurence';
-        $datas['resultArray'] = $resultArray;
-        $this->load->view('charts/chart_stacked_v', $datas);
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
-    public function getCEOC($criteria, $value, $survey) {
+    public function getCEMONC($criteria, $value, $survey) {
         $this->getSignalFunction($criteria, $value, $survey, 'ceoc');
     }
     
     public function getBEMONC($criteria, $value, $survey) {
         $this->getSignalFunction($criteria, $value, $survey, 'bemonc');
     }
+<<<<<<< HEAD
 
 
      /**
      * Deliveries Conducted
+=======
+    
+    /**
+     * [getQuestionStatistics description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
      */
 
 
@@ -3412,6 +3352,7 @@ ORDER BY fac_level;");
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
         $category = $q;
+<<<<<<< HEAD
         $resultArray = json_encode($resultArray);
         
         //echo $resultArray;
@@ -3516,6 +3457,19 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_stacked_v', $datas);
+=======
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    public function getHIV($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
+    }
+    public function getJobAids($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'job');
+    }
+    public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
     /**
@@ -3526,7 +3480,11 @@ ORDER BY fac_level;");
     }
     
     /**
-     * Community Strategy
+     * [getCommunityStrategyMNH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
      */
     public function getCommunityStrategyMNH($criteria, $value, $survey) {
         $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey);
@@ -3545,6 +3503,7 @@ ORDER BY fac_level;");
         
         $resultArray[] = array('name' => 'Numbers', 'data' => $number);
         $resultArray = json_encode($resultArray);
+<<<<<<< HEAD
         }
         //echo $resultArray;
         $datas = array();
@@ -3564,15 +3523,18 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_v', $datas);
+=======
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
     }
     
-    //Summary Excel
-    //-----------------------------------------------------------------------------
-    
-    
-    
     /**
-     *
+     * [commodity_supplies_summary description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
      */
     public function commodity_supplies_summary($criteria, $value, $survey) {
         
@@ -3609,6 +3571,12 @@ ORDER BY fac_level;");
         $this->loadExcel($data, 'Commodity Supplies and Equipments for ' . $value);
     }
     
+    /**
+     * [loadExcel description]
+     * @param  [type] $data     [description]
+     * @param  [type] $filename [description]
+     * @return [type]           [description]
+     */
     public function loadExcel($data, $filename) {
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()->setCreator("Rufus Mbugua");
@@ -3671,17 +3639,63 @@ ORDER BY fac_level;");
         
     }
     
-    //Section 3
-    //-----------------------------------------------------------------------------
-    //Section 4
-    //-----------------------------------------------------------------------------
+    /**
+     * [loadPDF description]
+     * @param  [type] $pdf [description]
+     * @return [type]      [description]
+     */
+    public function loadPDF($pdf) {
+        $stylesheet = ('
+        th{
+            padding:5px;
+            text-align:left;
+        }
+        tr.tableRow:nth-child(even){
+            background:#DDD;
+        }
+        h3 em {
+            color:red;
+        }
+        ');
+        $html = ($pdf);
+        $this->load->library('mpdf');
+        $this->mpdf = new mPDF('', 'A4-L', 0, '', 15, 15, 16, 16, 9, 9, '');
+        $this->mpdf->SetTitle('Maternal Newborn and Child Health Assessment');
+        $this->mpdf->SetHTMLHeader('<em>Assessment Tool</em>');
+        $this->mpdf->SetHTMLFooter('<em>Assessment Tool</em>');
+        $this->mpdf->simpleTables = true;
+        $this->mpdf->WriteHTML($stylesheet, 1);
+        $this->mpdf->WriteHTML($html, 2);
+        $report_name = 'CH Assessment Tool_Facility List' . ".pdf";
+        $this->mpdf->Output($report_name, 'I');
+    }
     
-    //Section 5
-    //-----------------------------------------------------------------------------
-    //Section 6
-    //-----------------------------------------------------------------------------
-    //Section 7
-    //-----------------------------------------------------------------------------
-    
-
+    /**
+     * [populateGraph description]
+     * @param  string  $resultArray [description]
+     * @param  string  $resultSize  [description]
+     * @param  string  $drilldown   [description]
+     * @param  string  $category    [description]
+     * @param  string  $criteria    [description]
+     * @param  string  $stacking    [description]
+     * @param  integer $margin      [description]
+     * @param  string  $type        [description]
+     * @return [type]               [description]
+     */
+    public function populateGraph($resultArray = '', $drilldown = '', $category = '', $criteria = '', $stacking = '', $margin = 0, $type = '', $resultSize = '') {
+        $datas = array();
+        $chart_size = (count($resultArray) < 5) ? 5 : count($resultArray);
+        $given_size = ($resultSize != '' && $resultSize < 5) ? 5 : $resultSize;
+        $datas['container'] = 'chart_' . $criteria . mt_rand();
+        $datas['chart_type'] = $type;
+        $datas['chart_margin'] = $margin;
+        $datas['chart_size'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+        $datas['chart_stacking'] = $stacking;
+        $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        $datas['chart_categories'] = $category;
+        $datas['chart_title'] = 'Occurence';
+        $datas['chart_drilldown'] = $drilldown;
+        $datas['chart_series'] = $resultArray;
+        echo json_encode($datas);
+    }
 }

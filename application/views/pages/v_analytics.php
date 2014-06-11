@@ -98,7 +98,7 @@
 	<!-- END FOOTER -->
 	<!-- BEGIN JAVASCRIPTS -->
 	<?php $this->load->view('segments/analytics_js'); ?>
-	
+	<script src="<?php echo base_url();?>js/core.js"></script>
 	<script src="<?php echo base_url();?>js/analytics.js"></script>
 	<script>
 	var base_url = "<?php echo base_url();?>";
