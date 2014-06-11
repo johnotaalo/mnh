@@ -1039,7 +1039,8 @@ class MY_Controller extends CI_Controller
             $this->mchConsultationSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
-            <input type="text"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="" class="numbers cloned"/>
+            <input type="radio"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="Yes" class="numbers cloned">Yes</input>
+            <input type="radio"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="No" class="numbers cloned">No</input>
             </td>
             <input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -2055,21 +2056,52 @@ class MY_Controller extends CI_Controller
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
             
-            $base++;
-            $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>
-                <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-            </td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-    </tr>';
+            if(($section == 'ror') || ($section == 'sgn'))
+            {
+                $base++;
+                $data[$section][] = '
+                    <tr>
+                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+                <td>
+                    <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                </td>
+                <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+            </tr>';
         }
-        
+        else
+        {
+             $base++;
+                $data[$section][] = '
+                    <tr>
+                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+                <td>
+                    <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    </select>
+                </td>
+                <td>
+                <input type = "text"/>
+                </td>
+                <td>
+                    <select name="mchIndicator_'.$counter.'" id="mchIndicator_'.$counter.'" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    </select>
+                </td>
+                <td>
+                <input type = "text"/>
+                </td>
+                <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+            </tr>';
+        }
+        }
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
             foreach ($value as $val) {
@@ -2157,7 +2189,9 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->trainingGuidelineSection.= '<tr>
-            <TD colspan="2" >' . $value['guideName'] . '</TD><td>
+            <TD colspan="2" >' . $value['guideName'] . '</TD>
+            <input type = "hidden" value = "'.$value['guideName'].'" name = "gsguidename_'.$counter.'">
+            <td>
             <input name="gstrainedbefore2010_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td>
             <td>
@@ -2194,16 +2228,16 @@ class MY_Controller extends CI_Controller
         //echo '<pre>';print_r($titles);echo '</pre>';die;
        
         foreach($staff as $member){
-            $row='<tr><td>'.$member.'</td>';
             $counter++;
+            $row='<tr><td>'.$member.'<input type="hidden" name="mchTrainingStaff_'.$counter.'" id="mchTrainingStaff_'.$counter.'" value="'.$member.'"></td>';
                 foreach($titles as $header){
                     
                     
                     if(sizeof($header)==3){
-                        $row.='<td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'before_'.$counter.'" /></td><td><input size="50" type="number" name="'.str_replace(' ', '', $header['guide']).'after_'.$counter.'"/><input type="hidden" name="guideCode" value="'.$header['code'].'"/></td>';
+                        $row.='<td><input size="50" type="number" name="mchTrainingBefore_'.$counter.'['.str_replace(' ', '', $header['code']).']" id="mchTrainingBefore_'.$counter.'" /></td><td><input size="50" type="number" id="mchTrainingAfter_'.$counter.'"  name=mchTrainingAfter_'.$counter.'['.str_replace(' ', '', $header['code']).']" /></td>';
                     }
                     else{
-                        $row.='<td><input type="number" name="'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
+                        $row.='<td><input type="number" name="mchTraining'.str_replace(' ', '', $header).'_'.$counter.'" id="'.str_replace(' ', '', $header).'_'.$counter.'"</td>';
                     }
                 }
 

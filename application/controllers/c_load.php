@@ -1034,16 +1034,16 @@ class C_Load extends MY_Controller {
 	<tbody>
 		<tr>
 			<td>Name </td><td>
-			<input type="text" size="40">
+			<input type="text" size="40" name = "assesorname_1">
 			</td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
-			<input type="text" size="40" >
+			<input type="text" size="40" name = "assesordesignation_1">
 			</td><td>Email </td>
 			<td>
-			<input type="text" size="40" >
+			<input type="text" size="40" name = "assesoremail_1">
 			</td>
 			</td><td>Phone Number </td>
 			<td>
-			<input type="text" size="40" >
+			<input type="text" size="40" name = "assesorphoneNumber_1">
 			</td>
 		</tr>
 	</tbody>
@@ -1061,46 +1061,46 @@ class C_Load extends MY_Controller {
 		<tr>
 			<td colspan = "2">Facility Incharge</td>
 			<td>
-			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+			<input type="text" id="facilityInchargename" name="facilityInchargename_1" class="cloned" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile_1" class="phone" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail_1" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan = "2">MCH Incharge</td>
 			<td>
-			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			<input type="text" id="facilityMchname" name="facilityMchname_1" class="cloned" size="40"/>
 			</td><td>
-			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			<input type="text" id="facilityMchmobile" name="facilityMchmobile_1" class="phone" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			<input type="text" id="facilityMchemail" name="facilityMchemail_1" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan = "2">Maternity Incharge </td>
 			<td>
-			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+			<input type="text" id="facilityMaternityname" name="facilityMaternityname_1" class="cloned" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile_1" class="phone" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail_1" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 		<tr>
 			<td colspan = "2">OPD Incharge</td><td>
-			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+			<input type="text" id="facilityMchname" name="facilityopdname_1" class="cloned" size="40"/>
 			</td><td>
-			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+			<input type="text" id="facilityMchmobile" name="facilityopdmobile_1" class="phone" size="40"/>
 			</td>
 			<td>
-			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+			<input type="text" id="facilityMchemail" name="facilityopdemail_1" class="cloned mail" size="40"/>
 			</td>
 		</tr>
 
@@ -1147,15 +1147,36 @@ class C_Load extends MY_Controller {
 	</tr>
 	<tr>
 		<td>General OPD</td>
-		<td><input type="radio",name="opd", size="40"></td>
+		<td><input type="radio" name="x" size="40"></td>
 		<td>Paedriatic OPD</td>
-		<td><input type="radio",name="usclinic",size="40"></td>
+		<td><input type="radio" name="x" size="40"></td>
 		<td>MCH</td>
-		<td><input type="radio",name="mch",size="40"></td>
+		<td><input type="radio" name="x" size="40"></td>
 		<td>Other</td>
-		<td><input type="radio",name="other",size="40"></td>
+		<td><input type="radio" name="x" size="40"></td>
 		<td>If Other, Specify</td>
-		<td><input type="text",name="specify",size="40"></td>
+		<td><input type="text" name="x" size="40"></td>
+		</tr>
+		<input type = "hidden" value = "QUC03" name = "x">
+	</tbody>
+</table>
+
+<table>
+	<tbody>
+	<tr><th colspan = "12">Where are Early Infant Diagnosis(EID) samples collected in the facility?</th>
+	</tr>
+	<tr>
+		<td>LAB</td>
+		<td><input type="radio",name="lab", size="40"></td>
+		<td>MCH</td>
+		<td><input type="radio",name="eidmch",size="40"></td>
+		<td>Ward</td>
+		<td><input type="radio",name="eidward",size="40"></td>
+		<td>CCC</td>
+		<td><input type="radio",name="eidccc",size="40"></td>
+		<td><input type="radio",name="eidother",size="40"></td>
+		<td>If Other, Specify</td>
+		<td><input type="text",name="eidspecify",size="40"></td>
 		</tr>
 	</tbody>
 </table>
@@ -1215,121 +1236,7 @@ class C_Load extends MY_Controller {
 	</table>
 
 	
-	<!--<table  class="centre persist-area" >
-	<thead>
-	    <tr class="persist-header">
-		
-			<th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
-		</tr>
-		</thead>
-		<tr>
-			<th scope="col" >Commodity Name</th>
-			<th >Commodity Unit</th>
-			<th colspan="2" style="text-align:center"> Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></div>
-			</th>
-			<th>
-			<div style="width: 90%" >
-				Main Reason For  Unavailability
-			</div>
-			</th>
-			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
-			
-
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			<td >Unit</td>
-			<td >Available</td>
-			<td>Not Available</td>
-			<td> Unavailability</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Pharmacy</th>
-			<td>Other</td>
-			<td>Not Applicable</td>
-			<td>No. of Units</td>
-			<td>Expiry Date</td>
-			
-
-		</tr>
-		<tr>
-			<td colspan="14" style="background:#ffffff">
-				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
-			</td>
-		</tr>
-			' . $this -> mchCommodityAvailabilitySection . '
-
-	</table>
-	 <table  class="centre persist-area" >
-	<thead>
-	    <tr class="persist-header">
-		
-			<th colspan="14">BUNDLING: INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES. </th>
-		</tr>
-		<tr>
-			<td colspan="14" style="background:#ffffff">
-				<p class="instruction">* Include all expiry dates(coma-separated) in the format (DD-MM-YYYY)</p>
-			</td>
-			</tr>
-		</thead>
-		<tr>
-			<th scope="col" >Commodity Name</th>
-			<th >Commodity Unit</th>
-			<th colspan="2" style="text-align:center"> Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></div>
-			</th>
-			<th>
-			<div style="width: 90%" >
-				Main Reason For  Unavailability
-			</div>
-			</th>
-			<th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="1">Available Quantities</th>
-			
-
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			<td >Unit</td>
-			<td >Available</td>
-			<td>Not Available</td>
-			<td> Unavailability</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Pharmacy</th>
-			<td>Other</td>
-			<td>Not Applicable</td>
-			<td>No. of Units</td>
-
-		</tr>' . $this -> mchBundling . ' 
-
-	</table>-->
 		<table class="centre">
-
-			<!--<thead>
-			<tr>
-				<th colspan="6" >TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH <input type = "text" placeholder = "Insert text here"></th>
-			</tr>
-			<tr>
-				<th colspan="6" > (A) MALARIA</th>
-			</tr>
-				<tr>
-				<th  rowspan="2" style="width:35%">TREATMENT</th>
-				<th colspan="5" style="text-align:center"> Classification</th>
-				</tr>
-				<tr >
-					<th>Malaria</th>
-					<th>Fever No malaria</th>
-				</tr>
-			</thead>-->
 			<tbody>
 				<th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
 				<th><input type = "text"></th>
@@ -1345,11 +1252,11 @@ class C_Load extends MY_Controller {
 			</tr>
 			</tbody>
 			<tr>
-			<td>Severe Dehydration: <input type = "text"></td>
-			<td>Some Dehydration: <input type = "text"></td>
-			<td>No Dehydration: <input type = "text"></td>
-			<td>Dysentry: <input type = "text"></td>
-			<td>No Classification: <input type = "text"></td>
+			<td>Severe Dehydration: <input type = "text" name = "mchtotalTreatment[SevereDehydration]"></td>
+			<td>Some Dehydration: <input type = "text" name = "mchtotalTreatment[SomeDehydration]"></td>
+			<td>No Dehydration: <input type = "text" name = "mchtotalTreatment[NoDehydration]"></td>
+			<td>Dysentry: <input type = "text" name = "mchtotalTreatment[Dysentry]"></td>
+			<td>No Classification: <input type = "text" name = "mchtotalTreatment[NoClassification]"></td>
 			</tr>
 			<tr>
 				<td>
@@ -1391,19 +1298,6 @@ class C_Load extends MY_Controller {
 			</tr>
 		</table>
 		<table class="centre">
-		<!--<thead>
-			<tr>
-				<th colspan="6" > (B) PNEUMONIA</th>
-			</tr>
-				<tr>
-				<th  rowspan="2" style="width:35%">TREATMENT</th>
-					<th colspan="5" style="text-align:center"> Classification</th>
-					</tr>
-				<tr >
-					<th>Pneumonia</th>
-					<th>Fever No Pneumonia cough/cold</th>
-					</tr>
-					</thead>-->
 				<tbody>
 					<tr>
 					<th colspan = "2">Pneumonia Total: </th>
@@ -1412,18 +1306,18 @@ class C_Load extends MY_Controller {
 					</tr>
 				</tbody>
 				<tr>
-					<td colspan = "3">Severe Pneumonia: <input type = "text"></td>
-					<td colspan = "3">Pneumonia: <input type = "text"></td>
+					<td colspan = "3">Severe Pneumonia: <input type = "text" name = "mchtotalTreatment[SeverePneumonia]"></td>
+					<td colspan = "3">Pneumonia: <input type = "text" name = "mchtotalTreatment[Pneumonia]"></td>
 				</tr>
 				<tr>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniTreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
@@ -1432,24 +1326,6 @@ class C_Load extends MY_Controller {
 					
 		</table>
 		<table class="centre">
-		<!--<thead>
-			<tr>
-				<th colspan="6" > (C) DIARRHOEA </th>
-			</tr>
-				<tr>
-					<th  rowspan="2" style="width:35%">TREATMENT</th>
-					<th colspan="5" style="text-align:center"> Classification</th>
-
-				</tr>
-				<tr >
-
-					<th >Severe Dehydration</th>
-					<th>Some Dehydration</th>
-					<th>No Dehydration</th>
-					<th>Dysentry</th>
-					<th>No Classification</th>
-				</tr>
-			</thead>-->
 			<tbody>
 					<tr>
 					<th colspan = "2">Malaria Total: </th>
@@ -1458,18 +1334,18 @@ class C_Load extends MY_Controller {
 					</tr>
 				</tbody>
 				<tr>
-					<td colspan = "3">Confirmed: <input type = "text"></td>
-					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text"></td>
+					<td colspan = "3">Confirmed: <input type = "text" name = "mchtotalTreatment[ConfirmedMalaria]"></td>
+					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text" name = "mchtotalTreatment[NotConfirmedMalaria]"></td>
 				<tr>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
-				<span id = "pneTreatmentSection">&nbsp</span>'
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
+				<span id = "malTreatmentSection">&nbsp</span>'
 			.$this -> mchmalariaTreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
-				<span id = "pneTreatmentSection">&nbsp</span>'
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
+				<span id = "malTreatmentSection_2">&nbsp</span>'
 			.$this -> mchmalariaTreatmentSection.
 			'</div>
 				</td>
