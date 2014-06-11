@@ -56,6 +56,34 @@ class LogIndicators
      */
     private $ssId;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="li_hcwResponse", type="string", length=45, nullable=true)
+     */
+    private $liHcwresponse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="li_assessorResponse", type="string", length=45, nullable=true)
+     */
+    private $liAssessorresponse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="li_hcwFindings", type="string", length=45, nullable=true)
+     */
+    private $liHcwfindings;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="li_assessorFindings", type="string", length=45, nullable=true)
+     */
+    private $liAssessorfindings;
+
 
     /**
      * Get liId
@@ -181,34 +209,6 @@ class LogIndicators
     {
         return $this->ssId;
     }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="li_hcwResponse", type="string", length=6, nullable=true)
-     */
-    private $liHcwresponse;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="li_hcwFindings", type="string", length=45, nullable=true)
-     */
-    private $liHcwfindings;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="li_assessorResponse", type="string", length=6, nullable=true)
-     */
-    private $liAssessorresponse;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="li_assessorFindings", type="string", length=45, nullable=true)
-     */
-    private $liAssessorfindings;
-
 
     /**
      * Set liHcwresponse
@@ -234,29 +234,6 @@ class LogIndicators
     }
 
     /**
-     * Set liHcwfindings
-     *
-     * @param string $liHcwfindings
-     * @return LogIndicators
-     */
-    public function setLiHcwfindings($liHcwfindings)
-    {
-        $this->liHcwfindings = $liHcwfindings;
-    
-        return $this;
-    }
-
-    /**
-     * Get liHcwfindings
-     *
-     * @return string 
-     */
-    public function getLiHcwfindings()
-    {
-        return $this->liHcwfindings;
-    }
-
-    /**
      * Set liAssessorresponse
      *
      * @param string $liAssessorresponse
@@ -277,6 +254,29 @@ class LogIndicators
     public function getLiAssessorresponse()
     {
         return $this->liAssessorresponse;
+    }
+
+    /**
+     * Set liHcwfindings
+     *
+     * @param string $liHcwfindings
+     * @return LogIndicators
+     */
+    public function setLiHcwfindings($liHcwfindings)
+    {
+        $this->liHcwfindings = $liHcwfindings;
+    
+        return $this;
+    }
+
+    /**
+     * Get liHcwfindings
+     *
+     * @return string 
+     */
+    public function getLiHcwfindings()
+    {
+        return $this->liHcwfindings;
     }
 
     /**
