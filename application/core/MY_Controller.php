@@ -268,7 +268,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectCommoditySuppliersPDF.= $value['supplierName'] . '<input type="checkbox">';
+            $this->selectCommoditySuppliersPDF.= $value['supplierName'] . '<input type = "radio"  name="cqSupplier_" id="cqSupplier_"  value="' . $value['supplierName'] . '">';
         }
     }
     
@@ -277,7 +277,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMCHCommoditySuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
+            $this->selectMCHCommoditySuppliers.= $value['supplierName'] . '<input type="radio" value="'.$value['supplierName'].'" name="supplierName">';
         }
     }
     
@@ -286,7 +286,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="radio" name="radiosup">';
+            $this->selectMCHCommoditySuppliersPDF.= $value['supplierName'] . '<input type="radio" value="'.$value['supplierName'].'" name="supplierName">';
         }
     }
 
@@ -472,9 +472,9 @@ class MY_Controller extends CI_Controller
             <td width="200">
             ' . $supplier_names . '</td>
             <td width="60">
-            1.Not Ordered<input type="checkbox"></br>
-            2.Ordered but not yet received<input type="checkbox">
-            3.Expired<input type="checkbox">
+            1.Not Ordered<input type="checkbox" value="Not Ordered" name="cqReason_" id="cqReason_"></br>
+            2.Ordered but not yet received<input type="checkbox" value="Ordered but not yet received" name="cqReason_" id="cqReason_">
+            3.Expired<input type="checkbox" value="Expired" name="cqReason_" id="cqReason_">
             </td>
             <input type="hidden"  name="cqcommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
@@ -485,6 +485,15 @@ class MY_Controller extends CI_Controller
     }
     
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
+
+    <td width="60">
+            <select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
+                <option value="" selected="selected">Select One</option>
+                <option value="Not Ordered">1. Not Ordered</option>
+                <option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
+                <option value="Expired">3. Expired</option>
+
+            </select></td>
      * */
     public function createMCHOrtCommodityAvailabilitySection() {
         $this->data_found = $this->m_mch_survey->getCommodityNames();
@@ -503,14 +512,16 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
             </td>
-            <td width="60">
-            <select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
-                <option value="" selected="selected">Select One</option>
-                <option value="Not Ordered">1. Not Ordered</option>
-                <option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
-                <option value="Expired">3. Expired</option>
+            
 
-            </select></td>
+            <td width="60">
+            1.Not Ordered<input type="checkbox" value="Not Ordered" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '"></br>
+            2.Ordered but not yet received<input type="checkbox" value="Ordered but not yet received" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '"><br/>
+            3.Expired<input type="checkbox" value="Expired" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '">
+            </td>
+
+
+
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
             </td>
@@ -556,6 +567,8 @@ class MY_Controller extends CI_Controller
         $supplier_names = $this->selectMCHCommoditySuppliersPDF;
         foreach ($this->data_found as $value) {
             $counter++;
+
+
             $this->mchCommodityAvailabilitySectionPDF.= '<tr>
             <td> ' . $value['commName'] . ' </td>
             <td> ' . $value['commUnit'] . '</td>
@@ -565,12 +578,14 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
             </td>
-            <td width="60">
 
-                1. Not Ordered<input type="checkbox">
-                2. Ordered but not yet Received<input type="checkbox">
-                3. Expired<input type="checkbox">
+            <td width="60">
+            1.Not Ordered<input name="cqReason_' . $counter . '[]" type="checkbox" value="Not Ordered" class="cloned"/></br> 
+            2.Ordered but not yet received<input name="cqReason_' . $counter . '[]" type="checkbox" value="Ordered but not yet received" class="cloned"/>
+            3.Expired<input name="cqReason_[]' . $counter . '" type="checkbox" value="Expired" class="cloned"/>
             </td>
+
+
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
             </td>
@@ -663,7 +678,7 @@ class MY_Controller extends CI_Controller
             
 
             <td style ="text-align:center;">
-            <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
+            <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="number" size="5" class="cloned numbers"/>
             </td>
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
@@ -690,14 +705,15 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
             </td>
-            <td width="60">
 
-                1. Not Ordered<input type="checkbox">
-                2. Ordered but not yet Received<input type="checkbox">
-                3. Expired<input type="checkbox">
-                4. All Used<input type="checkbox">
-                5. Not Applicable<input type="checkbox">
+            <td width="60">
+            1.Not Ordered<input name="cqReason_' . $counter . '[]" type="checkbox" value="Not Ordered" class="cloned"/></br> 
+            2.Ordered but not yet received<input name="cqReason_' . $counter . '[]" type="checkbox" value="Ordered but not yet received" class="cloned"/>
+            3.Expired<input name="cqReason_' . $counter . '[]" type="checkbox" value="Expired" class="cloned"/>
+            4. All Used<input name="cqReason_' . $counter . '[]" type="checkbox" value="All Used" class="cloned"/>
+            5. Not Applicable<input name="cqReason_' . $counter . '[]" type="checkbox" value="Not Applicable" class="cloned"/>
             </td>
+        
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
             </td>
@@ -810,7 +826,7 @@ class MY_Controller extends CI_Controller
         
         //var_dump($this->data_found);die;
         $counter = 0;
-        $ort_location = '';
+        //$ort_location = '';
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
@@ -822,11 +838,14 @@ class MY_Controller extends CI_Controller
             <td >' . $value['questionName'] . '</td>
             <td >
 
-            <label for="questionResponse_Yes" style="font-weight:normal">Yes</label>
-             <input type="radio" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_Yes' . $counter . '" class="cloned"/>
-            <label for="questionResponse_No" style="font-weight:normal">No</label>
-             <input type="radio" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_No' . $counter . '" class="cloned"/>
+            <label for="" style="font-weight:normal">Yes</label>
+             <input type="radio" value="Yes" name="questionResponse" id="questionResponse" class="cloned"/>
+            <label for="" style="font-weight:normal">No</label>
+             <input type="radio" value="No" name="questionResponse" id="questionResponse" class="cloned"/>
             </td>
+
+            
+
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
                 $this->ortCornerAspectsSection.= $aspect;
@@ -837,6 +856,11 @@ class MY_Controller extends CI_Controller
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
             <label>Multiple Selections Allowed</label><br/>
+
+
+            
+
+
             <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
             <label for="" style="font-weight:normal">MCH</label>
             
@@ -853,10 +877,8 @@ class MY_Controller extends CI_Controller
             <label for="" style="font-weight:normal">WARD</label>
             
           
-            <input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value=""/>
             <label for="" style="font-weight:normal">Other</label><br/>
-           
-            <input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+            <input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" class="cloned" maxlength="45" size="45" placeholder="please specify"/>
                      
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -888,7 +910,7 @@ class MY_Controller extends CI_Controller
                 }
             }
         }
-        
+        $this->myCount = $counter;
         //echo $this->ortCornerAspectsSection;die;
         return $this->ortCornerAspectsSection;
     }
@@ -937,7 +959,7 @@ class MY_Controller extends CI_Controller
             
             <input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value=""/>
             <label for="" style="font-weight:normal">Other</label><br/>
-            <input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+            <input type="text" name="questionLocResponset_' . $counter . '[]" id="questionLocResponset_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
             
             
             </td>
@@ -2752,12 +2774,8 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other" />
             </td>
-            <!--td style ="text-align:center;">
-            <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
-            </td-->
-            <td width="100">
-            ' . $ch_supplier_names . '
-            </td>
+            
+            
             
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
@@ -2870,19 +2888,8 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-            <td width="50">
-            ' . $ch_supplier_names . '
-            </td>
-            <!--td width="50">
-            <select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
-                <option value="" selected="selected">Select One</option>
-                <option value="Not Ordered">1. Not Ordered</option>
-                <option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
-                <option value="Expired">3. Expired</option>
-                <option value="All Used">4. All Used</option>
-                
-
-            </select></td-->
+            
+           
             <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
@@ -2960,10 +2967,7 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="hwAvailability_' . $counter . '" type="radio" value="Never Available" />
             </td>       
-            <td>
-            
-            ' . $ch_supplier_names . '
-            </td>
+         
             <td>            
             National Grid <input type="checkbox">Generator<input type="checkbox">Solar<input type="checkbox">bio Gas <input type="checkbox">
             Others <input type="checkbox">

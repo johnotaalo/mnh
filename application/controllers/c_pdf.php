@@ -1901,8 +1901,11 @@ class C_Pdf extends MY_Controller {
 			' . $this -> equipmentsMCHSection . '
 
 		</table>
-		<div id="section-6" class="step">
-		<input type="hidden" name="step_name" value="section-6"/>
+
+        </div><!--\.section-6-->
+
+		<div id="section-7" class="step">
+		<input type="hidden" name="step_name" value="section-7"/>
 		<p style="display:true" class="message success">
 			SECTION 7 of 9: SUPPLIES AVAILABILITY
 		</p>
@@ -1913,7 +1916,7 @@ class C_Pdf extends MY_Controller {
 		</tr>
 		<tr>
             <td>Who is the Main Supplier of the Supplies <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHOtherSuppliersPDF.'</td>
+            <td>'.$this-> selectMCHOtherSuppliersPDF.'</td>
         </tr>
 	</tr>
 	</table>

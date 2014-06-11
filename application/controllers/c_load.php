@@ -1629,36 +1629,7 @@ class C_Load extends MY_Controller {
         	'. $this -> mchIndicatorsSection['ear'].'
 
 		</table>
-		<table class="centre">
-		<thead>
-			<tr>
-				<th colspan="15" > CLINICAL STAFF</th>
-			</tr>
-			<tr>
-				<th colspan ="2" style="text-align:left"> CLINICAL STAFF</th>
-				<th style="text-align:left">TOTAL IN FACILITY</th>
-				<th style="text-align:left">TOTAL AVAILABLE ON DUTY<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN IMCI</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ICCM<th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN ENHANCED DIARRHOEA MANAGEMENT</th>
-				<th style="text-align:left">NUMBER OF STAFF TRAINED IN DIARRHOEA CMEs FOR U5s<th>
-				<th style="text-align:left">
-				<div style="width: 500px" >
-					How Many Of The Total Staff Members
-					Trained are still Working in Child Health?
-				</div></th>
-			</tr>
-		</thead>
-		<tr>
-			<td>Doctor</td>
-			</tr>
-			<tr>
-			<td>Nurse</td>
-			</tr>
-			<tr>
-			<td>R.C.O</td>
-			</tr>
-	</table>
+		
 	
 	</div><!--\.section 2-->
 
@@ -1911,6 +1882,133 @@ class C_Load extends MY_Controller {
 		</table>
 		
 	</div><!--\.section-6 -->
+
+    <div id="section-7" class="step">
+		<input type="hidden" name="step_name" value="section-7"/>
+		<p style="display:true" class="message success">
+			SECTION 7 of 9: SUPPLIES AVAILABILITY
+		</p>
+		<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the Supplies <strong>Below</strong>?</td>
+            <td>'.$this-> selectMCHOtherSuppliersPDF.'</td>
+        </tr>
+	</tr>
+	</table>
+		<table  class="centre" >
+			<thead>
+				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+				<tr>
+					<th colspan="1" rowspan="2">Supplies Name</th>
+
+					<th colspan="2" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
+					<th colspan="5" style="text-align:center"> Location of Availability </BR><strong> (Multiple Selections Allowed)</strong></th>
+					
+
+				</tr>
+				<tr >
+					<th >Available</th>
+					<th>Not Available</th>
+					<th>OPD</th>
+					<th>MCH</th>
+					<th>U5 Clinic</th>
+					<th>Ward</th>
+					<th>Other</th>
+				</tr>
+			</thead>
+			' . $this -> suppliesMCHSectionPDF . '
+		</table>
+		<table  class="centre" >
+			<thead>
+				<tr>
+					<th colspan="1" rowspan="2">Testing Supplies</th>
+
+					<th colspan="2" style="text-align:center"> Availability <strong></BR> (One Selection Allowed) </strong></th>
+					<th colspan="5" style="text-align:center"> Location of Availability </BR><strong> (Multiple Selections Allowed)</strong></th>
+					
+
+				</tr>
+				<tr >
+					<th >Available</th>
+					<th>Not Available</th>
+					<th>OPD</th>
+					<th>MCH</th>
+					<th>U5 Clinic</th>
+					<th>Ward</th>
+					<th>Other</th>
+				</tr>
+			</thead>
+			
+		</table>
+		
+	</div><!--\.section-7 -->
+   
+
+   <div id="section-8" class="step">
+	<input type="hidden" name="step_name" value="section-8"/>
+       <p style="display:true" class="message success">
+			SECTION 8 of 9: RESOURCE AVAILABILITY
+		</p>
+			<table>
+	<tr>
+		<tr>
+			<th colspan="2">Main Supplier</th>
+		</tr>
+		<tr>
+            <td>Who is the Main Supplier of the Resources <strong>Below</strong>?</td>
+            <td>'.$this-> selectMCHOtherSuppliersPDF .'</td>
+        </tr>
+	</tr>
+	</table>
+		<table  class="centre" >
+			<thead>
+				<th colspan="9">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
+				<tr>
+					<th colspan="1" rowspan="2">Resource Name</th>
+					<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+					<th colspan="5" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
+			
+
+				</tr>
+				<tr >
+					<th>Available</th>
+					<th>Not Available</th>
+					<th>OPD</th>
+					<th>MCH</th>
+					<th>U5 Clinic</th>
+					<th>Ward</th>
+					<th>Other</th>
+				</tr>
+			</thead>
+			' . $this -> hardwareMCHSectionPDF . '
+		</table>
+		
+	</div><!--\.section-8 -->
+
+	<div id="section-9" class="step">
+	<input type="hidden" name="step_name" value="section-9"/>
+      <p style="display:true;margin-top:50px" class="message success">
+			SECTION 9 of 9: COMMUNITY STRATEGY
+		</p>
+		<table class="centre">
+	<thead>
+		<tr>
+			<th colspan="2" >COMMUNITY STRATEGY </th>
+		</tr>
+	</thead>
+	<tr>
+		<th  style="width:65%">ASPECT</th>
+		<th   style="width:35%;text-align:left"> RESPONSE </th>
+	</tr>
+	' . $this -> mchCommunityStrategySection . '
+</table>
+		
+	</div><!--\.section-9 -->
+
 	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
