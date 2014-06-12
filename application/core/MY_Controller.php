@@ -259,7 +259,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectCommoditySuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
+            $this->selectCommoditySuppliers.= $value['supplierName'] . '<input type = "radio"  name="cqSupplier_" id="cqSupplier_"  value="' . $value['supplierName'] . '">';
         }
     }
     

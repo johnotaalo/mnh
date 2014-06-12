@@ -1960,7 +1960,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
             <td>Who is the Main Supplier of the Resources <strong>Below</strong>?</td>
-            <td>'.$this-> selectMCHOtherSuppliersPDF .'</td>
+            <td>'.$this-> selectMCHOtherSuppliers .'</td>
         </tr>
 	</tr>
 	</table>
