@@ -3636,27 +3636,4 @@ class MY_Controller extends CI_Controller
         return $this->treatmentMCHSection;
     }
     
-    /**
-     * [notify_sms description]
-     * @return [type] [description]
-     */
-    public function notify_sms() {
-        $phone_minlength = '8';
-        $phone = "";
-        $phone_list = "";
-        $first_part = "";
-        $kenyacode = "254";
-        $arrDelimiters = array("/", ",", "+");
-        $message = "Test Message";
-        $message = urlencode($message);
-
-
-        $phone_list=array()
-        $phone = "+254717406871";
-        file("http://41.57.109.242:13000/cgi-bin/sendsms?username=clinton&password=ch41sms&to=$phone&text=$message");
-        echo 'sent';
-        
-        // return $alert;
-        
-    }
 }
