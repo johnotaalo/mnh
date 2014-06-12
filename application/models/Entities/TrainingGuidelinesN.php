@@ -64,6 +64,13 @@ class TrainingGuidelinesN
     private $tgAfter;
 
     /**
+     * @var \DateTime
+     *
+     * @Column(name="tg_created", type="datetime", nullable=true)
+     */
+    private $tgCreated;
+
+    /**
      * @var string
      *
      * @Column(name="guide_code", type="string", length=45, nullable=true)
@@ -231,6 +238,29 @@ class TrainingGuidelinesN
     public function getTgAfter()
     {
         return $this->tgAfter;
+    }
+
+    /**
+     * Set tgCreated
+     *
+     * @param \DateTime $tgCreated
+     * @return TrainingGuidelinesN
+     */
+    public function setTgCreated($tgCreated)
+    {
+        $this->tgCreated = $tgCreated;
+    
+        return $this;
+    }
+
+    /**
+     * Get tgCreated
+     *
+     * @return \DateTime 
+     */
+    public function getTgCreated()
+    {
+        return $this->tgCreated;
     }
 
     /**

@@ -256,7 +256,8 @@ class M_MNH_Survey extends MY_Model
     
     public function verifyRespondedByDistrict() {
         if ($this->input->post()) {
-             //check if a post was made
+            
+            //check if a post was made
             
             //die(var_dump($this->input->post()));
             
@@ -273,14 +274,16 @@ class M_MNH_Survey extends MY_Model
             catch(exception $ex) {
                 
                 //ignore
-                //die($ex->getMessage());
-                
+                die($ex->getMessage());
             }
         }
-         //close the this->input->post
+        
+        //close the this->input->post
+        
         
     }
-     /*close verifyRespondedByDistrict*/
+    
+    /*close verifyRespondedByDistrict*/
     
     public function getFacilitiesByDistrict($district) {
         
@@ -333,13 +336,14 @@ class M_MNH_Survey extends MY_Model
         catch(exception $ex) {
             
             //ignore
-            //die($ex->getMessage());
+            die($ex->getMessage());
             return false;
         }
         
         return true;
     }
-     /*close retrieveFacilityInfo($mfc)*/
+    
+    /*close retrieveFacilityInfo($mfc)*/
     
     function addRecord() {
         $s = microtime(true);
@@ -350,7 +354,8 @@ class M_MNH_Survey extends MY_Model
         $this->theIds = array();
         
         if ($this->input->post()) {
-             //check if a post was made
+            
+            //check if a post was made
             
             //just a thought..thread this for performance...??
             
@@ -365,21 +370,25 @@ class M_MNH_Survey extends MY_Model
             
             
         }
-         //close the this->input->post
+        
+        //close the this->input->post
         $e = microtime(true);
         $this->executionTime = round($e - $s, '4');
         $this->rowsInserted = $this->noOfInsertsBatch;
         return $this->response = 'ok';
     }
-     //end of addRecord()
+    
+    //end of addRecord()
     
     private function addDiarrhoeaByMonthInfo() {
         
         //print_r($this -> input -> post());die;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'dnm') !== FALSE) {
-                 //select data for number of deliveries
+                
+                //select data for number of deliveries
                 $this->attr = $key;
                 
                 //the attribute name
@@ -391,9 +400,11 @@ class M_MNH_Survey extends MY_Model
                     //We then store the value of this attribute for this element.
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 1;
-                   // print_r($val);die;
+                    
+                    // print_r($val);die;
                     foreach ($val as $k => $month) {
                         $month = (int)$month;
+                        
                         //echo ($k.' '.$month);die;
                         $this->elements[$count]['monthData'] = htmlentities($month);
                         $this->elements[$count]['monthName'] = htmlentities($k);
@@ -405,9 +416,11 @@ class M_MNH_Survey extends MY_Model
                 
                 //print $key.' val='.$val.' <br />';
                 
+                
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         
         //exit;
         
@@ -448,15 +461,17 @@ class M_MNH_Survey extends MY_Model
                     //detaches all objects from doctrine
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -470,15 +485,17 @@ class M_MNH_Survey extends MY_Model
                     //detactes all objects from doctrine
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 //on the last record to be inserted, log the process and return true;
                 if ($i == $this->noOfInsertsBatch) {
@@ -491,20 +508,25 @@ class M_MNH_Survey extends MY_Model
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addDiarrhoeaCasesByMonthInfo()
+    
+    //close addDiarrhoeaCasesByMonthInfo()
     
     private function addMnhCommunityStrategyInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
-            if (strpos($key, 'mnhCommunity') !== FALSE) {
-                 //select data for mnh community strategy
+            
+            //For every posted values
+            if (strpos($key, 'question') !== FALSE) {
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -523,7 +545,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "mnhCommunityStrategyQCode") {
+                if ($this->attr == "questionCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -533,6 +555,7 @@ class M_MNH_Survey extends MY_Model
                     // print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -544,15 +567,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -568,11 +594,11 @@ class M_MNH_Survey extends MY_Model
             
             //create an object of the model
             
-            $this->theForm->setQuestionCode($this->elements[$i]['mnhCommunityStrategyQCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['mnhCommunityStrategy'])) ? $this->theForm->setLqResponseCount((int)$this->elements[$i]['mnhCommunityStrategy']) : $this->theForm->setLqResponseCount(0);
+            (isset($this->elements[$i]['questionCount'])) ? $this->theForm->setLqResponseCount((int)$this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(0);
             $this->theForm->setLqResponse('n/a');
             $this->theForm->setLqReason('n/a');
             
@@ -604,15 +630,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -635,36 +663,44 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addJobAidsInfo()
+    
+    //close addJobAidsInfo()
     
     private function addBemoncSignalFunctionsInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
+            
             //For every posted values
             if (strpos($key, 'bms') !== FALSE) {
+                
                 //select data for bemonc signal functions
                 //we separate the attribute name from the number
-              
+                
                 $this->frags = explode("_", $key);
                 
                 //$this->id = $this->frags[1];  // the id
@@ -674,7 +710,7 @@ class M_MNH_Survey extends MY_Model
                 // the id
                 
                 $this->attr = $this->frags[0];
-               
+                
                 //the attribute name
                 
                 //print $key.' ='.$val.' <br />';
@@ -692,6 +728,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -702,23 +739,25 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
-                 
             }
         }
-
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print_r($this->elements);die;
         
         //exit;
         
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
+        
         //echo  $this->noOfInsertsBatch;die;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
@@ -728,9 +767,9 @@ class M_MNH_Survey extends MY_Model
             
             //create an object of the model
             
-            
             $this->theForm->setFacId($this->session->userdata('facilityMFL'));
-           //echo $this->elements[$i]['bmsfSignalCode'];
+            
+            //echo $this->elements[$i]['bmsfSignalCode'];
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['bmsfSignalFunctionConducted'])) ? $this->theForm->setBemConducted($this->elements[$i]['bmsfSignalFunctionConducted']) : $this->theForm->setBemConducted("N/A");
             (isset($this->elements[$i]['bmsfSignalCode'])) ? $this->theForm->setSfCode($this->elements[$i]['bmsfSignalCode']) : $this->theForm->setSfCode("n/a");
@@ -753,6 +792,7 @@ class M_MNH_Survey extends MY_Model
                     //detaches all objects from doctrine
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
@@ -761,7 +801,8 @@ class M_MNH_Survey extends MY_Model
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -775,6 +816,7 @@ class M_MNH_Survey extends MY_Model
                     //detactes all objects from doctrine
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
@@ -783,7 +825,8 @@ class M_MNH_Survey extends MY_Model
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 //on the last record to be inserted, log the process and return true;
                 if ($i == $this->noOfInsertsBatch) {
@@ -796,20 +839,25 @@ class M_MNH_Survey extends MY_Model
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addBemoncSignalFunctionsInfo
+    
+    //close addBemoncSignalFunctionsInfo
     
     private function addCEOCServicesInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhceoc') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -839,6 +887,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -849,15 +898,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -923,15 +975,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -954,36 +1008,44 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addCEOCServicesInfo()
+    
+    //close addCEOCServicesInfo()
     
     private function addServicesInfo() {
         $this->elements = array();
         
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	//print_r ($this->input->post()); die;
-             //For every posted values
+            
+            //print_r ($this->input->post()); die;
+            //For every posted values
             if (strpos($key, 'service') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1013,6 +1075,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1023,15 +1086,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1084,15 +1150,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1115,34 +1183,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addCommitteeInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'committee') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1172,6 +1248,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1182,15 +1259,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1244,15 +1324,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1275,34 +1357,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addNewbornInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'newborn') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1332,6 +1422,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1342,15 +1433,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1409,15 +1503,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1440,34 +1536,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addWasteDisposalInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'wastedisposal') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1497,6 +1601,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1507,15 +1612,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1574,15 +1682,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1605,34 +1715,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addNurseInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'nurse') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1662,6 +1780,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1672,15 +1791,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1733,15 +1855,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1764,34 +1888,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addBedsInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'bed') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1821,6 +1953,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1831,15 +1964,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -1891,15 +2027,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -1922,34 +2060,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addKangarooInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'kangaroo') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -1979,6 +2125,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -1989,15 +2136,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2051,15 +2201,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2082,34 +2234,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addGuidelinesInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhGuidelines') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2139,6 +2299,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -2149,15 +2310,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2210,15 +2374,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2241,34 +2407,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addHIVTestingInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhHIV') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2298,6 +2472,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -2308,15 +2483,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2374,15 +2552,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2405,34 +2585,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addHIVTestingInfo()
+    
+    //close addHIVTestingInfo()
     
     private function addPreparednessInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhPreparedness') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2462,6 +2650,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -2472,15 +2661,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2531,15 +2723,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2562,34 +2756,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addGuidelinesInfo()
+    
+    //close addGuidelinesInfo()
     
     private function addJobAidsInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhJobAids') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2619,6 +2821,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -2629,15 +2832,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2690,15 +2896,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2721,34 +2929,42 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addJobAidsInfo()
+    
+    //close addJobAidsInfo()
     
     private function addMNHWaterSourceAspectsInfo() {
         $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'mnhwAspect') !== FALSE) {
-                 //select data for mnh community strategy
+                
+                //select data for mnh community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2778,6 +2994,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -2788,15 +3005,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         // print var_dump($this->elements);
         
         //exit;
@@ -2858,15 +3078,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2889,33 +3111,43 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addMNHWaterSourceAspectsInfo()
+    
+    //close addMNHWaterSourceAspectsInfo()
     
     private function addCommodityQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
+        
+        // print_r($this->input->post('supplierName'));die;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'cq') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2939,7 +3171,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "cqCommodityCode") {
+                if ($this->attr == "cqCommCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -2949,6 +3181,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -2960,15 +3193,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         /*foreach($this->elements as $key=>$value){
@@ -3002,7 +3238,7 @@ class M_MNH_Survey extends MY_Model
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['cqExpiryDate'])) ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
             (isset($this->elements[$i]['cqNumberOfUnits'])) ? $this->theForm->setAcQuantity($this->elements[$i]['cqNumberOfUnits']) : $this->theForm->setAcQuantity(-1);
-            (isset($this->elements[$i]['cqSupplier']) || $this->elements[$i]['cqSupplier'] == '') ? $this->theForm->setSupplierCode($this->elements[$i]['cqSupplier']) : $this->theForm->setSupplierCode("Other");
+            ($this->input->post('supplierName') == '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
             (isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason'] == '') ? $this->theForm->setAcReasonUnavailable($this->elements[$i]['cqReason']) : $this->theForm->setAcReasonUnavailable("N/A");
             (isset($this->elements[$i]['cqAvailability'])) ? $this->theForm->setAcAvailability($this->elements[$i]['cqAvailability']) : $this->theForm->setAcAvailability("N/A");
             (isset($this->elements[$i]['cqLocation'])) ? $this->theForm->setAcLocation($this->elements[$i]['cqLocation']) : $this->theForm->setAcLocation("N/A");
@@ -3032,12 +3268,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -3060,12 +3297,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 // die(print 'I completed well after iteration: '.$i);
                 
@@ -3076,19 +3314,24 @@ class M_MNH_Survey extends MY_Model
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addCommodityQuantityAvailabilityInfo
+    
+    //close addCommodityQuantityAvailabilityInfo
     
     private function addSuppliesQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'sq') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3123,6 +3366,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -3133,15 +3377,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         //exit;
@@ -3200,12 +3447,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -3228,31 +3476,37 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addSuppliesQuantityAvailabilityInfo
+    
+    //close addSuppliesQuantityAvailabilityInfo
     
     private function addEquipmentQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'eq') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3276,7 +3530,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "eqEquipmentCode") {
+                if ($this->attr == "eqCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -3286,6 +3540,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -3297,15 +3552,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         /*foreach($this->elements as $key=>$value){
@@ -3369,12 +3627,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -3397,12 +3656,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 // die(print 'I completed well after iteration: '.$i);
                 
@@ -3413,21 +3673,25 @@ class M_MNH_Survey extends MY_Model
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addEquipmentQuantityAvailabilityInfo
     
-    private function addGuidelinesStaffInfo() {
+    private function addMchStaffTrainingInfo() {
+        
+        //echo "<pre>";print_r($this->input->post());echo "</pre>";die;
+        $this->elements = array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
-            if (strpos($key, 'gs') !== FALSE) {
+            if (strpos($key, 'mchTraining') !== FALSE) {
                 
-                //select data for bemonc signal functions
+                //select data for mch community strategy
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3446,7 +3710,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "gsguideCode") {
+                if ($this->attr == "mchTrainingTotalStaffMembersStillWorking") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -3459,50 +3723,88 @@ class M_MNH_Survey extends MY_Model
                     
                     
                 }
+                if ($this->attr == "mchTrainingStaff") {
+                    
+                    // print 'count at:'.$count.'<br />';
+                    
+                    $staff = $val;
+                    
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
+                    
+                }
+                
+                if (is_array($val)) {
+                    
+                    //var_dump($val);die;
+                    foreach ($val as $guide => $trained) {
+                        
+                        $data[$staff][$this->attr][$guide] = $trained;
+                    }
+                } else {
+                    $data[$staff][$this->attr] = $val;
+                }
+                
+                // die;
                 
                 //collect key and value to an array
-                if (!empty($val)) {
+                /* if (!empty($val)) {
                     
                     //We then store the value of this attribute for this element.
                     $this->elements[$this->id][$this->attr] = htmlentities($val);
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
-                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
-                    
-                }
+                }*/
             }
         }
         
-        //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+        //echo "<pre>";print_r($data);echo "</pre>";die;
+        $counter = 0;
+        foreach ($data as $value) {
+            foreach ($value['mchTrainingBefore'] as $key => $training) {
+                $counter++;
+                $newData[$counter]['mchTrainingStaff'] = $value['mchTrainingStaff'];
+                $newData[$counter]['mchTrainingTotalinFacility'] = $value['mchTrainingTotalinFacility'];
+                $newData[$counter]['mchTrainingTotalAvailableOnDuty'] = $value['mchTrainingTotalAvailableOnDuty'];
+                $newData[$counter]['mchTrainingTotalStaffMembersStillWorking'] = $value['mchTrainingTotalStaffMembersStillWorking'];
+                $newData[$counter]['mchGuideline'] = $key;
+                $newData[$counter]['mchBefore'] = $training;
+                $newData[$counter]['mchAfter'] = $value['mchTrainingAfter'][$key];
+            }
+        }
         
-        //exit;
+        $this->elements = $newData;
         
+        //echo "<pre>";print_r( $this->elements);echo "</pre>";die;
         //get the highest value of the array that will control the number of inserts to be done
-        $this->noOfInsertsBatch = $finalCount;
+        $this->noOfInsertsBatch = $counter;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\TrainingGuidelines();
+            $this->theForm = new \models\Entities\TrainingGuidelinesN();
             
             //create an object of the model
             
-            $this->theForm->setGuideCode($this->elements[$i]['gsguideCode']);
+            //$this -> elements[$i]['mchCommunityStrategyQCode']);
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['gstrainedbefore2010'])) ? $this->theForm->setTgTrainedBefore2010($this->elements[$i]['gstrainedbefore2010']) : $this->theForm->setTgTrainedBefore2010(-1);
-            (isset($this->elements[$i]['gstrainedafter2010'])) ? $this->theForm->setTgTrainedAfter2010($this->elements[$i]['gstrainedafter2010']) : $this->theForm->setTgTrainedAfter2010(-1);
-            (isset($this->elements[$i]['gsworking'])) ? $this->theForm->setTgWorking($this->elements[$i]['gsworking']) : $this->theForm->setTgWorking(-1);
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setTgCreated(new DateTime());
+            (isset($this->elements[$i]['mchTrainingStaff']) && $this->elements[$i]['mchTrainingStaff'] != '') ? $this->theForm->setTgStaff($this->elements[$i]['mchTrainingStaff']) : $this->theForm->setTgStaff(-1);
+            (isset($this->elements[$i]['mchTrainingTotalinFacility']) && $this->elements[$i]['mchTrainingTotalinFacility'] != '') ? $this->theForm->setTgTotalFacility($this->elements[$i]['mchTrainingTotalinFacility']) : $this->theForm->setTgTotalFacility(-1);
+            (isset($this->elements[$i]['mchTrainingTotalAvailableOnDuty']) && $this->elements[$i]['mchTrainingTotalAvailableOnDuty'] != '') ? $this->theForm->setTgTotalDuty($this->elements[$i]['mchTrainingTotalAvailableOnDuty']) : $this->theForm->setTgTotalDuty(-1);
+            (isset($this->elements[$i]['mchTrainingTotalStaffMembersStillWorking']) && $this->elements[$i]['mchTrainingTotalStaffMembersStillWorking'] != '') ? $this->theForm->setTgWorking($this->elements[$i]['mchTrainingTotalStaffMembersStillWorking']) : $this->theForm->setTgWorking(-1);
+            (isset($this->elements[$i]['mchGuideline']) && $this->elements[$i]['mchGuideline'] != '') ? $this->theForm->setGuideCode($this->elements[$i]['mchGuideline']) : $this->theForm->setGuideCode(-1);
+            (isset($this->elements[$i]['mchBefore']) && $this->elements[$i]['mchBefore'] != '') ? $this->theForm->setTgBefore($this->elements[$i]['mchBefore']) : $this->theForm->setTgBefore(-1);
+            (isset($this->elements[$i]['mchAfter']) && $this->elements[$i]['mchAfter'] != '') ? $this->theForm->setTgAfter($this->elements[$i]['mchAfter']) : $this->theForm->setTgAfter(-1);
             
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
@@ -3533,7 +3835,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -3566,7 +3868,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -3586,14 +3888,20 @@ class M_MNH_Survey extends MY_Model
         
         
     }
-     //close addGuidelinesStaffInfo
+    
+    //close addMchCommunityStrategyInfo()
     
     private function addCommodityUsageAndStockOutageInfo() {
+        $this->elements = array();
         $count = $finalCount = 1;
+        
+        //var_dump($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'usoc') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3617,7 +3925,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "usocCommodityCode") {
+                if ($this->attr == "usoccommCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -3627,6 +3935,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -3638,16 +3947,19 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+        
+        //close foreach ($this -> input -> post() as $key => $val)
+        //print var_dump($this->elements);die;
         
         /*foreach($this->elements as $key=>$value){
         if(isset($value['cqNumberOfUnits'])){
@@ -3703,12 +4015,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -3731,30 +4044,36 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addCommodityUsageAndStockOutageInfo
-     private function addNoReasonForDeliveries() {
+    
+    //close addCommodityUsageAndStockOutageInfo
+    private function addNoReasonForDeliveries() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'facRsn') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3778,7 +4097,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "facRsnNoDeliveries") {
+                if ($this->attr == "facRsnNoDeliveriesCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -3788,6 +4107,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -3799,15 +4119,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-        //print var_dump($this->elements);die;
+        
+        //echo '<pre>';print_r($this->elements);echo '</pre>';die;
         //exit;
         //get the highest value of the array that will control the number of inserts to be done
         
@@ -3828,7 +4151,7 @@ class M_MNH_Survey extends MY_Model
             //(isset($this->elements[$i]['mnhGuidelinesAspectCount'])) ? $this->theForm->setLqResponseCount($this->elements[$i]['mnhGuidelinesAspectCount']) : $this->theForm->setLqResponseCount(0);
             $this->theForm->setLqResponseCount('n/a');
             $this->theForm->setLqResponse('No');
-            $this->theForm->getQuestionCode('n/a');
+            $this->theForm->setQuestionCode($this->elements[$i]['facRsnNoDeliveriesCode']);
             
             $this->theForm->setLqSpecifiedOrFollowUp('n/a');
             
@@ -3836,7 +4159,8 @@ class M_MNH_Survey extends MY_Model
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
             /*timestamp option*/
-            $this->em->persist($this->theForm);        
+            $this->em->persist($this->theForm);
+            
             //now do a batched insert, default at 5
             $this->batchSize = 5;
             if ($i % $this->batchSize == 0) {
@@ -3857,15 +4181,17 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -3888,34 +4214,41 @@ class M_MNH_Survey extends MY_Model
                     
                     //return true;
                     
+                    
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
+        
         
     }
-     //close addNoReasonForDeliveries()
     
+    //close addNoReasonForDeliveries()
     
     private function addSuppliesUsageAndStockOutageInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'usos') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -3950,6 +4283,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -3960,15 +4294,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         //exit;
@@ -4016,12 +4353,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -4044,31 +4382,37 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
-     //close addSuppliesUsageAndStockOutageInfo
+    
+    //close addSuppliesUsageAndStockOutageInfo
     
     private function addResourceAvailabilityInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'hw') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -4103,6 +4447,7 @@ class M_MNH_Survey extends MY_Model
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
                     
+                    
                 }
                 
                 //collect key and value to an array
@@ -4113,15 +4458,18 @@ class M_MNH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         //exit;
@@ -4177,12 +4525,13 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -4205,25 +4554,346 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
-
     }
-     //close addResourceAvailabilityInfo
+    
+    private function addQuestionsInfo() {
+        $count = $finalCount = 1;
+        $this->elements = array();
+        //var_dump($this->input->post());die;
+        foreach ($this->input->post() as $key => $val) {
+            
+            //print_r($val);
+            //For every posted values
+            if (strpos($key, 'question') !== FALSE) {
+                
+                //select data for bemonc signal functions
+                //we separate the attribute name from the number
+                
+                $this->frags = explode("_", $key);
+                
+                //$this->id = $this->frags[1];  // the id
+                
+                $this->id = $count;
+                
+                // the id
+                
+                $this->attr = $this->frags[0];
+                
+                //the attribute name
+                
+                //print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+                
+                //mark the end of 1 row...for record count
+                if ($this->attr == "questionCode") {
+                    
+                    // print 'count at:'.$count.'<br />';
+                    
+                    $finalCount = $count;
+                    $count++;
+                    
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
+                    
+                }
+                
+                //collect key and value to an array
+                if (!empty($val)) {
+                    
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    
+                    //$this->elements[$this->attr]=htmlentities($val);
+                    
+                    
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+                    
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+                    
+                    
+                }
+            }
+        }
+        
+        //close foreach ($this -> input -> post() as $key => $val)
+       // print var_dump($this->elements);die;
+        
+        //exit;
+        
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = $finalCount;
+        
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+            
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\LogQuestions();
+            
+            //create an object of the model
+            
+            //$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            
+            //check if that key exists, else set it to some default value
+            
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse('n/a');
+            (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
+            (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
+            (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
+            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->theForm->setLqCreated(new DateTime());
+            
+            /*timestamp option*/
+            $this->em->persist($this->theForm);
+            
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    //return true;
+                    
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                
+                //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    //return true;
+                    
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                
+                //end of catch
+                
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+                    
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+            
+            //end of batch condition
+            
+            
+        }
+        
+        //end of innner loop
+        
+        
+    }
+    
+    private function addIndicatorInfo() {
+        $count = $finalCount = 1;
+        $this->elements = array();
+        foreach ($this->input->post() as $key => $val) {
+            
+            //For every posted values
+            if (strpos($key, 'indicator') !== FALSE) {
+                
+                //select data for bemonc signal functions
+                //we separate the attribute name from the number
+                
+                $this->frags = explode("_", $key);
+                
+                //$this->id = $this->frags[1];  // the id
+                
+                $this->id = $count;
+                
+                // the id
+                
+                $this->attr = $this->frags[0];
+                
+                //the attribute name
+                
+                //print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+                
+                //mark the end of 1 row...for record count
+                if ($this->attr == "indicatorCode") {
+                    
+                    // print 'count at:'.$count.'<br />';
+                    
+                    $finalCount = $count;
+                    $count++;
+                    
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
+                    
+                }
+                
+                //collect key and value to an array
+                if (!empty($val)) {
+                    
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    
+                    //$this->elements[$this->attr]=htmlentities($val);
+                    
+                    
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+                    
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+                    
+                    
+                }
+            }
+        }
+        
+        //close foreach ($this -> input -> post() as $key => $val)
+        //echo '<pre>';print_r($this->elements);echo '</pre>';die;
+        
+        //exit;
+        
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = $finalCount;
+        
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+            
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\LogIndicators();
+            
+            //create an object of the model
+            
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            
+            //check if that key exists, else set it to some default value
+            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiHcwresponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiHcwresponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwfindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwfindings("N/A");
+            (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
+            (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
+            $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->theForm->setLiCreated(new DateTime());
+            
+            /*timestamp option*/
+            $this->em->persist($this->theForm);
+            
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    //return true;
+                    
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                
+                //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    //return true;
+                    
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                
+                //end of catch
+                
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+                    
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+            
+            //end of batch condition
+            
+            
+        }
+        
+        //end of innner loop
+        
+        
+    }
     
     function store_data() {
         
@@ -4240,9 +4910,11 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                       if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries()== true) {//Defined in MY_Model
-                         //if($this->addNoReasonForDeliveries()== true){
-                         $this->writeAssessmentTrackerLog();
+                        if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries() == true) {
+                            
+                            //Defined in MY_Model
+                            //if($this->addNoReasonForDeliveries()== true){
+                            $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
                             return $this->response = 'false';
@@ -4266,12 +4938,13 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         
-                      /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
+                        /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
                          $this -> writeAssessmentTrackerLog();*/
-                      if (/*$this->addMnhCommunityStrategyInfo()&& $this->addKangarooInfo() == true && $this->addNewbornInfo() == true  && $this->addGuidelinesInfo() == true && $this->addHIVTestingInfo() == true
-                       && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addJobAidsInfo() == true && $this->addDiarrhoeaByMonthInfo() == true*/$this -> addBemoncSignalFunctionsInfo() == true  ){//} == true  && $this->addDiarrhoeaByMonthInfo() == true 
-                            //  ) {
-                             //defined in this model
+                        if ($this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addBemoncSignalFunctionsInfo() == true) {
+                            
+                            //} == true  && $this->addDiarrhoeaByMonthInfo() == true
+                            //) {
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
@@ -4293,8 +4966,13 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addCommodityQuantityAvailabilityInfo() == true) {
-                             //defined in this model
+                        if ($this->addQuestionsInfo() == true && $this->addIndicatorInfo() == true
+                        
+                        //&& $this->addGuidelinesInfo() == true
+                        ) {
+                            
+                            //$this->addCommodityQuantityAvailabilityInfo() == true) {
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
@@ -4316,8 +4994,9 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addGuidelinesStaffInfo() == true) {
-                             //defined in this model
+                        if ($this->addMchStaffTrainingInfo() == true) {
+                            
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
@@ -4339,8 +5018,9 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addCommodityUsageAndStockOutageInfo() == true) {
-                             //defined in this model
+                        if ($this->addCommodityQuantityAvailabilityInfo() == true) {
+                            
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
@@ -4362,8 +5042,11 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true && $this->addMNHWaterSourceAspectsInfo() == true) {
-                             //defined in this model
+                        if ($this->addCommodityUsageAndStockOutageInfo() == true) {
+                            
+                            //$this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true && $this->addMNHWaterSourceAspectsInfo() == true) {
+                            
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
@@ -4385,8 +5068,43 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addSuppliesQuantityAvailabilityInfo() == true && $this->addSuppliesUsageAndStockOutageInfo() == true && $this->addWasteDisposalInfo() == true) {
-                             //defined in this model
+                        if ($this->addResourceAvailabilityInfo() == true && $this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true
+                         //) {
+                        //&& $this->addSuppliesUsageAndStockOutageInfo() == true
+                         && $this->addWasteDisposalInfo() == true) {
+                            
+                            //defined in this model
+                            $this->writeAssessmentTrackerLog();
+                            
+                            //update facility survey status
+                            $this->markSurveyStatusAsComplete();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+                        
+                        //die('Entry exsits');
+                        $this->markSurveyStatusAsComplete();
+                        return $this->response = 'true';
+                    }
+                    
+                    break;
+
+                case 'section-8':
+                    
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+                    
+                    //print var_dump($this->section);
+                    
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        if ($this->addQuestionsInfo() == true) {
+                            
+                            // && $this->addSuppliesUsageAndStockOutageInfo() == true && $this->addWasteDisposalInfo() == true) {
+                            
+                            //defined in this model
                             $this->writeAssessmentTrackerLog();
                             
                             //update facility survey status
@@ -4404,12 +5122,15 @@ class M_MNH_Survey extends MY_Model
                     
                     break;
             }
-             //close switch
+            
+            //close switch
             //print var_dump($this->input->post());
             
             //return $this -> response = 'true';
             
+            
         }
     }
 }
- //end of class M_MNH_Survey
+
+//end of class M_MNH_Survey

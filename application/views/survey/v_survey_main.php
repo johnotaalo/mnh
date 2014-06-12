@@ -555,7 +555,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																$(form_id).bind("after_remote_ajax", function(event, fdata){
 																	//console.log($(form_id).formwizard('state'));
 																  if(form_id=="#mnh_tool"){
-																  	 if(fdata.currentStep=='section-7'){
+																  	 if(fdata.currentStep=='section-8'){
 																  //	alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
@@ -565,7 +565,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																  	
 																  }
 																  }else{
-																  	 if(fdata.currentStep=='section-6'){
+																  	 if(fdata.currentStep=='section-9'){
 																    //alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
@@ -704,15 +704,10 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 									success: function(data){
 										survey = '<?php echo $this->session->userdata("survey");?>';
 											//alert(data);
-										if(survey=='mnh' && data==1 ){
-
-											$(form_id).formwizard('show','Yes');
 										
-										}
-										else{
 											(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 										
-										}
+										
 										//console.log(data);
 										
 									}}

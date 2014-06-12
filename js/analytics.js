@@ -92,6 +92,7 @@ function startAnalytics(base_url, county, survey) {
 	$('#reporting-parent').show();
 	$('#analytics-page').hide();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//Load Initial Graphs
 	$('#graph_5').load(base_url + 'c_analytics/getFacilityOwnerPerCounty/' + county);
 	$('#graph_6').load(base_url + 'c_analytics/getFacilityLevelPerCounty/' + county);
@@ -162,6 +163,8 @@ function startAnalytics(base_url, county, survey) {
 	$('.secondary-filter').hide();
 =======
 >>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 
 
 	//Home Action Event
@@ -202,6 +205,7 @@ function startAnalytics(base_url, county, survey) {
 		$('.has-sub.start').removeClass('active');
 		$('.has-sub.start a').remove('span');
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 		if (subID == 'facilities') {
 			$('.span6').hide();
@@ -1347,13 +1351,24 @@ function startAnalytics(base_url, county, survey) {
 		$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
 		$('#breadcrumb-sub-title').text(smallText);
 =======
+=======
+		$('span.statistic').text($(this).find('a').text());
+		$(this).parent().parent().addClass('active');
+		$(this).parent().parent().find('a').append('<span class="selected"></span>');
+
+		currentChart = $(this).attr('id');
+
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 		function_url_national = 'c_analytics' + '/get' + currentChart + '/national/n' + '/' + survey + '/' + extraStat;
 		console.log(function_url_national);
 		loadGraph(base_url, function_url_national, '#graph_national');
 
 		function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
 		loadGraph(base_url, function_url_county, '#graph_county');
+<<<<<<< HEAD
 >>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 	});
 
 	//Change Event for District Select

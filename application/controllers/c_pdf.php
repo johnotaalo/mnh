@@ -487,14 +487,6 @@ class C_Pdf extends MY_Controller {
 				<th colspan="13"  > HOW MANY STAFF MEMBERS HAVE BEEN TRAINED IN THE FOLLOWING?</th>
 			</tr>
 			<tr>
-<<<<<<< HEAD
-		<th colspan ="2" style="text-align:left"> TRAININGS</th>
-		<th style="text-align:left">Number Trained before 2010</th>
-		<th style="text-align:left">Number Trained after 2010</th>
-		<th colspan ="2" style="text-align:left"><div style="width: 500px" >How Many Of The Total Staff Members 
-		Trained are still Working in the Marternity/ MCH/ Gynaecological Ward?</div></th>
-		</tr>
-=======
 
 				<th rowspan ="2" style="text-align:left"> Clinical Staff</th>
 				<th rowspan ="2" style="text-align:left">Total in Facility</th>
@@ -517,7 +509,6 @@ class C_Pdf extends MY_Controller {
 				<th style="text-align:left">BEFORE 2010</th>
 				<th style="text-align:left">AFTER 2010</th>
 			</tr>
->>>>>>> 4dc3b2f21b88b77584cf64a8ee40b74290c0f269
 		</thead>
 		<tr>
 			<td>Doctor</td>

@@ -28,6 +28,13 @@ class TreatmentClassifications
      */
     private $tcName;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tc_for", type="string", length=45, nullable=true)
+     */
+    private $tcFor;
+
 
     /**
      * Get tcId
@@ -61,13 +68,6 @@ class TreatmentClassifications
     {
         return $this->tcName;
     }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tc_for", type="string", length=45, nullable=true)
-     */
-    private $tcFor;
-
 
     /**
      * Set tcFor
