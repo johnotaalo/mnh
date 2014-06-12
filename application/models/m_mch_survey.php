@@ -953,7 +953,8 @@ class M_MCH_Survey extends MY_Model
     
        private function addCommodityQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
-       // print_r($this->input->post('supplierName'));die;
+        
+        // print_r($this->input->post('supplierName'));die;
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
@@ -1048,12 +1049,12 @@ class M_MCH_Survey extends MY_Model
             $this->theForm->setCommCode($this->elements[$i]['cqCommCode']);
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['cqExpiryDate']) && $this->elements[$i]['cqExpiryDate'] != '') ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
-            (isset($this->elements[$i]['cqNumberOfUnits']) && $this->elements[$i]['cqNumberOfUnits'] != '') ? $this->theForm->setAcQuantity($this->elements[$i]['cqNumberOfUnits']) : $this->theForm->setAcQuantity(-1);
-            ($this->input->post('supplierName') == '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
+            (isset($this->elements[$i]['cqExpiryDate'])) ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
+            (isset($this->elements[$i]['cqNumberOfUnits'])) ? $this->theForm->setAcQuantity($this->elements[$i]['cqNumberOfUnits']) : $this->theForm->setAcQuantity(-1);
+            ($this->input->post('supplierName') != '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
             (isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason'] == '') ? $this->theForm->setAcReasonUnavailable($this->elements[$i]['cqReason']) : $this->theForm->setAcReasonUnavailable("N/A");
-            (isset($this->elements[$i]['cqAvailability']) && $this->elements[$i]['cqAvailability'] != '') ? $this->theForm->setAcAvailability($this->elements[$i]['cqAvailability']) : $this->theForm->setAcAvailability("N/A");
-            (isset($this->elements[$i]['cqLocation']) && $this->elements[$i]['cqLocation'] != '') ? $this->theForm->setAcLocation($this->elements[$i]['cqLocation']) : $this->theForm->setAcLocation("N/A");
+            (isset($this->elements[$i]['cqAvailability'])) ? $this->theForm->setAcAvailability($this->elements[$i]['cqAvailability']) : $this->theForm->setAcAvailability("N/A");
+            (isset($this->elements[$i]['cqLocation'])) ? $this->theForm->setAcLocation($this->elements[$i]['cqLocation']) : $this->theForm->setAcLocation("N/A");
             $this->theForm->setAcCreated(new DateTime());
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
@@ -1131,7 +1132,7 @@ class M_MCH_Survey extends MY_Model
         
         //end of innner loop
         
-        
+          
     }
      //close addCommodityQuantityAvailabilityInfo
     
@@ -2643,10 +2644,11 @@ class M_MCH_Survey extends MY_Model
     private function addResourceAvailabilityInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-            //echo $this->input->post('supplierName');die;
-             //For every posted values
+            
+            //For every posted values
             if (strpos($key, 'hw') !== FALSE) {
-                 //select data for availability of commodities
+                
+                //select data for availability of commodities
                 //we separate the attribute name from the number
                 
                 $this->frags = explode("_", $key);
@@ -2670,7 +2672,7 @@ class M_MCH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "hwEqCode") {
+                if ($this->attr == "hweqCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -2680,6 +2682,7 @@ class M_MCH_Survey extends MY_Model
                     //print 'count at:'.$count.'<br />';
                     //print 'final count at:'.$finalCount.'<br />';
                     //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
                     
                 }
                 
@@ -2691,15 +2694,18 @@ class M_MCH_Survey extends MY_Model
                     
                     //$this->elements[$this->attr]=htmlentities($val);
                     
+                    
                 } else {
                     $this->elements[$this->id][$this->attr] = '';
                     
                     //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
                     
+                    
                 }
             }
         }
-         //close foreach ($this -> input -> post() as $key => $val)
+        
+        //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
         //exit;
@@ -2708,7 +2714,7 @@ class M_MCH_Survey extends MY_Model
         $this->noOfInsertsBatch = $finalCount;
         
         //  print 'Found :'.$this->noOfInsertsBatch;die;
-        //print_r($this->elements);
+        
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
             
             //go ahead and persist data posted
@@ -2719,16 +2725,18 @@ class M_MCH_Survey extends MY_Model
             //die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
             
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-            $this->theForm->setEquipmentCode($this->elements[$i]['hwEqCode']);
+            $this->theForm->setEquipmentCode($this->elements[$i]['hweqCode']);
             
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['hwNumberOfUnits'])) ? $this->theForm->setArQuantity($this->elements[$i]['hwNumberOfUnits']) : $this->theForm->setArQuantity(-1);
-            ($this->input->post('supplierName') == '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
-            (isset($this->elements[$i]['hwReason'])) ? $this->theForm->setArReasonUnavailable($this->elements[$i]['hwReason']) : $this->theForm->setArReasonUnavailable("N/A");
+            ($this->input->post('supplierName') != '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
+             (isset($this->elements[$i]['hwReason'])) ? $this->theForm->setArReasonUnavailable($this->elements[$i]['hwReason']) : $this->theForm->setArReasonUnavailable("N/A");
             (isset($this->elements[$i]['hwAvailability'])) ? $this->theForm->setArAvailability($this->elements[$i]['hwAvailability']) : $this->theForm->setArAvailability("N/A");
             (isset($this->elements[$i]['hwLocation'])) ? $this->theForm->setArLocation($this->elements[$i]['hwLocation']) : $this->theForm->setArLocation("N/A");
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            
+            //$this -> theForm -> setSource($this -> elements[$i]['hwSource']);
             $this->theForm->setArCreated(new DateTime());
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             
             /*timestamp option*/
             $this->em->persist($this->theForm);
@@ -2753,12 +2761,13 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
@@ -2781,20 +2790,23 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
                 }
-                 //end of catch
+                
+                //end of catch
                 
                 
             }
             
             //end of batch condition
             
+            
         }
-         //end of innner loop
+        
+        //end of innner loop
         
         
     }
