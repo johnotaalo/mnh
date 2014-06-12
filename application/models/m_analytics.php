@@ -89,6 +89,10 @@ class M_Analytics extends MY_Model
         }
         
         $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     cs.strategy_code AS strategy,
     SUM(cs.cs_response) AS strategy_number
 FROM
@@ -340,6 +344,10 @@ ORDER BY lq.lq_response ASC";
     gt.guide_code AS training,
     sum(gt.tg_trained_before_2010) AS trained,
     sum(gt.tg_working) AS working
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 FROM
     training_guidelines gt
 WHERE
@@ -349,6 +357,10 @@ WHERE
             guidelines
         WHERE
             guide_for = '" . $survey . "')
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND gt.fac_mfl IN (SELECT 
             fac_mfl
         FROM
@@ -357,6 +369,10 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
 GROUP BY gt.guide_code
 ORDER BY gt.guide_code ASC";
@@ -455,7 +471,14 @@ ORDER BY gt.guide_code ASC";
         
         /*--------------------begin commodities availability by frequency----------------------------------------------*/
         $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
 
                 JOIN
@@ -910,6 +933,10 @@ ORDER BY ca.comm_code";
         
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     count(ea.ae_availability) AS total_response,
     ea.eq_code as equipment,
     ea.ae_availability AS frequency
@@ -1389,6 +1416,10 @@ ORDER BY ea.eq_code ASC";
         }
         
         $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     il.indicator_code AS indicator, il.li_response as response
 FROM
     log_indicators il
@@ -1407,6 +1438,10 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = 'mnh')" . $criteria_condition . ")";
         
         try {
@@ -1647,6 +1682,10 @@ WHERE
             }
             
             $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     il.indicator_code AS indicator, il.li_response as response
 FROM
     log_indicators il
@@ -2086,6 +2125,10 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = '$survey')" . $criteria_condition . ") GROUP BY indicator,response;";
                 try {
                     $this->dataSet = $this->db->query($query, array($value));
@@ -2344,6 +2387,10 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
                 }
                 
                 $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     oa.question_code AS assessment_item, oa.lq_response as response
 FROM
     log_questions oa
@@ -4860,6 +4907,10 @@ ORDER BY ra.eq_code ASC";
                 switch ($choice) {
                     case 'Cases':
                         $query = "SELECT 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     SUM(CASE
         WHEN tl.lt_severe_dehydration_number = - 1 THEN 0
         ELSE tl.lt_severe_dehydration_number
@@ -5154,6 +5205,10 @@ ORDER BY question_code";
                         break;
                 }
                 $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     question_code,SUM(lq_response_count) as response
 FROM
     log_questions
@@ -5694,6 +5749,10 @@ ORDER BY question_code";
                         break;
                 }
                 $query = "SELECT 
+<<<<<<< HEAD
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
      question_code,
     sum(if(lq_response = 'Yes', 1, 0)) as yes_values,
     sum(if(lq_response = 'No', 1, 0)) as no_values
@@ -6135,4 +6194,3 @@ WHERE
                 }
             }
         }
-        

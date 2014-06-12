@@ -348,10 +348,17 @@ break;
 				<div id="graph_1" class="chart"></div>
 =======
 				<div id="graph_national" class="chart"></div>
+<<<<<<< HEAD
 >>>>>>> adb2262b05a6f8a6b71a1e28d6ed218c6e6c6230
 =======
 				<div id="graph_national" class="chart"></div>
 >>>>>>> 40b15bb9759dcea54e990b757fbf2647a598adee
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+				<div id="graph_national" class="chart"></div>
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 			</div>
 		</div>
 		<div class="portlet box ">

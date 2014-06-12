@@ -162,9 +162,15 @@ function startAnalytics(base_url, county, survey) {
 	//Hide Secondary Filter
 	$('.secondary-filter').hide();
 =======
+<<<<<<< HEAD
 >>>>>>> adb2262b05a6f8a6b71a1e28d6ed218c6e6c6230
 =======
 >>>>>>> 40b15bb9759dcea54e990b757fbf2647a598adee
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 
 
 	//Home Action Event
@@ -385,7 +391,11 @@ function startAnalytics(base_url, county, survey) {
 		$('span.statistic').text($(this).find('a').text());
 		$(this).parent().parent().addClass('active');
 		$(this).parent().parent().find('a').append('<span class="selected"></span>');
+<<<<<<< HEAD
 >>>>>>> adb2262b05a6f8a6b71a1e28d6ed218c6e6c6230
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 
 		currentChart = $(this).attr('id');
 
@@ -1358,7 +1368,11 @@ function startAnalytics(base_url, county, survey) {
 
 		currentChart = $(this).attr('id');
 
+<<<<<<< HEAD
 >>>>>>> 40b15bb9759dcea54e990b757fbf2647a598adee
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 		function_url_national = 'c_analytics' + '/get' + currentChart + '/national/n' + '/' + survey + '/' + extraStat;
 		console.log(function_url_national);
 		loadGraph(base_url, function_url_national, '#graph_national');
@@ -1366,9 +1380,15 @@ function startAnalytics(base_url, county, survey) {
 		function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
 		loadGraph(base_url, function_url_county, '#graph_county');
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> adb2262b05a6f8a6b71a1e28d6ed218c6e6c6230
 =======
 >>>>>>> 40b15bb9759dcea54e990b757fbf2647a598adee
+=======
+>>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
+=======
+>>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
 	});
 
 	//Change Event for District Select
