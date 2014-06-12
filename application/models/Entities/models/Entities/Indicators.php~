@@ -42,6 +42,13 @@ class Indicators
      */
     private $indicatorFor;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="indicator_findings", type="text", nullable=true)
+     */
+    private $indicatorFindings;
+
 
     /**
      * Get indicatorId
@@ -121,13 +128,6 @@ class Indicators
     {
         return $this->indicatorFor;
     }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="indicator_findings", type="text", nullable=true)
-     */
-    private $indicatorFindings;
-
 
     /**
      * Set indicatorFindings

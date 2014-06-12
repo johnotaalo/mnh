@@ -524,7 +524,7 @@ class M_MNH_Survey extends MY_Model
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
-            if (strpos($key, 'mnhCommunity') !== FALSE) {
+            if (strpos($key, 'question') !== FALSE) {
                 
                 //select data for mnh community strategy
                 //we separate the attribute name from the number
@@ -545,7 +545,7 @@ class M_MNH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "mnhCommunityStrategyQCode") {
+                if ($this->attr == "questionCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -594,11 +594,11 @@ class M_MNH_Survey extends MY_Model
             
             //create an object of the model
             
-            $this->theForm->setQuestionCode($this->elements[$i]['mnhCommunityStrategyQCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['mnhCommunityStrategy'])) ? $this->theForm->setLqResponseCount((int)$this->elements[$i]['mnhCommunityStrategy']) : $this->theForm->setLqResponseCount(0);
+            (isset($this->elements[$i]['questionCount'])) ? $this->theForm->setLqResponseCount((int)$this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(0);
             $this->theForm->setLqResponse('n/a');
             $this->theForm->setLqReason('n/a');
             
@@ -3783,6 +3783,7 @@ class M_MNH_Survey extends MY_Model
         
         $this->elements = $newData;
         
+        //echo "<pre>";print_r( $this->elements);echo "</pre>";die;
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $counter;
         
@@ -3834,7 +3835,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex -> getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -3867,7 +3868,7 @@ class M_MNH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -4577,8 +4578,10 @@ class M_MNH_Survey extends MY_Model
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         $this->elements = array();
+        //var_dump($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
             
+            //print_r($val);
             //For every posted values
             if (strpos($key, 'question') !== FALSE) {
                 
@@ -4638,7 +4641,7 @@ class M_MNH_Survey extends MY_Model
         }
         
         //close foreach ($this -> input -> post() as $key => $val)
-        print var_dump($this->elements);
+       // print var_dump($this->elements);die;
         
         //exit;
         
@@ -4657,7 +4660,7 @@ class M_MNH_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse('n/a');
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
@@ -4964,7 +4967,8 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if ($this->addQuestionsInfo() == true && $this->addIndicatorInfo() == true
-                         //&& $this->addGuidelinesInfo() == true
+                        
+                        //&& $this->addGuidelinesInfo() == true
                         ) {
                             
                             //$this->addCommodityQuantityAvailabilityInfo() == true) {
@@ -5039,7 +5043,8 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if ($this->addCommodityUsageAndStockOutageInfo() == true) {
-                             //$this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true && $this->addMNHWaterSourceAspectsInfo() == true) {
+                            
+                            //$this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true && $this->addMNHWaterSourceAspectsInfo() == true) {
                             
                             //defined in this model
                             $this->writeAssessmentTrackerLog();
@@ -5063,8 +5068,10 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addResourceAvailabilityInfo() == true && $this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true) {
-                             // && $this->addSuppliesUsageAndStockOutageInfo() == true && $this->addWasteDisposalInfo() == true) {
+                        if ($this->addResourceAvailabilityInfo() == true && $this->addEquipmentQuantityAvailabilityInfo() == true && $this->addSuppliesQuantityAvailabilityInfo() == true
+                         //) {
+                        //&& $this->addSuppliesUsageAndStockOutageInfo() == true
+                         && $this->addWasteDisposalInfo() == true) {
                             
                             //defined in this model
                             $this->writeAssessmentTrackerLog();
@@ -5094,7 +5101,8 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if ($this->addQuestionsInfo() == true) {
-                             // && $this->addSuppliesUsageAndStockOutageInfo() == true && $this->addWasteDisposalInfo() == true) {
+                            
+                            // && $this->addSuppliesUsageAndStockOutageInfo() == true && $this->addWasteDisposalInfo() == true) {
                             
                             //defined in this model
                             $this->writeAssessmentTrackerLog();
