@@ -151,6 +151,7 @@ class M_MCH_Survey extends MY_Model
     }
     
     private function addQuestionsInfo() {
+        print_r($this->input->post());die;
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values

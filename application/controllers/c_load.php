@@ -1084,7 +1084,7 @@ class C_Load extends MY_Controller {
 		<th colspan="12" >FACILITY CONTACT INFORMATION</th>
 		</thead>
 		<tr >
-			<th >CADRE</th>
+			<th colspan = "2">CADRE</th>
 			<th>NAME</th>
 			<th >MOBILE</th>
 			<th >EMAIL</th>
@@ -1358,7 +1358,7 @@ class C_Load extends MY_Controller {
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
-			.$this -> mchpneumoniaTreatmentSection.
+			.$this -> mchpneumoniasevereTreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
@@ -1385,13 +1385,13 @@ class C_Load extends MY_Controller {
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
 				<span id = "malTreatmentSection">&nbsp</span>'
-			.$this -> mchmalariaTreatmentSection.
+			.$this -> mchmalariaconfrimedtreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
 				<span id = "malTreatmentSection_2">&nbsp</span>'
-			.$this -> mchmalariaTreatmentSection.
+			.$this -> mchmalarianotconfrimedtreatmentSection.
 			'</div>
 				</td>
 				</tr>

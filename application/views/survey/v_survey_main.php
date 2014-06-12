@@ -418,10 +418,10 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 
 								
-				function selectpneTreatment(select)
+				function selectpnesevereTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
-					 if(value != "pneTreatment_0")
+					 if(value != "pnesevereTreatment_0")
 					 {
 					 	var option = select.options[select.selectedIndex]; 
 						var ul = select.parentNode.getElementsByTagName('ol')[0];
@@ -433,7 +433,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'pnetreatments[]';
+						input.name = 'pneseveretreatments[]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);
@@ -452,10 +452,43 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 					 }
 				}// close select treatment
 
-				function selectmalTreatment(select)
+				function selectpneTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
-					 if(value != "malTreatment_0")
+					 if(value != "pneTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'pneseveretreatments[]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class','treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "pneTreat[]");
+
+						var diver = document.getElementById("pneTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+				function selectmalconfirmedTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "malconfrimedTreatment_0")
 					 {
 					 	var option = select.options[select.selectedIndex]; 
 						var ul = select.parentNode.getElementsByTagName('ol')[0];
@@ -486,6 +519,39 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 					 }
 				}// close select treatment
 
+				function selectmalnotconfirmedTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "malnotconfrimedTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'malnotconfirmedtreatments[]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class', 'treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "malTreat[]");
+
+						var diver = document.getElementById("malTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
 				function selectdiaTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
