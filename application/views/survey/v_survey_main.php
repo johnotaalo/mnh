@@ -5,7 +5,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
-		
+		<script src="<?php echo base_url()?>js/core.js"></script>
 		
 		<script>
 		$().ready(function(){
@@ -119,8 +119,13 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 								beforeSend: function(){
 
 								},
-								success: function(){
-
+								success: function(data){
+									obj = jQuery.parseJSON(data);
+									console.log(obj);
+									var base_url = '<?php echo base_url(); ?>';
+									message = obj[0].fac_name +' in ' +obj[0].fac_county+ ' is now reporting on the <?php echo strtoupper($this->session->userdata("survey"));?> Survey' ;
+									console.log(message);
+									runNotification(base_url,'c_front/getContacts',message);
 								}}
 								);
 							//alert(link_id);

@@ -112,16 +112,83 @@ function loadGraph(base_url, function_url, graph_section) {
 	});
 }
 
-function notify_sms(base_url, function_url){
+/**
+ * [getCountryInfo description]
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+function getCountryInfo(country) {
+	var country_code='';
 	$.ajax({
-		url: base_url + function_url,
+		async:false,
+		url: 'http://localhost/mnh/assets/data/countries.json',
 		beforeSend: function(xhr) {
 			xhr.overrideMimeType("text/plain; charset=x-user-defined");
 		},
 		success: function(data) {
 			//console.log(data);
-			obj = jQuery.parseJSON('../data/countries.json');
-			alert obj.
-			}
+			
+			obj = jQuery.parseJSON(data);
+			$.each(obj, function(k, v) {
+				if (v["name"] == country) {
+					//console.log(v.callingCode[0])
+					country_code = v.callingCode[0]; 
+
+				}
+			});
+
+		}
+	});
+	return country_code;
+	
+}
+
+/**
+ * [runNotification description]
+ * @param  {[type]} base_url     [description]
+ * @param  {[type]} function_url [description]
+ * @param  {[type]} messsage     [description]
+ * @return {[type]}              [description]
+ */
+function runNotification(base_url, function_url,messsage) {
+	$.ajax({
+		//url: base_url + function_url,
+		url: base_url + function_url,
+		beforeSend: function(xhr) {
+			xhr.overrideMimeType("text/plain; charset=x-user-defined");
+		},
+		success: function(data) {
+			//console.log(data);die;
+			obj = jQuery.parseJSON(data);
+			$.each(obj, function(k, v) {
+				console.log(v.cl_country);
+				//console.log(getCountryInfo(v.cl_country));
+				phoneNumber =  getCountryInfo(v.cl_country) + v.cl_phone_number;
+				notify(phoneNumber, message);
+
+			});
+		}
+	});
+}
+
+
+/**
+ * [notify description]
+ * @param  {[type]} phoneNumber [description]
+ * @param  {[type]} message     [description]
+ * @return {[type]}             [description]
+ */
+function notify(phoneNumber, message) {
+	//message="test";
+	$.ajax({
+		//url: base_url + function_url,
+		url: 'http://localhost/mnh/c_front/notify/sms/' + phoneNumber + '/' + encodeURIComponent(message),
+		beforeSend: function(xhr) {
+			xhr.overrideMimeType("text/plain; charset=x-user-defined");
+		},
+		success: function(data) {
+			console.log(data);
+
+		}
 	});
 }

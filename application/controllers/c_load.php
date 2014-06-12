@@ -87,6 +87,11 @@ class C_Load extends MY_Controller {
 		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl);
 		$this->session->set_userdata($data);
 
+		$result =$this->db->get_where('facilities',array('fac_mfl'=>$fac_mfl));
+		$result = $result->result_array();
+
+		echo json_encode($result);
+
 	}
 /**
  * [checkifExists description]
