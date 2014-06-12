@@ -110,7 +110,7 @@ class M_HCW_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = new \models\Entities\LogQuestions();
             
             //create an object of the model
             
@@ -256,7 +256,7 @@ class M_HCW_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = new \models\Entities\LogQuestions();
             
             //create an object of the model
             
@@ -402,7 +402,7 @@ class M_HCW_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = new \models\Entities\LogQuestions();
             
             //create an object of the model
             
@@ -549,7 +549,7 @@ class M_HCW_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = new \models\Entities\LogQuestions();
             
             //create an object of the model
             
@@ -1504,7 +1504,7 @@ class M_HCW_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['mchIndicator'])) ? $this->theForm->setLiResponse($this->elements[$i]['mchIndicator']) : $this->theForm->setLiResponse("N/A");
-            $this->theForm->setIndicatorCode($this->elements[$i]['mchIndicatorCode']);
+            $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLiCreated(new DateTime());
             
@@ -2559,7 +2559,7 @@ class M_HCW_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addConsultationAspect() == true) {
+                        if ($this->addMCHIndicatorInfo() == true) {
                             //if($this->addInterviewAspect == true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
@@ -2583,7 +2583,7 @@ class M_HCW_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addAccessChallengesInfo() == true && $this->addMCHIndicatorInfo() == true && $this->addDiarrhoeaCasesByMonthInfo() == true && $this->addMCHTreatmentInfo() == true) {
+                        if ($this->addConsultationAspect() == true && $this->addInterviewAspect() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -2620,34 +2620,7 @@ class M_HCW_Survey extends MY_Model
                     }
                     break;
 
-                case 'section-6':
-                    
-                    //check if entry exists
-                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
-                    
-                    // die($this->session->userdata('facilityMFL').':'.$this->session->userdata('survey'));
-                    //print var_dump($this->section);
-                    
-                    //insert log entry if new, else update the existing one
-                    if ($this->sectionExists == false) {
-                        if ($this->addSuppliesQuantityAvailabilityInfo() == true && $this->addResourceAvailabilityInfo() == true) {
-                             //defined in this model
-                            $this->writeAssessmentTrackerLog();
-                            
-                            //update facility survey status
-                            //$this->markSurveyStatusAsComplete();
-                            return $this->response = 'true';
-                        } else {
-                            return $this->response = 'false';
-                        }
-                    } else {
-                        
-                        //die('Entry exsits');
-                        //update facility survey status
-                        //$this->markSurveyStatusAsComplete();
-                        return $this->response = 'true';
-                    }
-                    break;
+               
             }
              //close switch
             

@@ -2,78 +2,85 @@
 
 namespace models\Entities;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Mapping as ORM;
 
 /**
- * LogQuestions
+ * AssessementSymptoms
  *
- * @ORM\Table(name="log_questions")
- * @ORM\Entity
+ * @Table(name="assessement_symptoms")
+ * @Entity
  */
-class LogQuestions
+class AssessementSymptoms
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="lq_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Column(name="lq_id", type="integer", nullable=false)
+     * @Id
+     * @GeneratedValue(strategy="IDENTITY")
      */
     private $lqId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_response", type="string", length=55, nullable=true)
+     * @Column(name="lq_HCWResponse", type="string", length=55, nullable=true)
      */
-    private $lqResponse;
+    private $lqHcwresponse;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_reason", type="string", length=200, nullable=false)
+     * @Column(name="lq_HCWFindings", type="string", length=200, nullable=false)
      */
-    private $lqReason;
+    private $lqHcwfindings;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_specified_or_follow_up", type="string", length=255, nullable=false)
+     * @Column(name="lq_assessorResponse", type="string", length=55, nullable=true)
      */
-    private $lqSpecifiedOrFollowUp;
+    private $lqAssessorresponse;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lq_assessorFindings", type="string", length=200, nullable=false)
+     */
+    private $lqAssessorfindings;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lq_created", type="datetime", nullable=false)
+     * @Column(name="lq_created", type="datetime", nullable=false)
      */
     private $lqCreated;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="lq_response_count", type="integer", nullable=false)
+     * @Column(name="lq_response_count", type="integer", nullable=false)
      */
     private $lqResponseCount;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="question_code", type="string", length=8, nullable=false)
+     * @Column(name="question_code", type="string", length=8, nullable=false)
      */
     private $questionCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="fac_mfl", type="string", length=11, nullable=false)
+     * @Column(name="fac_mfl", type="string", length=11, nullable=false)
      */
     private $facMfl;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="ss_id", type="integer", nullable=true)
+     * @Column(name="ss_id", type="integer", nullable=true)
      */
     private $ssId;
 
@@ -89,79 +96,102 @@ class LogQuestions
     }
 
     /**
-     * Set lqResponse
+     * Set lqHcwresponse
      *
-     * @param string $lqResponse
-     * @return LogQuestions
+     * @param string $lqHcwresponse
+     * @return AssessementSymptoms
      */
-    public function setLqResponse($lqResponse)
+    public function setLqHcwresponse($lqHcwresponse)
     {
-        $this->lqResponse = $lqResponse;
+        $this->lqHcwresponse = $lqHcwresponse;
     
         return $this;
     }
 
     /**
-     * Get lqResponse
+     * Get lqHcwresponse
      *
      * @return string 
      */
-    public function getLqResponse()
+    public function getLqHcwresponse()
     {
-        return $this->lqResponse;
+        return $this->lqHcwresponse;
     }
 
     /**
-     * Set lqReason
+     * Set lqHcwfindings
      *
-     * @param string $lqReason
-     * @return LogQuestions
+     * @param string $lqHcwfindings
+     * @return AssessementSymptoms
      */
-    public function setLqReason($lqReason)
+    public function setLqHcwfindings($lqHcwfindings)
     {
-        $this->lqReason = $lqReason;
+        $this->lqHcwfindings = $lqHcwfindings;
     
         return $this;
     }
 
     /**
-     * Get lqReason
+     * Get lqHcwfindings
      *
      * @return string 
      */
-    public function getLqReason()
+    public function getLqHcwfindings()
     {
-        return $this->lqReason;
+        return $this->lqHcwfindings;
     }
 
     /**
-     * Set lqSpecifiedOrFollowUp
+     * Set lqAssessorresponse
      *
-     * @param string $lqSpecifiedOrFollowUp
-     * @return LogQuestions
+     * @param string $lqAssessorresponse
+     * @return AssessementSymptoms
      */
-    public function setLqSpecifiedOrFollowUp($lqSpecifiedOrFollowUp)
+    public function setLqAssessorresponse($lqAssessorresponse)
     {
-        $this->lqSpecifiedOrFollowUp = $lqSpecifiedOrFollowUp;
+        $this->lqAssessorresponse = $lqAssessorresponse;
     
         return $this;
     }
 
     /**
-     * Get lqSpecifiedOrFollowUp
+     * Get lqAssessorresponse
      *
      * @return string 
      */
-    public function getLqSpecifiedOrFollowUp()
+    public function getLqAssessorresponse()
     {
-        return $this->lqSpecifiedOrFollowUp;
+        return $this->lqAssessorresponse;
+    }
+
+    /**
+     * Set lqAssessorfindings
+     *
+     * @param string $lqAssessorfindings
+     * @return AssessementSymptoms
+     */
+    public function setLqAssessorfindings($lqAssessorfindings)
+    {
+        $this->lqAssessorfindings = $lqAssessorfindings;
+    
+        return $this;
+    }
+
+    /**
+     * Get lqAssessorfindings
+     *
+     * @return string 
+     */
+    public function getLqAssessorfindings()
+    {
+        return $this->lqAssessorfindings;
     }
 
     /**
      * Set lqCreated
      *
      * @param \DateTime $lqCreated
-     * @return LogQuestions
+     * @return AssessementSymptoms
      */
     public function setLqCreated($lqCreated)
     {
@@ -184,7 +214,7 @@ class LogQuestions
      * Set lqResponseCount
      *
      * @param integer $lqResponseCount
-     * @return LogQuestions
+     * @return AssessementSymptoms
      */
     public function setLqResponseCount($lqResponseCount)
     {
@@ -207,7 +237,7 @@ class LogQuestions
      * Set questionCode
      *
      * @param string $questionCode
-     * @return LogQuestions
+     * @return AssessementSymptoms
      */
     public function setQuestionCode($questionCode)
     {
@@ -230,7 +260,7 @@ class LogQuestions
      * Set facMfl
      *
      * @param string $facMfl
-     * @return LogQuestions
+     * @return AssessementSymptoms
      */
     public function setFacMfl($facMfl)
     {
@@ -253,7 +283,7 @@ class LogQuestions
      * Set ssId
      *
      * @param integer $ssId
-     * @return LogQuestions
+     * @return AssessementSymptoms
      */
     public function setSsId($ssId)
     {

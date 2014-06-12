@@ -31,7 +31,9 @@ class M_Analytics extends MY_Model
         /*using CI Database Active Record*/
         try {
             $query = "SELECT fac_mfl,fac_name,fac_district,fac_county,fac_incharge_contact_person,fac_incharge_email,fac_updated 
-                     FROM facilities   ORDER BY fac_name ASC";
+
+	                 FROM facilities   ORDER BY fac_name ASC";
+
             $this->dataSet = $this->db->query($query, array($survey));
             $this->dataSet = $this->dataSet->result_array();
             
@@ -453,7 +455,9 @@ ORDER BY gt.guide_code ASC";
         
         /*--------------------begin commodities availability by frequency----------------------------------------------*/
         $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+
+					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
@@ -1274,9 +1278,11 @@ ORDER BY ea.eq_code ASC";
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-                 AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-                GROUP BY ca.comm_code,ca.supplier_code
-                ORDER BY ca.comm_code";
+
+				 AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
+				GROUP BY ca.comm_code,ca.supplier_code
+				ORDER BY ca.comm_code";
+
         try {
             
             $this->dataSet = $this->db->query($query, array($value));
