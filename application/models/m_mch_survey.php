@@ -1094,17 +1094,11 @@ class M_MCH_Survey extends MY_Model
     }
      //close addGuidelinesStaffInfo
     
-<<<<<<< HEAD
-    
-       private function addCommodityQuantityAvailabilityInfo() {
-        $count = $finalCount = 1;
-        
-        // print_r($this->input->post('supplierName'));die;
-=======
+
       private function addCommodityQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
        //print_r($this->input->post('supplierName'));die;
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
@@ -1279,11 +1273,10 @@ class M_MCH_Survey extends MY_Model
             
             
         }
-<<<<<<< HEAD
-=======
+
         
         //end of innner loop
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         
         //end of innner loop
         
@@ -1293,11 +1286,9 @@ class M_MCH_Survey extends MY_Model
     
     //adding bundling function
     private function addBundling() {
-<<<<<<< HEAD
-       $count = $finalCount = 1;
-=======
+
         $count = $finalCount = 1;
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
        // print_r($this->input->post('supplierName'));die;
         foreach ($this->input->post() as $key => $val) {
             
@@ -1362,11 +1353,9 @@ class M_MCH_Survey extends MY_Model
         }
         
         //close foreach ($this -> input -> post() as $key => $val)
-<<<<<<< HEAD
-        //print var_dump($this->elements);
-=======
+
         //print var_dump($this->elements);die;
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         
         /*foreach($this->elements as $key=>$value){
         if(isset($value['cqNumberOfUnits'])){
@@ -1397,11 +1386,9 @@ class M_MCH_Survey extends MY_Model
             $this->theForm->setCommCode($this->elements[$i]['cqCommCode']);
             
             //check if that key exists, else set it to some default value
-<<<<<<< HEAD
-            //(isset($this->elements[$i]['cqExpiryDate'])) ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
-=======
+
             (isset($this->elements[$i]['cqExpiryDate'])) ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
             (isset($this->elements[$i]['cqNumberOfUnits'])) ? $this->theForm->setAcQuantity($this->elements[$i]['cqNumberOfUnits']) : $this->theForm->setAcQuantity(-1);
             ($this->input->post('supplierName') == '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
             (isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason'] == '') ? $this->theForm->setAcReasonUnavailable($this->elements[$i]['cqReason']) : $this->theForm->setAcReasonUnavailable("N/A");
@@ -2744,11 +2731,9 @@ class M_MCH_Survey extends MY_Model
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['hwNumberOfUnits'])) ? $this->theForm->setArQuantity($this->elements[$i]['hwNumberOfUnits']) : $this->theForm->setArQuantity(-1);
             ($this->input->post('supplierName') != '') ? $this->theForm->setSupplierCode($this->input->post('supplierName')) : $this->theForm->setSupplierCode("Other");
-<<<<<<< HEAD
-             (isset($this->elements[$i]['hwReason'])) ? $this->theForm->setArReasonUnavailable($this->elements[$i]['hwReason']) : $this->theForm->setArReasonUnavailable("N/A");
-=======
+
             (isset($this->elements[$i]['hwReason'])) ? $this->theForm->setArReasonUnavailable($this->elements[$i]['hwReason']) : $this->theForm->setArReasonUnavailable("N/A");
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
             (isset($this->elements[$i]['hwAvailability'])) ? $this->theForm->setArAvailability($this->elements[$i]['hwAvailability']) : $this->theForm->setArAvailability("N/A");
             (isset($this->elements[$i]['hwLocation'])) ? $this->theForm->setArLocation($this->elements[$i]['hwLocation']) : $this->theForm->setArLocation("N/A");
             
@@ -3310,13 +3295,10 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-<<<<<<< HEAD
-                        if ($this->addCommodityQuantityAvailabilityInfo() == true && $this->addBundling() == true) {
-                             //defined in this model....   
-=======
+
                         if($this->addBundling() == true&& $this->addCommodityQuantityAvailabilityInfo() == true  ) {
                         	//defined in this model
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {

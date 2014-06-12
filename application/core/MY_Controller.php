@@ -1,8 +1,7 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
+
 error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
@@ -274,11 +273,9 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-<<<<<<< HEAD
-            $this->selectCommoditySuppliersPDF.= $value['supplierName'] . '<input type = "radio"  name="cqSupplier_" id="cqSupplier_"  value="' . $value['supplierName'] . '">';
-=======
+
             $this->selectCommoditySuppliersPDF.= $value['supplierName'] . '<input type="radio" name = "supplierName">';
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         }
     }
     
@@ -323,11 +320,9 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-<<<<<<< HEAD
-            $this->selectMCHOtherSuppliersPDF.=  $value['supplierName'] . '<input type="radio" id="'.$value['supplierName'].'" value="'.$value['supplierCode'].'" name="supplierName">';
-=======
+
             $this->selectMCHOtherSuppliersPDF.= $value['supplierName'] . '<input type="radio" value="'.$value['supplierCode'].'" name="supplierName">';
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         }
     }
     
@@ -527,18 +522,7 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
             </td>
-<<<<<<< HEAD
-            
 
-            <td width="60">
-            1.Not Ordered<input type="checkbox" value="Not Ordered" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '"></br>
-            2.Ordered but not yet received<input type="checkbox" value="Ordered but not yet received" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '"><br/>
-            3.Expired<input type="checkbox" value="Expired" name="cqReason_' . $counter . '" id="cqReason_' . $counter . '">
-            </td>
-
-
-
-=======
             <td>
             <select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
                 <option value="" selected="selected">Select One</option>
@@ -548,7 +532,7 @@ class MY_Controller extends CI_Controller
                 <option value="All Used">4. All Used</option>
                 <option value="Not Applicable">5. Not Applicable</option>
 			</select></td>
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
             </td>
@@ -3126,12 +3110,9 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-<<<<<<< HEAD
 
-            <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['hweqCode'] . '" />
-=======
             <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
         </tr>';
         }
         
@@ -3770,8 +3751,7 @@ class MY_Controller extends CI_Controller
         // return $alert;
         
     }*/
-<<<<<<< HEAD
-=======
 
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+
+
 }
