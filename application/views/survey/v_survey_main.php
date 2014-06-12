@@ -433,7 +433,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'pneseveretreatments[]';
+						input.name = 'mchTreatment[SeverePneumoniaTreatment][]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);
@@ -467,7 +467,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'pneseveretreatments[]';
+						input.name = 'mchTreatment[PneumoniaTreatment][]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);
@@ -500,7 +500,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'maltreatments[]';
+						input.name = 'mchtreatment[ConfirmedMalariaTotalTreatment][]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);
@@ -534,7 +534,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'malnotconfirmedtreatments[]';
+						input.name = 'mchtreatment[notConfirmedMalariaTotalTreatment][]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);
@@ -621,7 +621,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																$(form_id).bind("after_remote_ajax", function(event, fdata){
 																	//console.log($(form_id).formwizard('state'));
 																  if(form_id=="#mnh_tool"){
-																  	 if(fdata.currentStep=='section-9'){
+																  	 if(fdata.currentStep=='section-8'){
 																  //	alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
@@ -631,7 +631,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																  	
 																  }
 																  }else{
-																  	 if(fdata.currentStep=='section-6'){
+																  	 if(fdata.currentStep=='section-9'){
 																    //alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');

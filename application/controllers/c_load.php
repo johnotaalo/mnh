@@ -970,6 +970,7 @@ class C_Load extends MY_Controller {
 	 </div><!--\.section-7-->
 
 	 <div class="step" id="section-8">
+	 <input type="hidden" name="step_name" value="section-8"/>
 	 <p style="display:true" class="message success">SECTION 8 of 8: COMMUNITY STRATEGY</p>
 		<table class="centre">
 		<thead>

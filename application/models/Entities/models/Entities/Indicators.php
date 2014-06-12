@@ -128,16 +128,6 @@ class Indicators
     {
         return $this->indicatorFor;
     }
-<<<<<<< HEAD
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="indicator_findings", type="text", nullable=true)
-     */
-    private $indicatorFindings;
-
-=======
->>>>>>> da22e31a41d7a3cd1813b482926b8dfd3fcc3c47
 
     /**
      * Set indicatorFindings
@@ -161,8 +151,4 @@ class Indicators
     {
         return $this->indicatorFindings;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> da22e31a41d7a3cd1813b482926b8dfd3fcc3c47

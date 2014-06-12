@@ -111,3 +111,17 @@ function loadGraph(base_url, function_url, graph_section) {
 		}
 	});
 }
+
+function notify_sms(base_url, function_url){
+	$.ajax({
+		url: base_url + function_url,
+		beforeSend: function(xhr) {
+			xhr.overrideMimeType("text/plain; charset=x-user-defined");
+		},
+		success: function(data) {
+			//console.log(data);
+			obj = jQuery.parseJSON('../data/countries.json');
+			alert obj.
+			}
+	});
+}

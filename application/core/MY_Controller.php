@@ -2058,16 +2058,16 @@ class MY_Controller extends CI_Controller
         return $this->beds;
     }
     
-    /**Function to create various sections based on the indicator type * */
-    public function createMCHIndicatorsSection() {
-      $this->data_found = $this->m_mch_survey->getIndicatorNames();
+ public function createMCHIndicatorsSection() {
+        $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
-        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $numbering = array_merge(range('A', 'Z'), range('a', 'z'));
         $base = 0;
         $current = "";
+        $findingHCWRow = $findingAssessorRow = "";
         foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
@@ -2076,75 +2076,69 @@ class MY_Controller extends CI_Controller
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-            $findingRow='';
-             if($section!='sgn'&&$section!='svc'&&$section!='ror'&&$section!='tl'){
-                if($value['indicatorFindings']!=null){
-                  $findings = explode(';', $value['indicatorFindings']);
-                  if(sizeof($findings)==1){
-                    foreach($findings as $finding){
-                    $findingHCWRow = $finding.' <input type="text" name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'">';
-                    $findingAssessorRow = $finding.' <input type="text" name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'">';
-                  }  
-                  }
-                  else{
-                    foreach($findings as $finding){
-                        if($finding=='other (specify)'){
-                            $findingHCWRow .= $finding.' <input name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'"  type="text">';
-                            $findingAssessorRow .= $finding.' <input name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'"  type="text">';
+            $findingRow = '';
+            if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl') {
+                if ($value['indicatorFindings'] != null) {
+                    $findings = explode(';', $value['indicatorFindings']);
+                    if (sizeof($findings) == 1) {
+                        foreach ($findings as $finding) {
+                            $findingHCWRow = $finding . ' <input type="text" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '">';
+                            $findingAssessorRow = $finding . ' <input type="text" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '">';
                         }
-                        else{
-                              $findingHCWRow .= $finding.' <input name="indicatorhcwFindings_'.$counter.'" id="indicatorhcwFindings_'.$counter.'"  type="text">';
-                            $findingAssessorRow .= $finding.' <input name="indicatorassessorFindings_'.$counter.'" id="indicatorassessorFindings_'.$counter.'"  type="text">';
-                       }
-                  }  
-                  }
-                  }
-                  if($value['indicatorName']=='Correct Classification'){
-                 $data[$section][] = '
+                    } else {
+                        $findingHCWRow = $findingAssessorRow='';
+                        foreach ($findings as $finding) {
+                             
+                            if ($finding == 'other (specify)') {
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
+                            } else {
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio">';
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio">';
+                            }
+                        }
+                    }
+                }
+                if ($value['indicatorName'] == 'Correct Classification') {
+                    $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td></td><td></td><td>Yes <input name="indicatorhcwResponse_'.$counter.'" id="indicatorhcwResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'"  type="radio"></td><td></td>
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>'; 
-            }
-            else{
-            $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'"  type="radio">
-            </td>
-            <td>'.$findingHCWRow.'</td>
-            <td>Yes <input name="indicatorassessorResponse_'.$counter.'" id="indicatorassessorResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_'.$counter.'" id="indicatorassessorResponse_'.$counter.'" type="radio">
-            </td>
-            <td>'.$findingAssessorRow.'</td>
+            <td></td><td></td><td>Yes <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio"></td><td></td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-    }
-            }
-            elseif($section=='sgn'){
+                } else {
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+            <td>Yes <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
+            </td>
+            <td>' . $findingHCWRow . '</td>
+            <td>Yes <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">
+            </td>
+            <td>' . $findingAssessorRow . '</td>
+            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+        </tr>';
+                }
+            } elseif ($section == 'sgn') {
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input name="indicatorhcwResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="indicatorhcwResponse_'.$counter.'"  type="radio">
+            <td>Yes <input name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorhcwResponse_' . $counter . '"  type="radio">
             </td>
-            <td>Present <input name="indicatorFinding_'.$counter.'" id="indicatorFinding_'.$counter.'" value="Present" type="radio"> Not Present <input value="Not Present" id="indicatorFinding_'.$counter.'" name="indicatorFinding_'.$counter.'"  type="radio">
-            </td>
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>'; 
-            }
-            else{
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input name="indicatorhcwResponse_'.$counter.'" id="indicatorhcwResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_'.$counter.'" name="indicatorhcwResponse_'.$counter.'"  type="radio">
+            <td>Present <input name="indicatorFinding_' . $counter . '" id="indicatorFinding_' . $counter . '" value="Present" type="radio"> Not Present <input value="Not Present" id="indicatorFinding_' . $counter . '" name="indicatorFinding_' . $counter . '"  type="radio">
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-  
-
-             }
-             
-         }
+            } else {
+                $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+            <td>Yes <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
+            </td>
+            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+        </tr>';
+            }
+        }
         
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
