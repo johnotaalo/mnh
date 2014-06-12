@@ -510,7 +510,7 @@ class M_MCH_Survey extends MY_Model
             
             //create an object of the model
             
-            $this->theForm->setStrategyCode(1);
+            $this->theForm->setStrategyCode('questionCode');
              //$this -> elements[$i]['mchCommunityStrategyQCode']);
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
@@ -2673,7 +2673,7 @@ class M_MCH_Survey extends MY_Model
                 //print 'ids: '.$this->id.'<br />';
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "hweqCode") {
+                if ($this->attr == "hwEqCode") {
                     
                     //print 'count at:'.$count.'<br />';
                     
@@ -2726,7 +2726,7 @@ class M_MCH_Survey extends MY_Model
             //die(print 'Code: '.$this -> session -> userdata('facilityMFL'));
             
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-            $this->theForm->setEquipmentCode($this->elements[$i]['hweqCode']);
+            $this->theForm->setEquipmentCode($this->elements[$i]['hwEqCode']);
             
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['hwNumberOfUnits'])) ? $this->theForm->setArQuantity($this->elements[$i]['hwNumberOfUnits']) : $this->theForm->setArQuantity(-1);
