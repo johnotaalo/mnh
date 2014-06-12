@@ -118,21 +118,21 @@ function loadGraph(base_url, function_url, graph_section) {
  * @return {[type]}         [description]
  */
 function getCountryInfo(country) {
-	var country_code='';
+	var country_code = '';
 	$.ajax({
-		async:false,
+		async: false,
 		url: 'http://localhost/mnh/assets/data/countries.json',
 		beforeSend: function(xhr) {
 			xhr.overrideMimeType("text/plain; charset=x-user-defined");
 		},
 		success: function(data) {
 			//console.log(data);
-			
+
 			obj = jQuery.parseJSON(data);
 			$.each(obj, function(k, v) {
 				if (v["name"] == country) {
 					//console.log(v.callingCode[0])
-					country_code = v.callingCode[0]; 
+					country_code = v.callingCode[0];
 
 				}
 			});
@@ -140,7 +140,7 @@ function getCountryInfo(country) {
 		}
 	});
 	return country_code;
-	
+
 }
 
 /**
@@ -150,10 +150,12 @@ function getCountryInfo(country) {
  * @param  {[type]} messsage     [description]
  * @return {[type]}              [description]
  */
-function runNotification(base_url, function_url,messsage) {
+function runNotification(base_url, function_url, messsage) {
+	var period = '';
 	$.ajax({
 		//url: base_url + function_url,
 		url: base_url + function_url,
+		async: false,
 		beforeSend: function(xhr) {
 			xhr.overrideMimeType("text/plain; charset=x-user-defined");
 		},
@@ -163,7 +165,22 @@ function runNotification(base_url, function_url,messsage) {
 			$.each(obj, function(k, v) {
 				console.log(v.cl_country);
 				//console.log(getCountryInfo(v.cl_country));
-				phoneNumber =  getCountryInfo(v.cl_country) + v.cl_phone_number;
+				phoneNumber = getCountryInfo(v.cl_country) + v.cl_phone_number;
+				today = new Date();
+				hours = today.getHours();
+				console.log(hours);
+
+
+				if (hours < 12) {
+					period = 'Morning';
+				} else if (hours <= 18) {
+					period = 'Afternoon';
+				} else if (hours > 18) {
+					period = 'Evening';
+				} else {
+					period = '';
+				}
+				message = period + ' ' + v.cl_name + ',  ' + message;
 				notify(phoneNumber, message);
 
 			});

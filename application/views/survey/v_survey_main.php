@@ -123,7 +123,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 									obj = jQuery.parseJSON(data);
 									console.log(obj);
 									var base_url = '<?php echo base_url(); ?>';
-									message = obj[0].fac_name +' in ' +obj[0].fac_county+ ' is now reporting on the <?php echo strtoupper($this->session->userdata("survey"));?> Survey' ;
+									message = obj[0].fac_name +' in ' +obj[0].fac_district+ ' District, ' +obj[0].fac_county+ ' County, is now reporting on the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
 									console.log(message);
 									runNotification(base_url,'c_front/getContacts',message);
 								}}

@@ -1,5 +1,4 @@
 <?php
-
 class C_Admin extends MY_Controller
 {
     public function __construct() {
@@ -7,34 +6,39 @@ class C_Admin extends MY_Controller
         $this->load->model('m_admin');
         
         //$this -> county = $this -> session -> userdata('county_analytics');
+        
+        
+    }
+    public function index() {
+        $components['contentView'] = 'admin/login';
+        $this->template($components);
+    }
+    public function home() {
+        $components['contentView'] = 'admin/home';
+        $this->template($components);
+    }
+    public function firepad() {
+        $components['contentView'] = 'admin/firepad/index';
+        $this->template($components);
+    }
+    public function login() {
+        $this->home();
+         //redirect('c_admin/home');
+        
+    }
+    private function template($content) {
+        $components['contentView'] = $content['contentView'];
+        $this->load->view('admin/index', $components);
+    }
+    public function test() {
+        $result = $this->m_admin->activity();
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+    }
     
-    }
-    public function index(){
-    $components['contentView']='admin/login';
-    $this->template($components);
-    }
-    public function home(){
-    $components['contentView']='admin/home';
-    $this->template($components);
-    }
-    public function firepad(){
-    $components['contentView']='admin/firepad/index';
-    $this->template($components);
-    }
-    public function login(){
-      $this->home();//redirect('c_admin/home');
-    }
-    private function template($content){
-    $components['contentView']=$content['contentView'];
-    $this->load->view('admin/index',$components);
-    }
-    public function test(){
-      $result=$this->m_admin->activity();
-      echo '<pre>';print_r($result);echo '</pre>';
-    }
-
-    private function create_mail(){
-      $content='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    private function create_mail() {
+        $content = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -980,51 +984,49 @@ body.outlook p {
   </table>
 </body>
 </html>';
-return $content;
+        return $content;
     }
-    public function send_email(){
-    	$config['protocol']    = 'smtp';
-        $config['smtp_host']    = 'ssl://smtp.gmail.com';
-        $config['smtp_port']    = '465';
+    public function send_email() {
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        $config['smtp_port'] = '465';
         $config['smtp_timeout'] = '7';
-        $config['smtp_user']    = 'mbuguarufus@gmail.com';
-        $config['smtp_pass']    = 'mbuguanR1990!';
-        $config['charset']    = 'utf-8';
-        $config['newline']    = "\r\n";
-        $config['mailtype'] = 'html'; // or html
-        $config['validation'] = TRUE; // bool whether to validate email or not  
-		$this->load->library('email', $config);
-
+        $config['smtp_user'] = 'mbuguarufus@gmail.com';
+        $config['smtp_pass'] = 'mbuguanR1990!';
+        $config['charset'] = 'utf-8';
+        $config['newline'] = "\r\n";
+        $config['mailtype'] = 'html';
+         // or html
+        $config['validation'] = TRUE;
+         // bool whether to validate email or not
+        $this->load->library('email', $config);
+        
         $this->email->initialize($config);
-
-		$this->email->set_newline("\r\n");
-  		$this->email->from('mbuguarufus@gmail.com','Matenal Newborn and Child Healthcare '); // change it to yours
-  		$this->email->to('tngugi@gmail.com'); // change it to yours
-  		
-  		isset($cc_email)? $this->email->cc($cc_email): //
-  		
-  		(isset($bcc_email))?
-  		$this->email->bcc($mail_list.$bcc_email):
-  		$this->email->bcc(substr($mail_list,0,-1));
-  		
-		 (isset($attach_file))? $this->email->attach($attach_file) :	'';
-
-  		$this->email->subject($subject);
- 		$this->email->message($this->create_mail());
- 
-  if($this->email->send())
- {
- 	echo 'working';
-return TRUE;
- }
- else
-{
- return FALSE;
-
- 
-}
-
-
-echo $this->email->print_debugger();
+        
+        $this->email->set_newline("\r\n");
+        $this->email->from('mbuguarufus@gmail.com', 'Matenal Newborn and Child Healthcare ');
+         // change it to yours
+        $this->email->to('mbuguarufus@gmail.com');
+         // change it to yours
+        
+        isset($cc_email) ? $this->email->cc($cc_email) :
+         
+        
+        (isset($bcc_email)) ? $this->email->bcc($mail_list . $bcc_email) : $this->email->bcc(substr($mail_list, 0, -1));
+        
+        (isset($attach_file)) ? $this->email->attach($attach_file) : '';
+        
+        $this->email->subject($subject);
+        $this->email->message($this->create_mail());
+        
+        if ($this->email->send()) {
+            echo 'working';
+            return TRUE;
+        } else {
+          echo 'failed';
+            return FALSE;
+        }
+        
+        echo $this->email->print_debugger();
     }
 }
