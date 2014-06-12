@@ -1153,16 +1153,18 @@ class C_Load extends MY_Controller {
 		'.$this->mchTrainingGuidelineSection.'
 
 	</table>
-<table>
-  <thead>
-	<th colspan = "12">HEALTH SERVICES</th>
-	</thead>
-	<tbody>
-	<tr>
-		'.$this->mchHealthService.'
-		</tr>
-	</tbody>
-</table>
+	<table>
+			<thead>
+				
+					<th colspan = "12">HEALTH SERVICES</th>
+			</thead>
+				<tr>
+					<th >QUESTION</th>
+					<th>RESPONSE</th>
+
+				</tr>
+			'.$this->HealthSection.' 
+		</table>	
 	<table>
 		<thead><th colspan = "12"> INFRASTRACTURE: IMCI CONSULTATION ROOM</th></thead>
 		<tbody>

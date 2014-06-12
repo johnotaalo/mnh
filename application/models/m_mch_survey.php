@@ -7,7 +7,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class M_MCH_Survey extends MY_Model
 {
-    var $id, $attr, $frags, $elements, $noOfInserts, $batchSize, $mfcCode, $facility, $commodity, $isFacility, $ortAspectsList, $mchGuidelineAvailabilityList, $commodityList, $trainingGuidelinesList, $equipmentList, $suppliesList, $indicatorList, $treatmentList;
+    var $id, $attr, $frags, $elements, $noOfInserts, $batchSize, $mfcCode, $facility, $commodity, $isFacility, $ortAspectsList, $mchGuidelineAvailabilityList, $commodityList, $trainingGuidelinesList, $equipmentList, $suppliesList, $indicatorList, $treatmentList, $healthServicesList;
     
     function __construct() {
         parent::__construct();
@@ -50,6 +50,13 @@ class M_MCH_Survey extends MY_Model
         
         //var_dump($this->ortAspectsList);die;
         return $this->ortAspectsList;
+    }
+	/*calls the query defined in MY_Model*/
+    public function getMchHealthQuestions() {
+        $this->healthServicesList = $this->getQuestionsBySection('hs', 'QUC');
+        
+        //var_dump($this->healthServicesList);die;
+        return $this->healthServicesList;
     }
     
     /*calls the query defined in MY_Model*/
@@ -106,14 +113,7 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->supplierList);die;
         return $this->supplierList;
     }
-    /*calls the query defined in MY_Model*/
-    public function getmchHealthService(){
-        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('hs', 'QUC');
-        
-        //var_dump($this->mnhCeocQuestionsList);die;
-        return $this->mnhCeocQuestionsList;
-    }
-    
+   
     /*calls the query defined in MY_Model*/
     public function getTrainingGuidelines() {
         $this->trainingGuidelinesList = $this->getAllTrainingGuidelines('ch');
@@ -300,9 +300,9 @@ class M_MCH_Survey extends MY_Model
      private function addMchHealthServiceQuestion() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-        	print_r($this->input->post());die;
+        	//print_r($this->input->post());die;
             //For every posted values
-            if (strpos($key, 'mchH') !== FALSE) {
+            if (strpos($key, 'question') !== FALSE) {
                 //select data for health service question
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
@@ -322,7 +322,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "mchHealthServiceQCode") {
+                if ($this->attr == "questionCode") {
                     // print 'count at:'.$count.'<br />';
                     
                     $finalCount = $count;
@@ -351,7 +351,7 @@ class M_MCH_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        print_r($this->elements);die;
+       // print_r($this->elements);die;
         
         //exit;
         
@@ -370,12 +370,11 @@ class M_MCH_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['mchHealthServiceResponse']);
-            
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['mchHealthServiceQCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLqCreated(new DateTime());
             
@@ -1708,8 +1707,8 @@ class M_MCH_Survey extends MY_Model
         private function addmchConsultationQuestions() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-            //For every posted values
-            if (strpos($key, 'mch') !== FALSE) {
+        	//For every posted values
+            if (strpos($key, 'health') !== FALSE) {
                 //select data for bemonc signal functions
                 //we separate the attribute name from the number
                 $this->frags = explode("_", $key);
@@ -1731,7 +1730,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "mchConsultationQCode") {
+                if ($this->attr == "healthResponseCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -1780,12 +1779,12 @@ class M_MCH_Survey extends MY_Model
             
             //check if that key exists, else set it to some default value
             
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['mchConsultationResponse']);
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['healthResponse']);
             
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['mchConsultationQCode']);
+            $this->theForm->setQuestionCode($this->elements[$i]['healthResponseCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLqCreated(new DateTime());
             
@@ -2901,8 +2900,7 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
-                          $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true) {
-                        	//$this->addMchHealthServiceQuestion() == true ){	
+                          $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true && $this->addMchHealthServiceQuestion() == true) {
                         	//Defined in MY_Model
 
                             $this->writeAssessmentTrackerLog();
@@ -2976,7 +2974,7 @@ class M_MCH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         //if ($this->addBundling() == true&& $this->addCommodityQuantityAvailabilityInfo() == true  ) {
-                        	if($this->addBundling()== true){
+                        	if($this->addCommodityQuantityAvailabilityInfo() == true){
                         	//defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

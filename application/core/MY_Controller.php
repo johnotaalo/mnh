@@ -4,11 +4,11 @@
 class MY_Controller extends CI_Controller
 {
     
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection,$HealthSection;
     
     //new sections
 
-    public $mchmalariaTreatmentSection,$mchpneumoniaTreatmentSection,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment, $mchHealthService, $supplierName;
+    public $mchmalariaTreatmentSection,$mchpneumoniaTreatmentSection,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment, $supplierName;
 
     
     //pdf variables
@@ -76,6 +76,7 @@ class MY_Controller extends CI_Controller
         $this->createMCHCommunityStrategySection();
         $this->createHcwProfileSection();
         $this->createmchConsultationSection();
+        $this->createHealthSection();
         
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -1031,35 +1032,63 @@ class MY_Controller extends CI_Controller
         //echo $this->hcwProfileSection;die;
         return $this->hcwProfileSection;
     }
-	/**Function to create the section: Child Health--Health Service Questions
+       /**Function to create the section: Child Health--Health Service Questions
      * */
-	public function createmchHealthService(){
-		$this->data_found = $this->m_mch_survey->getmchHealthServiceQuestions('hs');
+    public function createHealthSection() {
+    	$this->data_found = $this->m_mch_survey->getMchHealthQuestions('hs');
         
         //var_dump($this->data_found);die;
         $counter = 0;
-        $aspect = '';
+       	$data = '';
         foreach ($this->data_found as $value) {
-        	$counter++;
-            
-            $this->mchHealthService.= '<tr>
-			<td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
-			<td colspan="1">
-			<td>General OPD<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="OPD" class="numbers cloned"/></td>
-			<td>U5 Clinic<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="U5 Clinic" class="numbers cloned"/></td>
-			<td>MCH<input type="radio"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="MCH" class="numbers cloned"/></td>
-			<td>Other, Specify<input type="text"  name="mchHealthServiceResponse" id="mchHealthServiceResponse_' . $counter . '" value="Other" class="numbers cloned"/></td>
-			<td><input type="hidden"  name="mchHealthServiceQCode" id="mchHealthServiceQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-			</td>
-		</tr>';
-        }
+            $counter++;
+            if ($value['questionCode'] == 'QUC30') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+
+            <label for="General_OPD" style="font-weight:normal">General OPD</label>
+             <input type="radio" value= "General OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_GeneralOPD' . $counter . '" class="cloned"/>
+            <label for="Paediatric_OPD" style="font-weight:normal">Paediatric OPD</label>
+             <input type="radio" value= "Paediatric OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_PaediatricOPD' . $counter . '" class="cloned"/>
+            <label for="MCH" style="font-weight:normal">MCH</label>
+             <input type="radio" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            <label for="Other" style="font-weight:normal">Other</label>
+             <input type="text" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->HealthSection.= $data;
+            }  else {
+                    
+                    $this->HealthSection.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+
+            <label for="LAB" style="font-weight:normal">LAB</label>
+             <input type="radio" value= "LAB" name="questionResponse_' . $counter . '[]" id="questionResponse_LAB' . $counter . '" class="cloned"/>
+            <label for="MCH" style="font-weight:normal">MCH</label>
+             <input type="radio" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            <label for="Ward style="font-weight:normal">Ward</label>
+             <input type="radio" value= "Ward" name="questionResponse_' . $counter . '[]" id="questionResponse_Ward' . $counter . '" class="cloned"/>
+            <label for="CCC style="font-weight:normal">CCC</label>
+             <input type="radio" value= "CCC" name="questionResponse_' . $counter . '[]" id="questionResponse_CCC' . $counter . '" class="cloned"/>
+            <label for="Other" style="font-weight:normal">Other</label>
+             <input type="text" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                }
+            }
         
-        //echo $this->mchHealthService;die;
-        return $this->mchHealthService;
-	}
-       /**Function to create the section: Child Health--Consultation Questions
-     * */
-    public function createmchConsultationSection() {
+        
+        //echo $this->mchConsultationSection;die;
+        return $this->HealthSection;
+    }
+ 		/**Function to create the section: Child Health--Consultation Questions
+    	 * */
+    public function createmchConsultationSection(){
         $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
         
         //var_dump($this->data_found);die;
@@ -1071,9 +1100,14 @@ class MY_Controller extends CI_Controller
             $this->mchConsultationSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
-            <input type="text"  name="mchConsultationResponse_' . $counter . '" id="mchConsultationResponse_' . $counter . '" value="" class="numbers cloned"/>
+            <select name="healthResponse_' . $counter . '" id="healthResponse_' . $counter . '" class="cloned is-guideline">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+
+            </select>
             </td>
-            <input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="healthResponseCode_' . $counter . '" id="healthResponseCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
         
@@ -2831,9 +2865,6 @@ class MY_Controller extends CI_Controller
             <!--td style ="text-align:center;">
             <input name="hwNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td-->
-            <td width="50">
-            ' . $ch_supplier_names . '
-            </td>
             <!--td width="50">
             <select name="hwReason_' . $counter . '" id="hwReason_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>
