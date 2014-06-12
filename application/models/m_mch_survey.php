@@ -3350,8 +3350,31 @@ class M_MCH_Survey extends MY_Model
                         return $this->response = 'true';
                     }
                     break;
+					case 'section-8':
+                    
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+                    
+                    //print var_dump($this->section);
+                    
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        //if ($this->addMchOrtConerAssessmentInfo() == true && $this->addAccessChallengesInfo() == true) {
+                        	if ($this->addResourceAvailabilityInfo()== true) {
+                             //defined in this model
+                            $this->writeAssessmentTrackerLog();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+                        
+                        //die('Entry exsits');
+                        return $this->response = 'true';
+                    }
+                    break;
 				
-                case 'section-8':
+                case 'section-9':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -3361,7 +3384,7 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                       if($this->addResourceAvailabilityInfo()== true){
+                       if($this->addMchCommunityStrategyInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             
