@@ -371,6 +371,7 @@ class M_MCH_Survey extends MY_Model
             //check if that key exists, else set it to some default value
             
             (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionResponseOther', $this->elements[$i])&& $this->elements[$i]['questionResponseOther']!='') ? $this->theForm->setLqResponse($this->elements[$i]['questionResponseOther']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
@@ -3380,8 +3381,31 @@ class M_MCH_Survey extends MY_Model
                         return $this->response = 'true';
                     }
                     break;
+					case 'section-8':
+                    
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+                    
+                    //print var_dump($this->section);
+                    
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        //if ($this->addMchOrtConerAssessmentInfo() == true && $this->addAccessChallengesInfo() == true) {
+                        	if ($this->addResourceAvailabilityInfo()== true) {
+                             //defined in this model
+                            $this->writeAssessmentTrackerLog();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+                        
+                        //die('Entry exsits');
+                        return $this->response = 'true';
+                    }
+                    break;
 				
-                case 'section-8':
+                case 'section-9':
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -3391,7 +3415,7 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                       if($this->addResourceAvailabilityInfo()== true){
+                       if($this->addMchCommunityStrategyInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             
