@@ -48,10 +48,15 @@ $active_group = 'default';
 $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
+<<<<<<< HEAD
 
 $db['default']['password'] = '';
 $db['default']['database'] = 'mnh_rest';
 
+=======
+$db['default']['password'] = '';
+$db['default']['database'] = 'mnh_rest';
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

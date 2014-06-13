@@ -5,7 +5,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
 		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
-		
+		<script src="<?php echo base_url()?>js/core.js"></script>
 		
 		<script>
 		$().ready(function(){
@@ -19,6 +19,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 			var linkDomain='';
 			var visit_site = ''; 
 			var devices='';
+			var fac_mfl = fac_county = fac_district = '';
+			var base_url = '<?php echo base_url(); ?>';
 			
 				
 			    //start of close_opened_form click event
@@ -115,12 +117,21 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 							$.ajax({
 								type:'POST',
 								data: '',
+								async:false,
 								url:the_url,
 								beforeSend: function(){
 
 								},
-								success: function(){
-
+								success: function(data){
+									obj = jQuery.parseJSON(data);
+									console.log(obj);
+									
+									fac_name=obj[0].fac_name;
+									fac_district=obj[0].fac_district;
+									fac_county=obj[0].fac_county;
+									message = obj[0].fac_name +' in ' +obj[0].fac_district+ ' District, ' +obj[0].fac_county+ ' County, is now reporting on the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+									console.log(message);
+									runNotification(base_url,'c_admin/getContacts',message);
 								}}
 								);
 							//alert(link_id);
@@ -622,14 +633,14 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																	//console.log($(form_id).formwizard('state'));
 																  if(form_id=="#mnh_tool"){
 																  	 if(fdata.currentStep=='section-8'){
-																  //	alert('Yes');
-																   //$(form_id).formwizard('reset');
-																  	//$(form_id).formwizard('show','No');
-																  	// console.log($(form_id).formwizard('state'));
+
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
 																  		window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
-																  	
+																  	 message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+																console.log(message);
+																runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
 																  }
+																 
 																  }else{
 																  	 if(fdata.currentStep=='section-9'){
 																    //alert('Yes');

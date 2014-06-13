@@ -93,6 +93,7 @@ function startAnalytics(base_url, county, survey) {
 	$('#analytics-page').hide();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//Load Initial Graphs
 	$('#graph_5').load(base_url + 'c_analytics/getFacilityOwnerPerCounty/' + county);
 	$('#graph_6').load(base_url + 'c_analytics/getFacilityLevelPerCounty/' + county);
@@ -171,6 +172,8 @@ function startAnalytics(base_url, county, survey) {
 =======
 >>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 >>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 
 
 	//Home Action Event
@@ -211,6 +214,7 @@ function startAnalytics(base_url, county, survey) {
 		$('.has-sub.start').removeClass('active');
 		$('.has-sub.start a').remove('span');
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 		if (subID == 'facilities') {
@@ -1362,6 +1366,8 @@ function startAnalytics(base_url, county, survey) {
 		$('#breadcrumb-sub-title').text(smallText);
 =======
 =======
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 		$('span.statistic').text($(this).find('a').text());
 		$(this).parent().parent().addClass('active');
 		$(this).parent().parent().find('a').append('<span class="selected"></span>');
@@ -1369,16 +1375,20 @@ function startAnalytics(base_url, county, survey) {
 		currentChart = $(this).attr('id');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 40b15bb9759dcea54e990b757fbf2647a598adee
 =======
 >>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 >>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 		function_url_national = 'c_analytics' + '/get' + currentChart + '/national/n' + '/' + survey + '/' + extraStat;
 		console.log(function_url_national);
 		loadGraph(base_url, function_url_national, '#graph_national');
 
 		function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
 		loadGraph(base_url, function_url_county, '#graph_county');
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> adb2262b05a6f8a6b71a1e28d6ed218c6e6c6230
@@ -1389,6 +1399,8 @@ function startAnalytics(base_url, county, survey) {
 =======
 >>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 >>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 	});
 
 	//Change Event for District Select

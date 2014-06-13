@@ -151,7 +151,6 @@ class M_MCH_Survey extends MY_Model
     }
     
     private function addQuestionsInfo() {
-        //print_r($this->input->post());die;
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -1024,8 +1023,8 @@ class M_MCH_Survey extends MY_Model
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiResponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiResponse("N/A");
-            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwresponse($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwresponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiHcwResponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiHCWResponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwFindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwFindings("N/A");
             (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
             (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
             $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
@@ -1771,15 +1770,14 @@ class M_MCH_Survey extends MY_Model
      //close addMchGuidelinesAvailabilityInfo
       
     private function addTotalMCHTreatment() {
-       echo "<pre>";print_r($this->input->post());echo"</pre>";die;
+echo '<pre>';print_r($this->input->post());echo '</pre>';die;
         $this->elements=array();
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
-            if (strpos($key, 'mcht') !== FALSE) {
+            if (strpos($key, 'mchtt') !== FALSE) {
                 //select data for number of deliveries
                 $this->attr = $key;
-
                 //the attribute name
                 if (!empty($val)) {
                     //print_r($val);die;
@@ -2317,6 +2315,7 @@ class M_MCH_Survey extends MY_Model
     }
 
      //close addMchOrtConerAssessmentInfo
+<<<<<<< HEAD
 
      private function addIndicatorInfo() {
         var_dump($this->input->post());die;
@@ -2476,6 +2475,8 @@ class M_MCH_Survey extends MY_Model
         
         
     }
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 
     private function addEquipmentQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
@@ -3410,7 +3411,7 @@ class M_MCH_Survey extends MY_Model
 
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addIndicatorInfo() == true){//($this->addQuestionsInfo() == true &&  && $this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()== true){
+                        if($this->addQuestionsInfo() == true && $this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()== true){
                              //defined in this model
 
                             $this->writeAssessmentTrackerLog();
@@ -3434,11 +3435,16 @@ class M_MCH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
+<<<<<<< HEAD
 
                         //if ($this->addMCHIndicatorInfo() == true) {
                         	if ($this->addIndicatorInfo() == true) {
                              //defined in this model
 
+=======
+                        if ($this->addIndicatorInfo() == true) {
+                        	 //defined in this model
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {

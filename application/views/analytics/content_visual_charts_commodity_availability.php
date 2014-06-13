@@ -334,6 +334,7 @@ break;
 			<div class="portlet-body">
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<div class="clearfix">
 					<div class="control-group pull-left">
 						<select class="secondary-filter" id="secondary-aggregated">
@@ -359,6 +360,9 @@ break;
 				<div id="graph_national" class="chart"></div>
 >>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 >>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+=======
+				<div id="graph_national" class="chart"></div>
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 			</div>
 		</div>
 		<div class="portlet box ">
