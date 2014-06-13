@@ -2315,168 +2315,8 @@ echo '<pre>';print_r($this->input->post());echo '</pre>';die;
     }
 
      //close addMchOrtConerAssessmentInfo
-<<<<<<< HEAD
 
-     private function addIndicatorInfo() {
-        var_dump($this->input->post());die;
-        $count = $finalCount = 1;
-        $this->elements = array();
-        foreach ($this->input->post() as $key => $val) {
-            
-            //For every posted values
-            if (strpos($key, 'indicator') !== FALSE) {
-                
-                //select data for bemonc signal functions
-                //we separate the attribute name from the number
-                
-                $this->frags = explode("_", $key);
-                
-                //$this->id = $this->frags[1];  // the id
-                
-                $this->id = $count;
-                
-                // the id
-                
-                $this->attr = $this->frags[0];
-                
-                //the attribute name
-                
-                //print $key.' ='.$val.' <br />';
-                //print 'ids: '.$this->id.'<br />';
-                if (is_array($val)) {
-                    $val = implode(',', $val);
-                }
-                
-                //mark the end of 1 row...for record count
-                if ($this->attr == "indicatorCode") {
-                    
-                    // print 'count at:'.$count.'<br />';
-                    
-                    $finalCount = $count;
-                    $count++;
-                    
-                    // print 'count at:'.$count.'<br />';
-                    //print 'final count at:'.$finalCount.'<br />';
-                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
-                    
-                    
-                }
-                
-                //collect key and value to an array
-                if (!empty($val)) {
-                    
-                    //We then store the value of this attribute for this element.
-                    $this->elements[$this->id][$this->attr] = htmlentities($val);
-                    
-                    //$this->elements[$this->attr]=htmlentities($val);
-                    
-                    
-                } else {
-                    $this->elements[$this->id][$this->attr] = '';
-                    
-                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
-                    
-                    
-                }
-            }
-        }
-        
-        //close foreach ($this -> input -> post() as $key => $val)
-        //echo '<pre>';print_r($this->elements);echo '</pre>';die;
-        
-        //exit;
-        
-        //get the highest value of the array that will control the number of inserts to be done
-        $this->noOfInsertsBatch = $finalCount;
-        
-        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
-            
-            //go ahead and persist data posted
-            $this->theForm = new \models\Entities\LogIndicators();
-            
-            //create an object of the model
-            
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-            
-            //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiHcwresponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiHcwresponse("N/A");
-            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwfindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwfindings("N/A");
-            (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
-            (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
-            $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLiCreated(new DateTime());
-            
-            /*timestamp option*/
-            $this->em->persist($this->theForm);
-            
-            //now do a batched insert, default at 5
-            $this->batchSize = 5;
-            if ($i % $this->batchSize == 0) {
-                try {
-                    
-                    $this->em->flush();
-                    $this->em->clear();
-                    
-                    //detaches all objects from doctrine
-                    //return true;
-                    
-                    
-                }
-                catch(Exception $ex) {
-                    
-                    die($ex->getMessage());
-                    return false;
-                    
-                    /*display user friendly message*/
-                }
-                
-                //end of catch
-                
-                
-            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
-                
-                //total records less than a batch, insert all of them
-                try {
-                    
-                    $this->em->flush();
-                    $this->em->clear();
-                    
-                    //detactes all objects from doctrine
-                    //return true;
-                    
-                    
-                }
-                catch(Exception $ex) {
-                    
-                    die($ex->getMessage());
-                    return false;
-                    
-                    /*display user friendly message*/
-                }
-                
-                //end of catch
-                
-                //on the last record to be inserted, log the process and return true;
-                if ($i == $this->noOfInsertsBatch) {
-                    
-                    //die(print $i);
-                    // $this->writeAssessmentTrackerLog();
-                    return true;
-                }
-            }
-            
-            //end of batch condition
-            
-            
-        }
-        
-        //end of innner loop
-        
-        
-    }
-=======
->>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
+
 
     private function addEquipmentQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
@@ -3435,16 +3275,10 @@ echo '<pre>';print_r($this->input->post());echo '</pre>';die;
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-<<<<<<< HEAD
 
-                        //if ($this->addMCHIndicatorInfo() == true) {
-                        	if ($this->addIndicatorInfo() == true) {
-                             //defined in this model
-
-=======
                         if ($this->addIndicatorInfo() == true) {
                         	 //defined in this model
->>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
+
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {

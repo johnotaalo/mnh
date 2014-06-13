@@ -43,6 +43,7 @@ class M_HCW_Survey extends MY_Model
         //var_dump($this->indicatorList);die;
         return $this->indicatorList;
     }
+
     private function addQuestionsInfo() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
@@ -1433,10 +1434,10 @@ class M_HCW_Survey extends MY_Model
      //close addCommodityQuantityAvailabilityInfo
     
     private function addMCHIndicatorInfo() {
-        $count = $finalCount = 1;
+         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
-            if (strpos($key, 'mchI') !== FALSE) {
+            if (strpos($key, 'indicator') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
                 
@@ -1454,9 +1455,12 @@ class M_HCW_Survey extends MY_Model
                 
                 //print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
                 
                 //mark the end of 1 row...for record count
-                if ($this->attr == "mchIndicatorCode") {
+                if ($this->attr == "indicatorCode") {
                     
                     // print 'count at:'.$count.'<br />';
                     
@@ -1488,14 +1492,14 @@ class M_HCW_Survey extends MY_Model
          //close foreach ($this -> input -> post() as $key => $val)
         //print var_dump($this->elements);
         
-        //exit;
+        //exit;   
         
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
             
-            //go ahead and persist data posted
+             //go ahead and persist data posted
             $this->theForm = new \models\Entities\LogIndicators();
             
             //create an object of the model
@@ -1503,7 +1507,10 @@ class M_HCW_Survey extends MY_Model
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['mchIndicator'])) ? $this->theForm->setLiResponse($this->elements[$i]['mchIndicator']) : $this->theForm->setLiResponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiResponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiResponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwfindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwfindings("N/A");
+            (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
+            (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
             $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLiCreated(new DateTime());
@@ -1525,7 +1532,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -1547,7 +1554,7 @@ class M_HCW_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
                     
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
                     
                     /*display user friendly message*/
@@ -2497,7 +2504,7 @@ class M_HCW_Survey extends MY_Model
         
         /*check assessment tracker log*/
         if ($this->input->post()) {         
-          $step = 'section-1';//$this->input->post('step_name', TRUE);
+          $step = $this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
                 case 'section-1':                    

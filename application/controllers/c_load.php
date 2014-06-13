@@ -2209,21 +2209,6 @@ public function get_hcw_form() {
 </table>
 </div>
 
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>4. Ear Infection</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-     ' . $this -> mchIndicatorsSection['ear'] . '
-</table>
-</div>
 <div id="section-3" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>
