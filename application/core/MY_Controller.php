@@ -93,14 +93,17 @@ class MY_Controller extends CI_Controller
         $this->createMNHCommunityStrategySection();
         
         $this->createDiarrhoeaTreatmentTSection();
-        $this->createPneumoniaTreatmentTSection();
-        $this->createMalariaTreatmentSection();
         
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
         $this->createQuestionsSectionPDF();
         $this->createSuppliesSectionPDF();
         
+        //treatment section
+        $this->createseverePneumoniaTreatmentTSection();
+        $this->createPneumoniaTreatmentTSection();
+        $this->createmalariaconfrimedtreatmentSection();
+        $this->createmalarianotconfrimedtreatmentSection();
         //new functions
         $this->getMCHOtherSuppliersforPDF();
         $this->createMNHHIVTestingAspectsSection();
@@ -2097,7 +2100,6 @@ class MY_Controller extends CI_Controller
         return $this->beds;
     }
     
-    /**Function to create various sections based on the indicator type * */
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
@@ -2126,13 +2128,15 @@ class MY_Controller extends CI_Controller
                             $findingAssessorRow = $finding . ' <input type="text" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '">';
                         }
                     } else {
+                        $findingHCWRow = $findingAssessorRow='';
                         foreach ($findings as $finding) {
+                             
                             if ($finding == 'other (specify)') {
                                 $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
                                 $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
                             } else {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
+                                $findingHCWRow.= $finding . ' <input value="'.$finding.'" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio">';
+                                $findingAssessorRow.= $finding . ' <input value="'.$finding.'" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio">';
                             }
                         }
                     }
@@ -2167,7 +2171,6 @@ class MY_Controller extends CI_Controller
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-
             } else {
                 $data[$section][] = '
                 <tr>
@@ -3682,28 +3685,71 @@ class MY_Controller extends CI_Controller
         return $this->treatmentMCHSection;
     }
     
-    /**
-     * [notify_sms description]
-     * @return [type] [description]
-     */
-   /* public function notify_sms() {
-        $phone_minlength = '8';
-        $phone = "";
-        $phone_list = "";
-        $first_part = "";
-        $kenyacode = "254";
-        $arrDelimiters = array("/", ",", "+");
-        $message = "Test Message";
-        $message = urlencode($message);
+     /**Function to create malaria treatment section**/
+    public function createmalariaconfrimedtreatmentSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+
+        $this->mchmalariaconfrimedtreatmentSection .= '
+    <select name = "malTreatment" onchange="selectmalconfirmedTreatment(this);" id = "malariaconfirmedtreatment">
+    <option value = "malconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['treatmentName'] != 'Others')
+            {
+                $this->mchmalariaconfrimedtreatmentSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "malconfirmedTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+            }
+        }
+        $this->mchmalariaconfrimedtreatmentSection .= '</select>';
+        $this->mchmalariaconfrimedtreatmentSection .= '<ol></ol>';
+        return $this->mchmalariaconfrimedtreatmentSection;
+    }
+
+    public function createmalarianotconfrimedtreatmentSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+
+        $this->mchmalarianotconfrimedtreatmentSection .= '
+    <select name = "malTreatment" onchange="selectmalnotconfirmedTreatment(this);" id = "malarianotconfirmedtreatment">
+    <option value = "malnotconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['treatmentName'] != 'Others')
+            {
+                $this->mchmalarianotconfrimedtreatmentSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "malnotconfirmedTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+            }
+        }
+        $this->mchmalarianotconfrimedtreatmentSection .= '</select>';
+        $this->mchmalarianotconfrimedtreatmentSection .= '<ol></ol>';
+        return $this->mchmalarianotconfrimedtreatmentSection;
+    }
 
 
-        $phone_list=array()
-        $phone = "+254717406871";
-        file("http://41.57.109.242:13000/cgi-bin/sendsms?username=clinton&password=ch41sms&to=$phone&text=$message");
-        echo 'sent';
-        
-        // return $alert;
-        
-    }*/
+    /**Function to create pneumonia treatment**/
+    public function createseverePneumoniaTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+        $this->mchpneumoniasevereTreatmentSection .= '
+<select name = "pnesevereTreatment" onchange="selectpnesevereTreatment(this);">
+<option value = "pnesevereTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['treatmentName'] != 'Others')
+            {
+                $this->mchpneumoniasevereTreatmentSection.=
+                '<option value = "'.$value['treatmentCode'].'" id = "pnesevereTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+            }
+        }
+        $this->mchpneumoniasevereTreatmentSection .= '</select>';
+        $this->mchpneumoniasevereTreatmentSection .= '<ol></ol>';
+        return $this->mchpneumoniasevereTreatmentSection;
+    }
+
+    
 
 }

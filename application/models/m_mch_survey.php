@@ -1023,8 +1023,8 @@ class M_MCH_Survey extends MY_Model
             $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
             
             //check if that key exists, else set it to some default value
-            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiResponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiResponse("N/A");
-            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwresponse($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwresponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwResponse'])) ? $this->theForm->setLiHcwResponse($this->elements[$i]['indicatorhcwResponse']) : $this->theForm->setLiHCWResponse("N/A");
+            (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwFindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwFindings("N/A");
             (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
             (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
             $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
@@ -1758,7 +1758,7 @@ class M_MCH_Survey extends MY_Model
      //close addMchGuidelinesAvailabilityInfo
       
     private function addTotalMCHTreatment() {
-
+echo '<pre>';print_r($this->input->post());echo '</pre>';die;
         $this->elements=array();
         foreach ($this->input->post() as $key => $val) {
             
@@ -3221,7 +3221,7 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                        if($this->addQuestionsInfo() == true && $this->addMCHIndicatorInfo() == true && $this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()== true){
+                        if($this->addQuestionsInfo() == true && $this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

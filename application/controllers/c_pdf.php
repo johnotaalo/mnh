@@ -1763,7 +1763,7 @@ class C_Pdf extends MY_Controller {
 			</tr>
 			
 		</thead>
-		' . $this -> mchCommodityAvailabilitySection . '
+		' . $this -> mchCommodityAvailabilitySectionPDF . '
 
 	</table>  
 	<p style="margin-top:200px"></p>

@@ -332,26 +332,7 @@ break;
 				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> Aggregated Analysis</h4>
 			</div>
 			<div class="portlet-body">
-<<<<<<< HEAD
-<<<<<<< HEAD
-				<div class="clearfix">
-					<div class="control-group pull-left">
-						<select class="secondary-filter" id="secondary-aggregated">
-							<option value="SevereDehydration">Severe Dehydration</option>
-							<option value="SomeDehydration">Some Dehydration</option>
-     						<option value="NoDehydration">No Dehydration</option>
-							<option value="Dysentry">Dysentry</option>
-							<option value="NoClassification">No Classification</option>
-						</select>
-					</div>
-				</div>
-				<div id="graph_1" class="chart"></div>
-=======
 				<div id="graph_national" class="chart"></div>
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
-				<div id="graph_national" class="chart"></div>
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 			</div>
 		</div>
 		<div class="portlet box ">
