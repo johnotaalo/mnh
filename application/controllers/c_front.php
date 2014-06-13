@@ -179,40 +179,5 @@ class C_Front extends MY_Controller
         
     }
     
-    public function getContacts(){
-    	$contacts = $this->db->get('contacts_list');
-        $contacts = $contacts->result_array();
-
-        echo json_encode($contacts);
-    }
-    /**
-     * [notify description]
-     * @param  string $type     [description]
-     * @param  string $contacts [description]
-     * @return [type]           [description]
-     */
-    public function notify($type = 'sms',$phoneNumber='',$message='') {
-$message = urldecode($message);
-    	switch($type){
-          case 'sms':
-                $message = urlencode($message);
-                file("http://41.57.109.242:13000/cgi-bin/sendsms?username=clinton&password=ch41sms&to=$phoneNumber&text=$message");
-                echo 'sent';
-                break;
-
-            case 'email':
-
-                break;
-
-            case 'note':
-                break;
-
-            default:
-                break;
-        }
-        
-        // return $alert;
-        
-        
-    }
+   
 }

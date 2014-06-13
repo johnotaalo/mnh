@@ -180,8 +180,10 @@ function runNotification(base_url, function_url, messsage) {
 				} else {
 					period = '';
 				}
-				message = period + ' ' + v.cl_name + ',  ' + message;
-				notify(phoneNumber, message);
+
+				newMessage = period + ' ' + v.cl_name + ',  ' + message;
+				//console.log(newMessage);
+				//notify(phoneNumber, newMessage);
 
 			});
 		}
@@ -199,7 +201,7 @@ function notify(phoneNumber, message) {
 	//message="test";
 	$.ajax({
 		//url: base_url + function_url,
-		url: 'http://localhost/mnh/c_front/notify/sms/' + phoneNumber + '/' + encodeURIComponent(message),
+		url: 'http://localhost/mnh/c_admin/notify/sms/' + phoneNumber + '/' + encodeURIComponent(message),
 		beforeSend: function(xhr) {
 			xhr.overrideMimeType("text/plain; charset=x-user-defined");
 		},
