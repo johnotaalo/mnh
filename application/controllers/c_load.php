@@ -1089,7 +1089,7 @@ class C_Load extends MY_Controller {
 		<th colspan="12" >HR INFORMATION</th>
 		</thead>
 		<tr >
-			<th >CADRE</th>
+			<th colspan = "2">CADRE</th>
 			<th>NAME</th>
 			<th >MOBILE</th>
 			<th >EMAIL</th>
@@ -1309,7 +1309,7 @@ class C_Load extends MY_Controller {
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
-			.$this -> mchpneumoniaTreatmentSection.
+			.$this -> mchpneumoniasevereTreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
@@ -1336,13 +1336,13 @@ class C_Load extends MY_Controller {
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
 				<span id = "malTreatmentSection">&nbsp</span>'
-			.$this -> mchmalariaTreatmentSection.
+			.$this -> mchmalariaconfrimedtreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
 				<span id = "malTreatmentSection_2">&nbsp</span>'
-			.$this -> mchmalariaTreatmentSection.
+			.$this -> mchmalarianotconfrimedtreatmentSection.
 			'</div>
 				</td>
 				</tr>
@@ -2087,7 +2087,7 @@ public function get_hcw_form() {
 <div id="section-2" class="step">
 
 		<input type="hidden" name="step_name" value="section-2"/>
-<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <p class="instruction">
 		* Assessor should indicate findings alongside Healthcare Worker findings.
 </p>
