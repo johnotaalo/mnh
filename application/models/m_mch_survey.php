@@ -3191,7 +3191,7 @@ class M_MCH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                     	/*$this->updateFacilityInfo()	==	true &&*/
-                        if ( $this->addMchHealthQuestion()== true) {
+                        if ( $this->addMchAssessorInfo()== true) {
                         	 // $this->addmchConsultationQuestions() == true &&
                              // $this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true) {
                              //Defined in MY_Model

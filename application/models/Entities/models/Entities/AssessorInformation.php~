@@ -2,71 +2,71 @@
 
 namespace models\Entities;
 
-use Doctrine\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * AssessorInformation
  *
- * @Table(name="assessor_information")
- * @Entity
+ * @ORM\Table(name="assessor_information")
+ * @ORM\Entity
  */
 class AssessorInformation
 {
     /**
      * @var integer
      *
-     * @Column(name="assessor_id", type="integer", nullable=false)
-     * @Id
-     * @GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="assessor_id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $assessorId;
 
     /**
      * @var string
      *
-     * @Column(name="assessor_name", type="string", length=400, nullable=true)
+     * @ORM\Column(name="assessor_name", type="string", length=400, nullable=true)
      */
     private $assessorName;
 
     /**
      * @var string
      *
-     * @Column(name="assessor_designation", type="string", length=255, nullable=true)
+     * @ORM\Column(name="assessor_designation", type="string", length=255, nullable=true)
      */
     private $assessorDesignation;
 
     /**
      * @var string
      *
-     * @Column(name="assessor_emailAddress", type="string", length=255, nullable=true)
+     * @ORM\Column(name="assessor_emailAddress", type="string", length=255, nullable=true)
      */
     private $assessorEmailaddress;
 
     /**
      * @var integer
      *
-     * @Column(name="assessor_phoneNumber", type="integer", nullable=true)
+     * @ORM\Column(name="assessor_phoneNumber", type="integer", nullable=true)
      */
     private $assessorPhonenumber;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="created", type="datetime", nullable=false)
+     * @ORM\Column(name="created", type="datetime", nullable=false)
      */
     private $created;
 
     /**
      * @var string
      *
-     * @Column(name="facility_mfl", type="string", length=11, nullable=true)
+     * @ORM\Column(name="facility_mfl", type="string", length=11, nullable=true)
      */
     private $facilityMfl;
 
     /**
      * @var integer
      *
-     * @Column(name="ss_id", type="integer", nullable=true)
+     * @ORM\Column(name="ss_id", type="integer", nullable=true)
      */
     private $ssId;
 
@@ -241,6 +241,4 @@ class AssessorInformation
     {
         return $this->ssId;
     }
-
 }
-
