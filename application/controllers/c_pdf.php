@@ -1763,7 +1763,7 @@ class C_Pdf extends MY_Controller {
 			</tr>
 			
 		</thead>
-		' . $this -> mchCommodityAvailabilitySectionPDF . '
+		' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>  
 	<p style="margin-top:200px"></p>
@@ -1827,7 +1827,7 @@ class C_Pdf extends MY_Controller {
 
 		
 		
-	</div><!--\.section 2-->
+	</div><!--\.section 3-->
 		
 	<div id="section-4" class="step">
 		<input type="hidden" name="step_name" value="section-4"/>
