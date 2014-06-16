@@ -5,10 +5,10 @@ error_reporting(1);
 class MY_Controller extends CI_Controller
 {
     
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
     
     //new sections
-    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment;
+    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection;
     
     //pdf variables
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -23,7 +23,7 @@ class MY_Controller extends CI_Controller
         $this->em = $this->doctrine->em;
         $this->load->model('m_mnh_survey');
         $this->load->model('m_mch_survey');
-         $this->load->model('m_hcw_survey');
+        $this->load->model('m_hcw_survey');
         $this->load->model('m_analytics');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
         $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
@@ -89,7 +89,15 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSectionPDF();
         $this->createMNHCommunityStrategySection();
         
-        $this->createDiarrhoeaTreatmentTSection();
+       //added section
+        //$this->();
+        $this->createSevereDiarrhoeaTreatmentTSection();
+        $this->createnodehydrationDiarrhoeaTreatmentTSection();
+        $this->createdysentryTreatmentTSection();
+        $this->createsomedehydrationDiarrhoeaTreatmentTSection();
+        $this->createnoclassificationDiarrhoeaTreatmentTSection();
+        //end of added section
+
         $this->createseverePneumoniaTreatmentTSection();
         $this->createPneumoniaTreatmentTSection();
         $this->createmalariaconfrimedtreatmentSection();
@@ -3381,7 +3389,7 @@ class MY_Controller extends CI_Controller
     }
     
     /*public function createTreatmentsMCHSection() {
-        $this->data_found = $this->m_mch_survey->getTreatmentNames();
+        $this->data_found = $this->m_mch_survey->getcommNames();
         
         //var_dump($this->data_found);die;
         $unit = "";
@@ -3389,9 +3397,9 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             
-            if ($value['treatmentName'] == 'Others') {
-                $this->treatmentMCHSection.= '<tr>
-            <td >' . $value['treatmentName'] . ' ' . $unit . '<input name="mchtTreatmentOther_' . $counter . '" type="text"  size="64" placeholder="please specify"/> </td>
+            if ($value['commName'] == 'Others') {
+                $this->severediatreatmentMCHSection.= '<tr>
+            <td >' . $value['commName'] . ' ' . $unit . '<input name="mchtTreatmentOther_' . $counter . '" type="text"  size="64" placeholder="please specify"/> </td>
             <td style ="text-align:center;">
             <input name="mchtSevereDehydration_' . $counter . '" type="text"  size="8" />
             </td>
@@ -3407,11 +3415,11 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="mchtNoClassification_' . $counter . '" type="text"  size="8" />
             </td>
-            <input type="hidden"  name="mchtTreatmentCode_' . $counter . '" id="mchtTreatmentCode_' . $counter . '" value="' . $value['treatmentCode'] . '" />
+            <input type="hidden"  name="mchtcommNCode_' . $counter . '" id="mchtcommNCode_' . $counter . '" value="' . $value['commNCode'] . '" />
         </tr>';
             } else {
-                $this->treatmentMCHSection.= '<tr>
-            <td >' . $value['treatmentName'] . ' ' . $unit . ' </td>
+                $this->severediatreatmentMCHSection.= '<tr>
+            <td >' . $value['commName'] . ' ' . $unit . ' </td>
             <td style ="text-align:center;">
             <input name="mchtSevereDehydration_' . $counter . '" type="text"  size="8" />
             </td>
@@ -3427,13 +3435,13 @@ class MY_Controller extends CI_Controller
             <td style ="text-align:center;">
             <input name="mchtNoClassification_' . $counter . '" type="text"  size="8" />
             </td>
-            <input type="hidden"  name="mchtTreatmentCode_' . $counter . '" id="mchtTreatmentCode_' . $counter . '" value="' . $value['treatmentCode'] . '" />
+            <input type="hidden"  name="mchtcommNCode_' . $counter . '" id="mchtcommNCode_' . $counter . '" value="' . $value['commNCode'] . '" />
         </tr>';
             }
         }
         
         //echo $this->equipmentsMCHSection;die;
-        return $this->treatmentMCHSection;
+        return $this->severediatreatmentMCHSection;
     }*/
     
     public function createSuppliesUsageAndOutageSection() {
@@ -3606,18 +3614,21 @@ class MY_Controller extends CI_Controller
     /**Function to create malaria treatment section**/
     public function createmalariaconfrimedtreatmentSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
 
         $this->mchmalariaconfrimedtreatmentSection .= '
-    <select name = "malTreatment" onchange="selectmalconfirmedTreatment(this);" id = "malariaconfirmedtreatment">
-    <option value = "malconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
+        <select name = "malTreatment" onchange="selectmalconfirmedTreatment(this);" id = "malariaconfirmedtreatment">
+        <option value = "malconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['commName'] != 'Others')
             {
+                
+               $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
                 $this->mchmalariaconfrimedtreatmentSection.=
-                '<option value = "'.$value['treatmentCode'].'" id = "malconfirmedTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+                '<option value = "'.$value['commCode'].'" id = "malconfirmedTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
             }
         }
         $this->mchmalariaconfrimedtreatmentSection .= '</select>';
@@ -3627,7 +3638,7 @@ class MY_Controller extends CI_Controller
 
     public function createmalarianotconfrimedtreatmentSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
 
         $this->mchmalarianotconfrimedtreatmentSection .= '
     <select name = "malTreatment" onchange="selectmalnotconfirmedTreatment(this);" id = "malarianotconfirmedtreatment">
@@ -3635,10 +3646,12 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['commName'] != 'Others')
             {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
                 $this->mchmalarianotconfrimedtreatmentSection.=
-                '<option value = "'.$value['treatmentCode'].'" id = "malnotconfirmedTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+                '<option value = "'.$value['commCode'].'" id = "malnotconfirmedTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
             }
         }
         $this->mchmalarianotconfrimedtreatmentSection .= '</select>';
@@ -3650,17 +3663,19 @@ class MY_Controller extends CI_Controller
     /**Function to create pneumonia treatment**/
     public function createseverePneumoniaTreatmentTSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
         $this->mchpneumoniasevereTreatmentSection .= '
-<select name = "pnesevereTreatment" onchange="selectpnesevereTreatment(this);">
+<select name = "pnesevereTreatment" onchange="selectpnesevereTreatment(this);" id = "severpneumoniatreatment">
 <option value = "pnesevereTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['commName'] != 'Others')
             {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
                 $this->mchpneumoniasevereTreatmentSection.=
-                '<option value = "'.$value['treatmentCode'].'" id = "pnesevereTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+                '<option value = "'.$value['commCode'].'" id = "pnesevereTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
             }
         }
         $this->mchpneumoniasevereTreatmentSection .= '</select>';
@@ -3670,17 +3685,19 @@ class MY_Controller extends CI_Controller
 
     public function createPneumoniaTreatmentTSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
         $this->mchpneumoniaTreatmentSection .= '
-<select name = "pneTreatment" onchange="selectpneTreatment(this);">
+<select name = "pneTreatment" onchange="selectpneTreatment(this);" id = "severpneumoniatreatment">
 <option value = "pneTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['commName'] != 'Others')
             {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
                 $this->mchpneumoniaTreatmentSection.=
-                '<option value = "'.$value['treatmentCode'].'" id = "pneTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+                '<option value = "'.$value['commCode'].'" id = "pnesevereTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
             }
         }
         $this->mchpneumoniaTreatmentSection .= '</select>';
@@ -3688,27 +3705,128 @@ class MY_Controller extends CI_Controller
         return $this->mchpneumoniaTreatmentSection;
     }
     /**Function to create diarrhoea section**/
-    public function createDiarrhoeaTreatmentTSection()
+    public function createSevereDiarrhoeaTreatmentTSection()
     {
-        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
 
         $counter = 0;
 
-        $this->treatmentMCHSection .= '
-        <select name = "diaTreatment" onchange="selectdiaTreatment(this);">
-        <option value = "diaTreatment_0" id = "not_selected">Select a treatment</option>';
+        $this->severediatreatmentMCHSection .= '
+        <select name = "severediaTreatment" onchange="selectseverediaTreatment(this);">
+        <option value = "severediaTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            if($value['treatmentName'] != 'Others')
+            if($value['commName'] != 'Others')
             {
-                $this->treatmentMCHSection.=
-                '<option value = "'.$value['treatmentCode'].'" id = "diaTreatment_'.$counter.'">'.$value['treatmentName'].'</option>';
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->severediatreatmentMCHSection.=
+                '<option value = "'.$value['commCode'].'" id = "diaTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
             }
         }
-        $this->treatmentMCHSection .= '</select>';
-        $this->treatmentMCHSection .= '<ol></ol>';
-        return $this->treatmentMCHSection;
+        $this->severediatreatmentMCHSection .= '</select>';
+        $this->severediatreatmentMCHSection .= '<ol></ol>';
+        return $this->severediatreatmentMCHSection;
     }
 
+    public function createdysentryTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+        $counter = 0;
+
+        $this->dysentrydiaTreatmentMCHSection .= '
+        <select name = "dysentryTreatment" onchange="selectdysentryTreatment(this);">
+        <option value = "dysentryTreatment_0" id = "not_selected">Select a treatment</option>';
+       $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->dysentrydiaTreatmentMCHSection.=
+                '<option value = "'.$value['commCode'].'" id = "dysentrydiaTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->dysentrydiaTreatmentMCHSection .= '</select>';
+        $this->dysentrydiaTreatmentMCHSection .= '<ol></ol>';
+        return $this->dysentrydiaTreatmentMCHSection;
+    }
+
+    public function createsomedehydrationDiarrhoeaTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+        $counter = 0;
+
+        $this->somedehydrationdiaTreatmentMCHSection .= '
+        <select name = "somedehydrationdiaTreatment" onchange="selectsomedehydrationdiaTreatment(this);">
+        <option value = "somedehydrationdiaTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->somedehydrationdiaTreatmentMCHSection.=
+                '<option value = "'.$value['commCode'].'" id = "dysentrydiaTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->somedehydrationdiaTreatmentMCHSection .= '</select>';
+        $this->somedehydrationdiaTreatmentMCHSection .= '<ol></ol>';
+        return $this->somedehydrationdiaTreatmentMCHSection;
+    }
+
+    public function createnodehydrationDiarrhoeaTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+        $counter = 0;
+
+        $this->nodehydrationdiaTreatmentMCHSection .= '
+        <select name = "nodehydration" onchange="selectnodehydrationdiaTreatment(this);">
+        <option value = "nodehydrationTreatment_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->nodehydrationdiaTreatmentMCHSection.=
+                '<option value = "'.$value['commCode'].'" id = "nodehydrationTreatment_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->nodehydrationdiaTreatmentMCHSection .= '</select>';
+        $this->nodehydrationdiaTreatmentMCHSection .= '<ol></ol>';
+        return $this->nodehydrationdiaTreatmentMCHSection;
+    }
+
+    public function createnoclassificationDiarrhoeaTreatmentTSection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+        $counter = 0;
+
+        $this->noclassificationdiaTreatmentMCHSection .= '
+        <select name = "noclassificationtreat" onchange="selectnoclassificationdiaTreatment(this);">
+        <option value = "noclassification_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->noclassificationdiaTreatmentMCHSection.=
+                '<option value = "'.$value['commCode'].'" id = "noclassification_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->noclassificationdiaTreatmentMCHSection .= '</select>';
+        $this->noclassificationdiaTreatmentMCHSection .= '<ol></ol>';
+        return $this->noclassificationdiaTreatmentMCHSection;
+    }
 }

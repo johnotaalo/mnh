@@ -413,11 +413,39 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				
 				 
 						}//end of select_option_changed 
-				
+
+
 						}); /*close document ready*/
+				
+				function additionfunction()
+				{
+					var malsevere = document.getElementById("malsevere").value;
+					var malsome = document.getElementById("malsome").value;
+					var malnodehydration = document.getElementById("malnodehydration").value;
+					var maldysentry = document.getElementById("maldysentry").value;
+					var malnoclass = document.getElementById("malnoclass").value;
+
+					var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
+					document.getElementById("diatotal").value = diatotal;
+
+					var severepne = document.getElementById("severepne").value;
+					var pne = document.getElementById("pne").value;
+
+					var pnetotal = Number(severepne) + Number(pne);
+					document.getElementById("pnetotal").value = pnetotal;
 
 
-								
+					var malconfirmed = document.getElementById("malconfirmed").value;
+					var malnotconfirmed = document.getElementById("malnotconfirmed").value;
+
+					var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
+					document.getElementById("malariatotal").value = malariatotal;
+
+					var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
+
+					document.getElementById("totalu5").value = u5total;
+				}
+
 				function selectpnesevereTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
@@ -521,7 +549,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 				function selectmalnotconfirmedTreatment(select)
 				{ 
-					 var value = select.options[select.selectedIndex].value;
+					  var value = select.options[select.selectedIndex].value;
 					 if(value != "malnotconfrimedTreatment_0")
 					 {
 					 	var option = select.options[select.selectedIndex]; 
@@ -552,10 +580,10 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						diver.appendChild(txt);
 					 }
 				}// close select treatment
-				function selectdiaTreatment(select)
+				function selectseverediaTreatment(select)
 				{ 
 					 var value = select.options[select.selectedIndex].value;
-					 if(value != "diaTreatment_0")
+					 if(value != "severediaTreatment_0")
 					 {
 					 	var option = select.options[select.selectedIndex]; 
 						var ul = select.parentNode.getElementsByTagName('ol')[0];
@@ -567,7 +595,111 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						var input = document.createElement('input'); 
 						var text = document.createTextNode(option.firstChild.data); 
 						input.type = 'hidden'; 
-						input.name = 'diatreatments[]';
+						input.name = 'mchtreatment[severediaTotalTreatment][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectsomedehydrationdiaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "somedehydrationdiaTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[somedehydrationdiaTotalTreatment][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectdysentryTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "dysentryTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[dysentryTotalTreatment][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectnodehydrationdiaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "nodehydrationTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[nodehydrationTreatment][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectnoclassificationTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "noclassificationTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[noclassificationTotalTreatment][]';
 						input.value = option.value; li.appendChild(input);
 						li.appendChild(text);
 						li.setAttribute("id", code);

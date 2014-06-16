@@ -7,7 +7,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class M_MCH_Survey extends MY_Model
 {
-    var $id, $attr, $frags, $elements, $noOfInserts, $batchSize, $mfcCode, $facility, $commodity, $isFacility, $ortAspectsList, $mchGuidelineAvailabilityList, $commodityList, $trainingGuidelinesList, $equipmentList, $suppliesList, $indicatorList, $treatmentList;
+    var $id, $attr, $frags, $elements, $noOfInserts, $batchSize, $mfcCode, $facility, $commodity, $isFacility, $ortAspectsList, $mchGuidelineAvailabilityList, $commodityList, $treatmentcommodityList,$trainingGuidelinesList, $equipmentList, $suppliesList, $indicatorList, $treatmentList;
     
     function __construct() {
         parent::__construct();
@@ -68,6 +68,13 @@ class M_MCH_Survey extends MY_Model
         return $this->commodityList;
     }
     
+    /*calls the query defined in MY_Model*/
+    public function getTreatmentCommodities()
+    {
+        $this->treatmentcommodityList = $this->getTreatmentCommodity('ch');
+
+        return $this->treatmentcommodityList;
+    }
     /*calls the query defined in MY_Model*/
     public function getBundlingNames() {
         $this->commodityList = $this->getAllCommodityNames('bun');

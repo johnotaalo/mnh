@@ -1283,7 +1283,7 @@ class C_Load extends MY_Controller {
 		<table class="centre">
 			<tbody>
 				<th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
-				<th><input type = "text"></th>
+				<th><input type = "text" disabled id = "totalu5"/></th>
 				<th colspan = "2"></th>
 
 			<tr>
@@ -1291,16 +1291,16 @@ class C_Load extends MY_Controller {
 			</tr>
 			<tr>
 				<th colspan="2">Diarrhoea Total</th>
-				<th><input type = "text"></th>
+				<th><input type = "text" id = "diatotal" disabled/></th>
 				<th colspan = "2"></th>
 			</tr>
 			</tbody>
 			<tr>
-			<td>Severe Dehydration: <input type = "text" name = "mchtotalTreatment[SevereDehydration]"></td>
-			<td>Some Dehydration: <input type = "text" name = "mchtotalTreatment[SomeDehydration]"></td>
-			<td>No Dehydration: <input type = "text" name = "mchtotalTreatment[NoDehydration]"></td>
-			<td>Dysentry: <input type = "text" name = "mchtotalTreatment[Dysentry]"></td>
-			<td>No Classification: <input type = "text" name = "mchtotalTreatment[NoClassification]"></td>
+			<td>Severe Dehydration: <input type = "text" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
+			<td>Some Dehydration: <input type = "text" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
+			<td>No Dehydration: <input type = "text" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
+			<td>Dysentry: <input type = "text" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
+			<td>No Classification: <input type = "text" id = "malnoclass" name = "mchtotalTreatment[NoClassification]" onkeyup = "additionfunction()"></td>
 			</tr>
 			<tr>
 				<td>
@@ -1312,31 +1312,31 @@ class C_Load extends MY_Controller {
 					</style>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> treatmentMCHSection.'
+					.$this -> severediatreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> treatmentMCHSection.'
+					.$this -> somedehydrationdiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> treatmentMCHSection.'
+					.$this -> nodehydrationdiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> treatmentMCHSection.'
+					.$this -> dysentrydiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> treatmentMCHSection.'
+					.$this -> severediatreatmentMCHSection.'
 					</div>
 				</td>
 			</tr>
@@ -1347,13 +1347,13 @@ class C_Load extends MY_Controller {
 
 					<tr>
 					<th colspan = "2">Pneumonia Total: </th>
-					<th><input type = "text"></th>
+					<th><input type = "text" id = "pnetotal"></th>
 					<th colspan = "3"></th>
 					</tr>
 				</tbody>
 				<tr>
-					<td colspan = "3">Severe Pneumonia: <input type = "text" name = "mchtotalTreatment[SeverePneumonia]"></td>
-					<td colspan = "3">Pneumonia: <input type = "text" name = "mchtotalTreatment[Pneumonia]"></td>
+					<td colspan = "3">Severe Pneumonia: <input type = "text" name = "mchtotalTreatment[SeverePneumonia]" id = "severepne" onkeyup = "additionfunction()"></td>
+					<td colspan = "3">Pneumonia: <input type = "text" name = "mchtotalTreatment[Pneumonia]" id = "pne" onkeyup = "additionfunction()"></td>
 				</tr>
 				<tr>
 				<td colspan = "3">
@@ -1363,7 +1363,7 @@ class C_Load extends MY_Controller {
 			'</div>
 				</td>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniTreatments">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
@@ -1375,13 +1375,13 @@ class C_Load extends MY_Controller {
 			<tbody>
 					<tr>
 					<th colspan = "2">Malaria Total: </th>
-					<th><input type = "text"></th>
+					<th><input type = "text" id = "malariatotal"></th>
 					<th colspan = "3"></th>
 					</tr>
 				</tbody>
 				<tr>
-					<td colspan = "3">Confirmed: <input type = "text" name = "mchtotalTreatment[ConfirmedMalaria]"></td>
-					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text" name = "mchtotalTreatment[NotConfirmedMalaria]"></td>
+					<td colspan = "3">Confirmed: <input type = "text" name = "mchtotalTreatment[ConfirmedMalaria]" id = "malconfirmed"  onkeyup = "additionfunction()"></td>
+					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
 				<tr>
 				<td colspan = "3">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
