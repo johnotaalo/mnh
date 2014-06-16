@@ -1417,13 +1417,13 @@ class MY_Controller extends CI_Controller
             $this->hcwConsultingAspectsSection.= '<tr>
             <td><strong>4.1.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td>
-            <select name="questionAspectResponse_' . $counter . '" id="questionAspectResponse_' . $counter . '" class="cloned is-guideline">
+            <select name="questionLocResponse_' . $counter . '" id="questionLocResponse_' . $counter . '" class="cloned is-guideline">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
         
@@ -2194,8 +2194,12 @@ class MY_Controller extends CI_Controller
             <td></td><td></td><td>Yes <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio">
              No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio"></td><td></td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+        
         </tr>';
-                } else {
+                } 
+
+//over here
+                else {
                     $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
@@ -2235,8 +2239,11 @@ class MY_Controller extends CI_Controller
                 $this->mchIndicatorsSection[$key].= $val;
             }
         }
+
         return $this->mchIndicatorsSection;
     }
+
+
     public function createMCHIndicatorsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         
