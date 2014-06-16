@@ -3812,7 +3812,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
 
         $this->noclassificationdiaTreatmentMCHSection .= '
-        <select name = "noclassificationtreat" onchange="selectnoclassificationdiaTreatment(this);">
+        <select name = "noclassificationtreat" onchange="selectnoclassificationTreatment(this);">
         <option value = "noclassification_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {

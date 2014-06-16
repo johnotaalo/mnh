@@ -1336,7 +1336,7 @@ class C_Load extends MY_Controller {
 				<td>
 					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
-					.$this -> severediatreatmentMCHSection.'
+					.$this -> noclassificationdiaTreatmentMCHSection.'
 					</div>
 				</td>
 			</tr>

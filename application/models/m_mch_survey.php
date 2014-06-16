@@ -1596,18 +1596,19 @@ class M_MCH_Survey extends MY_Model
      //close addMchGuidelinesAvailabilityInfo
       
     private function addTotalMCHTreatment() {
-       echo "<pre>";print_r($this->input->post());echo"</pre>";die;
+        $treatment =$this->input->post('mchtreatment');
+
+      //echo "<pre>";print_r($treatment);echo"</pre>";die;
         $this->elements=array();
         foreach ($this->input->post() as $key => $val) {
-            
             //For every posted values
-            if (strpos($key, 'mcht') !== FALSE) {
+            if (strpos($key, 'mch') !== FALSE) {
                 //select data for number of deliveries
+                //print_r($val);
                 $this->attr = $key;
 
                 //the attribute name
                 if (!empty($val)) {
-                    //print_r($val);die;
                     //We then store the value of this attribute for this element.
                     // $this->elements[$this->id][$this->attr]=htmlentities($val);
                     $count = 0;
@@ -1615,8 +1616,9 @@ class M_MCH_Survey extends MY_Model
                         $count++;
                         $this->elements[$count]['totalTreatment'] = htmlentities($total);
                         $this->elements[$count]['classification'] = htmlentities($key);
-                         
+                        $this->elements[$count]['treatment'] = implode(',', $treatment[$key]);
                     }
+               
                 } else {
                     $this->elements[$this->attr] = '';
                 }
@@ -1651,7 +1653,8 @@ class M_MCH_Survey extends MY_Model
             
             //print_r($this->elements);die;
             $this->theForm->setLtClassification($this->elements[$i]['classification']);
-            $this->theForm->setLtOtherTreatment($this->elements[$i]['totalTreatment']);
+            $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']);
+            $this->theForm->setLtTreatments($this->elements[$i]['treatment']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->em->persist($this->theForm);
             
@@ -1699,9 +1702,10 @@ class M_MCH_Survey extends MY_Model
                  //end of catch
                 
                 //on the last record to be inserted, log the process and return true;
-                echo $i;if ($i == $this->noOfInsertsBatch) {
+                //echo $i;
+                if ($i == $this->noOfInsertsBatch) {
                     
-                    die(print $i);
+                    //die(print $i);
                     // $this->writeAssessmentTrackerLog();
                     return true;
                 }
@@ -2142,7 +2146,7 @@ class M_MCH_Survey extends MY_Model
     }
      //close addMchOrtConerAssessmentInfo
      private function addIndicatorInfo() {
-        var_dump($this->input->post());die;
+        //var_dump($this->input->post());die;
         $count = $finalCount = 1;
         $this->elements = array();
         foreach ($this->input->post() as $key => $val) {
@@ -3218,7 +3222,7 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addIndicatorInfo() == true){//($this->addQuestionsInfo() == true &&  && $this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()== true){
+                    if($this->addTotalMCHTreatment()== true){//($this->addIndicatorInfo() == true){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
