@@ -23,6 +23,7 @@ class MY_Controller extends CI_Controller
         
         to everytime we want to use Doctrine */
         
+        
         $this->em = $this->doctrine->em;
         $this->load->model('m_mnh_survey');
         $this->load->model('m_mch_survey');
