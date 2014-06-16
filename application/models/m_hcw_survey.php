@@ -35,7 +35,13 @@ class M_HCW_Survey extends MY_Model
         //var_dump($this->mnhCeocQuestionsList);die;
         return $this->mnhCeocQuestionsList;
     }
-
+	/*calls the query defined in MY_Model*/
+    public function getworkProfile() {
+        $this->mnhCeocQuestionsList = $this->getQuestionsBySection('wp', 'QUC');
+        
+        //var_dump($this->mnhCeocQuestionsList);die;
+        return $this->mnhCeocQuestionsList;
+    }
     /*call the query defined in MY_Model */
     public function getIndicatorNames() {
         $this->indicatorList = $this->getAllMCHIndicators();
@@ -490,7 +496,149 @@ private function addHCWAssessorInfo() {
          //end of innner loop
         
     }
-private function addhcwProfileSection() {
+private function addhcwWorkProfile() {
+        $count = $finalCount = 1;
+        foreach ($this->input->post() as $key => $val) {
+            //print_r($this->input->post());die;
+            //For every posted values
+            if (strpos($key, 'question') !== FALSE) {
+                //select data for hcw profile
+                //we separate the attribute name from the number
+                $this->frags = explode("_", $key);
+                
+                //$this->id = $this->frags[1];  // the id
+                
+                $this->id = $count;
+                
+                // the id
+                
+                $this->attr = $this->frags[0];
+                //the attribute name
+                
+                //print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+                
+                //mark the end of 1 row...for record count
+                if ($this->attr == "questionCode") {
+                    // print 'count at:'.$count.'<br />';
+                    
+                    $finalCount = $count;
+                    $count++;
+                    
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+                    
+                }
+                
+                //collect key and value to an array
+                if (!empty($val)) {
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    
+                    //$this->elements[$this->attr]=htmlentities($val);
+                    
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+                    
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+                    
+                }
+            }
+        }
+         //close foreach ($this -> input -> post() as $key => $val)
+        //print_r($this->elements);die;
+        
+        //exit;
+        
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = $finalCount;
+        
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+            
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\WorkProfile();
+            
+            //create an object of the model
+            
+            //check if that key exists, else set it to some default value
+            
+           (array_key_exists('questionResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionResponse']) : $this->theForm->setLqResponse('n/a');
+           (array_key_exists('questionResponseYes', $this->elements[$i])) ? $this->theForm->setLqResponseforyes($this->elements[$i]['questionResponseYes']) : $this->theForm->setLqResponseforyes('n/a') ;
+           (array_key_exists('questionResponseNo', $this->elements[$i])) ? $this->theForm->setLqResponseforno($this->elements[$i]['questionResponseNo']) : $this->theForm->setLqResponseforno('n/a') ;
+           $this -> theForm ->setQuestionCode($this->elements[$i]['questionCode']);
+           $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+           $this->theForm->setLqCreated(new DateTime());
+           $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+           
+            
+            /*timestamp option*/
+            $this->em->persist($this->theForm);
+            
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    //die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+                    
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+            
+            //end of batch condition
+            
+        }
+         //end of innner loopurn ntr
+         return true;
+        
+    }
+     //close addhcwWorkProfile
+     private function addhcwProfileSection() {
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
             //print_r($this->input->post());die;
@@ -2799,7 +2947,7 @@ private function addhcwProfileSection() {
         
         /*check assessment tracker log*/
         if ($this->input->post()) {         
-          $step = 'section-1';//$this->input->post('step_name', TRUE);
+          $step = $this->input->post('step_name', TRUE);
             //echo $step;die;
             switch ($step) {
                 case 'section-1':                    
@@ -2812,8 +2960,9 @@ private function addhcwProfileSection() {
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()  ==  true &&*/
-                        $this->addhcwProfileSection() == true && $this->addHCWProfile()== true) {
-                             //Defined in MY_Model
+                       // $this->addhcwProfileSection() == true && $this->addHCWProfile()== true ) {
+                        	$this->addhcwWorkProfile()==true){
+                        	 //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
                             
                             return $this->response = 'true';

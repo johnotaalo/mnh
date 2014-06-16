@@ -2040,66 +2040,17 @@ public function get_hcw_form() {
     <tbody>
         <tr>
             <td>Current Unit</td>
-            <td><input type="text" name="ws_current_unit" id="ws_current_unit"></td>
+            <td><input type="text" name="questionResponseCurrentUnit" id="questionResponseCurrentUnit"></td>
         </tr>
     </tbody>
-</table>
 <p class="instruction">
 		* If healthcare worker works in many departments, write ALL
 </p>
-<table>
         <tr>
             <th>Question</th>
-            <th>Yes</th>
-            <th>No</th>
-        </tr>
-    <tbody>
-        <tr>
-            <td>
-                1.	Is the HCW still working in the original facility they were when they got trained?
-            </td>
-            <td>
-                <input type="radio" name="ws_original_facility" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_original_facility" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                If No to question 1 indicate whether the HCW:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in the same county
-            </td>
-            <td>
-                <input type="radio" name="ws_another_facility" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_another_facility" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If Yes, indicate name of the facility <input type="text" name="" id=""> </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in another county
-            </td>
-            <td>
-                <input type="radio" name="ws_another_county" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_another_county" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If  Yes, indicate the name of the county <input type="text" name="ws_county" id="ws_county"> and facility <input type="text" name="ws_facility" id="ws_facility"> </td>
-        </tr>
-    </tbody>
-</table>
+            <th>Response</th>
+        </tr>'.$this->hcwWorkProfile.'
+ </table>
 </div> <!-- end of section 1 -->
 
 <div id="section-2" class="step">

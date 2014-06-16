@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $treatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection,$HealthSection;
     
     //new sections
-    public $mchSuppliesPDF, $mchSupplies, $questionPDF, $hcwInterviewAspectsSectionPDF, $hcwInterviewAspectsSection, $hcwConsultingAspectsSection, $selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment;
+    public $mchSuppliesPDF, $mchSupplies, $questionPDF, $hcwInterviewAspectsSectionPDF, $hcwInterviewAspectsSection, $hcwConsultingAspectsSection, $selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchMalariaTreatment,$hcwWorkProfile;
     
     //pdf variables
     public $mchpneumoniaTreatmentSection, $mchmalariaTreatmentSection, $hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -78,6 +78,7 @@ class MY_Controller extends CI_Controller
         $this->createHcwProfileSection();
         $this->createmchConsultationSection();
         $this->createHealthSection();
+		$this->createWorkProfileSection();
         
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -1033,7 +1034,89 @@ class MY_Controller extends CI_Controller
         //echo $this->hcwProfileSection;die;
         return $this->hcwProfileSection;
     }
-    
+    /**Function to create the section: Child Health--HCW Work Profile
+     * */
+    public function createWorkProfileSection() {
+        $this->data_found = $this->m_hcw_survey->getworkProfile('wp');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $data = '';
+        foreach ($this->data_found as $value) {
+            $counter++;
+            
+			
+            if ($value['questionCode'] == 'QUC32') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            <label for="Yes" style="font-weight:normal">Yes</label>
+             <input type="radio" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            <label for="No" style="font-weight:normal">No</label>
+             <input type="radio" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }  
+			elseif ($value['questionCode'] == 'QUC33') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            <label for="Yes" style="font-weight:normal">Yes</label>
+             <input type="radio" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            <label for="No" style="font-weight:normal">No</label>
+             <input type="radio" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+			elseif ($value['questionCode'] == 'QUC34') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            <label for="County" style="font-weight:normal">County</label>
+            <input type="text" name="questionResponseYes_' . $counter . '[]" id="questionResponseYes_' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC35') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            <label for="Yes" style="font-weight:normal">Yes</label>
+             <input type="radio" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            <label for="No" style="font-weight:normal">No</label>
+             <input type="radio" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            else {
+                    
+                    $this->hcwWorkProfile.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+
+            <label for="County and Facility" style="font-weight:normal">County and Facility</label>
+             <input type="text" name="questionResponseNo_' . $counter . '[]" id="questionResponseNo_' . $counter . '" class="cloned"/>
+            
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                }
+            }
+        
+        //echo $this->hcwWorkProfile;die;
+        return $this->hcwWorkProfile;
+    }
     /**Function to create the section: Child Health--Health Services Questions
      * */
     public function createHealthSection() {
