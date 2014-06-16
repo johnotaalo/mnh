@@ -709,6 +709,111 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 						ul.appendChild(li);
 					 }
 				}// close select treatment
+
+				function selectothertreatmentTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "othertreat_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[pne][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectdiaresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "diaresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[dia][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectfevresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "fevresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[fev][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectearresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "earresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[ear][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
 				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
 						   //alert(form_id);	

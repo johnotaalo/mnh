@@ -1283,7 +1283,7 @@ class C_Load extends MY_Controller {
 		<table class="centre">
 			<tbody>
 				<th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
-				<th><input type = "text" disabled id = "totalu5"/></th>
+				<th><input type = "text" id = "totalu5" readonly = "readonly"/></th>
 				<th colspan = "2"></th>
 
 			<tr>
@@ -1291,7 +1291,7 @@ class C_Load extends MY_Controller {
 			</tr>
 			<tr>
 				<th colspan="2">Diarrhoea Total</th>
-				<th><input type = "text" id = "diatotal" disabled/></th>
+				<th><input type = "text" id = "diatotal" readonly = "readonly"/></th>
 				<th colspan = "2"></th>
 			</tr>
 			</tbody>
@@ -1347,7 +1347,7 @@ class C_Load extends MY_Controller {
 
 					<tr>
 					<th colspan = "2">Pneumonia Total: </th>
-					<th><input type = "text" id = "pnetotal"></th>
+					<th><input type = "text" id = "pnetotal" readonly = "readonly"></th>
 					<th colspan = "3"></th>
 					</tr>
 				</tbody>
@@ -1375,7 +1375,7 @@ class C_Load extends MY_Controller {
 			<tbody>
 					<tr>
 					<th colspan = "2">Malaria Total: </th>
-					<th><input type = "text" id = "malariatotal"></th>
+					<th><input type = "text" id = "malariatotal" readonly = "readonly"></th>
 					<th colspan = "3"></th>
 					</tr>
 				</tbody>
@@ -1448,7 +1448,7 @@ class C_Load extends MY_Controller {
      		<td colspan = "6">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
-			.$this -> mchpneumoniaTreatmentSection.
+			.$this -> othertreatmentsection.
 			'</div>
 			</td>
 			</tr>
@@ -1480,7 +1480,7 @@ class C_Load extends MY_Controller {
      		<td colspan = "6">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
-			.$this -> treatmentMCHSection.
+			.$this -> diaresponsetreatmentsection.
 			'</div>
 			</td>
 			</tr>
@@ -1507,11 +1507,12 @@ class C_Load extends MY_Controller {
             	<th>Findings</th>
         	</tr>
         	'. $this -> mchIndicatorsSection['fev'].'
-        	<tr>
+        	<th colspan = "6">Treatment</th>
+     		<tr>
      		<td colspan = "6">
 				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
-			.$this -> malTreatmentSection.
+			.$this -> fevresponsetreatmentsection.
 			'</div>
 			</td>
 			</tr>
@@ -1539,7 +1540,15 @@ class C_Load extends MY_Controller {
             	<th>Findings</th>
         	</tr>
         	'. $this -> mchIndicatorsSection['ear'].'
-
+        	<th colspan = "6">Treatment</th>
+     		<tr>
+     		<td colspan = "6">
+				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<span id = "pneTreatmentSection">&nbsp</span>'
+			.$this -> earresponsetreatmentsection.
+			'</div>
+			</td>
+			</tr>
 		</table>
 	
 	</div><!--\.section 2-->

@@ -1594,7 +1594,95 @@ class M_MCH_Survey extends MY_Model
         
     }
      //close addMchGuidelinesAvailabilityInfo
-      
+
+    private function addResponseTreatments()
+    {
+        $treat = $this->input->post('mchsymptom');
+       // print_r($treat);die;
+        $this->elements=array();
+        $count = 0;
+        foreach ($treat as $key => $val) {
+            $count++;
+            $this->elements[$count]['shortname'] = htmlentities($key);
+            $this->elements[$count]['symptom'] = implode(',', $treat[$key]);
+        }
+        //print_r($this->elements);die;
+         $this->noOfInsertsBatch = $count;
+
+         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+
+            $this->theForm = new \models\Entities\LogSymptoms();
+
+            $this->theForm->setLtCreated(new DateTime());
+            
+            /*timestamp option*/
+            $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
+
+            $this->theForm->setLsShortname($this->elements[$i]['shortname']);
+            $this->theForm->setLsTreatments($this->elements[$i]['symptom']);
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->em->persist($this->theForm);
+
+             //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detaches all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+                
+                //total records less than a batch, insert all of them
+                try {
+                    
+                    $this->em->flush();
+                    $this->em->clear();
+                    
+                    //detactes all objects from doctrine
+                    //return true;
+                    
+                }
+                catch(Exception $ex) {
+                    
+                    die($ex->getMessage());
+                    return false;
+                    
+                    /*display user friendly message*/
+                }
+                 //end of catch
+                
+                //on the last record to be inserted, log the process and return true;
+                //echo $i;
+                if ($i == $this->noOfInsertsBatch) {
+                    
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+            
+            //end of batch condition
+            
+        }
+         //end of innner loop
+}
+
+
     private function addTotalMCHTreatment() {
         $treatment =$this->input->post('mchtreatment');
 
@@ -2147,6 +2235,8 @@ class M_MCH_Survey extends MY_Model
      //close addMchOrtConerAssessmentInfo
      private function addIndicatorInfo() {
         //var_dump($this->input->post());die;
+        print_r($treat);die;
+
         $count = $finalCount = 1;
         $this->elements = array();
         foreach ($this->input->post() as $key => $val) {
@@ -3222,7 +3312,8 @@ class M_MCH_Survey extends MY_Model
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addTotalMCHTreatment()== true){//($this->addIndicatorInfo() == true){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
+                    if($this->addResponseTreatments() == true){
+                    /*$this->addTotalMCHTreatment()== true && $this->addIndicatorInfo() == true*///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

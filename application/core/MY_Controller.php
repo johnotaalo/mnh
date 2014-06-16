@@ -8,7 +8,7 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
     
     //new sections
-    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection;
+    public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
     
     //pdf variables
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -96,6 +96,10 @@ class MY_Controller extends CI_Controller
         $this->createdysentryTreatmentTSection();
         $this->createsomedehydrationDiarrhoeaTreatmentTSection();
         $this->createnoclassificationDiarrhoeaTreatmentTSection();
+        $this->createcoughresponsetreatmentsection();
+        $this->creatediarrhoearesponsetreatmentsection();
+        $this->createfeverresponsetreatment();
+        $this->createearresponsetreatment();
         //end of added section
 
         $this->createseverePneumoniaTreatmentTSection();
@@ -3828,5 +3832,109 @@ class MY_Controller extends CI_Controller
         $this->noclassificationdiaTreatmentMCHSection .= '</select>';
         $this->noclassificationdiaTreatmentMCHSection .= '<ol></ol>';
         return $this->noclassificationdiaTreatmentMCHSection;
+    }
+
+    public function createcoughresponsetreatmentsection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+
+        $counter = 0;
+
+        $this->othertreatmentsection .= '
+        <select name = "othertreat" onchange="selectothertreatmentTreatment(this);">
+        <option value = "othertreat_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->othertreatmentsection.=
+                '<option value = "'.$value['commCode'].'" id = "othertreat_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->othertreatmentsection .= '</select>';
+        $this->othertreatmentsection .= '<ol></ol>';
+        return $this->othertreatmentsection;
+    }
+
+    public function creatediarrhoearesponsetreatmentsection()
+    {
+        $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+
+        $counter = 0;
+
+        $this->diaresponsetreatmentsection .= '
+        <select name = "diaresponse" onchange="selectdiaresponseTreatment(this);">
+        <option value = "diaresponse_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->diaresponsetreatmentsection.=
+                '<option value = "'.$value['commCode'].'" id = "othertreat_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->diaresponsetreatmentsection .= '</select>';
+        $this->diaresponsetreatmentsection .= '<ol></ol>';
+        return $this->diaresponsetreatmentsection;
+    }
+
+    public function createfeverresponsetreatment()
+    {
+         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+
+        $counter = 0;
+
+        $this->fevresponsetreatmentsection .= '
+        <select name = "fevresponse" onchange="selectfevresponseTreatment(this);">
+        <option value = "fevresponse_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->fevresponsetreatmentsection.=
+                '<option value = "'.$value['commCode'].'" id = "othertreat_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->fevresponsetreatmentsection .= '</select>';
+        $this->fevresponsetreatmentsection .= '<ol></ol>';
+        return $this->fevresponsetreatmentsection;
+    }
+
+    public function createearresponsetreatment()
+    {
+         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
+
+
+        $counter = 0;
+
+        $this->earresponsetreatmentsection .= '
+        <select name = "earresponse" onchange="selectearresponseTreatment(this);">
+        <option value = "earresponse_0" id = "not_selected">Select a treatment</option>';
+        $counter = 0;
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if($value['commName'] != 'Others')
+            {
+                  $unit =($value['commUnit']!='')?  ' ['.$value['commUnit'].']':'' ; 
+                
+                $this->earresponsetreatmentsection.=
+                '<option value = "'.$value['commCode'].'" id = "othertreat_'.$counter.'">'.$value['commName'].' '.$unit.'</option>';
+            }
+        }
+        $this->earresponsetreatmentsection .= '</select>';
+        $this->earresponsetreatmentsection .= '<ol></ol>';
+        return $this->earresponsetreatmentsection;
     }
 }
