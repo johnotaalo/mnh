@@ -1502,7 +1502,9 @@ class C_Load extends MY_Controller {
 			</td>
 			</tr>
 		</table>
+
 	</table>
+
 	
 	</div><!--\.section 2-->
 
@@ -1555,6 +1557,7 @@ class C_Load extends MY_Controller {
 ' . $this -> mchIndicatorsSection['con'] . '
 	</table>
 	</div><!--\.section-3-->
+
       
     <div id="section-4" class="step">
 	<input type="hidden" name="step_name" value="section-4"/>
@@ -1772,7 +1775,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
             <td>Who is the Main Supplier of the Supplies <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHOtherSuppliersPDF.'</td>
+            <td>'.$this-> selectMCHOtherSuppliersPDF.'</td>
         </tr>
 	</tr>
 	</table>
@@ -1825,7 +1828,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
             <td>Who is the Main Supplier of the Resources <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHOtherSuppliersPDF.'</td>
+            <td>'.$this-> selectMCHOtherSuppliersPDF.'</td>
         </tr>
 	</tr>
 	</table>
@@ -1861,6 +1864,7 @@ class C_Load extends MY_Controller {
 		</thead>
 		
 		
+
 			<th  style="width:35%">ASPECT</th>
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
@@ -1868,6 +1872,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> mchCommunityStrategySection . '
 	</table>
 	</div><!--\.section-9-->
+
 	
 	 <div id="sectionNavigation" class="buttonsPane">
 		<input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
@@ -2096,7 +2101,7 @@ public function get_hcw_form() {
 <div id="section-2" class="step">
 
 		<input type="hidden" name="step_name" value="section-2"/>
-<p class="message success">OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <p class="instruction">
 		* Assessor should indicate findings alongside Healthcare Worker findings.
 </p>
@@ -2107,7 +2112,7 @@ public function get_hcw_form() {
         </tr>
         <tr>
             <th  width="700px">SERVICE</th>
-            <th> RESPONSE </th>
+            <th colspan="2"> RESPONSE </th>
         </tr>
     
     ' . $this -> mchIndicatorsSection['svc'] . '
@@ -2115,11 +2120,11 @@ public function get_hcw_form() {
 <table class="centre">
     
         <tr>
-            <th colspan="2" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
+            <th colspan="3" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
         </tr>
         <tr>
             <th width="700px" >SERVICE</th>
-            <th > RESPONSE </th>
+            <th colspan="2" > RESPONSE </th>
         </tr>
     
     ' . $this -> mchIndicatorsSection['sgn'] . '
@@ -2213,21 +2218,6 @@ public function get_hcw_form() {
 </table>
 </div>
 
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>4. Ear Infection</th>
-       
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        	<th style="width:100px">Response</th>
-        	<th style="width:400px">Findings</th>
-        </tr>
-     ' . $this -> mchIndicatorsSection['ear'] . '
-</table>
-</div>
 <div id="section-3" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>
@@ -2281,6 +2271,9 @@ public function get_hcw_form() {
     </tbody>
 </table>
 </div>
+
+
+
 <div id="section-4" class="step">
 
 <input type="hidden" name="step_name" value="section-4"/>
@@ -2312,6 +2305,8 @@ public function get_hcw_form() {
     <tfoot></tfoot>
 </table>
 </div>
+
+
 <div id="section-5" class="step">
 
 		<input type="hidden" name="step_name" value="section-5"/>
