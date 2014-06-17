@@ -1663,14 +1663,21 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
-		
+	 <p style="display:true" class="message success">SECTION 5 of 9:(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS</p>
 		<table class="centre">
+        <tr>' . $this -> selectAccessChallenges . '
+        </tr>
+
+         </table>
+
+		<table class="centre">
+		
 		<thead>
-			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+			<th colspan="2" >ORAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+		
 		</thead>
 		
-		
+		<p class="instruction"> * Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner  </p>
 			<th  style="width:35%">ASPECT</th>
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
 			
@@ -1678,38 +1685,7 @@ class C_Load extends MY_Controller {
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
 		
-		<table  class="centre" >
-		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
-		</thead>
-
-		</tr>
-		<tr>
-			<th scope="col" >Equipment Name</th>
-			
-			<th colspan="2" style="text-align:center">Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-			<td>Fully-Functional</td>
-            <!--td>Partially Functional</td-->
-			<td>Non-Functional</td>
-			</tr>
-			' . $this -> equipmentsMCHSection . '
-
-			</table>
+		
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
