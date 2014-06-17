@@ -4,7 +4,7 @@ date_default_timezone_set('Africa/Nairobi');
 
 class  MY_Model  extends  CI_Model {
 
-	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $facilityMFL, $strategy, $strategyName, $guideline, $chQuestion;
+	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $facilityMFL, $strategy, $strategyName, $guideline, $chQuestion, $treatmentCommodity;
 
 	function __construct() {
 		parent::__construct();
@@ -108,6 +108,18 @@ class  MY_Model  extends  CI_Model {
 		return $this -> facility;
 	}
 
+	function getTreatmentCommodity($surveyName)
+	{
+		try {
+			$this -> treatmentCommodity = $this -> em -> createQuery('SELECT DISTINCT c.commName, c.commCode, c.commFor, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor = :surveyName ORDER BY c.commCode ASC');
+			$this -> treatmentCommodity -> setParameter('surveyName', $surveyName);
+			$this -> treatmentCommodity = $this -> treatmentCommodity -> getResult();
+		} catch (Exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentCommodity;
+	}
 	function getAllCommodityNames($surveyName) {
 		/*using DQL*/
 		try {
