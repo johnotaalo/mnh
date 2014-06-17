@@ -2072,6 +2072,7 @@ class MY_Controller extends CI_Controller
 
  public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
+        //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
 
         //var_dump($this->data_found);die;
         $counter = 0;
@@ -2079,7 +2080,7 @@ class MY_Controller extends CI_Controller
         $numbering = array_merge(range('A', 'Z'), range('a', 'z'));
         $base = 0;
         $current = "";
-        $findingHCWRow = $findingAssessorRow = "";
+
         foreach ($this->data_found as $value) {
             $counter++;
             $section = $value['indicatorFor'];
@@ -2090,7 +2091,8 @@ class MY_Controller extends CI_Controller
             $base++;
             $findingRow = '';
             if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl') {
-                if ($value['indicatorFindings'] != null) {
+                 $findingHCWRow = $findingAssessorRow = "";
+                if ($value['indicatorFindings'] != NULL) {
                     $findings = explode(';', $value['indicatorFindings']);
                     if (sizeof($findings) == 1) {
                         foreach ($findings as $finding) {
@@ -2111,6 +2113,7 @@ class MY_Controller extends CI_Controller
                         }
                     }
                 }
+
                 if ($value['indicatorName'] == 'Correct Classification') {
                     $data[$section][] = '
                 <tr>
@@ -2179,7 +2182,7 @@ class MY_Controller extends CI_Controller
             $base++;
             $findingRow='';
              if($section!='sgn'&&$section!='svc'&&$section!='ror'&&$section!='tl'){
-                if($value['indicatorFindings']!=null){
+
                   $findings = explode(';', $value['indicatorFindings']);
                   if(sizeof($findings)==1){
                     foreach($findings as $finding){
@@ -2194,7 +2197,6 @@ class MY_Controller extends CI_Controller
                         else{
                             $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
                         }
-                  }
                   }
                   }
                   if($value['indicatorName']=='Correct Classification'){
@@ -3942,14 +3944,14 @@ class MY_Controller extends CI_Controller
      * */
     public function createHealthSection() {
         $this->data_found = $this->m_mch_survey->getMchHealthQuestions('hs');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $data = '';
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['questionCode'] == 'QUC30') {
-                
+
                $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -3967,7 +3969,7 @@ class MY_Controller extends CI_Controller
         </tr>';
                 $this->HealthSection.= $data;
             }  else {
-                    
+
                     $this->HealthSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -3988,8 +3990,8 @@ class MY_Controller extends CI_Controller
         </tr>';
                 }
             }
-        
-        
+
+
         //echo $this->HealthSection;die;
         return $this->HealthSection;
     }
