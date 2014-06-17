@@ -75,7 +75,7 @@ class MY_Controller extends CI_Controller
         $this->createMCHCommunityStrategySection();
         $this->createHcwProfileSection();
         $this->createmchConsultationSection();
-
+ $this->createHealthSection();
         //pdf functions
         $this->getCommoditySuppliersforPDF();
         $this->createBemoncSignalFunctionsSectionforPDF();
@@ -3936,5 +3936,61 @@ class MY_Controller extends CI_Controller
         $this->earresponsetreatmentsection .= '</select>';
         $this->earresponsetreatmentsection .= '<ol></ol>';
         return $this->earresponsetreatmentsection;
+    }
+    /**Function to create the section: Child Health--Health Services Questions
+
+     * */
+    public function createHealthSection() {
+        $this->data_found = $this->m_mch_survey->getMchHealthQuestions('hs');
+        
+        //var_dump($this->data_found);die;
+        $counter = 0;
+        $data = '';
+        foreach ($this->data_found as $value) {
+            $counter++;
+            if ($value['questionCode'] == 'QUC30') {
+                
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            <label for="General_OPD" style="font-weight:normal">General OPD</label>
+             <input type="radio" value= "General OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_GeneralOPD' . $counter . '" class="cloned"/>
+            <label for="Paediatric_OPD" style="font-weight:normal">Paediatric OPD</label>
+             <input type="radio" value= "Paediatric OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_PaediatricOPD' . $counter . '" class="cloned"/>
+            <label for="MCH" style="font-weight:normal">MCH</label>
+             <input type="radio" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            <label for="Other" style="font-weight:normal">Other</label>
+             <input type="radio" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+             <input type="text" name="questionResponseOther_' . $counter . '[]" id="questionResponseOther_' . $counter . '" class="cloned"/>
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->HealthSection.= $data;
+            }  else {
+                    
+                    $this->HealthSection.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+
+            <label for="LAB" style="font-weight:normal">LAB</label>
+             <input type="radio" value= "LAB" name="questionResponse_' . $counter . '[]" id="questionResponse_LAB' . $counter . '" class="cloned"/>
+            <label for="MCH" style="font-weight:normal">MCH</label>
+             <input type="radio" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            <label for="Ward style="font-weight:normal">Ward</label>
+             <input type="radio" value= "Ward" name="questionResponse_' . $counter . '[]" id="questionResponse_Ward' . $counter . '" class="cloned"/>
+            <label for="CCC style="font-weight:normal">CCC</label>
+             <input type="radio" value= "CCC" name="questionResponse_' . $counter . '[]" id="questionResponse_CCC' . $counter . '" class="cloned"/>
+            <label for="Other" style="font-weight:normal">Other</label>
+             <input type="radio" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+             <input type="text" name="questionResponseOther_' . $counter . '[]" id="questionResponseOther_' . $counter . '" class="cloned"/>
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                }
+            }
+        
+        
+        //echo $this->HealthSection;die;
+        return $this->HealthSection;
     }
 }

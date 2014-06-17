@@ -2006,11 +2006,11 @@ public function get_hcw_form() {
 			<input type="text" size="40" name = "assesordesignation_1">
 			</td><td>Email </td>
 			<td>
-			<input type="text" size="40" name = "assesoremail_1">
+			<input type="email" size="40" name = "assesoremail_1">
 			</td>
 			</td><td>Phone Number </td>
 			<td>
-			<input type="text" size="40" name = "assesorphoneNumber_1">
+			<input type="phoneNumber" size="40" name = "assesorphoneNumber_1">
 			</td>
 		</tr>
 	</tbody>

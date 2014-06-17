@@ -29,6 +29,13 @@ class M_MCH_Survey extends MY_Model
         //var_dump($this->ortAspectsList);die;
         return $this->challengeList;
     }
+        /*calls the query defined in MY_Model*/
+    public function getMchHealthQuestions() {
+        $this->healthServicesList = $this->getQuestionsBySection('hs', 'QUC');
+        
+        //var_dump($this->healthServicesList);die;
+        return $this->healthServicesList;
+    }
      /*calls the query defined in MY_Model*/
     public function getTreatmentFor($type)
     {
@@ -730,7 +737,7 @@ class M_MCH_Survey extends MY_Model
             (isset($this->elements[$i]['mchGuideline']) && $this->elements[$i]['mchGuideline'] != '') ? $this->theForm->setGuideCode($this->elements[$i]['mchGuideline']) : $this->theForm->setGuideCode(-1);
             (isset($this->elements[$i]['mchBefore']) && $this->elements[$i]['mchBefore'] != '') ? $this->theForm->setTgBefore($this->elements[$i]['mchBefore']) : $this->theForm->setTgBefore(-1);
             (isset($this->elements[$i]['mchAfter']) && $this->elements[$i]['mchAfter'] != '') ? $this->theForm->setTgAfter($this->elements[$i]['mchAfter']) : $this->theForm->setTgAfter(-1);
-
+$this->theForm->setTgCreated(new DateTime());
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
             /*timestamp option*/
