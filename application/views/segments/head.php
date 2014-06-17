@@ -23,6 +23,7 @@
 		<script src="<?php echo base_url()?>js/exporting.js"></script>
 	<script src="<?php echo base_url()?>js/Merged-JS.js"></script>
 	<script src="<?php echo base_url()?>js/FusionMaps/FusionCharts.js"></script>
+	
 
 
     <link rel="shortcut icon"  href="<?php echo base_url(); ?>/images/favicon.ico">

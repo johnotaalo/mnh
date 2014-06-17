@@ -241,4 +241,34 @@ class WorkProfile
     {
         return $this->ssId;
     }
+    /**
+     * @var string
+     *
+     * @Column(name="lq_currentUnit", type="string", length=45, nullable=false)
+     */
+    private $lqCurrentunit;
+
+
+    /**
+     * Set lqCurrentunit
+     *
+     * @param string $lqCurrentunit
+     * @return WorkProfile
+     */
+    public function setLqCurrentunit($lqCurrentunit)
+    {
+        $this->lqCurrentunit = $lqCurrentunit;
+    
+        return $this;
+    }
+
+    /**
+     * Get lqCurrentunit
+     *
+     * @return string 
+     */
+    public function getLqCurrentunit()
+    {
+        return $this->lqCurrentunit;
+    }
 }

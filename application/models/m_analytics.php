@@ -31,7 +31,9 @@ class M_Analytics extends MY_Model
         /*using CI Database Active Record*/
         try {
             $query = "SELECT fac_mfl,fac_name,fac_district,fac_county,fac_incharge_contact_person,fac_incharge_email,fac_updated 
+
 	                 FROM facilities   ORDER BY fac_name ASC";
+
             $this->dataSet = $this->db->query($query, array($survey));
             $this->dataSet = $this->dataSet->result_array();
             
@@ -87,10 +89,6 @@ class M_Analytics extends MY_Model
         }
         
         $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     cs.strategy_code AS strategy,
     SUM(cs.cs_response) AS strategy_number
 FROM
@@ -342,10 +340,6 @@ ORDER BY lq.lq_response ASC";
     gt.guide_code AS training,
     sum(gt.tg_trained_before_2010) AS trained,
     sum(gt.tg_working) AS working
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
 FROM
     training_guidelines gt
 WHERE
@@ -355,10 +349,6 @@ WHERE
             guidelines
         WHERE
             guide_for = '" . $survey . "')
-<<<<<<< HEAD
-
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND gt.fac_mfl IN (SELECT 
             fac_mfl
         FROM
@@ -367,10 +357,6 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-<<<<<<< HEAD
-
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
 GROUP BY gt.guide_code
 ORDER BY gt.guide_code ASC";
@@ -470,19 +456,27 @@ ORDER BY gt.guide_code ASC";
         /*--------------------begin commodities availability by frequency----------------------------------------------*/
         $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
 <<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+<<<<<<< HEAD
 >>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
 =======
 >>>>>>> 4667156eae830326eaf78120c2da1f0097423501
+>>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
+=======
+>>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
 					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = '" . $survey . "')
                  " . $criteria_condition . ") 
-					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-					GROUP BY ca.comm_code,ca.ac_Availability
-					ORDER BY ca.comm_code";
+                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
+                    GROUP BY ca.comm_code,ca.ac_Availability
+                    ORDER BY ca.comm_code";
         try {
             $this->dataSet = $this->db->query($query, array($value));
             
@@ -571,17 +565,17 @@ ORDER BY gt.guide_code ASC";
         /*--------------------begin commodities reason for unavailability----------------------------------------------*/
         $this->dataSet = array();
         $query = "SELECT count(ca.ac_reason_unavailable) AS total_response,ca.comm_code as commodities,ca.ac_reason_unavailable AS reason, c.comm_unit as unit FROM available_commodities ca,commodities c
-					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = '" . $survey . "')
                  " . $criteria_condition . ") 
-					AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-					AND ca.ac_reason_unavailable !='Not Applicable'
-					GROUP BY ca.comm_code,ca.ac_reason_unavailable
-					ORDER BY ca.comm_code,reason ASC";
+                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
+                    AND ca.ac_reason_unavailable !='Not Applicable'
+                    GROUP BY ca.comm_code,ca.ac_reason_unavailable
+                    ORDER BY ca.comm_code,reason ASC";
         try {
             $this->dataSet = $this->db->query($query, array($value));
             
@@ -926,10 +920,6 @@ ORDER BY ca.comm_code";
         
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     count(ea.ae_availability) AS total_response,
     ea.eq_code as equipment,
     ea.ae_availability AS frequency
@@ -1292,15 +1282,17 @@ ORDER BY ea.eq_code ASC";
         
         /*--------------------begin equipment main supplier----------------------------------------------*/
         $query = "SELECT count(ca.supplier_code) AS total_response,ca.comm_code as commodities,ca.supplier_code AS supplier, c.comm_unit as unit FROM available_commodities ca,commodities c
-				 WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                 WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
         JOIN
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
+
 				 AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
 				GROUP BY ca.comm_code,ca.supplier_code
 				ORDER BY ca.comm_code";
+
         try {
             
             $this->dataSet = $this->db->query($query, array($value));
@@ -1407,10 +1399,6 @@ ORDER BY ea.eq_code ASC";
         }
         
         $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     il.indicator_code AS indicator, il.li_response as response
 FROM
     log_indicators il
@@ -1429,10 +1417,6 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-<<<<<<< HEAD
-
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = 'mnh')" . $criteria_condition . ")";
         
         try {
@@ -1673,10 +1657,6 @@ WHERE
             }
             
             $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     il.indicator_code AS indicator, il.li_response as response
 FROM
     log_indicators il
@@ -2116,10 +2096,6 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-<<<<<<< HEAD
-
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
         AND st.st_name = '$survey')" . $criteria_condition . ") GROUP BY indicator,response;";
                 try {
                     $this->dataSet = $this->db->query($query, array($value));
@@ -2378,10 +2354,6 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
                 }
                 
                 $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     oa.question_code AS assessment_item, oa.lq_response as response
 FROM
     log_questions oa
@@ -2516,7 +2488,7 @@ ORDER BY oa.question_code ASC";
                 
                 /*--------------------begin mnh equipment availability by frequency----------------------------------------------*/
                 $query = "SELECT count(ea.ae_availability) AS total_response,ea.eq_code as equipment,ea.ae_availability AS frequency FROM available_equipments ea WHERE ea.fac_mfl IN (SELECT fac_mfl FROM  
-			facilities f
+            facilities f
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
@@ -2975,7 +2947,7 @@ ORDER BY sq.supply_code ASC";
                     //var_dump($this->dataSet);die;
                     $this->dataSet = $this->dataSet->result_array();
                     
-                    //echo '<pre>';	print_r($this -> dataSet);echo '</pre>';die;
+                    //echo '<pre>'; print_r($this -> dataSet);echo '</pre>';die;
                     //echo($this -> db -> last_query());
                     //die ;
                     if ($this->dataSet !== NULL) {
@@ -3273,7 +3245,7 @@ ORDER BY sq.supply_code ASC";
                     //var_dump($this->dataSet);die;
                     $this->dataSet = $this->dataSet->result_array();
                     
-                    //echo '<pre>';	print_r($this -> dataSet);echo '</pre>';die;
+                    //echo '<pre>'; print_r($this -> dataSet);echo '</pre>';die;
                     //echo($this -> db -> last_query());
                     //die ;
                     if ($this->dataSet !== NULL) {
@@ -4109,14 +4081,14 @@ WHERE
         facilities
     WHERE
         facilities.fac_county = "' . $county . '"
-		AND fac_type != "Dental Clinic"
+        AND fac_type != "Dental Clinic"
             AND fac_type != "VCT Centre (Stand-Alone)"
             AND fac_type != "Training Institution in Health (Stand-alone)"
             AND fac_type != "Funeral Home (Stand-alone)"
             AND fac_type != "Laboratory (Stand-alone)"
             AND fac_type != "Health Project"
             AND fac_type != "Eye Clinic"
-			AND fac_type != "Eye Centre"
+            AND fac_type != "Eye Centre"
             AND fac_type != "Radiology Unit") as facilityData;';
                     
                     //echo $query;die;
@@ -4275,15 +4247,15 @@ FROM
                         
                         //Facility List
                         $query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
-					FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
- 					WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities f
+                    FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
+                    WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities f
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = '" . $survey . "')
                " . $criteria_condition . ")
- 					 AND lq.question_code = g.question_code AND lq.fac_mfl=f.fac_mfl;";
+                     AND lq.question_code = g.question_code AND lq.fac_mfl=f.fac_mfl;";
                         try {
                             $this->dataSet = $this->db->query($query, array($value));
                             $this->dataSet = $this->dataSet->result_array();
@@ -4836,7 +4808,7 @@ ORDER BY sq.supply_code;";
                                 break;
                         }
                         $query = "SELECT 
-				
+                
     ra.fac_mfl,
     f.fac_name,
     ra.eq_code as equipment,
@@ -4898,10 +4870,6 @@ ORDER BY ra.eq_code ASC";
                 switch ($choice) {
                     case 'Cases':
                         $query = "SELECT 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     SUM(CASE
         WHEN tl.lt_severe_dehydration_number = - 1 THEN 0
         ELSE tl.lt_severe_dehydration_number
@@ -5196,10 +5164,6 @@ ORDER BY question_code";
                         break;
                 }
                 $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
     question_code,SUM(lq_response_count) as response
 FROM
     log_questions
@@ -5412,14 +5376,14 @@ ORDER BY question_code";
                 $query = "SELECT 
     question_code,
     sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-    	(fac_level) as facility_level
-		FROM
-		    log_questions
-		JOIN 
-			facilities
-		ON
-			facilities.fac_mfl = log_questions.fac_mfl and facilities.fac_level!=''
-		WHERE
+        (fac_level) as facility_level
+        FROM
+            log_questions
+        JOIN 
+            facilities
+        ON
+            facilities.fac_mfl = log_questions.fac_mfl and facilities.fac_level!=''
+        WHERE
     question_code IN (SELECT 
             question_code
         FROM
@@ -5478,8 +5442,8 @@ ORDER BY fac_level;";
             /**
              * Signal Functions
              * Options:
-             * 		.bemonc
-             * 		.cemonc
+             *      .bemonc
+             *      .cemonc
              */
             public function getSignalFunction($criteria, $value, $survey, $signal) {
                 
@@ -5740,10 +5704,6 @@ ORDER BY question_code";
                         break;
                 }
                 $query = "SELECT 
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
      question_code,
     sum(if(lq_response = 'Yes', 1, 0)) as yes_values,
     sum(if(lq_response = 'No', 1, 0)) as no_values
@@ -6185,3 +6145,4 @@ WHERE
                 }
             }
         }
+        
