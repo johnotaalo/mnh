@@ -14,4 +14,5 @@ class M_Admin extends MY_Model {
 		$result = $result->result_array();
 		return $result;
 	}
+    
 }
