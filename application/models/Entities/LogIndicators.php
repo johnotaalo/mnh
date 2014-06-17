@@ -88,7 +88,7 @@ class LogIndicators
     /**
      * Get liId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLiId()
     {
@@ -104,14 +104,14 @@ class LogIndicators
     public function setLiResponse($liResponse)
     {
         $this->liResponse = $liResponse;
-    
+
         return $this;
     }
 
     /**
      * Get liResponse
      *
-     * @return string 
+     * @return string
      */
     public function getLiResponse()
     {
@@ -127,14 +127,14 @@ class LogIndicators
     public function setLiCreated($liCreated)
     {
         $this->liCreated = $liCreated;
-    
+
         return $this;
     }
 
     /**
      * Get liCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLiCreated()
     {
@@ -150,14 +150,14 @@ class LogIndicators
     public function setIndicatorCode($indicatorCode)
     {
         $this->indicatorCode = $indicatorCode;
-    
+
         return $this;
     }
 
     /**
      * Get indicatorCode
      *
-     * @return string 
+     * @return string
      */
     public function getIndicatorCode()
     {
@@ -173,14 +173,14 @@ class LogIndicators
     public function setFacMfl($facMfl)
     {
         $this->facMfl = $facMfl;
-    
+
         return $this;
     }
 
     /**
      * Get facMfl
      *
-     * @return string 
+     * @return string
      */
     public function getFacMfl()
     {
@@ -196,14 +196,14 @@ class LogIndicators
     public function setSsId($ssId)
     {
         $this->ssId = $ssId;
-    
+
         return $this;
     }
 
     /**
      * Get ssId
      *
-     * @return integer 
+     * @return integer
      */
     public function getSsId()
     {
@@ -219,14 +219,14 @@ class LogIndicators
     public function setLiHcwresponse($liHcwresponse)
     {
         $this->liHcwresponse = $liHcwresponse;
-    
+
         return $this;
     }
 
     /**
      * Get liHcwresponse
      *
-     * @return string 
+     * @return string
      */
     public function getLiHcwresponse()
     {
@@ -242,14 +242,14 @@ class LogIndicators
     public function setLiAssessorresponse($liAssessorresponse)
     {
         $this->liAssessorresponse = $liAssessorresponse;
-    
+
         return $this;
     }
 
     /**
      * Get liAssessorresponse
      *
-     * @return string 
+     * @return string
      */
     public function getLiAssessorresponse()
     {
@@ -265,14 +265,14 @@ class LogIndicators
     public function setLiHcwfindings($liHcwfindings)
     {
         $this->liHcwfindings = $liHcwfindings;
-    
+
         return $this;
     }
 
     /**
      * Get liHcwfindings
      *
-     * @return string 
+     * @return string
      */
     public function getLiHcwfindings()
     {
@@ -288,49 +288,20 @@ class LogIndicators
     public function setLiAssessorfindings($liAssessorfindings)
     {
         $this->liAssessorfindings = $liAssessorfindings;
-    
+
         return $this;
     }
 
     /**
      * Get liAssessorfindings
      *
-     * @return string 
+     * @return string
      */
     public function getLiAssessorfindings()
     {
         return $this->liAssessorfindings;
     }
-    /**
-     * @var string
-     *
-     * @Column(name="lt_treatments", type="string", length=45, nullable=true)
-     */
-    private $ltTreatments;
 
-
-    /**
-     * Set ltTreatments
-     *
-     * @param string $ltTreatments
-     * @return LogIndicators
-     */
-    public function setLtTreatments($ltTreatments)
-    {
-        $this->ltTreatments = $ltTreatments;
-    
-        return $this;
-    }
-
-    /**
-     * Get ltTreatments
-     *
-     * @return string 
-     */
-    public function getLtTreatments()
-    {
-        return $this->ltTreatments;
-    }
     /**
      * @var string
      *
@@ -348,14 +319,14 @@ class LogIndicators
     public function setLiTreatments($liTreatments)
     {
         $this->liTreatments = $liTreatments;
-    
+
         return $this;
     }
 
     /**
      * Get liTreatments
      *
-     * @return string 
+     * @return string
      */
     public function getLiTreatments()
     {
