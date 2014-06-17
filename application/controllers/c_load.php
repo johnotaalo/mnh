@@ -1680,9 +1680,22 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
+	SECTION 5 of 9: REVIEW OF RECORDS
+		</p>
+
 		
+
 		<table class="centre">
+		
+		<thead>
+		<tr>
+			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA FROM</span> U5 REGISTERS IN THE LAST 3 MONTHS</th></tr>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
+	<table class="centre">
 		<thead>
 			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 		</thead>
@@ -1694,39 +1707,6 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
-		
-		<table  class="centre" >
-		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
-		</thead>
-
-		</tr>
-		<tr>
-			<th scope="col" >Equipment Name</th>
-			
-			<th colspan="2" style="text-align:center">Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-			<td>Fully-Functional</td>
-            <!--td>Partially Functional</td-->
-			<td>Non-Functional</td>
-			</tr>
-			' . $this -> equipmentsMCHSection . '
-
-			</table>
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
@@ -2191,6 +2171,7 @@ public function get_hcw_form() {
      ' . $this -> mchIndicatorsSection['ear'] . '
 </table>
 </div>
+
 <div id="section-3" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>

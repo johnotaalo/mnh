@@ -33,7 +33,6 @@ class M_Analytics extends MY_Model
             $query = "SELECT fac_mfl,fac_name,fac_district,fac_county,fac_incharge_contact_person,fac_incharge_email,fac_updated 
 
 	                 FROM facilities   ORDER BY fac_name ASC";
-
             $this->dataSet = $this->db->query($query, array($survey));
             $this->dataSet = $this->dataSet->result_array();
             
@@ -458,6 +457,7 @@ ORDER BY gt.guide_code ASC";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 <<<<<<< HEAD
@@ -472,6 +472,9 @@ ORDER BY gt.guide_code ASC";
 =======
                     WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
 >>>>>>> 8016b600072740a657733173337ee717211f0b56
+=======
+                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
+>>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
@@ -4248,15 +4251,15 @@ FROM
                         case 'facility':
                             $criteria_condition = 'WHERE fac_mfl=?';
                             break;
-                    case 'none':
-                        $criteria_condition = '';
-                        break;
-                }
-                switch ($choice) {
-                    case 'GuidelinesAvailability':
-                        
-                        //Facility List
-                        $query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
+                        case 'none':
+                            $criteria_condition = '';
+                            break;
+                    }
+                    switch ($choice) {
+                        case 'GuidelinesAvailability':
+                            
+                            //Facility List
+                            $query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
                     FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
                     WHERE  question_for = 'gp') AND lq.fac_mfl IN (SELECT fac_mfl FROM facilities f
                 JOIN
@@ -5437,7 +5440,6 @@ ORDER BY fac_level;";
                     return $data;
                 }
                 
-
                 //Section 2
                 //-----------------------------------------------------------------------------
                 
@@ -6117,3 +6119,4 @@ WHERE
                     }
                 }
             }
+
