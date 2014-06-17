@@ -1179,7 +1179,7 @@ class C_Load extends MY_Controller {
 				<th style="text-align:left">AFTER 2014</th>
 			</tr>
 		
-		'.$this-> mchTrainingGuidelineSection.'
+		'.$this->mchTrainingGuidelineSection.'
 
 	</table>
 	<table>
@@ -1219,7 +1219,7 @@ class C_Load extends MY_Controller {
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 9: GUIDELINES, JOB AIDS AND TOOLS</p>
+	 <p style="display:true" class="message success">SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS</p>
 
      <table class="centre">
 		<thead>
@@ -1558,10 +1558,11 @@ class C_Load extends MY_Controller {
 	</table>
 	</div><!--\.section-3-->
 
-     <div id="section-4" class="step">
-	<input type="hidden" name="step_name" value="section-4"/>
-	 <p style="display:true" class="message success">SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY</p> 
-    
+    <div id="section-4" class="step">
+		<input type="hidden" name="step_name" value="section-4"/>
+		<p style="display:true"; class="message success">
+	SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY
+	</p>
 	<table>
 	<tr>
 		<tr>
@@ -1570,7 +1571,7 @@ class C_Load extends MY_Controller {
 		<tr>
             <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
             
-            <td>'.$this-> selectMCHCommoditySuppliersPDF.'</td>
+            <td>'.$this->selectMCHCommoditySuppliersPDF.'</td>
         </tr>
 	</tr>
 	</table>
@@ -1669,10 +1670,9 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 9: (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS</p>
+	 <p style="display:true" class="message success">SECTION 5 of 9:(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS</p>
 		<table class="centre">
-        <tr>' . $this -> selectAccessChallenges . '
-        </tr>
+        <tr>' . $this -> selectAccessChallenges . '</tr>
 
          </table>
 
@@ -1690,16 +1690,21 @@ class C_Load extends MY_Controller {
 		
 			<th  style="width:35%">ASPECT</th>
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			
+			<p class="instruction">  </p>
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
 		
 		
            </div><!--\.section-5-->
-           <div id="section-6" class="step">
-	<input type="hidden" name="step_name" value="section-6"/>
-	 <p style="display:true" class="message success">SECTION 6 of 9: EQUIPMENT AVAILABILITY AND STATUS</p> 
+           
+	<div id="section-6" class="step">
+		<input type="hidden" name="step_name" value="section-6"/>
+		<p style="display:true" class="message success">
+			SECTION 6 of 9: EQUIPMENT AVAILABILITY AND STATUS
+		</p>
+
+		
 
 		<table  class="centre" >
 			<thead>
@@ -1821,12 +1826,9 @@ class C_Load extends MY_Controller {
 		</table>
 		</div><!--\.section-8-->
 
-<div id="section-9" class="step">
-	<input type="hidden" name="step_name" value="section-9"/>
-	 <p style="display:true" class="message success">SECTION 9 of 9: RESOURCE AVAILABILITY3</p> 
-
 	<div id="section-9" class="step">
 	<input type="hidden" name="step_name" value="section-9"/>
+	 <p style="display:true" class="message success">SECTION 9 of 9: RESOURCE AVAILABILITY</p>
 		<table class="centre">
 		<thead>
 			<th colspan="2" >COMMUNITY STRATEGY </th>
