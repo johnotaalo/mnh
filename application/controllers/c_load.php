@@ -1993,6 +1993,29 @@ public function get_hcw_form() {
 			</td>
 		</tr>
 		</table>
+		
+		<table>
+	<thead>
+		<th colspan="12">ASSESSOR INFORMATION </th>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Name </td><td>
+			<input type="text" size="40" name = "assesorname_1">
+			</td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
+			<input type="text" size="40" name = "assesordesignation_1">
+			</td><td>Email </td>
+			<td>
+			<input type="text" size="40" name = "assesoremail_1">
+			</td>
+			</td><td>Phone Number </td>
+			<td>
+			<input type="text" size="40" name = "assesorphoneNumber_1">
+			</td>
+		</tr>
+	</tbody>
+</table>
+
 <table>
     <thead>
         <tr>
@@ -2005,28 +2028,28 @@ public function get_hcw_form() {
         </tr>
         <tr>
             <td>First Name</td>
-            <td><input type="text" name="hpfirstname" id="hpfirstname"></td>
+            <td><input type="text" name="hpfirstname_1" id="hpfirstname"></td>
             <td>Surname</td>
-            <td><input type="text" name="hpsurname" id="hpsurname"></td>
+            <td><input type="text" name="hpsurname_1" id="hpsurname"></td>
         </tr>
         <tr>
             <td>National ID</td>
-            <td><input type="text" name="hpnationalid" id="hpnationalid"></td>
+            <td><input type="text" name="hpnationalid_1" id="hpnationalid"></td>
             <td>Phone Number</td>
-            <td><input type="text" name="hpphonenumber" id="hpphonenumber"></td>
+            <td><input type="text" name="hpphonenumber_1" id="hpphonenumber"></td>
         </tr>
         <tr>
-            <td colspan="1">Year, Month when trained <input type="text" name="hpyear" id="hpyear"></td>
+            <td colspan="1">Year, Month when trained <input type="text" name="hpyear_1" id="hpyear"></td>
             <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
-                <p><input type="radio" name="hpcoordinator" value="MOH/KPA/CHAI">MOH/KPA/CHAI</p>
-                <p><input type="radio" name="hpcoordinator" value="MOH only">MOH only</p>
-                <p><input type="radio" name="hpcoordinator" value="Other">Other</p>
+                <p><input type="radio" name="hpcoordinator_1" value="MOH/KPA/CHAI">MOH/KPA/CHAI</p>
+                <p><input type="radio" name="hpcoordinator_1" value="MOH only">MOH only</p>
+                <p><input type="radio" name="hpcoordinator_1" value="Other">Other</p>
                 <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other"></p>
             </td>
         </tr>
         <tr>
             <td colspan="1"><label for="">Designation</label></td>
-            <td colspan="3"><input type="text" name="hpdesignation" id="hpdesignation"></td>
+            <td colspan="3"><input type="text" name="hpdesignation_1" id="hpdesignation"></td>
         </tr>'. $this -> hcwProfileSection . '
     </tbody>
     <tfoot></tfoot>
@@ -2036,66 +2059,17 @@ public function get_hcw_form() {
     <tbody>
         <tr>
             <td>Current Unit</td>
-            <td><input type="text" name="ws_current_unit" id="ws_current_unit"></td>
+            <td><input type="text" name="questionResponseCurrentUnit" id="questionResponseCurrentUnit"></td>
         </tr>
     </tbody>
-</table>
 <p class="instruction">
 		* If healthcare worker works in many departments, write ALL
 </p>
-<table>
         <tr>
             <th>Question</th>
-            <th>Yes</th>
-            <th>No</th>
-        </tr>
-    <tbody>
-        <tr>
-            <td>
-                1.	Is the HCW still working in the original facility they were when they got trained?
-            </td>
-            <td>
-                <input type="radio" name="ws_original_facility" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_original_facility" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                If No to question 1 indicate whether the HCW:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in the same county
-            </td>
-            <td>
-                <input type="radio" name="ws_another_facility" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_another_facility" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If Yes, indicate name of the facility <input type="text" name="" id=""> </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in another county
-            </td>
-            <td>
-                <input type="radio" name="ws_another_county" id="" value="yes">
-            </td>
-            <td>
-                <input type="radio" name="ws_another_county" id="" value="no">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If  Yes, indicate the name of the county <input type="text" name="ws_county" id="ws_county"> and facility <input type="text" name="ws_facility" id="ws_facility"> </td>
-        </tr>
-    </tbody>
-</table>
+            <th>Response</th>
+        </tr>'.$this->hcwWorkProfile.'
+ </table>
 </div> <!-- end of section 1 -->
 
 <div id="section-2" class="step">
