@@ -22,37 +22,37 @@ class LogTreatments
     private $ltId;
 
     /**
-     * @var string
-     *
-     * @Column(name="lt_total", type="string", length=255, nullable=true)
-     */
-    private $ltOtherTreatment;
-
-    /**
      * @var integer
      *
-     * @Column(name="lt_classification", type="integer", nullable=false)
+     * @Column(name="lt_total", type="integer", nullable=true)
+     */
+    private $ltTotal;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lt_classification", type="string", length=255, nullable=true)
      */
     private $ltClassification;
 
     /**
      * @var \DateTime
      *
-     * @Column(name="lt_created", type="datetime", nullable=false)
+     * @Column(name="lt_created", type="datetime", nullable=true)
      */
     private $ltCreated;
 
     /**
      * @var string
      *
-     * @Column(name="treatment_code", type="string", length=45, nullable=false)
+     * @Column(name="treatment_code", type="string", length=45, nullable=true)
      */
     private $treatmentCode;
 
     /**
      * @var string
      *
-     * @Column(name="facility_mfl", type="string", length=11, nullable=false)
+     * @Column(name="facility_mfl", type="string", length=11, nullable=true)
      */
     private $facilityMfl;
 
@@ -62,6 +62,20 @@ class LogTreatments
      * @Column(name="ss_id", type="integer", nullable=true)
      */
     private $ssId;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lt_other_treatment", type="string", length=45, nullable=true)
+     */
+    private $ltOtherTreatment;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lt_treatments", type="string", length=255, nullable=false)
+     */
+    private $ltTreatments;
 
 
     /**
@@ -75,32 +89,32 @@ class LogTreatments
     }
 
     /**
-     * Set ltOtherTreatment
+     * Set ltTotal
      *
-     * @param string $ltOtherTreatment
+     * @param integer $ltTotal
      * @return LogTreatments
      */
-    public function setLtOtherTreatment($ltOtherTreatment)
+    public function setLtTotal($ltTotal)
     {
-        $this->ltOtherTreatment = $ltOtherTreatment;
+        $this->ltTotal = $ltTotal;
     
         return $this;
     }
 
     /**
-     * Get ltOtherTreatment
+     * Get ltTotal
      *
-     * @return string 
+     * @return integer 
      */
-    public function getLtOtherTreatment()
+    public function getLtTotal()
     {
-        return $this->ltOtherTreatment;
+        return $this->ltTotal;
     }
 
     /**
      * Set ltClassification
      *
-     * @param integer $ltClassification
+     * @param string $ltClassification
      * @return LogTreatments
      */
     public function setLtClassification($ltClassification)
@@ -113,7 +127,7 @@ class LogTreatments
     /**
      * Get ltClassification
      *
-     * @return integer 
+     * @return string 
      */
     public function getLtClassification()
     {
@@ -210,5 +224,51 @@ class LogTreatments
     public function getSsId()
     {
         return $this->ssId;
+    }
+
+    /**
+     * Set ltOtherTreatment
+     *
+     * @param string $ltOtherTreatment
+     * @return LogTreatments
+     */
+    public function setLtOtherTreatment($ltOtherTreatment)
+    {
+        $this->ltOtherTreatment = $ltOtherTreatment;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltOtherTreatment
+     *
+     * @return string 
+     */
+    public function getLtOtherTreatment()
+    {
+        return $this->ltOtherTreatment;
+    }
+
+    /**
+     * Set ltTreatments
+     *
+     * @param string $ltTreatments
+     * @return LogTreatments
+     */
+    public function setLtTreatments($ltTreatments)
+    {
+        $this->ltTreatments = $ltTreatments;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltTreatments
+     *
+     * @return string 
+     */
+    public function getLtTreatments()
+    {
+        return $this->ltTreatments;
     }
 }

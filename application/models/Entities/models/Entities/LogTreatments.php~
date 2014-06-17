@@ -63,6 +63,23 @@ class LogTreatments
      */
     private $ssId;
 
+<<<<<<< HEAD
+=======
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lt_other_treatment", type="string", length=45, nullable=true)
+     */
+    private $ltOtherTreatment;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lt_treatments", type="string", length=255, nullable=false)
+     */
+    private $ltTreatments;
+
+>>>>>>> 8016b600072740a657733173337ee717211f0b56
 
     /**
      * Get ltId
@@ -211,4 +228,53 @@ class LogTreatments
     {
         return $this->ssId;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Set ltOtherTreatment
+     *
+     * @param string $ltOtherTreatment
+     * @return LogTreatments
+     */
+    public function setLtOtherTreatment($ltOtherTreatment)
+    {
+        $this->ltOtherTreatment = $ltOtherTreatment;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltOtherTreatment
+     *
+     * @return string 
+     */
+    public function getLtOtherTreatment()
+    {
+        return $this->ltOtherTreatment;
+    }
+
+    /**
+     * Set ltTreatments
+     *
+     * @param string $ltTreatments
+     * @return LogTreatments
+     */
+    public function setLtTreatments($ltTreatments)
+    {
+        $this->ltTreatments = $ltTreatments;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltTreatments
+     *
+     * @return string 
+     */
+    public function getLtTreatments()
+    {
+        return $this->ltTreatments;
+    }
+>>>>>>> 8016b600072740a657733173337ee717211f0b56
 }

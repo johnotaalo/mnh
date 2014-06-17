@@ -5,12 +5,12 @@ namespace models\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LogTreatments
+ * LogTreatmentmalnpne
  *
- * @ORM\Table(name="log_treatments")
+ * @ORM\Table(name="log_treatmentmalnpne")
  * @ORM\Entity
  */
-class LogTreatments
+class LogTreatmentmalnpne
 {
     /**
      * @var integer
@@ -22,23 +22,23 @@ class LogTreatments
     private $ltId;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="lt_total", type="integer", nullable=true)
-     */
-    private $ltTotal;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="lt_classification", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lt_other_treatment", type="string", length=255, nullable=true)
+     */
+    private $ltOtherTreatment;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="lt_classification", type="boolean", nullable=true)
      */
     private $ltClassification;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lt_created", type="datetime", nullable=true)
+     * @ORM\Column(name="lt_created", type="datetime", nullable=false)
      */
     private $ltCreated;
 
@@ -63,23 +63,6 @@ class LogTreatments
      */
     private $ssId;
 
-<<<<<<< HEAD
-=======
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lt_other_treatment", type="string", length=45, nullable=true)
-     */
-    private $ltOtherTreatment;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lt_treatments", type="string", length=255, nullable=false)
-     */
-    private $ltTreatments;
-
->>>>>>> 8016b600072740a657733173337ee717211f0b56
 
     /**
      * Get ltId
@@ -92,33 +75,33 @@ class LogTreatments
     }
 
     /**
-     * Set ltTotal
+     * Set ltOtherTreatment
      *
-     * @param integer $ltTotal
-     * @return LogTreatments
+     * @param string $ltOtherTreatment
+     * @return LogTreatmentmalnpne
      */
-    public function setLtTotal($ltTotal)
+    public function setLtOtherTreatment($ltOtherTreatment)
     {
-        $this->ltTotal = $ltTotal;
+        $this->ltOtherTreatment = $ltOtherTreatment;
     
         return $this;
     }
 
     /**
-     * Get ltTotal
+     * Get ltOtherTreatment
      *
-     * @return integer 
+     * @return string 
      */
-    public function getLtTotal()
+    public function getLtOtherTreatment()
     {
-        return $this->ltTotal;
+        return $this->ltOtherTreatment;
     }
 
     /**
      * Set ltClassification
      *
-     * @param string $ltClassification
-     * @return LogTreatments
+     * @param boolean $ltClassification
+     * @return LogTreatmentmalnpne
      */
     public function setLtClassification($ltClassification)
     {
@@ -130,7 +113,7 @@ class LogTreatments
     /**
      * Get ltClassification
      *
-     * @return string 
+     * @return boolean 
      */
     public function getLtClassification()
     {
@@ -141,7 +124,7 @@ class LogTreatments
      * Set ltCreated
      *
      * @param \DateTime $ltCreated
-     * @return LogTreatments
+     * @return LogTreatmentmalnpne
      */
     public function setLtCreated($ltCreated)
     {
@@ -164,7 +147,7 @@ class LogTreatments
      * Set treatmentCode
      *
      * @param string $treatmentCode
-     * @return LogTreatments
+     * @return LogTreatmentmalnpne
      */
     public function setTreatmentCode($treatmentCode)
     {
@@ -187,7 +170,7 @@ class LogTreatments
      * Set facilityMfl
      *
      * @param string $facilityMfl
-     * @return LogTreatments
+     * @return LogTreatmentmalnpne
      */
     public function setFacilityMfl($facilityMfl)
     {
@@ -210,7 +193,7 @@ class LogTreatments
      * Set ssId
      *
      * @param integer $ssId
-     * @return LogTreatments
+     * @return LogTreatmentmalnpne
      */
     public function setSsId($ssId)
     {
@@ -228,53 +211,4 @@ class LogTreatments
     {
         return $this->ssId;
     }
-<<<<<<< HEAD
-=======
-
-    /**
-     * Set ltOtherTreatment
-     *
-     * @param string $ltOtherTreatment
-     * @return LogTreatments
-     */
-    public function setLtOtherTreatment($ltOtherTreatment)
-    {
-        $this->ltOtherTreatment = $ltOtherTreatment;
-    
-        return $this;
-    }
-
-    /**
-     * Get ltOtherTreatment
-     *
-     * @return string 
-     */
-    public function getLtOtherTreatment()
-    {
-        return $this->ltOtherTreatment;
-    }
-
-    /**
-     * Set ltTreatments
-     *
-     * @param string $ltTreatments
-     * @return LogTreatments
-     */
-    public function setLtTreatments($ltTreatments)
-    {
-        $this->ltTreatments = $ltTreatments;
-    
-        return $this;
-    }
-
-    /**
-     * Get ltTreatments
-     *
-     * @return string 
-     */
-    public function getLtTreatments()
-    {
-        return $this->ltTreatments;
-    }
->>>>>>> 8016b600072740a657733173337ee717211f0b56
 }

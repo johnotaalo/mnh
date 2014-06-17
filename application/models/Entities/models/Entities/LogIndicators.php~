@@ -301,4 +301,67 @@ class LogIndicators
     {
         return $this->liAssessorfindings;
     }
+<<<<<<< HEAD
+=======
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lt_treatments", type="string", length=45, nullable=true)
+     */
+    private $ltTreatments;
+
+
+    /**
+     * Set ltTreatments
+     *
+     * @param string $ltTreatments
+     * @return LogIndicators
+     */
+    public function setLtTreatments($ltTreatments)
+    {
+        $this->ltTreatments = $ltTreatments;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltTreatments
+     *
+     * @return string 
+     */
+    public function getLtTreatments()
+    {
+        return $this->ltTreatments;
+    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="li_treatments", type="string", length=45, nullable=true)
+     */
+    private $liTreatments;
+
+
+    /**
+     * Set liTreatments
+     *
+     * @param string $liTreatments
+     * @return LogIndicators
+     */
+    public function setLiTreatments($liTreatments)
+    {
+        $this->liTreatments = $liTreatments;
+    
+        return $this;
+    }
+
+    /**
+     * Get liTreatments
+     *
+     * @return string 
+     */
+    public function getLiTreatments()
+    {
+        return $this->liTreatments;
+    }
+>>>>>>> 8016b600072740a657733173337ee717211f0b56
 }
