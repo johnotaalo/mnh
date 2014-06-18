@@ -1624,7 +1624,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		<tr>
             <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHCommoditySuppliersPDF.'</td>
+            <td>'.$this->selectMCHBundlingSuppliers.'</td>
         </tr>
 	</tr>
 	</table>
