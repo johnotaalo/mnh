@@ -64,6 +64,10 @@ class LogTreatments
     private $ssId;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
     /**
      * @var string
      *
@@ -78,8 +82,12 @@ class LogTreatments
      */
     private $ltTreatments;
 
+<<<<<<< HEAD
+>>>>>>> 8016b600072740a657733173337ee717211f0b56
+=======
 =======
 >>>>>>> ddf8811f88c0a290564d6c8bce32a74d6d933048
+>>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
 
     /**
      * Get ltId
@@ -229,6 +237,10 @@ class LogTreatments
         return $this->ssId;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
 
     /**
      * Set ltOtherTreatment
@@ -275,6 +287,10 @@ class LogTreatments
     {
         return $this->ltTreatments;
     }
+<<<<<<< HEAD
+>>>>>>> 8016b600072740a657733173337ee717211f0b56
+=======
 =======
 >>>>>>> ddf8811f88c0a290564d6c8bce32a74d6d933048
+>>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
 }
