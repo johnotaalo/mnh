@@ -887,16 +887,18 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                         url : "<?php echo base_url()?>submit/c_form/complete_ch_survey", // the url which stores the stuff in db for each step
                         <?php }?>
                         dataType : 'json',
+                        async:false,
                         beforeSubmit: function(data){$("#data").html("<div class='error ui-autocomplete-loading' style='width:auto;height:25px'>Processing...</div>")},
                         //beforeSubmit: function(data){$("#data").html("Saving the previous section's response")},
                         success : function(data){
-                            survey = '<?php $this->session->userdata("survey");?>';
+                            survey = '<?php echo $this->session->userdata("survey");?>';
+                            //alert(survey);die;
                             if(data){ //data is either true or false (returned from store_in_database.html) simulating successful / failing store
                                 //$("#data").show();
                                 $("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
                                 $(form_id).bind("after_remote_ajax", function(event, fdata){
                                     //console.log($(form_id).formwizard('state'));
-                                    if(survey=='#mnh_tool'){
+                                    if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
 
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
@@ -1053,7 +1055,9 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                             (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 
-                            $(form_id).formwizard('option',{  validationEnabled: true });
+                            $(form_id).formwizard('option',{  validationEnabled: false
+
+                             });
 
                             //console.log(data);
 
