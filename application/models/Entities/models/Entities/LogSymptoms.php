@@ -22,9 +22,9 @@ class LogSymptoms
     private $lsId;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="ls_shortname", type="integer", nullable=true)
+     * @ORM\Column(name="ls_shortname", type="string", length=45, nullable=true)
      */
     private $lsShortname;
 
@@ -70,7 +70,7 @@ class LogSymptoms
     /**
      * Set lsShortname
      *
-     * @param integer $lsShortname
+     * @param string $lsShortname
      * @return LogSymptoms
      */
     public function setLsShortname($lsShortname)
@@ -83,7 +83,7 @@ class LogSymptoms
     /**
      * Get lsShortname
      *
-     * @return integer 
+     * @return string 
      */
     public function getLsShortname()
     {

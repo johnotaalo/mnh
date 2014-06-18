@@ -454,27 +454,7 @@ ORDER BY gt.guide_code ASC";
         
         /*--------------------begin commodities availability by frequency----------------------------------------------*/
         $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> cf952a01ab1b8014101d7f01cd7b8f8f09bbc9a8
-=======
->>>>>>> 4667156eae830326eaf78120c2da1f0097423501
->>>>>>> 316921d3095aaaee509a6b476baa3e42924278e0
-=======
->>>>>>> 029b5d564b5e17cf74dd83007199d214ab726079
-					WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
-
-=======
                     WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
->>>>>>> 8016b600072740a657733173337ee717211f0b56
-=======
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
->>>>>>> 9dc7194c7ca2b25a2948a97f8c676da9c7e629f9
                 JOIN
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN

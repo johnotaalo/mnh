@@ -200,6 +200,150 @@ class M_HCW_Survey extends MY_Model
 
     }
 
+    private function addHCWConclusionInfo() {
+        $this->elements=array();
+        $count = $finalCount = 1;
+        foreach ($this->input->post() as $key => $val) {
+            //For every posted values
+            if (strpos($key, 'hcw') !== FALSE) {
+                 //select data for bemonc signal functions
+                //we separate the attribute name from the number
+
+                $this->frags = explode("_", $key);
+
+                //$this->id = $this->frags[1];  // the id
+
+                $this->id = $count;
+
+                // the id
+
+                $this->attr = $this->frags[0];
+
+                //the attribute name
+
+                //print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+
+                //mark the end of 1 row...for record count
+                if ($this->attr == "hcwConclusionDateSupervisee") {
+
+                    // print 'count at:'.$count.'<br />';
+
+                    $finalCount = $count;
+                    $count++;
+
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+
+                }
+
+                //collect key and value to an array
+                if (!empty($val)) {
+
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+
+                    //$this->elements[$this->attr]=htmlentities($val);
+
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+
+                }
+            }
+        }
+         //close foreach ($this -> input -> post() as $key => $val)
+        //echo '<pre>';print_r($this->elements);echo '</pre>';die;
+
+        //exit;
+
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = $finalCount;
+
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\HCWConclusion();
+
+            //create an object of the model
+
+            (array_key_exists('hcwConclusionActionSupervisor', $this->elements[$i])) ? $this->theForm->setHcActionTakenSupervisor($this->elements[$i]['hcwConclusionActionSupervisor']) : $this->theForm->setHcActionTakenSupervisor('n/a');
+            (array_key_exists('hcwConclusionActionSupervisee', $this->elements[$i]) && $this->elements[$i]['hcwConclusionActionSupervisee']!='' ) ? $this->theForm->setHcActionTakenSupervisee($this->elements[$i]['hcwConclusionActionSupervisee']) : $this->theForm->setHcActionTakenSupervisee('n/a');
+            (array_key_exists('hcwConclusionSignatureSupervisor', $this->elements[$i])) ? $this->theForm->setHcSignatureSupervisor($this->elements[$i]['hcwConclusionSignatureSupervisor']) : $this->theForm->setHcSignatureSupervisor('n/a');
+            (array_key_exists('hcwConclusionSignatureSupervisee', $this->elements[$i])) ? $this->theForm->setHcSignatureSupervisee($this->elements[$i]['hcwConclusionSignatureSupervisee']) : $this->theForm->setHcSignatureSupervisee('n/a');
+            (array_key_exists('hcwConclusionDateSupervisor', $this->elements[$i])) ? $this->theForm->setHcDateSupervisor($this->elements[$i]['hcwConclusionDateSupervisor']) : $this->theForm->setHcDateSupervisor('n/a');
+            (array_key_exists('hcwConclusionDateSupervisee', $this->elements[$i])) ? $this->theForm->setHcDateSupervisee($this->elements[$i]['hcwConclusionDateSupervisee']) : $this->theForm->setHcDateSupervisee('n/a');
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+
+            /*timestamp option*/
+            $this->em->persist($this->theForm);
+
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+
+                    $this->em->flush();
+                    $this->em->clear();
+
+                    //detaches all objects from doctrine
+                    //return true;
+
+                }
+                catch(Exception $ex) {
+
+                    die($ex->getMessage());
+                    return false;
+
+                    /*display user friendly message*/
+                }
+                 //end of catch
+
+
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+
+                //total records less than a batch, insert all of them
+                try {
+
+                    $this->em->flush();
+                    $this->em->clear();
+
+                    //detactes all objects from doctrine
+                    //return true;
+
+                }
+                catch(Exception $ex) {
+
+                    die($ex->getMessage());
+                    return false;
+
+                    /*display user friendly message*/
+                }
+                 //end of catch
+
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+
+            //end of batch condition
+
+        }
+         //end of innner loop
+
+
+    }
+
 private function addHCWAssessorInfo() {
        $count = $finalCount = 1;
        foreach ($this->input->post() as $key => $val) {
@@ -568,7 +712,7 @@ private function addhcwWorkProfile() {
             //create an object of the model
 
             //check if that key exists, else set it to some default value
-           (array_key_exists(('questionResponseCurrentUnit'), $this->elements[$i]))? $this->theForm->setLqCurrentunit($this->elements[$i]['questionResponseCurrentUnit']):$this->theForm->questionResponseCurrentUnit('n/a');
+           (array_key_exists(('questionResponseCurrentUnit'), $this->elements[$i]))? $this->theForm->setLqCurrentunit($this->elements[$i]['questionResponseCurrentUnit']):$this->theForm->setLqCurrentunit('n/a');
            (array_key_exists('questionResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionResponse']) : $this->theForm->setLqResponse('n/a');
            (array_key_exists('questionResponseYes', $this->elements[$i])) ? $this->theForm->setLqResponseforyes($this->elements[$i]['questionResponseYes']) : $this->theForm->setLqResponseforyes('n/a') ;
            (array_key_exists('questionResponseNo', $this->elements[$i])) ? $this->theForm->setLqResponseforno($this->elements[$i]['questionResponseNo']) : $this->theForm->setLqResponseforno('n/a') ;
@@ -3070,7 +3214,7 @@ private function addhcwWorkProfile() {
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addQuestionsInfo() == true) {
+                        if ($this->addQuestionsInfo() == true && $this->addHCWConclusionInfo()==true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
