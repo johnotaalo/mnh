@@ -3682,8 +3682,11 @@ class MY_Controller extends CI_Controller
                 $survey = $this->session->userdata('survey');
                 if ($survey == 'mnh') {
                     $total = 8;
-                } else {
+                } else if($survey == 'ch') {
                     $total = 9;
+                }
+                else{
+                    $total = 5;
                 }
                 $current = $this->getSection($survey, $fac_mfl);
                 $progress = round(($current / $total) * 100);

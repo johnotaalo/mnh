@@ -3070,7 +3070,7 @@ private function addhcwWorkProfile() {
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addQuestionsInfo() == true && $this->addEquipmentQuantityAvailabilityInfo() == true) {
+                        if ($this->addQuestionsInfo() == true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

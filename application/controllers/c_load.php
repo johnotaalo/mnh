@@ -2284,41 +2284,7 @@ public function get_hcw_form() {
 <div id="section-5" class="step">
 
         <input type="hidden" name="step_name" value="section-5"/>
-<!--p class="message success">PROVIDER SCORE</p>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="700px">GIVE ONE POINT FOR EACH ANSWER</th>
-            <th >Response</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>ASSESSMENT</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>CLASSIFICATION</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>TREATMENT</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>COUNSELING</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>RETURNING DATE FOR FOLLOW-UP</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>TOTAL</td>
-            <td><input type="text"></td>
-        </tr>
-    </tbody>
-</table-->
+
 <table>
 <thead>
     <tr>
@@ -2327,47 +2293,66 @@ public function get_hcw_form() {
 </thead>
     <tr>
         <td>
-            <input type="radio" name="questionAspectResponse_1" value="Fully Practicing IMCI">	Fully Practicing IMCI
+            <input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
         </td>
         <td>
         </td>
     </tr>
     <tr>
         <td>
-            <input type="radio" name="questionAspectResponse_1" value="Practicing with gaps">	Practicing with gaps
+            <input name="questionResponse_1000" type="radio">	Practicing with gaps
         </td>
         <td>
-            Reason <input type="text" size="100">
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
         </td>
     </tr>
     <tr>
         <td>
-           	<input type="radio" name="questionAspectResponse_1" value="Not practicing at all">	Not practicing at all
+           	<input name="questionResponse_1000" type="radio">	Not practicing at all
         </td>
          <td>
-            Reason <input type="text" size="100">
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
         </td>
     </tr>
-     <tr>
-        <th colspan="2">
-            Certification
-        </th>
-    </tr>
-     <tr>
-        <td colspan="2">
-           Health care worker approved for certification	<input type="radio" name="questionAspectResponse_2" value="Yes">YES <input type="radio" name="questionAspectResponse_2" value="No">NO
-        </td>
-    </tr>
-     <tr>
-        <th colspan="2">
-            Mentorship
-        </th>
-    </tr>
-     <tr>
-        <td colspan="2">
-            Recommended for Mentor TOT?		<input type="radio" name="questionAspectResponse_3" value="Yes">YES <input type="radio" name="questionAspectResponse_3" value="No">NO
-        </td>
-    </tr>
+    <tr>
+
+<th colspan="2">CRITERIA FOR CERTIFICATION: SECTION A</td>
+</tr>
+
+'.$this->question['certa'].'
+
+<tr>
+<td colspan="2">
+<p class="instruction">
+A participant MUST correctly identify all the above in section <strong>A</strong> to be CERTIFIED
+</p>
+</td>
+
+</tr>
+
+
+<tr>
+
+<th colspan="2">CHECKED  FOR THE FOLLOWING:    SECTION B</td>
+</tr>
+
+'.$this->question['certb'].'
+<tr>
+<td colspan="2" style="background:#ffffff">
+<p class="instruction">
+    Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
+<br/>
+If YES to all, consider HCW for TOT and Mentorship Training
+<br/>
+(NOTE: IF THE HEALTHCARE WORKER FAILS TO ATTAIN ALLTHE POINTS IN SECTION A, THE PARTICIPANT SHOULD BE GIVEN A SECOND CHANCE. IF THE PARTICIPANT FAILS IN THE SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT)
+</p>
+</td>
+</tr>
+<tr>
+<th colspan="2">CERTIFICATION</td>
+</tr>
+
+'.$this->question['out'].'
 </table>
 <table>
     <thead>
@@ -2384,15 +2369,23 @@ public function get_hcw_form() {
             <td>Action/s taken by supervisee:</td>
         </tr>
         <tr>
-            <td><textarea name="actionTaken[supervisor]"style="width:400px;height:100px"></textarea></td>
-            <td><textarea name="actionTaken[supervisee]"style="width:400px;height:100px"></textarea></td>
+            <td><textarea style="width:400px;height:100px"></textarea></td>
+            <td><textarea style="width:400px;height:100px"></textarea></td>
+        </tr>
+        <tr>
+            <td>Supervisor Signature<input type="text" style="width:500px;padding:10px"></td>
+            <td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
+        </tr>
+        <tr>
+            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
+            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
         </tr>
     </tbody>
 </table>
 <p style="margin-top:0.5px"></p>
 <table style="border:2px solid #666">
     <tr>
-        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
+        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to County Office within 7 days of visit </i></td>
     </tr>
 </table>
 
