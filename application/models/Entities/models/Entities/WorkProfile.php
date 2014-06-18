@@ -5,12 +5,12 @@ namespace models\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LogQuestions
+ * WorkProfile
  *
- * @ORM\Table(name="log_questions")
+ * @ORM\Table(name="work_profile")
  * @ORM\Entity
  */
-class LogQuestions
+class WorkProfile
 {
     /**
      * @var integer
@@ -31,16 +31,16 @@ class LogQuestions
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_reason", type="string", length=200, nullable=false)
+     * @ORM\Column(name="lq_responseForYes", type="string", length=200, nullable=false)
      */
-    private $lqReason;
+    private $lqResponseforyes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lq_specified_or_follow_up", type="string", length=255, nullable=false)
+     * @ORM\Column(name="lq_responseForNo", type="string", length=200, nullable=false)
      */
-    private $lqSpecifiedOrFollowUp;
+    private $lqResponseforno;
 
     /**
      * @var \DateTime
@@ -48,13 +48,6 @@ class LogQuestions
      * @ORM\Column(name="lq_created", type="datetime", nullable=false)
      */
     private $lqCreated;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lq_response_count", type="integer", nullable=false)
-     */
-    private $lqResponseCount;
 
     /**
      * @var string
@@ -92,7 +85,7 @@ class LogQuestions
      * Set lqResponse
      *
      * @param string $lqResponse
-     * @return LogQuestions
+     * @return WorkProfile
      */
     public function setLqResponse($lqResponse)
     {
@@ -112,56 +105,56 @@ class LogQuestions
     }
 
     /**
-     * Set lqReason
+     * Set lqResponseforyes
      *
-     * @param string $lqReason
-     * @return LogQuestions
+     * @param string $lqResponseforyes
+     * @return WorkProfile
      */
-    public function setLqReason($lqReason)
+    public function setLqResponseforyes($lqResponseforyes)
     {
-        $this->lqReason = $lqReason;
+        $this->lqResponseforyes = $lqResponseforyes;
     
         return $this;
     }
 
     /**
-     * Get lqReason
+     * Get lqResponseforyes
      *
      * @return string 
      */
-    public function getLqReason()
+    public function getLqResponseforyes()
     {
-        return $this->lqReason;
+        return $this->lqResponseforyes;
     }
 
     /**
-     * Set lqSpecifiedOrFollowUp
+     * Set lqResponseforno
      *
-     * @param string $lqSpecifiedOrFollowUp
-     * @return LogQuestions
+     * @param string $lqResponseforno
+     * @return WorkProfile
      */
-    public function setLqSpecifiedOrFollowUp($lqSpecifiedOrFollowUp)
+    public function setLqResponseforno($lqResponseforno)
     {
-        $this->lqSpecifiedOrFollowUp = $lqSpecifiedOrFollowUp;
+        $this->lqResponseforno = $lqResponseforno;
     
         return $this;
     }
 
     /**
-     * Get lqSpecifiedOrFollowUp
+     * Get lqResponseforno
      *
      * @return string 
      */
-    public function getLqSpecifiedOrFollowUp()
+    public function getLqResponseforno()
     {
-        return $this->lqSpecifiedOrFollowUp;
+        return $this->lqResponseforno;
     }
 
     /**
      * Set lqCreated
      *
      * @param \DateTime $lqCreated
-     * @return LogQuestions
+     * @return WorkProfile
      */
     public function setLqCreated($lqCreated)
     {
@@ -181,33 +174,10 @@ class LogQuestions
     }
 
     /**
-     * Set lqResponseCount
-     *
-     * @param integer $lqResponseCount
-     * @return LogQuestions
-     */
-    public function setLqResponseCount($lqResponseCount)
-    {
-        $this->lqResponseCount = $lqResponseCount;
-    
-        return $this;
-    }
-
-    /**
-     * Get lqResponseCount
-     *
-     * @return integer 
-     */
-    public function getLqResponseCount()
-    {
-        return $this->lqResponseCount;
-    }
-
-    /**
      * Set questionCode
      *
      * @param string $questionCode
-     * @return LogQuestions
+     * @return WorkProfile
      */
     public function setQuestionCode($questionCode)
     {
@@ -230,7 +200,7 @@ class LogQuestions
      * Set facMfl
      *
      * @param string $facMfl
-     * @return LogQuestions
+     * @return WorkProfile
      */
     public function setFacMfl($facMfl)
     {
@@ -253,7 +223,7 @@ class LogQuestions
      * Set ssId
      *
      * @param integer $ssId
-     * @return LogQuestions
+     * @return WorkProfile
      */
     public function setSsId($ssId)
     {
@@ -270,5 +240,35 @@ class LogQuestions
     public function getSsId()
     {
         return $this->ssId;
+    }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lq_currentUnit", type="string", length=45, nullable=false)
+     */
+    private $lqCurrentunit;
+
+
+    /**
+     * Set lqCurrentunit
+     *
+     * @param string $lqCurrentunit
+     * @return WorkProfile
+     */
+    public function setLqCurrentunit($lqCurrentunit)
+    {
+        $this->lqCurrentunit = $lqCurrentunit;
+    
+        return $this;
+    }
+
+    /**
+     * Get lqCurrentunit
+     *
+     * @return string 
+     */
+    public function getLqCurrentunit()
+    {
+        return $this->lqCurrentunit;
     }
 }

@@ -241,8 +241,6 @@ class AssessorInformation
     {
         return $this->ssId;
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> da22e31a41d7a3cd1813b482926b8dfd3fcc3c47
+

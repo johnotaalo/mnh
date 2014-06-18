@@ -301,6 +301,7 @@ class LogIndicators
     {
         return $this->liAssessorfindings;
     }
+<<<<<<< HEAD
     /**
      * @var string
      *
@@ -361,4 +362,6 @@ class LogIndicators
     {
         return $this->liTreatments;
     }
+=======
+>>>>>>> ddf8811f88c0a290564d6c8bce32a74d6d933048
 }

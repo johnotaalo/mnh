@@ -257,7 +257,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> questions -> setParameter('code', $code.'%');
 			$this -> questions = $this -> questions -> getResult();
 
-			//die(var_dump($this->mnhIndicator));
+			//die(var_dump($this -> questions));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
@@ -271,7 +271,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName,q.questionFor FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
 			$this -> questions = $this -> questions -> getResult();
 
-			//die(var_dump($this->mnhIndicator));
+		//die(var_dump($this -> questions ));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
