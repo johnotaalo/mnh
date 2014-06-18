@@ -22,6 +22,33 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
         var fac_mfl = fac_county = fac_district = '';
         var base_url = '<?php echo base_url(); ?>';
 
+        /**
+        *Radio Button Handler
+        */
+        //alert('Here');
+        $(document).on('change','input:radio',function(){
+            val = $(this).attr('value');
+            if(val=="No" || val=="Other"){
+                $(this).parent().find('input[type="text"]').show();
+            }
+            else{
+                $(this).parent().find('input[type="text"]').val('');
+                 $(this).parent().find('input[type="text"]').hide();
+            }
+        });
+        /**
+        *Select Handler
+        */
+         $(document).on('change','select',function(){
+            val = $(this).val();
+            if(val=="Other"){
+                $(this).parent().find('input[type="text"]').show();
+            }
+            else{
+                 $(this).parent().find('input[type="text"]').val('');
+                 $(this).parent().find('input[type="text"]').hide();
+            }
+        });
 
         //start of close_opened_form click event
         $("#close_opened_form").click(function() {
@@ -830,7 +857,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 //alert(form_id);
                 var end_url;
                 $(form_id).formwizard({
-                    formPluginEnabled: false,
+                    formPluginEnabled: true,
                     validationEnabled: false,
                     historyEnabled:true,
                     focusFirstInput : true,
@@ -1010,27 +1037,31 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                  	Get Section
                                   */
                 //$(form_id).formwizard('show','section-2');
+                function get_section(){
+                    the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL;
+                    $.ajax({
+                        type:'GET',
+                        async:false,
+                        url:the_url,
+                        dataType:'json',
+                        beforeSend: function(){
 
-                the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL;
-                $.ajax({
-                    type:'GET',
-                    url:the_url,
-                    dataType:'json',
-                    beforeSend: function(){
+                        },
+                        success: function(data){
+                            survey = '<?php echo $this->session->userdata("survey");?>';
+                            //alert(data);
 
-                    },
-                    success: function(data){
-                        survey = '<?php echo $this->session->userdata("survey");?>';
-                        //alert(data);
+                            (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 
-                        (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
+                            $(form_id).formwizard('option',{  validationEnabled: true });
 
+                            //console.log(data);
 
-                        //console.log(data);
+                        }}
+                          );
 
-                    }}
-                      );
-
+                }
+                get_section();
             }//--end of function break_form_to_steps(form_id)
 
 
