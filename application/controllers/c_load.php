@@ -681,10 +681,6 @@ class C_Load extends MY_Controller {
 			(One Selection Allowed) </strong></div></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Quantities</th>
-			<th scope="col">
-			
-				Main Supplier
-			</th>
 			<th>
 			<div style="width: 90%" >
 				Main Reason For  Unavailability
@@ -703,13 +699,12 @@ class C_Load extends MY_Controller {
 			<td>Not Applicable</td>
 
 			<td>No.of Units</td>
-			<td>Supplier</td>
 			<td> Unavailability</td>
 
 		</tr>' . $this -> commodityAvailabilitySection . '
 
 	</table>
-	</div><!--\.section-3-->
+	</div><!--\.section-5-->
 	
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
@@ -1618,15 +1613,6 @@ class C_Load extends MY_Controller {
 	</table>  
 	<p style="margin-top:200px"></p>
 	<table>
-	<tr>
-		<tr>
-			<th colspan="2">Main Supplier</th>
-		</tr>
-		<tr>
-            <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHBundlingSuppliers.'</td>
-        </tr>
-	</tr>
 	</table>
 	<table  class="centre persist-area" >
 	<thead>

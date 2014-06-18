@@ -949,7 +949,7 @@ class  MY_Model  extends  CI_Model {
 		if ($this -> session -> userdata('survey') == 'mnh') {
 			//$this -> theForm -> setss_id('complete');
 		} else {
-			$this -> theForm -> setFacilityCHSurveyStatus('complete');
+			//$this -> theForm -> setFacilityCHSurveyStatus('complete');
 		}
 
 		$this -> em -> persist($this -> theForm);

@@ -5,12 +5,12 @@ namespace models\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Treatment
+ * Treatments
  *
- * @ORM\Table(name="treatment")
+ * @ORM\Table(name="treatments")
  * @ORM\Entity
  */
-class Treatment
+class Treatments
 {
     /**
      * @var integer
@@ -57,7 +57,7 @@ class Treatment
      * Set treatmentName
      *
      * @param string $treatmentName
-     * @return Treatment
+     * @return Treatments
      */
     public function setTreatmentName($treatmentName)
     {
@@ -80,7 +80,7 @@ class Treatment
      * Set treatmentCode
      *
      * @param string $treatmentCode
-     * @return Treatment
+     * @return Treatments
      */
     public function setTreatmentCode($treatmentCode)
     {
@@ -103,7 +103,7 @@ class Treatment
      * Set treatmentFor
      *
      * @param string $treatmentFor
-     * @return Treatment
+     * @return Treatments
      */
     public function setTreatmentFor($treatmentFor)
     {

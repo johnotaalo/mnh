@@ -3510,7 +3510,7 @@ private function addMchStaffTrainingInfo() {
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
 
-                        if($this->addBundling() == true && $this->addCommodityQuantityAvailabilityInfo() == true  ) {
+                        if($this->addCommodityQuantityAvailabilityInfo() == true) {
                         	//defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
