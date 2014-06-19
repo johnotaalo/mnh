@@ -1889,14 +1889,14 @@ private function addMchStaffTrainingInfo() {
             $this->theForm->setLtCreated(new DateTime());
 
             /*timestamp option*/
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
 
             /*if no value set, then set to -1*/
 
             //print_r($this->elements);die;
-            $this->theForm->setLtClassification($this->elements[$i]['classification']);
-            $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']);
-            $this->theForm->setLtTreatments($this->elements[$i]['treatment']);
+            (array_key_exists('classification', $this->elements[$i]) && $this->elements[$i]['classification']!='') ? $this->theForm->setLtClassification($this->elements[$i]['classification']) :$this->theForm->setLtClassification('n/a'); ;
+            (array_key_exists('totalTreatment', $this->elements[$i]) && $this->elements[$i]['totalTreatment']!='') ? $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']) :$this->theForm->setLtTotal('n/a'); ;
+            (array_key_exists('treatment', $this->elements[$i]) && $this->elements[$i]['treatment']!='') ? $this->theForm->setLtTreatments($this->elements[$i]['treatment']) :$this->theForm->setLtTreatments('n/a'); ;
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->em->persist($this->theForm);
 
@@ -3467,8 +3467,8 @@ private function addMchStaffTrainingInfo() {
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addIndicatorInfo()== true){
-                    /*$this->addTotalMCHTreatment()== true && $this->addIndicatorInfo() == true*///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
+                    if($this->addIndicatorInfo()== true && $this->addTotalMCHTreatment()== true && $this->addResponseTreatments()==true){
+                     ///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
