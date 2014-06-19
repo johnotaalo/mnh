@@ -900,6 +900,9 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                     //console.log($(form_id).formwizard('state'));
                                     if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                    console.log(message);
+                                    runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
 
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
@@ -908,6 +911,9 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                                     }else if(survey=='ch'){
                                         if(fdata.currentStep=='section-9'){
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                    console.log(message);
+                                    runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
@@ -915,14 +921,15 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                     }
                                     else{
                                         if(fdata.currentStep=='section-5'){
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                    console.log(message);
+                                    runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
                                         }
                                     }
-                                    message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
-                                    console.log(message);
-                                    runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
+                                    
                                 });
                             }else{
                                 $("#data").html("");

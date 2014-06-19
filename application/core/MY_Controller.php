@@ -325,7 +325,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMCHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->selectMCHOtherSuppliers.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
@@ -345,7 +345,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->hardwareSources.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->hardwareSources.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
@@ -369,7 +369,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
