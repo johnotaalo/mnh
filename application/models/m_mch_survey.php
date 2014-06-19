@@ -1692,38 +1692,22 @@ $this->theForm->setTgCreated(new DateTime());
 
     private function addTotalMCHTreatment() {
         $treatment =$this->input->post('mchtreatment');
-
+        $totalTreatment =$this->input->post('mchtotalTreatment');
+       // print_r($treatment);die;
       //echo "<pre>";print_r($treatment);echo"</pre>";die;
         $this->elements=array();
-        foreach ($this->input->post() as $key => $val) {
-            //For every posted values
-            if (strpos($key, 'mch') !== FALSE) {
-                //select data for number of deliveries
-                //print_r($val);
-                $this->attr = $key;
+        $count=0;
+        foreach ($totalTreatment as $key => $val) {
+            $count++;
+             $this->elements[$count]['totalTreatment'] = htmlentities($val);
+            $this->elements[$count]['classification'] = htmlentities($key);
+             $this->elements[$count]['treatment'] = implode(',', $treatment[$key]);
 
-                //the attribute name
-                if (!empty($val)) {
-                    //We then store the value of this attribute for this element.
-                    // $this->elements[$this->id][$this->attr]=htmlentities($val);
-                    $count = 0;
-                     foreach ($val as $key => $total) {
-                        $count++;
-                        $this->elements[$count]['totalTreatment'] = htmlentities($total);
-                        $this->elements[$count]['classification'] = htmlentities($key);
-                        $this->elements[$count]['treatment'] = implode(',', $treatment[$key]);
-                    }
-
-                } else {
-                    $this->elements[$this->attr] = '';
-                }
-
-                //print $key.' val='.$val.' <br />';
-
-            }
+            
         }
+        //die;
          //close foreach ($this -> input -> post() as $key => $val)
-        //print_r($this->elements);die;
+       // print_r($this->elements);die;
         //exit;
         //echo $count;
         //get the highest value of the array that will control the number of inserts to be done
@@ -1742,7 +1726,7 @@ $this->theForm->setTgCreated(new DateTime());
             $this->theForm->setLtCreated(new DateTime());
 
             /*timestamp option*/
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+            $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
 
             /*if no value set, then set to -1*/
 
@@ -3290,8 +3274,8 @@ $this->theForm->setTgCreated(new DateTime());
                          /*$this->updateFacilityInfo()	==	true &&*/
 
                        // $this->addMchCommunityStrategyInfo() == true) {
-                        	 $this->addmchConsultationQuestions() == true &&
-                             /*$this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true &&*/ /*$this->addMchStaffTrainingInfo()==true*/) {
+                        	 $this->addmchConsultationQuestions() == true 
+                             /*$this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true &&*/ /*$this->addMchStaffTrainingInfo()==true*/){
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
 
@@ -3319,8 +3303,8 @@ $this->theForm->setTgCreated(new DateTime());
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addResponseTreatments() == true){
-                    /*$this->addTotalMCHTreatment()== true && $this->addIndicatorInfo() == true*///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
+                    if($this->addTotalMCHTreatment()== true/*$this->addResponseTreatments() == true*/){
+                    /* && $this->addIndicatorInfo() == true*///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
