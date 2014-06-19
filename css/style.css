@@ -375,6 +375,7 @@ tbody tr.odd td {
 	background: #FBE3E4;
 	color: #8A1F11;
 	border-color: #FBC2C4;
+	display:inline-block;
 }
 .error a {
 	color: #8A1F11;

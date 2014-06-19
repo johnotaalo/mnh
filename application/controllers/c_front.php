@@ -3,47 +3,47 @@ class C_Front extends MY_Controller
 {
     var $data, $survey;
     var $instructions;
-    
+
     public function __construct() {
-        
+
         parent::__construct();
         $this->data = array();
         $this->load->model('m_analytics');
     }
-    
+
     public function index() {
         $data['title'] = 'MoH::Data Management Tool';
         $data['content'] = 'pages/v_home';
-        $data['mapsCH'] = $this->runMap('ch');
-        $data['mapsMNH'] = $this->runMap('mnh');
-        
+        $data['mapsCH'] = $this->runMap('ch','baseline');
+        $data['mapsMNH'] = $this->runMap('mnh','baseline');
+
         //var_dump($this -> runMap());
         $this->load->view('template', $data);
-        
+
         //landing page
         //$this -> load -> view('home_view', $data); //landing page
-        
-        
+
+
     }
-    
+
     //End of index file
-    
-    public function runMap($survey) {
-        $counties = $this->m_analytics->runMap($survey);
+
+    public function runMap($survey,$survey_category) {
+        $counties = $this->m_analytics->runMap($survey,$survey_category);
         $map = array();
         $datas = array();
         $status = '';
         foreach ($counties as $county) {
-            
+
             //var_dump($county);
             $percentage = (int)$county[0][0]['percentage'];
             $reported = (int)$county[0][0]['reported'];
             $actual = (int)$county[0][0]['actual'];
             $countyMap = (int)$county[1];
             $countyName = $county[2];
-            
+
             //echo $percentage.',';
-            
+
             switch ($percentage) {
                 case ($percentage == 0):
                     $status = '#ffffff';
@@ -68,12 +68,12 @@ class C_Front extends MY_Controller
                 case ($percentage <= 100):
                     $status = '#7ada33';
                     break;
-                    
+
                     //case ($percentage===100) :
                     //	$status = '#13b00b';
                     //	break;
-                    
-                    
+
+
                 default:
                     $status = '#ffffff';
                     break;
@@ -86,15 +86,15 @@ class C_Front extends MY_Controller
         $finalMap = json_encode($finalMap);
         return $finalMap;
     }
-    
+
     public function active_survey() {
-        
+
         /**/
         $this->survey = $this->uri->segment(1);
         $new_data = array('survey' => $this->survey);
         $this->session->set_userdata($new_data);
         if (!$this->session->userdata('dCode')) {
-            
+
             // $data['facility']=$this ->selectFacility;
             $this->data['title'] = 'MoH Data Management Tool::Authentication';
             $this->data['form'] = '<p>User Login<p>';
@@ -102,30 +102,30 @@ class C_Front extends MY_Controller
             $this->data['login_message'] = 'Login to Take ' . strtoupper($this->survey) . ' Survey';
             $this->data['survey'] = strtoupper($this->survey);
             $this->data['content'] = 'pages/v_login';
-            
+
             //$this -> load -> view('index', $this->data); //login view
             $this->load->view('template', $this->data);
-            
+
             //login view
-            
-            
+
+
         } else {
             $this->inventory();
         }
-        
+
         //$this->inventory();
         //dashboard
-        
+
         //$this->inventory();
         //redirect(base_url() . 'c_auth/index', 'refresh');
-        
-        
+
+
     }
-    
+
     //End of index file
-    
+
     public function inventory() {
-        
+
         //print 'sess val: '.var_dump($this->session->all_userdata()); die;
         /**/
         if ($this->session->userdata('dCode')) {
@@ -148,7 +148,7 @@ class C_Front extends MY_Controller
         } else {
             redirect(base_url() . 'home', 'refresh');
         }
-        
+
         /*$data['hidden']="display:none";
         $data['status']="";
         $data['response']="";
@@ -156,28 +156,28 @@ class C_Front extends MY_Controller
         $data['title']='MNH::Commodity Assessment';
         $data['form_id']='';
         $this -> load -> view('survey/v_survey_main', $data);*/
-        
+
         //echo 'inventory';
-        
-        
+
+
     }
-    
+
     public function formviewer() {
         $data['form'] = '<p class="error"><br/><br/>Click on any of the tabs to continue<br/><br/><p>';
         $this->load->view('form', $data);
     }
-    
+
     public function reports() {
         $data['status'] = "";
         $data['response'] = "";
         $data['form'] = '<p class="error"><br/><br/>No report has been chosen<br/><br/><p>';
         $data['form_id'] = '';
         $this->load->view('reports', $data);
-        
+
         //echo 'Vehicles';
-        
-        
+
+
     }
-    
-   
+
+
 }

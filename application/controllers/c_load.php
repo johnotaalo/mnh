@@ -681,10 +681,6 @@ class C_Load extends MY_Controller {
 			(One Selection Allowed) </strong></div></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Quantities</th>
-			<th scope="col">
-			
-				Main Supplier
-			</th>
 			<th>
 			<div style="width: 90%" >
 				Main Reason For  Unavailability
@@ -703,13 +699,12 @@ class C_Load extends MY_Controller {
 			<td>Not Applicable</td>
 
 			<td>No.of Units</td>
-			<td>Supplier</td>
 			<td> Unavailability</td>
 
 		</tr>' . $this -> commodityAvailabilitySection . '
 
 	</table>
-	</div><!--\.section-3-->
+	</div><!--\.section-5-->
 	
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
@@ -1617,7 +1612,12 @@ class C_Load extends MY_Controller {
 
 	</table>  
 	<p style="margin-top:200px"></p>
+<<<<<<< HEAD
 	
+=======
+	<table>
+	</table>
+>>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -1670,6 +1670,7 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
+<<<<<<< HEAD
 	 <p style="display:true" class="message success">SECTION 5 of 9:(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS</p>
 		<table class="centre">
         <tr>' . $this -> selectAccessChallenges . '</tr>
@@ -1678,6 +1679,24 @@ class C_Load extends MY_Controller {
 
 		<table class="centre">
 		
+=======
+	SECTION 5 of 9: REVIEW OF RECORDS
+		</p>
+
+		
+
+		<table class="centre">
+		
+		<thead>
+		<tr>
+			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA FROM</span> U5 REGISTERS IN THE LAST 3 MONTHS</th></tr>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
+	<table class="centre">
+>>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
 		<thead>
 			<th colspan="2" >ORAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 		
@@ -1694,8 +1713,11 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
+<<<<<<< HEAD
 		
 		
+=======
+>>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
