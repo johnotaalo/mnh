@@ -3117,8 +3117,8 @@ private function addhcwWorkProfile() {
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()  ==  true &&*/
-                       // $this->addhcwProfileSection() == true && $this->addHCWProfile()== true ) {
-                        	$this->addhcwWorkProfile()==true){
+                        $this->addhcwProfileSection() == true && $this->addHCWProfile()== true&& $this->addhcwWorkProfile()==true ) {
+                        	
                         	 //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
 
