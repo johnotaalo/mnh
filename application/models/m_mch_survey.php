@@ -164,11 +164,11 @@ class M_MCH_Survey extends MY_Model
         return $this->treatmentList;
     }
 
-    private function addQuestionsInfo() {
-        //print_r($this->input->post());die;
+   private function addQuestionsInfo() {
+        $this->elements=array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
-             //For every posted values
+            //For every posted values
             if (strpos($key, 'question') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
@@ -222,7 +222,7 @@ class M_MCH_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+        //echo '<pre>';print_r($this->elements);echo '</pre>';die;
 
         //exit;
 
@@ -241,7 +241,9 @@ class M_MCH_Survey extends MY_Model
 
             //check if that key exists, else set it to some default value
 
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+            (array_key_exists('questionResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionResponse']) : $this->theForm->setLqResponse('n/a');
+            (array_key_exists('questionResponseOther', $this->elements[$i]) && $this->elements[$i]['questionResponseOther']!='' ) ? $this->theForm->setLqResponse($this->elements[$i]['questionResponseOther']) : $x=1;
+
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
             (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
@@ -266,7 +268,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -288,7 +290,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -3088,6 +3090,7 @@ private function addMchStaffTrainingInfo() {
     }
 
   private function addMchAssessorInfo() {
+    $this->elements=array();
        $count = $finalCount = 1;
        foreach ($this->input->post() as $key => $val) {
             //For every posted values
@@ -3163,10 +3166,10 @@ private function addMchStaffTrainingInfo() {
            $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
 
            //check if that key exists, else set it to some default value
-           (isset($this->elements[$i]['assesoremail']) && $this->elements[$i]['assesoremail'] != '') ? $this->theForm->setAssessorEmailaddress($this->elements[$i]['assesoremail']) : $this->theForm->setAssessorEmailaddress(-1);
-           (isset($this->elements[$i]['assesorname']) && $this->elements[$i]['assesorname'] != '') ? $this->theForm->setAssessorName($this->elements[$i]['assesorname']) : $this->theForm->setAssessorName(-1);
-           (isset($this->elements[$i]['assesordesignation']) && $this->elements[$i]['assesordesignation'] != '') ? $this->theForm->setAssessorDesignation($this->elements[$i]['assesordesignation']) : $this->theForm->setAssessorDesignation(-1);
-           (isset($this->elements[$i]['assesorphoneNumber']) && $this->elements[$i]['assesorphoneNumber'] != '') ? $this->theForm->setAssessorPhonenumber($this->elements[$i]['assesorphoneNumber']) : $this->theForm->setAssessorPhonenumber(-1);
+           (isset($this->elements[$i]['assesoremail']) && $this->elements[$i]['assesoremail'] != '') ? $this->theForm->setAssessorEmailaddress($this->elements[$i]['assesoremail']) : $this->theForm->setAssessorEmailaddress('n/a');
+           (isset($this->elements[$i]['assesorname']) && $this->elements[$i]['assesorname'] != '') ? $this->theForm->setAssessorName($this->elements[$i]['assesorname']) : $this->theForm->setAssessorName('n/a');
+           (isset($this->elements[$i]['assesordesignation']) && $this->elements[$i]['assesordesignation'] != '') ? $this->theForm->setAssessorDesignation($this->elements[$i]['assesordesignation']) : $this->theForm->setAssessorDesignation('n/a');
+           (isset($this->elements[$i]['assesorphoneNumber']) && $this->elements[$i]['assesorphoneNumber'] != '') ? $this->theForm->setAssessorPhonenumber($this->elements[$i]['assesorphoneNumber']) : $this->theForm->setAssessorPhonenumber('n/a');
 
            $this->theForm->setCreated(new DateTime());
            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
@@ -3197,7 +3200,7 @@ private function addMchStaffTrainingInfo() {
                }
                catch(Exception $ex) {
 
-                   //die($ex -> getMessage());
+                   die($ex -> getMessage());
                    return false;
 
                    /*display user friendly message*/
@@ -3228,7 +3231,7 @@ private function addMchStaffTrainingInfo() {
                }
                catch(Exception $ex) {
 
-                   //die($ex->getMessage());
+                   die($ex->getMessage());
                    return false;
 
                    /*display user friendly message*/
@@ -3432,8 +3435,11 @@ private function addMchStaffTrainingInfo() {
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if (
+                            $this->addMchStaffTrainingInfo()==true && $this->addMchHRInfo()==true && $this->addQuestionsInfo() == true && $this->addMchAssessorInfo() == true
                          /*$this->updateFacilityInfo()	==	true &&*/
-                        $this->addMchHRInfo()==true &&$this->addMchAssessorInfo() == true && $this->addMchStaffTrainingInfo()==true &&$this->addMchHealthServiceQuestion() ==true && $this->addmchConsultationQuestions() == true) {
+                        //$this->addMchHRInfo()==true &&
+                        //$this->addMchAssessorInfo() == true &&  &&$this->addQuestionsInfo() == true
+                        ) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
 
