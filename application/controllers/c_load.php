@@ -1197,7 +1197,7 @@ class C_Load extends MY_Controller {
 		<th colspan="12">Has IMCI consultation room been established?</th>
 		</thead>
 		<tr>
-		</tr>' . $this -> mchConsultationSection . '
+		</tr>' . $this -> question['imci'] . '
 		</tbody>
 	   </table>
 	   
