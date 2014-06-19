@@ -325,7 +325,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMCHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->selectMCHOtherSuppliers.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
@@ -345,7 +345,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->hardwareSources.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->hardwareSources.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
@@ -369,7 +369,7 @@ class MY_Controller extends CI_Controller
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
 
@@ -1482,7 +1482,7 @@ class MY_Controller extends CI_Controller
             </select>
             Specify <input type="text" class="cloned" name="questionSpecify_'.$counter.'" >
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
             if($value['questionCode']=='QHC13'){
@@ -1501,7 +1501,7 @@ class MY_Controller extends CI_Controller
             </select>
             Other<input type="text" class="cloned" name="questionAspectResponseOther_' . $counter . '" id="questionAspectResponseOther_' . $counter . '"
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
             else if($value['questionCode']=='QHC18'){
@@ -1536,7 +1536,7 @@ class MY_Controller extends CI_Controller
                 <option value="No">No</option>
             </select>
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
 
@@ -4149,14 +4149,10 @@ class MY_Controller extends CI_Controller
                $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
-            <label for="General_OPD" style="font-weight:normal">General OPD</label>
-             <input type="radio" class="cloned" value= "General OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_GeneralOPD' . $counter . '" class="cloned"/>
-            <label for="Paediatric_OPD" style="font-weight:normal">Paediatric OPD</label>
-             <input type="radio" class="cloned" value= "Paediatric OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_PaediatricOPD' . $counter . '" class="cloned"/>
-            <label for="MCH" style="font-weight:normal">MCH</label>
-             <input type="radio" class="cloned" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
-            <label for="Other" style="font-weight:normal">Other</label>
-             <input type="radio" class="cloned" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+            General_OPD <input type="radio" class="cloned" value= "General OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_GeneralOPD' . $counter . '" class="cloned"/>
+            Paediatric_OPD <input type="radio" class="cloned" value= "Paediatric OPD" name="questionResponse_' . $counter . '[]" id="questionResponse_PaediatricOPD' . $counter . '" class="cloned"/>
+            MCH <input type="radio" class="cloned" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            Other <input type="radio" class="cloned" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
              <input type="text" class="cloned" name="questionResponseOther_' . $counter . '[]" id="questionResponseOther_' . $counter . '" class="cloned"/>
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -4168,16 +4164,11 @@ class MY_Controller extends CI_Controller
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
 
-            <label for="LAB" style="font-weight:normal">LAB</label>
-             <input type="radio" class="cloned" value= "LAB" name="questionResponse_' . $counter . '[]" id="questionResponse_LAB' . $counter . '" class="cloned"/>
-            <label for="MCH" style="font-weight:normal">MCH</label>
-             <input type="radio" class="cloned" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
-            <label for="Ward style="font-weight:normal">Ward</label>
-             <input type="radio" class="cloned" value= "Ward" name="questionResponse_' . $counter . '[]" id="questionResponse_Ward' . $counter . '" class="cloned"/>
-            <label for="CCC style="font-weight:normal">CCC</label>
-             <input type="radio" class="cloned" value= "CCC" name="questionResponse_' . $counter . '[]" id="questionResponse_CCC' . $counter . '" class="cloned"/>
-            <label for="Other" style="font-weight:normal">Other</label>
-             <input type="radio" class="cloned" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
+            LAB  <input type="radio" class="cloned" value= "LAB" name="questionResponse_' . $counter . '[]" id="questionResponse_LAB' . $counter . '" class="cloned"/>
+            MCH  <input type="radio" class="cloned" value= "MCH" name="questionResponse_' . $counter . '[]" id="questionResponse_MCH' . $counter . '" class="cloned"/>
+            Ward <input type="radio" class="cloned" value= "Ward" name="questionResponse_' . $counter . '[]" id="questionResponse_Ward' . $counter . '" class="cloned"/>
+            CCC <input type="radio" class="cloned" value= "CCC" name="questionResponse_' . $counter . '[]" id="questionResponse_CCC' . $counter . '" class="cloned"/>
+            Other <input type="radio" class="cloned" value= "Other" name="questionResponse_' . $counter . '[]" id="questionResponse_Other' . $counter . '" class="cloned"/>
              <input type="text" class="cloned" name="questionResponseOther_' . $counter . '[]" id="questionResponseOther_' . $counter . '" class="cloned"/>
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
