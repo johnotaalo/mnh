@@ -3433,7 +3433,7 @@ private function addMchStaffTrainingInfo() {
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()	==	true &&*/
-                        $this->addMchHRInfo()==true &&$this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true &&$this->addMchHealthServiceQuestion() ==true && $this->addmchConsultationQuestions() == true) {
+                        $this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true &&$this->addMchHealthServiceQuestion() ==true && $this->addmchConsultationQuestions() == true) {
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
 
