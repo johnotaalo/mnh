@@ -69,8 +69,8 @@ function startAnalytics(base_url, county, survey) {
     $('#home-parent').append('<span class="selected"></span>');
     $('#facility_list').hide();
     $('#reportingLabel').hide();
-    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
-    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
+    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/mid-term');
+    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/mid-term');
     if (county !== '' && county != 'Unselected') {
         $("select#county_select").find("option").filter(function(index) {
             return county === $(this).text();
@@ -80,7 +80,7 @@ function startAnalytics(base_url, county, survey) {
         $('#reportingLabel').show();
         //Load Progress
         //alert(county);
-        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/baseline');
+        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/mid-term');
 
     } else {
         $('#reportingLabel').hide();
