@@ -966,6 +966,8 @@ $this->theForm->setTgCreated(new DateTime());
      //close addGuidelinesStaffInfo
 
     private function addCommodityQuantityAvailabilityInfo() {
+        $supplier_code = $this->input->post('supplierName');
+        //echo  $supplier_code;die;
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -1057,7 +1059,7 @@ $this->theForm->setTgCreated(new DateTime());
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['cqExpiryDate']) && $this->elements[$i]['cqExpiryDate'] != '') ? $this->theForm->setAcExpiryDate($this->elements[$i]['cqExpiryDate']) : $this->theForm->setAcExpiryDate('n/a');
             (isset($this->elements[$i]['cqNumberOfUnits'])) ? $this->theForm->setAcQuantity($this->elements[$i]['cqNumberOfUnits']) : $this->theForm->setAcQuantity(-1);
-           // (isset($this->elements[$i]['cqSupplier']) || $this->elements[$i]['cqSupplier'] == '') ? $this->theForm->setSupplierCode($this->elements[$i]['cqSupplier']) : $this->theForm->setSupplierCode("Other");
+            (isset($supplier_code) || $supplier_code == '') ? $this->theForm->setSupplierCode($supplier_code) : $this->theForm->setSupplierCode("Other");
             (isset($this->elements[$i]['cqReason']) || $this->elements[$i]['cqReason'] == '') ? $this->theForm->setAcReasonUnavailable($this->elements[$i]['cqReason']) : $this->theForm->setAcReasonUnavailable("N/A");
             (isset($this->elements[$i]['cqAvailability'])) ? $this->theForm->setAcAvailability($this->elements[$i]['cqAvailability']) : $this->theForm->setAcAvailability("N/A");
             (isset($this->elements[$i]['cqLocation'])) ? $this->theForm->setAcLocation($this->elements[$i]['cqLocation']) : $this->theForm->setAcLocation("N/A");
@@ -2226,7 +2228,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addMchOrtConerAssessmentInfo
      private function addIndicatorInfo() {
         //var_dump($this->input->post());die;
-        print_r($treat);die;
+        //print_r($treat);die;
 
         $count = $finalCount = 1;
         $this->elements = array();
@@ -3303,8 +3305,8 @@ $this->theForm->setTgCreated(new DateTime());
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-                    if($this->addTotalMCHTreatment()== true/*$this->addResponseTreatments() == true*/){
-                    /* && $this->addIndicatorInfo() == true*///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
+                    if($this->addTotalMCHTreatment()== true && $this->addIndicatorInfo()==true && $this->addQuestionsInfo() == true && $this->addResponseTreatments() == true){
+                    /* && $this->addIndicatorInfo() == true*///(){//( &&  &&  && $this->addIndicatorInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
