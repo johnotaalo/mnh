@@ -3460,16 +3460,12 @@ private function addMchStaffTrainingInfo() {
 
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
-
-                    //print var_dump($this->section);
-
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
 
                        //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
                     if($this->addIndicatorInfo()== true && $this->addTotalMCHTreatment()== true && $this->addResponseTreatments()==true){
-                     ///(){//($this->addQuestionsInfo() == true &&  &&  && $this->addIndicatorInfo()== true){
-                             //defined in this model
+                 
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
                         } else {
