@@ -322,12 +322,12 @@ class CI_DB_driver {
 				// Log and display errors
 				log_message('error', 'Query error: '.$error_msg);
 				return $this->display_error(
-										array(
-												'Error Number: '.$error_no,
-												$error_msg,
-												$sql
-											)
-										);
+									array(
+											'Error Number: '.$error_no,
+											$error_msg,
+											$sql
+										)
+									);
 			}
 
 			return FALSE;
