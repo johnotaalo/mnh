@@ -50,6 +50,17 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
             }
         });
 
+        $(document).on('change','input:checkbox',function(){
+            val = $(this).val();
+            if(val=="Other"){
+                $(this).parent().find('input[type="text"]').show();
+            }
+            else{
+                 $(this).parent().find('input[type="text"]').val('');
+                 $(this).parent().find('input[type="text"]').hide();
+            }
+        }); 
+
         //start of close_opened_form click event
         $("#close_opened_form").click(function() {
 

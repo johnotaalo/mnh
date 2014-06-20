@@ -2553,6 +2553,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addEquipmentQuantityAvailabilityInfo
 
     private function addSuppliesQuantityAvailabilityInfo() {
+        $supplier_code = $this->input->post('supplierName');
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -2634,8 +2635,8 @@ $this->theForm->setTgCreated(new DateTime());
 
             //check if that key exists, else set it to some default value
             //(isset($this->elements[$i]['sqNumberOfUnits']))?$this -> theForm -> setQuantityAvailable($this->elements[$i]['sqNumberOfUnits']):$this -> theForm -> setQuantityAvailable(-1);
-            (isset($this->elements[$i]['sqSupplier']) || $this->elements[$i]['sqSupplier'] == '') ? $this->theForm->setSupplierCode($this->elements[$i]['sqSupplier']) : $this->theForm->setSupplierCode("Other");
-
+            (isset($supplier_code) || $supplier_code == '') ? $this->theForm->setSupplierCode($supplier_code) : $this->theForm->setSupplierCode("Other");
+            
             //(isset($this->elements[$i]['sqReason']) || $this->elements[$i]['sqReason']=='')?$this -> theForm -> setReason4Unavailability($this->elements[$i]['sqReason']):$this -> theForm -> setReason4Unavailability("N/A");
             (isset($this->elements[$i]['sqAvailability'])) ? $this->theForm->setAsAvailability($this->elements[$i]['sqAvailability']) : $this->theForm->setAsAvailability("N/A");
             (isset($this->elements[$i]['sqLocation'])) ? $this->theForm->setAsLocation($this->elements[$i]['sqLocation']) : $this->theForm->setAsLocation("N/A");
@@ -2665,7 +2666,7 @@ $this->theForm->setTgCreated(new DateTime());
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -2693,7 +2694,7 @@ $this->theForm->setTgCreated(new DateTime());
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -2713,6 +2714,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addSuppliesQuantityAvailabilityInfo
 
     private function addResourceAvailabilityInfo() {
+        $supplier_code = $this->input->post('supplierName');
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -2794,7 +2796,8 @@ $this->theForm->setTgCreated(new DateTime());
 
             //check if that key exists, else set it to some default value
             (isset($this->elements[$i]['hwNumberOfUnits'])) ? $this->theForm->setArQuantity($this->elements[$i]['hwNumberOfUnits']) : $this->theForm->setArQuantity(-1);
-            (isset($this->elements[$i]['hwSupplier']) || $this->elements[$i]['hwSupplier'] != '') ? $this->theForm->setSupplierCode($this->elements[$i]['hwSupplier']) : $this->theForm->setSupplierCode("Other");
+             (isset($supplier_code) || $supplier_code == '') ? $this->theForm->setSupplierCode($supplier_code) : $this->theForm->setSupplierCode("Other");
+            
             (isset($this->elements[$i]['hwReason'])) ? $this->theForm->setArReasonUnavailable($this->elements[$i]['hwReason']) : $this->theForm->setArReasonUnavailable("N/A");
             (isset($this->elements[$i]['hwAvailability'])) ? $this->theForm->setArAvailability($this->elements[$i]['hwAvailability']) : $this->theForm->setArAvailability("N/A");
             (isset($this->elements[$i]['hwLocation'])) ? $this->theForm->setArLocation($this->elements[$i]['hwLocation']) : $this->theForm->setArLocation("N/A");
@@ -3401,6 +3404,80 @@ $this->theForm->setTgCreated(new DateTime());
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         if ($this->addEquipmentQuantityAvailabilityInfo() == true ) {
+                             //defined in this model
+                            $this->writeAssessmentTrackerLog();
+
+                            //update facility survey status
+                            //$this->markSurveyStatusAsComplete();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+
+                        //die('Entry exsits');
+                        //update facility survey status
+                        //$this->markSurveyStatusAsComplete();
+                        return $this->response = 'true';
+                    }
+                    break;
+
+                    case 'section-7':
+
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+
+                    //print var_dump($this->section);
+
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        if ($this->addSuppliesQuantityAvailabilityInfo() == true) {
+                             //defined in this model
+                            $this->writeAssessmentTrackerLog();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+
+                        //die('Entry exsits');
+                        return $this->response = 'true';
+                    }
+                    break;
+                    case 'section-8':
+
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+
+                    //print var_dump($this->section);
+
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        if ($this->addResourceAvailabilityInfo() == true) {
+                             //defined in this model
+                            $this->writeAssessmentTrackerLog();
+                            return $this->response = 'true';
+                        } else {
+                            return $this->response = 'false';
+                        }
+                    } else {
+
+                        //die('Entry exsits');
+                        return $this->response = 'true';
+                    }
+                    break;
+
+                case 'section-9':
+
+                    //check if entry exists
+                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
+
+                    // die($this->session->userdata('facilityMFL').':'.$this->session->userdata('survey'));
+                    //print var_dump($this->section);
+
+                    //insert log entry if new, else update the existing one
+                    if ($this->sectionExists == false) {
+                        if ($this->addMchCommunityStrategyInfo() == true ) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
 
