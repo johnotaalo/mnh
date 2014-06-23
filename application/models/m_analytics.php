@@ -1291,6 +1291,97 @@ WHERE
 				
 		return $this -> dataSet;
 	}
+/*
+         * Services to Children with Diarrhoea
+        */
+        public function getIndicatorStatistics($criteria, $value, $survey, $for) {
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            $data_y = array();
+            $data_n = array();
+            
+            switch ($criteria) {
+                case 'national':
+                    $criteria_condition = ' ';
+                    break;
+
+                case 'county':
+                    $criteria_condition = 'WHERE fac_county=?';
+                    break;
+
+                case 'district':
+                    $criteria_condition = 'WHERE fac_district=?';
+                    break;
+
+                case 'facility':
+                    $criteria_condition = 'WHERE fac_mfl=?';
+                    break;
+
+                case 'none':
+                    $criteria_condition = '';
+                    break;
+            }
+            
+            $query = "SELECT 
+    indicator_name, il.indicator_code AS indicator, count(il.li_response),il.li_response as response
+FROM
+    log_indicators il JOIN indicators on indicators.indicator_code = il.indicator_code
+WHERE
+    il.indicator_code IN (SELECT 
+            indicator_code
+        FROM
+            indicators
+        WHERE
+            indicator_for = '" . $for . "')
+        AND il.fac_mfl IN (SELECT 
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '$survey')" . $criteria_condition . ") GROUP BY indicator,response;";
+            
+            try {
+                $this->dataSet = $this->db->query($query, array($value));
+                $this->dataSet = $this->dataSet->result_array();
+                
+                //echo $this->db->last_query();die;
+                if ($this->dataSet !== NULL) {
+                    
+                    //prep data for the pie chart format
+                    $size = count($this->dataSet);
+                    $i = 0;
+                    
+                    //var_dump($this->dataSet);
+                    foreach ($this->dataSet as $value) {
+                        
+                        $indicator = $value['indicator_name'];
+                        
+                        //echo $value['indicator'];die;
+                        $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
+                    }
+                    $data['categories'] = array_keys($data['response']);
+                    $this->dataSet = $data;
+                    return $this->dataSet;
+                } else {
+                    return $this->dataSet = null;
+                }
+                
+                die(var_dump($this->dataSet));
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $this->dataSet;
+        }
 
 	/*
 	 * Danger Signs assessed in Ongoing Sessions
