@@ -2551,7 +2551,7 @@ echo '<pre>';print_r($this->input->post());echo '</pre>';die;
 
 
         //end of innner loop
-    }
+    
 
     private function addEquipmentQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
