@@ -832,7 +832,15 @@ ORDER BY fac_level;");
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
-    
+	public function getChHealthServices($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
+    }
+	public function getCaseManagement($criteria,$value,$survey){
+		$this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
+	}
+	public function getIMCIConsultation($criteria,$value,$survey){
+		$this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
+	}
     /*
      * Diarrhoea case numbers per Month
     */
