@@ -62,7 +62,6 @@ class M_MCH_Survey extends MY_Model
     }
 
     
-    
     /*calls the query defined in MY_Model*/
     public function getGuidelineAvailabilityQuestions($for) {
         $this->mchGuidelineAvailabilityList = $this->getAllOrtAspects($for);
@@ -396,6 +395,7 @@ class M_MCH_Survey extends MY_Model
 
 
             (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
+
 
             (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
             (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
@@ -1151,7 +1151,10 @@ private function addMchStaffTrainingInfo() {
         
         
     }
+    
  
+     //close addGuidelinesStaffInfo
+    
 
       private function addCommodityQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
@@ -2387,6 +2390,7 @@ echo '<pre>';print_r($this->input->post());echo '</pre>';die;
         }
 
 
+
          }
 
 
@@ -2541,7 +2545,7 @@ echo '<pre>';print_r($this->input->post());echo '</pre>';die;
          //end of innner loop
         
         
-    
+    }
 
      //close addMchOrtConerAssessmentInfo
 

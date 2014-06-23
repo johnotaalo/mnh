@@ -1612,12 +1612,10 @@ class C_Load extends MY_Controller {
 
 	</table>  
 	<p style="margin-top:200px"></p>
-<<<<<<< HEAD
-	
-=======
+
 	<table>
 	</table>
->>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
+
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -1670,16 +1668,7 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-<<<<<<< HEAD
-	 <p style="display:true" class="message success">SECTION 5 of 9:(C) WHAT IS THE MAIN CHALLENGE IN ACCESSING DATA FROM U5 REGISTERS IN THE LAST 3 MONTHS</p>
-		<table class="centre">
-        <tr>' . $this -> selectAccessChallenges . '</tr>
 
-         </table>
-
-		<table class="centre">
-		
-=======
 	SECTION 5 of 9: REVIEW OF RECORDS
 		</p>
 
@@ -1696,7 +1685,7 @@ class C_Load extends MY_Controller {
 		
 	</table>
 	<table class="centre">
->>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
+
 		<thead>
 			<th colspan="2" >ORAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 		
@@ -1713,11 +1702,8 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
-<<<<<<< HEAD
-		
-		
-=======
->>>>>>> 7932df3482c7ad1f77b2b2e9283ea2e58bff740d
+
+
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
