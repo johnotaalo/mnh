@@ -13,16 +13,18 @@ class C_Analytics extends MY_Controller
         
         
     }
-    public function get_facility_progress($survey,$survey_category){
-        $results = $this->m_analytics->get_facility_progress($survey,$survey_category);
-         foreach ($results as $day => $value) {
-            $data[]=(int)sizeof($value);
-            $category[]=$day;
+    public function getFacilityProgress($survey, $survey_category) {
+        $results = $this->m_analytics->getFacilityProgress($survey, $survey_category);
+        foreach ($results as $day => $value) {
+            $data[] = (int)sizeof($value);
+            $category[] = $day;
         }
-        $resultArray = array('name'=>'Daily Entries','data'=>$data);
+        $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
+        
         //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'line', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
     }
+    
     /**
      * [active_results description]
      * @param  [type] $survey
@@ -664,7 +666,8 @@ class C_Analytics extends MY_Controller
         }
         $category = $results['categories'];
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        echo '<pre>';print_r($resultArray);echo '</pre>';
+        
+        // echo '<pre>';print_r($resultArray);echo '</pre>';
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
@@ -720,15 +723,16 @@ class C_Analytics extends MY_Controller
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
-	public function getChHealthServices($criteria, $value, $survey) {
+    public function getChHealthServices($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
     }
-	public function getCaseManagement($criteria,$value,$survey){
-		$this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
-	}
-	public function getIMCIConsultation($criteria,$value,$survey){
-		$this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
-	}
+    public function getCaseManagement($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
+    }
+    public function getIMCIConsultation($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
+    }
+    
     /*
      * Diarrhoea case numbers per Month
     */
@@ -2193,7 +2197,17 @@ class C_Analytics extends MY_Controller
         $datas['container'] = 'chart_' . $criteria . mt_rand();
         $datas['chart_type'] = $type;
         $datas['chart_margin'] = $margin;
-        $datas['chart_size'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+        switch ($type) {
+            case 'line':
+                $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
+                $datas['chart_length'] = 300;
+                break;
+
+            default:
+                $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+                $datas['chart_width'] = 300;
+                break;
+        }
         $datas['chart_stacking'] = $stacking;
         $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
         $datas['chart_categories'] = $category;

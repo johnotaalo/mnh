@@ -62,7 +62,7 @@
 	.outer{
 		@include tile();
 		.inner{
-		@include inner-style(30%);
+		@include inner-style(40%);
 	}
 	}
 	
@@ -74,11 +74,19 @@
 		background:#555;
 		margin-bottom:0;
 		i{
-			color:antiquewhite;
-		}
-		i:hover{
-			color: whitesmoke;
-		}
+            color:white;
+            font-weight:bold;
+            float:right;
+            cursor:pointer;
+            margin-left:10px;
+        }
+        i.selected{
+            color:antiquewhite;
+        }
+        i:hover{
+            color:antiquewhite;
+            cursor: hand;
+        }
 	}
 }
 #firepad{

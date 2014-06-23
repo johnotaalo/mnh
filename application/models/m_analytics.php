@@ -4716,7 +4716,7 @@ WHERE
             }
         }
 
-        public function get_facility_progress($survey,$survey_category){
+        public function getFacilityProgress($survey,$survey_category){
 
             $query = "CALL get_facility_activity('".$survey."','".$survey_category."');";
             try {
@@ -4732,7 +4732,7 @@ WHERE
                     foreach($this->dataSet as $value){
                         //echo $value['ast_last_activity'];
                     $day = new DateTime($value['ast_last_activity']);
-                    $day= $day->format('d-M-Y');
+                    $day= $day->format('M-Y');
                     $data[$day][]=$value;
                     }
                     //die;
