@@ -4715,6 +4715,34 @@ WHERE
             catch(exception $ex) {
             }
         }
+
+        public function get_facility_progress($survey,$survey_category){
+
+            $query = "CALL get_facility_activity('".$survey."','".$survey_category."');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo $this->db->last_query();die;
+                if ($this->dataSet !== NULL) {
+                    foreach($this->dataSet as $value){
+                        //echo $value['ast_last_activity'];
+                    $day = new DateTime($value['ast_last_activity']);
+                    $day= $day->format('d-M-Y');
+                    $data[$day][]=$value;
+                    }
+                    //die;
+                }
+                return $data;
+            }
+            catch(exception $e){
+
+            }
+        }
     }
     
     

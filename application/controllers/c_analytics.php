@@ -13,128 +13,16 @@ class C_Analytics extends MY_Controller
         
         
     }
-    
-    /**
-     * [setActive description]
-     * @param [type] $county
-     * @param [type] $survey
-     */
-    
-    //function for Pie Chart
-    public function bar() {
-        
-        //load database
-        $this->load->helper("url");
-        
-        //load database
-        $this->load->database();
-        $res = array();
-        
-        //fetch data from db
-        $query = $this->db->query("SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-    sum(if (lq_response ='No' , 1 , 0)) as no_values
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'mnh')
-                )
-GROUP BY question_code
-ORDER BY question_code;");
-        foreach ($query->result() as $row) {
-            $res = array_merge($res, array($row->no_values, $row->yes_values));
+    public function get_facility_progress($survey,$survey_category){
+        $results = $this->m_analytics->get_facility_progress($survey,$survey_category);
+         foreach ($results as $day => $value) {
+            $data[]=(int)sizeof($value);
+            $category[]=$day;
         }
-        $data['dres'] = $res;
-        $this->load->view('pie', $data);
+        $resultArray = array('name'=>'Daily Entries','data'=>$data);
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'line', sizeof($category));
     }
-    
-    //end of the function
-    
-    //function for the Yes Response
-    public function Yes_Response() {
-        
-        //load the base url
-        $this->load->helper("url");
-        $this->load->database();
-        $level_total = array();
-        $level_type = array();
-        $sql = $this->db->query("SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-        (fac_level) as facility_level
-        FROM
-            log_questions
-        JOIN
-            facilities
-        ON
-            facilities.fac_mfl = log_questions.fac_mfl
-        WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND facilities.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'mnh')
-                )
-GROUP BY fac_level
-ORDER BY fac_level;");
-        
-        //$sql = $sql->result_array();
-        //echo '<pre>';
-        //print_r($sql);
-        //echo '</pre>';die;
-        
-        foreach ($sql->result() as $row) {
-            $level_total = array_merge($level_total, array((int)$row->yes_values));
-            $level_type = array_merge($level_type, array('level ' . $row->facility_level));
-        }
-        
-        $data['level_total'] = json_encode($level_total);
-        $data['level_type'] = json_encode($level_type);
-        $this->load->view('Yes_Response', $data);
-    }
-    
-    //end of the function
-    
-    public function setActive($county, $survey) {
-        
-        $county = urldecode($county);
-        
-        //$this -> session -> unset_userdata('county_analytics');
-        $this->session->set_userdata('county_analytics', $county);
-        
-        //$this -> session -> unset_userdata('survey');
-        $this->session->set_userdata('survey', $survey);
-        $this->getReportingCounties();
-        $this->county = $this->session->userdata('county_analytics');
-        
-        redirect($survey . '/analytics');
-    }
-    
     /**
      * [active_results description]
      * @param  [type] $survey
