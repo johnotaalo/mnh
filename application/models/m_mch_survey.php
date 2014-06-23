@@ -1735,7 +1735,7 @@ $this->theForm->setTgCreated(new DateTime());
             //print_r($this->elements);die;
             $this->theForm->setLtClassification($this->elements[$i]['classification']);
             $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']);
-            $this->theForm->setLtTreatments($this->elements[$i]['treatment']);
+            (array_key_exists('treatment', $this->elements[$i]) && $this->elements[$i]['treatment']!='')? $this->theForm->setLtTreatments($this->elements[$i]['treatment']) : $this->theForm->setLtTreatments('n/a');;
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->em->persist($this->theForm);
 
