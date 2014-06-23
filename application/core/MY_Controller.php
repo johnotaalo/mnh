@@ -1433,7 +1433,7 @@ class MY_Controller extends CI_Controller
                 <option value="No">No</option>
             </select>
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
 
@@ -1483,7 +1483,7 @@ class MY_Controller extends CI_Controller
             </select>
             Specify <input type="text" class="cloned" name="questionSpecify_'.$counter.'" >
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
             if($value['questionCode']=='QHC13'){
@@ -1502,7 +1502,7 @@ class MY_Controller extends CI_Controller
             </select>
             Other<input type="text" class="cloned" name="questionAspectResponseOther_' . $counter . '" id="questionAspectResponseOther_' . $counter . '"
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
             else if($value['questionCode']=='QHC18'){
@@ -1537,10 +1537,9 @@ class MY_Controller extends CI_Controller
                 <option value="No">No</option>
             </select>
             </td>
-            <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
-
 
 
         }
