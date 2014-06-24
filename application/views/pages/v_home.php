@@ -29,13 +29,13 @@
 						<p>
 							<ul class="nice-list">
 								<li>
-									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment-Baseline </a>
 								</li>
 								<li>
-									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment-Baseline </a>
 								</li>
 								<li>
-									<a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool </a>
+									<a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool Assessment-Baseline</a>
 								</li>
 								<!--li>Post surveys online for easy access</li>
 								<li>Conduct timely Analysis</li-->
@@ -53,6 +53,8 @@
 				<a href="#" id="ch-map">Child Health</a>
 				|
 				<a href="#" id="mnh-map">Maternal and Neonatal Health</a>
+                |
+			    <a href="#" id="hcw-map">IMCI Follow-Up Tool</a>
 				
 				<!--div class="legend">
 					<div class="item"><div class="color" style="background:#e93939"></div><div class="title"><20%</div></div>
@@ -71,6 +73,17 @@ map.setJSONData(<?php echo $mapsCH; ?>
 					<!--div class="content-separator"></div-->
 				</div><!--./kenya_county_map-->
 				
+
+                <div class="post" id="hcw_map">
+					<script>
+var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
+map.setJSONData(<?php echo $mapsHCW; ?>
+	);
+	map.render("hcw_map");
+					</script>
+					<!--div class="content-separator"></div-->
+				</div><!--./kenya_county_map-->
+
 				<div class="post" id="mnh_map">
 					<script>
 var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
@@ -108,11 +121,15 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 								<!--li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li-->
 
 								<li>
-									<a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
 								</li>
 
 								<li>
-									<a href="<?php echo base_url(); ?>ch/analytics" > 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>ch/analytics" > 2. Child Health - Diarrhoea, Treatment Scale Up Assessment </a>
+								</li>
+
+								<li>
+									<a href="<?php echo base_url(); ?>hcw/analytics" > 3. IMCI Follow-Up Tool Assessment </a>
 								</li>
 							</ul>
 						</p>

@@ -865,23 +865,24 @@ class MY_Controller extends CI_Controller
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="2">
             <label>Multiple Selections Allowed</label><br/>
+            MCH
             <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
-            <label for="" style="font-weight:normal">MCH</label><br/>
-
+           
+            U5 Clinic
             <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="U5 Clinic"/>
-            <label for="" style="font-weight:normal">U5 Clinic</label><br/>
-
+            
+            OPD
             <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="OPD"/>
-            <label for="" style="font-weight:normal">OPD</label><br/>
+            
 
-
+            WARD
             <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="WARD"/>
-            <label for="" style="font-weight:normal">WARD</label><br/>
+            
 
-
-            <input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value=""/>
-            <label for="" style="font-weight:normal">Other</label><br/>
-            <input type="text" class="cloned" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+            Other
+            <input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value="Other"/>
+            
+            <input type="text" class="cloned" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify" style="display:none" />
 
 
             </td>
@@ -2185,19 +2186,19 @@ class MY_Controller extends CI_Controller
                     $findings = explode(';', $value['indicatorFindings']);
                     if (sizeof($findings) == 1) {
                         foreach ($findings as $finding) {
-                            $findingHCWRow = $finding . ' <input type="text" class="cloned" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '" class="cloned">';
-                            $findingAssessorRow = $finding . ' <input type="text" class="cloned" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '" class="cloned">';
+                            $findingHCWRow = ' <input type="text" class="cloned" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '" class="cloned">'.$finding;
+                            $findingAssessorRow =  ' <input type="text" class="cloned" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '" class="cloned">'.$finding;
                         }
                     } else {
                         $findingHCWRow = $findingAssessorRow='';
                         foreach ($findings as $finding) {
 
                             if ($finding == 'other (specify)') {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text" class="cloned">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text" class="cloned">';
+                                $findingHCWRow.=  ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text" class="cloned">'.$finding;
+                                $findingAssessorRow.=  ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text" class="cloned">'.$finding;
                             } else {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" class="cloned">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" class="cloned">';
+                                $findingHCWRow.=  ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" class="cloned">'.$finding;
+                                $findingAssessorRow.=  ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" class="cloned">'.$finding;
                             }
                         }
                     }
@@ -2207,17 +2208,17 @@ class MY_Controller extends CI_Controller
                     $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td></td><td></td><td><span>Yes</span> <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned"></td><td></td>
+            <td></td><td></td><td> <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>Yes</span><input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned"><span>No</span> </td><td></td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
                 } else {
                     $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td><span>Yes</span> <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned">
+            <td><input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"><span>Yes</span>  <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned"><span>No</span>
             </td>
             <td>' . $findingHCWRow . '</td>
-            <td><span>Yes</span> <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio" class="cloned">
+            <td><input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio" class="cloned"><span>Yes</span> <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio" class="cloned"><span>No</span> 
             </td>
             <td>' . $findingAssessorRow . '</td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
@@ -2229,7 +2230,7 @@ class MY_Controller extends CI_Controller
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td><span>Yes</span> <input name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned">
             </td>
-            <td>Present <input name="indicatorFinding_' . $counter . '" id="indicatorFinding_' . $counter . '" value="Present" type="radio" class="cloned"> Not Present <input value="Not Present" id="indicatorFinding_' . $counter . '" name="indicatorFinding_' . $counter . '"  type="radio" class="cloned">
+            <td> <input name="indicatorFinding_' . $counter . '" id="indicatorFinding_' . $counter . '" value="Present" type="radio" class="cloned"> Present <input value="Not Present" id="indicatorFinding_' . $counter . '" name="indicatorFinding_' . $counter . '"  type="radio" class="cloned">Not Present
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
@@ -2237,7 +2238,7 @@ class MY_Controller extends CI_Controller
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td><span>Yes</span> <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned">
+            <td> <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio" class="cloned"><span>Yes</span> <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio" class="cloned"> <span>No</span>
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
@@ -2364,7 +2365,7 @@ class MY_Controller extends CI_Controller
 
                  $data[$section][] = '<tr>
             <td><strong>(' . $numbering[$base - 1] . ')</strong>  '. $value['questionName'] . '</td>
-            <td><span>Yes</span> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned">
+            <td> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"> <span>Yes</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned"><span>No</span>
              <input type="text" class="cloned" placeholder="Specify" name="questionSpecify_'.$counter.'" style="display:none" >
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -2415,7 +2416,7 @@ class MY_Controller extends CI_Controller
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td><span>Yes</span> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned"></td>
+         <td> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"> <span>Yes</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned"><span>No</span></td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
@@ -2436,7 +2437,7 @@ class MY_Controller extends CI_Controller
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td><span>Yes</span> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"> <span>No</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned"></td>
+         <td> <input name="questionResponse_'.$counter.'" value="Yes" type="radio" class="cloned"><span>Yes</span> <input value="No" name="questionResponse_'.$counter.'"  type="radio" class="cloned"><span>No</span></td> 
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
@@ -3080,8 +3081,8 @@ class MY_Controller extends CI_Controller
             </td>
             <!--td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" type="text" class="cloned" size="10" class="cloned numbers"/>
-            </td-->
-            <td width="50">
+            
+           
             <!--td width="50">
             <select name="sqReason_' . $counter . '" id="sqReason_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>
