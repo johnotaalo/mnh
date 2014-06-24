@@ -46,6 +46,15 @@ switch($this->session->userdata('survey')) {
 				<li id="consultation">
 					<a href="#">Consultation</a>
 				</li>
+				<li id="ChHealthServices">
+					<a href="#">Health Services</a>
+				</li>
+				<li id="CaseManagement">
+					<a href="#">Case Management</a>
+				</li>
+				<li id="IMCIConsultationRoom">
+					<a href="#">IMCI Consultation Room</a>
+				</li>
 			</ul>
 		</li>
 
@@ -67,6 +76,7 @@ switch($this->session->userdata('survey')) {
 				<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
 				</li>
+				
 			</ul>
 		</li>
 

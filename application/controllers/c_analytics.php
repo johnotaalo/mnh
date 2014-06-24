@@ -959,6 +959,7 @@ ORDER BY fac_level;");
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
+<<<<<<< HEAD
     
     /**
      * [getDiarrhoeaCaseNumbers description]
@@ -967,6 +968,20 @@ ORDER BY fac_level;");
      * @param  [type] $survey   [description]
      * @return [type]           [description]
      */
+=======
+	public function getChHealthServices($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
+    }
+	public function getCaseManagement($criteria,$value,$survey){
+		$this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
+	}
+	public function getIMCIConsultation($criteria,$value,$survey){
+		$this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
+	}
+    /*
+     * Diarrhoea case numbers per Month
+    */
+>>>>>>> d00296736176cc9d58f3418be078e80fd4094c44
     public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);

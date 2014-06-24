@@ -3099,6 +3099,175 @@ private function addhcwWorkProfile() {
 
     }
      //close addResourceAvailabilityInfo
+     private function addMchHRInfo() {
+       $count = $finalCount = 1;
+       foreach ($this->input->post() as $key => $val) {
+            //For every posted values
+           if (strpos($key, 'facility') !== FALSE) {
+            //var_dump($val);die;
+                //select data for availability of commodities
+               //we separate the attribute name from the number
+
+               $this->frags = explode("_", $key);
+
+               //$this->id = $this->frags[1];  // the id
+
+               $this->id = $count;
+
+               // the id
+
+               $this->attr = $this->frags[0];
+
+               //the attribute name
+
+               //stringify any array value
+               if (is_array($val)) {
+                   $val = implode(',', $val);
+               }
+
+               // print $key.' ='.$val.' <br />';
+               //print 'ids: '.$this->id.'<br />';
+
+               //mark the end of 1 row...for record count
+               if ($this->attr == "facilityopdemail") {
+
+                   //print 'count at:'.$count.'<br />';
+
+                   $finalCount = $count;
+                   $count++;
+
+                   //print 'count at:'.$count.'<br />';
+                   //print 'final count at:'.$finalCount.'<br />';
+                   //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+
+               }
+
+               //collect key and value to an array
+               if (!empty($val)) {
+
+                   //We then store the value of this attribute for this element.
+                   $this->elements[$this->id][$this->attr] = htmlentities($val);
+
+                   //$this->elements[$this->attr]=htmlentities($val);
+
+               } else {
+                   $this->elements[$this->id][$this->attr] = '';
+
+                   //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+
+               }
+           }
+       }
+        //close foreach ($this -> input -> post() as $key => $val)
+       //print var_dump($this->elements);die;
+
+       //get the highest value of the array that will control the number of inserts to be done
+       $this->noOfInsertsBatch = $finalCount;
+
+       for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
+
+           //go ahead and persist data posted
+           $this->theForm = new \models\Entities\HrInformation();
+
+           //create an object of the model
+
+           //$this->theForm->setStrategyCode(1);
+            //$this -> elements[$i]['mchCommunityStrategyQCode']);
+           $this->theForm->setFacilityMfl($this->session->userdata('facilityMFL'));
+
+           //check if that key exists, else set it to some default value
+           (isset($this->elements[$i]['facilityInchargename']) && $this->elements[$i]['facilityInchargename'] != '') ? $this->theForm->setFacilityInchargeName($this->elements[$i]['facilityInchargename']) : $this->theForm->setFacilityInchargeName('N/A');
+           (isset($this->elements[$i]['facilityInchargemobile']) && $this->elements[$i]['facilityInchargemobile'] != '') ? $this->theForm->setFacilityInchargeMobile($this->elements[$i]['facilityInchargemobile']) : $this->theForm->setFacilityInchargeMobile(-1);
+           (isset($this->elements[$i]['facilityInchargeemail']) && $this->elements[$i]['facilityInchargeemail'] != '') ? $this->theForm->setFacilityInchargeEmailaddress($this->elements[$i]['facilityInchargeemail']) : $this->theForm->setFacilityInchargeEmailaddress('N/A');
+           (isset($this->elements[$i]['facilityMchname']) && $this->elements[$i]['facilityMchname'] != '') ? $this->theForm->setMchInchargeName($this->elements[$i]['facilityMchname']) : $this->theForm->setMchInchargeName('N/A');
+           (isset($this->elements[$i]['facilityMchmobile']) && $this->elements[$i]['facilityMchmobile'] != '') ? $this->theForm->setMchInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
+           (isset($this->elements[$i]['facilityMchemail']) && $this->elements[$i]['facilityMchemail'] != '') ? $this->theForm->setMchInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
+
+           (isset($this->elements[$i]['facilityMaternityname']) && $this->elements[$i]['facilityMaternityname'] != '') ? $this->theForm->setMaternityInchargeName($this->elements[$i]['facilityMchname']) : $this->theForm->setMchInchargeName('N/A');
+           (isset($this->elements[$i]['facilityMaternitymobile']) && $this->elements[$i]['facilityMaternitymobile'] != '') ? $this->theForm->setMaternityInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
+           (isset($this->elements[$i]['facilityMaternityemail']) && $this->elements[$i]['facilityMaternityemail'] != '') ? $this->theForm->setMaternityInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
+
+           (isset($this->elements[$i]['facilityopdname']) && $this->elements[$i]['facilityopdname'] != '') ? $this->theForm->setOpdInchargeName($this->elements[$i]['facilityopdname']) : $this->theForm->setOpdInchargeName('N/A');
+           (isset($this->elements[$i]['facilityopdmobile']) && $this->elements[$i]['facilityopdmobile'] != '') ? $this->theForm->setOpdInchargeMobile($this->elements[$i]['facilityopdmobile']) : $this->theForm->setOpdInchargeMobile('-1');
+           (isset($this->elements[$i]['facilityopdemail']) && $this->elements[$i]['facilityopdemail'] != '') ? $this->theForm->setOpdInchargeEmailaddress($this->elements[$i]['facilityopdemail']) : $this->theForm->setOpdInchargeEmailaddress('N/A');
+           $this->theForm->setCreated(new DateTime());
+           $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+
+           /*timestamp option*/
+           $this->em->persist($this->theForm);
+
+           //now do a batched insert, default at 5
+           $this->batchSize = 5;
+           if ($i % $this->batchSize == 0) {
+               try {
+
+                   $this->em->flush();
+                   $this->em->clear();
+
+                   //detaches all objects from doctrine
+
+                   //on the last record to be inserted, log the process and return true;
+                   if ($i == $this->noOfInsertsBatch) {
+
+                       //die(print 'Limit: '.$this->noOfInsertsBatch);
+                       //$this->writeAssessmentTrackerLog();
+                       return true;
+                   }
+
+                   //return true;
+
+               }
+               catch(Exception $ex) {
+
+                   //die($ex -> getMessage());
+                   return false;
+
+                   /*display user friendly message*/
+               }
+                //end of catch
+
+
+           } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+
+               //total records less than a batch, insert all of them
+               try {
+
+                   $this->em->flush();
+                   $this->em->clear();
+
+                   //detactes all objects from doctrine
+
+                   //on the last record to be inserted, log the process and return true;
+                   if ($i == $this->noOfInsertsBatch) {
+
+                       //die(print 'Limit: '.$this->noOfInsertsBatch);
+                       //$this->writeAssessmentTrackerLog();
+                       return true;
+                   }
+
+                   //return true;
+
+               }
+               catch(Exception $ex) {
+
+                   //die($ex->getMessage());
+                   return false;
+
+                   /*display user friendly message*/
+               }
+                //end of catch
+
+
+           }
+
+           //end of batch condition
+
+       }
+        //end of innner loop
+
+   }
+    //close addMchHRInfo()
+     
 
     function store_data() {
 
@@ -3117,7 +3286,7 @@ private function addhcwWorkProfile() {
                     if ($this->sectionExists == false) {
                         if (
                          /*$this->updateFacilityInfo()  ==  true &&*/
-                        $this->addhcwProfileSection() == true && $this->addHCWProfile()== true&& $this->addhcwWorkProfile()==true ) {
+                       $this->addMchHRInfo()== true && $this->addhcwProfileSection() == true && $this->addHCWProfile()== true&& $this->addhcwWorkProfile()==true ) {
                         	
                         	 //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
