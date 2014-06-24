@@ -46,16 +46,13 @@ switch($this->session->userdata('survey')) {
 				<li id="consultation">
 					<a href="#">Consultation</a>
 				</li>
-				<li id="healthServices">
+				<li id="ChHealthServices">
 					<a href="#">Health Services</a>
 				</li>
-				<li id="certificationA">
-					<a href="#">Certification A</a>
+				<li id="CaseManagement">
+					<a href="#">Case Management</a>
 				</li>
-				<li id="certificationB">
-					<a href="#">Certification B</a>
-				</li>
-				<li id="IMCIconsultationRoom">
+				<li id="IMCIConsultationRoom">
 					<a href="#">IMCI Consultation Room</a>
 				</li>
 			</ul>

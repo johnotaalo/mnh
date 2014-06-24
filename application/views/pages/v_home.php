@@ -29,10 +29,13 @@
 						<p>
 							<ul class="nice-list">
 								<li>
-									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
 								</li>
 								<li>
-									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment </a>
+								</li>
+								<li>
+									<a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool </a>
 								</li>
 								<!--li>Post surveys online for easy access</li>
 								<li>Conduct timely Analysis</li-->
@@ -105,11 +108,11 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 								<!--li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li-->
 
 								<li>
-									<a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
 								</li>
 
 								<li>
-									<a href="<?php echo base_url(); ?>ch/analytics" > 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
+									<a href="<?php echo base_url(); ?>ch/analytics" > 2. Child Health - Diarrhoea, Treatment Scale Up Assessment </a>
 								</li>
 							</ul>
 						</p>

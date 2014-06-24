@@ -1,5 +1,4 @@
-ALTER TABLE `mnh_rest`.`indicators` 
-DROP INDEX `indicatorName` ;
+
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`) VALUES ('Asked how long the child had the cough', 'CHI25', 'pne');
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`) VALUES ('Breath counts taken', 'CHI26', 'pne');
 INSERT INTO `mnh_rest`.`indicators` (`indicator_name`, `indicator_code`, `indicator_for`) VALUES ('Looked for chest indrawing', 'CHI27', 'pne');

@@ -31,7 +31,7 @@ class Commodities
     /**
      * @var string
      *
-     * @ORM\Column(name="comm_name", type="string", length=45, nullable=false)
+     * @ORM\Column(name="comm_name", type="text", nullable=false)
      */
     private $commName;
 

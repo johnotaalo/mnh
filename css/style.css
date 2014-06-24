@@ -99,6 +99,11 @@ h6 {
 	font-size: 1em;
 }
 
+h4.indi{
+	background-color: #FFFF00;
+	width: 65%;
+}
+
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
 	margin: 0;
 }
@@ -258,30 +263,36 @@ table td, table th {
 	padding: 5px;
 	border: 1px solid #fff;
 	border-width: 0 1px 1px 0;
-	text-align: center;
+	text-align: left;
 }
 
+
 thead th {
-	background: #DF0101;
+	background: #bcd9e1;
 	text-align: center;
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
+	color: #000000;
 }
 
 thead th[colspan], thead th[rowspan] {
-	background: #FF6464;
-	color: #ffffff;
+	background: #91c5d4;
+	color: #000000;
 }
+
 
 tbody th, tfoot th {
 	text-align: center;
 	background: #91c5d4;
+	color: #000000;
 }
 
+/*light blue*/
 tbody td, tfoot td {
 	text-align: left;
 	background: #d5eaf0;
+	color: #000000;
 }
 
 tfoot th {
@@ -300,8 +311,9 @@ tfoot td {
 	text-align: left;
 }
 
+/*pale blue*/
 tbody tr.odd td {
-	background: #bcd9e1;
+	background: #91c5d4;
 }
 
 /* Misc classes */
@@ -363,6 +375,7 @@ tbody tr.odd td {
 	background: #FBE3E4;
 	color: #8A1F11;
 	border-color: #FBC2C4;
+	display:inline-block;
 }
 .error a {
 	color: #8A1F11;
@@ -404,6 +417,8 @@ tbody tr.odd td {
 label {
 	font-weight: bold;
 	cursor: pointer;
+	
+	display: block;
 }
 fieldset {
 	padding: 1.4em;
@@ -1357,3 +1372,16 @@ img.alignright, img.right {
 	width:60%;
 	height:100%;
 }
+.instruction{
+	background: #FAEBD7;
+	padding:10px;
+	margin-bottom:0;
+}
+td input[type="number"]{
+	width:50px;
+	height:2em;
+}
+td input[type="text"]{
+	height:2em;
+}
+

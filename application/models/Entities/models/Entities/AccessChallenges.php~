@@ -31,7 +31,7 @@ class AccessChallenges
     /**
      * @var string
      *
-     * @ORM\Column(name="ach_name", type="string", length=45, nullable=true)
+     * @ORM\Column(name="ach_name", type="text", nullable=true)
      */
     private $achName;
 
