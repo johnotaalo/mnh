@@ -3648,7 +3648,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchmalariaconfrimedtreatmentSection .=
-            '<input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
         }
         return $this->mchmalariaconfrimedtreatmentSection;
     }
