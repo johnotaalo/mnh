@@ -2160,7 +2160,7 @@ class MY_Controller extends CI_Controller
             foreach ($value as $val) {
                 $this->mchIndicatorsSection[$key].= $val;
             }
-        }
+        } 
         return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {
