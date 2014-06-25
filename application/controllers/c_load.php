@@ -143,7 +143,7 @@ class C_Load extends MY_Controller {
 		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey.</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 8: FACILITY INFORMATION</p>
+		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -347,7 +347,7 @@ class C_Load extends MY_Controller {
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 8: DELIVERIES CONDUCTED DATA, PROVISION OF BEmONC FUNCTIONS</p>
+	 <p style="display:true" class="message success">SECTION 2 of 7: DELIVERIES CONDUCTED DATA, PROVISION OF BEmONC FUNCTIONS</p>
 	<table class="centre">
 		
 	<thead>
@@ -1007,7 +1007,7 @@ class C_Load extends MY_Controller {
 		         <p style="color:#488214;font-size:20px;font-style:bold">You are currently taking ' . (((strtoupper($this -> session -> userdata('survey'))) == 'CH') ? 'Child Health' : 'Maternal and Newborn Health') . ' Survey</p>
 		         <div id="section-1" class="step">
 		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 9: FACILITY INFORMATION</p>
+		          <p style="display:true" class="message success">SECTION 1 of 7: FACILITY INFORMATION</p>
 				<table class="centre" >
 
 		       <thead><th colspan="9">FACILITY INFORMATION</th></thead>
@@ -1214,7 +1214,7 @@ class C_Load extends MY_Controller {
 	
 	<div id="section-2" class="step">
 	<input type="hidden" name="step_name" value="section-2"/>
-	 <p style="display:true" class="message success">SECTION 2 of 9: GUIDELINES, JOB AIDS AND TOOLS</p>
+	 <p style="display:true" class="message success">SECTION 2 of 7: GUIDELINES, JOB AIDS AND TOOLS</p>
 
      <table class="centre">
 		<thead>
@@ -1553,9 +1553,9 @@ class C_Load extends MY_Controller {
 	</table>
 	</div><!--\.section-3-->
 
+      
     <div id="section-4" class="step">
-		<input type="hidden" name="step_name" value="section-4"/>
-		<p style="display:true"; class="message success">
+	<input type="hidden" name="step_name" value="section-4"/>
 	SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY
 	</p>
 	<table>
@@ -1611,11 +1611,8 @@ class C_Load extends MY_Controller {
 		' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>  
-
-
 	<table>
 	</table>
-
 	<table  class="centre persist-area" >
 	<thead>
 	    <tr class="persist-header">
@@ -1668,9 +1665,7 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-
 	<p class="message success">
-
 	SECTION 5 of 9: REVIEW OF RECORDS
 		</p>
 
@@ -1687,30 +1682,22 @@ class C_Load extends MY_Controller {
 		
 	</table>
 	<table class="centre">
-
 		<thead>
-			<th colspan="2" >ORAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
-		
+			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 		</thead>
-		     <tr>
-		     <td colspan="14" style="background:#ffffff">
-				<p class="instruction">* Verify this information by looking at the ORT Regsiter and identifying the location of the ORT Corner </p>
-			</td>
-		     </tr>
+		
 		
 			<th  style="width:35%">ASPECT</th>
 			<th   style="width:65%;text-align:left"> RESPONSE </th>			
-			<p class="instruction">  </p>
+			
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
-
-
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
 		<input type="hidden" name="step_name" value="section-6"/>
-		<p style="display:true" class="message success">
+		<p style="display:true;margin-top:300px" class="message success">
 			SECTION 6 of 9: EQUIPMENT AVAILABILITY AND STATUS
 		</p>
 
@@ -1833,10 +1820,8 @@ class C_Load extends MY_Controller {
 			' . $this -> hardwareMCHSectionPDF . '
 		</table>
 		</div><!--\.section-8-->
-
 	<div id="section-9" class="step">
 	<input type="hidden" name="step_name" value="section-9"/>
-	 <p style="display:true" class="message success">SECTION 9 of 9: RESOURCE AVAILABILITY</p>
 		<table class="centre">
 		<thead>
 			<th colspan="2" >COMMUNITY STRATEGY </th>
@@ -1867,8 +1852,12 @@ public function get_hcw_form() {
 <h5 id="status"></h5>
                  
 				<form class="bbq" name="hcw_tool" id="hcw_tool" method="POST">
+
+
+
 		<div id="section-1" class="step">
-		<input type="hidden" name="step_name" value="section-1"/>
+		         <input type="hidden" name="step_name" value="section-1"/>
+		          <p style="display:true" class="message success">SECTION 1 of 5: FACILITY INFORMATION</p>
 <table>
     <thead>
         <tr>

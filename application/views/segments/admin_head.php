@@ -11,3 +11,4 @@
 <script src="<?php echo base_url();?>assets/third-party/highcharts/highcharts.js"></script>
 <script src="<?php echo base_url(); ?>assets/third-party/codemirror/codemirror.js"></script>
 <script src="<?php echo base_url(); ?>assets/third-party/firepad/firepad.js"></script>
+<script src="<?php echo base_url(); ?>js/core.js"></script>

@@ -1,5 +1,5 @@
 <?php
-error_reporting(1);
+//error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
 class MY_Controller extends CI_Controller
@@ -2161,7 +2161,7 @@ class MY_Controller extends CI_Controller
 
  public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-        //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
+        echo '<pre>';print_r($this->data_found);echo '</pre>';die;
 
         //var_dump($this->data_found);die;
         $counter = 0;
@@ -2250,6 +2250,7 @@ class MY_Controller extends CI_Controller
                 $this->mchIndicatorsSection[$key].= $val;
             }
         }
+         echo $this->mchIndicatorsSection['tl'];die;
         return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {

@@ -13,126 +13,16 @@ class C_Analytics extends MY_Controller
         
         
     }
-    
-    /**
-     * [setActive description]
-     * @param [type] $county
-     * @param [type] $survey
-     */
-    
-    //function for Pie Chart
-    public function bar() {
-        
-        //load database
-        $this->load->helper("url");
-        
-        //load database
-        $this->load->database();
-        $res = array();
-        
-        //fetch data from db
-        $query = $this->db->query("SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-    sum(if (lq_response ='No' , 1 , 0)) as no_values
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'mnh')
-                )
-GROUP BY question_code
-ORDER BY question_code;");
-        foreach ($query->result() as $row) {
-            $res = array_merge($res, array($row->no_values, $row->yes_values));
+    public function getFacilityProgress($survey, $survey_category) {
+        $results = $this->m_analytics->getFacilityProgress($survey, $survey_category);
+        foreach ($results as $day => $value) {
+            $data[] = (int)sizeof($value);
+            $category[] = $day;
         }
-        $data['dres'] = $res;
-        $this->load->view('pie', $data);
-    }
-    
-    //end of the function
-    
-    //function for the Yes Response
-    public function Yes_Response() {
+        $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
         
-        //load the base url
-        $this->load->helper("url");
-        $this->load->database();
-        $level_total = array();
-        $level_type = array();
-        $sql = $this->db->query("SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-        (fac_level) as facility_level
-        FROM
-            log_questions
-        JOIN
-            facilities
-        ON
-            facilities.fac_mfl = log_questions.fac_mfl
-        WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND facilities.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'mnh')
-                )
-GROUP BY fac_level
-ORDER BY fac_level;");
-        
-        //$sql = $sql->result_array();
-        //echo '<pre>';
-        //print_r($sql);
-        //echo '</pre>';die;
-        
-        foreach ($sql->result() as $row) {
-            $level_total = array_merge($level_total, array((int)$row->yes_values));
-            $level_type = array_merge($level_type, array('level ' . $row->facility_level));
-        }
-        
-        $data['level_total'] = json_encode($level_total);
-        $data['level_type'] = json_encode($level_type);
-        $this->load->view('Yes_Response', $data);
-    }
-    
-    //end of the function
-    
-    public function setActive($county, $survey) {
-        
-        $county = urldecode($county);
-        
-        //$this -> session -> unset_userdata('county_analytics');
-        $this->session->set_userdata('county_analytics', $county);
-        
-        //$this -> session -> unset_userdata('survey');
-        $this->session->set_userdata('survey', $survey);
-        $this->getReportingCounties();
-        $this->county = $this->session->userdata('county_analytics');
-        
-        redirect($survey . '/analytics');
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
     }
     
     /**
@@ -760,10 +650,6 @@ ORDER BY fac_level;");
     }
     
     /**
-     * Indicator Statistics w/ All Specific Functions
-     */
-    
-    /**
      * [getIndicatorStatistics description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
@@ -780,208 +666,80 @@ ORDER BY fac_level;");
         }
         $category = $results['categories'];
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        echo '<pre>';print_r($resultArray);echo '</pre>';
+        
+        // echo '<pre>';print_r($resultArray);echo '</pre>';
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
-    /**
-     * [getChildrenServices description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getChildrenServices($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'svc');
     }
     
-    /**
-     * [getDangerSigns description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getDangerSigns($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'dgn');
     }
-
-    /**
-     * [getActionsPerformed description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
+    
     public function getActionsPerformed($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'svc');
     }
     
-    /**
-     * [getCounselGiven description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getCounselGiven($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cns');
     }
-
-    /**
-     * [getTools description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
+    
     public function getTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'ror');
     }
-
-    /**
-     * [getAnaemia description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getAnaemia($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'anm');
     }
-
-    /**
-     * [getBreastfeeding description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getBreastfeeding($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'brf');
     }
-
-    /**
-     * [getCounselling description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getCounselling($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cnl');
     }
-
-    /**
-     * [getCondition description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getCondition($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'con');
     }
-
-    /**
-     * [getSymptomEar description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomEar($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'ear');
     }
-
-    /**
-     * [getSymptomEye description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomEye($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'eye');
     }
-
-    /**
-     * [getSymptomFever description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomFever($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'fev');
     }
-
-    /**
-     * [getSymptomJaundice description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomJaundice($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'jau');
     }
-
-    /**
-     * [getSymptomMalaria description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomMalaria($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'mal');
     }
-
-    /**
-     * [getSymptomPneumonia description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getSymptomPneumonia($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'pne');
     }
-
-    /**
-     * [getMNHTools description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
-<<<<<<< HEAD
-    
-    /**
-     * [getDiarrhoeaCaseNumbers description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
-=======
-	public function getChHealthServices($criteria, $value, $survey) {
+
+    public function getChHealthServices($criteria, $value, $survey) {
+
         $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
     }
-	public function getCaseManagement($criteria,$value,$survey){
-		$this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
-	}
-	public function getIMCIConsultation($criteria,$value,$survey){
-		$this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
-	}
+    public function getCaseManagement($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
+    }
+    public function getIMCIConsultation($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
+    }
+    
     /*
      * Diarrhoea case numbers per Month
     */
->>>>>>> d00296736176cc9d58f3418be078e80fd4094c44
+
+
     public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);
@@ -1808,268 +1566,6 @@ ORDER BY fac_level;");
         echo $options;
     }
     
-   
-    
-    
-    /**
-     * Deliveries Conducted
-     */
-    public function getDeliveriesConducted($criteria, $value, $survey) {
-        $results = $this->m_analytics->getDeliveries($criteria, $value, $survey);
-    }
-    
-    /**
-     * Signal Functions
-     * Options:
-     *      .bemonc
-     *      .cemonc
-     */
-    public function getSignalFunction($criteria, $value, $survey, $signal) {
-        $results['conducted'] = array();
-        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
-        
-        $number = $q = $resultArray = $yes = $no = array();
-        foreach ($results['conducted'] as $key => $value) {
-            $q[] = $key;
-            $yes[] = (int)$value['yes'];
-            $no[] = (int)$value['no'];
-        }
-        $resultArray = array(array('name' => 'Deliveries', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
-        $category = $q;
-        
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    public function getBEMONCReason($criteria, $value, $survey) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, 'bemonc');
-    }
-    
-    public function getCEOCReason($criteria, $value, $survey) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, 'ceoc');
-    }
-    
-    public function getSignalFunctionReason($criteria, $value, $survey, $signal) {
-        $results['reason'] = $results['categories'] = array();
-        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
-        
-        //echo '<pre>';
-        // print_r($results);
-        //echo '</pre>';
-        //die ;
-        foreach ($results['categories'] as $cat) {
-            $category[] = $cat;
-        }
-        
-        //$categories = $results['categories'];
-        $number = $q = $resultArray = $yes = $no = array();
-        $counter = 0;
-        
-        switch ($signal) {
-            case 'bemonc':
-                
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($value as $level => $val) {
-                        $data['Level ' . $level][] = $val;
-                    }
-                    
-                    //$data = array();;
-                    
-                    
-                }
-                $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
-                
-                //echo '<pre>';
-                // print_r($resultArray);
-                //echo '</pre>';
-                //die;
-                break;
-
-            case 'ceoc':
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($cat as $c) {
-                        if (array_key_exists($c, $value)) {
-                            $numbers[] = $value[$c];
-                        } else {
-                            $numbers[] = 0;
-                        }
-                        $categories[] = $c;
-                    }
-                    $resultArray[] = array('name' => $key, 'data' => $numbers);
-                    $numbers = array();
-                }
-                break;
-        }
-        
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    public function getCEMONC($criteria, $value, $survey) {
-        $this->getSignalFunction($criteria, $value, $survey, 'ceoc');
-    }
-    
-    public function getBEMONC($criteria, $value, $survey) {
-        $this->getSignalFunction($criteria, $value, $survey, 'bemonc');
-    }
-    
-    /**
-     * [getQuestionStatistics description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @param  [type] $for      [description]
-     * @return [type]           [description]
-     */
-    public function getQuestionStatistics($criteria, $value, $survey, $for) {
-        
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
-        
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        $number = $resultArray = $q = array();
-        $number = $resultArray = $q = $yes = $no = array();
-        foreach ($results as $key => $value) {
-            $q[] = $key;
-            $yes[] = (int)$value['yes'];
-            $no[] = (int)$value['no'];
-        }
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
-        $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    public function getHIV($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
-    }
-    public function getJobAids($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'job');
-    }
-    public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
-    }
-    /**
-     * Nurses Deployed in Maternity
-     */
-    public function getNursesDeployed($criteria, $value, $survey) {
-        $results = $this->m_analytics->getNursesDeployed($criteria, $value, $survey);
-        $number = $resultArray = $q = $yes = $no = array();
-        $question = '';
-        foreach ($results as $key => $value) {
-            $question = $key;
-            $number[] = (int)$value[0];
-        }
-        $category[] = 'Numbers';
-        $resultArray[] = array('name' => 'Nurses Deployed', 'data' => $number);
-        
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
-    }
-    
-    /**
-     * Beds in facility
-     */
-    public function getBeds($criteria, $value, $survey) {
-        $results = $this->m_analytics->getBeds($criteria, $value, $survey);
-        $number = $resultArray = array();
-        foreach ($results as $key => $value) {
-            $number[] = (int)$value[0];
-            $resultArray[] = array('name' => $key, 'data' => $number);
-            $number = array();
-        }
-        $category[] = 'Numbers';
-        
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
-    }
-    
-    /**
-     * 24 Hour Service
-     */
-    public function getServices($criteria, $value, $survey) {
-        $results = $this->m_analytics->getService($criteria, $value, $survey);
-        $number = $resultArray = array();
-        foreach ($results as $key => $value) {
-            $number[] = (int)$value[0];
-            $resultArray[] = array('name' => $key, 'data' => $number);
-        }
-        
-        $category[] = 'Numbers';
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
-    }
-    
-    /**
-     * Health Facility Management
-     */
-    public function getHFM($criteria, $value, $survey) {
-        $results = $this->m_analytics->getHFM($criteria, $value, $survey);
-        
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        foreach ($results as $key => $val) {
-            $yes[] = (int)$val['yes'];
-            $no[] = (int)$val['no'];
-            $committee = trim($key, 'Does this facility have a');
-            $committee = trim($committee, '?');
-            $category[] = $committee;
-        }
-        
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    /**
-     * Deliveries
-     */
-    public function getDeliveries($criteria, $value, $survey) {
-        $results = $this->m_analytics->getDeliveries($criteria, $value, $survey);
-        
-        $number = $q = $resultArray = array();
-        foreach ($results['overview'] as $key => $value) {
-            $q = $key;
-            $resultArray = array(array('name' => 'Deliveries', 'data' => array(array('name' => 'Yes', 'y' => (int)$value['yes'], 'drilldown' => 'levels' . $criteria), array('No', (int)$value['no']))));
-        }
-        
-        //echo '<pre>';print_r($results['drilldown']);echo '</pre>';die;
-        foreach ($results['drilldown'] as $key => $value) {
-            $q = $key;
-            $drilldownData[] = array('Level ' . $key, (int)$value);
-        }
-        
-        //echo '<pre>';print_r($drilldownData);echo '</pre>';die;
-        $drilldownArray[] = array('id' => 'levels' . $criteria, 'name' => 'Facility Levels', 'data' => $drilldownData);
-        $category[] = $q;
-        $this->populateGraph($resultArray, $drilldownArray, $category, $criteria, 'percent', 0, 'pie');
-    }
-    
-    /**
-     * Deliveriy Preparedness
-     */
-    public function getDeliveryPreparedness($criteria, $value, $survey) {
-    }
-    
-    /**
-     * [getCommunityStrategyMNH description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
-    public function getCommunityStrategyMNH($criteria, $value, $survey) {
-        $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey);
-        
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';die;
-        $number = $resultArray = $q = $yes = $no = array();
-        foreach ($results as $key => $value) {
-            $key = trim($key, 'Total number of ');
-            $category[] = $key;
-            $number[] = (int)$value[0];
-        }
-        
-        $resultArray[] = array('name' => 'Numbers', 'data' => $number);
-        $resultArray = json_encode($resultArray);
-        
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
-    }
-    
     /**
      *  Summary Data
      */
@@ -2270,6 +1766,281 @@ ORDER BY fac_level;");
         $categories = $cat;
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
+    
+    /**
+     * Mother and Neonatal Health Section
+     */
+    
+    //Section 1
+    //-----------------------------------------------------------------------------
+    
+    
+    
+    /**
+     * Nurses Deployed in Maternity
+     */
+    public function getNursesDeployed($criteria, $value, $survey) {
+        $results = $this->m_analytics->getNursesDeployed($criteria, $value, $survey);
+        $number = $resultArray = $q = $yes = $no = array();
+        $question = '';
+        foreach ($results as $key => $value) {
+            $question = $key;
+            $number[] = (int)$value[0];
+        }
+        $category[] = 'Numbers';
+        $resultArray[] = array('name' => 'Nurses Deployed', 'data' => $number);
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+    }
+    
+    /**
+     * Beds in facility
+     */
+    public function getBeds($criteria, $value, $survey) {
+        $results = $this->m_analytics->getBeds($criteria, $value, $survey);
+        $number = $resultArray = array();
+        foreach ($results as $key => $value) {
+            $number[] = (int)$value[0];
+            $resultArray[] = array('name' => $key, 'data' => $number);
+            $number = array();
+        }
+        $category[] = 'Numbers';
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
+    }
+    
+    /**
+     * 24 Hour Service
+     */
+    public function getServices($criteria, $value, $survey) {
+        $results = $this->m_analytics->getService($criteria, $value, $survey);
+        $number = $resultArray = array();
+        foreach ($results as $key => $value) {
+            $number[] = (int)$value[0];
+            $resultArray[] = array('name' => $key, 'data' => $number);
+        }
+        
+        $category[] = 'Numbers';
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+    }
+    
+    /**
+     * Health Facility Management
+     */
+    public function getHFM($criteria, $value, $survey) {
+        $results = $this->m_analytics->getHFM($criteria, $value, $survey);
+        
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        foreach ($results as $key => $val) {
+            $yes[] = (int)$val['yes'];
+            $no[] = (int)$val['no'];
+            $committee = trim($key, 'Does this facility have a');
+            $committee = trim($committee, '?');
+            $category[] = $committee;
+        }
+        
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    /**
+     * Deliveries
+     */
+    public function getDeliveries($criteria, $value, $survey) {
+        $results = $this->m_analytics->getDeliveries($criteria, $value, $survey);
+        
+        $number = $q = $resultArray = array();
+        foreach ($results['overview'] as $key => $value) {
+            $q = $key;
+            $resultArray = array(array('name' => 'Deliveries', 'data' => array(array('name' => 'Yes', 'y' => (int)$value['yes'], 'drilldown' => 'levels' . $criteria), array('No', (int)$value['no']))));
+        }
+        
+        //echo '<pre>';print_r($results['drilldown']);echo '</pre>';die;
+        foreach ($results['drilldown'] as $key => $value) {
+            $q = $key;
+            $drilldownData[] = array('Level ' . $key, (int)$value);
+        }
+        
+        //echo '<pre>';print_r($drilldownData);echo '</pre>';die;
+        $drilldownArray[] = array('id' => 'levels' . $criteria, 'name' => 'Facility Levels', 'data' => $drilldownData);
+        $category[] = $q;
+        $this->populateGraph($resultArray, $drilldownArray, $category, $criteria, 'percent', 0, 'pie');
+    }
+    
+    //Section 2
+    //-----------------------------------------------------------------------------
+    
+    
+    
+    /**
+     * Deliveries Conducted
+     */
+    public function getDeliveriesConducted($criteria, $value, $survey) {
+        $results = $this->m_analytics->getDeliveries($criteria, $value, $survey);
+    }
+    
+    /**
+     * Signal Functions
+     * Options:
+     *      .bemonc
+     *      .cemonc
+     */
+    public function getSignalFunction($criteria, $value, $survey, $signal) {
+        $results['conducted'] = array();
+        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
+        
+        $number = $q = $resultArray = $yes = $no = array();
+        foreach ($results['conducted'] as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+        }
+        $resultArray = array(array('name' => 'Deliveries', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    public function getBEMONCReason($criteria, $value, $survey) {
+        $this->getSignalFunctionReason($criteria, $value, $survey, 'bemonc');
+    }
+    
+    public function getCEOCReason($criteria, $value, $survey) {
+        $this->getSignalFunctionReason($criteria, $value, $survey, 'ceoc');
+    }
+    
+    public function getSignalFunctionReason($criteria, $value, $survey, $signal) {
+        $results['reason'] = $results['categories'] = array();
+        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $signal);
+        
+        //echo '<pre>';
+        // print_r($results);
+        //echo '</pre>';
+        //die ;
+        foreach ($results['categories'] as $cat) {
+            $category[] = $cat;
+        }
+        
+        //$categories = $results['categories'];
+        $number = $q = $resultArray = $yes = $no = array();
+        $counter = 0;
+        
+        switch ($signal) {
+            case 'bemonc':
+                
+                foreach ($results['reason'] as $key => $value) {
+                    foreach ($value as $level => $val) {
+                        $data['Level ' . $level][] = $val;
+                    }
+                    
+                    //$data = array();;
+                    
+                    
+                }
+                $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
+                
+                //echo '<pre>';
+                // print_r($resultArray);
+                //echo '</pre>';
+                //die;
+                break;
+
+            case 'ceoc':
+                foreach ($results['reason'] as $key => $value) {
+                    foreach ($cat as $c) {
+                        if (array_key_exists($c, $value)) {
+                            $numbers[] = $value[$c];
+                        } else {
+                            $numbers[] = 0;
+                        }
+                        $categories[] = $c;
+                    }
+                    $resultArray[] = array('name' => $key, 'data' => $numbers);
+                    $numbers = array();
+                }
+                break;
+        }
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    public function getCEMONC($criteria, $value, $survey) {
+        $this->getSignalFunction($criteria, $value, $survey, 'ceoc');
+    }
+    
+    public function getBEMONC($criteria, $value, $survey) {
+        $this->getSignalFunction($criteria, $value, $survey, 'bemonc');
+    }
+    
+    /**
+     * [getQuestionStatistics description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+     */
+    public function getQuestionStatistics($criteria, $value, $survey, $for) {
+        
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
+        
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        foreach ($results as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    public function getHIV($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
+    }
+    public function getJobAids($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'job');
+    }
+    public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
+    }
+    
+    /**
+     * Deliveriy Preparedness
+     */
+    public function getDeliveryPreparedness($criteria, $value, $survey) {
+    }
+    
+    /**
+     * [getCommunityStrategyMNH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCommunityStrategyMNH($criteria, $value, $survey) {
+        $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey);
+        
+        //echo '<pre>';
+        //print_r($results);
+        //echo '</pre>';die;
+        $number = $resultArray = $q = $yes = $no = array();
+        foreach ($results as $key => $value) {
+            $key = trim($key, 'Total number of ');
+            $category[] = $key;
+            $number[] = (int)$value[0];
+        }
+        
+        $resultArray[] = array('name' => 'Numbers', 'data' => $number);
+        $resultArray = json_encode($resultArray);
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+    }
+    
     /**
      * [commodity_supplies_summary description]
      * @param  [type] $criteria [description]
@@ -2430,7 +2201,17 @@ ORDER BY fac_level;");
         $datas['container'] = 'chart_' . $criteria . mt_rand();
         $datas['chart_type'] = $type;
         $datas['chart_margin'] = $margin;
-        $datas['chart_size'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+        switch ($type) {
+            case 'line':
+                $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
+                $datas['chart_length'] = 300;
+                break;
+
+            default:
+                $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+                $datas['chart_width'] = 300;
+                break;
+        }
         $datas['chart_stacking'] = $stacking;
         $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
         $datas['chart_categories'] = $category;
