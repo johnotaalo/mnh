@@ -1030,6 +1030,32 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				  	}//--end of function break_form_to_steps(form_id)
 			
 				  	
+
+					function check(el)
+					{
+					    	
+				    	id = $(el).attr("id");
+				    	name = $(el).attr("name");
+
+
+				    	 if($('#'+id).prop("checked"))
+				             {
+				                 $('.'+id).attr("readonly",false);
+				                 var input = document.createElement('input');
+								input.type = 'hidden'; 
+								input.name = 'mchtreatmentnew['+name+'][]';
+								input.value = el.value;
+								document.getElementById("chells").appendChild(input);
+
+				             }
+				        else{
+				        	 $('.'+id).attr("readonly",true);
+				        	 $('.'+id).attr("value", 0);
+				        }
+					                
+					}
+
+
 				  	
 					/*---------------------end form wizard functions----------------------------------------------------------------*/
 						

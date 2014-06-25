@@ -1693,21 +1693,31 @@ $this->theForm->setTgCreated(new DateTime());
     private function addTotalMCHTreatment() {
         $treatment =$this->input->post('mchtreatment');
         $totalTreatment =$this->input->post('mchtotalTreatment');
-       // print_r($treatment);die;
+        $realtreatments = $this->input->post('mchtreatmentnew');
+        $numbers = $this->input->post('mchtreatmentnumbers');
+        $valnum = array();
+        $count = 0;
+        foreach ($numbers as $key => $value) {
+            $count++;
+            $valnum[$key] = array_filter($value);
+        }
+        //print_r($cleanednumbers);die;
+        //print_r($this->input->post());die;
       //echo "<pre>";print_r($treatment);echo"</pre>";die;
         $this->elements=array();
         $count=0;
         foreach ($totalTreatment as $key => $val) {
             $count++;
-             $this->elements[$count]['totalTreatment'] = htmlentities($val);
+            $this->elements[$count]['totalTreatment'] = htmlentities($val);
             $this->elements[$count]['classification'] = htmlentities($key);
-             $this->elements[$count]['treatment'] = implode(',', $treatment[$key]);
-
+            $this->elements[$count]['treatment'] = implode(',', $treatment[$key]);
+            $this->elements[$count]['treatmentnew'] = implode(',', $realtreatments[$key]);
+            $this->elements[$count]['treatmentnumbers'] = implode(',', $valnum[$key]);
             
         }
         //die;
          //close foreach ($this -> input -> post() as $key => $val)
-       // print_r($this->elements);die;
+       //print_r($this->elements);die;
         //exit;
         //echo $count;
         //get the highest value of the array that will control the number of inserts to be done
@@ -1735,6 +1745,7 @@ $this->theForm->setTgCreated(new DateTime());
             $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']);
             $this->theForm->setLtTreatments($this->elements[$i]['treatment']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->theForm->setLtOtherTreatment($this->elements[$i]['treatmentnew']);
             $this->em->persist($this->theForm);
 
             //now do a batched insert, default at 5

@@ -3639,6 +3639,17 @@ class MY_Controller extends CI_Controller
         }
         $this->mchmalariaconfrimedtreatmentSection .= '</select>';
         $this->mchmalariaconfrimedtreatmentSection .= '<ol></ol>';
+        $this->mchmalariaconfrimedtreatmentSection .= '</div><div id = "chells">';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->mchmalariaconfrimedtreatmentSection .=
+            '<input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"><br>';
+        }
         return $this->mchmalariaconfrimedtreatmentSection;
     }
 
@@ -3662,6 +3673,17 @@ class MY_Controller extends CI_Controller
         }
         $this->mchmalarianotconfrimedtreatmentSection .= '</select>';
         $this->mchmalarianotconfrimedtreatmentSection .= '<ol></ol>';
+         $this->mchmalarianotconfrimedtreatmentSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->mchmalarianotconfrimedtreatmentSection .=
+            '<input type = "checkbox" name = "NotConfirmedMalaria" id = "noconfirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noconfirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[NotConfirmedMalaria][]" readonly = "true"><br>';
+        }
         return $this->mchmalarianotconfrimedtreatmentSection;
     }
 
@@ -3686,6 +3708,17 @@ class MY_Controller extends CI_Controller
         }
         $this->mchpneumoniasevereTreatmentSection .= '</select>';
         $this->mchpneumoniasevereTreatmentSection .= '<ol></ol>';
+         $this->mchpneumoniasevereTreatmentSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->mchpneumoniasevereTreatmentSection .=
+            '<input type = "checkbox" name = "SeverePneumonia" id = "severepneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severepneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[SeverePneumonia][]" readonly = "true"><br>';
+        }
         return $this->mchpneumoniasevereTreatmentSection;
     }
 
@@ -3708,6 +3741,17 @@ class MY_Controller extends CI_Controller
         }
         $this->mchpneumoniaTreatmentSection .= '</select>';
         $this->mchpneumoniaTreatmentSection .= '<ol></ol>';
+        $this->mchpneumoniaTreatmentSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->mchpneumoniaTreatmentSection .=
+            '<input type = "checkbox" name = "Pneumonia" id = "pneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "pneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[Pneumonia][]" readonly = "true"><br>';
+        }
         return $this->mchpneumoniaTreatmentSection;
     }
     /**Function to create diarrhoea section**/
@@ -3733,6 +3777,17 @@ class MY_Controller extends CI_Controller
         }
         $this->severediatreatmentMCHSection .= '</select>';
         $this->severediatreatmentMCHSection .= '<ol></ol>';
+        $this->severediatreatmentMCHSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->severediatreatmentMCHSection .=
+            '<input type = "checkbox" name = "SevereDehydration" id = "severediatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severediatoggled_'.$counter.'" name = "mchtreatmentnumbers[SevereDehydration][]" readonly = "true"><br>';
+        }
         return $this->severediatreatmentMCHSection;
     }
 
@@ -3758,6 +3813,17 @@ class MY_Controller extends CI_Controller
         }
         $this->dysentrydiaTreatmentMCHSection .= '</select>';
         $this->dysentrydiaTreatmentMCHSection .= '<ol></ol>';
+        $this->dysentrydiaTreatmentMCHSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->dysentrydiaTreatmentMCHSection .=
+            '<input type = "checkbox" name = "Dysentry" id = "dysentrytoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "dysentrytoggled_'.$counter.'" name = "mchtreatmentnumbers[Dysentry][]" readonly = "true"><br>';
+        }
         return $this->dysentrydiaTreatmentMCHSection;
     }
 
@@ -3783,6 +3849,17 @@ class MY_Controller extends CI_Controller
         }
         $this->somedehydrationdiaTreatmentMCHSection .= '</select>';
         $this->somedehydrationdiaTreatmentMCHSection .= '<ol></ol>';
+        $this->somedehydrationdiaTreatmentMCHSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->somedehydrationdiaTreatmentMCHSection .=
+            '<input type = "checkbox" name = "SomeDehydration" id = "somedehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "somedehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[SomeDehydration][]" readonly = "true"><br>';
+        }
         return $this->somedehydrationdiaTreatmentMCHSection;
     }
 
@@ -3808,6 +3885,17 @@ class MY_Controller extends CI_Controller
         }
         $this->nodehydrationdiaTreatmentMCHSection .= '</select>';
         $this->nodehydrationdiaTreatmentMCHSection .= '<ol></ol>';
+        $this->nodehydrationdiaTreatmentMCHSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->nodehydrationdiaTreatmentMCHSection .=
+            '<input type = "checkbox" name = "NoDehydration" id = "nodehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "nodehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoDehydration][]" readonly = "true"><br>';
+        }
         return $this->nodehydrationdiaTreatmentMCHSection;
     }
 
@@ -3833,6 +3921,17 @@ class MY_Controller extends CI_Controller
         }
         $this->noclassificationdiaTreatmentMCHSection .= '</select>';
         $this->noclassificationdiaTreatmentMCHSection .= '<ol></ol>';
+        $this->noclassificationdiaTreatmentMCHSection .= '</div><div>';
+
+        $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
+
+        $counter = 0;
+
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $this->noclassificationdiaTreatmentMCHSection .=
+            '<input type = "checkbox" name = "NoClassification" id = "noclassificationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noclassificationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoClassification][]" readonly = "true"><br>';
+        }
         return $this->noclassificationdiaTreatmentMCHSection;
     }
 
