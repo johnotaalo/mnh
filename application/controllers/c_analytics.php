@@ -1277,8 +1277,7 @@ class C_Analytics extends MY_Controller
         $frequency = $results['response'];
         $categories = $results['categories'];
         
-        //var_dump($results['response']);
-        die;
+        //var_dump($results['response']);die;
         $resultArray = array();
         $stackorno;
         

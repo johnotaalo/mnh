@@ -143,6 +143,12 @@ function startAnalytics(base_url, county, survey) {
 
         function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_county, '#graph_county');
+
+        function_url_district = 'c_analytics' + '/get' + currentChart + '/county/' + district + '/' + survey + '/' + extraStat;
+        loadGraph(base_url, function_url_district, '#graph_district');
+
+        function_url_facility = 'c_analytics' + '/get' + currentChart + '/county/' + facility + '/' + survey + '/' + extraStat;
+        loadGraph(base_url, function_url_facility, '#graph_facility');
     });
 
     //Change Event for District Select
