@@ -163,21 +163,50 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 			'font-size':'1em',
 			'color':'#005580'
 		}
+
+
+
 		$('#mnh_map').hide();
 		$('#ch-map').css(styles1);
+        $('#hcw_map').hide();
+
+
 		$('#mnh-map').click(function(){
 			//alert(' ');
 			$('#mnh_map').show();
 			$('#ch_map').hide();
+			$('#hcw_map').hide();
+
 			$('#mnh-map').css(styles1);
 			$('#ch-map').css(styles2);
+			$('#hcw-map').css(styles2);
 		});
+
+
+
 		$('#ch-map').click(function(){
 			//alert(' ');
 			$('#ch_map').show();
 			$('#mnh_map').hide();
+			$('#hcw_map').hide();
+
 			$('#ch-map').css(styles1);
 			$('#mnh-map').css(styles2);
+			$('#hcw-map').css(styles2);
+		});
+
+
+
+
+		$('#hcw-map').click(function(){
+			//alert(' ');
+			$('#hcw_map').show();
+			$('#mnh_map').hide();
+			$('#ch_map').hide();
+
+			$('#hcw-map').css(styles1);
+			$('#mnh-map').css(styles2);
+			$('#ch-map').css(styles2);
 		});
 	});
 </script>

@@ -84,7 +84,7 @@ class C_Load extends MY_Controller {
 		$result =$this->db->get_where('survey_status',array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl));
 		$result = $result->result_array();		
 		$ss_id  =$result[0]['ss_id'];
-		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl);
+		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl,'survey_category'=>'mid-term');
 		$this->session->set_userdata($data);
 
 		$result =$this->db->get_where('facilities',array('fac_mfl'=>$fac_mfl));
@@ -1852,12 +1852,8 @@ public function get_hcw_form() {
 <h5 id="status"></h5>
                  
 				<form class="bbq" name="hcw_tool" id="hcw_tool" method="POST">
-
-
-
 		<div id="section-1" class="step">
-		         <input type="hidden" name="step_name" value="section-1"/>
-		          <p style="display:true" class="message success">SECTION 1 of 5: FACILITY INFORMATION</p>
+		<input type="hidden" name="step_name" value="section-1"/>
 <table>
     <thead>
         <tr>

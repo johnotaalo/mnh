@@ -63,6 +63,7 @@ class LogTreatments
      */
     private $ssId;
 
+<<<<<<< HEAD
     /**
      * @var string
      *
@@ -77,6 +78,8 @@ class LogTreatments
      */
     private $ltTreatments;
 
+=======
+>>>>>>> ddf8811f88c0a290564d6c8bce32a74d6d933048
 
     /**
      * Get ltId
@@ -225,6 +228,7 @@ class LogTreatments
     {
         return $this->ssId;
     }
+<<<<<<< HEAD
 
     /**
      * Set ltOtherTreatment
@@ -271,4 +275,6 @@ class LogTreatments
     {
         return $this->ltTreatments;
     }
+=======
+>>>>>>> ddf8811f88c0a290564d6c8bce32a74d6d933048
 }
