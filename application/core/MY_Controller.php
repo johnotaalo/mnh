@@ -2160,7 +2160,7 @@ class MY_Controller extends CI_Controller
             foreach ($value as $val) {
                 $this->mchIndicatorsSection[$key].= $val;
             }
-        } 
+        }
         return $this->mchIndicatorsSection;
     }
     public function createMCHIndicatorsSectionforPDF() {
@@ -3648,7 +3648,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchmalariaconfrimedtreatmentSection .=
-            '<div class="specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)"/>'.$value['treatmentName'].'<input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'<input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
         }
         return $this->mchmalariaconfrimedtreatmentSection;
     }
@@ -3682,7 +3682,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchmalarianotconfrimedtreatmentSection .=
-            '<input type = "checkbox" name = "NotConfirmedMalaria" id = "noconfirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noconfirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[NotConfirmedMalaria][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "NotConfirmedMalaria" id = "noconfirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noconfirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[NotConfirmedMalaria][]" readonly = "true"></div>';
         }
         return $this->mchmalarianotconfrimedtreatmentSection;
     }
@@ -3717,7 +3717,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchpneumoniasevereTreatmentSection .=
-            '<input type = "checkbox" name = "SeverePneumonia" id = "severepneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severepneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[SeverePneumonia][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "SeverePneumonia" id = "severepneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severepneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[SeverePneumonia][]" readonly = "true"></div>';
         }
         return $this->mchpneumoniasevereTreatmentSection;
     }
@@ -3750,7 +3750,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchpneumoniaTreatmentSection .=
-            '<input type = "checkbox" name = "Pneumonia" id = "pneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "pneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[Pneumonia][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "Pneumonia" id = "pneumoniatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "pneumoniatoggled_'.$counter.'" name = "mchtreatmentnumbers[Pneumonia][]" readonly = "true"></div>';
         }
         return $this->mchpneumoniaTreatmentSection;
     }
@@ -3786,7 +3786,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->severediatreatmentMCHSection .=
-            '<input type = "checkbox" name = "SevereDehydration" id = "severediatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severediatoggled_'.$counter.'" name = "mchtreatmentnumbers[SevereDehydration][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "SevereDehydration" id = "severediatoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "severediatoggled_'.$counter.'" name = "mchtreatmentnumbers[SevereDehydration][]" readonly = "true"></div>';
         }
         return $this->severediatreatmentMCHSection;
     }
@@ -3822,7 +3822,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->dysentrydiaTreatmentMCHSection .=
-            '<input type = "checkbox" name = "Dysentry" id = "dysentrytoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "dysentrytoggled_'.$counter.'" name = "mchtreatmentnumbers[Dysentry][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "Dysentry" id = "dysentrytoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "dysentrytoggled_'.$counter.'" name = "mchtreatmentnumbers[Dysentry][]" readonly = "true"></div>';
         }
         return $this->dysentrydiaTreatmentMCHSection;
     }
@@ -3858,7 +3858,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->somedehydrationdiaTreatmentMCHSection .=
-            '<input type = "checkbox" name = "SomeDehydration" id = "somedehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "somedehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[SomeDehydration][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "SomeDehydration" id = "somedehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "somedehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[SomeDehydration][]" readonly = "true"></div>';
         }
         return $this->somedehydrationdiaTreatmentMCHSection;
     }
@@ -3894,7 +3894,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->nodehydrationdiaTreatmentMCHSection .=
-            '<input type = "checkbox" name = "NoDehydration" id = "nodehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "nodehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoDehydration][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "NoDehydration" id = "nodehydrationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "nodehydrationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoDehydration][]" readonly = "true"></div>';
         }
         return $this->nodehydrationdiaTreatmentMCHSection;
     }
@@ -3930,7 +3930,7 @@ class MY_Controller extends CI_Controller
         foreach ($this->data_found as $value) {
             $counter++;
             $this->noclassificationdiaTreatmentMCHSection .=
-            '<input type = "checkbox" name = "NoClassification" id = "noclassificationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noclassificationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoClassification][]" readonly = "true"><br>';
+            '<div class = "specific-treatment"><input type = "checkbox" name = "NoClassification" id = "noclassificationtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'</input><input type = "number" class = "noclassificationtoggled_'.$counter.'" name = "mchtreatmentnumbers[NoClassification][]" readonly = "true"></div>';
         }
         return $this->noclassificationdiaTreatmentMCHSection;
     }

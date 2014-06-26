@@ -5,42 +5,49 @@ namespace models\Entities;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LogSymptoms
+ * LogTreatmentmalnpne
  *
- * @ORM\Table(name="log_symptoms")
+ * @ORM\Table(name="log_treatmentmalnpne")
  * @ORM\Entity
  */
-class LogSymptoms
+class LogTreatmentmalnpne
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="ls_id", type="integer", nullable=false)
+     * @ORM\Column(name="lt_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $lsId;
+    private $ltId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ls_shortname", type="string", length=45, nullable=true)
+     * @ORM\Column(name="lt_other_treatment", type="string", length=255, nullable=true)
      */
-    private $lsShortname;
+    private $ltOtherTreatment;
 
     /**
-     * @var string
+     * @var boolean
      *
-     * @ORM\Column(name="ls_treatments", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lt_classification", type="boolean", nullable=true)
      */
-    private $lsTreatments;
+    private $ltClassification;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lt_created", type="datetime", nullable=true)
+     * @ORM\Column(name="lt_created", type="datetime", nullable=false)
      */
     private $ltCreated;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="treatment_code", type="string", length=45, nullable=true)
+     */
+    private $treatmentCode;
 
     /**
      * @var string
@@ -58,66 +65,66 @@ class LogSymptoms
 
 
     /**
-     * Get lsId
+     * Get ltId
      *
      * @return integer 
      */
-    public function getLsId()
+    public function getLtId()
     {
-        return $this->lsId;
+        return $this->ltId;
     }
 
     /**
-     * Set lsShortname
+     * Set ltOtherTreatment
      *
-     * @param string $lsShortname
-     * @return LogSymptoms
+     * @param string $ltOtherTreatment
+     * @return LogTreatmentmalnpne
      */
-    public function setLsShortname($lsShortname)
+    public function setLtOtherTreatment($ltOtherTreatment)
     {
-        $this->lsShortname = $lsShortname;
+        $this->ltOtherTreatment = $ltOtherTreatment;
     
         return $this;
     }
 
     /**
-     * Get lsShortname
+     * Get ltOtherTreatment
      *
      * @return string 
      */
-    public function getLsShortname()
+    public function getLtOtherTreatment()
     {
-        return $this->lsShortname;
+        return $this->ltOtherTreatment;
     }
 
     /**
-     * Set lsTreatments
+     * Set ltClassification
      *
-     * @param string $lsTreatments
-     * @return LogSymptoms
+     * @param boolean $ltClassification
+     * @return LogTreatmentmalnpne
      */
-    public function setLsTreatments($lsTreatments)
+    public function setLtClassification($ltClassification)
     {
-        $this->lsTreatments = $lsTreatments;
+        $this->ltClassification = $ltClassification;
     
         return $this;
     }
 
     /**
-     * Get lsTreatments
+     * Get ltClassification
      *
-     * @return string 
+     * @return boolean 
      */
-    public function getLsTreatments()
+    public function getLtClassification()
     {
-        return $this->lsTreatments;
+        return $this->ltClassification;
     }
 
     /**
      * Set ltCreated
      *
      * @param \DateTime $ltCreated
-     * @return LogSymptoms
+     * @return LogTreatmentmalnpne
      */
     public function setLtCreated($ltCreated)
     {
@@ -137,10 +144,33 @@ class LogSymptoms
     }
 
     /**
+     * Set treatmentCode
+     *
+     * @param string $treatmentCode
+     * @return LogTreatmentmalnpne
+     */
+    public function setTreatmentCode($treatmentCode)
+    {
+        $this->treatmentCode = $treatmentCode;
+    
+        return $this;
+    }
+
+    /**
+     * Get treatmentCode
+     *
+     * @return string 
+     */
+    public function getTreatmentCode()
+    {
+        return $this->treatmentCode;
+    }
+
+    /**
      * Set facilityMfl
      *
      * @param string $facilityMfl
-     * @return LogSymptoms
+     * @return LogTreatmentmalnpne
      */
     public function setFacilityMfl($facilityMfl)
     {
@@ -163,7 +193,7 @@ class LogSymptoms
      * Set ssId
      *
      * @param integer $ssId
-     * @return LogSymptoms
+     * @return LogTreatmentmalnpne
      */
     public function setSsId($ssId)
     {
