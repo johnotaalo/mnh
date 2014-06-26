@@ -1387,3 +1387,19 @@ td input[type="text"]{
 select{
 	width:100% !important;
 }
+.specific-treatment{
+	width:100%;
+	min-height:60px;
+}
+.specific-treatment input[type="number"]{
+	float:right;
+}
+.specific-treatment input[type="checkbox"]{
+	margin-right:10px;
+}
+
+.treatmentdropdownarea
+{
+	max-height: 15em; 
+	overflow: auto;
+}

@@ -424,7 +424,13 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				
 				 
 						}//end of select_option_changed 
-
+				$(".Options").click(function(){
+				     //$("div[id*='PayMethod_']:visible").slideToggle("slow");
+				       var ID = $(this).attr("id");
+				       if (this.checked) {
+				         $("#ind_"+ID).slideToggle("slow");
+				       }
+				   });
 
 						}); /*close document ready*/
 				

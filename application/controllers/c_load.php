@@ -1266,31 +1266,31 @@ class C_Load extends MY_Controller {
 							cursor: pointer;
 						}
 					</style>
-					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<div class = "treatmentdropdownarea" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
 					.$this -> severediatreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
-					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<div class = "treatmentdropdownarea" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
 					.$this -> somedehydrationdiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
-					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<div class = "treatmentdropdownarea" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
 					.$this -> nodehydrationdiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
-					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<div class = "treatmentdropdownarea" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
 					.$this -> dysentrydiaTreatmentMCHSection.'
 					</div>
 				</td>
 				<td>
-					<div style="height: 15em; width: 18em; overflow: auto;" id ="treat">
+					<div class = "treatmentdropdownarea" id ="treat">
 					<span id = "malTreatmentSection">&nbsp</span>'
 					.$this -> noclassificationdiaTreatmentMCHSection.'
 					</div>
@@ -1312,13 +1312,13 @@ class C_Load extends MY_Controller {
 				</tr>
 				<tr>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
+				<div class = "treatmentdropdownarea">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniasevereTreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "PneumoniaTreatments">
+				<div class = "treatmentdropdownarea">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> mchpneumoniaTreatmentSection.
 			'</div>
@@ -1339,13 +1339,13 @@ class C_Load extends MY_Controller {
 					<td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
 				<tr>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
+				<div class = "treatmentdropdownarea">
 				<span id = "malTreatmentSection">&nbsp</span>'
 			.$this -> mchmalariaconfrimedtreatmentSection.
 			'</div>
 				</td>
 				<td colspan = "3">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "maltreatments">
+				<div class = "treatmentdropdownarea" >
 				<span id = "malTreatmentSection_2">&nbsp</span>'
 			.$this -> mchmalarianotconfrimedtreatmentSection.
 			'</div>
@@ -1379,8 +1379,8 @@ class C_Load extends MY_Controller {
 			<tbody>
 				<th colspan = "3">DOES THE CHILD HAVE THE SYMPTOM BELOW?</th>
 				<th colspan = "3">
-					<input type = "radio" name = "mchCheckSympton" value = "yes">Yes</input>
-					<input type = "radio" name = "mchCheckSympton" value = "no">No</input>
+					<input type = "radio" name = "mchCheckSympton" value = "yes" id = "sgncheck" class = "Options">Yes</input>
+					<input type = "radio" name = "mchCheckSympton" value = "no" id = "sgncheck" class = "Options">No</input>
 				</th>
 				<p class = "instruction">* If NO proceed to the next symptom.</p>
 			</tbody>
@@ -1401,7 +1401,7 @@ class C_Load extends MY_Controller {
      		<th colspan = "6">Treatment</th>
      		<tr>
      		<td colspan = "6">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div class = "treatmentdropdownarea" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> othertreatmentsection.
 			'</div>
@@ -1433,7 +1433,7 @@ class C_Load extends MY_Controller {
         	<th colspan = "6">Treatment</th>
      		<tr>
      		<td colspan = "6">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div class = "treatmentdropdownarea" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> diaresponsetreatmentsection.
 			'</div>
@@ -1465,7 +1465,7 @@ class C_Load extends MY_Controller {
         	<th colspan = "6">Treatment</th>
      		<tr>
      		<td colspan = "6">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div class = "treatmentdropdownarea" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> fevresponsetreatmentsection.
 			'</div>
@@ -1495,7 +1495,7 @@ class C_Load extends MY_Controller {
         	<th colspan = "6">Treatment</th>
      		<tr>
      		<td colspan = "6">
-				<div style="height: 15em; width: 30em; overflow: auto;" class = "pneumoniatreatments">
+				<div class = "treatmentdropdownarea" class = "pneumoniatreatments">
 				<span id = "pneTreatmentSection">&nbsp</span>'
 			.$this -> earresponsetreatmentsection.
 			'</div>

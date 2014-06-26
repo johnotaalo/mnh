@@ -1745,7 +1745,8 @@ $this->theForm->setTgCreated(new DateTime());
             $this->theForm->setLtTotal($this->elements[$i]['totalTreatment']);
             $this->theForm->setLtTreatments($this->elements[$i]['treatment']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLtOtherTreatment($this->elements[$i]['treatmentnew']);
+            $this->theForm->setLtOtherTreatments($this->elements[$i]['treatmentnew']);
+            $this->theForm->setLtOtherTreatmentsNumbers($this->elements[$i]['treatmentnumbers']);
             $this->em->persist($this->theForm);
 
             //now do a batched insert, default at 5
