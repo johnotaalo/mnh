@@ -12,12 +12,13 @@
  * @param  {[type]} color_scheme     [description]
  * @return {[type]}                  [description]
  */
-function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_size, chart_margin, color_scheme) {
+function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme) {
     $('#' + container).highcharts({
         colors: color_scheme,
         chart: {
             zoomType: 'x',
-            height: chart_size,
+            height: chart_length,
+            width: chart_width,
             type: chart_type,
             marginBottom: chart_margin
         },
@@ -107,7 +108,7 @@ function loadGraph(base_url, function_url, graph_section) {
             obj = jQuery.parseJSON(data);
             $(graph_section).empty();
             $(graph_section).append('<div id="' + obj.container + '" ></div>');
-            runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_size, obj.chart_margin, obj.color_scheme);
+            runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
         }
     });
 }

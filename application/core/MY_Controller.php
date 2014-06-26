@@ -3649,6 +3649,7 @@ class MY_Controller extends CI_Controller
             $counter++;
             $this->mchmalariaconfrimedtreatmentSection .=
             '<div class = "specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'<input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
+
         }
         return $this->mchmalariaconfrimedtreatmentSection;
     }

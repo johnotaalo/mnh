@@ -84,7 +84,7 @@ class C_Load extends MY_Controller {
 		$result =$this->db->get_where('survey_status',array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl));
 		$result = $result->result_array();		
 		$ss_id  =$result[0]['ss_id'];
-		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl);
+		$data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl,'survey_category'=>'mid-term');
 		$this->session->set_userdata($data);
 
 		$result =$this->db->get_where('facilities',array('fac_mfl'=>$fac_mfl));
@@ -681,10 +681,6 @@ class C_Load extends MY_Controller {
 			(One Selection Allowed) </strong></div></th>
 			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
 			<th>Available Quantities</th>
-			<th scope="col">
-			
-				Main Supplier
-			</th>
 			<th>
 			<div style="width: 90%" >
 				Main Reason For  Unavailability
@@ -703,13 +699,12 @@ class C_Load extends MY_Controller {
 			<td>Not Applicable</td>
 
 			<td>No.of Units</td>
-			<td>Supplier</td>
 			<td> Unavailability</td>
 
 		</tr>' . $this -> commodityAvailabilitySection . '
 
 	</table>
-	</div><!--\.section-3-->
+	</div><!--\.section-5-->
 	
 	<div id="section-6" class="step">
 	<input type="hidden" name="step_name" value="section-6"/>
@@ -1587,7 +1582,7 @@ class C_Load extends MY_Controller {
 			</tr>
 
 			<tr>
-				<th rowspan="2" >Commodity Name</th>
+				<th rowspan="2" style="width:100px" >Commodity Name</th>
 				<th rowspan="2" >Commodity Unit</th>
 				<th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
 				<th rowspan="2"> Main Reason For  Unavailability </th>
@@ -1616,17 +1611,7 @@ class C_Load extends MY_Controller {
 		' . $this -> mchCommodityAvailabilitySection . '
 
 	</table>  
-	<p style="margin-top:200px"></p>
 	<table>
-	<tr>
-		<tr>
-			<th colspan="2">Main Supplier</th>
-		</tr>
-		<tr>
-            <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
-            <td>'.$this->selectMCHCommoditySuppliersPDF.'</td>
-        </tr>
-	</tr>
 	</table>
 	<table  class="centre persist-area" >
 	<thead>
@@ -1641,7 +1626,7 @@ class C_Load extends MY_Controller {
 		</tr>
 		
 		<tr>
-			<th rowspan="2" >Commodity Name</th>
+			<th rowspan="2" width="100px">Commodity Name</th>
 			<th rowspan="2">Commodity Unit</th>
 			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
@@ -1680,9 +1665,23 @@ class C_Load extends MY_Controller {
 	
     <div id="section-5" class="step">
 	<input type="hidden" name="step_name" value="section-5"/>
-	 <p style="display:true" class="message success">SECTION 5 of 7: ORT CORNER ASSESSMENT,EQUIPMENT AVAILABILITY AND STATUS </p>
+	<p class="message success">
+	SECTION 5 of 9: REVIEW OF RECORDS
+		</p>
+
 		
+
 		<table class="centre">
+		
+		<thead>
+		<tr>
+			<th colspan="6" > (C) WHAT IS THE MAIN CHALLENGE IN ACCESSING <span style="text-decoration:underline">DATA FROM</span> U5 REGISTERS IN THE LAST 3 MONTHS</th></tr>
+		</thead>
+		'.$this -> selectAccessChallenges.'
+		
+		
+	</table>
+	<table class="centre">
 		<thead>
 			<th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
 		</thead>
@@ -1694,39 +1693,6 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> ortCornerAspectsSection . '
 	</table>
-		
-		<table  class="centre" >
-		<thead>
-			<th colspan="11">INDICATE THE AVAILABILITY, LOCATION  AND FUNCTIONALITY OF THE FOLLOWING EQUIPMENT AT THE ORT CORNER.</th>
-		</thead>
-
-		</tr>
-		<tr>
-			<th scope="col" >Equipment Name</th>
-			
-			<th colspan="2" style="text-align:center">Availability  
-			 <strong></BR>
-			(One Selection Allowed) </strong></th>
-			<th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-			<th colspan="2">Available Quantities</th>
-		</tr>
-		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
-			<td>Fully-Functional</td>
-            <!--td>Partially Functional</td-->
-			<td>Non-Functional</td>
-			</tr>
-			' . $this -> equipmentsMCHSection . '
-
-			</table>
            </div><!--\.section-5-->
            
 	<div id="section-6" class="step">
@@ -1784,6 +1750,7 @@ class C_Load extends MY_Controller {
 			<th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
 		</thead>
 		<tr>
+			<th style="text-align:center" rowspan="2"> Supply Name </th>
 			<th colspan="2" style="text-align:center"> Availability  
 			 <strong></BR>
 			(One Selection Allowed) </strong></th>
@@ -1796,19 +1763,16 @@ class C_Load extends MY_Controller {
 
 		</tr>
 		<tr >
-			<td>&nbsp;</td>
-			
-			<td >Available</td>
-			<td>Not Available</td>
-			<td>OPD</td>
-			<td>MCH</td>
-			<td>U5 Clinic</td>
-			<td>Ward</td>
-			<td>Other</td>
+		<th >Available</th>
+			<th>Not Available</th>
+			<th>OPD</th>
+			<th>MCH</th>
+			<th>U5 Clinic</th>
+			<th>Ward</th>
+			<th>Other</th>
 
 			<!--td style="text-align:center">No.of Supplies</td-->
 			<!--td></td-->
-			<td></td>
 			
 			
 
@@ -2040,11 +2004,11 @@ public function get_hcw_form() {
         </tr>
         <tr>
             <td colspan="1">Year, Month when trained <input type="text" name="hpyear_1" id="hpyear"></td>
-            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
-                <p><input type="radio" name="hpcoordinator_1" value="MOH/KPA/CHAI">MOH/KPA/CHAI</p>
-                <p><input type="radio" name="hpcoordinator_1" value="MOH only">MOH only</p>
-                <p><input type="radio" name="hpcoordinator_1" value="Other">Other</p>
-                <p>(If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other"></p>
+            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b>
+                MOH/KPA/CHAI<input type="radio" name="hpcoordinator_1" value="MOH/KPA/CHAI">
+                MOH only<input type="radio" name="hpcoordinator_1" value="MOH only">
+                Other<input type="radio" name="hpcoordinator_1" value="Other">
+                (If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other" style="display:none">
             </td>
         </tr>
         <tr>
@@ -2214,19 +2178,6 @@ public function get_hcw_form() {
     </tbody>
 </table>
 <table class="centre">
-   
-        <tr>
-            <th width="700px" rowspan="2">Classification</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-
-    
-    <tbody>
-        ' . $this -> mchIndicatorsSection['cls'] . '
-    </tbody>
-</table>
-<table class="centre">
     
         <tr>
             <th width="700px" rowspan="2">Treatment and Counselling</th>
@@ -2253,28 +2204,28 @@ public function get_hcw_form() {
 <input type="hidden" name="step_name" value="section-4"/>
 <p class="message success">CONSULTATION OBSERVATION</p>
 <table class="centre">
-	  
+
      	<tr>
             <th width="700px">4.1 Consultation observation (observe three patient consultations if possible): write N/A if not applicable </th>
         	<th>Case 1</th>
         </tr>
-        
+
     <tbody>
-       ' . $this -> hcwConsultingAspectsSection . '
-        
+       ' . $this -> question['obs'] . '
+
     </tbody>
     <tfoot></tfoot>
 </table>
 <table class="centre">
-    
+
      	<tr>
             <th width="700px">4.2 Exit Interview With The Caregiver</th>
         	<th>Case 1</th>
         </tr>
-    
+
     <tbody>
-       ' . $this -> hcwInterviewAspectsSection . '
-        
+       ' . $this -> question['int'] . '
+
     </tbody>
     <tfoot></tfoot>
 </table>
@@ -2283,112 +2234,106 @@ public function get_hcw_form() {
 
 <div id="section-5" class="step">
 
-		<input type="hidden" name="step_name" value="section-5"/>
-<!--p class="message success">PROVIDER SCORE</p>
-<table class="centre">
+        <input type="hidden" name="step_name" value="section-5"/>
+
+<table>
+<thead>
+    <tr>
+        <th colspan="2">ASSESSMENT OUTCOME</th>
+    </tr>
+</thead>
+    <tr>
+        <td>
+            <input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input name="questionResponse_1000" type="radio">	Practicing with gaps
+        </td>
+        <td>
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
+        </td>
+    </tr>
+    <tr>
+        <td>
+           	<input name="questionResponse_1000" type="radio">	Not practicing at all
+        </td>
+         <td>
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
+        </td>
+    </tr>
+    <tr>
+
+<th colspan="2">CRITERIA FOR CERTIFICATION: SECTION A</td>
+</tr>
+
+'.$this->question['certa'].'
+
+<tr>
+<td colspan="2">
+<p class="instruction">
+A participant MUST correctly identify all the above in section <strong>A</strong> to be CERTIFIED
+</p>
+</td>
+
+</tr>
+
+
+<tr>
+
+<th colspan="2">CHECKED  FOR THE FOLLOWING:    SECTION B</td>
+</tr>
+
+'.$this->question['certb'].'
+<tr>
+<td colspan="2" style="background:#ffffff">
+<p class="instruction">
+    Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
+<br/>
+If YES to all, consider HCW for TOT and Mentorship Training
+<br/>
+(NOTE: IF THE HEALTHCARE WORKER FAILS TO ATTAIN ALLTHE POINTS IN SECTION A, THE PARTICIPANT SHOULD BE GIVEN A SECOND CHANCE. IF THE PARTICIPANT FAILS IN THE SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT)
+</p>
+</td>
+</tr>
+<tr>
+<th colspan="2">CERTIFICATION</td>
+</tr>
+
+'.$this->question['out'].'
+</table>
+<table>
     <thead>
         <tr>
-            <th width="700px">GIVE ONE POINT FOR EACH ANSWER</th>
-            <th >Response</th>
+            <th colspan="2">Share your findings from observational sessions with provider.
+            Praise for the things done well and discuss on the identified weakness, show how it could be done.
+            <p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly.
+            Note down the decisions which have been taken to improve the skills and continue the practices</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>ASSESSMENT</td>
-            <td><input type="text"></td>
+            <td>Action/s taken by supervisor:</td>
+            <td>Action/s taken by supervisee:</td>
         </tr>
         <tr>
-            <td>CLASSIFICATION</td>
-            <td><input type="text"></td>
+            <td><textarea style="width:400px;height:100px"></textarea></td>
+            <td><textarea style="width:400px;height:100px"></textarea></td>
         </tr>
         <tr>
-            <td>TREATMENT</td>
-            <td><input type="text"></td>
+            <td>Supervisor Signature<input type="text" style="width:500px;padding:10px"></td>
+            <td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
         </tr>
         <tr>
-            <td>COUNSELING</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>RETURNING DATE FOR FOLLOW-UP</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>TOTAL</td>
-            <td><input type="text"></td>
+            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
+            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
         </tr>
     </tbody>
-</table-->
-<table>
-<thead>
-	<tr>
-		<th colspan="2">ASSESSMENT OUTCOME</th>
-	</tr>
-</thead>
-    <tr>
-        <td>
-            <input type="radio" name="questionAspectResponse_1" value="Fully Practicing IMCI">	Fully Practicing IMCI
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="radio" name="questionAspectResponse_1" value="Practicing with gaps">	Practicing with gaps
-        </td>
-        <td>
-            Reason <input type="text" size="100">
-        </td>
-    </tr>
-    <tr>
-        <td>
-           	<input type="radio" name="questionAspectResponse_1" value="Not practicing at all">	Not practicing at all
-        </td>
-         <td>
-            Reason <input type="text" size="100">
-        </td>
-    </tr>
-     <tr>
-        <th colspan="2">
-            Certification
-        </th>
-    </tr>
-     <tr>
-        <td colspan="2">
-           Health care worker approved for certification	<input type="radio" name="questionAspectResponse_2" value="Yes">YES <input type="radio" name="questionAspectResponse_2" value="No">NO
-        </td>
-    </tr>
-     <tr>
-        <th colspan="2">
-            Mentorship
-        </th>
-    </tr>
-     <tr>
-        <td colspan="2">
-            Recommended for Mentor TOT?		<input type="radio" name="questionAspectResponse_3" value="Yes">YES <input type="radio" name="questionAspectResponse_3" value="No">NO
-        </td>
-    </tr>
 </table>
-<table>
-	<thead>
-		<tr>
-			<th colspan="2">Share your findings from observational sessions with provider. 
-			Praise for the things done well and discuss on the identified weakness, show how it could be done. 
-			<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly. 
-			Note down the decisions which have been taken to improve the skills and continue the practices</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Action/s taken by supervisor:</td>
-			<td>Action/s taken by supervisee:</td>
-		</tr>
-		<tr>
-			<td><textarea name="actionTaken[supervisor]"style="width:400px;height:100px"></textarea></td>
-			<td><textarea name="actionTaken[supervisee]"style="width:400px;height:100px"></textarea></td>
-		</tr>
-	</tbody>
-</table>
+
 <p style="margin-top:0.5px"></p>
 <table style="border:2px solid #666">
     <tr>

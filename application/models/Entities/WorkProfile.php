@@ -24,7 +24,14 @@ class WorkProfile
     /**
      * @var string
      *
-     * @Column(name="lq_response", type="string", length=55, nullable=true)
+     * @Column(name="lq_currentUnit", type="string", length=45, nullable=false)
+     */
+    private $lqCurrentunit;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lq_response", type="string", length=55, nullable=false)
      */
     private $lqResponse;
 
@@ -74,11 +81,34 @@ class WorkProfile
     /**
      * Get lqId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLqId()
     {
         return $this->lqId;
+    }
+
+    /**
+     * Set lqCurrentunit
+     *
+     * @param string $lqCurrentunit
+     * @return WorkProfile
+     */
+    public function setLqCurrentunit($lqCurrentunit)
+    {
+        $this->lqCurrentunit = $lqCurrentunit;
+
+        return $this;
+    }
+
+    /**
+     * Get lqCurrentunit
+     *
+     * @return string
+     */
+    public function getLqCurrentunit()
+    {
+        return $this->lqCurrentunit;
     }
 
     /**
@@ -90,14 +120,14 @@ class WorkProfile
     public function setLqResponse($lqResponse)
     {
         $this->lqResponse = $lqResponse;
-    
+
         return $this;
     }
 
     /**
      * Get lqResponse
      *
-     * @return string 
+     * @return string
      */
     public function getLqResponse()
     {
@@ -113,14 +143,14 @@ class WorkProfile
     public function setLqResponseforyes($lqResponseforyes)
     {
         $this->lqResponseforyes = $lqResponseforyes;
-    
+
         return $this;
     }
 
     /**
      * Get lqResponseforyes
      *
-     * @return string 
+     * @return string
      */
     public function getLqResponseforyes()
     {
@@ -136,14 +166,14 @@ class WorkProfile
     public function setLqResponseforno($lqResponseforno)
     {
         $this->lqResponseforno = $lqResponseforno;
-    
+
         return $this;
     }
 
     /**
      * Get lqResponseforno
      *
-     * @return string 
+     * @return string
      */
     public function getLqResponseforno()
     {
@@ -159,14 +189,14 @@ class WorkProfile
     public function setLqCreated($lqCreated)
     {
         $this->lqCreated = $lqCreated;
-    
+
         return $this;
     }
 
     /**
      * Get lqCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLqCreated()
     {
@@ -182,14 +212,14 @@ class WorkProfile
     public function setQuestionCode($questionCode)
     {
         $this->questionCode = $questionCode;
-    
+
         return $this;
     }
 
     /**
      * Get questionCode
      *
-     * @return string 
+     * @return string
      */
     public function getQuestionCode()
     {
@@ -205,14 +235,14 @@ class WorkProfile
     public function setFacMfl($facMfl)
     {
         $this->facMfl = $facMfl;
-    
+
         return $this;
     }
 
     /**
      * Get facMfl
      *
-     * @return string 
+     * @return string
      */
     public function getFacMfl()
     {
@@ -228,47 +258,17 @@ class WorkProfile
     public function setSsId($ssId)
     {
         $this->ssId = $ssId;
-    
+
         return $this;
     }
 
     /**
      * Get ssId
      *
-     * @return integer 
+     * @return integer
      */
     public function getSsId()
     {
         return $this->ssId;
-    }
-    /**
-     * @var string
-     *
-     * @Column(name="lq_currentUnit", type="string", length=45, nullable=false)
-     */
-    private $lqCurrentunit;
-
-
-    /**
-     * Set lqCurrentunit
-     *
-     * @param string $lqCurrentunit
-     * @return WorkProfile
-     */
-    public function setLqCurrentunit($lqCurrentunit)
-    {
-        $this->lqCurrentunit = $lqCurrentunit;
-    
-        return $this;
-    }
-
-    /**
-     * Get lqCurrentunit
-     *
-     * @return string 
-     */
-    public function getLqCurrentunit()
-    {
-        return $this->lqCurrentunit;
     }
 }
