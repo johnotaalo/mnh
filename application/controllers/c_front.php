@@ -16,6 +16,7 @@ class C_Front extends MY_Controller
         $data['content'] = 'pages/v_home';
         $data['mapsCH'] = $this->runMap('ch','baseline');
         $data['mapsMNH'] = $this->runMap('mnh','baseline');
+        $data['mapsHCW'] = $this->runMap('hcw','baseline');
 
         //var_dump($this -> runMap());
         $this->load->view('template', $data);
