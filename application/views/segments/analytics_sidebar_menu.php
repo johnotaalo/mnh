@@ -49,8 +49,11 @@ switch($this->session->userdata('survey')) {
 				<li id="ChHealthServices">
 					<a href="#">Health Services</a>
 				</li>
-				<li id="CaseManagement">
-					<a href="#">Case Management</a>
+				<li id="CertificationA">
+					<a href="#">Certification A</a>
+				</li>
+				<li id="CertificationB">
+					<a href="#">Certification B</a>
 				</li>
 				<li id="IMCIConsultationRoom">
 					<a href="#">IMCI Consultation Room</a>
@@ -80,14 +83,14 @@ switch($this->session->userdata('survey')) {
 			</ul>
 		</li>
 
-<li id="commodities-parent" class="has-sub start">
+<li id="bundling-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="bundlingFrequency">
-					<a href="#">Commodity Bundling Availability</a>
+					<a href="#">Bundling Availability</a>
 				</li>
 				<li id="bundlingUnavailability">
-					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+					<a href="#">Bundling Reasons For Unavailability</a>
 				</li>
 				<li id="bundlingLocation">
 					<a href="#">Bundling Location</a>
