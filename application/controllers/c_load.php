@@ -1229,7 +1229,18 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
-	
+	<p class="instruction">
+		<strong style="text-decoration:underline">Guide for the 1st part(Commodity List):</strong></br>
+
+Please select all the treatment received. Multiple selection is allowed.
+Click on the selected treatment to view the commodities and select accordingly.</br>
+
+
+<strong style="text-decoration:underline">Guide for the 2nd part(Specified List with Numbers):</strong></br>
+Indicate the total # of children that received the following treatment. </br>
+
+<strong>NB: </strong> Tick a Treatment to enable the Number Field.</br>
+	</p>
 
 		<table class="centre">
 			<tbody>

@@ -210,7 +210,7 @@ class MY_Controller extends CI_Controller
         /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
-        $this->data_found = $this->m_analytics->getReportingCounties($survey);
+        $this->data_found = $this->m_analytics->getReportingCounties($survey,'baseline');
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }

@@ -1872,7 +1872,8 @@ ORDER BY oa.question_code ASC";
         /*
          * Availability, Location and Functionality of Equipment at Equipments Corner
         */
-        public function getEquipmentStatistics($criteria, $value, $survey) {
+        public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
+            $value = urldecode($value);
             
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -1890,13 +1891,21 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    $data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
-                    
-                    //prep data for the pie chart format
-                    $size = count($this->dataSet);
-                    
-                    foreach ($this->dataSet as $value_) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['equipment_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['equipment_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
                     }
+                    
+                    
                 } else {
                     return null;
                 }
@@ -1908,6 +1917,7 @@ ORDER BY oa.question_code ASC";
                 
                 
             }
+            return $data;
         }
         
         public function getSupplyStatistics($criteria, $value, $survey, $for, $statistic) {
@@ -4715,10 +4725,10 @@ WHERE
             catch(exception $ex) {
             }
         }
-
-        public function getFacilityProgress($survey,$survey_category){
-
-            $query = "CALL get_facility_activity('".$survey."','".$survey_category."');";
+        
+        public function getFacilityProgress($survey, $survey_category) {
+            
+            $query = "CALL get_facility_activity('" . $survey . "','" . $survey_category . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
@@ -4729,18 +4739,20 @@ WHERE
                 
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
-                    foreach($this->dataSet as $value){
+                    foreach ($this->dataSet as $value) {
+                        
                         //echo $value['ast_last_activity'];
-                    $day = new DateTime($value['ast_last_activity']);
-                    $day= $day->format('M-Y');
-                    $data[$day][]=$value;
+                        $day = new DateTime($value['ast_last_activity']);
+                        $day = $day->format('M-Y');
+                        $data[$day][] = $value;
                     }
+                    
                     //die;
+                    
                 }
                 return $data;
             }
-            catch(exception $e){
-
+            catch(exception $e) {
             }
         }
     }
