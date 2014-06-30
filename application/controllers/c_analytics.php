@@ -723,7 +723,9 @@ class C_Analytics extends MY_Controller
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
+
     public function getChHealthServices($criteria, $value, $survey) {
+
         $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
     }
     public function getCaseManagement($criteria, $value, $survey) {
@@ -736,6 +738,8 @@ class C_Analytics extends MY_Controller
     /*
      * Diarrhoea case numbers per Month
     */
+
+
     public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);
@@ -1273,8 +1277,7 @@ class C_Analytics extends MY_Controller
         $frequency = $results['response'];
         $categories = $results['categories'];
         
-        var_dump($results['response']);
-        die;
+        //var_dump($results['response']);die;
         $resultArray = array();
         $stackorno;
         

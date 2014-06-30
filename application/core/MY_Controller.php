@@ -73,7 +73,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSection();
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
-        $this->createHcwProfileSection();
+        // $this->createHcwProfileSection();
         $this->createmchConsultationSection();
  $this->createHealthSection();
         //pdf functions

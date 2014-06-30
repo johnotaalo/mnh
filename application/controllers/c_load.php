@@ -2039,7 +2039,8 @@ public function get_hcw_form() {
 <div id="section-2" class="step">
 
 		<input type="hidden" name="step_name" value="section-2"/>
-<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success" style = "text-align: center;">SECTION 2</p>
+<p class="message success">SECTION 2A: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <p class="instruction">
 		* Assessor should indicate findings alongside Healthcare Worker findings.
 </p>
@@ -2079,9 +2080,11 @@ public function get_hcw_form() {
             <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
         </tr>
 </table>
-<p class="message success">ASSESSMENT FOR THE 3 MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</p>
+<p class="message success">SECTION 2B: ASSESSMENT OF THE SICK YOUNG INFANT(IF APPLICABLE)</p>
 <table class="centre">
-    
+    	<tr>
+    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "pnechoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	</tr>
           <tr>
             <th width="500px">Symptom</th>
 
@@ -2100,7 +2103,9 @@ public function get_hcw_form() {
      ' . $this -> mchIndicatorsSection['pne'] . '
 </table>
 <table class="centre">
-    
+    	<tr>
+    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	</tr>
          <tr>
             <th width="500px">Symptom</th>
 
@@ -2119,7 +2124,9 @@ public function get_hcw_form() {
      ' . $this -> mchIndicatorsSection['dgn'] . '
 </table>
 <table class="centre">
-    
+    	<tr>
+    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	</tr>
           <tr>
             <th width="500px">Symptom</th>
 
@@ -2138,6 +2145,9 @@ public function get_hcw_form() {
      ' . $this -> mchIndicatorsSection['fev'] . '
 </table>
 <table class="centre">
+		<tr>
+    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	</tr>
         <tr>
             <th width="500px">Symptom</th>
 
