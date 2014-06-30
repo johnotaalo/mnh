@@ -75,7 +75,7 @@ class MY_Controller extends CI_Controller
         $this->createMCHCommunityStrategySection();
         $this->createHcwProfileSection();
         $this->createmchConsultationSection();
- $this->createHealthSection();
+        $this->createHealthSection();
         //pdf functions
         $this->getCommoditySuppliersforPDF();
         $this->createBemoncSignalFunctionsSectionforPDF();
@@ -89,7 +89,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSectionPDF();
         $this->createMNHCommunityStrategySection();
 
-       //added section
+        //added section
         //$this->();
         $this->createSevereDiarrhoeaTreatmentTSection();
         $this->createnodehydrationDiarrhoeaTreatmentTSection();
@@ -210,7 +210,11 @@ class MY_Controller extends CI_Controller
         /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
+<<<<<<< HEAD
+        $this->data_found = $this->m_analytics->getReportingCounties($survey, 'baseline');
+=======
         $this->data_found = $this->m_analytics->getReportingCounties($survey,'baseline');
+>>>>>>> f34e800601dab8b92f95a9becda8724184cd0004
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
