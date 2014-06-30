@@ -528,6 +528,13 @@ class C_Analytics extends MY_Controller
         $this->getMnhEquipment($criteria, $value, $survey, 'Functionality');
     }
     
+
+    public function getEquipmentStatistics($criteria, $value, $survey,$for,$statistic){
+         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey,$for,$statistic);
+
+
+         echo '<pre>';print_r($results);echo '</pre>';die;
+    }
     public function getMnhEquipment($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
         $results = $this->m_analytics->getMnhEquipment($criteria, $value, $survey);

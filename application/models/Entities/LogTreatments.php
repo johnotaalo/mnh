@@ -66,9 +66,9 @@ class LogTreatments
     /**
      * @var string
      *
-     * @Column(name="lt_other_treatment", type="string", length=45, nullable=true)
+     * @Column(name="lt_other_treatments", type="string", length=45, nullable=true)
      */
-    private $ltOtherTreatment;
+    private $ltOtherTreatments;
 
     /**
      * @var string
@@ -76,6 +76,13 @@ class LogTreatments
      * @Column(name="lt_treatments", type="string", length=255, nullable=false)
      */
     private $ltTreatments;
+
+    /**
+     * @var string
+     *
+     * @Column(name="lt_other_treatments_numbers", type="text", nullable=true)
+     */
+    private $ltOtherTreatmentsNumbers;
 
 
     /**
@@ -227,26 +234,26 @@ class LogTreatments
     }
 
     /**
-     * Set ltOtherTreatment
+     * Set ltOtherTreatments
      *
-     * @param string $ltOtherTreatment
+     * @param string $ltOtherTreatments
      * @return LogTreatments
      */
-    public function setLtOtherTreatment($ltOtherTreatment)
+    public function setLtOtherTreatments($ltOtherTreatments)
     {
-        $this->ltOtherTreatment = $ltOtherTreatment;
+        $this->ltOtherTreatments = $ltOtherTreatments;
     
         return $this;
     }
 
     /**
-     * Get ltOtherTreatment
+     * Get ltOtherTreatments
      *
      * @return string 
      */
-    public function getLtOtherTreatment()
+    public function getLtOtherTreatments()
     {
-        return $this->ltOtherTreatment;
+        return $this->ltOtherTreatments;
     }
 
     /**
@@ -270,5 +277,28 @@ class LogTreatments
     public function getLtTreatments()
     {
         return $this->ltTreatments;
+    }
+
+    /**
+     * Set ltOtherTreatmentsNumbers
+     *
+     * @param string $ltOtherTreatmentsNumbers
+     * @return LogTreatments
+     */
+    public function setLtOtherTreatmentsNumbers($ltOtherTreatmentsNumbers)
+    {
+        $this->ltOtherTreatmentsNumbers = $ltOtherTreatmentsNumbers;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltOtherTreatmentsNumbers
+     *
+     * @return string 
+     */
+    public function getLtOtherTreatmentsNumbers()
+    {
+        return $this->ltOtherTreatmentsNumbers;
     }
 }

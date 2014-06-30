@@ -76,6 +76,9 @@
 					<li>
 						<a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
 					</li>
+					<li>
+						<a href="<?php echo $this -> config -> item('hcmp_url'); ?>">HCMP</a>
+					</li>
 				</ul>
 			</div>
 		</div>
