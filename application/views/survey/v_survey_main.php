@@ -831,6 +831,13 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 					 }
 				}// close select treatment
 
+				function toggle_table()
+				{	
+					var valueme = document.getElementById('r2').value;
+					if (valueme === 0) {
+						
+					};
+				}
 				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
 						   //alert(form_id);	

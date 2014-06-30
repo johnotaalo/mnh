@@ -1229,7 +1229,18 @@ class C_Load extends MY_Controller {
 
 		</tr>' . $this -> mchGuidelineAvailabilitySection . '
 	</table>
-	
+	<p class="instruction">
+		<strong style="text-decoration:underline">Guide for the 1st part(Commodity List):</strong></br>
+
+Please select all the treatment received. Multiple selection is allowed.
+Click on the selected treatment to view the commodities and select accordingly.</br>
+
+
+<strong style="text-decoration:underline">Guide for the 2nd part(Specified List with Numbers):</strong></br>
+Indicate the total # of children that received the following treatment. </br>
+
+<strong>NB: </strong> Tick a Treatment to enable the Number Field.</br>
+	</p>
 
 		<table class="centre">
 			<tbody>
@@ -2083,8 +2094,11 @@ public function get_hcw_form() {
 <p class="message success">SECTION 2B: ASSESSMENT OF THE SICK YOUNG INFANT(IF APPLICABLE)</p>
 <table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "pnechoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "pnechoice" value = "1" onclick = "toggle_table();" id = "r1">Yes</input> <input id = "r2" type = "radio" name = "pnechoice" value = "0" onclick = "toggle_table();">No</input>
     	</tr>
+    	<p class="instruction">
+		* If NO proceed to the next symptom
+		</p>
           <tr>
             <th width="500px">Symptom</th>
 
@@ -2099,13 +2113,17 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-    
+    <tbody class = "pnechoice">
      ' . $this -> mchIndicatorsSection['pne'] . '
+     </tbody>
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "dgnchoice" value = "0">No</input>
     	</tr>
+    	<p class="instruction">
+    	* If NO proceed to the next symptom
+		</p>
          <tr>
             <th width="500px">Symptom</th>
 
@@ -2125,8 +2143,11 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "fevchoice" value = "0">No</input>
     	</tr>
+    	<p class="instruction">
+    	* If NO proceed to the next symptom
+		</p>
           <tr>
             <th width="500px">Symptom</th>
 
@@ -2146,8 +2167,11 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
 		<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "earchoice" value = "0">No</input>
     	</tr>
+    	<p class="instruction">
+    	* If NO proceed to the next symptom
+		</p>
         <tr>
             <th width="500px">Symptom</th>
 

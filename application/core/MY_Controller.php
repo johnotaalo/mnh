@@ -210,7 +210,7 @@ class MY_Controller extends CI_Controller
         /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
-        $this->data_found = $this->m_analytics->getReportingCounties($survey);
+        $this->data_found = $this->m_analytics->getReportingCounties($survey,'baseline');
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
@@ -3649,7 +3649,6 @@ class MY_Controller extends CI_Controller
             $counter++;
             $this->mchmalariaconfrimedtreatmentSection .=
             '<div class = "specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_'.$counter.'" value = "'.$value['treatmentCode'].'" onchange = "check(this)">'.$value['treatmentName'].'<input type = "number" class = "confirmedtoggled_'.$counter.'" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
-
         }
         return $this->mchmalariaconfrimedtreatmentSection;
     }

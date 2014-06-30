@@ -51,6 +51,8 @@ $route['hcw/assessment']='c_front/inventory'; #active survey home page url
 
 $route['mnh/analytics']='c_analytics/active_results/mnh';#active results url, survey:mnh
 $route['ch/analytics']='c_analytics/active_results/ch';#active results url, survey:ch
+$route['hcw/analytics']='c_analytics/active_results/hcw';#active results url, survey:ch
+
 $route['ch/summary']='c_analytics/summary';#active results url, survey:ch
 $route['analytics/facility/loc']='c_analytics/analytics_facility_info_levels_of_care';
 $route['analytics/facility/ownership']='c_analytics/analytics_facility_info_ownership';
