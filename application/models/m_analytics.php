@@ -2102,39 +2102,8 @@ LIMIT 0 , 1000
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-            
-            switch ($survey) {
-                case 'mnh':
-                    $eq = 'mhw';
-                    break;
-
-                case 'ch':
-                    $eq = 'hwr';
-                    break;
-            }
-            
-            switch ($criteria) {
-                case 'national':
-                    $criteria_condition = ' ';
-                    $value = ' ';
-                    break;
-
-                case 'county':
-                    $criteria_condition = 'WHERE fac_county=?';
-                    break;
-
-                case 'district':
-                    $criteria_condition = 'WHERE fac_district=?';
-                    break;
-
-                case 'facility':
-                    $criteria_condition = 'WHERE fac_mfl=?';
-                    break;
-
-                case 'none':
-                    $criteria_condition = '';
-                    break;
-            }
+        
+           
             
             /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
            $query = "CALL get_resources('".$criteria."', '".$analytic_value."', '".$survey_type."', '".$equipmentfor."','".$choice."');";
@@ -2156,14 +2125,8 @@ LIMIT 0 , 1000
                     echo '</pre>';
                     die;
                     foreach ($this->dataSet as $value) {
-                        
-                        $equipment = $value['equipments.eq_name'];
-                        
-                        //echo $value['indicator'];die;
-                        $data['response'][$equipment][$value['frequency']] = (int)$value['total_response'];
+
                     }
-                    $data['categories'] = array_keys($data['response']);
-                    $this->dataSet = $data;
                     return $this->dataSet;
                     
                     //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
@@ -2183,14 +2146,9 @@ LIMIT 0 , 1000
                 //ignore
                 //die($ex->getMessage());//exit;
                 
-                
-            }
-            
-            /*--------------------end ort equipment availability by frequency----------------------------------------------*/
-            
-            /*--------------------begin ort equipment location of availability----------------------------------------------*/
-  }         
-        
+                }
+           
+        }
         public function get_response_count($survey) {
             try {
                 
@@ -2224,6 +2182,7 @@ ORDER BY lastActivity DESC";
             
             return $this->dataSet;
         }
+
         
         function getSpecificDistrictNames($county) {
             
@@ -2313,7 +2272,7 @@ ORDER BY lastActivity DESC";
             try {
                 $query = "SELECT DISTINCT
     f.fac_mfl, f.fac_name
-FROM
+            FROM
     facilities f
         JOIN
     survey_status ss ON ss.fac_id = f.fac_mfl
