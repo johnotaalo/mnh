@@ -14,9 +14,9 @@ class C_Front extends MY_Controller
     public function index() {
         $data['title'] = 'MoH::Data Management Tool';
         $data['content'] = 'pages/v_home';
-        $data['mapsCH'] = $this->runMap('ch','baseline');
-        $data['mapsMNH'] = $this->runMap('mnh','baseline');
-        $data['mapsHCW'] = $this->runMap('hcw','baseline');
+        //$data['mapsCH'] = $this->runMap('ch','baseline');
+        //$data['mapsMNH'] = $this->runMap('mnh','baseline');
+        //$data['mapsHCW'] = $this->runMap('hcw','baseline');
 
         //var_dump($this -> runMap());
         $this->load->view('template', $data);
@@ -85,7 +85,7 @@ class C_Front extends MY_Controller
         $styles = array("showBorder" => 0);
         $finalMap = array('map' => $map, 'data' => $datas, 'styles' => $styles);
         $finalMap = json_encode($finalMap);
-        return $finalMap;
+        echo $finalMap;
     }
 
     public function active_survey() {

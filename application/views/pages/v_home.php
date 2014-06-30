@@ -48,51 +48,42 @@
 
 			</div>
 
-			<div class="tile" style="width:30%">
+			<div class="tile" style="width:50%">
 				<h3>Reporting Rates</h3>
-				<a href="#" id="ch-map">Child Health</a>
-				|
-				<a href="#" id="mnh-map">Maternal and Neonatal Health</a>
-                |
-			    <a href="#" id="hcw-map">IMCI Follow-Up Tool</a>
+				<div class="map-header">
+				<div class="btn-group">
+					<a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Maternal and Neonatal Health<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a data-survey="mnh" data-survey-category="baseline" href="#">Baseline</a></li>
+						<li><a data-survey="mnh" data-survey-category="mid-term" href="#">Mid-Term</a></li>
+						<li><a data-survey="mnh" data-survey-category="end-term" href="#">End-Term</a></li>
+					</ul>
+				</div>
+				<div class="btn-group">
+					<a href="#" class="btn dropdown-toggle" data-toggle="dropdown">Child Health<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a data-survey="ch" data-survey-category="baseline" href="#">Baseline</a></li>
+						<li><a data-survey="ch" data-survey-category="mid-term" href="#">Mid-Term</a></li>
+						<li><a data-survey="ch" data-survey-category="end-term" href="#">End-Term</a></li>
+					</ul>
+				</div>
+				<div class="btn-group">
+					<a href="#" class="btn dropdown-toggle" data-toggle="dropdown">IMCI Follow-Up Tool<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a data-survey="hcw" data-survey-category="baseline" href="#">Baseline</a></li>
+						<li><a data-survey="hcw" data-survey-category="mid-term" href="#">Mid-Term</a></li>
+						<li><a data-survey="hcw" data-survey-category="end-term" href="#">End-Term</a></li>
+					</ul>
+				</div>
+				<h5 id="current-map">Current Map : None Chosen</h5>
 				
-				<!--div class="legend">
-					<div class="item"><div class="color" style="background:#e93939"></div><div class="title"><20%</div></div>
-					<div class="item"><div class="color" style="background:#da8a33"></div><div class="title"><40%</div></div>
-					<div class="item"><div class="color" style="background:#dad833"></div><div class="title"><60%</div></div>
-					<div class="item"><div class="color" style="background:#91da33"></div><div class="title"><80%</div></div>
-					<div class="item"><div class="color" style="background:#7ada33"></div><div class="title"><=100%</div></div>
-				</div-->
-				<div class="post" id="ch_map">
-					<script>
-var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
-map.setJSONData(<?php echo $mapsCH; ?>
-	);
-	map.render("ch_map");
-					</script>
-					<!--div class="content-separator"></div-->
-				</div><!--./kenya_county_map-->
+			    </div>
 				
+				<div class="post" id="map">
 
-                <div class="post" id="hcw_map">
-					<script>
-var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
-map.setJSONData(<?php echo $mapsHCW; ?>
-	);
-	map.render("hcw_map");
-					</script>
-					<!--div class="content-separator"></div-->
 				</div><!--./kenya_county_map-->
 
-				<div class="post" id="mnh_map">
-					<script>
-var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","150%","200%","0","0");
-map.setJSONData(<?php echo $mapsMNH; ?>
-	);
-	map.render("mnh_map");
-					</script>
-					<!--div class="content-separator"></div-->
-				</div><!--./kenya_county_map-->
+				
 				
 			</div><!--./middle_column-->
 
@@ -154,14 +145,14 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 <script>
 	$(document).ready(function(){
 		var styles1={
-			'text-decoration':'underline',
-			'font-size':'1.4em',
+			'padding':'2%',
+			'border':'2px solid #ddd',
 			'color':'black'
 		}
 		var styles2={
 			'text-decoration':'none',
-			'font-size':'1em',
-			'color':'#005580'
+			'color':'#005580',
+			'border':'none'
 		}
 
 
@@ -196,8 +187,6 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 		});
 
 
-
-
 		$('#hcw-map').click(function(){
 			//alert(' ');
 			$('#hcw_map').show();
@@ -208,5 +197,32 @@ map.setJSONData(<?php echo $mapsMNH; ?>
 			$('#mnh-map').css(styles2);
 			$('#ch-map').css(styles2);
 		});
+		$('.dropdown-menu li a').click(function(){
+			survey=$(this).attr('data-survey');
+			survey_category=$(this).attr('data-survey-category');
+			survey_in_full=$(this).parent().parent().parent().find('.dropdown-toggle').text();
+			$('#current-map').text(survey_in_full+' : '+survey_category);
+			$('#current-map').css('textTransform', 'capitalize');
+			runMap(survey,survey_category);
+			
+		});
 	});
+function runMap(survey,survey_category){
+						
+						$.ajax({
+        url: '<?php echo base_url();?>c_front/runMap/'+survey+'/'+survey_category,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        },
+        success: function(data) {
+            //console.log(data);
+
+            obj = jQuery.parseJSON(data);
+            var map= new FusionMaps ("js/FusionMaps/Maps/FCMap_KenyaCounty.swf","KenyaMap","100%","200%","0","0");
+			map.setJSONData(data);
+			map.render("map");
+
+        }
+    });
+					}
 </script>
