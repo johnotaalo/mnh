@@ -1876,7 +1876,7 @@ ORDER BY oa.question_code ASC";
         */
         public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
             $value = urldecode($value);
-            
+            $newData=array();
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             
@@ -1907,10 +1907,41 @@ ORDER BY oa.question_code ASC";
                         }
                     }
                     
-                    
+                    /**
+                 * Fix Data
+                 */
+                switch($survey){
+                    case 'mnh':
+                        $location = array('Delivery room','Store','Pharmacy','Other');
+                    break;
+                    case 'ch':
+                        $location = array('MCH','OPD','Ward','Other','U5 Clinic');
+                    break;
+                    default:
+                        $location = array();
+                    break;
+                }
+                if($statistic=='location'){
+                     foreach ($data as $key=>$value){
+                        foreach($location as $place){
+                            if(array_key_exists($place, $value)==false){
+                               $newData[$key][$place]=0;
+                            }
+                            else{
+                                $newData[$key][$place]=$value[$place];
+                            }
+                        }
+                        
+                     }
+                     $data = $newData;
+                }
+               
                 } else {
                     return null;
                 }
+
+
+                
             }
             catch(exception $ex) {
                 
@@ -1919,6 +1950,7 @@ ORDER BY oa.question_code ASC";
                 
                 
             }
+            
             return $data;
         }
         
@@ -2276,7 +2308,7 @@ ORDER BY lastActivity DESC";
                     $search = "ss_id='complete'";
                     break;
             }
-            $myOptions = '<option>Viewing All</option>';
+            $myOptions = '<option>Please Select a Facility</option>';
             
             /*using CI Database Active Record*/
             try {
@@ -2331,7 +2363,7 @@ ORDER BY fac_name;";
         }
         
         public function getFacilitiesByDistrictOptionsNew($district, $table) {
-            $myOptions = '<option>Viewing All</option>';
+            $myOptions = '<option>Please Select a Facility</option>';
             
             /*using CI Database Active Record*/
             try {

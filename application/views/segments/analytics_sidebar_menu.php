@@ -143,13 +143,13 @@ switch($this->session->userdata('survey')) {
 				<li id="ORTCornerAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li id="ORTCornerEquipmentFrequency">
+				<li id="CHEquipmentFrequency">
 					<a href="#">ORT Corner Equipment Availability</a>
 				</li>
-				<li id="ORTCornerEquipmentFunctionality">
+				<li id="CHEquipmentFunctionality">
 					<a href="#">ORT Corner Equipment Functionality</a>
 				</li>
-				<li id="ORTCornerEquipmentLocation">
+				<li id="CHEquipmentLocation">
 					<a href="#">ORT Corner Equipment Location</a>
 				</li>
 			</ul>

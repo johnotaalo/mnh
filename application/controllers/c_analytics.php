@@ -134,18 +134,18 @@ ORDER BY fac_level;");
         
         redirect($survey . '/analytics');
     }
-
-        public function getFacilityProgress($survey, $survey_category) {
+    
+    public function getFacilityProgress($survey, $survey_category) {
         $results = $this->m_analytics->getFacilityProgress($survey, $survey_category);
         foreach ($results as $day => $value) {
             $data[] = (int)sizeof($value);
             $category[] = $day;
-        $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
-        
-        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
-}
-}
+            $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
+            
+            //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+            $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
+        }
+    }
     
     /**
      * [active_results description]
@@ -522,233 +522,136 @@ ORDER BY fac_level;");
     
     public function getCommodityAvailability($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
-        $results = $this->m_analytics->getCommodityAvailability($criteria, $value, $survey);
+    }
+    
+    /**
+     * [getEquipmentStatistics description]
+     * @param  [type] $criteria  [description]
+     * @param  [type] $value     [description]
+     * @param  [type] $survey    [description]
+     * @param  [type] $for       [description]
+     * @param  [type] $statistic [description]
+     * @return [type]            [description]
+     */
+    public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
+        $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey, $for, $statistic);
         
-        //echo '<pre>';print_r($results);echo '</pre>';
-        //die ;
-        $datas = array();
-        
-        $resultArray = array();
-        
-        $counter = 0;
-        $stackorno = 'charts/chart_stacked_v';
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $mch = $other = $opd = $ward = $clinic = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $datas['availability'] = 1;
-                $frequency = $results['frequency'];
-                $category = $frequency['categories'];
-                $responses = $frequency['responses'];
-                $catkey = 0;
-                $always = $responses['Available'];
-                $sometimes = $responses['Sometimes Available'];
-                $never = $responses['Never Available'];
-                $finalAlways = $finalSometimes = $finalNever = array();
-                $drug_always = $drug_sometimes = $drug_never = 0;
-                
-                //echo count($category);die;
-                for ($catkey = 0; $catkey < count($category); $catkey++) {
-                    $drug = $category[$catkey];
-                    
-                    //var_dump($never[$drug]);die;
-                    
-                    if (array_key_exists($drug, $always) == false) {
-                        $drug_always = 0;
-                    } else {
-                        $drug_always = $always[$drug];
-                    }
-                    if (array_key_exists($drug, $sometimes) == false) {
-                        $drug_sometimes = 0;
-                    } else {
-                        $drug_sometimes = $sometimes[$drug];
-                    }
-                    if (array_key_exists($drug, $never) == false) {
-                        $drug_never = 0;
-                    } else {
-                        $drug_never = $never[$drug];
-                    }
-                    
-                    //var_dump($always[$drug]);
-                    $finalAlways[] = $drug_always;
-                    $finalSometimes[] = $drug_sometimes;
-                    $finalNever[] = $drug_never;
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available') {
+                    $data[$name][] = (int)$value;
                 }
-                
-                $resultArray = array(array('name' => 'Always', 'data' => $finalAlways), array('name' => 'Sometimes', 'data' => $finalSometimes), array('name' => 'Never', 'data' => $finalNever));
-                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-                break;
-
-            case 'Unavailability':
-                $unavailability = $results['unavailability'];
-                $analytics = $unavailability['responses'];
-                $category = $unavailability['categories'];
-                if ($analytics != null || isset($analytics)) {
-                    foreach ($analytics as $key => $val) {
-                        $resultArray[] = array('name' => $key, 'data' => $val);
-                    }
-                } else {
-                }
-                
-                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                //var_dump($results['location']);die;
-                $location = $results['location']['responses'];
-                $category = $results['location']['categories'];
-                
-                //var_dump($location);
-                //  echo '<pre>';print_r($location);echo '</pre>';
-                foreach ($location as $key => $value) {
-                    
-                    $location[] = $key;
-                    foreach ($value as $k => $v) {
-                        $quant = 0;
-                        foreach ($v as $drugVal) {
-                            $quant+= $drugVal;
-                        }
-                        $numbers[] = $quant;
-                    }
-                    $resultArray[] = array('name' => $key, 'data' => $numbers);
-                    $numbers = array();
-                }
-                
-                $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-                break;
-
-            case 'Quantities':
-                $quantities = $results['quantities']['responses'];
-                $category = $results['frequency']['categories'];
-                
-                //$category = $results['quantities']['categories'];
-                $currentData = array();
-                foreach ($quantities as $val) {
-                    $currentData[] = $val;
-                }
-                
-                $resultArray[] = array('name' => 'Quantities', 'data' => $currentData);
-                $stackorno = 'charts/chart_v';
-                $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar', sizeof($category));
-                break;
+            }
         }
-    }
-    
-    public function getEquipmentFrequency($criteria, $value, $survey) {
-        $this->getMnhEquipment($criteria, $value, $survey, 'Frequency', 8);
-    }
-    
-    public function getEquipmentLocation($criteria, $value, $survey) {
-        $this->getMnhEquipment($criteria, $value, $survey, 'Location');
-    }
-    
-    public function getEquipmentFunctionality($criteria, $value, $survey) {
-        $this->getMnhEquipment($criteria, $value, $survey, 'Functionality');
-    }
-    
-
-    public function getEquipmentStatistics($criteria, $value, $survey,$for,$statistic){
-         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey,$for,$statistic);
-
-
-         echo '<pre>';print_r($results);echo '</pre>';die;
-    }
-    public function getMnhEquipment($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
-        $results = $this->m_analytics->getMnhEquipment($criteria, $value, $survey);
-        
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        $datas = array();
-        $frequency = $results['frequency'];
-        $categories = $results['frequency']['categories'];
-        $quantities = $results['functionality']['responses'];
-        
-        //var_dump($results['location']);die;
-        $resultArray = array();
-        $stackorno;
-        
-        $counter = 0;
-        
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $delivery = $pharmacy = $store = $other = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $datas['availability'] = 1;
-                $frequencyCategories = $frequency['categories'];
-                $category = $frequencyCategories;
-                $frequencyNever = $frequencySometimes = $frequencyAlways = array();
-                $frequencyNever = $frequency['responses']['Never Available'];
-                $frequencyAlways = $frequency['responses']['Available'];
-                $frequencySometimes = $frequency['responses']['Sometimes Available'];
-                $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-
-            case 'Functionality':
-                foreach ($quantities as $quantity) {
-                    $arr = $quantity[$counter];
-                    
-                    //[0]['Fully-functional'];
-                    $quantitiesFullyFunctional[] = $arr['Fully-functional'];
-                    $quantitiesNonFunctional[] = $arr['Non-functional'];
-                    
-                    //$counter++;
-                    
-                    
-                }
-                $category = $results['functionality']['categories'];
-                $stackorno = 'charts/chart_stacked_v';
-                $resultArray = array(array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                $location = $results['location']['responses'];
-                $locationCategories = $results['location']['categories'];
-                foreach ($location as $key => $loc) {
-                    
-                    if (array_key_exists('Delivery room', $loc) == true) {
-                        $delivery[] = $loc['Delivery room'];
-                    } else {
-                        $delivery[] = 0;
-                    }
-                    if (array_key_exists('Pharmacy', $loc) == true) {
-                        $pharmacy[] = $loc['Pharmacy'];
-                    } else {
-                        $pharmacy[] = 0;
-                    }
-                    if (array_key_exists('Store', $loc) == true) {
-                        $store[] = $loc['Store'];
-                    } else {
-                        $store[] = 0;
-                    }
-                    if (array_key_exists('Other', $loc) == true) {
-                        $other[] = $loc['Other'];
-                    } else {
-                        $other[] = 0;
-                    }
-                    
-                    //var_dump ($location);die;
-                    
-                    
-                }
-                
-                //var_dump($other);
-                $resultArray = array(array('name' => 'Delivery Room', 'data' => $delivery), array('name' => 'Pharmacy', 'data' => $pharmacy), array('name' => 'Store', 'data' => $store), array('name' => 'Other', 'data' => $other));
-                $category = $locationCategories;
-                
-                //var_dump($resultArray);die;
-                $stackorno = 'charts/chart_stacked_v';
-                break;
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    /**
+     * [getMNHEquipmentFrequency description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHEquipmentFrequency($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'mnh', 'availability');
+    }
+    
+    /**
+     * [getMNHEquipmentLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHEquipmentLocation($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'mnh', 'location');
+    }
+    
+    /**
+     * [getMNHEquipmentFunctionality description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHEquipmentFunctionality($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'mnh', 'functionality');
+    }
+    
+    /**
+     * [getCHEquipmentFrequency description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCHEquipmentFrequency($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'ort', 'availability');
+    }
+    
+    /**
+     * [getCHEquipmentLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCHEquipmentLocation($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'ort', 'location');
+    }
+    
+    /**
+     * [getCHEquipmentFunctionality description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCHEquipmentFunctionality($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'ort', 'functionality');
+    }
+    
+    /**
+     * [getHCWEquipmentFrequency description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getHCWEquipmentFrequency($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'hcw', 'availability');
+    }
+    
+    /**
+     * [getHCWEquipmentLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getHCWEquipmentLocation($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'hcw', 'location');
+    }
+    
+    /**
+     * [getHCWEquipmentFunctionality description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getHCWEquipmentFunctionality($criteria, $value, $survey) {
+        $this->getEquipmentStatistics($criteria, $value, $survey, 'hcw', 'functionality');
     }
     
     public function getCHCommoditySuppliers($criteria, $value, $survey) {
@@ -779,6 +682,62 @@ ORDER BY fac_level;");
     }
     
     /**
+     * [getQuestionStatistics description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+     */
+    public function getQuestionStatistics($criteria, $value, $survey, $for) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        foreach ($results as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    /**
+     * [getHIV description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getHIV($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
+    }
+    
+    /**
+     * [getJobAids description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getJobAids($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'job');
+    }
+    
+    /**
+     * [getGuidelinesAvailabilityMNH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
+    }
+    
+    /**
      * [getIndicatorStatistics description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
@@ -800,66 +759,212 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
+    /**
+     * [getChildrenServices description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getChildrenServices($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'svc');
     }
     
+    /**
+     * [getDangerSigns description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getDangerSigns($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'dgn');
     }
     
+    /**
+     * [getActionsPerformed description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getActionsPerformed($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'svc');
     }
     
+    /**
+     * [getCounselGiven description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getCounselGiven($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cns');
     }
     
+    /**
+     * [getTools description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'ror');
     }
+    
+    /**
+     * [getAnaemia description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getAnaemia($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'anm');
     }
+    
+    /**
+     * [getBreastfeeding description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getBreastfeeding($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'brf');
     }
+    
+    /**
+     * [getCounselling description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getCounselling($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cnl');
     }
+    
+    /**
+     * [getCondition description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getCondition($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'con');
     }
+    
+    /**
+     * [getSymptomEar description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomEar($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'ear');
     }
+    
+    /**
+     * [getSymptomEye description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomEye($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'eye');
     }
+    
+    /**
+     * [getSymptomFever description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomFever($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'fev');
     }
+    
+    /**
+     * [getSymptomJaundice description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomJaundice($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'jau');
     }
+    
+    /**
+     * [getSymptomMalaria description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomMalaria($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'mal');
     }
+    
+    /**
+     * [getSymptomPneumonia description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getSymptomPneumonia($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'pne');
     }
+    
+    /**
+     * [getMNHTools description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
-
+    
+    /**
+     * [getChHealthServices description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getChHealthServices($criteria, $value, $survey) {
-
+        
         $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
     }
+    
+    /**
+     * [getCaseManagement description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getCaseManagement($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
     }
+    
+    /**
+     * [getIMCIConsultation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getIMCIConsultation($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
     }
@@ -867,8 +972,7 @@ ORDER BY fac_level;");
     /*
      * Diarrhoea case numbers per Month
     */
-
-
+    
     public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);
@@ -964,398 +1068,10 @@ ORDER BY fac_level;");
         $this->load->view('charts/chart_pie_v', $datas);
     }
     
-    /*
-     * ORT Corner Assessment
-    */
-    public function getORTCornerAssessment($criteria, $value, $survey) {
+    public function getSuppliesStatistics($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
-        $results = $this->m_analytics->getORTCornerAssessment($criteria, $value, $survey);
-        $yes = $results['yes_values'];
-        $no = $results['no_values'];
-        $category = array();
-        $category[] = $results['categories'][0];
-        $category[] = $results['categories'][1];
-        $yCount = 2;
-        $nCount = 2;
-        
-        //var_dump($no);
-        
-        //var_dump($results);
-        if ($results != null) {
-            if ($yes != null) {
-                foreach ($yes as $value) {
-                    
-                    //echo $value;
-                    //$category[] = $value[0];
-                    $yesData[] = (int)$value;
-                    $yCount--;
-                    
-                    //$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-                    
-                    
-                }
-            }
-            if ($no != null) {
-                foreach ($no as $value) {
-                    
-                    //$category[] = $value[0];
-                    $noData[] = (int)$value;
-                    $nCount--;
-                    
-                    //$resultArray[] = array('name'=>$value[0],'data'=>(int)$value[1]);
-                    
-                    
-                }
-            }
-        }
-        
-        //Fill up Arrays
-        for ($x = 0; $x < $yCount; $x++) {
-            $yesData[] = 0;
-        }
-        for ($x = 0; $x < $nCount; $x++) {
-            if ($no != null) {
-                array_unshift($noData, 0);
-            } else {
-                $noData[] = 0;
-            }
-        }
-        $resultArray = array(array('name' => 'Yes', 'data' => $yesData), array('name' => 'No', 'data' => $noData));
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-    }
-    
-    /*
-     * Availability, Location and Functionality of Equipement at ORT Corner
-    */
-    
-    public function getORTCornerEquipmentFrequency($criteria, $value, $survey) {
-        $this->getORTCornerEquipment($criteria, $value, $survey, 'Frequency');
-    }
-    
-    public function getORTCornerEquipmentFunctionality($criteria, $value, $survey) {
-        $this->getORTCornerEquipment($criteria, $value, $survey, 'Functionality');
-    }
-    
-    public function getORTCornerEquipmentLocation($criteria, $value, $survey) {
-        $this->getORTCornerEquipment($criteria, $value, $survey, 'Location');
-    }
-    
-    public function getORTCornerEquipment($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
-        $results = $this->m_analytics->getORTCornerEquipmement($criteria, $value, $survey);
-        
-        //var_dump($results);die;
-        $datas = array();
-        $frequency = $results['frequency'];
-        $categories = $results['frequency']['categories'];
-        $quantities = $results['quantities']['responses'];
-        
-        //var_dump($results['location']);die;
-        $resultArray = array();
-        $stackorno;
-        
-        $counter = 0;
-        
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $mch = $other = $opd = $ward = $clinic = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $datas['availability'] = 1;
-                $frequencyCategories = $frequency['categories'];
-                $category = $frequencyCategories;
-                $frequencyNever = $frequency['responses']['Never Available'];
-                $frequencyAlways = $frequency['responses']['Available'];
-                $frequencySometimes = $frequency['responses']['Sometimes Available'];
-                $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-
-            case 'Functionality':
-                foreach ($quantities as $quantity) {
-                    $arr = $quantity[$counter];
-                    
-                    //[0]['Fully-functional'];
-                    $quantitiesFullyFunctional[] = $arr['Fully-functional'];
-                    $quantitiesNonFunctional[] = $arr['Non-functional'];
-                    
-                    //$counter++;
-                    
-                    
-                }
-                $category = $results['quantities']['categories'];
-                $stackorno = 'charts/chart_stacked_v';
-                $resultArray = array(array('name' => 'Fully-Functional', 'data' => $quantitiesFullyFunctional), array('name' => 'Non-Functional', 'data' => $quantitiesNonFunctional));
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                $location = $results['location']['responses'];
-                $locationCategories = $results['location']['categories'];
-                foreach ($location as $key => $loc) {
-                    
-                    if (array_key_exists('MCH', $loc) == true) {
-                        $mch[] = $loc['MCH'];
-                    } else {
-                        $mch[] = 0;
-                    }
-                    if (array_key_exists('Other', $loc) == true) {
-                        $other[] = $loc['Other'];
-                    } else {
-                        $other[] = 0;
-                    }
-                    if (array_key_exists('OPD', $loc) == true) {
-                        $opd[] = $loc['OPD'];
-                    } else {
-                        $opd[] = 0;
-                    }
-                    if (array_key_exists('Ward', $loc) == true) {
-                        $ward[] = $loc['Ward'];
-                    } else {
-                        $ward[] = 0;
-                    }
-                    if (array_key_exists('U5 Clinic', $loc) == true) {
-                        $clinic[] = $loc['U5 Clinic'];
-                    } else {
-                        $clinic[] = 0;
-                    }
-                    
-                    //var_dump ($location);die;
-                    
-                    
-                }
-                
-                //var_dump($other);
-                $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-                $category = $locationCategories;
-                
-                //var_dump($resultArray);die;
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-        }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-    }
-    
-    public function getSuppliesFrequency($criteria, $value, $survey) {
-        $this->getSupplies($criteria, $value, $survey, 'Frequency');
-    }
-    
-    public function getSuppliesLocation($criteria, $value, $survey) {
-        $this->getSupplies($criteria, $value, $survey, 'Location');
-    }
-    
-    /*
-     * Availability, Location and Functionality of Supplies at ORT Corner
-    */
-    public function getSupplies($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
-        $results = $this->m_analytics->getSupplies($criteria, $value, $survey);
-        
-        //var_dump($results['location']);
-        //die ;
-        $datas = array();
-        
-        $frequency = $results['frequency'];
-        $categories = $results['frequency']['categories'];
-        
-        $resultArray = array();
-        $stackorno;
-        
-        $counter = 0;
-        
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $mch = $other = $opd = $ward = $clinic = $pharmacy = $delivery = $store = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $frequencyNever = $frequencyAlways = $frequencySometimes = array();
-                $datas['availability'] = 1;
-                $frequencyCategories = $frequency['categories'];
-                $frequencyNever = $frequency['responses']['Never Available'];
-                $frequencyAlways = $frequency['responses']['Available'];
-                $frequencySometimes = $frequency['responses']['Sometimes Available'];
-                $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                $location = $results['location']['responses'];
-                $locationCategories = $results['location']['categories'];
-                switch ($survey) {
-                    case 'ch':
-                        foreach ($location as $key => $loc) {
-                            
-                            if (array_key_exists('MCH', $loc) == true) {
-                                $mch[] = $loc['MCH'];
-                            } else {
-                                $mch[] = 0;
-                            }
-                            if (array_key_exists('Other', $loc) == true) {
-                                $other[] = $loc['Other'];
-                            } else {
-                                $other[] = 0;
-                            }
-                            if (array_key_exists('OPD', $loc) == true) {
-                                $opd[] = $loc['OPD'];
-                            } else {
-                                $opd[] = 0;
-                            }
-                            if (array_key_exists('Ward', $loc) == true) {
-                                $ward[] = $loc['Ward'];
-                            } else {
-                                $ward[] = 0;
-                            }
-                            if (array_key_exists('U5 Clinic', $loc) == true) {
-                                $clinic[] = $loc['U5 Clinic'];
-                            } else {
-                                $clinic[] = 0;
-                            }
-                            
-                            //var_dump ($location);die;
-                            
-                            
-                        }
-                        
-                        //var_dump($other);
-                        $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-                        
-                        break;
-
-                    case 'mnh':
-                        foreach ($location as $key => $loc) {
-                            
-                            if (array_key_exists('Delivery room', $loc) == true) {
-                                $delivery[] = $loc['Delivery room'];
-                            } else {
-                                $delivery[] = 0;
-                            }
-                            if (array_key_exists('Other', $loc) == true) {
-                                $other[] = $loc['Other'];
-                            } else {
-                                $other[] = 0;
-                            }
-                            if (array_key_exists('Pharmacy', $loc) == true) {
-                                $pharmacy[] = $loc['Pharmacy'];
-                            } else {
-                                $pharmacy[] = 0;
-                            }
-                            if (array_key_exists('Store', $loc) == true) {
-                                $store[] = $loc['Store'];
-                            } else {
-                                $store[] = 0;
-                            }
-                            
-                            //var_dump ($location);die;
-                            
-                            
-                        }
-                        
-                        //var_dump($other);
-                        $resultArray = array(array('name' => 'Delivery Room', 'data' => $delivery), array('name' => 'Pharmacy', 'data' => $pharmacy), array('name' => 'Store', 'data' => $store), array('name' => 'Other', 'data' => $other));
-                        
-                        break;
-                }
-                
-                //var_dump($resultArray);die;
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-        }
-        $category = $categories;
+        $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey);
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    public function getRunningWaterFrequency($criteria, $value, $survey) {
-        $this->getRunningWater($criteria, $value, $survey, 'Frequency');
-    }
-    
-    public function getRunningWaterLocation($criteria, $value, $survey) {
-        $this->getRunningWater($criteria, $value, $survey, 'Location');
-    }
-    
-    /*
-     * Availability, Location and Functionality of Running Water
-    */
-    public function getRunningWater($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
-        $results = $this->m_analytics->getRunningWater($criteria, $value, $survey);
-        
-        //var_dump($results['frequency']);die;
-        //die ;
-        $datas = array();
-        
-        $frequency = $results['frequency'];
-        $categories = $results['frequency']['categories'];
-        
-        //var_dump($frequency);
-        $resultArray = array();
-        $stackorno;
-        
-        $counter = 0;
-        
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $mch = $other = $opd = $ward = $clinic = $pharmacy = $delivery = $store = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $frequencyNever = $frequencyAlways = $frequencySometimes = array();
-                $datas['availability'] = 1;
-                $frequencyCategories = $frequency['categories'];
-                $frequencyNever = $frequency['responses']['Never Available'];
-                $frequencyAlways = $frequency['responses']['Available'];
-                $frequencySometimes = $frequency['responses']['Sometimes Available'];
-                $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-                
-                // var_dump($resultArray);die;
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                $location = $results['location']['responses'];
-                $locationCategories = $results['location']['categories'];
-                
-                foreach ($location as $key => $loc) {
-                    
-                    if (array_key_exists('MCH', $loc) == true) {
-                        $mch[] = $loc['MCH'];
-                    } else {
-                        $mch[] = 0;
-                    }
-                    if (array_key_exists('Other', $loc) == true) {
-                        $other[] = $loc['Other'];
-                    } else {
-                        $other[] = 0;
-                    }
-                    if (array_key_exists('OPD', $loc) == true) {
-                        $opd[] = $loc['OPD'];
-                    } else {
-                        $opd[] = 0;
-                    }
-                    if (array_key_exists('Maternity', $loc) == true) {
-                        $ward[] = $loc['Maternity'];
-                    } else {
-                        $ward[] = 0;
-                    }
-                    if (array_key_exists('U5 Clinic', $loc) == true) {
-                        $clinic[] = $loc['U5 Clinic'];
-                    } else {
-                        $clinic[] = 0;
-                    }
-                }
-                
-                //var_dump($other);
-                $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Maternity', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-                break;
-        }
-        
-        $category = $categories;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
     /**
@@ -1388,93 +1104,17 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
-    public function getResourceFrequency($criteria, $value, $survey) {
-        $this->getResources($criteria, $value, $survey, 'Frequency');
-    }
-    
-    public function getResourceLocation($criteria, $value, $survey) {
-        $this->getResources($criteria, $value, $survey, 'Location');
-    }
-    
-    /*
-     *  Availability, Location and Functionality of Electricity and Hardware Resources
-    */
-    public function getResources($criteria, $value, $survey, $choice) {
+    /**
+     * [getResourcesStatistics description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getResourcesStatistics($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
-        $results = $this->m_analytics->getResources($criteria, $value, $survey);
-        $datas = array();
-        $frequency = $results['response'];
-        $categories = $results['categories'];
-        
-        //var_dump($results['response']);die;
-        $resultArray = array();
-        $stackorno;
-        
-        $counter = 0;
-        
-        $quantitiesFullyFunctional = $quantitiesNonFunctional = array();
-        $mch = $other = $opd = $ward = $clinic = array();
-        
-        //$category = $frequencyCategories;
-        switch ($choice) {
-            case 'Frequency':
-                $frequencyNever = $frequencyAlways = $frequencySometimes = array();
-                $datas['availability'] = 1;
-                $frequencyCategories = $frequency['categories'];
-                $frequencyNever = $frequency['responses']['Never Available'];
-                $frequencyAlways = $frequency['responses']['Available'];
-                $frequencySometimes = $frequency['responses']['Sometimes Available'];
-                $resultArray = array(array('name' => 'Always', 'data' => $frequencyAlways), array('name' => 'Sometimes', 'data' => $frequencySometimes), array('name' => 'Never', 'data' => $frequencyNever));
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-
-            case 'Location':
-                
-                //var_dump($location['Table spoons']);die;
-                $location = $results['location']['responses'];
-                $locationCategories = $results['location']['categories'];
-                foreach ($location as $key => $loc) {
-                    
-                    if (array_key_exists('MCH', $loc) == true) {
-                        $mch[] = $loc['MCH'];
-                    } else {
-                        $mch[] = 0;
-                    }
-                    if (array_key_exists('Other', $loc) == true) {
-                        $other[] = $loc['Other'];
-                    } else {
-                        $other[] = 0;
-                    }
-                    if (array_key_exists('OPD', $loc) == true) {
-                        $opd[] = $loc['OPD'];
-                    } else {
-                        $opd[] = 0;
-                    }
-                    if (array_key_exists('Ward', $loc) == true) {
-                        $ward[] = $loc['Ward'];
-                    } else {
-                        $ward[] = 0;
-                    }
-                    if (array_key_exists('U5 Clinic', $loc) == true) {
-                        $clinic[] = $loc['U5 Clinic'];
-                    } else {
-                        $clinic[] = 0;
-                    }
-                    
-                    //var_dump ($location);die;
-                    
-                    
-                }
-                
-                //var_dump($other);
-                $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'Other', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'Ward', 'data' => $ward), array('name' => 'U5 Clinic', 'data' => $clinic));
-                
-                //var_dump($resultArray);die;
-                $stackorno = 'charts/chart_stacked_v';
-                break;
-        }
-        $category = $categories;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey);
     }
     
     /**
@@ -1648,7 +1288,7 @@ ORDER BY fac_level;");
         $county = $this->session->userdata('county_analytics');
         $options = '';
         $results = $this->m_analytics->getSpecificDistrictNames($county);
-        $options = '<option selected=selected>Viewing All</option>';
+        $options = '<option selected=selected>Please Select a District</option>';
         foreach ($results as $result) {
             $options.= '<option>' . $result['facDistrict'] . '</option>';
         }
@@ -2102,42 +1742,6 @@ ORDER BY fac_level;");
     }
     
     /**
-     * [getQuestionStatistics description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @param  [type] $for      [description]
-     * @return [type]           [description]
-     */
-    public function getQuestionStatistics($criteria, $value, $survey, $for) {
-        
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
-        
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        $number = $resultArray = $q = array();
-        $number = $resultArray = $q = $yes = $no = array();
-        foreach ($results as $key => $value) {
-            $q[] = $key;
-            $yes[] = (int)$value['yes'];
-            $no[] = (int)$value['no'];
-        }
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
-        $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
-    
-    public function getHIV($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
-    }
-    public function getJobAids($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'job');
-    }
-    public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
-    }
-    
-    /**
      * Deliveriy Preparedness
      */
     public function getDeliveryPreparedness($criteria, $value, $survey) {
@@ -2337,7 +1941,8 @@ ORDER BY fac_level;");
 
             default:
                 $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
-                $datas['chart_width'] = 300;
+                
+                //$datas['chart_width'] = 100;
                 break;
         }
         $datas['chart_stacking'] = $stacking;
