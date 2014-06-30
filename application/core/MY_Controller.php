@@ -3546,8 +3546,8 @@ class MY_Controller extends CI_Controller
         //echo $this->suppliesUsageAndOutageSection;die;
         return $this->suppliesUsageAndOutageSectionPDF;
     }
-    public function getSection($survey, $fac_mfl) {
-        $this->db->select_max('ast_id', 'maxId');
+    public function getSection($survey, $fac_mfl,$survey_category) {
+        /*$this->db->select_max('ast_id', 'maxId');
         $result = $this->db->get_where('assessment_tracker', array('ast_survey' => $survey, 'facilityCode' => $fac_mfl));
         $result = $result->result_array();
         $maxId = $result[0]['maxId'];
@@ -3556,7 +3556,23 @@ class MY_Controller extends CI_Controller
         $result = $this->db->get_where('assessment_tracker', array('ast_id' => $maxId));
         $result = $result->result_array();
 
-        //var_dump($result);die;
+        //var_dump($result);die;*/
+        $query = "SELECT 
+    max(ast_section) as ast_section, facilityCode,st.st_name,sc.sc_name
+FROM
+    assessment_tracker ast
+        JOIN
+    survey_status ss ON (ast.ss_id = ss.ss_id  )
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id AND st.st_name='".$survey."')
+        JOIN
+    survey_categories sc ON (sc.sc_id = ss.sc_id AND sc.sc_name='".$survey_category."')
+WHERE facilityCode=".$fac_mfl."
+GROUP BY st_name,sc_name,facilityCode;";
+$result = $this->db->query($query);
+$result = $result->result_array();
+
+
         $section = (($result) != NULL) ? $result[0]['ast_section'] : NULL;
         return json_encode((int)trim($section, 'section-'));
     }
@@ -3579,11 +3595,14 @@ class MY_Controller extends CI_Controller
                 $fac_mfl = $value['facMfl'];
                 $survey = $this->session->userdata('survey');
                 if ($survey == 'mnh') {
-                    $total = 7;
-                } else {
-                    $total = 6;
+                    $total = 8;
+                } else if($survey == 'ch') {
+                    $total = 9;
                 }
-                $current = $this->getSection($survey, $fac_mfl);
+                else{
+                    $total=5;
+                }
+                $current = $this->getSection($survey, $fac_mfl,'mid-term');
                 $progress = round(($current / $total) * 100);
                 if ($progress == 0) {
                     $linkText = 'Begin Survey';
