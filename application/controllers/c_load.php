@@ -2094,7 +2094,7 @@ public function get_hcw_form() {
 <p class="message success">SECTION 2B: ASSESSMENT OF THE SICK YOUNG INFANT(IF APPLICABLE)</p>
 <table class="centre">
     	<tr>
-    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "pnechoice" value = "1" onclick = "toggle_table();" id = "r1">Yes</input> <input id = "r2" type = "radio" name = "pnechoice" value = "0" onclick = "toggle_table();">No</input>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "pnechoice" value = "1" onclick = "toggle_table(this);" id = "r1">Yes</input> <input id = "r2" type = "radio" name = "pnechoice" value = "0" onclick = "toggle_table(this);">No</input>
     	</tr>
     	<p class="instruction">
 		* If NO proceed to the next symptom
@@ -2119,7 +2119,7 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "dgnchoice" value = "0">No</input>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "dgnchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "dgnchoice" value = "0" onclick = "toggle_table(this);">No</input>
     	</tr>
     	<p class="instruction">
     	* If NO proceed to the next symptom
@@ -2138,12 +2138,13 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-    
+    <tbody class = "dgnchoice">
      ' . $this -> mchIndicatorsSection['dgn'] . '
+     </tbody>
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "fevchoice" value = "0">No</input>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "fevchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "fevchoice" value = "0" onclick = "toggle_table(this);">No</input>
     	</tr>
     	<p class="instruction">
     	* If NO proceed to the next symptom
@@ -2162,12 +2163,13 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-    
+    <tbody class = "fevchoice">
      ' . $this -> mchIndicatorsSection['fev'] . '
+     </tbody>
 </table>
 <table class="centre">
 		<tr>
-    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "earchoice" value = "0">No</input>
+    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "earchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "earchoice" value = "0" onclick = "toggle_table(this);">No</input>
     	</tr>
     	<p class="instruction">
     	* If NO proceed to the next symptom
@@ -2186,8 +2188,93 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
+        <tbody class = "earchoice">
      ' . $this -> mchIndicatorsSection['ear'] . '
-</table>
+     </tbody>
+	</table>
+	<p class="message success">ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
+	<table class = "center">
+		<tr>
+	    <td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "svdchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "svdchoice" value = "0" onclick = "toggle_table(this);">No</input>
+	    </tr>
+	    <p class = "instruction">
+	    * If NO proceed to the next symptom
+		</p>
+	    <tr>
+	    	<th width="500px" rowspan = "2">Very Severe Disease</th>
+			<th colspan="2">HCW Response</th>
+	        <th colspan="2">Assessor Response</th>
+	    </tr>
+	    <tr>
+	        <th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    	<th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    </tr>
+	    <tbody class = "svdchoice">
+	    '.$this -> mchIndicatorsSection['svd'].'
+	    </tbody>
+	</table>
+	<table class = "center">
+		<tr>
+	    <td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "jauchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "jauchoice" value = "0" onclick = "toggle_table(this);">No</input>
+	    </tr>
+	    <p class = "instruction">
+	    * If NO proceed to the next symptom
+		</p>
+	    <tr>
+	    	<th width="500px" rowspan = "2">Jaundice</th>
+			<th colspan="2">HCW Response</th>
+	        <th colspan="2">Assessor Response</th>
+	    </tr>
+	    <tr>
+	        <th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    	<th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    </tr>
+	    <tbody class = "jauchoice">
+	    '.$this -> mchIndicatorsSection['jau'].'
+	    </tbody>
+	</table>
+	<table class = "center">
+		<tr>
+	    <td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "eyechoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "eyechoice" value = "0" onclick = "toggle_table(this);">No</input>
+	    </tr>
+	    <p class = "instruction">
+	    * If NO proceed to the next symptom
+		</p>
+	    <tr>
+	    	<th width="500px" rowspan = "2">Eye Infection</th>
+			<th colspan="2">HCW Response</th>
+	        <th colspan="2">Assessor Response</th>
+	    </tr>
+	    <tr>
+	        <th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    	<th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    </tr>
+	    <tbody class = "eyechoice">
+	    '.$this -> mchIndicatorsSection['eye'].'
+	    </tbody>
+	</table>
+	<table class = "center">
+	    <tr>
+	    	<th width="500px" rowspan = "2">Assess Breastfeeding</th>
+			<th colspan="2">HCW Response</th>
+	        <th colspan="2">Assessor Response</th>
+	    </tr>
+	    <tr>
+	        <th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    	<th style="width:100px">Response</th>
+	    	<th style="width:400px">Findings</th>
+	    </tr>
+	    <tbody>
+	    '.$this -> mchIndicatorsSection['brf'].'
+	    </tbody>
+	</table>
 </div>
 
 <div id="section-3" class="step">

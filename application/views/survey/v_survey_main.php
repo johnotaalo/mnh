@@ -831,12 +831,20 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 					 }
 				}// close select treatment
 
-				function toggle_table()
+				function toggle_table(el)
 				{	
-					var valueme = document.getElementById('r2').value;
-					if (valueme === 0) {
-						
-					};
+					id = $(el).attr("id");
+				    name = $(el).attr("name");
+				    radioValue = $(el).attr("value");
+				    // alert("This is the id: "+id+" and definately the name: "+name);
+				    if(radioValue === '1')
+				    {
+				    	$('.'+name).show();
+				    }
+				    else
+				    {
+				    	$('.'+name).hide();
+				    }
 				}
 				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
