@@ -62,6 +62,7 @@ body {
 	font: normal 75% sans-serif;
 	width: 100%;
 	line-height: 1.5;
+	padding-bottom:5%;
 }
 
 /*
@@ -375,7 +376,6 @@ tbody tr.odd td {
 	background: #FBE3E4;
 	color: #8A1F11;
 	border-color: #FBC2C4;
-	display:inline-block;
 }
 .error a {
 	color: #8A1F11;
@@ -1322,15 +1322,14 @@ img.alignright, img.right {
 	text-decoration: none;
 }
 .tile li {
-	padding: 0 5% 0 5%;
+	
 }
 .tile .active {
 	color: white;
 	background: #999;
 }
 .tile li:hover {
-	background: #ddd;
-	color: white;
+	
 }
 .left i, .current-tab i {
 	padding-right: 2%;
@@ -1382,6 +1381,29 @@ td input[type="number"]{
 	height:2em;
 }
 td input[type="text"]{
+	width:100%;
 	height:2em;
 }
+select{
+	width:100% !important;
+}
+.specific-treatment{
+	width:100%;
+	min-height:60px;
+}
+.specific-treatment input[type="number"]{
+	float:right;
+}
+.specific-treatment input[type="checkbox"]{
+	margin-right:10px;
+}
+
+.treatmentdropdownarea
+{
+	max-height: 15em; 
+	overflow: auto;
+}
+
+
+
 

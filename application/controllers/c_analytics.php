@@ -24,7 +24,7 @@ class C_Analytics extends MY_Controller
         //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
     }
-    public function setActive($county, $survey) {
+	public function setActive($county, $survey) {
         
         $county = urldecode($county);
         
@@ -38,6 +38,7 @@ class C_Analytics extends MY_Controller
         
         redirect($survey . '/analytics');
     }
+    
     /**
      * [active_results description]
      * @param  [type] $survey
@@ -98,7 +99,7 @@ class C_Analytics extends MY_Controller
         $results = $this->m_analytics->getORTCornerEquipmement('county', 'Nairobi', 'complete', 'ch');
         
         //var_dump($results[1]);
-        //var_dump($results);
+        var_dump($results);
     }
     
     public function getReportingCountyList($survey) {
@@ -112,14 +113,14 @@ class C_Analytics extends MY_Controller
         }
         
         //var_dump($this -> session -> userdata('allCounties')); exit;
-        //echo $options;
+        echo $options;
     }
     public function getTotalCounties($survey) {
         $data = $this->m_analytics->getReportingCounties($survey);
         
         //echo '<pre>';print_r($data);echo '</pre>';
         $counties = (int)sizeof($data);
-       // echo $counties;
+        echo $counties;
     }
     
     public function getAllReportedCounties($survey, $survey_category) {
@@ -134,7 +135,7 @@ class C_Analytics extends MY_Controller
             $allProgress.= $this->getReportedCounty($county, $key);
             $counter++;
         }
-        //echo $allProgress;
+        echo $allProgress;
     }
     
     public function getOneReportingCounty($county, $survey_category) {
@@ -145,7 +146,7 @@ class C_Analytics extends MY_Controller
         //echo $nowCounty;
         $reportingCounty = $this->m_analytics->getReportingRatio($county, $survey, $survey_category);
         $oneProgress = $this->getReportedCounty($reportingCounty, $county);
-       // echo ($oneProgress);
+        echo ($oneProgress);
     }
     
     /**
@@ -206,7 +207,7 @@ class C_Analytics extends MY_Controller
     
     public function test_query_2() {
         $results = $this->m_analytics->getSpecificDistrictNames('Nairobi');
-       // var_dump($results);
+        var_dump($results);
     }
     
     private function ch_survey_response_rate() {
@@ -241,7 +242,7 @@ class C_Analytics extends MY_Controller
                 $dyn_table.= "<tr><td>" . $result['fac_mfl'] . "</td><td>" . $result['fac_name'] . "</td><td>" . $result['fac_district'] . "</td><td>" . $result['fac_county'] . "</td><td>" . $result['facilityInchargeContactPerson'] . "</td><td>" . $result['facilityInchargeEmail'] . "</td><td>" . $dbdate . "</td></tr>";
             }
             $dyn_table.= "</tbody></table>";
-            //echo $dyn_table;
+            echo $dyn_table;
             
             //return $dyn_table;
             
@@ -345,10 +346,10 @@ class C_Analytics extends MY_Controller
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey);
         
-        // echo '<pre>';
-        // print_r($results);
-        // echo '</pre>';
-        // die;
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        die;
         
         foreach ($results as $county) {
             foreach ($county['trained_values'] as $k => $t) {
@@ -411,9 +412,9 @@ class C_Analytics extends MY_Controller
         $this->getCommodityAvailability($criteria, $value, $survey, 'Quantities');
     }
     
-    public function getCommodityStatistics($criteria, $value, $survey,$for,$statistic) {
+    public function getCommodityAvailability($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
-        $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey,$for,$statistic);
+        $results = $this->m_analytics->getCommodityAvailability($criteria, $value, $survey);
         
         //echo '<pre>';print_r($results);echo '</pre>';
         //die ;
@@ -541,6 +542,16 @@ class C_Analytics extends MY_Controller
         $this->getMnhEquipment($criteria, $value, $survey, 'Functionality');
     }
     
+
+    public function getEquipmentStatistics($criteria, $value, $survey,$for,$statistic){
+         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey,$for,$statistic);
+		  foreach ($results as $key => $value) {
+			  echo "<pre>";print_r($results);echo "</pre>";die;
+			  
+		  }
+
+         //echo '<pre>';print_r($results);echo '</pre>';die;
+    }
     public function getMnhEquipment($criteria, $value, $survey, $choice) {
         $value = urldecode($value);
         $results = $this->m_analytics->getMnhEquipment($criteria, $value, $survey);
@@ -661,7 +672,7 @@ class C_Analytics extends MY_Controller
         
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
-	
+    
     /**
      * [getIndicatorStatistics description]
      * @param  [type] $criteria [description]
@@ -673,14 +684,14 @@ class C_Analytics extends MY_Controller
     public function getIndicatorStatistics($criteria, $value, $survey, $for) {
         $value = urldecode($value);
         $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey, $for);
-		foreach ($results['response'] as $service) {
+        foreach ($results['response'] as $service) {
             $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
             $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
         }
         $category = $results['categories'];
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
-         echo '<pre>';print_r($resultArray);echo '</pre>';
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
@@ -736,14 +747,13 @@ class C_Analytics extends MY_Controller
     public function getMNHTools($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'tl');
     }
+
     public function getChHealthServices($criteria, $value, $survey) {
+
         $this->getIndicatorStatistics($criteria, $value, $survey, 'hs');
     }
-    public function getCertificationA($criteria, $value, $survey) {
-        $this->getIndicatorStatistics($criteria, $value, $survey, 'certa');
-    }
-	public function getCertificationB($criteria, $value, $survey) {
-        $this->getIndicatorStatistics($criteria, $value, $survey, 'certb');
+    public function getCaseManagement($criteria, $value, $survey) {
+        $this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
     }
     public function getIMCIConsultation($criteria, $value, $survey) {
         $this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
@@ -752,6 +762,8 @@ class C_Analytics extends MY_Controller
     /*
      * Diarrhoea case numbers per Month
     */
+
+
     public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
         $value = urldecode($value);
         $results = $this->m_analytics->getDiarrhoeaCaseNumbers($criteria, $value, $survey);
@@ -1289,8 +1301,7 @@ class C_Analytics extends MY_Controller
         $frequency = $results['response'];
         $categories = $results['categories'];
         
-        //var_dump($results['response']);
-        //die;
+        //var_dump($results['response']);die;
         $resultArray = array();
         $stackorno;
         

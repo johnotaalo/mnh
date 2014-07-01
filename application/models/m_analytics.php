@@ -446,9 +446,11 @@ ORDER BY gt.guide_code ASC";
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     
-                    foreach ($this->dataSet as $value_) {
-                    	
-                    }
+                    //foreach ($this->dataSet as $value_) {
+                    	foreach ($this->dataSet as $key => $value) {
+						//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+					}
+                    
                 } else {
                     return null;
                 }
@@ -503,7 +505,8 @@ ORDER BY gt.guide_code ASC";
         }
         
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-        $query = "SELECT
+        $query = "CALL get_resources('". $criteria ."' , '". $analytic_value ."', '". $survey_type ."', '". $equipmentfor ."','availability' ); ";
+       /* $query = "SELECT
     count(ea.ae_availability) AS total_response,
     ea.eq_code as equipment,
     ea.ae_availability AS frequency
@@ -526,7 +529,7 @@ WHERE
         WHERE
             eq_for = 'ort')
 GROUP BY ea.eq_code , ea.ae_availability
-ORDER BY ea.eq_code ASC";
+ORDER BY ea.eq_code ASC";*/
         try {
             
             $this->dataSet = $this->db->query($query, array($value));
@@ -612,6 +615,7 @@ ORDER BY ea.eq_code ASC";
         /*--------------------end ort equipment availability by frequency----------------------------------------------*/
         
         /*--------------------begin ort equipment location of availability----------------------------------------------*/
+        $query = "CALL get_resources('". $criteria ."' , '". $analytic_value ."', '". $survey_type ."', '". $equipmentfor ."','availability' ); ";
         $query = "SELECT
     count(ea.ae_location) AS total_response,
     ea.eq_code as equipment,
@@ -1470,7 +1474,8 @@ ORDER BY oa.question_code ASC";
         /*
          * Availability, Location and Functionality of Equipment at Equipments Corner
         */
-        public function getEquipmentStatistics($criteria, $value, $survey) {
+        public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
+            $value = urldecode($value);
             
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -1488,13 +1493,21 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    $data_set['Available'] = $data_set['Sometimes Available'] = $data_set['Never Available'] = array();
-                    
-                    //prep data for the pie chart format
-                    $size = count($this->dataSet);
-                    
-                    foreach ($this->dataSet as $value_) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['equipment_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['equipment_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
                     }
+                    
+                    
                 } else {
                     return null;
                 }
@@ -1506,6 +1519,7 @@ ORDER BY oa.question_code ASC";
                 
                 
             }
+            return $data;
         }
         
         public function getSupplyStatistics($criteria, $value, $survey, $for, $statistic) {
@@ -1733,34 +1747,8 @@ LIMIT 0 , 1000
             }
             
             /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-            $query = "SELECT
-   ra.eq_code as equipment,
-    equipments.eq_name,
-    ra.ar_availability AS frequency,
-    count(ra.ar_availability) AS total_response
-FROM
-    available_resources ra
-        JOIN
-    equipments ON ra.eq_code = equipments.eq_code
-WHERE
-    ra.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ra.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = '" . $eq . "')
-GROUP BY ra.eq_code , ra.ar_availability
-ORDER BY ra.eq_code ASC";
+           $query = "CALL get_resources('".$criteria."', '".$analytic_value."', '".$survey_type."', '".$equipmentfor."','".$choice."');";
+    
             try {
                 
                 $this->dataSet = $this->db->query($query, array($value));
@@ -1811,125 +1799,7 @@ ORDER BY ra.eq_code ASC";
             /*--------------------end ort equipment availability by frequency----------------------------------------------*/
             
             /*--------------------begin ort equipment location of availability----------------------------------------------*/
-            $query = "SELECT
-    count(ra.ar_location) AS total_response,
-    ra.eq_code as equipment,
-    ra.ar_location AS location
-FROM
-    available_resources ra
-WHERE
-    ra.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ra.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = '" . $eq . "')
-        AND ra.ar_location NOT LIKE '%Not Applicable%'
-GROUP BY ra.eq_code , ra.ar_location
-ORDER BY ra.eq_code ASC";
-            
-            try {
-                
-                //echo $query;die;
-                //die(print $status.$value);
-                $this->dataSet = $this->db->query($query, array($value));
-                
-                //var_dump($this->dataSet);die;
-                $this->dataSet = $this->dataSet->result_array();
-                
-                //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
-                    
-                    //prep data for the pie chart format
-                    $size = count($this->dataSet);
-                    $count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
-                    
-                    //to hold the location instances
-                    foreach ($this->dataSet as $value_) {
-                        
-                        //1. collect the categories
-                        $data_categories[] = $this->getCHResourcesName($value_['equipment']);
-                        
-                        //incase of duplicates--do an array_unique outside the foreach()
-                        
-                        //2. collect the analytic variables
-                        //$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
-                        
-                        //collect the data_sets from the coma separated responses
-                        if (strpos($value_['location'], 'OPD') !== FALSE) {
-                            $count_instances['OPD']+= intval($value_['total_response']);
-                            $data_set[$this->getCHResourcesName($value_['equipment']) ]['OPD'] = $count_instances['OPD'];
-                        }
-                        if (strpos($value_['location'], 'MCH') !== FALSE) {
-                            $count_instances['MCH']+= intval($value_['total_response']);
-                            $data_set[$this->getCHResourcesName($value_['equipment']) ]['MCH'] = $count_instances['MCH'];
-                        }
-                        if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-                            $count_instances['U5 Clinic']+= intval($value_['total_response']);
-                            $data_set[$this->getCHResourcesName($value_['equipment']) ]['U5 Clinic'] = $count_instances['U5 Clinic'];
-                        }
-                        if (strpos($value_['location'], 'Ward') !== FALSE) {
-                            $count_instances['Ward']+= intval($value_['total_response']);
-                            $data_set[$this->getCHResourcesName($value_['equipment']) ]['Ward'] = $count_instances['Ward'];
-                        }
-                        if (strpos($value_['location'], 'Other') !== FALSE) {
-                            $count_instances['Other']+= intval($value_['total_response']);
-                            $data_set[$this->getCHResourcesName($value_['equipment']) ]['Other'] = $count_instances['Other'];
-                        }
-                    }
-                    
-                    //var_dump($count_instances);die;
-                    //var_dump($data_set);die;
-                    
-                    //make array unique if we got duplicates and set to $data array
-                    $data['categories'] = array_values(array_unique($data_categories));
-                    
-                    //expected 28
-                    
-                    //get a unique set of analytic variables
-                    $analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-                    
-                    //expected to be 5 in this particular context, again we know they r just these 5 :)
-                    $data['analytic_variables'] = $analytic_var;
-                    
-                    //get the data sets
-                    $data['responses'] = $data_set;
-                    
-                    //sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
-                    
-                    $this->final_data_set['location'] = $data;
-                    
-                    //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-                    
-                    $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-                    
-                    //unset the arrays for reuse
-                    
-                    return $this->final_data_set;
-                } else {
-                    return null;
-                }
-            }
-            catch(exception $ex) {
-                
-                //ignore
-                //die($ex->getMessage());//exit;
-                
-                
-            }
-            
-            /*--------------------end ort equipment location of availability----------------------------------------------*/
-        }
+  }         
         
         public function get_response_count($survey) {
             try {
@@ -4313,10 +4183,10 @@ WHERE
             catch(exception $ex) {
             }
         }
-
-        public function getFacilityProgress($survey,$survey_category){
-
-            $query = "CALL get_facility_activity('".$survey."','".$survey_category."');";
+        
+        public function getFacilityProgress($survey, $survey_category) {
+            
+            $query = "CALL get_facility_activity('" . $survey . "','" . $survey_category . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
@@ -4327,18 +4197,20 @@ WHERE
                 
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
-                    foreach($this->dataSet as $value){
+                    foreach ($this->dataSet as $value) {
+                        
                         //echo $value['ast_last_activity'];
-                    $day = new DateTime($value['ast_last_activity']);
-                    $day= $day->format('M-Y');
-                    $data[$day][]=$value;
+                        $day = new DateTime($value['ast_last_activity']);
+                        $day = $day->format('M-Y');
+                        $data[$day][] = $value;
                     }
+                    
                     //die;
+                    
                 }
                 return $data;
             }
-            catch(exception $e){
-
+            catch(exception $e) {
             }
         }
     }

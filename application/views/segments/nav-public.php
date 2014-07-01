@@ -29,6 +29,9 @@
 							<li>
 								<a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
 							</li>
+							<li>
+								<a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool - Baseline </a>
+							</li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -39,6 +42,9 @@
 							</li>
 							<li>
 								<a href="<?php echo base_url(); ?>ch/analytics" id="mch_analytics"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
+							</li>
+							<li>
+								<a href="<?php echo base_url(); ?>hcw/analytics" id="mch_analytics"> 3. IMCI Follow-Up Tool Analysis - Baseline </a>
 							</li>
 						</ul>
 					</li>
@@ -69,6 +75,9 @@
 					</li>
 					<li>
 						<a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
+					</li>
+					<li>
+						<a href="<?php echo $this -> config -> item('hcmp_url'); ?>">HCMP</a>
 					</li>
 				</ul>
 			</div>
