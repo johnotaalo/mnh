@@ -525,6 +525,109 @@ ORDER BY fac_level;");
     }
     
     /**
+     * [getSuppliesStatistics description]
+     * @param  [type] $criteria  [description]
+     * @param  [type] $value     [description]
+     * @param  [type] $survey    [description]
+     * @param  [type] $for       [description]
+     * @param  [type] $statistic [description]
+     * @return [type]            [description]
+     */
+    public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        die;
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available' && $name != 'N/A') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+        }
+        
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    /**
+     * [getMNHSuppliesAvailability description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHSuppliesAvailability($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+    }
+    
+    /**
+     * [getMNHSuppliesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHSuppliesLocation($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'mnh', 'location');
+    }
+    
+    /**
+     * [getCHSuppliesAvailability description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCHSuppliesAvailability($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'ch', 'availability');
+    }
+    
+    /**
+     * [getCHSuppliesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getCHSuppliesLocation($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'ch', 'location');
+    }
+    
+    /**
+     * [getRunningWaterAvailability description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getRunningWaterAvailability($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'mh', 'availability');
+    }
+    
+    /**
+     * [getRunningWaterLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getRunningWaterLocation($criteria, $value, $survey) {
+        $this->getSuppliesStatistics($criteria, $value, $survey, 'mh', 'location');
+    }
+    
+    /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
      * @param  [type] $value     [description]
@@ -1066,12 +1169,6 @@ ORDER BY fac_level;");
         $datas['yAxis'] = 'Occurence';
         $datas['resultArray'] = $resultArray;
         $this->load->view('charts/chart_pie_v', $datas);
-    }
-    
-    public function getSuppliesStatistics($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
-        $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey);
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
