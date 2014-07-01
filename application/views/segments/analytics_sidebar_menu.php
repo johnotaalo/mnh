@@ -143,13 +143,13 @@ switch($this->session->userdata('survey')) {
 				<li id="ORTCornerAssessment">
 					<a href="#">ORT Corner Assessment</a>
 				</li>
-				<li id="ORTCornerEquipmentFrequency">
+				<li id="CHEquipmentFrequency">
 					<a href="#">ORT Corner Equipment Availability</a>
 				</li>
-				<li id="ORTCornerEquipmentFunctionality">
+				<li id="CHEquipmentFunctionality">
 					<a href="#">ORT Corner Equipment Functionality</a>
 				</li>
-				<li id="ORTCornerEquipmentLocation">
+				<li id="CHEquipmentLocation">
 					<a href="#">ORT Corner Equipment Location</a>
 				</li>
 			</ul>
@@ -157,8 +157,11 @@ switch($this->session->userdata('survey')) {
 		<li id="supplies-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="suppliesFrequency">
+				<li id="CHSuppliesAvailability">
 					<a href="#">Supplies Availability</a>
+				</li>
+				<li id="CHSuppliesLocation">
+					<a href="#">Supplies Location</a>
 				</li>
 				<li id="CHSuppliesSupplier">
 					<a href="#">Suppliers</a>
@@ -286,13 +289,13 @@ case 'mnh' :
 		<li id="equipments-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Equipment</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="equipmentFrequency">
+				<li id="MNHEquipmentFrequency">
 					<a href="#">Equipment Availability</a>
 				</li>
-				<li id="equipmentLocation">
+				<li id="MNHEquipmentLocation">
 					<a href="#">Equipment Location</a>
 				</li>
-				<li id="equipmentFunctionality">
+				<li id="MNHEquipmentFunctionality">
 					<a href="#">Equipment Functionality</a>
 				</li>
 			</ul>
@@ -300,13 +303,13 @@ case 'mnh' :
 		<li id="supplies-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Supplies</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="suppliesFrequency">
+				<li id="MNHSuppliesAvailability">
 					<a href="#">Supplies Availability</a>
 				</li>
-				<li id="suppliesLocation">
+				<li id="MNHSuppliesLocation">
 					<a href="#">Supplies Location</a>
 				</li>
-				<li id="suppliesSuppliers">
+				<li id="SuppliesSuppliers">
 					<a href="#">Suppliers</a>
 				</li>
 			</ul>

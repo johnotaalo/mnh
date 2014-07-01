@@ -906,15 +906,16 @@ ORDER BY ca.comm_code";
         }
         
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-        $query = "CALL get_resources('". $criteria ."' , '". $analytic_value ."', '". $survey_type ."', '". $equipmentfor ."','availability' ); ";
-       /* $query = "SELECT
-    count(ea.ae_availability) AS total_response,
-    ea.eq_code as equipment,
-    ea.ae_availability AS frequency
-FROM
-    available_equipments ea
-WHERE
-    ea.fac_mfl IN (SELECT
+        $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
+        
+        /* $query = "SELECT
+        count(ea.ae_availability) AS total_response,
+        ea.eq_code as equipment,
+        ea.ae_availability AS frequency
+        FROM
+        available_equipments ea
+        WHERE
+        ea.fac_mfl IN (SELECT
             fac_mfl
         FROM
             facilities f
@@ -929,8 +930,8 @@ WHERE
             equipments
         WHERE
             eq_for = 'ort')
-GROUP BY ea.eq_code , ea.ae_availability
-ORDER BY ea.eq_code ASC";*/
+        GROUP BY ea.eq_code , ea.ae_availability
+        ORDER BY ea.eq_code ASC";*/
         try {
             
             $this->dataSet = $this->db->query($query, array($value));
@@ -1016,7 +1017,7 @@ ORDER BY ea.eq_code ASC";*/
         /*--------------------end ort equipment availability by frequency----------------------------------------------*/
         
         /*--------------------begin ort equipment location of availability----------------------------------------------*/
-        $query = "CALL get_resources('". $criteria ."' , '". $analytic_value ."', '". $survey_type ."', '". $equipmentfor ."','availability' ); ";
+        $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
         $query = "SELECT
     count(ea.ae_location) AS total_response,
     ea.eq_code as equipment,
@@ -1508,9 +1509,14 @@ WHERE
             return $this->dataSet;
         }
         
-        /*
-         * Services to Children with Diarrhoea
-        */
+        /**
+         * [getIndicatorStatistics description]
+         * @param  [type] $criteria [description]
+         * @param  [type] $value    [description]
+         * @param  [type] $survey   [description]
+         * @param  [type] $for      [description]
+         * @return [type]           [description]
+         */
         public function getIndicatorStatistics($criteria, $value, $survey, $for) {
             
             /*using CI Database Active Record*/
@@ -1871,11 +1877,18 @@ ORDER BY oa.question_code ASC";
             }
         }
         
-        /*
-         * Availability, Location and Functionality of Equipment at Equipments Corner
-        */
+        /**
+         * [getEquipmentStatistics description]
+         * @param  [type] $criteria  [description]
+         * @param  [type] $value     [description]
+         * @param  [type] $survey    [description]
+         * @param  [type] $for       [description]
+         * @param  [type] $statistic [description]
+         * @return [type]            [description]
+         */
         public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
             $value = urldecode($value);
+            $newData = array();
             
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -1907,7 +1920,34 @@ ORDER BY oa.question_code ASC";
                         }
                     }
                     
-                    
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
                 } else {
                     return null;
                 }
@@ -1919,10 +1959,20 @@ ORDER BY oa.question_code ASC";
                 
                 
             }
+            
             return $data;
         }
         
-        public function getSupplyStatistics($criteria, $value, $survey, $for, $statistic) {
+        /**
+         * [getSuppliesStatistics description]
+         * @param  [type] $criteria  [description]
+         * @param  [type] $value     [description]
+         * @param  [type] $survey    [description]
+         * @param  [type] $for       [description]
+         * @param  [type] $statistic [description]
+         * @return [type]            [description]
+         */
+        public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
             
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -1940,30 +1990,58 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['supply_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+
                 }
             }
             catch(exception $ex) {
             }
+            return $data;
         }
+
         
-        public function getMNHSuppliesAvailability($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'mnh', 'availability');
-        }
-        public function getMNHSuppliesLocation($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'mnh', 'location');
-        }
-        public function getCHSuppliesAvailability($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'ch', 'availability');
-        }
-        public function getCHSuppliesLocation($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'ch', 'location');
-        }
-        public function getRunningWaterAvailability($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'mh', 'availability');
-        }
-        public function getRunningWaterLocation($criteria, $value, $survey) {
-            $this->getSupplyStatistics($criteria, $value, $survey, 'mh', 'location');
-        }
+        
         
         /*
          * Availability, Location and Functionality of Supplies at ORT Corner
@@ -2099,7 +2177,7 @@ LIMIT 0 , 1000
         /*
          *  Availability, Location and Functionality of Electricity and Hardware Resources
         */
-        public function getResources($criteria, $value, $survey) {
+        public function getResourcesStatistics($criteria, $value, $survey) {
             
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -2112,12 +2190,10 @@ LIMIT 0 , 1000
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-        
-           
             
             /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-           $query = "CALL get_resources('".$criteria."', '".$analytic_value."', '".$survey_type."', '".$equipmentfor."','".$choice."');";
-    
+            $query = "CALL get_resources('" . $criteria . "', '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','" . $choice . "');";
+            
             try {
                 
                 $this->dataSet = $this->db->query($query, array($value));
@@ -2135,7 +2211,6 @@ LIMIT 0 , 1000
                     echo '</pre>';
                     die;
                     foreach ($this->dataSet as $value) {
-
                     }
                     return $this->dataSet;
                     
@@ -2156,8 +2231,8 @@ LIMIT 0 , 1000
                 //ignore
                 //die($ex->getMessage());//exit;
                 
-                }
-           
+                
+            }
         }
         public function get_response_count($survey) {
             try {
@@ -2192,7 +2267,6 @@ ORDER BY lastActivity DESC";
             
             return $this->dataSet;
         }
-
         
         function getSpecificDistrictNames($county) {
             
@@ -2276,7 +2350,7 @@ ORDER BY lastActivity DESC";
                     $search = "ss_id='complete'";
                     break;
             }
-            $myOptions = '<option>Viewing All</option>';
+            $myOptions = '<option>Please Select a Facility</option>';
             
             /*using CI Database Active Record*/
             try {
@@ -2331,7 +2405,7 @@ ORDER BY fac_name;";
         }
         
         public function getFacilitiesByDistrictOptionsNew($district, $table) {
-            $myOptions = '<option>Viewing All</option>';
+            $myOptions = '<option>Please Select a Facility</option>';
             
             /*using CI Database Active Record*/
             try {
@@ -4110,7 +4184,12 @@ ORDER BY question_code";
         }
         
         /**
-         * Deliveries Conducted
+         * [getQuestionStatistics description]
+         * @param  [type] $criteria [description]
+         * @param  [type] $value    [description]
+         * @param  [type] $survey   [description]
+         * @param  [type] $for      [description]
+         * @return [type]           [description]
          */
         public function getQuestionStatistics($criteria, $value, $survey, $for) {
             
@@ -4565,6 +4644,7 @@ WHERE
                     }
                     
                     //die;
+                    
                     
                 }
                 return $data;

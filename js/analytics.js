@@ -132,6 +132,8 @@ function startAnalytics(base_url, county, survey) {
         $('.has-sub.start a').remove('span');
 
         $('span.statistic').text($(this).find('a').text());
+        $('#breadcrumb-title').text( $(this).parent().parent().find('a .title').text());
+        $('#breadcrumb-sub-title').text($(this).find('a').text());
         $(this).parent().parent().addClass('active');
         $(this).parent().parent().find('a').append('<span class="selected"></span>');
 
