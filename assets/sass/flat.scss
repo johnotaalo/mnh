@@ -2,6 +2,7 @@
 
 @import "variables";
 @import "bootstrap";
+@import "CSS:../stylesheets/metronic";
 
 @mixin inner-style($height){
     overflow-y: auto;
@@ -165,22 +166,117 @@ table{
     }
     tbody{
 
-    tr{
-        background:#c8defc;
-    }
+        tr{
+            background:#c8defc;
+        }
         th{
-           background:#72bcf5;
+            background:#72bcf5;
         }
     }
     td,th{
         margin-bottom: 5px;
         padding:0.5%;
         border:2px solid white;
-            }
+    }
 }
 .begin:hover{
     cursor:hand;
 }
 .instruction{
     background:#ffeacc;
+}
+.message.success{
+    padding:0.5%;
+    background:#ecf0f1;
+}
+#sectionNavigation{
+    width:40%;
+    margin:auto;
+    input{
+        @extend .btn;
+        @extend.btn-primary;
+        width:45%;
+        display: inline-block;
+    }
+}
+
+.portlet.box{
+    @extend .col-md-6;
+    .portlet-title{
+        h4{
+            font-weight:bolder;
+            padding:1% 1.5%;
+            background:#ecf0f1;
+            i{
+                padding-right:2%;
+            }
+            .statistic-free{
+                font-weight: normal;
+                padding-right:2%;
+            }
+        }
+    }
+    .portlet-body{
+        height:300px;
+        overflow-y:auto;
+    }
+}
+
+#reporting {
+    overflow-y: auto;
+    height: 300px;
+    width: 97%;
+    padding: 10px;
+}
+#reporting label, #reportingBar label {
+    vertical-align: top;
+    display: inline-block;
+    width: 40%;
+}
+#reporting .progress, #reportingBar .progress {
+    display: inline-block;
+    width: 55%;
+    margin-bottom: 0;
+}
+#countyHeader {
+    width: 35%;
+}
+#countyHeader, #progressHeader {
+    display: inline-block;
+    vertical-align: top;
+}
+#progressHeader {
+    width: 64%;
+}
+.progressRow {
+    border-bottom: 1px solid #bbbbbb;
+}
+#reportingLabel{
+    max-width:60%;
+    padding-left:5%;
+    margin-bottom: 0 !important;
+}
+#reportingLabel #reportingBar{
+    max-width:60%;
+    margin-bottom: 0 !important;
+}
+#reportingLabel #reportingBar .progressRow{
+    border-bottom:none;
+}
+
+#county_select_label{
+    padding-left:5%;
+    max-width:25%;
+    margin-bottom: 0 !important;
+}
+#county_select_label select{
+    max-width:55% !important;
+    height:auto;
+    margin-bottom: 0 !important;
+}
+
+#reportingBar {
+    display: inline-block;
+    max-width: 70% !important;
+    margin-bottom: 0 !important;
 }

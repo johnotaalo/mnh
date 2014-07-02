@@ -989,8 +989,8 @@ class C_Load extends MY_Controller {
 
      </div>
      <div id="sectionNavigation" class="buttonsPane">
-        <input title="To View Previous Section" id="back" value="View Previous Section" class="awesome blue medium" type="reset"/>
-        <input title="To Save This Section" id="submit" class="awesome blue medium"  type="submit" name="post_form" value="Save and Go to the Next Section"/>
+        <input title="To View Previous Section" id="back" value="View Previous Section" class="" type="reset"/>
+        <input title="To Save This Section" id="submit" class=""  type="submit" name="post_form" value="Save and Go to the Next Section"/>
         </div>
     </form>';
         $data['form'] = $this -> combined_form;
