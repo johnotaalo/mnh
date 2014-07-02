@@ -2076,13 +2076,16 @@ class MY_Controller extends CI_Controller
 
         //var_dump($this->data_found);die;
         $counter = 0;
+        $countme = 0;
         $section = '';
         $numbering = array_merge(range('A', 'Z'), range('a', 'z'));
         $base = 0;
+        $b = 0;
         $current = "";
 
         foreach ($this->data_found as $value) {
             $counter++;
+            $b++;
             $section = $value['indicatorFor'];
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
@@ -2122,18 +2125,37 @@ class MY_Controller extends CI_Controller
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
                 } else {
-                    $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td>Yes <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
-            </td>
-            <td>' . $findingHCWRow . '</td>
-            <td>Yes <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">
-            </td>
-            <td>' . $findingAssessorRow . '</td>
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-                }
+                    if($value['indicatorCode']=='CHI105')
+                    {
+                            $data[$section][] = '<tr><th colspan="5"><strong>(' . $numbering[$base - 1] . ')</strong>Breathing</th></tr>';
+                    }
+                        if(($value['indicatorCode']>='CHI105')&&($value['indicatorCode']<='CHI110')){
+                            $countme++;
+                                         $data[$section][] = '
+                                     <tr>
+                                <td colspan="1"><strong>(' . $numbering[$base - 1]. ')</strong> ' . $value['indicatorName'] . '</td>
+                                <td>Yes <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
+                                </td>
+                                <td>' . $findingHCWRow . '</td>
+                                <td>Yes <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">
+                                </td>
+                                <td>' . $findingAssessorRow . '</td>
+                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+                            </tr>';
+                                    }
+                                    else{
+                                        $data[$section][] = '
+                                    <tr>
+                                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+                                <td>Yes <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
+                                </td>
+                                <td>' . $findingHCWRow . '</td>
+                                <td>Yes <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">
+                                </td>
+                                <td>' . $findingAssessorRow . '</td>
+                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+                            </tr>';
+                                    }}
             } elseif ($section == 'sgn') {
                 $data[$section][] = '
                 <tr>
@@ -2145,13 +2167,15 @@ class MY_Controller extends CI_Controller
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
             } else {
-                $data[$section][] = '
+
+                    $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
             <td>Yes <input name="indicatorhcwResponse_' . $counter . '" id="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
+                
             }
         }
 
