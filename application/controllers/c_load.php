@@ -2395,11 +2395,11 @@ If YES to all, consider HCW for TOT and Mentorship Training
             <th colspan="22" >' . strtoupper($this -> session -> userdata('dName')) . ' DISTRICT/SUB-COUNTY FACILITIES</th>
         </thead>
 
-            <th colspan="1"></th>
-            <th  colspan="7">MFL CODE</th>
-            <th   colspan="4"> FACILITY NAME </th>
-            <th  colspan="5">SURVEY STATUS</th>
-            <th  colspan="5">ACTION</th>
+            <th>#</th>
+            <th>MFL CODE</th>
+            <th> FACILITY NAME </th>
+            <th>SURVEY STATUS</th>
+            <th>ACTION</th>
 
         </tr>' . $this -> districtFacilityListSection . '
         </table>';

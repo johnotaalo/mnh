@@ -2235,7 +2235,7 @@ $this->createWorkProfileSection();
             </td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-                
+
             }
         }
 
@@ -3688,7 +3688,7 @@ $this->createWorkProfileSection();
         $result = $result->result_array();
 
         //var_dump($result);die;*/
-        $query = "SELECT 
+        $query = "SELECT
     max(ast_section) as ast_section, facilityCode,st.st_name,sc.sc_name
 FROM
     assessment_tracker ast
@@ -3746,13 +3746,13 @@ $result = $result->result_array();
                     $linkClass = 'action';
                 }
 
-                $link = '<td><div class="progress">  <div class="bar" style="width: ' . $progress . '%;">' . $progress . ' %</div>  </div></td>';
-                $link.= '<td colspan="5" id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
+                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="sr-only">60% Complete</span></div></div></td>';
+                $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
 
                 $this->districtFacilityListSection.= '<tr>
-        <td colspan="1">' . $counter . '</td>
-            <td colspan="7" >' . $value['facMfl'] . '</td>
-            <td colspan="4">' . $value['facName'] . '</td>
+        <td>' . $counter . '</td>
+            <td>' . $value['facMfl'] . '</td>
+            <td>' . $value['facName'] . '</td>
 
             ' . $link . '
             </tr>';

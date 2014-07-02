@@ -16,11 +16,12 @@
 
 
     <!-- New Bower Components -->
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/bootstrap.css">
+
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
+<link rel="stylesheet" href="<?echo base_url();?>assets/stylesheets/flat.css">
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/intro.js/introjs.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/stylesheets/flat.css">
+
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
 
 
