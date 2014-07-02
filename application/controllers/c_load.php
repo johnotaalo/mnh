@@ -2439,16 +2439,16 @@ If YES to all, consider HCW for TOT and Mentorship Training
             <td>Action/s taken by supervisee:</td>
         </tr>
         <tr>
-            <td><textarea style="width:400px;height:100px"></textarea></td>
-            <td><textarea style="width:400px;height:100px"></textarea></td>
+            <td><textarea name="hcwConclusionActionSupervisor_1" style="width:400px;height:100px"></textarea></td>
+            <td><textarea name="hcwConclusionActionSupervisee_1" style="width:400px;height:100px"></textarea></td>
         </tr>
         <tr>
-            <td>Supervisor Signature<input type="text" style="width:500px;padding:10px"></td>
-            <td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
+            <td>Supervisor Signature<input name="hcwConclusionSignatureSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+            <td>Supervisee Signature<input name="hcwConclusionSignatureSupervisee_1" type="text" style="width:500px;padding:10px"></td>
         </tr>
         <tr>
-            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
-            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
+            <td>Date	<input name="hcwConclusionDateSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+            <td>Date	<input name="hcwConclusionDateSupervisee_1" type="text" style="width:500px;padding:10px"></td>
         </tr>
     </tbody>
 </table>

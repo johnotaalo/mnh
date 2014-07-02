@@ -2034,6 +2034,7 @@ private function addhcwWorkProfile() {
 
     private function addMCHIndicatorInfo() {
          $count = $finalCount = 1;
+         // print_r($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
             if (strpos($key, 'indicator') !== FALSE) {
@@ -2089,7 +2090,7 @@ private function addhcwWorkProfile() {
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
+    //echo '<pre>';print_r($this->elements);echo '</pre>';die;
 
         //exit;
 
@@ -2132,7 +2133,7 @@ private function addhcwWorkProfile() {
                 }
                 catch(Exception $ex) {
 
-                    die($ex->getMessage());
+                    //die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -2154,7 +2155,7 @@ private function addhcwWorkProfile() {
                 }
                 catch(Exception $ex) {
 
-                    die($ex->getMessage());
+                    //die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -2174,7 +2175,7 @@ private function addhcwWorkProfile() {
 
         }
          //end of innner loop
-
+return true;
 
     }
      //close addMCHIndicatorInfo

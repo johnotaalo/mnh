@@ -2170,8 +2170,8 @@ $this->createWorkProfileSection();
                                 $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
                                 $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
                             } else {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio">';
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="'.$finding.'">';
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="'.$finding.'">';
                             }
                         }
                     }
@@ -2409,15 +2409,15 @@ $this->createWorkProfileSection();
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
          <td>March <input name="questionResponse_'.$counter.'"  type="text">  April <input name="questionResponse_'.$counter.'"  type="text">
             May <input name="questionResponse_'.$counter.'"  type="text"></td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
                  }
                  else{
                     $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="checkbox"> No <input value="No" name="mchIndicator_'.$counter.'"  type="checkbox"></td>
-            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+         <td>Yes <input name="questionResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="questionResponse_'.$counter.'"  type="radio"></td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
                  }
 
