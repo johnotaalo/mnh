@@ -73,7 +73,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSection();
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
-        $this->createHcwProfileSection();
+       // $this->createHcwProfileSection();
         $this->createmchConsultationSection();
         $this->createHealthSection();
         //pdf functions
@@ -158,7 +158,7 @@ class MY_Controller extends CI_Controller
 
          $this->  createInterviewAspectsSection();
           $this->  createInterviewAspectsSectionforPDF();
-
+$this->createWorkProfileSection();
 
 
     }
@@ -1034,29 +1034,88 @@ class MY_Controller extends CI_Controller
         return $this->mnhCommunityStrategySectionPDF;
     }
 
-       /**Function to create the section: Child Health--HCW Profile
+      /**Function to create the section: Child Health--HCW Work Profile
      * */
-    public function createHcwProfileSection() {
-        $this->data_found = $this->m_hcw_survey->gethcwProfile('imci');
+    public function createWorkProfileSection() {
+        $this->data_found = $this->m_hcw_survey->getworkProfile('wp');
 
         //var_dump($this->data_found);die;
         $counter = 0;
-        $aspect = '';
+        $data = '';
         foreach ($this->data_found as $value) {
             $counter++;
 
-            $this->hcwProfileSection.= '<tr>
-            <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
-            <td colspan="3">
-            Yes<input type="radio" value="Yes" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
-            No<input type="radio" value="No" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
-            </td>
-            <input type="hidden"  name="hcwProfileQCode_' . $counter . '" id="hcwProfileQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
-        }
 
-        //echo $this->hcwProfileSection;die;
-        return $this->hcwProfileSection;
+            if ($value['questionCode'] == 'QUC32') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+           Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+           No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC33') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC34') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            County
+            <input type="text" class="cloned" name="questionResponseYes_' . $counter . '[]" id="questionResponseYes_' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC35') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+           Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            else {
+
+                    $this->hcwWorkProfile.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+
+            County and Facility
+             <input type="text" class="cloned" name="questionResponseNo_' . $counter . '[]" id="questionResponseNo_' . $counter . '" class="cloned"/>
+
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                }
+            }
+
+        //echo $this->hcwWorkProfile;die;
+        return $this->hcwWorkProfile;
     }
        /**Function to create the section: Child Health--Consultation Questions
      * */
