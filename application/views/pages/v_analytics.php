@@ -55,19 +55,23 @@
 						</h3>
 						
 						<ul class="breadcrumb">
-							<li><a id="breadcrumb-title"></a></li>
-							<i class="icon-angle-right"></i>
-							<li><a id="breadcrumb-sub-title"></a></li>
-							<label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><h6>Reporting Statistics</h6>
-									<div id="reportingBar">
-										
-									</div>
-									</label>
-							<label style="margin:0 5% 0 0;display:inline-block;float:right;" for="county_select">Select a County
-							<select name="county_select" id="county_select"style="margin-bottom:0" class="input">
+						
+							<li><a id="breadcrumb-title">No Section Selected</a></li>
+							<i class="fa fa-chevron-right"></i>
+							<li><a id="breadcrumb-sub-title">Select a Statistic</a></li>
+							<label id="county_select_label" for="county_select">
+							<span>Select a County</span>
+							<select name="county_select" id="county_select" class="input">
 								<option selected=selected>No County Selected</option>
 									<?php echo $this->selectReportingCounties;?>
-								</select></label>
+							</select>
+							</label>
+							<label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><span>Reporting Statistics : </span>
+								<div id="reportingBar">
+										
+								</div>
+							</label>
+							
 								
 						</ul>
 						<!-- END PAGE TITLE & BREADCRUMB-->
