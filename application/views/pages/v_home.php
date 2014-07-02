@@ -6,7 +6,7 @@
 
         <div class="main" >
             <div class="row">
-                <div class="tile link">
+                <div class="tile link" id="surveys">
                     <h3>Current Surveys</h3>
                     <img src="<?php echo base_url(); ?>images/survey.PNG" />
 
@@ -48,7 +48,7 @@
 
             </div>
 
-            <div class="tile map">
+            <div class="tile map" id="reporting-rates">
                 <h3>Reporting Rates</h3>
                 <div class="map-header">
 
@@ -95,7 +95,7 @@
 
             </div><!--./middle_column-->
 
-            <div class="tile link">
+            <div class="tile link" id="analytics">
 
                 <h3>Survey Analysis</h3>
                 <img src="<?php echo base_url(); ?>images/analysis.PNG" />

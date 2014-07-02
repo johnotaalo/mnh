@@ -212,3 +212,41 @@ function notify(phoneNumber, message) {
         }
     });
 }
+  $(document).ready(function(){
+startIntro();
+      function startIntro(){
+        var intro = introJs();
+          intro.setOptions({
+            steps: [
+              {
+                element: '#network',
+                intro: "This is a Top Bar showing the Date, User and System Information.",
+                position: 'bottom'
+              },
+              {
+                element: '#navigation',
+                intro: "The <b>Navigation</b> Menu has the links to the Surveys and Analytics as well as <b>HCMP</b> and <b>PMT</b>.",
+                position: 'top'
+              },
+              {
+                element: '#surveys',
+                intro: 'The <b>Surveys</b> Section contains links to access the <span style="color:blue">Forms</span> for the 3 Surveys i.e. MNH, CH and HCW. ',
+                position: 'right'
+              },
+              {
+                element: '#reporting-rates',
+                intro: "The <b>Reporting</b> Section displays the Kenyan Map, <span style='color:red'>C</span> <span style='color:orange'>o</span> <span style='color:gold'>l</span> <span style='color:lightgreen'>o</span> <span style='color:green'>r</span> Coded to represent the Completion Rate.",
+                position: 'left'
+              },
+              {
+                element: '#analytics',
+                intro: 'The <b>Analytics</b> Analytics contains links to access the <span style="color:blue">Data</span> for the 3 Surveys i.e. MNH, CH and HCW.',
+                  position:'left'
+              }
+            ]
+          });
+
+          intro.start();
+      }
+
+  });
