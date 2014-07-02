@@ -1530,7 +1530,7 @@ Indicate the total # of children that received the following treatment. </br>
       <th>Response</th>
      <th>Findings</th>
      </tr>
-' . $this -> mchIndicatorsSection['mal'] . '
+		' . $this -> mchIndicatorsSection['mal'] . '
 	</table>
 	
 	<table class="centre">
