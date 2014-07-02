@@ -5,7 +5,7 @@ error_reporting(1);
 class MY_Controller extends CI_Controller
 {
 
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
+    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection, $question;
 
     //new sections
     public $questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
@@ -100,6 +100,7 @@ class MY_Controller extends CI_Controller
         $this->creatediarrhoearesponsetreatmentsection();
         $this->createfeverresponsetreatment();
         $this->createearresponsetreatment();
+         $this->createQuestionsSection();
         //end of added section
 
         $this->createseverePneumoniaTreatmentTSection();
@@ -2278,6 +2279,53 @@ class MY_Controller extends CI_Controller
             }
         }
         return $this->mchIndicatorsSectionPDF;
+    }
+
+    public function createQuestionsSection() {
+        $this->data_found = $this->m_mch_survey->getAllQuestions();
+
+        //var_dump($this->data_found);die;
+         $counter = 0;
+        $section = '';
+        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $base = 0;
+        $current = "";
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $section = $value['questionFor'];
+            $current = ($base == 0) ? $section : $current;
+            $base = ($current != $section) ? 0 : $base;
+            $current = ($base == 0) ? $section : $current;
+
+            $base++;
+                 if($value['questionName']=='Document cases seen over 3 months'){
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>March <input name="questionResponse_'.$counter.'"  type="text">  April <input name="questionResponse_'.$counter.'"  type="text">
+            May <input name="questionResponse_'.$counter.'"  type="text"></td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+                 else{
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="checkbox"> No <input value="No" name="mchIndicator_'.$counter.'"  type="checkbox"></td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+
+            }
+         //echo '<pre>'; print_r( $data);echo '</pre>';die;
+        foreach ($data as $key => $value) {
+            $this->mchIndicatorsSection[$key] = '';
+            foreach ($value as $val) {
+                $this->mchIndicatorsSection[$key].= $val;
+            }
+        }
+        //var_dump($this->questionPDF);die;
+        return $this->question;
     }
     public function createQuestionsSectionPDF() {
         $this->data_found = $this->m_mch_survey->getAllQuestions();
