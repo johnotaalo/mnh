@@ -874,17 +874,15 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
                                 $(form_id).bind("after_remote_ajax", function(event, fdata){
                                     //console.log($(form_id).formwizard('state'));
-                                    if(form_id=="#mnh_tool"){
+                                    survey = '<?php echo base_url();?>';
+                                    if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
 
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
-                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
-                                            console.log(message);
-                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
-                                        }
+                                             }
 
-                                    }else{
+                                    }else if(survey=='ch'){
                                         if(fdata.currentStep=='section-9'){
                                             //alert('Yes');
                                             //$(form_id).formwizard('reset');
@@ -895,8 +893,24 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                                         }
                                     }
+                                    else{
+                                        if(fdata.currentStep=='section-5'){
+                                            //alert('Yes');
+                                            //$(form_id).formwizard('reset');
+                                            //$(form_id).formwizard('show','No');
+                                            // console.log($(form_id).formwizard('state'));
+                                            $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
+                                                window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
+
+                                        }
+                                    }
+
 
                                 });
+                                message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
+                                       
                             }else{
                                 $("#data").html("");
                                 alert("An unknown error occurred, try retaking the survey later on. Kindly report this incidence.");
