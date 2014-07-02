@@ -2043,7 +2043,7 @@ public function get_hcw_form() {
         <tr>
             <th>Question</th>
             <th>Response</th>
-        </tr>'.$this->hcwWorkProfile.'
+        </tr>'.$this->question['wp'].'
  </table>
 </div> <!-- end of section 1 -->
 
@@ -2113,11 +2113,8 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-<<<<<<< HEAD
 
-=======
     <tbody class = "pnechoice">
->>>>>>> 78686319db45ebbabe5e7b8cc308f09c9ad48084
      ' . $this -> mchIndicatorsSection['pne'] . '
      </tbody>
 </table>
@@ -2142,11 +2139,8 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-<<<<<<< HEAD
 
-=======
     <tbody class = "dgnchoice">
->>>>>>> 78686319db45ebbabe5e7b8cc308f09c9ad48084
      ' . $this -> mchIndicatorsSection['dgn'] . '
      </tbody>
 </table>
@@ -2171,26 +2165,13 @@ public function get_hcw_form() {
         	<th style="width:100px">Response</th>
         	<th style="width:400px">Findings</th>
         </tr>
-<<<<<<< HEAD
 
-=======
-    <tbody class = "fevchoice">
->>>>>>> 78686319db45ebbabe5e7b8cc308f09c9ad48084
      ' . $this -> mchIndicatorsSection['fev'] . '
-     </tbody>
 </table>
 <table class="centre">
-<<<<<<< HEAD
         <tr>
     	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
-=======
-		<tr>
-    	<td colspan = "2">Does the child have the symptom below?</td><td colspan = "3"><input type = "radio" name = "earchoice" value = "1" onclick = "toggle_table(this);">Yes</input> <input type = "radio" name = "earchoice" value = "0" onclick = "toggle_table(this);">No</input>
->>>>>>> 78686319db45ebbabe5e7b8cc308f09c9ad48084
     	</tr>
-    	<p class="instruction">
-    	* If NO proceed to the next symptom
-		</p>
         <tr>
             <th width="500px">Symptom</th>
 

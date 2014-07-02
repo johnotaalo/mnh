@@ -109,6 +109,7 @@ class MY_Controller extends CI_Controller
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
         $this->createQuestionsSectionPDF();
+        $this->createQuestionsSection();
         $this->createSuppliesSectionPDF();
 
         //new functions
@@ -2324,6 +2325,53 @@ class MY_Controller extends CI_Controller
         }
         //var_dump($this->questionPDF);die;
         return $this->questionPDF;
+    }
+
+    public function createQuestionsSection() {
+        $this->data_found = $this->m_mch_survey->getAllQuestions();
+
+        //var_dump($this->data_found);die;
+         $counter = 0;
+        $section = '';
+        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $base = 0;
+        $current = "";
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $section = $value['questionFor'];
+            $current = ($base == 0) ? $section : $current;
+            $base = ($current != $section) ? 0 : $base;
+            $current = ($base == 0) ? $section : $current;
+
+            $base++;
+                 if($value['questionName']=='Document cases seen over 3 months'){
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>March <input name="questionResponse_'.$counter.'"  type="text">  April <input name="questionResponse_'.$counter.'"  type="text">
+            May <input name="questionResponse_'.$counter.'"  type="text"></td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+                 else{
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>Yes <input name="mchIndicator_'.$counter.'" value="Yes" type="checkbox"> No <input value="No" name="mchIndicator_'.$counter.'"  type="checkbox"></td>
+            <input type="hidden"  name="mchIndicatorCode_' . $counter . '" id="mchIndicatorCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+
+            }
+         //echo '<pre>'; print_r( $data);echo '</pre>';die;
+        foreach ($data as $key => $value) {
+            $this->question[$key] = '';
+            foreach ($value as $val) {
+                $this->question[$key].= $val;
+            }
+        }
+        //var_dump($this->questionPDF);die;
+        return $this->question;
     }
      public function createSuppliesSectionPDF() {
         $this->data_found = $this->m_mch_survey->getEverySupplyName();
