@@ -73,9 +73,9 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSection();
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
-        // $this->createHcwProfileSection();
+       // $this->createHcwProfileSection();
         $this->createmchConsultationSection();
- $this->createHealthSection();
+        $this->createHealthSection();
         //pdf functions
         $this->getCommoditySuppliersforPDF();
         $this->createBemoncSignalFunctionsSectionforPDF();
@@ -89,7 +89,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHWaterAspectsSectionPDF();
         $this->createMNHCommunityStrategySection();
 
-       //added section
+        //added section
         //$this->();
         $this->createSevereDiarrhoeaTreatmentTSection();
         $this->createnodehydrationDiarrhoeaTreatmentTSection();
@@ -110,6 +110,7 @@ class MY_Controller extends CI_Controller
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
         $this->createQuestionsSectionPDF();
+        $this->createQuestionsSection();
         $this->createSuppliesSectionPDF();
 
         //new functions
@@ -158,7 +159,7 @@ class MY_Controller extends CI_Controller
 
          $this->  createInterviewAspectsSection();
           $this->  createInterviewAspectsSectionforPDF();
-
+$this->createWorkProfileSection();
 
 
     }
@@ -1034,29 +1035,88 @@ class MY_Controller extends CI_Controller
         return $this->mnhCommunityStrategySectionPDF;
     }
 
-       /**Function to create the section: Child Health--HCW Profile
+      /**Function to create the section: Child Health--HCW Work Profile
      * */
-    public function createHcwProfileSection() {
-        $this->data_found = $this->m_hcw_survey->gethcwProfile('imci');
+    public function createWorkProfileSection() {
+        $this->data_found = $this->m_hcw_survey->getworkProfile('wp');
 
         //var_dump($this->data_found);die;
         $counter = 0;
-        $aspect = '';
+        $data = '';
         foreach ($this->data_found as $value) {
             $counter++;
 
-            $this->hcwProfileSection.= '<tr>
-            <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
-            <td colspan="3">
-            Yes<input type="radio" value="Yes" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
-            No<input type="radio" value="No" name="hcwProfile_' . $counter . '" id="hcwProfile_' . $counter . '" />
-            </td>
-            <input type="hidden"  name="hcwProfileQCode_' . $counter . '" id="hcwProfileQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
-        }
 
-        //echo $this->hcwProfileSection;die;
-        return $this->hcwProfileSection;
+            if ($value['questionCode'] == 'QUC32') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+           Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+           No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC33') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC34') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+            County
+            <input type="text" class="cloned" name="questionResponseYes_' . $counter . '[]" id="questionResponseYes_' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            elseif ($value['questionCode'] == 'QUC35') {
+
+               $data = '<tr>
+            <td >' . $value['questionName'] . '</td>
+            <td >
+           Yes
+             <input type="radio" class="cloned" value= "Yes" name="questionResponse_' . $counter . '[]" id="questionResponse_yes' . $counter . '" class="cloned"/>
+            No
+             <input type="radio" class="cloned" value= "No" name="questionResponse_' . $counter . '[]" id="questionResponse_no' . $counter . '" class="cloned"/>
+           </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                $this->hcwWorkProfile.= $data;
+            }
+            else {
+
+                    $this->hcwWorkProfile.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+
+            County and Facility
+             <input type="text" class="cloned" name="questionResponseNo_' . $counter . '[]" id="questionResponseNo_' . $counter . '" class="cloned"/>
+
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                }
+            }
+
+        //echo $this->hcwWorkProfile;die;
+        return $this->hcwWorkProfile;
     }
        /**Function to create the section: Child Health--Consultation Questions
      * */
@@ -2111,8 +2171,8 @@ class MY_Controller extends CI_Controller
                                 $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
                                 $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
                             } else {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio">';
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="'.$finding.'">';
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="'.$finding.'">';
                             }
                         }
                     }
@@ -2372,6 +2432,53 @@ class MY_Controller extends CI_Controller
         }
         //var_dump($this->questionPDF);die;
         return $this->questionPDF;
+    }
+
+    public function createQuestionsSection() {
+        $this->data_found = $this->m_mch_survey->getAllQuestions();
+
+        //var_dump($this->data_found);die;
+         $counter = 0;
+        $section = '';
+        $numbering = array_merge(range('A','Z'),range('a', 'z'));
+        $base = 0;
+        $current = "";
+        foreach ($this->data_found as $value) {
+            $counter++;
+            $section = $value['questionFor'];
+            $current = ($base == 0) ? $section : $current;
+            $base = ($current != $section) ? 0 : $base;
+            $current = ($base == 0) ? $section : $current;
+
+            $base++;
+                 if($value['questionName']=='Document cases seen over 3 months'){
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>March <input name="questionResponse_'.$counter.'"  type="text">  April <input name="questionResponse_'.$counter.'"  type="text">
+            May <input name="questionResponse_'.$counter.'"  type="text"></td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+                 else{
+                    $data[$section][] = '
+                <tr>
+            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+         <td>Yes <input name="questionResponse_'.$counter.'" value="Yes" type="radio"> No <input value="No" name="questionResponse_'.$counter.'"  type="radio"></td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+        </tr>';
+                 }
+
+            }
+         //echo '<pre>'; print_r( $data);echo '</pre>';die;
+        foreach ($data as $key => $value) {
+            $this->question[$key] = '';
+            foreach ($value as $val) {
+                $this->question[$key].= $val;
+            }
+        }
+        //var_dump($this->questionPDF);die;
+        return $this->question;
     }
      public function createSuppliesSectionPDF() {
         $this->data_found = $this->m_mch_survey->getEverySupplyName();
@@ -3618,8 +3725,8 @@ class MY_Controller extends CI_Controller
         //echo $this->suppliesUsageAndOutageSection;die;
         return $this->suppliesUsageAndOutageSectionPDF;
     }
-    public function getSection($survey, $fac_mfl) {
-        $this->db->select_max('ast_id', 'maxId');
+    public function getSection($survey, $fac_mfl,$survey_category) {
+        /*$this->db->select_max('ast_id', 'maxId');
         $result = $this->db->get_where('assessment_tracker', array('ast_survey' => $survey, 'facilityCode' => $fac_mfl));
         $result = $result->result_array();
         $maxId = $result[0]['maxId'];
@@ -3628,7 +3735,23 @@ class MY_Controller extends CI_Controller
         $result = $this->db->get_where('assessment_tracker', array('ast_id' => $maxId));
         $result = $result->result_array();
 
-        //var_dump($result);die;
+        //var_dump($result);die;*/
+        $query = "SELECT 
+    max(ast_section) as ast_section, facilityCode,st.st_name,sc.sc_name
+FROM
+    assessment_tracker ast
+        JOIN
+    survey_status ss ON (ast.ss_id = ss.ss_id  )
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id AND st.st_name='".$survey."')
+        JOIN
+    survey_categories sc ON (sc.sc_id = ss.sc_id AND sc.sc_name='".$survey_category."')
+WHERE facilityCode=".$fac_mfl."
+GROUP BY st_name,sc_name,facilityCode;";
+$result = $this->db->query($query);
+$result = $result->result_array();
+
+
         $section = (($result) != NULL) ? $result[0]['ast_section'] : NULL;
         return json_encode((int)trim($section, 'section-'));
     }
@@ -3651,11 +3774,14 @@ class MY_Controller extends CI_Controller
                 $fac_mfl = $value['facMfl'];
                 $survey = $this->session->userdata('survey');
                 if ($survey == 'mnh') {
-                    $total = 7;
-                } else {
-                    $total = 6;
+                    $total = 8;
+                } else if($survey == 'ch') {
+                    $total = 9;
                 }
-                $current = $this->getSection($survey, $fac_mfl);
+                else{
+                    $total=5;
+                }
+                $current = $this->getSection($survey, $fac_mfl,'mid-term');
                 $progress = round(($current / $total) * 100);
                 if ($progress == 0) {
                     $linkText = 'Begin Survey';

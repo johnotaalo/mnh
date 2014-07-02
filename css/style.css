@@ -23,7 +23,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	font-style: inherit;
 	font-size: 100%;
 	font-family: inherit;
-	vertical-align: baseline;
+	vertical-align: top;
 }
 table{
 	width:100%;
@@ -1387,13 +1387,6 @@ td input[type="text"]{
 select{
 	width:100% !important;
 }
-<<<<<<< HEAD
-.specific-treatment input[type="checkbox"]{
-	margin-right:10px;
-}
-<<<<<<< HEAD
-=======
->>>>>>> f34e800601dab8b92f95a9becda8724184cd0004
 .specific-treatment{
 	width:100%;
 	min-height:60px;
@@ -1411,10 +1404,6 @@ select{
 	overflow: auto;
 }
 
-<<<<<<< HEAD
->>>>>>> 48f415d8405a7fa0bb25c85422b4493e523a3a59
-=======
 
 
 
->>>>>>> f34e800601dab8b92f95a9becda8724184cd0004
