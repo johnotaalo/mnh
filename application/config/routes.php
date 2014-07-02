@@ -41,13 +41,18 @@
 $route['default_controller'] = 'c_front';
 $route['home']='c_front/index';
 $route['404_override'] = '';
-$route['mnh/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh commodities
-$route['ch/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh supplies
+$route['mnh/takesurvey']='c_front/active_survey';#active survey url, in this case: mnh 
+$route['ch/takesurvey']='c_front/active_survey';#active survey url, in this case: mch
+$route['hcw/takesurvey']='c_front/active_survey';#active survey url, in this case: hcw
+
 $route['mnh/assessment']='c_front/inventory'; #active survey home page url
 $route['ch/assessment']='c_front/inventory'; #active survey home page url
+$route['hcw/assessment']='c_front/inventory'; #active survey home page url
 
 $route['mnh/analytics']='c_analytics/active_results/mnh';#active results url, survey:mnh
 $route['ch/analytics']='c_analytics/active_results/ch';#active results url, survey:ch
+$route['hcw/analytics']='c_analytics/active_results/hcw';#active results url, survey:ch
+
 $route['ch/summary']='c_analytics/summary';#active results url, survey:ch
 $route['analytics/facility/loc']='c_analytics/analytics_facility_info_levels_of_care';
 $route['analytics/facility/ownership']='c_analytics/analytics_facility_info_ownership';
@@ -61,6 +66,9 @@ $route['analytics/section2/commodity-supplier']='c_analytics/analytics_section_2
 $route['session/new']='c_auth/go';#log in url
 $route['session/close']='c_auth/logout';#log out url
 
+#Admin Routes
+$route['admin']= 'c_admin/index';
+$route['firepad']= 'c_admin/firepad';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

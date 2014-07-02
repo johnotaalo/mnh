@@ -95,6 +95,12 @@ class AvailableEquipments
         return $this->aeId;
     }
 
+ public function setAeId($aeId)
+    {
+        $this->aeId = $aeId;
+    
+        return $this;
+    }
     /**
      * Set aeAvailability
      *

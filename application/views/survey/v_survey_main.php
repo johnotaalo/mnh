@@ -3,175 +3,189 @@ $mfName = $this -> session -> userdata('fName');
 $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 ?>
 
-		<script src="<?php echo base_url()?>js/js_libraries.js"></script>
-		<script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
-		
-		
-		<script>
-		$().ready(function(){
-			/**
-			 * variables
-			 */
-			var form_id='';
-			var link_id='';
-			var linkIdUrl='';
-			var linkSub='';
-			var linkDomain='';
-			var visit_site = ''; 
-			var devices='';
-			
-				
-			    //start of close_opened_form click event
-				$("#close_opened_form").click(function() {
+        <script src="<?php echo base_url()?>js/js_libraries.js"></script>
+        <script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
+        <script src="<?php echo base_url()?>js/core.js"></script>
 
-				$(".form-container").load('<?php echo base_url() . 'c_front/formviewer'; ?>',function(){
+        <script>
+        $().ready(function(){
+            /**
+             * variables
+             */
+            var form_id='';
+            var link_id='';
+            var linkIdUrl='';
+            var linkSub='';
+            var linkDomain='';
+            var visit_site = '';
+            var devices='';
+            var fac_mfl = fac_county = fac_district = '';
+            var base_url = '<?php echo base_url(); ?>';
 
-					//delegate events
-					loadGlobalScript();
 
-					});
-					});/*end of close_opened_form click event
+                //start of close_opened_form click event
+                $("#close_opened_form").click(function() {
 
-					/*----------------------------------------------------------------------------------------------------------------*/
+                $(".form-container").load('<?php echo base_url() . 'c_front/formviewer'; ?>',function(){
 
-					/*start of loadGlobalJS*/
-					var onload_queue = [];
-					var dom_loaded = false;
+                    //delegate events
+                    loadGlobalScript();
 
-					function loadGlobalJS(src, callback) {
-					var script = document.createElement('script');
-					script.type = "text/javascript";
-					script.async = true;
-					script.src = src;
-					script.onload = script.onreadystatechange = function() {
-					if (dom_loaded)
-					callback();
-					else
-					onload_queue.push(callback);
-					// clean up for IE and Opera
-					script.onload = null;
-					script.onreadystatechange = null;
-					};
-					var head = document.getElementsByTagName('head')[0];
-					head.appendChild(script);
-					}/*end of loadGlobalJS*/
+                    });
+                    });/*end of close_opened_form click event
 
-					function domLoaded() {
-					dom_loaded = true;
-					var len = onload_queue.length;
-					for (var i = 0; i < len; i++) {
-					onload_queue[i]();
-					}
-					onload_queue = null;
-					};/*end of domLoaded*/
+                    /*----------------------------------------------------------------------------------------------------------------*/
 
-					/*-----------------------------------------------------------------------------------------------------------*/
+                    /*start of loadGlobalJS*/
+                    var onload_queue = [];
+                    var dom_loaded = false;
 
-					//check box/checked radio function was here
+                    function loadGlobalJS(src, callback) {
+                    var script = document.createElement('script');
+                    script.type = "text/javascript";
+                    script.async = true;
+                    script.src = src;
+                    script.onload = script.onreadystatechange = function() {
+                    if (dom_loaded)
+                    callback();
+                    else
+                    onload_queue.push(callback);
+                    // clean up for IE and Opera
+                    script.onload = null;
+                    script.onreadystatechange = null;
+                    };
+                    var head = document.getElementsByTagName('head')[0];
+                    head.appendChild(script);
+                    }/*end of loadGlobalJS*/
 
-					domLoaded();
+                    function domLoaded() {
+                    dom_loaded = true;
+                    var len = onload_queue.length;
+                    for (var i = 0; i < len; i++) {
+                    onload_queue[i]();
+                    }
+                    onload_queue = null;
+                    };/*end of domLoaded*/
 
-					/*----------------------------------------------------------------------------------------------------------------*/
+                    /*-----------------------------------------------------------------------------------------------------------*/
 
-					/*reset form event*/
-					/*start of reset_current_form click event*/
-					$("#reset_current_form").click(function() {
-					$(form_id).resetForm();
+                    //check box/checked radio function was here
 
-					});/*end of reset_current_form click event*/
+                    domLoaded();
 
-					/*----------------------------------------------------------------------------------------------------------------*/
-					var loaded=false;
-					function loadGlobalScript(){
-					loaded=true;
+                    /*----------------------------------------------------------------------------------------------------------------*/
 
-					var scripts=['<?php echo base_url();?>js/js_ajax_load.js'];
+                    /*reset form event*/
+                    /*start of reset_current_form click event*/
+                    $("#reset_current_form").click(function() {
+                    $(form_id).resetForm();
 
-						for(i=0;i<scripts.length;i++){
-						loadGlobalJS(scripts[i],function(){});
-						}
-						form_id='#'+$(".form-container").find('form').attr('id');
+                    });/*end of reset_current_form click event*/
 
-						}
-						/*----------------------------------------------------------------------------------------------------------------*/
-						
-						
+                    /*----------------------------------------------------------------------------------------------------------------*/
+                    var loaded=false;
+                    function loadGlobalScript(){
+                    loaded=true;
 
-				
-				
-				//load 1st section of the assessment on page load
-				$(".form-container").load('<?php echo base_url() . 'c_load/get_facility_list'; ?>',function(){
-					       // facilityMFL=12864;
-							//loadGlobalScript();//renderFacilityInfo(facilityMFL);
-							
-							//so which link was clicked?
-						  $('.action').on('click',function(){
-							link_id='#'+$(this).find('a').attr('id');
-							link_id=link_id.substr(link_id.indexOf('#')+1,link_id.length);
-							//linkSub=$(link_id).attr('class');
-							//linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
-							facilityMFL=link_id;
-							the_url='<?php echo base_url();?>c_load/startSurvey/<?php echo $this->session->userdata("survey");?>/mid-term/'+facilityMFL+'/2013-2014';
-							$.ajax({
-								type:'POST',
-								data: '',
-								url:the_url,
-								beforeSend: function(){
+                    var scripts=['<?php echo base_url();?>js/js_ajax_load.js'];
 
-								},
-								success: function(){
+                        for(i=0;i<scripts.length;i++){
+                        loadGlobalJS(scripts[i],function(){});
+                        }
+                        form_id='#'+$(".form-container").find('form').attr('id');
 
-								}}
-								);
-							//alert(link_id);
-							if(link_id)
-							
-							<?php if($this->session->userdata('survey')=='mnh'){?>
-								$(".form-container").load('<?php echo base_url();?>c_load/get_mnh_form',function(){
-							<?php }else{?>
-								$(".form-container").load('<?php echo base_url();?>c_load/get_mch_form',function(){
-							<?php }?>
-							
-							//delegate events
-							//if(loaded==false)
-							//include remote scripts
-					        loadGlobalScript();renderFacilityInfo(facilityMFL);break_form_to_steps(form_id);select_option_changed();
-							
-							 });
-							
-							})/*end of which link was clicked*/
-							/*----------------------------------------------------------------------------------------------------------------*/
-					});
-				
-				/*-----------------------------------------------------------------------------------------------------------------*/
-				/*start of ajax data requests*/
-				function renderFacilityInfo(facilityMFL){
+                        }
+                        /*----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+                //load 1st section of the assessment on page load
+                $(".form-container").load('<?php echo base_url() . 'c_load/get_facility_list'; ?>',function(){
+                           // facilityMFL=12864;
+                            //loadGlobalScript();//renderFacilityInfo(facilityMFL);
+
+                            //so which link was clicked?
+                          $('.action').on('click',function(){
+                            link_id='#'+$(this).find('a').attr('id');
+                            link_id=link_id.substr(link_id.indexOf('#')+1,link_id.length);
+                            //linkSub=$(link_id).attr('class');
+                            //linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
+                            facilityMFL=link_id;
+                            the_url='<?php echo base_url();?>c_load/startSurvey/<?php echo $this->session->userdata("survey");?>/mid-term/'+facilityMFL+'/2013-2014';
+                            $.ajax({
+                                type:'POST',
+                                data: '',
+                                async:false,
+                                url:the_url,
+                                beforeSend: function(){
+
+                                },
+                                success: function(data){
+                                    obj = jQuery.parseJSON(data);
+                                    console.log(obj);
+
+                                    fac_name=obj[0].fac_name;
+                                    fac_district=obj[0].fac_district;
+                                    fac_county=obj[0].fac_county;
+                                    message = obj[0].fac_name +' in ' +obj[0].fac_district+ ' District, ' +obj[0].fac_county+ ' County, is now reporting on the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                    console.log(message);
+                                    runNotification(base_url,'c_admin/getContacts',message);
+                                }}
+                                );
+                            //alert(link_id);
+                            if(link_id)
+
+                            <?php if($this->session->userdata('survey')=='mnh'){?>
+                                $(".form-container").load('<?php echo base_url();?>c_load/get_mnh_form',function(){
+                            <?php }elseif($this->session->userdata('survey')=='hcw'){?>
+                                $(".form-container").load('<?php echo base_url();?>c_load/get_hcw_form',function(){
+                            <?php }else{?>
+                                $(".form-container").load('<?php echo base_url();?>c_load/get_mch_form',function(){
+                            <?php }?>
+
+                            //delegate events
+                            //if(loaded==false)
+                            //include remote scripts
+                            loadGlobalScript();renderFacilityInfo(facilityMFL);break_form_to_steps(form_id);select_option_changed();
+
+                             });
+
+                            })/*end of which link was clicked*/
+                            /*----------------------------------------------------------------------------------------------------------------*/
+                    });
+
+                /*-----------------------------------------------------------------------------------------------------------------*/
+                /*start of ajax data requests*/
+                function renderFacilityInfo(facilityMFL){
     			 $.ajax({
-		            type: "GET",
+                    type: "GET",
 
-		            	url: "<?php echo base_url()?>c_load/getFacilityDetails",
-						dataType:"json",
-						cache:"true",
-						data:"facilityMFL="+facilityMFL,
-						success: function(data){
-						var info = data.rData;
-						//print(info);
-						$.each(info , function(i,facility) {
-						//render found data
-						//$("#fac_name").val(facility.fac_name).prop('disabled', true);
-						$("#facilityName").text(facility.facName);
-						$('#facilityMFLCode').val(facility.facMfl);
-						$('#facilityHName').val(facility.facHName);
-						
-						//$("#facilityType").val(facility.facilityType);
+                    	url: "<?php echo base_url()?>c_load/getFacilityDetails",
+                        dataType:"json",
+                        cache:"true",
+                        data:"facilityMFL="+facilityMFL,
+                        success: function(data){
+                        var info = data.rData;
+                        //print(info);
+                        $.each(info , function(i,facility) {
+                        //render found data
+                        //$("#fac_name").val(facility.fac_name).prop('disabled', true);
+                        $("#facilityName").text(facility.facName);
+                        $('#facilityMFLCode').val(facility.facMfl);
+                        $('#facilityHName').val(facility.facHName);
+
+                        //$("#facilityType").val(facility.facilityType);
   						$("#facilityLevel").val(facility.facLevel);
   						$("#facilityOwnedBy").val(facility.facOwnership);
-						//$("#facilityDistrict").val(facility.facilityDistrict);
-						//$("#facilityCounty").val(facility.facilityCounty);
-						
-						$("#facilityType option").filter(function() {return $(this).text() == facility.facType;}).first().prop("selected", true);
+                        //$("#facilityDistrict").val(facility.facilityDistrict);
+                        //$("#facilityCounty").val(facility.facilityCounty);
+
+                        $("#facilityType option").filter(function() {return $(this).text() == facility.facType;}).first().prop("selected", true);
   						$("#facilityLevel option").filter(function() {return $(this).text() == facility.facLevel;}).first().prop("selected", true);
   						$("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facOwnership;}).first().prop("selected", true);
+
 						$("#facilityDistrict option").filter(function() {return $(this).text() == facility.facDistrict;}).first().prop("selected", true);
 						$("#facilityCounty option").filter(function() {return $(this).text() == facility.facCounty;}).first().prop("selected", true);
 						
@@ -411,12 +425,428 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				
 				 
 						}//end of select_option_changed 
-				
-							
+				$(".Options").click(function(){
+				     //$("div[id*='PayMethod_']:visible").slideToggle("slow");
+				       var ID = $(this).attr("id");
+				       if (this.checked) {
+				         $("#ind_"+ID).slideToggle("slow");
+				       }
+				   });
 
 						}); /*close document ready*/
-								
-								
+				
+				function additionfunction()
+				{
+					var malsevere = document.getElementById("malsevere").value;
+					var malsome = document.getElementById("malsome").value;
+					var malnodehydration = document.getElementById("malnodehydration").value;
+					var maldysentry = document.getElementById("maldysentry").value;
+					var malnoclass = document.getElementById("malnoclass").value;
+
+					var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
+					document.getElementById("diatotal").value = diatotal;
+
+					var severepne = document.getElementById("severepne").value;
+					var pne = document.getElementById("pne").value;
+
+					var pnetotal = Number(severepne) + Number(pne);
+					document.getElementById("pnetotal").value = pnetotal;
+
+
+					var malconfirmed = document.getElementById("malconfirmed").value;
+					var malnotconfirmed = document.getElementById("malnotconfirmed").value;
+
+					var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
+					document.getElementById("malariatotal").value = malariatotal;
+
+					var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
+
+					document.getElementById("totalu5").value = u5total;
+				}
+
+				function selectpnesevereTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "pnesevereTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[SeverePneumonia][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class','treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "pneTreat[]");
+
+						var diver = document.getElementById("pneTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+
+				function selectpneTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "pneTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[Pneumonia][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class','treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "pneTreat[]");
+
+						var diver = document.getElementById("pneTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+				function selectmalconfirmedTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "malconfrimedTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[ConfirmedMalaria][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class', 'treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "malTreat[]");
+
+						var diver = document.getElementById("malTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+
+				function selectmalnotconfirmedTreatment(select)
+				{ 
+					  var value = select.options[select.selectedIndex].value;
+					 if(value != "malnotconfrimedTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[NotConfirmedMalaria][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						li.setAttribute('class', 'treatment');
+						ul.appendChild(li);
+						var code = select.options[select.selectedIndex].value;
+						var txt = document.createElement("input");
+						txt.setAttribute("value", code);
+						txt.setAttribute("type", "hidden");
+						txt.setAttribute("name", "malTreat[]");
+
+						var diver = document.getElementById("malTreatmentSection");
+
+						diver.appendChild(txt);
+					 }
+				}// close select treatment
+				function selectseverediaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "severediaTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[SevereDehydration][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectsomedehydrationdiaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "somedehydrationdiaTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[SomeDehydration][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectdysentryTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "dysentryTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[Dysentry][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectnodehydrationdiaTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "nodehydrationTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[NoDehydration][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectnoclassificationTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "noclassificationTreatment_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchtreatment[NoClassification][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectothertreatmentTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "othertreat_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[pne][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectdiaresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "diaresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[dia][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectfevresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "fevresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[fev][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function selectearresponseTreatment(select)
+				{ 
+					 var value = select.options[select.selectedIndex].value;
+					 if(value != "earresponse_0")
+					 {
+					 	var option = select.options[select.selectedIndex]; 
+						var ul = select.parentNode.getElementsByTagName('ol')[0];
+						var choices = ul.getElementsByTagName('input'); 
+						for (var i = 0; i < choices.length; i++) 
+						if (choices[i].value == option.value) 
+							return; 
+						var li = document.createElement('li'); 
+						var input = document.createElement('input'); 
+						var text = document.createTextNode(option.firstChild.data); 
+						input.type = 'hidden'; 
+						input.name = 'mchsymptom[ear][]';
+						input.value = option.value; li.appendChild(input);
+						li.appendChild(text);
+						li.setAttribute("id", code);
+						li.setAttribute('class', 'treatment');
+						li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+						var code = select.options[select.selectedIndex].value;
+						ul.appendChild(li);
+					 }
+				}// close select treatment
+
+				function toggle_table(el)
+				{	
+					id = $(el).attr("id");
+				    name = $(el).attr("name");
+				    radioValue = $(el).attr("value");
+				    // alert("This is the id: "+id+" and definately the name: "+name);
+				    if(radioValue === '1')
+				    {
+				    	$('.'+name).show();
+				    }
+				    else
+				    {
+				    	$('.'+name).hide();
+				    }
+				}
 				function break_form_to_steps(form_id){
 							//form_id='#zinc_ors_inventory';
 						   //alert(form_id);	
@@ -446,6 +876,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 									remoteAjax[$(this).attr("id")] = {
 										<?php if($this->session->userdata('survey')=='mnh'){?>
 											url : "<?php echo base_url()?>submit/c_form/complete_mnh_survey", // the url which stores the stuff in db for each step
+										<?php }elseif($this->session->userdata('survey')=='hcw'){?>
+											url : "<?php echo base_url()?>submit/c_form/complete_hcw_survey", // the url which stores the stuff in db for each step
 										<?php }else{?>
 											url : "<?php echo base_url()?>submit/c_form/complete_ch_survey", // the url which stores the stuff in db for each step
 										<?php }?>
@@ -459,17 +891,17 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 																$(form_id).bind("after_remote_ajax", function(event, fdata){
 																	//console.log($(form_id).formwizard('state'));
 																  if(form_id=="#mnh_tool"){
-																  	 if(fdata.currentStep=='section-7'){
-																  //	alert('Yes');
-																   //$(form_id).formwizard('reset');
-																  	//$(form_id).formwizard('show','No');
-																  	// console.log($(form_id).formwizard('state'));
+																  	 if(fdata.currentStep=='section-8'){
+
 																  	$(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
 																  		window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
-																  	
+																  	 message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+																console.log(message);
+																runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
 																  }
+																 
 																  }else{
-																  	 if(fdata.currentStep=='section-6'){
+																  	 if(fdata.currentStep=='section-9'){
 																    //alert('Yes');
 																   //$(form_id).formwizard('reset');
 																  	//$(form_id).formwizard('show','No');
@@ -608,15 +1040,10 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 									success: function(data){
 										survey = '<?php echo $this->session->userdata("survey");?>';
 											//alert(data);
-										if(survey=='mnh' && data==1 ){
-
-											$(form_id).formwizard('show','Yes');
 										
-										}
-										else{
 											(data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 										
-										}
+										
 										//console.log(data);
 										
 									}}
@@ -625,6 +1052,32 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 				  	}//--end of function break_form_to_steps(form_id)
 			
 				  	
+
+					function check(el)
+					{
+					    	
+				    	id = $(el).attr("id");
+				    	name = $(el).attr("name");
+
+
+				    	 if($('#'+id).prop("checked"))
+				             {
+				                 $('.'+id).attr("readonly",false);
+				                 var input = document.createElement('input');
+								input.type = 'hidden'; 
+								input.name = 'mchtreatmentnew['+name+'][]';
+								input.value = el.value;
+								document.getElementById("chells").appendChild(input);
+
+				             }
+				        else{
+				        	 $('.'+id).attr("readonly",true);
+				        	 $('.'+id).attr("value", 0);
+				        }
+					                
+					}
+
+
 				  	
 					/*---------------------end form wizard functions----------------------------------------------------------------*/
 						
@@ -636,26 +1089,26 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
         		border-color: #ffffff;
         		color:#FF0000;
     		}
-    	
-		</style>
-		
-	</head>
-	<body id="top">
+
+        </style>
+
+    </head>
+    <body id="top">
 
 
 <div id="site">
-	<div class="center-wrapper">
+    <div class="center-wrapper">
 
-		<!--logo and main nav-->
-		<?php $this->load->view('segments/nav-logged-in'); ?>
+        <!--logo and main nav-->
+        <?php $this->load->view('segments/nav-logged-in'); ?>
 
-		<div class="main form-container ui-widget" >
+        <div class="main form-container ui-widget" >
              <?php echo $form; ?>
-			
 
-		</div>
 
-	
+        </div>
 
-	</div>
+
+
+    </div>
 </div>

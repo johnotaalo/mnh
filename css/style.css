@@ -23,7 +23,10 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	font-style: inherit;
 	font-size: 100%;
 	font-family: inherit;
-	vertical-align: baseline;
+	vertical-align: top;
+}
+table{
+	width:100%;
 }
 table, caption, td, tr, th {
 	margin: 0;
@@ -59,6 +62,7 @@ body {
 	font: normal 75% sans-serif;
 	width: 100%;
 	line-height: 1.5;
+	padding-bottom:5%;
 }
 
 /*
@@ -94,6 +98,11 @@ h5 {
 }
 h6 {
 	font-size: 1em;
+}
+
+h4.indi{
+	background-color: #FFFF00;
+	width: 65%;
 }
 
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {
@@ -255,30 +264,36 @@ table td, table th {
 	padding: 5px;
 	border: 1px solid #fff;
 	border-width: 0 1px 1px 0;
-	text-align: center;
+	text-align: left;
 }
 
+
 thead th {
-	background: #DF0101;
+	background: #bcd9e1;
 	text-align: center;
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
+	color: #000000;
 }
 
 thead th[colspan], thead th[rowspan] {
-	background: #FF6464;
-	color: #ffffff;
+	background: #91c5d4;
+	color: #000000;
 }
+
 
 tbody th, tfoot th {
 	text-align: center;
 	background: #91c5d4;
+	color: #000000;
 }
 
+/*light blue*/
 tbody td, tfoot td {
 	text-align: left;
 	background: #d5eaf0;
+	color: #000000;
 }
 
 tfoot th {
@@ -297,8 +312,9 @@ tfoot td {
 	text-align: left;
 }
 
+/*pale blue*/
 tbody tr.odd td {
-	background: #bcd9e1;
+	background: #91c5d4;
 }
 
 /* Misc classes */
@@ -401,6 +417,8 @@ tbody tr.odd td {
 label {
 	font-weight: bold;
 	cursor: pointer;
+	
+	display: block;
 }
 fieldset {
 	padding: 1.4em;
@@ -1304,15 +1322,14 @@ img.alignright, img.right {
 	text-decoration: none;
 }
 .tile li {
-	padding: 0 5% 0 5%;
+	
 }
 .tile .active {
 	color: white;
 	background: #999;
 }
 .tile li:hover {
-	background: #ddd;
-	color: white;
+	
 }
 .left i, .current-tab i {
 	padding-right: 2%;
@@ -1354,3 +1371,39 @@ img.alignright, img.right {
 	width:60%;
 	height:100%;
 }
+.instruction{
+	background: #FAEBD7;
+	padding:10px;
+	margin-bottom:0;
+}
+td input[type="number"]{
+	width:50px;
+	height:2em;
+}
+td input[type="text"]{
+	width:100%;
+	height:2em;
+}
+select{
+	width:100% !important;
+}
+.specific-treatment{
+	width:100%;
+	min-height:60px;
+}
+.specific-treatment input[type="number"]{
+	float:right;
+}
+.specific-treatment input[type="checkbox"]{
+	margin-right:10px;
+}
+
+.treatmentdropdownarea
+{
+	max-height: 15em; 
+	overflow: auto;
+}
+
+
+
+

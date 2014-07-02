@@ -1,9 +1,10 @@
 <?php
 ## Extend CI_Model to include Doctrine Entity Manager
+date_default_timezone_set('Africa/Nairobi');
 
 class  MY_Model  extends  CI_Model {
 
-	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $facilityMFL, $strategy, $strategyName, $guideline, $chQuestion;
+	public $em, $response, $theForm, $district, $commodity, $supplier, $county, $province, $owner, $ownerName, $level, $levelName, $supplies, $equipment, $equipmentName, $supplyName, $query, $type, $formRecords, $facilityFound, $facility, $section, $ort, $sectionExists, $signalFunction, $mchIndicator, $mchIndicatorName, $mnhIndicator, $mchTreatment, $mchTreatmentName, $ortAspect, $trainingGuidelines, $trainingGuideline, $commodityName, $districtFacilities, $facilityMFL, $strategy, $strategyName, $guideline, $chQuestion, $treatmentCommodity;
 
 	function __construct() {
 		parent::__construct();
@@ -107,10 +108,22 @@ class  MY_Model  extends  CI_Model {
 		return $this -> facility;
 	}
 
+	function getTreatmentCommodity($surveyName)
+	{
+		try {
+			$this -> treatmentCommodity = $this -> em -> createQuery('SELECT DISTINCT c.commName, c.commCode, c.commFor, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor = :surveyName ORDER BY c.commCode ASC');
+			$this -> treatmentCommodity -> setParameter('surveyName', $surveyName);
+			$this -> treatmentCommodity = $this -> treatmentCommodity -> getResult();
+		} catch (Exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentCommodity;
+	}
 	function getAllCommodityNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commId ASC');
+			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit, c.commFor FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commCode ASC');
 			$this -> commodity -> setParameter('surveyName', $surveyName);
 			$this -> commodity = $this -> commodity -> getResult();
 			//die(var_dump($this->commodity));
@@ -126,6 +139,20 @@ class  MY_Model  extends  CI_Model {
 		try {
 			$this -> supplies = $this -> em -> createQuery('SELECT s.supplyId, s.supplyCode, s.supplyName, s.supplyUnit FROM models\Entities\Supplies s WHERE s.supplyFor= :survey ORDER BY s.supplyId ASC');
 			$this -> supplies -> setParameter('survey', $surveyName);
+			$this -> supplies = $this -> supplies -> getResult();
+			// die(var_dump($this->supplies));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> supplies;
+	}/*end of getAllSupplyNames*/
+
+	function getTotalSupplyNames() {
+		/*using DQL*/
+		try {
+			$this -> supplies = $this -> em -> createQuery('SELECT s.supplyId, s.supplyCode, s.supplyName, s.supplyUnit,s.supplyFor FROM models\Entities\Supplies s ORDER BY s.supplyFor, s.supplyId ASC');
+			
 			$this -> supplies = $this -> supplies -> getResult();
 			// die(var_dump($this->supplies));
 		} catch(exception $ex) {
@@ -165,7 +192,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllCommoditySupplierNames($surveyName) {
 		/*using DQL*/
 		try {
-			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
+			$this -> supplier = $this -> em -> createQuery('SELECT s.supplierId, s.supplierCode, s.supplierName, s.supplierFor FROM models\Entities\Suppliers s WHERE s.supplierFor= :survey ORDER BY s.supplierName ASC');
 			$this -> supplier -> setParameter('survey', $surveyName);
 			// echo $this->supplier->getSQL();die;
 			$this -> supplier = $this -> supplier -> getResult();
@@ -230,7 +257,21 @@ class  MY_Model  extends  CI_Model {
 			$this -> questions -> setParameter('code', $code.'%');
 			$this -> questions = $this -> questions -> getResult();
 
-			//die(var_dump($this->mnhIndicator));
+			//die(var_dump($this -> questions));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> questions;
+	}/*end of getAllOrtAspects*/
+	
+	function getAllQuestions() {
+		/*using DQL*/
+		try {
+			$this -> questions = $this -> em -> createQuery('SELECT q.questionCode, q.questionName,q.questionFor FROM models\Entities\questions q ORDER BY q.questionFor, q.questionCode ASC');
+			$this -> questions = $this -> questions -> getResult();
+
+		//die(var_dump($this -> questions ));
 		} catch(exception $ex) {
 			//ignore
 			//$ex->getMessage();
@@ -241,7 +282,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHIndicators() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor FROM models\Entities\indicators i ORDER BY i.indicatorCode ASC');
+			$query = $this -> em -> createQuery('SELECT i.indicatorCode, i.indicatorName,i.indicatorFor,i.indicatorFindings  FROM models\Entities\indicators i ORDER BY i.indicatorFor, i.indicatorCode ASC');
 			$this -> mchIndicator = $query -> getResult();
 			//die(var_dump($this->mchIndicator));
 		} catch(exception $ex) {
@@ -254,7 +295,7 @@ class  MY_Model  extends  CI_Model {
 	function getAllMCHTreatments() {
 		/*using DQL*/
 		try {
-			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentCode ASC');
+			$query = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor, tc.tcName FROM models\Entities\treatments t JOIN models\Entities\treatmentclassifications tc  WHERE t.treatmentFor = tc.tcFor ORDER BY t.treatmentCode ASC');
 			$this -> mchTreatment = $query -> getResult();
 			//die(var_dump($this->mchTreatment));
 		} catch(exception $ex) {
@@ -264,6 +305,19 @@ class  MY_Model  extends  CI_Model {
 		return $this -> mchTreatment;
 	}/*end of getAllMCHTreatments*/
 
+	function getTreatmentsByType($type)
+	{
+		try {
+			$this -> treatmentbytype = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t WHERE t.treatmentFor = :type ORDER BY t.treatmentCode ASC');
+			$this -> treatmentbytype -> setParameter('type', $type);
+			$this -> treatmentbytype = $this-> treatmentbytype -> getResult();
+			//die(var_dump($this->treatmentbytype));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentbytype;
+	}
 	function getAllTrainingGuidelines($surveyName) {
 		/*using DQL*/
 		try {
@@ -466,6 +520,7 @@ class  MY_Model  extends  CI_Model {
 			$this -> mnhQuestion = $this -> em -> getRepository('models\Entities\questions') -> findOneBy(array('questionCode' => $id));
 
 			if ($this -> mnhQuestion) {
+				
 				$this -> mnhQuestion = $this -> mnhQuestion -> getQuestionName();
 				return $this -> mnhQuestion;
 			}
@@ -496,6 +551,7 @@ class  MY_Model  extends  CI_Model {
 
 			if ($this -> mchIndicatorName) {
 				$this -> mchIndicatorName = $this -> mchIndicatorName -> getIndicatorName();
+				echo $this -> mchIndicatorName;die;
 				return $this -> mchIndicatorName;
 			}
 		} catch(exception $ex) {
@@ -505,6 +561,7 @@ class  MY_Model  extends  CI_Model {
 	}
 
 	/*utilized in several models*/
+	
 	public function getChildHealthTreatmentName($id) {
 		try {
 			$this -> mchTreatmentName = $this -> em -> getRepository('models\Entities\treatments') -> findOneBy(array('treatmentCode' => $id));
@@ -892,7 +949,7 @@ class  MY_Model  extends  CI_Model {
 		if ($this -> session -> userdata('survey') == 'mnh') {
 			//$this -> theForm -> setss_id('complete');
 		} else {
-			$this -> theForm -> setFacilityCHSurveyStatus('complete');
+			//$this -> theForm -> setFacilityCHSurveyStatus('complete');
 		}
 
 		$this -> em -> persist($this -> theForm);
