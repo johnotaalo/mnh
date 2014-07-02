@@ -874,7 +874,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
                                 $(form_id).bind("after_remote_ajax", function(event, fdata){
                                     //console.log($(form_id).formwizard('state'));
-                                    survey = '<?php echo base_url();?>';
+                                    c
                                     if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
 
@@ -910,7 +910,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
                                             console.log(message);
                                             runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
-                                       
+
                             }else{
                                 $("#data").html("");
                                 alert("An unknown error occurred, try retaking the survey later on. Kindly report this incidence.");
