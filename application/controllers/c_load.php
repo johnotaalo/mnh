@@ -2043,7 +2043,7 @@ public function get_hcw_form() {
         <tr>
             <th>Question</th>
             <th>Response</th>
-        </tr>'.$this->question['wp'].'
+        </tr>'.$this->hcwWorkProfile.'
  </table>
 </div> <!-- end of section 1 -->
 
