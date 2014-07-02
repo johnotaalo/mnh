@@ -16,6 +16,11 @@ local.properties
 .settings/
 .loadpath
 
+#Manual
+/application/config/database.php
+.htaccess
+
+
 # External tool builders
 .externalToolBuilders/
 
