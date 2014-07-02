@@ -417,12 +417,13 @@ ORDER BY gt.guide_code ASC";
     /*
      * Commodity Availability
     */
-    public function getCommodityAvailability($criteria, $value, $survey) {
+    public function getCommodityStatistics($criteria, $value, $survey,$for,$statistic) {
         
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
         
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+<<<<<<< HEAD
         $query = "CALL get_commodity_statistics('" . $criteria . "' ,'" . $value . "' ,'" . $survey . "' ,'" . $for . "' ,'" . $statistic . "' );";
         //
         
@@ -573,296 +574,76 @@ ORDER BY gt.guide_code ASC";
                 
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
+=======
+          $query = "CALL get_commodity_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+				//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
+                $queryData->next_result();
+>>>>>>> 0006058e99238febc2f7d1cb759bce8ae618b6e4
                 
-                foreach ($this->dataSet as $value_) {
-                    
-                    //1. collect the categories
-                    $data_categories[] = $this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']';
-                    
-                    //incase of duplicates--do an array_unique outside the foreach()
-                    
-                    //2. collect the analytic variables
-                    $analytic_var[] = $value_['reason'];
-                    
-                    //includes duplicates--so we'll array_unique outside the foreach()
-                    
-                    //collect the data_sets
-                    if ($value_['reason'] == 'All Used') {
-                        $data_set[$value_['reason']][] = intval($value_['total_response']);
-                    } else if ($value_['reason'] == 'Expired') {
-                        $data_set[$value_['reason']][] = intval($value_['total_response']);
-                    } else if ($value_['reason'] == 'Not Ordered') {
-                        $data_set[$value_['reason']][] = intval($value_['total_response']);
-                    } else if ($value_['reason'] == 'Ordered but not yet Received') {
-                        $data_set[$value_['reason']][] = intval($value_['total_response']);
+                // Dump the extra resultset.
+                $queryData->free_result();
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                	 foreach ($this->dataSet as $value) {
+                    	//echo "<pre>";print_r($value);echo "</pre>";die;
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
                     }
-                }
-                
-                //var_dump($data_set);die;
-                
-                //make cat array unique if we got duplicates then json_encode and set to $data array
-                $data['categories'] = (array_values(array_unique($data_categories)));
-                
-                //get a unique set of analytic variables
-                $analytic_var = array_unique($analytic_var);
-                
-                //expected to be 3 in this particular context
-                $data['analytic_variables'] = $analytic_var;
-                
-                //get the data sets
-                $data['responses'] = $data_set;
-                $this->final_data_set['unavailability'] = array();
-                $this->final_data_set['unavailability'] = $data;
-                
-                //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-                
-                //unset the arrays for reuse in the next query
-                $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-                
-                //return $this -> final_data_set;
-                //var_dump($this -> final_data_set);die;
-                
-                
-            } else {
-                return null;
-            }
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
-        
-        /*--------------------end commodities reason for unavailability----------------------------------------------*/
-        
-        /*--------------------begin commodities location of availability----------------------------------------------*/
-        $query = "SELECT
-    count(ca.ac_location) AS total_response,
-    ca.comm_code as commodities,
-    ca.ac_location AS location,
-    commodities.comm_unit as unit
-FROM
-    available_commodities ca,
-    commodities
-WHERE
-    ca.comm_code = commodities.comm_code
-        AND ca.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ca.comm_code IN (SELECT
-            comm_code
-        FROM
-            commodities
-        WHERE
-            comm_for = '$survey')
-        AND ca.ac_location NOT LIKE '%Not Applicable%'
-GROUP BY ca.comm_code , ca.ac_location
-ORDER BY ca.comm_code,location ASC";
-        try {
-            $this->dataSet = $this->db->query($query, array($value));
-            
-            $this->dataSet = $this->dataSet->result_array();
-            
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
-                
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-                
-                foreach ($this->dataSet as $value_) {
                     
-                    //1. collect the categories
-                    $data_categories[] = $this->getCommodityNameById($value_['commodities']);
-                    
-                    //incase of duplicates--do an array_unique outside the foreach()
-                    
-                    //2. collect the analytic variables
-                    $analytic_var[] = $value_['location'];
-                    
-                    //includes duplicates--so we'll array_unique outside the foreach()
-                    
+                    /**
+                     * Fix Data
+                     */
                     switch ($survey) {
                         case 'mnh':
-                            
-                            //collect the data_sets
-                            //collect the data_sets from the coma separated responses
-                            if (strpos($value_['location'], 'Delivery Room') !== FALSE) {
-                                $data_set['DeliveryRoom'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'Pharmacy') !== FALSE) {
-                                $data_set['Pharmacy'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'Store') !== FALSE) {
-                                $data_set['Store'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'Other') !== FALSE) {
-                                $data_set['Other'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
                             break;
 
                         case 'ch':
-                            
-                            //collect the data_sets
-                            if (strpos($value_['location'], 'OPD') !== FALSE) {
-                                $data_set['OPD'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'MCH') !== FALSE) {
-                                $data_set['MCH'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'U5 Clinic') !== FALSE) {
-                                $data_set['U5 Clinic'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'Ward') !== FALSE) {
-                                $data_set['Ward'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
-                            if (strpos($value_['location'], 'Other') !== FALSE) {
-                                $data_set['Other'][$this->getCommodityNameById($value_['commodities']) ][] = intval($value_['total_response']);
-                            }
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
                             break;
                     }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+					
+                } else {
+                    return null;
                 }
-                
-                //var_dump($data_set[2]);die;
-                
-                //make cat array unique if we got duplicates then json_encode and set to $data array
-                $data['categories'] = array_values(array_unique($data_categories));
-                
-                //expected 5
-                
-                //get a unique set of analytic variables
-                $analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-                
-                //we know of these 5 in this particular context
-                
-                //get the data sets
-                $data['responses'] = $data_set;
-                
-                $this->final_data_set['location'] = $data;
-                
-                //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-                
-                //unset the arrays for reuse in the next query
-                $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-                
-                //return $this -> final_data_set;
-                //var_dump($this -> final_data_set);die;
-                
-                
-            } else {
-                return null;
             }
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
-        
-        /*--------------------end commodities location of availability----------------------------------------------*/
-        
-        /*--------------------begin commodities availability by quantity----------------------------------------------*/
-        $query = "SELECT
-    SUM(ca.ac_quantity) AS total_quantity,
-    ca.comm_code as commodities,commodities.comm_unit AS unit
-FROM
-    available_commodities ca,commodities
-WHERE
-commodities.comm_code=ca.comm_code AND
-    ca.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ca.comm_code IN (SELECT
-            comm_code
-        FROM
-            commodities
-        WHERE
-            comm_for = '$survey')
-        AND ca.ac_quantity != - 1
-GROUP BY ca.comm_code
-ORDER BY ca.comm_code";
-        try {
-            $this->dataSet = $this->db->query($query, array($value));
-            
-            $this->dataSet = $this->dataSet->result_array();
-            
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
+            catch(exception $ex) {
                 
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
+                //ignore
+                //die($ex->getMessage());//exit;
                 
-                foreach ($this->dataSet as $value_) {
-                    
-                    //1. collect the categories
-                    $data_categories[] = $this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']';
-                    
-                    //includes duplicates--so we'll array_unique outside the foreach()
-                    
-                    //2. collect the analytic variables
-                    $analytic_var[] = $this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']';
-                    
-                    //includes duplicates--so we'll array_unique outside the foreach()
-                    
-                    //collect the data_sets by commodities
-                    $data_set[$this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']'] = intval($value_['total_quantity']);
-                }
                 
-                //var_dump($data_categories);die;
-                //var_dump($analytic_var);die;
-                
-                //make cat array unique if we got duplicates then json_encode and set to $data array
-                $data['categories'] = array_values(array_unique($data_categories));
-                
-                //expected 5
-                
-                //get a unique set of analytic variables
-                $analytic_var = array_unique($analytic_var);
-                
-                //get the data sets
-                $data['responses'] = $data_set;
-                
-                $this->final_data_set['quantities'] = $data;
-                $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-                
-                //unset the arrays for reuse
-                
-                /*--------------------end commodities availability by quantity----------------------------------------------*/
-                
-                return $this->final_data_set;
-            } else {
-                return $this->final_data_set = null;
             }
-            
-            //die(var_dump($this->final_data_set));
-            
-            
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
+			return $data;
     }
     
     /*
@@ -1528,6 +1309,7 @@ WHERE
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
+				//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 $queryData->next_result();
                 
                 // Dump the extra resultset.
@@ -1555,7 +1337,7 @@ WHERE
                     return $this->dataSet = null;
                 }
                 
-                die(var_dump($this->dataSet));
+                //die(var_dump($this->dataSet));
             }
             catch(exception $ex) {
                 
@@ -1907,6 +1689,7 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
+                    	//echo "<pre>";print_r($value);echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
