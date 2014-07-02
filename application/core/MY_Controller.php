@@ -3746,7 +3746,7 @@ $result = $result->result_array();
                     $linkClass = 'action';
                 }
 
-                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="sr-only">60% Complete</span></div></div></td>';
+                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'.$progress.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$progress.'%;">'.$progress.'% Complete<span class="sr-only">'.$progress.'% Complete</span></div></div></td>';
                 $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
 
                 $this->districtFacilityListSection.= '<tr>
