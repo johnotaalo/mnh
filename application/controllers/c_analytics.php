@@ -504,24 +504,35 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
-    public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Frequency', 8);
+    public function getCommodityAvailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey,'mnh','availability');
     }
     
     public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Unavailability');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','unavailability');
     }
     
     public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Location');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','location');
     }
     
     public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Quantities');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','quantity');
+    }
+	public function getCommodityAvailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey,'ch','availability');
     }
     
-    public function getCommodityAvailability($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
+    public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','unavailability');
+    }
+    
+    public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','location');
+    }
+    
+    public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','quantity');
     }
     
     /**
@@ -627,6 +638,31 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey, 'mh', 'location');
     }
     
+	public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic){
+		$results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
+		//echo "<pre>";print_r($result);echo "</pre>";
+		foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray[]);die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+	
+	
     /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
@@ -638,7 +674,7 @@ ORDER BY fac_level;");
      */
     public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey, $for, $statistic);
-        
+       //echo "<pre>";print_r($result);echo "</pre>";die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -654,6 +690,7 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray[]);die;
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }

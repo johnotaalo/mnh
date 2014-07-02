@@ -64,7 +64,7 @@ switch($this->session->userdata('survey')) {
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityAvailabilityFrequency">
+				<li id="commodityAvailability">
 					<a href="#">Commodity Availability</a>
 				</li>
 				<li id="commodityAvailabilityUnavailability">
@@ -73,12 +73,12 @@ switch($this->session->userdata('survey')) {
 				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityAvailabilityQuantities">
-					<a href="#">Commodity Quantities</a>
+				<li id="commodityAvailabilityQuantity">
+					<a href="#">Commodity Quantity</a>
 				</li>
-				<li id="CHcommoditySuppliers">
+				<!--<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
-				</li>
+				</li>-->
 				
 			</ul>
 		</li>
