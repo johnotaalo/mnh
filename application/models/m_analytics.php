@@ -423,8 +423,8 @@ ORDER BY gt.guide_code ASC";
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
         
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-        
-        
+        $query = "CALL get_commodity_statistics('" . $criteria . "' ,'" . $value . "' ,'" . $survey . "' ,'" . $for . "' ,'" . $statistic . "' );";
+        //
         
         /**
          * something of this kind:
@@ -2192,7 +2192,7 @@ LIMIT 0 , 1000
              */
             
             /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-            $query = "CALL get_resources('" . $criteria . "', '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','" . $choice . "');";
+            $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
             
             try {
                 
@@ -2206,10 +2206,10 @@ LIMIT 0 , 1000
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     
-                    echo '<pre>';
-                    print_r($this->dataSet);
-                    echo '</pre>';
-                    die;
+                    //echo '<pre>';
+                   // print_r($this->dataSet);
+                    //echo '</pre>';
+                    //die;
                     foreach ($this->dataSet as $value) {
                     }
                     return $this->dataSet;
