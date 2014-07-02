@@ -3375,7 +3375,7 @@ private function addhcwWorkProfile() {
                     break;
 
                 case 'section-5':
-
+//checking
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
