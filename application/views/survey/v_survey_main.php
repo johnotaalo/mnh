@@ -185,6 +185,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#facilityType option").filter(function() {return $(this).text() == facility.facType;}).first().prop("selected", true);
                                 $("#facilityLevel option").filter(function() {return $(this).text() == facility.facLevel;}).first().prop("selected", true);
                                 $("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facOwnership;}).first().prop("selected", true);
+
                                 $("#facilityDistrict option").filter(function() {return $(this).text() == facility.facDistrict;}).first().prop("selected", true);
                                 $("#facilityCounty option").filter(function() {return $(this).text() == facility.facCounty;}).first().prop("selected", true);
 
@@ -831,6 +832,21 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 }
             }// close select treatment
 
+            function toggle_table(el)
+            {
+                id = $(el).attr("id");
+                name = $(el).attr("name");
+                radioValue = $(el).attr("value");
+                // alert("This is the id: "+id+" and definately the name: "+name);
+                if(radioValue === '1')
+                {
+                    $('.'+name).show();
+                }
+                else
+                {
+                    $('.'+name).hide();
+                }
+            }
             function break_form_to_steps(form_id){
                 //form_id='#zinc_ors_inventory';
                 //alert(form_id);
@@ -874,15 +890,20 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
                                 $(form_id).bind("after_remote_ajax", function(event, fdata){
                                     //console.log($(form_id).formwizard('state'));
-                                    c
+                                    survey = '<?php echo $this -> session -> userdata('survey');?>';
                                     if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
 
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
-                                             }
 
-                                    }else if(survey=='ch'){
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
+                                        }
+
+                                    }
+                                    else if(survey=='ch'){
                                         if(fdata.currentStep=='section-9'){
                                             //alert('Yes');
                                             //$(form_id).formwizard('reset');
@@ -891,6 +912,9 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                         }
                                     }
                                     else{
@@ -902,15 +926,13 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                         }
                                     }
 
-
                                 });
-                                message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
-                                            console.log(message);
-                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
-
                             }else{
                                 $("#data").html("");
                                 alert("An unknown error occurred, try retaking the survey later on. Kindly report this incidence.");
@@ -919,6 +941,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                             return data; //return true to make the wizard move to the next step, false will cause the wizard to stay on the current step
                         }
+
                     };
 
 
@@ -1038,7 +1061,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     success: function(data){
                         survey = '<?php echo $this->session->userdata("survey");?>';
                         //alert(data);
-                        console.log(data);
+
                         (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 
 
