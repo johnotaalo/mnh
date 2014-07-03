@@ -449,6 +449,30 @@ ORDER BY fac_level;");
     /*
      * Get Trained Stuff
     */
+
+     /**
+     * [getGuidelinesAvailabilityCH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getTrainedStaffCH($criteria, $value, $survey) {
+        $this->getTrainedStaff($criteria, $value, $survey, 'ch');
+    }
+
+/**
+     * [getGuidelinesAvailabilityCH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getTrainedStaffMNH($criteria, $value, $survey) {
+        $this->getTrainedStaff($criteria, $value, $survey, 'mnh');
+    }
+
+
     public function getTrainedStaff($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
@@ -506,19 +530,19 @@ ORDER BY fac_level;");
 
     }
     
-    public function getCommodityAvailability($criteria, $value, $survey) {
+    public function getCommodityAvailabilityMNH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey,'mnh','availability');
     }
     
-    public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+    public function getCommodityAvailabilityUnavailabilityMNH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','unavailability');
     }
     
-    public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
+    public function getCommodityAvailabilityLocationMNH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','location');
     }
     
-    public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
+    public function getCommodityAvailabilityQuantitiesMNH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','quantity');
     }
 	public function getCommodityAvailability($criteria, $value, $survey) {
@@ -549,10 +573,9 @@ ORDER BY fac_level;");
     public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
-        echo '<pre>';
-        print_r($results);
-        echo '</pre>';
-        die;
+        
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -960,6 +983,16 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
+    }
+     /**
+     * [getGuidelinesAvailabilityCH description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getGuidelinesAvailabilityCH($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
     }
     

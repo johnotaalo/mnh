@@ -22,10 +22,10 @@ switch($this->session->userdata('survey')) {
 				<li id="communityStrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="guidelinesAvailability">
+				<li id="guidelinesAvailabilityCH">
 					<a href="#">Guidelines Availability</a>
 				</li>
-				<li id="trainedStaffOne">
+				<li id="TrainedStaffCH">
 					<a href="#">Staff Trainings</a>
 				</li>
 				<li id="childrenServices">
@@ -239,7 +239,7 @@ case 'mnh' :
 				<li id="communitystrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="trainedStaff">
+				<li id="TrainedStaffMnh">
 					<a href="#" >Staff Training</a>
 				</li>
 

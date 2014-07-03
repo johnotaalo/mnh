@@ -299,7 +299,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
         
         /*using CI Database Active Record*/
@@ -312,53 +312,7 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
         
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
-
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-        
-        $query = "SELECT
-    COUNT(gt.fac_mfl) AS facilities,
-    gt.guide_code AS training,
-    sum(gt.tg_trained_before_2010) AS trained,
-    sum(gt.tg_working) AS working
-FROM
-    training_guidelines gt
-WHERE
-    gt.guide_code IN (SELECT
-            guide_code
-        FROM
-            guidelines
-        WHERE
-            guide_for = '" . $survey . "')
-        AND gt.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-         JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-GROUP BY gt.guide_code
-ORDER BY gt.guide_code ASC";
+        $query = "CALL get_trained_staff('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
         
         try {
             $this->dataSet = $this->db->query($query, array($value));
@@ -423,165 +377,14 @@ ORDER BY gt.guide_code ASC";
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
         
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-<<<<<<< HEAD
-        $query = "CALL get_commodity_statistics('" . $criteria . "' ,'" . $value . "' ,'" . $survey . "' ,'" . $for . "' ,'" . $statistic . "' );";
-        //
-        
-        /**
-         * something of this kind:
-         * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
-         */
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
 
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-        
-        /*--------------------begin commodities availability by frequency----------------------------------------------*/
-        $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-                    GROUP BY ca.comm_code,ca.ac_Availability
-                    ORDER BY ca.comm_code";
-        try {
-            $this->dataSet = $this->db->query($query, array($value));
-            
-            $this->dataSet = $this->dataSet->result_array();
-            
-            // echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
-                
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-                $data_set['Sometimes Available'] = $data_set['Available'] = $data_set['Never Available'] = array();
-                foreach ($this->dataSet as $value_) {
-                    
-                    //1. collect the categories
-                    $data_categories[] = $this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']';
-                    
-                    //incase of duplicates--do an array_unique outside the foreach()
-                    
-                    //2. collect the analytic variables
-                    if ($value_['frequency'] == 'Some Available') {
-                        
-                        //a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
-                        
-                        $frequency = 'Sometimes Available';
-                    } else {
-                        $frequency = $value_['frequency'];
-                    }
-                    $analytic_var[] = $frequency;
-                    
-                    //includes duplicates--so we'll array_unique outside the foreach()
-                    //Declare Arrays
-                    
-                    //collect the data_sets for the 3 analytic variables under availability
-                    if ($frequency == 'Available') {
-                        $data_set['Available'][$this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
-                    } else if ($frequency == 'Sometimes Available') {
-                        $data_set['Sometimes Available'][$this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
-                    } else if ($frequency == 'Never Available') {
-                        $data_set['Never Available'][$this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']'][] = intval($value_['total_response']);
-                    }
-                }
-                
-                //var_dump($data_set);die;
-                
-                //make cat array unique if we got duplicates then json_encode and set to $data array
-                $data['categories'] = (array_values(array_unique($data_categories)));
-                
-                //expected 28
-                
-                //get a unique set of analytic variables
-                $analytic_var = array_unique($analytic_var);
-                
-                //expected to be 3 in this particular context
-                $data['analytic_variables'] = $analytic_var;
-                
-                //get the data sets
-                $data['responses'] = $data_set;
-                
-                //sets of the 3 analytic variables: Available | Sometimes Available | Never Available
-                
-                $this->final_data_set['frequency'] = $data;
-                
-                //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-                
-                //unset the arrays for reuse in the next query
-                $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-                
-                //return $this -> final_data_set;
-                //var_dump($this -> final_data_set);die;
-                
-                
-            } else {
-                return null;
-            }
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
-        
-        /*--------------------end commodities availability by frequency----------------------------------------------*/
-        
-        /*--------------------begin commodities reason for unavailability----------------------------------------------*/
-        $this->dataSet = array();
-        $query = "SELECT count(ca.ac_reason_unavailable) AS total_response,ca.comm_code as commodities,ca.ac_reason_unavailable AS reason, c.comm_unit as unit FROM available_commodities ca,commodities c
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-                    AND ca.ac_reason_unavailable !='Not Applicable'
-                    GROUP BY ca.comm_code,ca.ac_reason_unavailable
-                    ORDER BY ca.comm_code,reason ASC";
-        try {
-            $this->dataSet = $this->db->query($query, array($value));
-            
-            $this->dataSet = $this->dataSet->result_array();
-            
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
-                
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-=======
           $query = "CALL get_commodity_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
 				//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
                 $queryData->next_result();
->>>>>>> 0006058e99238febc2f7d1cb759bce8ae618b6e4
+
                 
                 // Dump the extra resultset.
                 $queryData->free_result();
