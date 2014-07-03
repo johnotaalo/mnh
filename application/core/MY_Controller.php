@@ -3876,7 +3876,8 @@ $result = $result->result_array();
     {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
         $this->mchpneumoniaTreatmentSection .= '
-<select name = "pneTreatment" onchange="selectpneTreatment(this);" id = "severpneumoniatreatment">
+<select name = "pneTreatment" onchange="selectpneTreatment(this);" id = "pneumoniatreatment">
+
 <option value = "pneTreatment_0" id = "not_selected">Select a treatment</option>';
         $counter = 0;
         foreach ($this->data_found as $value) {

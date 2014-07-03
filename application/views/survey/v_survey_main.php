@@ -435,7 +435,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
             }); /*close document ready*/
 
-            function additionfunction()
+            /*function additionfunction()
             {
                 var malsevere = document.getElementById("malsevere").value;
                 var malsome = document.getElementById("malsome").value;
@@ -462,7 +462,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
 
                 document.getElementById("totalu5").value = u5total;
-            }
+            }*/
 
             function selectpnesevereTreatment(select)
             {
