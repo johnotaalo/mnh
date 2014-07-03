@@ -1704,7 +1704,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addMchGuidelinesAvailabilityInfo
       
     private function addTotalMCHTreatment() {
-
+        
         $treatment =$this->input->post('mchtreatment');
         $totalTreatment =$this->input->post('mchtotalTreatment');
         $realtreatments = $this->input->post('mchtreatmentnew');

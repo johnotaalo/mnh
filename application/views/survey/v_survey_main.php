@@ -434,34 +434,34 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
             }); /*close document ready*/
 
-            function additionfunction()
-            {
-                var malsevere = document.getElementById("malsevere").value;
-                var malsome = document.getElementById("malsome").value;
-                var malnodehydration = document.getElementById("malnodehydration").value;
-                var maldysentry = document.getElementById("maldysentry").value;
-                var malnoclass = document.getElementById("malnoclass").value;
+            // function additionfunction()
+            // {
+            //     var malsevere = document.getElementById("malsevere").value;
+            //     var malsome = document.getElementById("malsome").value;
+            //     var malnodehydration = document.getElementById("malnodehydration").value;
+            //     var maldysentry = document.getElementById("maldysentry").value;
+            //     var malnoclass = document.getElementById("malnoclass").value;
 
-                var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
-                document.getElementById("diatotal").value = diatotal;
+            //     var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
+            //     document.getElementById("diatotal").value = diatotal;
 
-                var severepne = document.getElementById("severepne").value;
-                var pne = document.getElementById("pne").value;
+            //     var severepne = document.getElementById("severepne").value;
+            //     var pne = document.getElementById("pne").value;
 
-                var pnetotal = Number(severepne) + Number(pne);
-                document.getElementById("pnetotal").value = pnetotal;
+            //     var pnetotal = Number(severepne) + Number(pne);
+            //     document.getElementById("pnetotal").value = pnetotal;
 
 
-                var malconfirmed = document.getElementById("malconfirmed").value;
-                var malnotconfirmed = document.getElementById("malnotconfirmed").value;
+            //     var malconfirmed = document.getElementById("malconfirmed").value;
+            //     var malnotconfirmed = document.getElementById("malnotconfirmed").value;
 
-                var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
-                document.getElementById("malariatotal").value = malariatotal;
+            //     var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
+            //     document.getElementById("malariatotal").value = malariatotal;
 
-                var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
+            //     var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
 
-                document.getElementById("totalu5").value = u5total;
-            }
+            //     document.getElementById("totalu5").value = u5total;
+            // }
 
             function selectpnesevereTreatment(select)
             {

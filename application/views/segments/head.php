@@ -16,26 +16,26 @@
 
 
     <!-- New Bower Components -->
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/bootstrap.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/intro.js/introjs.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/stylesheets/flat.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/flat.css">
 
 
 
 <!-- Load JS here for greater good =============================-->
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-1.8.3.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-switch.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-checkbox.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-radio.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.tagsinput.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.placeholder.js"></script>
-<script src="<?echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-1.8.3.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-switch.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-checkbox.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-radio.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.tagsinput.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.placeholder.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
 <!--script src="<?echo base_url();?>assets/bower_components/"></script-->
 
 

@@ -1245,7 +1245,7 @@ Indicate the total # of children that received the following treatment. </br>
         <table class="centre">
             <tbody>
                 <th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
-                <th><input type = "text" id = "totalu5" readonly = "readonly"/></th>
+                <th><input type = "number" id = "totalu5" name = "mchtotalTreatment[totalu5]"/></th>
                 <th colspan = "2"></th>
 
             <tr>
@@ -1253,16 +1253,16 @@ Indicate the total # of children that received the following treatment. </br>
             </tr>
             <tr>
                 <th colspan="2">Diarrhoea Total</th>
-                <th><input type = "text" id = "diatotal" readonly = "readonly"/></th>
+                <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
                 <th colspan = "2"></th>
             </tr>
             </tbody>
             <tr>
-            <td>Severe Dehydration: <input type = "text" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
-            <td>Some Dehydration: <input type = "text" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
-            <td>No Dehydration: <input type = "text" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
-            <td>Dysentry: <input type = "text" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
-            <td>No Classification: <input type = "text" id = "malnoclass" name = "mchtotalTreatment[NoClassification]" onkeyup = "additionfunction()"></td>
+            <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
+            <td>Some Dehydration: <input type = "number" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
+            <td>No Dehydration: <input type = "number" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
+            <td>Dysentry: <input type = "number" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
+            <td>No Classification: <input type = "number" id = "malnoclass" name = "mchtotalTreatment[NoClassification]" onkeyup = "additionfunction()"></td>
             </tr>
             <tr>
                 <td>
@@ -1308,13 +1308,13 @@ Indicate the total # of children that received the following treatment. </br>
 
                     <tr>
                     <th colspan = "2">Pneumonia Total: </th>
-                    <th><input type = "text" id = "pnetotal" readonly = "readonly"></th>
+                    <th><input type = "number" id = "pnetotal" name = "mchtotalTreatment[pnetotal]"></th>
                     <th colspan = "3"></th>
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan = "3">Severe Pneumonia: <input type = "text" name = "mchtotalTreatment[SeverePneumonia]" id = "severepne" onkeyup = "additionfunction()"></td>
-                    <td colspan = "3">Pneumonia: <input type = "text" name = "mchtotalTreatment[Pneumonia]" id = "pne" onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Severe Pneumonia: <input type = "number" name = "mchtotalTreatment[SeverePneumonia]" id = "severepne" onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Pneumonia: <input type = "number" name = "mchtotalTreatment[Pneumonia]" id = "pne" onkeyup = "additionfunction()"></td>
                 </tr>
                 <tr>
                 <td colspan = "3">
@@ -1336,13 +1336,13 @@ Indicate the total # of children that received the following treatment. </br>
             <tbody>
                     <tr>
                     <th colspan = "2">Malaria Total: </th>
-                    <th><input type = "text" id = "malariatotal" readonly = "readonly"></th>
+                    <th><input type = "number" id = "malariatotal" name = "mchtotalTreatment[malariatotal]"></th>
                     <th colspan = "3"></th>
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan = "3">Confirmed: <input type = "text" name = "mchtotalTreatment[ConfirmedMalaria]" id = "malconfirmed"  onkeyup = "additionfunction()"></td>
-                    <td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "text" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Confirmed: <input type = "number" name = "mchtotalTreatment[ConfirmedMalaria]" id = "malconfirmed"  onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "number" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
                 <tr>
                 <td colspan = "3">
                 <div class = "treatmentdropdownarea">
@@ -1365,7 +1365,7 @@ Indicate the total # of children that received the following treatment. </br>
             <tbody>
             <tr>
                 <th colspan="2" >Others Total:</th>
-                <th><input type = "text"></th>
+                <th><input type = "number" name = "mchtotalTreatment[OtherTotal]"></th>
             </tr>
 
             </tbody>

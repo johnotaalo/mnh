@@ -164,12 +164,12 @@ function runNotification(base_url, function_url, messsage) {
             //console.log(data);die;
             obj = jQuery.parseJSON(data);
             $.each(obj, function(k, v) {
-                //console.log(v.cl_country);
+                console.log(v.cl_country);
                 //console.log(getCountryInfo(v.cl_country));
                 phoneNumber = getCountryInfo(v.cl_country) + v.cl_phone_number;
                 today = new Date();
                 hours = today.getHours();
-                //console.log(hours);
+                console.log(hours);
 
 
                 if (hours < 12) {
@@ -183,7 +183,7 @@ function runNotification(base_url, function_url, messsage) {
                 }
 
                 newMessage = period + ' ' + v.cl_name + ',  ' + message;
-                //console.log(newMessage);
+                console.log(newMessage);
                 //notify(phoneNumber, newMessage);
 
             });
