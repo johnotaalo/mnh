@@ -530,37 +530,81 @@ ORDER BY fac_level;");
 
     }
     
-    public function getCommodityAvailabilityMNH($criteria, $value, $survey) {
+    public function getCommodityAvailabilityMnh($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey,'mnh','availability');
     }
     
-    public function getCommodityAvailabilityUnavailabilityMNH($criteria, $value, $survey) {
+    public function getCommodityAvailabilityUnavailabilityMnh($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','unavailability');
     }
     
-    public function getCommodityAvailabilityLocationMNH($criteria, $value, $survey) {
+    public function getCommodityAvailabilityLocationMnh($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','location');
     }
     
-    public function getCommodityAvailabilityQuantitiesMNH($criteria, $value, $survey) {
+    public function getCommodityAvailabilityQuantitiesMnh($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','quantity');
     }
-	public function getCommodityAvailability($criteria, $value, $survey) {
+	public function getCommodityAvailabilityCH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey,'ch','availability');
     }
     
-    public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+    public function getCommodityAvailabilityUnavailabilityCH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'ch','unavailability');
     }
     
-    public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
+    public function getCommodityAvailabilityLocationCH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'ch','location');
     }
     
-    public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
+    public function getCommodityAvailabilityQuantitiesCH($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'ch','quantity');
     }
     
+
+    public function getBundlingStatistics($criteria, $value, $survey, $for, $statistic){
+        $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
+        //echo "<pre>";print_r($result);echo "</pre>";
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            //print_r($resultArray[]);die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    public function getbundlingFrequency($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey,'bun','availability');
+    }
+    
+    public function getbundlingUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun','unavailability');
+    }
+    
+    public function bundlingLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun','location');
+    }
+    
+    public function bundlingQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun','quantity');
+    }
+   /* public function bundlingSuppliers($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun','supplier');
+    }*/
+
+
+
     /**
      * [getSuppliesStatistics description]
      * @param  [type] $criteria  [description]
@@ -720,6 +764,70 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
+      
+    /**
+     * [getCHEquipmentFrequency description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type] $for      [description]
+     */
+    public function getCHEquipmentFrequency($criteria, $value, $survey) {
+        $this->getORTCornerEquipmement($criteria, $value, $survey, 'ort', 'availability');
+    }
+
+    /**
+     * [getCHEquipmentFunctionality description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type] $for      [description]
+     */
+    public function CHEquipmentFunctionality($criteria, $value, $survey) {
+        $this->getORTCornerEquipmement($criteria, $value, $survey, 'ort', 'functionality');
+    }
+
+    /**
+     * [getCHEquipmentLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type] $for      [description]
+     */
+    public function CHEquipmentLocation($criteria, $value, $survey) {
+        $this->getORTCornerEquipmement($criteria, $value, $survey, 'ort', 'location');
+    }
+
+     /**
+     * [getResourcesStatistics description]
+     * @param  [type] $criteria  [description]
+     * @param  [type] $value     [description]
+     * @param  [type] $survey    [description]
+     * @param  [type] $for       [description]
+     * @param  [type] $statistic [description]
+     * @return [type]            [description]
+     */
+    public function getORTCornerAssessment($criteria, $value, $survey, $for, $statistic) {
+        $results = $this->m_analytics->getORTCornerEquipmement($criteria, $value, $survey, $for, $statistic);
+        
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
 
     /**
      * [getResourcesStatistics description]
@@ -766,8 +874,37 @@ ORDER BY fac_level;");
         
        // echo "<pre>"; print_r($results);echo "</pre>";die;
     }
+
     /**
      * [getResourcesFrequency description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getResourcesFrequency($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'availability');
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+     
+      /**
+     * [getResourcesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getResourcesLocation($criteria, $value, $survey) {
+        $value = urldecode($value);
+       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'location');
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+
+    /**
+     * [getResourcesFrequencyMNH description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
@@ -781,7 +918,7 @@ ORDER BY fac_level;");
     }
      
       /**
-     * [getResourcesLocation description]
+     * [getResourcesLocationMNH description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
@@ -825,17 +962,7 @@ ORDER BY fac_level;");
     public function getMNHEquipmentFunctionality($criteria, $value, $survey) {
         $this->getEquipmentStatistics($criteria, $value, $survey, 'mnh', 'functionality');
     }
-    
-    /**
-     * [getCHEquipmentFrequency description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
-    public function getCHEquipmentFrequency($criteria, $value, $survey) {
-        $this->getEquipmentStatistics($criteria, $value, $survey, 'ort', 'availability');
-    }
+
     
     /**
      * [getCHEquipmentLocation description]
