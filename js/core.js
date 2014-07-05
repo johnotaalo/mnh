@@ -164,12 +164,12 @@ function runNotification(base_url, function_url, messsage) {
             //console.log(data);die;
             obj = jQuery.parseJSON(data);
             $.each(obj, function(k, v) {
-                //console.log(v.cl_country);
+                console.log(v.cl_country);
                 //console.log(getCountryInfo(v.cl_country));
                 phoneNumber = getCountryInfo(v.cl_country) + v.cl_phone_number;
                 today = new Date();
                 hours = today.getHours();
-                //console.log(hours);
+                console.log(hours);
 
 
                 if (hours < 12) {
@@ -184,7 +184,7 @@ function runNotification(base_url, function_url, messsage) {
 
                 newMessage = period + ' ' + v.cl_name + ',  ' + message;
                 //console.log(newMessage);
-                //notify(phoneNumber, newMessage);
+               // notify(phoneNumber, newMessage);
 
             });
         }
@@ -212,41 +212,3 @@ function notify(phoneNumber, message) {
         }
     });
 }
-  $(document).ready(function(){
-startIntro();
-      function startIntro(){
-        var intro = introJs();
-          intro.setOptions({
-            steps: [
-              {
-                element: '#network',
-                intro: "This is a Top Bar showing the Date, User and System Information.",
-                position: 'bottom'
-              },
-              {
-                element: '#navigation',
-                intro: "The <b>Navigation</b> Menu has the links to the Surveys and Analytics as well as <b>HCMP</b> and <b>PMT</b>.",
-                position: 'top'
-              },
-              {
-                element: '#surveys',
-                intro: 'The <b>Surveys</b> Section contains links to access the <span style="color:blue">Forms</span> for the 3 Surveys i.e. MNH, CH and HCW. ',
-                position: 'right'
-              },
-              {
-                element: '#reporting-rates',
-                intro: "The <b>Reporting</b> Section displays the Kenyan Map, <span style='color:red'>C</span> <span style='color:orange'>o</span> <span style='color:gold'>l</span> <span style='color:lightgreen'>o</span> <span style='color:green'>r</span> Coded to represent the Completion Rate.",
-                position: 'left'
-              },
-              {
-                element: '#analytics',
-                intro: 'The <b>Analytics</b> Analytics contains links to access the <span style="color:blue">Data</span> for the 3 Surveys i.e. MNH, CH and HCW.',
-                  position:'left'
-              }
-            ]
-          });
-
-          intro.start();
-      }
-
-  });
