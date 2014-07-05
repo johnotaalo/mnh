@@ -114,6 +114,9 @@ form{
         @extend .btn;
         background:#1abc9c;
         color:white;
+        i{
+            padding:0 2%;
+        }
 
     }
     input[type="radio"],input[type="checkbox"]{
@@ -123,6 +126,9 @@ form{
         width:auto;
         -webkit-box-shadow:none;
     }
+}
+.form-container{
+    padding:0 !important;
 }
 #logout{
     margin-left:20px;
@@ -185,6 +191,11 @@ table{
         margin-bottom:0;
             }
         }
+    }
+    td{
+        max-width:200px !important;
+         word-wrap: break-word;
+    overflow-wrap: break-word;
     }
 }
 .begin:hover{

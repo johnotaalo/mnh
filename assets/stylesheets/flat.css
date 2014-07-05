@@ -11237,7 +11237,11 @@ form button {
   background: #1abc9c;
   color: white;
 }
-/* line 119, ../sass/flat.scss */
+/* line 117, ../sass/flat.scss */
+form button i {
+  padding: 0 2%;
+}
+/* line 122, ../sass/flat.scss */
 form input[type="radio"], form input[type="checkbox"] {
   display: inline-block;
   vertical-align: top;
@@ -11246,108 +11250,119 @@ form input[type="radio"], form input[type="checkbox"] {
   -webkit-box-shadow: none;
 }
 
-/* line 127, ../sass/flat.scss */
+/* line 130, ../sass/flat.scss */
+.form-container {
+  padding: 0 !important;
+}
+
+/* line 133, ../sass/flat.scss */
 #logout {
   margin-left: 20px;
   background: #e74c3c;
   color: white;
 }
 
-/* line 143, ../sass/flat.scss */
+/* line 149, ../sass/flat.scss */
 .open .dropdown-menu {
   margin-top: 0 !important;
 }
 
-/* line 150, ../sass/flat.scss */
+/* line 156, ../sass/flat.scss */
 #network li i {
   padding-right: 5px;
 }
 
-/* line 156, ../sass/flat.scss */
+/* line 162, ../sass/flat.scss */
 #content {
   padding-top: 0;
 }
 
-/* line 160, ../sass/flat.scss */
+/* line 166, ../sass/flat.scss */
 table {
   width: 100%;
 }
-/* line 163, ../sass/flat.scss */
+/* line 169, ../sass/flat.scss */
 table thead tr {
   background: #fd7972;
 }
-/* line 169, ../sass/flat.scss */
+/* line 175, ../sass/flat.scss */
 table tbody tr {
   background: #c8defc;
 }
-/* line 172, ../sass/flat.scss */
+/* line 178, ../sass/flat.scss */
 table tbody th {
   background: #72bcf5;
 }
-/* line 176, ../sass/flat.scss */
+/* line 182, ../sass/flat.scss */
 table td, table th {
   margin-bottom: 5px;
   padding: 0.5%;
   border: 2px solid white;
 }
-/* line 182, ../sass/flat.scss */
+/* line 188, ../sass/flat.scss */
 table td .progress {
   margin-bottom: 0;
 }
-/* line 184, ../sass/flat.scss */
+/* line 190, ../sass/flat.scss */
 table td .progress .progress-bar {
   margin-bottom: 0;
 }
+/* line 195, ../sass/flat.scss */
+table td {
+  max-width: 200px !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
-/* line 190, ../sass/flat.scss */
+/* line 201, ../sass/flat.scss */
 .begin:hover {
   cursor: hand;
 }
 
-/* line 193, ../sass/flat.scss */
+/* line 204, ../sass/flat.scss */
 .instruction {
   background: #ffeacc;
 }
 
-/* line 196, ../sass/flat.scss */
+/* line 207, ../sass/flat.scss */
 .message.success {
   padding: 0.5%;
   background: #ecf0f1;
 }
 
-/* line 200, ../sass/flat.scss */
+/* line 211, ../sass/flat.scss */
 #sectionNavigation {
   width: 40%;
   margin: auto;
 }
-/* line 203, ../sass/flat.scss */
+/* line 214, ../sass/flat.scss */
 #sectionNavigation input {
   width: 45%;
   display: inline-block;
 }
 
-/* line 214, ../sass/flat.scss */
+/* line 225, ../sass/flat.scss */
 .portlet.box .portlet-title h4 {
   font-weight: bolder;
   padding: 1% 1.5%;
   background: #ecf0f1;
 }
-/* line 218, ../sass/flat.scss */
+/* line 229, ../sass/flat.scss */
 .portlet.box .portlet-title h4 i {
   padding-right: 2%;
 }
-/* line 221, ../sass/flat.scss */
+/* line 232, ../sass/flat.scss */
 .portlet.box .portlet-title h4 .statistic-free {
   font-weight: normal;
   padding-right: 2%;
 }
-/* line 227, ../sass/flat.scss */
+/* line 238, ../sass/flat.scss */
 .portlet.box .portlet-body {
   height: 300px;
   overflow-y: auto;
 }
 
-/* line 233, ../sass/flat.scss */
+/* line 244, ../sass/flat.scss */
 #reporting {
   overflow-y: auto;
   height: 300px;
@@ -11355,74 +11370,74 @@ table td .progress .progress-bar {
   padding: 10px;
 }
 
-/* line 239, ../sass/flat.scss */
+/* line 250, ../sass/flat.scss */
 #reporting label, #reportingBar label {
   vertical-align: top;
   display: inline-block;
   width: 40%;
 }
 
-/* line 244, ../sass/flat.scss */
+/* line 255, ../sass/flat.scss */
 #reporting .progress, #reportingBar .progress {
   display: inline-block;
   width: 55%;
   margin-bottom: 0;
 }
 
-/* line 249, ../sass/flat.scss */
+/* line 260, ../sass/flat.scss */
 #countyHeader {
   width: 35%;
 }
 
-/* line 252, ../sass/flat.scss */
+/* line 263, ../sass/flat.scss */
 #countyHeader, #progressHeader {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 256, ../sass/flat.scss */
+/* line 267, ../sass/flat.scss */
 #progressHeader {
   width: 64%;
 }
 
-/* line 259, ../sass/flat.scss */
+/* line 270, ../sass/flat.scss */
 .progressRow {
   border-bottom: 1px solid #bbbbbb;
 }
 
-/* line 262, ../sass/flat.scss */
+/* line 273, ../sass/flat.scss */
 #reportingLabel {
   max-width: 60%;
   padding-left: 5%;
   margin-bottom: 0 !important;
 }
 
-/* line 267, ../sass/flat.scss */
+/* line 278, ../sass/flat.scss */
 #reportingLabel #reportingBar {
   max-width: 60%;
   margin-bottom: 0 !important;
 }
 
-/* line 271, ../sass/flat.scss */
+/* line 282, ../sass/flat.scss */
 #reportingLabel #reportingBar .progressRow {
   border-bottom: none;
 }
 
-/* line 275, ../sass/flat.scss */
+/* line 286, ../sass/flat.scss */
 #county_select_label {
   padding-left: 5%;
   max-width: 25%;
   margin-bottom: 0 !important;
 }
 
-/* line 280, ../sass/flat.scss */
+/* line 291, ../sass/flat.scss */
 #county_select_label select {
   max-width: 55% !important;
   height: auto;
   margin-bottom: 0 !important;
 }
 
-/* line 286, ../sass/flat.scss */
+/* line 297, ../sass/flat.scss */
 #reportingBar {
   display: inline-block;
   max-width: 70% !important;

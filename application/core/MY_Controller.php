@@ -394,50 +394,99 @@ class MY_Controller extends CI_Controller
      * */
     public function createCommodityAvailabilitySection() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
+        $retrieved = $this->m_retrieve->retrieveData('available_commodities', 'comm_code');
         
         //var_dump($this->data_found);die;
         $counter = 0;
+        $survey = $this->session->userdata('survey');
+        switch ($survey) {
+            case 'mnh':
+                $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
+                break;
+
+            case 'ch':
+                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+                break;
+        }
         $supplier_names = $this->selectCommoditySuppliers;
+        
+        $availabilities = array('Available', 'Never Available');
+        $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
+        
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->commodityAvailabilitySection.= '<tr>
+            $availabilityRow = $locationRow = $expiryRow = $quantityRow = $reasonUnavailableRow = '';
+            if (array_key_exists($value['commCode'], $retrieved)) {
+                $availability = ($retrieved[$value['commCode']]['ac_availability'] != 'N/A') ? $retrieved[$value['commCode']]['ac_availability'] : '';
+                $location = ($retrieved[$value['commCode']]['ac_location'] != 'N/A') ? $retrieved[$value['commCode']]['ac_location'] : '';
+                $expiryDate = ($retrieved[$value['commCode']]['ac_expiryDate'] != 'N/A') ? $retrieved[$value['commCode']]['ac_expiryDate'] : '';
+                $reasonUnavailable = ($retrieved[$value['commCode']]['ac_reason_unavailable'] != 'N/A') ? $retrieved[$value['commCode']]['ac_reason_unavailable'] : '';
+                $quantity = ($retrieved[$value['commCode']]['ac_quantity'] != 'N/A') ? $retrieved[$value['commCode']]['ac_quantity'] : '';
+            }
+            
+            foreach ($availabilities as $aval) {
+                if ($availability == $aval) {
+                    $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
+            <input checked="checked" name="cqAvailability_' . $counter . '" type="radio" value="' . $aval . '" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+            </td>';
+                } else {
+                    $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
+            <input name="cqAvailability_' . $counter . '" type="radio" value="' . $aval . '" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+            </td>';
+                }
+            }
+            foreach ($locations as $loc) {
+                if ($location == $loc) {
+                    $locationRow.= '<td style ="text-align:center;">
+            <input checked="checked" name="cqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+            </td>';
+                } else {
+                    $locationRow.= '<td style ="text-align:center;">
+            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+            </td>';
+                }
+            }
+            if ($expiry != '') {
+                $expiryRow = '<td style ="text-align:center;">
+            <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="350" class="cloned expiryDate" value="' . $expiry . '"/>
+            </td>';
+            } else {
+                $expiryRow = '<td style ="text-align:center;">
+            <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="350" class="cloned expiryDate"/>
+            </td>';
+            }
+            if ($quantity != '') {
+                $quantityRow = '<td style ="text-align:center;">
+            <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="100" class="cloned numbers" value="' . $quantity . '"/>
+            </td>';
+            } else {
+                $quantityRow = '<td style ="text-align:center;">
+            <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="100" class="cloned numbers"/>
+            </td>';
+            }
+            foreach ($reasons as $reason) {
+                if ($reasonUnavailable == $reason) {
+                    $reasonUnavailableRow.= '<option selected="selected" value="' . $reason . '">' . $reason . '</option>';
+                } else {
+                    $reasonUnavailableRow.= '<option value="' . $reason . '">' . $reason . '</option>';
+                }
+            }
+            $this->commodityAvailabilitySection[$value['commFor']].= '<tr>
             <td> ' . $value['commName'] . ' </td>
             <td> ' . $value['commUnit'] . '</td>
-            <td style="vertical-align: middle; margin: 0px;text-align:center;">
-            <input name="cqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqAvailability_' . $counter . '" type="radio" value="Never Available" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Delivery Room" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" type="checkbox" value="Store" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="cqLocation_' . $counter . '[]" id="cqLocOther_' . $counter . '" type="checkbox" value="Other" />
-            </td>
+           ' . $availabilityRow . '
+
+           <td width="60">
+            <select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
+               ' . $reasonUnavailableRow . '
+
+            </select></td>
+            ' . $locationRow . '
             <td style ="text-align:center;">
             <input name="cqLocation_' . $counter . '[]" id="cqLocNA_' . $counter . '" type="checkbox" value="Not Applicable" />
             </td>
-
-
-            <td style ="text-align:center;">
-            <input name="cqNumberOfUnits_' . $counter . '" id="cqNumberOfUnits_' . $counter . '" type="text" size="5" class="cloned numbers"/>
-            </td>
-            <td width="60">
-            <select name="cqReason_' . $counter . '" id="cqReason_' . $counter . '" style="width:110px" class="cloned">
-                <option value="" selected="selected">Select One</option>
-                <option value="Not Ordered">1. Not Ordered</option>
-                <option value="Ordered but not yet Received">2. Ordered but not yet Received</option>
-                <option value="Expired">3. Expired</option>
-
-
-            </select></td>
+            ' . $quantityRow . '
+            ' . $expiryRow . '
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqCommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
@@ -2146,11 +2195,6 @@ class MY_Controller extends CI_Controller
                 
                 $indicatorHCWFindings = ($retrieved[$value['indicatorCode']]['li_hcwFindings'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_hcwFindings'] : '';
                 $indicatorAssessorFindings = ($retrieved[$value['indicatorCode']]['li_assessorFindings'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_assessorFindings'] : '';
-                
-                //$indicatorCount=($retrieved[$value['indicatorCode']]['lq_question_count']!='n/a') ? $retrieved[$value['questionCode']]['lq_question_count']: '';
-                //$indicatorReason = ($retrieved[$value['indicatorCode']]['lq_question_reason']!='n/a') ? $retrieved[$value['questionCode']]['lq_question_reason']: '';
-                
-                
             }
             if ($indicatorHCWResponse == 'Yes') {
                 $responseHCWRow = '<td>Yes <input id="indicatorhcwResponse_' . $counter . '" checked="checked" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">';
@@ -2170,53 +2214,62 @@ class MY_Controller extends CI_Controller
             
             $base++;
             $findingRow = '';
-            if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl') {
-                $findingHCWRow = $findingAssessorRow = "";
-                if ($value['indicatorFindings'] != NULL) {
-                    $findings = explode(';', $value['indicatorFindings']);
-                    if (sizeof($findings) == 1) {
-                        foreach ($findings as $finding) {
-                            $findingHCWRow = $finding . ' <input value="' . $indicatorHCWFindings . '" type="text" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '">';
-                            $findingAssessorRow = $finding . ' <input type="text" value="' . $indicatorAssessorFindings . '" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '">';
-                        }
-                    } else {
-                        $findingHCWRow = $findingAssessorRow = '';
-                        foreach ($findings as $finding) {
-                            
-                            if ($finding == 'other (specify)') {
-                                if ($indicatorHCWFindings == $finding) {
-                                    $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" checked="checked" id="indicatorhcwFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorhcwOtherFindings_'.$counter . '" id="indicatorhcwOtherFindings_'.$counter . '" />';
-                                } else {
-                                    $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorhcwOtherFindings_'.$counter . '" id="indicatorhcwOtherFindings_'.$counter . '" />';
-                                }
-                                if ($indicatorAssesorFindings == $finding) {
-                                    $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" checked="checked" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_'.$counter . '" id="indicatorassessorOtherFindings_'.$counter . '" />';
-                                } else {
-                                    $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_'.$counter . '" id="indicatorassessorOtherFindings_'.$counter . '" />';
-                                }
+            $findingHCWRow = $findingAssessorRow = "";
+            if ($value['indicatorFindings'] != NULL) {
+                $findings = explode(';', $value['indicatorFindings']);
+                if (sizeof($findings) == 1) {
+                    foreach ($findings as $finding) {
+                        $findingHCWRow = $finding . ' <input value="' . $indicatorHCWFindings . '" type="text" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '">';
+                        $findingAssessorRow = $finding . ' <input type="text" value="' . $indicatorAssessorFindings . '" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '">';
+                    }
+                } else {
+                    $findingHCWRow = $findingAssessorRow = '';
+                    foreach ($findings as $finding) {
+                        
+                        if ($finding == 'other (specify)') {
+                            if ($indicatorHCWFindings == $finding) {
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" checked="checked" id="indicatorhcwFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorhcwOtherFindings_' . $counter . '" id="indicatorhcwOtherFindings_' . $counter . '" />';
                             } else {
-                                if ($indicatorHCWFindings == $finding) {
-                                    $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" checked="checked" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
-                                } else {
-                                    $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
-                                }
-                                if ($indicatorAssesorFindings == $finding) {
-                                    $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" checked="checked" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
-                                } else {
-                                    $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
-                                }
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorhcwOtherFindings_' . $counter . '" id="indicatorhcwOtherFindings_' . $counter . '" />';
+                            }
+                            if ($indicatorAssesorFindings == $finding) {
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" checked="checked" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_' . $counter . '" id="indicatorassessorOtherFindings_' . $counter . '" />';
+                            } else {
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_' . $counter . '" id="indicatorassessorOtherFindings_' . $counter . '" />';
+                            }
+                        } else {
+                            if ($indicatorHCWFindings == $finding) {
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" checked="checked" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
+                            } else {
+                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
+                            }
+                            if ($indicatorAssesorFindings == $finding) {
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" checked="checked" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
+                            } else {
+                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio" value="' . $finding . '">';
                             }
                         }
                     }
                 }
+            }
+            if ($section != 'svc' && $section != 'ror' && $section != 'tl') {
                 
                 if ($value['indicatorName'] == 'Correct Classification') {
                     $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            ' . $responseHCWRow . '
+            <td></td><td></td>
+            ' . $responseAssessorRow . '<td></td>
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
+                } else if ($section == 'sgn') {
+                    $data[$section][] = '
+                                    <tr>
+                                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
+                                ' . $responseHCWRow . '
+                                <td>' . $findingHCWRow . '</td>
+                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
+                            </tr>';
                 } else {
                     if ($value['indicatorCode'] == 'CHI105') {
                         $data[$section][] = '<tr><th colspan="5"><strong>(' . $numbering[$base - 1] . ')</strong>Breathing</th></tr>';
@@ -2244,15 +2297,6 @@ class MY_Controller extends CI_Controller
                             </tr>';
                     }
                 }
-            } elseif ($section == 'sgn') {
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            ' . $responseHCWRow . '
-            <td>Present <input name="indicatorhcwFinding_' . $counter . '" id="indicatorhcwFinding_' . $counter . '" value="Present" type="radio"> Not Present <input value="Not Present" id="indicatorhcwFinding_' . $counter . '" name="indicatorhcwFinding_' . $counter . '"  type="radio">
-            </td>
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
             } else {
                 
                 $data[$section][] = '
@@ -2439,10 +2483,8 @@ class MY_Controller extends CI_Controller
                     $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" checked="checked" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
                 } else if ($questionResponse == 'No') {
                     $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" checked="checked" name="questionResponse_' . $counter . '"  type="radio"></td>';
-                }
-                else{
-                  $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
-                 
+                } else {
+                    $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
                 }
                 $data[$section][] = '
                 <tr>
@@ -2737,11 +2779,11 @@ class MY_Controller extends CI_Controller
                 $unit = '';
             }
             $this->commodityUsageAndOutageSection.= '<tr>
-            <td colspan="2" style="width:200px;">' . $value['commName'] . ' </td><td >' . $unit . ' </td>
+            <td style="width:200px;">' . $value['commName'] . ' </td><td >' . $unit . ' </td>
             <td >
             <input name="usocUsage_' . $counter . '" type="text" size="5" class="cloned numbers"/>
             </td>
-            <td colspan="2">
+            <td>
             <select name="usocTimesUnavailable_' . $counter . '" id="usocTimesUnavailable_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>
                 <option value="Once">a. Once</option>
@@ -3311,49 +3353,104 @@ class MY_Controller extends CI_Controller
     }
     
     public function createEquipmentSection() {
-        $this->data_found = $this->m_mnh_survey->getEquipmentNames('mnh');
+        $this->data_found = $this->m_mnh_survey->getEquipmentNames();
+        $retrieved = $this->m_retrieve->retrieveData('available_equipments', 'eq_code');
         
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
+        $survey = $this->session->userdata('survey');
+        switch ($survey) {
+            case 'mnh':
+                $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
+                break;
+
+            case 'ch':
+                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+                break;
+        }
+        $availabilities = array('Available', 'Never Available');
+        $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
+        
         foreach ($this->data_found as $value) {
             $counter++;
+            $availabilityRow = $locationRow = $expiryRow = $quantityRow = $reasonUnavailableRow = '';
+            if (array_key_exists($value['eqCode'], $retrieved)) {
+                $availability = ($retrieved[$value['eqCode']]['ae_availability'] != 'N/A') ? $retrieved[$value['eqCode']]['ae_availability'] : '';
+                $location = ($retrieved[$value['eqCode']]['ae_location'] != 'N/A') ? explode(',', $retrieved[$value['eqCode']]['ae_location']) : '';
+                $fully_functioning = ($retrieved[$value['eqCode']]['ae_fully_functional'] != 'N/A') ? $retrieved[$value['eqCode']]['ae_fully_functional'] : '';
+                $non_functioning = ($retrieved[$value['eqCode']]['ae_non_functional'] != 'N/A') ? $retrieved[$value['eqCode']]['ae_non_functional'] : '';
+            }
             
+            foreach ($availabilities as $aval) {
+                if ($availability == $aval) {
+                    $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
+            <input checked="checked" name="eqAvailability_' . $counter . '" type="radio" value="' . $aval . '" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+            </td>';
+                } else {
+                    $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
+            <input name="eqAvailability_' . $counter . '" type="radio" value="' . $aval . '" style="vertical-align: middle; margin: 0px;" class="cloned"/>
+            </td>';
+                }
+            }
+            //Loop through preset locations
+            foreach ($locations as $loc) {
+                //Check if value retrieved is NOT NULL
+                if ($location != '') {
+                    //Loop through values from database
+                    foreach ($location as $loco) {
+                        //Check if location in database (loco) is equal to value in preset Array (loc)
+                        if ($loco == $loc) {
+                            $locationRowTemp[$loc] = '<td style ="text-align:center;">
+                                        <input checked="checked" name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+                                        </td>';
+                        } else {
+                            $locationRowTemp[$loc] = '<td style ="text-align:center;">
+                                        <input name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+                                        </td>';
+                        }
+                    }
+                } else {
+                    $locationRowTemp[$loc] = '<td style ="text-align:center;">
+                                        <input name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+                                        </td>';
+                }
+            }
+            foreach ($locationRowTemp as $temp) {
+                $locationRow.= $temp;
+            }
+            
+            if ($fully_functioning != '') {
+                $fullyFunctioningRow = '<td style ="text-align:center;">
+                                        <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  value="' . $fully_functioning . '" size="8" class="numbers" />
+                                        </td>';
+            } else {
+                $fullyFunctioningRow = '<td style ="text-align:center;">
+                                        <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  size="8" class="numbers" />
+                                        </td>';
+            }
+            if ($non_functioning != '') {
+                $nonFunctioningRow = '<td style ="text-align:center;">
+                                        <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" value="' . $non_functioning . '" type="text"  size="8" class="numbers"/>
+                                        </td>';
+            } else {
+                $nonFunctioningRow = '<td style ="text-align:center;">
+                                        <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" type="text"  size="8" class="numbers"/>
+                                        </td>';
+            }
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
                 $unit = '';
             }
             
-            $this->equipmentsSection.= '<tr>
+            $this->equipmentsSection[$value['eqFor']].= '<tr>
             <td >' . $value['eqName'] . ' ' . $unit . ' </td>
-            <td style ="text-align:center;">
-            <input name="eqAvailability_' . $counter . '" type="radio" value="Available" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqAvailability_' . $counter . '" type="radio" value="Never Available" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqLocation_' . $counter . '[]" type="checkbox" value="Delivery room" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqLocation_' . $counter . '[]" type="checkbox" value="Pharmacy" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqLocation_' . $counter . '[]" type="checkbox" value="Store" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqLocation_' . $counter . '[]" id="eqLocOther_' . $counter . '" type="checkbox" value="Other" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  size="8" class="numbers" />
-            </td>
-            <!--td style ="text-align:center;">
-            <input name="eqQtyPartiallyFunctional_' . $counter . '" type="text"  size="8" class="numbers"/>
-            </td-->
-            <td style ="text-align:center;">
-            <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" type="text"  size="8" class="numbers"/>
-            </td>
+            ' . $availabilityRow . '
+            ' . $locationRow . '
+            ' . $fullyFunctioningRow . '
+            ' . $nonFunctioningRow . '
+            
             <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
             $this->global_counter = $counter;
@@ -3772,12 +3869,12 @@ GROUP BY st_name,sc_name,facilityCode;";
                 }
                 
                 $link = '<td><div class="progress">  <div class="bar" style="width: ' . $progress . '%;">' . $progress . ' %</div>  </div></td>';
-                $link.= '<td colspan="5" id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
+                $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
                 
                 $this->districtFacilityListSection.= '<tr>
-        <td colspan="1">' . $counter . '</td>
-            <td colspan="7" >' . $value['facMfl'] . '</td>
-            <td colspan="4">' . $value['facName'] . '</td>
+        <td >' . $counter . '</td>
+            <td >' . $value['facMfl'] . '</td>
+            <td >' . $value['facName'] . '</td>
 
             ' . $link . '
             </tr>';

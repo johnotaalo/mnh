@@ -10,7 +10,7 @@
     <title><?php echo $title; ?></title>
 
     <!-- Le styles -->
-    <link href="<?php echo base_url(); ?>css/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
 
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic' rel='stylesheet' type='text/css'>
 
