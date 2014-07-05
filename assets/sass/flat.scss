@@ -126,6 +126,9 @@ form{
         width:auto;
         -webkit-box-shadow:none;
     }
+    input[type="radio"]{
+        height:auto;
+    }
 }
 .form-container{
     padding:0 !important;
