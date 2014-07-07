@@ -8,7 +8,7 @@
     <?php //$this->load->view('segments/meta');?>
     <?php $this->load->view('segments/head');?>
     <?php //$this->load->view('segments/analytics_css');?>
-    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/metronic.css">
 
 </head>
 <!-- END HEAD -->
