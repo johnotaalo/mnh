@@ -627,7 +627,7 @@ class M_MCH_Survey extends MY_Model
 
      private function addMchStaffTrainingInfo() {
 
-        //echo "<pre>";print_r($this->input->post());echo "</pre>";die;
+       //echo "<pre>";print_r($this->input->post());echo "</pre>";die;
         $this->elements=array();
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
@@ -730,8 +730,8 @@ class M_MCH_Survey extends MY_Model
             $newData[$counter]['mchTrainingTotalinFacility']=$value['mchTrainingTotalinFacility'];
             $newData[$counter]['mchTrainingTotalAvailableOnDuty']=$value['mchTrainingTotalAvailableOnDuty'];
             $newData[$counter]['mchTrainingTotalStaffMembersStillWorking']=$value['mchTrainingTotalStaffMembersStillWorking'];
-             $newData[$counter]['mchGuideline']=$key;
-             $newData[$counter]['mchBefore']=$training;
+            $newData[$counter]['mchGuideline']=$key;
+            $newData[$counter]['mchBefore']=$training;
             $newData[$counter]['mchAfter']=$value['mchTrainingAfter'][$key];
 
 
@@ -740,7 +740,7 @@ class M_MCH_Survey extends MY_Model
 
          $this->elements=$newData;
 
-
+         //print_r($this->elements);die;
 
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $counter;
@@ -767,7 +767,7 @@ class M_MCH_Survey extends MY_Model
             (isset($this->elements[$i]['mchBefore']) && $this->elements[$i]['mchBefore'] != '') ? $this->theForm->setTgBefore($this->elements[$i]['mchBefore']) : $this->theForm->setTgBefore(-1);
             (isset($this->elements[$i]['mchAfter']) && $this->elements[$i]['mchAfter'] != '') ? $this->theForm->setTgAfter($this->elements[$i]['mchAfter']) : $this->theForm->setTgAfter(-1);
 
-$this->theForm->setTgCreated(new DateTime());
+            //$this->theForm->setTgCreated(new DateTime());
 
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
@@ -798,7 +798,8 @@ $this->theForm->setTgCreated(new DateTime());
                 }
                 catch(Exception $ex) {
 
-                    //die($ex -> getMessage());
+                    // die($ex -> getMessage());
+                    // echo '1';
 
                     return false;
 
@@ -834,7 +835,7 @@ $this->theForm->setTgCreated(new DateTime());
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
 
                     return false;
 
@@ -1556,7 +1557,9 @@ $this->theForm->setTgCreated(new DateTime());
         
     }
      //close addMCHIndicatorInfo
+
         private function addmchConsultationQuestions() {
+
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
         	//For every posted values
@@ -3239,9 +3242,9 @@ $this->theForm->setTgCreated(new DateTime());
            (isset($this->elements[$i]['facilityMchmobile']) && $this->elements[$i]['facilityMchmobile'] != '') ? $this->theForm->setMchInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
            (isset($this->elements[$i]['facilityMchemail']) && $this->elements[$i]['facilityMchemail'] != '') ? $this->theForm->setMchInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
 
-           (isset($this->elements[$i]['facilityMaternityname']) && $this->elements[$i]['facilityMaternityname'] != '') ? $this->theForm->setMaternityInchargeName($this->elements[$i]['facilityMchname']) : $this->theForm->setMchInchargeName('N/A');
-           (isset($this->elements[$i]['facilityMaternitymobile']) && $this->elements[$i]['facilityMaternitymobile'] != '') ? $this->theForm->setMaternityInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
-           (isset($this->elements[$i]['facilityMaternityemail']) && $this->elements[$i]['facilityMaternityemail'] != '') ? $this->theForm->setMaternityInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
+           (isset($this->elements[$i]['facilityMaternityname']) && $this->elements[$i]['facilityMaternityname'] != '') ? $this->theForm->setMaternityInchargeName($this->elements[$i]['facilityMaternityname']) : $this->theForm->setMchInchargeName('N/A');
+           (isset($this->elements[$i]['facilityMaternitymobile']) && $this->elements[$i]['facilityMaternitymobile'] != '') ? $this->theForm->setMaternityInchargeMobile($this->elements[$i]['facilityMaternitymobile']) : $this->theForm->setMchInchargeMobile('-1');
+           (isset($this->elements[$i]['facilityMaternityemail']) && $this->elements[$i]['facilityMaternityemail'] != '') ? $this->theForm->setMaternityInchargeEmailaddress($this->elements[$i]['facilityMaternityemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
 
            (isset($this->elements[$i]['facilityopdname']) && $this->elements[$i]['facilityopdname'] != '') ? $this->theForm->setOpdInchargeName($this->elements[$i]['facilityopdname']) : $this->theForm->setOpdInchargeName('N/A');
            (isset($this->elements[$i]['facilityopdmobile']) && $this->elements[$i]['facilityopdmobile'] != '') ? $this->theForm->setOpdInchargeMobile($this->elements[$i]['facilityopdmobile']) : $this->theForm->setOpdInchargeMobile('-1');
@@ -3341,13 +3344,12 @@ $this->theForm->setTgCreated(new DateTime());
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
 
-                        if (
+                        if ( $this->addmchConsultationQuestions() == true){
                          /*$this->updateFacilityInfo()	==	true &&*/
 
 
                        // $this->addMchCommunityStrategyInfo() == true) {
-                        	 $this->addmchConsultationQuestions() == true 
-                             /*$this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true &&*/ /*$this->addMchStaffTrainingInfo()==true*/){
+                        	 // $this->addmchConsultationQuestions() == true && $this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true){
 
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
@@ -3579,7 +3581,7 @@ $this->theForm->setTgCreated(new DateTime());
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         //if ($this->addMchOrtConerAssessmentInfo() == true && $this->addAccessChallengesInfo() == true) {
-                        	if ($this->addSuppliesQuantityAvailabilityInfo() == true ) {
+                        	if ($this->addMchCommunityStrategyInfo() == true ) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';

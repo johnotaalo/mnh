@@ -1174,7 +1174,7 @@ class C_Load extends MY_Controller {
                 <th style="text-align:left">AFTER 2014</th>
             </tr>
 
-        '.$this->mchTrainingGuidelineSection.'
+        '.$this -> mchTrainingGuidelineSection.'
 
     </table>
     <table>
@@ -1188,7 +1188,7 @@ class C_Load extends MY_Controller {
                     <th>RESPONSE</th>
 
                 </tr>
-            '.$this->HealthSection.'
+            '.$this -> HealthSection.'
         </table>
     <table>
         <thead><th colspan = "12"> INFRASTRACTURE: IMCI CONSULTATION ROOM</th></thead>
