@@ -799,7 +799,7 @@ ORDER BY fac_level;");
     }
 
      /**
-     * [getResourcesStatistics description]
+     * [getORTCornerAssessment description]
      * @param  [type] $criteria  [description]
      * @param  [type] $value     [description]
      * @param  [type] $survey    [description]
@@ -840,7 +840,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-        
+        //echo '<pre>';print_r($results);echo '</pre>';die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -870,7 +870,7 @@ ORDER BY fac_level;");
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+       $this->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
         
        // echo "<pre>"; print_r($results);echo "</pre>";die;
     }
@@ -885,7 +885,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesFrequency($criteria, $value, $survey) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey, 'ch', 'availability');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
      
@@ -899,7 +899,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesLocation($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'location');
+       $this->getResourcesStatistics($criteria, $value, $survey, 'ch', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
 
@@ -913,7 +913,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesFrequencyMNH($criteria, $value, $survey) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
      
@@ -927,7 +927,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesLocationMNH($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+       $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     /**
