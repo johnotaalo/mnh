@@ -40,9 +40,10 @@ class C_Auth extends MY_Controller {
 			//die('Failed');
 			$this->data['login_message'] = 'Invalid District and Password Combination!';
 			$this->data['survey'] = '';
-			$this -> data['content'] = 'pages/v_login';
-			//$this -> load -> view('index', $this->data); //login view
-			$this -> load -> view('template', $this -> data);
+			            $this -> data['content'] = 'pages/v_login';
+            //$this -> load -> view('index', $this->data); //login view
+            $this -> load -> view('template', $this -> data);
+
 		}
 	}
 

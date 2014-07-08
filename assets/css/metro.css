@@ -535,16 +535,45 @@ select.m-wrap.large {
 	padding: 2%;
 	border-bottom: 1px solid #bbbbbb;
 }
-#reportingLabel {
-	width: 30%;
-	float: right;
+#breadcrumbs,#reportingLabel,#county_select_label,#reportingLabel h6,#reportingLabel #reportingBar{
+	vertical-align: top;
+	display:inline-block;
 }
-#reportingLabel h6 {
-	display: inline-block;
+#breadcrumbs{
+	max-width:30%;
 }
+
+#reportingLabel{
+	max-width:60%;
+	padding-left:5%;
+	margin-bottom: 0 !important;
+}
+#reportingLabel #reportingBar{
+	max-width:60%;
+	margin-bottom: 0 !important;
+}
+#reportingLabel #reportingBar .progressRow{
+	border-bottom:none;
+}
+
+#county_select_label{
+	padding-left:5%;
+	max-width:25%;
+	margin-bottom: 0 !important;
+}
+.breadcrumb li a{
+	vertical-align: top !important;
+}
+#county_select_label select{
+	max-width:55% !important;
+	height:auto;
+	margin-bottom: 0 !important;
+}
+
 #reportingBar {
 	display: inline-block;
-	width: 70%;
+	max-width: 70%;
+	margin-bottom: 0 !important;
 }
 
 .statistic, .statistic-free, .statistic-compare {

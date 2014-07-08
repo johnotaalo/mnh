@@ -42,6 +42,13 @@ class Indicators
      */
     private $indicatorFor;
 
+    /**
+     * @var string
+     *
+     * @Column(name="indicator_findings", type="text", nullable=true)
+     */
+    private $indicatorFindings;
+
 
     /**
      * Get indicatorId
@@ -120,5 +127,28 @@ class Indicators
     public function getIndicatorFor()
     {
         return $this->indicatorFor;
+    }
+
+    /**
+     * Set indicatorFindings
+     *
+     * @param string $indicatorFindings
+     * @return Indicators
+     */
+    public function setIndicatorFindings($indicatorFindings)
+    {
+        $this->indicatorFindings = $indicatorFindings;
+    
+        return $this;
+    }
+
+    /**
+     * Get indicatorFindings
+     *
+     * @return string 
+     */
+    public function getIndicatorFindings()
+    {
+        return $this->indicatorFindings;
     }
 }

@@ -332,18 +332,9 @@ break;
 				<h4><i class="icon-bar-chart"></i><span class="statistic"></span> Aggregated Analysis</h4>
 			</div>
 			<div class="portlet-body">
-				<div class="clearfix">
-					<div class="control-group pull-left">
-						<select class="secondary-filter" id="secondary-aggregated">
-							<option value="SevereDehydration">Severe Dehydration</option>
-							<option value="SomeDehydration">Some Dehydration</option>
-							<option value="NoDehydration">No Dehydration</option>
-							<option value="Dysentry">Dysentry</option>
-							<option value="NoClassification">No Classification</option>
-						</select>
-					</div>
-				</div>
-				<div id="graph_1" class="chart"></div>
+
+				<div id="graph_national" class="chart"></div>
+
 			</div>
 		</div>
 		<div class="portlet box ">
@@ -357,15 +348,6 @@ break;
 			<div class="portlet-body">
 				<div class="clearfix">
 					<div class="clearfix">
-						<div class="control-group pull-left">
-							<select class="secondary-filter" id="secondary-district">
-								<option value="SevereDehydration">Severe Dehydration</option>
-								<option value="SomeDehydration">Some Dehydration</option>
-								<option value="NoDehydration">No Dehydration</option>
-								<option value="Dysentry">Dysentry</option>
-								<option value="NoClassification">No Classification</option>
-							</select>
-						</div>
 						<div class="control-group pull-right">
 							Filter
 							<select name="fi_district" id="fi_district">
@@ -375,7 +357,7 @@ break;
 						</div>
 					</div>
 				</div>
-				<div id="graph_3" class="chart"></div>
+				<div id="graph_district" class="chart"></div>
 				<button class="btn red" id="facility_list" style="float:left;padding:2px 5px 2px 5px">
 					<i class="icon-list" style="margin-right:5px"></i>Download Facility List
 				</button>
@@ -404,20 +386,7 @@ break;
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div class="clearfix">
-					<div class="control-group pull-left">
-
-						<select class="secondary-filter" id="secondary-county">
-							<option value="SevereDehydration">Severe Dehydration</option>
-							<option value="SomeDehydration">Some Dehydration</option>
-							<option value="NoDehydration">No Dehydration</option>
-							<option value="Dysentry">Dysentry</option>
-							<option value="NoClassification">No Classification</option>
-						</select>
-					</div>
-
-				</div>
-				<div id="graph_2" class="chart"></div>
+				<div id="graph_county" class="chart"></div>
 				<button class="btn blue" id="facility_list_commodity_supplies_county" style="float:left;padding:2px 5px 2px 5px">
 					<i class="icon-list" style="margin-right:5px"></i>Download Summary Data
 				</button>
@@ -429,16 +398,6 @@ break;
 			</div>
 			<div class="portlet-body">
 				<div class="clearfix">
-					<div class="control-group pull-left">
-
-						<select class="secondary-filter" id="secondary-facility">
-							<option>Severe Dehydration</option>
-							<option>Some Dehydration</option>
-							<option>No Dehydration</option>
-							<option>Dysentry</option>
-							<option>No Classification</option>
-						</select>
-					</div>
 					<div class="control-group pull-right">
 
 						<select style="width:280px" name="fi_facility" id="fi_facility">
@@ -446,7 +405,7 @@ break;
 						</select>
 					</div>
 				</div>
-				<div id="graph_4" class="chart"></div>
+				<div id="graph_facility" class="chart"></div>
 			</div>
 		</div>
 

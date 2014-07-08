@@ -56,11 +56,39 @@ class LogIndicators
      */
     private $ssId;
 
+    /**
+     * @var string
+     *
+     * @Column(name="li_hcwResponse", type="string", length=45, nullable=true)
+     */
+    private $liHcwresponse;
+
+    /**
+     * @var string
+     *
+     * @Column(name="li_assessorResponse", type="string", length=45, nullable=true)
+     */
+    private $liAssessorresponse;
+
+    /**
+     * @var string
+     *
+     * @Column(name="li_hcwFindings", type="string", length=45, nullable=true)
+     */
+    private $liHcwfindings;
+
+    /**
+     * @var string
+     *
+     * @Column(name="li_assessorFindings", type="string", length=45, nullable=true)
+     */
+    private $liAssessorfindings;
+
 
     /**
      * Get liId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLiId()
     {
@@ -76,14 +104,14 @@ class LogIndicators
     public function setLiResponse($liResponse)
     {
         $this->liResponse = $liResponse;
-    
+
         return $this;
     }
 
     /**
      * Get liResponse
      *
-     * @return string 
+     * @return string
      */
     public function getLiResponse()
     {
@@ -99,14 +127,14 @@ class LogIndicators
     public function setLiCreated($liCreated)
     {
         $this->liCreated = $liCreated;
-    
+
         return $this;
     }
 
     /**
      * Get liCreated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLiCreated()
     {
@@ -122,14 +150,14 @@ class LogIndicators
     public function setIndicatorCode($indicatorCode)
     {
         $this->indicatorCode = $indicatorCode;
-    
+
         return $this;
     }
 
     /**
      * Get indicatorCode
      *
-     * @return string 
+     * @return string
      */
     public function getIndicatorCode()
     {
@@ -137,22 +165,22 @@ class LogIndicators
     }
 
     /**
-     * Set facId
+     * Set facMfl
      *
-     * @param string $facId
+     * @param string $facMfl
      * @return LogIndicators
      */
     public function setFacMfl($facMfl)
     {
         $this->facMfl = $facMfl;
-    
+
         return $this;
     }
 
     /**
-     * Get facId
+     * Get facMfl
      *
-     * @return string 
+     * @return string
      */
     public function getFacMfl()
     {
@@ -168,17 +196,140 @@ class LogIndicators
     public function setSsId($ssId)
     {
         $this->ssId = $ssId;
-    
+
         return $this;
     }
 
     /**
      * Get ssId
      *
-     * @return integer 
+     * @return integer
      */
     public function getSsId()
     {
         return $this->ssId;
+    }
+
+    /**
+     * Set liHcwresponse
+     *
+     * @param string $liHcwresponse
+     * @return LogIndicators
+     */
+    public function setLiHcwresponse($liHcwresponse)
+    {
+        $this->liHcwresponse = $liHcwresponse;
+
+        return $this;
+    }
+
+    /**
+     * Get liHcwresponse
+     *
+     * @return string
+     */
+    public function getLiHcwresponse()
+    {
+        return $this->liHcwresponse;
+    }
+
+    /**
+     * Set liAssessorresponse
+     *
+     * @param string $liAssessorresponse
+     * @return LogIndicators
+     */
+    public function setLiAssessorresponse($liAssessorresponse)
+    {
+        $this->liAssessorresponse = $liAssessorresponse;
+
+        return $this;
+    }
+
+    /**
+     * Get liAssessorresponse
+     *
+     * @return string
+     */
+    public function getLiAssessorresponse()
+    {
+        return $this->liAssessorresponse;
+    }
+
+    /**
+     * Set liHcwfindings
+     *
+     * @param string $liHcwfindings
+     * @return LogIndicators
+     */
+    public function setLiHcwfindings($liHcwfindings)
+    {
+        $this->liHcwfindings = $liHcwfindings;
+
+        return $this;
+    }
+
+    /**
+     * Get liHcwfindings
+     *
+     * @return string
+     */
+    public function getLiHcwfindings()
+    {
+        return $this->liHcwfindings;
+    }
+
+    /**
+     * Set liAssessorfindings
+     *
+     * @param string $liAssessorfindings
+     * @return LogIndicators
+     */
+    public function setLiAssessorfindings($liAssessorfindings)
+    {
+        $this->liAssessorfindings = $liAssessorfindings;
+
+        return $this;
+    }
+
+    /**
+     * Get liAssessorfindings
+     *
+     * @return string
+     */
+    public function getLiAssessorfindings()
+    {
+        return $this->liAssessorfindings;
+    }
+
+    /**
+     * @var string
+     *
+     * @Column(name="li_treatments", type="string", length=45, nullable=true)
+     */
+    private $liTreatments;
+
+
+    /**
+     * Set liTreatments
+     *
+     * @param string $liTreatments
+     * @return LogIndicators
+     */
+    public function setLiTreatments($liTreatments)
+    {
+        $this->liTreatments = $liTreatments;
+
+        return $this;
+    }
+
+    /**
+     * Get liTreatments
+     *
+     * @return string
+     */
+    public function getLiTreatments()
+    {
+        return $this->liTreatments;
     }
 }
