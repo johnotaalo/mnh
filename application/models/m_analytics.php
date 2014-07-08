@@ -170,7 +170,7 @@ GROUP BY cs.strategy_code ASC;";
     /*
      * Guidelines Availability
     */
-    public function getGuidelinesAvailability($criteria, $value, $survey) {
+    public function getGuidelinesAvailability($criteria, $value, $survey,$survey_category) {
 
         /*using CI Database Active Record*/
         $data = array();
@@ -299,7 +299,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
 
         /*using CI Database Active Record*/
@@ -356,7 +356,10 @@ WHERE
     survey_status ss ON ss.fac_id = f.fac_mfl
         JOIN
     survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
+        AND st.st_name = '" . $survey . "')
+JOIN survey_categories sc ON (ss.sc_id = ss.sc_id
+        AND sc.sc_name = '" . $survey_category . "')
+" . $criteria_condition . ")
 GROUP BY gt.guide_code
 ORDER BY gt.guide_code ASC";
 
@@ -2610,7 +2613,7 @@ ORDER BY f.fac_county ASC;";
             return $finalData;
         }
 
-        function getFacilityOwnerPerCounty($county, $survey) {
+        function getFacilityOwnerPerCounty($county, $survey,$survey_category) {
 
             /*using DQL*/
 
@@ -2650,6 +2653,7 @@ FROM
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = "' . $survey . '")
+JOIN survey_categories sc ON (ss.sc_id=sc.sc_id AND sc.sc_name="'.$survey_category.'")
 WHERE
     f.fac_county = "' . $county . '"
 GROUP BY facilityOwner
@@ -3374,7 +3378,7 @@ ORDER BY ra.eq_code ASC";
             }
         }
 
-        public function case_summary($county, $choice) {
+        public function case_summary($county, $choice,$survey,$survey_category) {
             $final = array();
             $query = '';
             switch ($choice) {
@@ -3415,7 +3419,7 @@ WHERE
             facilities f
     JOIN survey_status ss ON ss.fac_id = f.fac_mfl
     JOIN survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = 'ch') WHERE fac_county='$county');";
+        AND st.st_name = '$survey') WHERE fac_county='$county');";
                     $results = $this->db->query($query);
                     return $results->result_array();
                     break;
@@ -3457,7 +3461,7 @@ WHERE
             survey_status ss ON ss.fac_id = f.fac_mfl
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = 'ch')WHERE fac_county='$county')
+                AND st.st_name = '$survey')WHERE fac_county='$county')
 GROUP BY tl.treatment_code
 ORDER BY tl.treatment_code ASC";
                     $results = $this->db->query($query);

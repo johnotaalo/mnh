@@ -120,12 +120,12 @@ ORDER BY fac_level;");
     
     //end of the function
     
-    public function setActive($county, $survey) {
+    public function setActive($county, $survey,$survey_category) {
         
         $county = urldecode($county);
         
         //$this -> session -> unset_userdata('county_analytics');
-        $this->session->set_userdata('county_analytics', $county);
+        $this->session->set_userdata(array('county_analytics'=> $county,'survey_category'=>$survey_category));
         
         //$this -> session -> unset_userdata('survey');
         $this->session->set_userdata('survey', $survey);
@@ -449,10 +449,10 @@ ORDER BY fac_level;");
     /*
      * Get Trained Stuff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey,$survey_category) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey);
+        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey,$survey_category);
         
         echo '<pre>';
         print_r($results);
@@ -1293,14 +1293,15 @@ ORDER BY fac_level;");
     /**
      * Get Facility Ownership
      */
-    public function getFacilityOwnerPerCounty($county) {
+    public function getFacilityOwnerPerCounty($county,$survey,$survey_category) {
         
         //$allCounties = $this -> m_analytics -> getReportingCounties('ch','mid-term');
         $county = urldecode($county);
         
         //foreach ($allCounties as $county) {
         $category[] = $county;
-        $results = $this->m_analytics->getFacilityOwnerPerCounty($county);
+        $results = $this->m_analytics->getFacilityOwnerPerCounty($county,$survey,$survey_category);
+        //echo '<pre>';print_r($results);echo '</pre>';die;
         $resultArray = array();
         foreach ($results as $value) {
             $data = array();
@@ -1334,10 +1335,10 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
-    public function getFacilityLevelAll($survey) {
-        $counties = $this->m_analytics->getReportingCounties($survey);
+    public function getFacilityLevelAll($survey,$survey_category) {
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getFacilityLevelPerCounty($county['county'], $survey);
+            $results[$county['county']] = $this->m_analytics->getFacilityLevelPerCounty($county['county'], $survey,$survey_category);
             $categories[] = $county['county'];
         }
         
@@ -1359,12 +1360,15 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function getFacilityOwnerAll($survey) {
-        $counties = $this->m_analytics->getReportingCounties($survey);
+    public function getFacilityOwnerAll($survey,$survey_category) {
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey);
+            $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey,$survey_category);
             $categories[] = $county['county'];
         }
+         //echo '<pre>';
+        //print_r($results);
+        //echo '</pre>';die;
         $resultArray = array();
         foreach ($results as $county) {
             foreach ($county as $level) {
@@ -1375,7 +1379,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $val);
         }
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 100, 'bar');
     }
     
     /**
@@ -1438,9 +1442,9 @@ ORDER BY fac_level;");
     public function case_summary($choice) {
         
         //Get All Reporting Counties
-        $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->case_summary($county['county'], $choice);
+            $results[$county['county']] = $this->m_analytics->case_summary($county['county'], $choice,$survey,$survey_category);
             $categories[] = $county['county'];
         }
         
@@ -1473,14 +1477,14 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function guidelines_summary($guideline) {
+    public function guidelines_summary($guideline,$survey,$survey_category) {
         $guideline = urldecode($guideline);
         
         //Get All Reporting Counties
         $finalYes = $finalNo = array();
-        $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getGuidelinesAvailability('county', $county['county'], 'ch');
+            $results[$county['county']] = $this->m_analytics->getGuidelinesAvailability('county', $county['county'], $survey,$survey_category);
             $categories[] = $county['county'];
         }
         
@@ -1509,16 +1513,16 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function guidelines_summaryMNH($guideline) {
+    public function guidelines_summaryMNH($guideline,$survey,$survey_category) {
         $guideline = urldecode($guideline);
         $categories = array();
         
         //echo $guideline;
         //Get All Reporting Counties
         $finalYes = $finalNo = array();
-        $counties = $this->m_analytics->getReportingCounties('mnh', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getQuestionStatistics('county', $county['county'], 'mnh', 'guide');
+            $results[$county['county']] = $this->m_analytics->getQuestionStatistics('county', $county['county'], $survey,$survey_category,'guide');
         }
         
         //echo '<pre>';print_r($results);echo '</pre>';die;
@@ -1540,14 +1544,14 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function training_summary($training) {
+    public function training_summary($training,$survey,$survey_category) {
         $training = urldecode($training);
         
         //Get All Reporting Counties
         $finalYes = $finalNo = array();
-        $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey, $survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], 'ch');
+            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], $survey,$survey_category);
             $categories[] = $county['county'];
         }
         
@@ -1572,12 +1576,12 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function tools_summary($tool) {
+    public function tools_summary($tool,$survey,$survey_category) {
         $tool = urldecode($tool);
         
         //Get All Reporting Counties
         $finalYes = $finalNo = array();
-        $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
             $results[$county['county']] = $this->m_analytics->getTools('county', $county['county'], 'ch');
             $categories[] = $county['county'];
@@ -1598,14 +1602,14 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function training_summaryMNH($training) {
+    public function training_summaryMNH($training,$survey,$survey_category) {
         $training = urldecode($training);
         
         //Get All Reporting Counties
         $categories = $finalYes = $finalNo = array();
-        $counties = $this->m_analytics->getReportingCounties('mnh', 'mid-term');
+        $counties = $this->m_analytics->getReportingCounties($survey,$survey_category);
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], 'mnh');
+            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], $survey,$survey_category);
         }
         foreach ($results as $key => $county) {
             foreach ($county['trained_values'] as $k => $t) {
