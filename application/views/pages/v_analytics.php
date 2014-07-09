@@ -108,7 +108,9 @@
 	var base_url = "<?php echo base_url();?>";
 	var county   = "<?php echo $this->session->userdata('county_analytics');?>";
 	var survey   = "<?php echo $this->session->userdata('survey')?>";
-	$(document).ready(startAnalytics(base_url,county,survey));
+    var survey_category   = "<?php echo $this->session->userdata('survey_category')?>";
+//alert(survey_category);
+	$(document).ready(startAnalytics(base_url,county,survey,survey_category));
 	</script>	
 	<!-- END JAVASCRIPTS -->
 	<?php $this->load->view('segments/modals')?>
