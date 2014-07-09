@@ -170,7 +170,7 @@ GROUP BY cs.strategy_code ASC;";
     /*
      * Guidelines Availability
     */
-    public function getGuidelinesAvailability($criteria, $value, $survey) {
+    public function getGuidelinesAvailability($criteria, $value, $survey, $for) {
 
         /*using CI Database Active Record*/
         $data = array();
@@ -178,54 +178,8 @@ GROUP BY cs.strategy_code ASC;";
         $data_prefix_n = '';
         $data_y = $data_n = $data_categories = array();
 
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
-
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-
-        $query = "SELECT
-    COUNT(lq.fac_mfl) AS total_facilities,
-    lq.question_code AS guideline,
-    lq.lq_response AS availability
-FROM
-    log_questions lq
-WHERE
-    lq.question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'gp')
-        AND lq.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-        JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')
-" . $criteria_condition . ")
-GROUP BY lq.lq_response , lq.question_code
-ORDER BY lq.lq_response ASC";
-        try {
+        $query = "CALL get_question_statistics('" . $criteria . "' , '" . $value . "', '" . $survey . "', '" . $for . "'); ";
+        try {                                 
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             if ($this->dataSet !== NULL) {
@@ -908,30 +862,6 @@ ORDER BY ca.comm_code";
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
 
-        /* $query = "SELECT
-        count(ea.ae_availability) AS total_response,
-        ea.eq_code as equipment,
-        ea.ae_availability AS frequency
-        FROM
-        available_equipments ea
-        WHERE
-        ea.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-        AND ea.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = 'ort')
-        GROUP BY ea.eq_code , ea.ae_availability
-        ORDER BY ea.eq_code ASC";*/
         try {
 
             $this->dataSet = $this->db->query($query, array($value));
@@ -1017,32 +947,8 @@ ORDER BY ca.comm_code";
         /*--------------------end ort equipment availability by frequency----------------------------------------------*/
 
         /*--------------------begin ort equipment location of availability----------------------------------------------*/
-        $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
-        $query = "SELECT
-    count(ea.ae_location) AS total_response,
-    ea.eq_code as equipment,
-    ea.ae_location AS location
-FROM
-    available_equipments ea
-WHERE
-    ea.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-        AND ea.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = 'ort')
-        AND ea.ae_location NOT LIKE '%Not Applicable%'
-GROUP BY ea.eq_code , ea.ae_location
-ORDER BY ea.eq_code ASC";
+        $query = "CALL get_resources('" . $criteria . "' , '" . $value . "', '" . $survey . "', '" . $for . "','availability' ); ";
+        
 
         try {
 
@@ -2206,10 +2112,7 @@ LIMIT 0 , 1000
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
 
-                    echo '<pre>';
-                    print_r($this->dataSet);
-                    echo '</pre>';
-                    die;
+                    //echo '<pre>';print_r($this->dataSet);echo '</pre>';die;
                     foreach ($this->dataSet as $value) {
                     }
                     return $this->dataSet;
@@ -3465,7 +3368,7 @@ ORDER BY tl.treatment_code ASC";
 
                     foreach ($results as $result) {
 
-                        //echo $this->getChildHealthTreatmentName($result['treatment']);
+                        //echo $this->ChildHealthTreatmentName($result['treatment']);
                         //$result['treatment']=$this->getChildHealthTreatmentName($result['treatment']);
                         $final[$this->getChildHealthTreatmentName($result['treatment']) ][] = array('treatment' => $this->getChildHealthTreatmentName($result['treatment']), 'total' => $result['total']);
                     }

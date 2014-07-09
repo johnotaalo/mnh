@@ -1472,6 +1472,17 @@ ORDER BY fac_level;");
         
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
+
+    /**
+     * [guidelines_summaryort description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function guidelines_summaryort($criteria, $value, $survey) {
+        $this->getGuidelinesAvailability($criteria, $value, $survey, 'ort');
+    }
     
     public function guidelines_summary($guideline) {
         $guideline = urldecode($guideline);
@@ -1480,7 +1491,7 @@ ORDER BY fac_level;");
         $finalYes = $finalNo = array();
         $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getGuidelinesAvailability('county', $county['county'], 'ch');
+            $results[$county['county']] = $this->m_analytics->getGuidelinesAvailability('county', $county['county'], 'ch', $for);
             $categories[] = $county['county'];
         }
         

@@ -29,7 +29,7 @@ function startAnalytics(base_url, county, survey) {
 
     loadGraph(base_url, 'c_analytics/guidelines_summary/2012%20IMCI', '#graph_42');
     loadGraph(base_url, 'c_analytics/guidelines_summary/ICCM', '#graph_43');
-    loadGraph(base_url, 'c_analytics/guidelines_summary/ORT%20Corner', '#graph_44');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryort/ORT%20Corner', '#graph_44');
     loadGraph(base_url, 'c_analytics/guidelines_summary/Paediatric%20Protocol', '#graph_45');
 
     loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register', '#graph_46');

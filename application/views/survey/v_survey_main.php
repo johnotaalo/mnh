@@ -495,6 +495,15 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     var diver = document.getElementById("pneTreatmentSection");
 
                     diver.appendChild(txt);
+
+                    if (value == "CMD95") 
+                    {
+                        var otherfield = document.createElement('input');
+                        otherfield.type = 'text';
+                        otherfield.name = 'mchtreatment[SeverePneumonia][]';
+                        var spa = document.getElementById('severepneumoniaother');
+                        spa.appendChild(otherfield);
+                    }
                 }
             }// close select treatment
 
