@@ -3929,7 +3929,7 @@ $result = $result->result_array();
         }
         $this->severediatreatmentMCHSection .= '</select>';
         $this->severediatreatmentMCHSection .= '<ol></ol>';
-        $this->severediatreatmentMCHSection .= '</div><div>';
+        $this->severediatreatmentMCHSection .= '</div><span id = "severeother"></span><div>';
 
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
 
