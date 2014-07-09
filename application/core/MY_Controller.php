@@ -331,7 +331,7 @@ $this->createWorkProfileSection();
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMCHOtherSuppliersPDF.= $value['supplierName'] . '<input type="checkbox">';
+            $this->selectMCHOtherSuppliersPDF.= $value['supplierName'] . '<input type="radio" value="'.$value['supplierName'].'" name="supplierName">';
         }
     }
 

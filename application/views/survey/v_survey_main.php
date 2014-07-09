@@ -161,7 +161,6 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 function renderFacilityInfo(facilityMFL){
                     $.ajax({
                         type: "GET",
-
                         url: "<?php echo base_url()?>c_load/getFacilityDetails",
                         dataType:"json",
                         cache:"true",
@@ -185,6 +184,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#facilityType option").filter(function() {return $(this).text() == facility.facType;}).first().prop("selected", true);
                                 $("#facilityLevel option").filter(function() {return $(this).text() == facility.facLevel;}).first().prop("selected", true);
                                 $("#facilityOwnedBy option").filter(function() {return $(this).text() == facility.facOwnership;}).first().prop("selected", true);
+
                                 $("#facilityDistrict option").filter(function() {return $(this).text() == facility.facDistrict;}).first().prop("selected", true);
                                 $("#facilityCounty option").filter(function() {return $(this).text() == facility.facCounty;}).first().prop("selected", true);
 
@@ -286,14 +286,11 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                             //show no follow up qn, and hide yes one
                             $('#transfusion_y').hide();
                             $('#transfusion_y').prop('disabled',true);
-
                             $('#mnhceocFollowUpOther_1').hide();
                             $('#label_followup_other_1').hide();
                             $('#mnhceocFollowUpOther_1').prop('disabled',true);
                             $('#mnhceocFollowUp_1').prop('disabled',true);
                             $('#mnhceocFollowUp_1').hide();
-
-
                             $('#transfusion_n').prop('disabled',false);
                             $('#transfusion_n').show();
                         }
@@ -361,7 +358,6 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                         }
 
                         if($(this).attr('id')=='mnhceocReason_2' && $(this).val()!='Other'){
-
                             //hide other input field
                             $('#mnhceocReasonOther_2').prop('disabled',true);
                             $('#mnhceocReasonOther_2').hide();
@@ -433,36 +429,34 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 });
 
             }); /*close document ready*/
+            /*function additionfunction()
+            {
+                var malsevere = document.getElementById("malsevere").value;
+                var malsome = document.getElementById("malsome").value;
+                var malnodehydration = document.getElementById("malnodehydration").value;
+                var maldysentry = document.getElementById("maldysentry").value;
+                var malnoclass = document.getElementById("malnoclass").value;
 
-            // function additionfunction()
-            // {
-            //     var malsevere = document.getElementById("malsevere").value;
-            //     var malsome = document.getElementById("malsome").value;
-            //     var malnodehydration = document.getElementById("malnodehydration").value;
-            //     var maldysentry = document.getElementById("maldysentry").value;
-            //     var malnoclass = document.getElementById("malnoclass").value;
+                var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
+                document.getElementById("diatotal").value = diatotal;
 
-            //     var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
-            //     document.getElementById("diatotal").value = diatotal;
+                var severepne = document.getElementById("severepne").value;
+                var pne = document.getElementById("pne").value;
 
-            //     var severepne = document.getElementById("severepne").value;
-            //     var pne = document.getElementById("pne").value;
-
-            //     var pnetotal = Number(severepne) + Number(pne);
-            //     document.getElementById("pnetotal").value = pnetotal;
+                var pnetotal = Number(severepne) + Number(pne);
+                document.getElementById("pnetotal").value = pnetotal;
 
 
-            //     var malconfirmed = document.getElementById("malconfirmed").value;
-            //     var malnotconfirmed = document.getElementById("malnotconfirmed").value;
+                var malconfirmed = document.getElementById("malconfirmed").value;
+                var malnotconfirmed = document.getElementById("malnotconfirmed").value;
 
-            //     var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
-            //     document.getElementById("malariatotal").value = malariatotal;
+                var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
+                document.getElementById("malariatotal").value = malariatotal;
 
-            //     var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
+                var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
 
-            //     document.getElementById("totalu5").value = u5total;
-            // }
-
+                document.getElementById("totalu5").value = u5total;
+            }*/
             function selectpnesevereTreatment(select)
             {
                 var value = select.options[select.selectedIndex].value;
@@ -830,7 +824,21 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     ul.appendChild(li);
                 }
             }// close select treatment
-
+            function toggle_table(el)
+            {
+                id = $(el).attr("id");
+                name = $(el).attr("name");
+                radioValue = $(el).attr("value");
+                // alert("This is the id: "+id+" and definately the name: "+name);
+                if(radioValue === '1')
+                {
+                    $('.'+name).show();
+                }
+                else
+                {
+                    $('.'+name).hide();
+                }
+            }
             function break_form_to_steps(form_id){
                 //form_id='#zinc_ors_inventory';
                 //alert(form_id);
@@ -874,15 +882,20 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                 $("#data").html("Section was Saved Successfully...").fadeTo("slow",0);
                                 $(form_id).bind("after_remote_ajax", function(event, fdata){
                                     //console.log($(form_id).formwizard('state'));
-                                    survey = '<?php echo base_url();?>';
+                                    survey = '<?php echo $this -> session -> userdata('survey');?>';
                                     if(survey=='mnh'){
                                         if(fdata.currentStep=='section-8'){
 
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
-                                             }
 
-                                    }else if(survey=='ch'){
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
+                                        }
+
+                                    }
+                                    else if(survey=='ch'){
                                         if(fdata.currentStep=='section-9'){
                                             //alert('Yes');
                                             //$(form_id).formwizard('reset');
@@ -891,6 +904,9 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                         }
                                     }
                                     else{
@@ -902,15 +918,13 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                             $(".form-container").load('<?php echo base_url();?>c_load/survey_complete',function(){
                                                 window.location='<?php echo base_url().$this -> session -> userdata('survey');?>/assessment'; });
 
+                                            message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
+                                            console.log(message);
+                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
                                         }
                                     }
 
-
                                 });
-                                message = fac_name +' in ' +fac_district+ ' District, ' +fac_county+ ' County, has completed the <?php echo strtoupper($this->session->userdata("survey"));?> Survey.' ;
-                                            console.log(message);
-                                            runNotification('<?php echo base_url(); ?>','c_admin/getContacts',message);
-                                       
                             }else{
                                 $("#data").html("");
                                 alert("An unknown error occurred, try retaking the survey later on. Kindly report this incidence.");
@@ -1038,7 +1052,6 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     success: function(data){
                         survey = '<?php echo $this->session->userdata("survey");?>';
                         //alert(data);
-                        console.log(data);
                         (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 
 

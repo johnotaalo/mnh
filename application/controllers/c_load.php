@@ -1253,12 +1253,13 @@ Indicate the total # of children that received the following treatment. </br>
             </tr>
             <tr>
                 <th colspan="2">Diarrhoea Total</th>
-                <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
+                    <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
+
                 <th colspan = "2"></th>
             </tr>
             </tbody>
             <tr>
-            <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
+                <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
             <td>Some Dehydration: <input type = "number" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
             <td>No Dehydration: <input type = "number" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
             <td>Dysentry: <input type = "number" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
