@@ -1508,6 +1508,157 @@ WHERE
             
             return $this->dataSet;
         }
+	
+		//get treatment statistics
+		public function getTreatmentStatistics($criteria, $value, $survey, $for){
+		    $value = urldecode($value);
+            $newData = array();
+
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+		
+		$query = "CALL get_treatment_statistics('".$criteria."','".$value."','".$survey."','".$for."');";
+		try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                //echo($this->db->last_query());die;
+                if($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+						$treatment = $value['lt_classification'];
+						$total = $value['total'];
+						$data[$treatment][] =$total;
+					}
+				}
+		}
+		catch(exception $ex){
+			
+		}
+		return $data;
+		}
+	
+		
+		// get treatment symptoms statistics
+	public function getSymptomsStatistics($criteria, $value, $survey,$for){
+		$value = urldecode($value);
+            $newData = array();
+
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+		
+		$query = "CALL get_treatment_symptoms('".$criteria."','".$value."','".$survey."','".$for."');";
+		try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                //echo($this->db->last_query());die;
+                if($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
+                    }
+				}
+		}
+		catch(exception $ex){
+			
+		}
+		return $data;
+	}
+		//get commodity statistics
+		public function getCommodityStatistics($criteria,$value,$survey,$for,$statistic){
+			/*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+			
+			$query = "CALL get_commodity_statistics('".$criteria."','".$value."','".$survey."','".$for."','".$statistic."');";
+			try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+                } else {
+                    return null;
+                }
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+		}
         
         /**
          * [getIndicatorStatistics description]
