@@ -166,7 +166,8 @@ function runNotification(base_url, function_url, messsage) {
             $.each(obj, function(k, v) {
                 //console.log(v.cl_country);
                 //console.log(getCountryInfo(v.cl_country));
-                phoneNumber = getCountryInfo(v.cl_country) + v.cl_phone_number;
+                phoneNumber = encodeURIComponent(getCountryInfo(v.cl_country) + v.cl_phone_number);
+                email = encodeURIComponent(v.cl_email_address);
                 today = new Date();
                 hours = today.getHours();
                 //console.log(hours);
@@ -183,8 +184,11 @@ function runNotification(base_url, function_url, messsage) {
                 }
 
                 newMessage = period + ' ' + v.cl_name + ',  ' + message;
-                //console.log(newMessage);
-                //notify(phoneNumber, newMessage);
+                var emailmessage = [period, v.cl_name, message];
+                emailmessage = JSON.stringify(emailmessage);
+                console.log(emailmessage);
+                notify_email(email, emailmessage);
+                //notify_sms(phoneNumber, newMessage);
 
             });
         }
@@ -193,12 +197,12 @@ function runNotification(base_url, function_url, messsage) {
 
 
 /**
- * [notify description]
+ * [notify_sms description]
  * @param  {[type]} phoneNumber [description]
  * @param  {[type]} message     [description]
  * @return {[type]}             [description]
  */
-function notify(phoneNumber, message) {
+function notify_sms(phoneNumber, message) {
     //message="test";
     $.ajax({
         //url: base_url + function_url,
@@ -212,41 +216,57 @@ function notify(phoneNumber, message) {
         }
     });
 }
-  $(document).ready(function(){
-startIntro();
-      function startIntro(){
-        var intro = introJs();
-          intro.setOptions({
-            steps: [
-              {
-                element: '#network',
-                intro: "This is a Top Bar showing the Date, User and System Information.",
-                position: 'bottom'
-              },
-              {
-                element: '#navigation',
-                intro: "The <b>Navigation</b> Menu has the links to the Surveys and Analytics as well as <b>HCMP</b> and <b>PMT</b>.",
-                position: 'top'
-              },
-              {
-                element: '#surveys',
-                intro: 'The <b>Surveys</b> Section contains links to access the <span style="color:blue">Forms</span> for the 3 Surveys i.e. MNH, CH and HCW. ',
-                position: 'right'
-              },
-              {
-                element: '#reporting-rates',
-                intro: "The <b>Reporting</b> Section displays the Kenyan Map, <span style='color:red'>C</span> <span style='color:orange'>o</span> <span style='color:gold'>l</span> <span style='color:lightgreen'>o</span> <span style='color:green'>r</span> Coded to represent the Completion Rate.",
-                position: 'left'
-              },
-              {
-                element: '#analytics',
-                intro: 'The <b>Analytics</b> Analytics contains links to access the <span style="color:blue">Data</span> for the 3 Surveys i.e. MNH, CH and HCW.',
-                  position:'left'
-              }
-            ]
-          });
+/**
+ * [notify_email description]
+ * @param  {[type]} email   [description]
+ * @param  {[type]} message [description]
+ * @return {[type]}         [description]
+ */
+function notify_email(email, message) {
+    //message="test";
+    $.ajax({
+        //url: base_url + function_url,
+        url: 'http://localhost/mnh/c_admin/notify/email/' + email + '/' + encodeURIComponent(message),
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        },
+        success: function(data) {
+            console.log(data);
 
-          intro.start();
-      }
+        }
+    });
+}
 
-  });
+function startIntro() {
+    var intro = introJs();
+    intro.setOptions({
+        steps: [{
+            element: '#network',
+            intro: "This is a Top Bar showing the Date, User and System Information.",
+            position: 'bottom'
+        }, {
+            element: '#navigation',
+            intro: "The <b>Navigation</b> Menu has the links to the Surveys and Analytics as well as <b>HCMP</b> and <b>PMT</b>.",
+            position: 'top'
+        }, {
+            element: '#surveys',
+            intro: 'The <b>Surveys</b> Section contains links to access the <span style="color:blue">Forms</span> for the 3 Surveys i.e. MNH, CH and HCW. ',
+            position: 'right'
+        }, {
+            element: '#reporting-rates',
+            intro: "The <b>Reporting</b> Section displays the Kenyan Map, <span style='color:red'>C</span> <span style='color:orange'>o</span> <span style='color:gold'>l</span> <span style='color:lightgreen'>o</span> <span style='color:green'>r</span> Coded to represent the Completion Rate.",
+            position: 'left'
+        }, {
+            element: '#analytics',
+            intro: 'The <b>Analytics</b> Analytics contains links to access the <span style="color:blue">Data</span> for the 3 Surveys i.e. MNH, CH and HCW.',
+            position: 'left'
+        }]
+    });
+
+    intro.start();
+}
+$(document).ready(function() {
+    startIntro();
+
+
+});
