@@ -101,6 +101,18 @@ switch($this->session->userdata('survey')) {
 			</ul>
 		</li>
 
+		<li id="treatment-parent" class="has-sub start ">
+			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Treatment</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="TreatmentStatistics">
+					<a href="#">Treatments</a>
+				</li>
+				<li id="SymptomsStatistics">
+					<a href="#">Treatment Symptoms</a>
+				</li>
+			</ul>
+		</li>
+		
 		<li id="diarrhoea-cases-parent" class="has-sub start ">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Diarrhoea Cases</span> <span class="arrow "></span> </a>
 			<ul class="sub">

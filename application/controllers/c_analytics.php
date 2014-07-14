@@ -137,6 +137,7 @@ ORDER BY fac_level;");
     
     public function getFacilityProgress($survey, $survey_category) {
         $results = $this->m_analytics->getFacilityProgress($survey, $survey_category);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $day => $value) {
             $data[] = (int)sizeof($value);
             $category[] = $day;
@@ -668,13 +669,13 @@ ORDER BY fac_level;");
 	
 	public function getTreatmentStatistics($criteria, $value, $survey, $for){
 		$results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey, $for);
+		//echo "<pre>"; print_r($results); echo "</pre>";die;
 		foreach ($results as $key => $value) {
-			//echo "<pre>"; print_r($results); echo "</pre>";die;
-            $treatment = $key;
+			$treatment = $key;
             $total[] = (int)$value[0];
         }
         $category[] = 'Total';
-        $resultArray[] = array('name' => 'Classification', 'data' => $total);
+        $resultArray[] = array('name' => $treatment, 'data' => $total);
         
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
@@ -944,6 +945,7 @@ ORDER BY fac_level;");
      */
     public function getQuestionStatistics($criteria, $value, $survey, $for) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {

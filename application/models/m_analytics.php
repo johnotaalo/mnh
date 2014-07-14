@@ -1568,17 +1568,8 @@ WHERE
                 if($this->dataSet !== NULL) {
                 	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
                 	foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
-                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
-                            foreach ($location as $place) {
-                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
-                            }
-                        } else if (array_key_exists('total_functional', $value)) {
-                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
-                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
-                        }
+                        if(array_key_exists('treatment_name', $value))
+						$data[$value['commodity_name']][$value['treatment_name']] =(int)$value['total_response'];
                     }
 				}
 		}
@@ -1603,6 +1594,7 @@ WHERE
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
@@ -1614,6 +1606,9 @@ WHERE
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
                             $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']]['unit']+= (int)$value['total_quantity'];
+                           // $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
                         }
                     }
                     
@@ -4186,6 +4181,7 @@ ORDER BY fac_level;";
                 $queryData->free_result();
                 
                 foreach ($this->dataSet as $value_) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     $question = $this->getQuestionName($value_['question_code']);
                     $question = trim($question, 'Does this facility have an updated');
                     $question = trim($question, '?');
@@ -4615,7 +4611,7 @@ WHERE
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                        
+                        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                         //echo $value['ast_last_activity'];
                         $day = new DateTime($value['ast_last_activity']);
                         $day = $day->format('M-Y');
