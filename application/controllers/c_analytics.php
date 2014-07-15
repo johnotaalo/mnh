@@ -120,12 +120,12 @@ ORDER BY fac_level;");
     
     //end of the function
     
-    public function setActive($county, $survey) {
+    public function setActive($county, $survey,$survey_category) {
         
         $county = urldecode($county);
         
         //$this -> session -> unset_userdata('county_analytics');
-        $this->session->set_userdata('county_analytics', $county);
+        $this->session->set_userdata(array('county_analytics'=> $county,'survey_category'=>$survey_category));
         
         //$this -> session -> unset_userdata('survey');
         $this->session->set_userdata('survey', $survey);
