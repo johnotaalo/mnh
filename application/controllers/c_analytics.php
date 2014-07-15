@@ -450,10 +450,10 @@ ORDER BY fac_level;");
     /*
      * Get Trained Stuff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey);
+        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
         
        // echo '<pre>';
         //print_r($results);
@@ -461,14 +461,14 @@ ORDER BY fac_level;");
         //die;
         
         foreach ($results as $county) {
-            foreach ($county['trained_values'] as $k => $t) {
+            foreach ($county['trained'] as $k => $t) {
                 
                 if ($k == $training) {
                     $finalYes[] = $t;
                 }
             }
             
-            foreach ($county['working_values'] as $k => $w) {
+            foreach ($county['working'] as $k => $w) {
                 if ($k == $training) {
                     $finalNo[] = $w;
                 }
@@ -480,22 +480,22 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
-    public function getTrainedStaffOne($criteria, $value, $survey) {
+    public function getTrainedStaffOne($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey);
+        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
         
         //echo '<pre>';
         //print_r($results);
         //echo '</pre>';
         //die ;
         $finalYes = $finalNo = $category = array();
-        foreach ($results['trained_values'] as $k => $t) {
+        foreach ($results['trained'] as $k => $t) {
             $category[] = $k;
             $finalYes[] = $t;
         }
         
-        foreach ($results['working_values'] as $k => $w) {
+        foreach ($results['working'] as $k => $w) {
             
             $finalNo[] = $w;
         }
@@ -1569,20 +1569,20 @@ ORDER BY fac_level;");
         $finalYes = $finalNo = array();
         $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
         foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], 'ch');
+            $results[$county['county']] = $this->m_analytics->getTrainedStaff('county', $county['county'], 'ch', 'ch');
             $categories[] = $county['county'];
         }
         
         //echo '<pre>';print_r($results);echo '</pre>';die;
         foreach ($results as $county) {
-            foreach ($county['trained_values'] as $k => $t) {
+            foreach ($county['trained'] as $k => $t) {
                 
                 if ($k == $training) {
                     $finalYes[] = $t;
                 }
             }
             
-            foreach ($county['working_values'] as $k => $w) {
+            foreach ($county['working'] as $k => $w) {
                 if ($k == $training) {
                     $finalNo[] = $w;
                 }

@@ -312,53 +312,7 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
 
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
-
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-
-        $query = "SELECT
-    COUNT(gt.fac_mfl) AS facilities,
-    gt.guide_code AS training,
-    sum(gt.tg_trained_before_2010) AS trained,
-    sum(gt.tg_working) AS working
-FROM
-    training_guidelines gt
-WHERE
-    gt.guide_code IN (SELECT
-            guide_code
-        FROM
-            guidelines
-        WHERE
-            guide_for = '" . $survey . "')
-        AND gt.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-         JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-GROUP BY gt.guide_code
-ORDER BY gt.guide_code ASC";
+       $query = "CALL get_trained_staff`('".$criteria."' , '".$value."' , '".$survey."' , '".$for."')";
 
         try {
             $this->dataSet = $this->db->query($query, array($value));
