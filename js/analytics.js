@@ -20,6 +20,8 @@ function startAnalytics(base_url, county, survey) {
     //$('h3.page-title').text(smallText + appendToTitle);
     //$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
     //$('#breadcrumb-sub-title').text(smallText);
+
+    
     //Load Initial Graphs
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/baseline', '#graph_5');
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/baseline', '#graph_6');
@@ -29,7 +31,7 @@ function startAnalytics(base_url, county, survey) {
 
     loadGraph(base_url, 'c_analytics/guidelines_summary/2012%20IMCI', '#graph_42');
     loadGraph(base_url, 'c_analytics/guidelines_summary/ICCM', '#graph_43');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryort/ORT%20Corner', '#graph_44');
+    loadGraph(base_url, 'c_analytics/guidelines_summary/ORT%20Corner', '#graph_44');
     loadGraph(base_url, 'c_analytics/guidelines_summary/Paediatric%20Protocol', '#graph_45');
 
     loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register', '#graph_46');
@@ -42,6 +44,7 @@ function startAnalytics(base_url, county, survey) {
     loadGraph(base_url, 'c_analytics/training_summary/ICCM', '#graph_50');
     loadGraph(base_url, 'c_analytics/training_summary/IMCI', '#graph_51');
     loadGraph(base_url, 'c_analytics/training_summary/Enhanced%20Diarrhoea%20Management', '#graph_52');
+    
     loadGraph(base_url, 'c_analytics/training_summaryMnh/BEmONC', '#graph_70');
     loadGraph(base_url, 'c_analytics/training_summaryMnh/PNC', '#graph_71');
     loadGraph(base_url, 'c_analytics/training_summaryMnh/Essential%20Newborn%20care', '#graph_72');

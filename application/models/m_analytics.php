@@ -178,8 +178,54 @@ GROUP BY cs.strategy_code ASC;";
         $data_prefix_n = '';
         $data_y = $data_n = $data_categories = array();
 
-        $query = "CALL get_question_statistics('" . $criteria . "' , '" . $value . "', '" . $survey . "', '" . $for . "'); ";
-        try {                                 
+        switch ($criteria) {
+            case 'national':
+                $criteria_condition = ' ';
+                break;
+
+            case 'county':
+                $criteria_condition = 'WHERE fac_county=?';
+                break;
+
+            case 'district':
+                $criteria_condition = 'WHERE fac_district=?';
+                break;
+
+            case 'facility':
+                $criteria_condition = 'WHERE fac_mfl=?';
+                break;
+
+            case 'none':
+                $criteria_condition = '';
+                break;
+        }
+
+        $query = "SELECT
+    COUNT(lq.fac_mfl) AS total_facilities,
+    lq.question_code AS guideline,
+    lq.lq_response AS availability
+FROM
+    log_questions lq
+WHERE
+    lq.question_code IN (SELECT
+            question_code
+        FROM
+            questions
+        WHERE
+            question_for = 'gp')
+        AND lq.fac_mfl IN (SELECT
+            fac_mfl
+        FROM
+            facilities f
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '" . $survey . "')
+" . $criteria_condition . ")
+GROUP BY lq.lq_response , lq.question_code
+ORDER BY lq.lq_response ASC";
+        try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             if ($this->dataSet !== NULL) {
@@ -222,7 +268,7 @@ GROUP BY cs.strategy_code ASC;";
 
 
                 }
-
+                //$data['categories'] = json_encode($data_categories);
                 $data['yes_values'] = $data_y;
                 $data['no_values'] = $data_n;
 
@@ -862,6 +908,30 @@ ORDER BY ca.comm_code";
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
 
+        /* $query = "SELECT
+        count(ea.ae_availability) AS total_response,
+        ea.eq_code as equipment,
+        ea.ae_availability AS frequency
+        FROM
+        available_equipments ea
+        WHERE
+        ea.fac_mfl IN (SELECT
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
+        AND ea.eq_code IN (SELECT
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = 'ort')
+        GROUP BY ea.eq_code , ea.ae_availability
+        ORDER BY ea.eq_code ASC";*/
         try {
 
             $this->dataSet = $this->db->query($query, array($value));
@@ -947,8 +1017,32 @@ ORDER BY ca.comm_code";
         /*--------------------end ort equipment availability by frequency----------------------------------------------*/
 
         /*--------------------begin ort equipment location of availability----------------------------------------------*/
-        $query = "CALL get_resources('" . $criteria . "' , '" . $value . "', '" . $survey . "', '" . $for . "','availability' ); ";
-        
+        $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
+        $query = "SELECT
+    count(ea.ae_location) AS total_response,
+    ea.eq_code as equipment,
+    ea.ae_location AS location
+FROM
+    available_equipments ea
+WHERE
+    ea.fac_mfl IN (SELECT
+            fac_mfl
+        FROM
+            facilities f
+                JOIN
+            survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+            survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
+        AND ea.eq_code IN (SELECT
+            eq_code
+        FROM
+            equipments
+        WHERE
+            eq_for = 'ort')
+        AND ea.ae_location NOT LIKE '%Not Applicable%'
+GROUP BY ea.eq_code , ea.ae_location
+ORDER BY ea.eq_code ASC";
 
         try {
 
@@ -1453,15 +1547,19 @@ WHERE
 
                         //echo $value['indicator'];die;
                         $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
-                    }
+                    
                     $data['categories'] = array_keys($data['response']);
+                }
                     $this->dataSet = $data;
+                    
                     return $this->dataSet;
+
                 } else {
+
                     return $this->dataSet = null;
                 }
 
-                die(var_dump($this->dataSet));
+               //die(var_dump($this->dataSet));
             }
             catch(exception $ex) {
 
@@ -2112,7 +2210,10 @@ LIMIT 0 , 1000
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
 
-                    //echo '<pre>';print_r($this->dataSet);echo '</pre>';die;
+                    echo '<pre>';
+                    print_r($this->dataSet);
+                    echo '</pre>';
+                    die;
                     foreach ($this->dataSet as $value) {
                     }
                     return $this->dataSet;
@@ -2490,7 +2591,7 @@ ORDER BY f.fac_county ASC;";
 
             try {
 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '", "' . $section . '");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
 
@@ -2507,8 +2608,6 @@ ORDER BY f.fac_county ASC;";
 
                 //ignore
                 //echo($ex -> getMessage());
-
-
             }
             return $finalData;
         }
@@ -2597,9 +2696,10 @@ FROM
     ORDER BY COUNT(fac_Level) ASC) AS tracker;';
 
                 $myData = $this->db->query($query);
-
-                // echo $this->db->last_query();die;
+ //echo $myData;
+                 //echo $this->db->last_query();die;
                 $finalData = $myData->result_array();
+                //echo $finalData;
             }
             catch(exception $ex) {
 
@@ -2608,7 +2708,8 @@ FROM
 
 
             }
-            return $finalData;
+           return $finalData;
+           
         }
 
         /**
@@ -3368,7 +3469,7 @@ ORDER BY tl.treatment_code ASC";
 
                     foreach ($results as $result) {
 
-                        //echo $this->ChildHealthTreatmentName($result['treatment']);
+                        //echo $this->getChildHealthTreatmentName($result['treatment']);
                         //$result['treatment']=$this->getChildHealthTreatmentName($result['treatment']);
                         $final[$this->getChildHealthTreatmentName($result['treatment']) ][] = array('treatment' => $this->getChildHealthTreatmentName($result['treatment']), 'total' => $result['total']);
                     }

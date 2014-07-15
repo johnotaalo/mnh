@@ -3858,7 +3858,7 @@ $result = $result->result_array();
         }
         $this->mchpneumoniasevereTreatmentSection .= '</select>';
         $this->mchpneumoniasevereTreatmentSection .= '<ol></ol>';
-         $this->mchpneumoniasevereTreatmentSection .= '</div><span id = "severepneumoniaother"></span><div>';
+         $this->mchpneumoniasevereTreatmentSection .= '</div><div>';
 
         $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
 

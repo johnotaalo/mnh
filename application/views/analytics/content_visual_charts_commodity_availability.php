@@ -18,7 +18,14 @@ case 'ch' :
 				<h4 id="progressHeader">Reporting Progress</h4>
 			</div>
 
-			<div id="reporting"></div>
+			<div id="reporting">
+                <div class="portlet-body">
+
+				<div id="graph_5" class="chart"></div>
+			</div>
+
+
+			</div>
 		</div>
 		<div class="portlet box">
 			<div class="portlet-title">
@@ -87,7 +94,7 @@ case 'ch' :
 			</div>
 			<div class="portlet-body">
 
-				<div id="graph_49" class="chart"></div>
+				<div id="graph_6" class="chart"></div>
 			</div>
 		</div>
 
@@ -315,6 +322,174 @@ case 'mnh':
 			<div class="portlet-body">
 
 				<div id="graph_83" class="chart"></div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<?php
+
+break;
+
+case 'hcw':
+?>
+<div class="row-fluid" id="reporting-parent">
+	<div class="span6" id="span1">
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4 id="countyHeader">County</h4>
+				<h4 id="progressHeader">Reporting Progress</h4>
+			</div>
+
+			<div id="reporting"></div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Ownership</span>Summary</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>BEmONC</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>PNC</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>Essential Newborn Care</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>SBM-R</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>National Roadmap MMR</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>PMTCT</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>IYCF Policy Statement</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+
+	</div>
+
+	<div class="span6">
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Reporting Facility Levels</span>Summary</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>FANC</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>PAC</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>MPDSR</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Staff Training</span>UBT</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Quality Obstetric & Prenatal Care</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Baby Friendly Hospital Initiative</h4>
+			</div>
+			<div class="portlet-body">
+
+				
+			</div>
+		</div>
+		<div class="portlet box ">
+			<div class="portlet-title">
+				<h4><i class="icon-bar-chart"></i><span class="statistic-free">Guidelines</span>Post Abortion Guidelines</h4>
+			</div>
+			<div class="portlet-body">
+
+				
 			</div>
 		</div>
 
