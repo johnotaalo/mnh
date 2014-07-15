@@ -2759,7 +2759,7 @@ ORDER BY f.fac_county ASC;";
             
             try {
                 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '","'.$section.'");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
                 
