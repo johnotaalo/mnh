@@ -299,7 +299,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
         
         /*using CI Database Active Record*/
@@ -311,107 +311,28 @@ ORDER BY lq.lq_response ASC";
         
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
-        
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
-
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-        
-        $query = "SELECT
-    COUNT(gt.fac_mfl) AS facilities,
-    gt.guide_code AS training,
-    sum(gt.tg_trained_before_2010) AS trained,
-    sum(gt.tg_working) AS working
-FROM
-    training_guidelines gt
-WHERE
-    gt.guide_code IN (SELECT
-            guide_code
-        FROM
-            guidelines
-        WHERE
-            guide_for = '" . $survey . "')
-        AND gt.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-         JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-GROUP BY gt.guide_code
-ORDER BY gt.guide_code ASC";
-        
+		$query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
         try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-                $i = 0;
-                
-                //var_dump($this->dataSet);die;
-                foreach ($this->dataSet as $value) {
-                    
-                    //if(isset($value['trained'])){
-                    $data_t[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['trained']);
-                    
-                    //}else if(isset($value['working'])){
-                    $data_w[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['working']);
-                    
-                    //}
-                    
-                    //get a set of the 3 staff trainings
-                    //$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
-                    
-                    
-                }
-                
-                $data['categories'] = json_encode($data_categories);
-                
-                $data['trained_values'] = $data_t;
-                $data['working_values'] = $data_w;
-                
-                $this->dataSet = $data;
-                
-                //var_dump($this->dataSet);die;
-                return $this->dataSet;
-            } else {
-                return $this->dataSet = null;
-            }
-            
-            //die(var_dump($this->dataSet));
-            
-            
-        }
+            	foreach ($this->dataSet as $value) {
+                 if (array_key_exists('training', $value)) {
+                            $data[$value['training']][$value['training']] = (int)$value['trained'];
+                        	$data[$value['training']][$value['training']] = (int)$value['working'];
+                        }
+                    }
+                    }
+                    }
         catch(exception $ex) {
             
             //ignore
             //die($ex->getMessage());//exit;
             
-            
         }
+		return $data;
     }
     
     /*
@@ -1568,17 +1489,8 @@ WHERE
                 if($this->dataSet !== NULL) {
                 	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
                 	foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
-                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
-                            foreach ($location as $place) {
-                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
-                            }
-                        } else if (array_key_exists('total_functional', $value)) {
-                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
-                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
-                        }
+                        if(array_key_exists('treatment_name', $value))
+						$data[$value['commodity_name']][$value['treatment_name']] =(int)$value['total_response'];
                     }
 				}
 		}
@@ -1602,7 +1514,8 @@ WHERE
                 $queryData->free_result();
                 
                 //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
+                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
@@ -1614,6 +1527,8 @@ WHERE
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
                             $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']]['unit']+= (int)$value['total_quantity'];
                         }
                     }
                     
@@ -2764,7 +2679,7 @@ ORDER BY f.fac_county ASC;";
             
             try {
                 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '","'.$section.'");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
                 
