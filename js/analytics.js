@@ -1,4 +1,4 @@
-function startAnalytics(base_url, county, survey) {
+function startAnalytics(base_url, county, survey,survey_category) {
     var chart, div;
     var subID, parentDiv;
     var facility, smallText;
@@ -23,57 +23,58 @@ function startAnalytics(base_url, county, survey) {
 
     
     //Load Initial Graphs
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/baseline', '#graph_5');
-    loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/baseline', '#graph_6');
 
-    loadGraph(base_url, 'c_analytics/case_summary/Cases', '#graph_40');
-    loadGraph(base_url, 'c_analytics/case_summary/Classification', '#graph_41');
+    //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
+    //loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_6');
 
-    loadGraph(base_url, 'c_analytics/guidelines_summary/2012%20IMCI', '#graph_42');
-    loadGraph(base_url, 'c_analytics/guidelines_summary/ICCM', '#graph_43');
-    loadGraph(base_url, 'c_analytics/guidelines_summary/ORT%20Corner', '#graph_44');
-    loadGraph(base_url, 'c_analytics/guidelines_summary/Paediatric%20Protocol', '#graph_45');
+    loadGraph(base_url, 'c_analytics/case_summary/Cases/'+ survey+'/'+survey_category, '#graph_40');
+    loadGraph(base_url, 'c_analytics/case_summary/Classification/'+ survey+'/'+survey_category, '#graph_41');
 
-    loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register', '#graph_46');
-    loadGraph(base_url, 'c_analytics/tools_summary/ORT%20Corner%20register', '#graph_47');
-    loadGraph(base_url, 'c_analytics/tools_summary/Mother%20Child%20Booklet', '#graph_48');
+    loadGraph(base_url, 'c_analytics/guidelines_summary/2012%20IMCI/'+ survey+'/'+survey_category, '#graph_42');
+    loadGraph(base_url, 'c_analytics/guidelines_summary/ICCM/'+ survey+'/'+survey_category, '#graph_43');
+    loadGraph(base_url, 'c_analytics/guidelines_summary/ORT%20Corner/'+ survey+'/'+survey_category, '#graph_44');
+    loadGraph(base_url, 'c_analytics/guidelines_summary/Paediatric%20Protocol/'+ survey+'/'+survey_category, '#graph_45');
 
-    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey, '#graph_49');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey, '#graph_60');
+    loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register/'+ survey+'/'+survey_category, '#graph_46');
+    loadGraph(base_url, 'c_analytics/tools_summary/ORT%20Corner%20register/'+ survey+'/'+survey_category, '#graph_47');
+    loadGraph(base_url, 'c_analytics/tools_summary/Mother%20Child%20Booklet/'+ survey+'/'+survey_category, '#graph_48');
 
-    loadGraph(base_url, 'c_analytics/training_summary/ICCM', '#graph_50');
-    loadGraph(base_url, 'c_analytics/training_summary/IMCI', '#graph_51');
-    loadGraph(base_url, 'c_analytics/training_summary/Enhanced%20Diarrhoea%20Management', '#graph_52');
-    
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/BEmONC', '#graph_70');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/PNC', '#graph_71');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/Essential%20Newborn%20care', '#graph_72');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/SBM-R', '#graph_73');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/FANC', '#graph_74');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/PAC', '#graph_75');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/MPDSR', '#graph_76');
-    loadGraph(base_url, 'c_analytics/training_summaryMnh/UBT', '#graph_77');
+    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/National%20Roadmap%20MMR', '#graph_78');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/PMTCT%20guidelines', '#graph_79');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/IYCF%20policy%20statement', '#graph_80');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care', '#graph_81');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative', '#graph_82');
-    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines', '#graph_83');
+    loadGraph(base_url, 'c_analytics/training_summary/ICCM/'+ survey+'/'+survey_category, '#graph_50');
+    loadGraph(base_url, 'c_analytics/training_summary/IMCI/'+ survey+'/'+survey_category, '#graph_51');
+    loadGraph(base_url, 'c_analytics/training_summary/Enhanced%20Diarrhoea%20Management/'+ survey+'/'+survey_category, '#graph_52');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/BEmONC/'+ survey+'/'+survey_category, '#graph_70');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/PNC/'+ survey+'/'+survey_category, '#graph_71');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/Essential%20Newborn%20care/'+ survey+'/'+survey_category, '#graph_72');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/SBM-R/'+ survey+'/'+survey_category, '#graph_73');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/FANC/'+ survey+'/'+survey_category, '#graph_74');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/PAC/'+ survey+'/'+survey_category, '#graph_75');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/MPDSR/'+ survey+'/'+survey_category, '#graph_76');
+    loadGraph(base_url, 'c_analytics/training_summaryMnh/UBT/'+ survey+'/'+survey_category, '#graph_77');
+
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/National%20Roadmap%20MMR/'+ survey+'/'+survey_category, '#graph_78');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/PMTCT%20guidelines/'+ survey+'/'+survey_category, '#graph_79');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/IYCF%20policy%20statement/'+ survey+'/'+survey_category, '#graph_80');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care/'+ survey+'/'+survey_category, '#graph_81');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative/'+ survey+'/'+survey_category, '#graph_82');
+    loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines/'+ survey+'/'+survey_category, '#graph_83');
+
 
 
     $('select#county_select').change(function() {
         countyClicked = $(this).val(); //$('select#county_select option:selected').text();
         countyClicked = encodeURIComponent(countyClicked);
 
-        window.location.href = base_url + 'c_analytics/setActive/' + countyClicked + '/' + survey;
+        window.location.href = base_url + 'c_analytics/setActive/' + countyClicked + '/' + survey+'/'+survey_category;
     });
     $('#home-parent').addClass('active');
     $('#home-parent').append('<span class="selected"></span>');
     $('#facility_list').hide();
     $('#reportingLabel').hide();
-    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
-    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
+    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/'+survey_category);
+    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/'+survey_category);
     if (county !== '' && county != 'Unselected') {
         $("select#county_select").find("option").filter(function(index) {
             return county === $(this).text();
@@ -83,7 +84,7 @@ function startAnalytics(base_url, county, survey) {
         $('#reportingLabel').show();
         //Load Progress
         //alert(county);
-        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/baseline');
+        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/'+survey_category);
 
     } else {
         $('#reportingLabel').hide();

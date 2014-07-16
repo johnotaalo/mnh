@@ -73,7 +73,7 @@ switch($this->session->userdata('survey')) {
 				<li id="commodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="CHcommoditySuppliers">
+				<li id="CommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
 				</li>
 				
@@ -244,7 +244,7 @@ case 'mnh' :
 				<!--li id="bemonc">
 					<a href="#">BemONC Signal Function</a>
 				</li-->
-				<li id="cemonc">
+				<li id="ceocQuestion">
 					<a href="#">CEmONC Signal Function</a>
 				</li>
 				<!--li id="cemoncReason">
@@ -276,7 +276,7 @@ case 'mnh' :
 				<li id="commodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="commoditySuppliers">
+				<li id="MNHCommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
 				</li>
 			</ul>
@@ -304,7 +304,7 @@ case 'mnh' :
 				<li id="MNHSuppliesLocation">
 					<a href="#">Supplies Location</a>
 				</li>
-				<li id="SuppliesSuppliers">
+				<li id="MNHSuppliesSuppliers">
 					<a href="#">Suppliers</a>
 				</li>
 			</ul>
@@ -395,7 +395,7 @@ case 'hcw' :
 				<!--li id="bemonc">
 					<a href="#">BemONC Signal Function</a>
 				</li-->
-				<li id="cemonc">
+				<li id="ceocquestion">
 					<a href="#">CEmONC Signal Function</a>
 				</li>
 				<!--li id="cemoncReason">
