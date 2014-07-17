@@ -21,7 +21,7 @@ case 'ch' :
 			<div id="reporting">
                 <div class="portlet-body">
 
-				<div id="graph_5" class="chart"></div>
+				<div id="graph_60" class="chart"></div>
 			</div>
 
 
@@ -94,7 +94,7 @@ case 'ch' :
 			</div>
 			<div class="portlet-body">
 
-				<div id="graph_6" class="chart"></div>
+				<div id="graph_49" class="chart"></div>
 			</div>
 		</div>
 
@@ -350,7 +350,7 @@ case 'hcw':
 			</div>
 			<div class="portlet-body">
 
-				
+				<div id="graph_60" class="chart"></div>
 			</div>
 		</div>
 		<div class="portlet box ">
@@ -426,7 +426,7 @@ case 'hcw':
 			</div>
 			<div class="portlet-body">
 
-				
+				<div id="graph_49" class="chart"></div>
 			</div>
 		</div>
 		<div class="portlet box ">

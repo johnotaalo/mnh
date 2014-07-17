@@ -26,6 +26,8 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
     //loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_6');
+    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/case_summary/Cases/'+ survey+'/'+survey_category, '#graph_40');
     loadGraph(base_url, 'c_analytics/case_summary/Classification/'+ survey+'/'+survey_category, '#graph_41');
@@ -38,9 +40,6 @@ function startAnalytics(base_url, county, survey,survey_category) {
     loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register/'+ survey+'/'+survey_category, '#graph_46');
     loadGraph(base_url, 'c_analytics/tools_summary/ORT%20Corner%20register/'+ survey+'/'+survey_category, '#graph_47');
     loadGraph(base_url, 'c_analytics/tools_summary/Mother%20Child%20Booklet/'+ survey+'/'+survey_category, '#graph_48');
-
-    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/training_summary/ICCM/'+ survey+'/'+survey_category, '#graph_50');
     loadGraph(base_url, 'c_analytics/training_summary/IMCI/'+ survey+'/'+survey_category, '#graph_51');

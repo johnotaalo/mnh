@@ -2121,6 +2121,7 @@ LIMIT 0 , 1000
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2522,7 +2523,7 @@ ORDER BY f.fac_county ASC;";
             return $allData;
         }
         
-        function getReportingRatio($county, $survey, $survey_category) {
+        function getReportingRatio($county, $survey, $survey_category, $section) {
             
             /*using DQL*/
             
@@ -2531,8 +2532,7 @@ ORDER BY f.fac_county ASC;";
             try {
 
                 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '","' . $section . '");';
-
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '", "'.$section.'");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
                 

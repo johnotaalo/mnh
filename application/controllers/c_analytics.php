@@ -256,7 +256,7 @@ ORDER BY fac_level;");
         
         //$nowCounty = $this->uri->segment(3);
         //echo $nowCounty;
-        $reportingCounty = $this->m_analytics->getReportingRatio($county, $survey, $survey_category);
+        $reportingCounty = $this->m_analytics->getReportingRatio($county, $survey, $survey_category, $section);
         $oneProgress = $this->getReportedCounty($reportingCounty, $county);
         echo ($oneProgress);
     }
@@ -696,7 +696,7 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-    public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
+    public function getResourcesStatistics($criteria, $value, $survey) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
         
         foreach ($results as $key => $result) {
@@ -744,7 +744,7 @@ ORDER BY fac_level;");
     public function getresourcesFrequencyMnh($criteria, $value, $survey) {
         $value = urldecode($value);
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
-        //echo "<pre>"; print_r($results);echo "</pre>";die;
+        echo "<pre>"; print_r($results);echo "</pre>";die;
     }
      
       /**
@@ -1598,7 +1598,7 @@ ORDER BY fac_level;");
     }
     
     public function guidelines_summary($guideline) {
-        $guideline = urldecode($guideline);
+        //$guideline = urldecode($guideline);
         
         //Get All Reporting Counties
 
@@ -1632,12 +1632,12 @@ ORDER BY fac_level;");
                     }
                 }
             }
-            //echo '<pre>';print_r($finalNo);echo '</pre>';die;
+            //echo '<pre>';print_r($guideline);echo '</pre>';die;
         }
         
        $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
         
-         //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        //echo '<pre>';print_r($guideline);echo '</pre>';die;
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
