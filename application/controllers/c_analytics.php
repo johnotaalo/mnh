@@ -120,12 +120,12 @@ ORDER BY fac_level;");
     
     //end of the function
     
-    public function setActive($county, $survey) {
+    public function setActive($county, $survey,$survey_category) {
         
         $county = urldecode($county);
         
         //$this -> session -> unset_userdata('county_analytics');
-        $this->session->set_userdata('county_analytics', $county);
+        $this->session->set_userdata(array('county_analytics'=> $county,'survey_category'=>$survey_category));
         
         //$this -> session -> unset_userdata('survey');
         $this->session->set_userdata('survey', $survey);
@@ -453,29 +453,25 @@ ORDER BY fac_level;");
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-        
-       // echo '<pre>'; print_r($results); echo '</pre>'; die;
-        
-        foreach ($results as $county) {
-            foreach ($county['trained_values'] as $k => $t) {
-                
-                if ($k == $training) {
-                    $finalYes[] = $t;
-                }
-            }
-            
-            foreach ($county['working_values'] as $k => $w) {
-                if ($k == $training) {
-                    $finalNo[] = $w;
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
+                    $data[$name][] = (int)$value;
                 }
             }
         }
-        
-        //echo '<pre>';print_r($finalYes);echo '</pre>';
-        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray[]);die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
-    
     public function getTrainedStaffOne($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
@@ -506,25 +502,38 @@ ORDER BY fac_level;");
 
     }
     
-    public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Frequency', 8);
+    public function getCHCommodityAvailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','availability');
     }
     
-    public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Unavailability');
+    public function getCHCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','unavailability');
     }
     
-    public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Location');
+    public function getCHCommodityAvailabilityLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','location');
     }
     
-    public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'Quantities');
+    public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','quantity');
     }
     
-    public function getCommodityAvailability($criteria, $value, $survey, $choice) {
-        $value = urldecode($value);
+	public function getMNHCommodityAvailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','availability');
     }
+    
+    public function getMNHCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey,'mnh', 'unavailability');
+    }
+    
+    public function getMNHCommodityAvailabilityLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey,'mnh', 'location');
+    }
+    
+    public function getMNHCommodityAvailabilityQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','quantity');
+    }
+    
     
     /**
      * [getSuppliesStatistics description]
@@ -538,10 +547,7 @@ ORDER BY fac_level;");
     public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
-        echo '<pre>';
-        print_r($results);
-        echo '</pre>';
-        die;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -628,6 +634,84 @@ ORDER BY fac_level;");
     public function getRunningWaterLocation($criteria, $value, $survey) {
         $this->getSuppliesStatistics($criteria, $value, $survey, 'mh', 'location');
     }
+	
+	//commodity statistics
+	public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic){
+		$results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
+		//echo "<pre>";print_r($result);echo "</pre>";die;
+		foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available'){// && $name != 'N/A' ) {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray[]);die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+
+	public function getMNHBundlingAvailability($criteria, $value, $survey){
+		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','availability');
+		
+	}
+	public function getMNHBundlingUnavailability($criteria, $value, $survey){
+		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','unavailability');
+		
+	}
+	public function getMNHBundlingLocation($criteria, $value, $survey){
+		$this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'location');
+		
+	}
+	public function getMNHBundlingQuantity($criteria, $value, $survey){
+		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','quantity');
+		
+	}
+	public function getTreatmentStatistics($criteria, $value, $survey, $for){
+		$results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey, $for);
+		foreach ($results as $key => $value) {
+			//echo "<pre>"; print_r($results); echo "</pre>";die;
+            $treatment = $key;
+            $total[] = (int)$value[0];
+        }
+        $category[] = 'Total';
+        $resultArray[] = array('name' => 'Classification', 'data' => $total);
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+    }
+	
+	//treatment symptoms
+	public function getSymptomsStatistics($criteria, $value, $survey, $for){
+		$results = $this->m_analytics->getSymptomsStatistics($criteria, $value, $survey, $for);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
+		foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray[]);die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    
+	}
     
     /**
      * [getEquipmentStatistics description]
@@ -672,7 +756,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -701,11 +785,9 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
-        $value = urldecode($value);
+        //$value = urldecode($value);
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
-        
-       // echo "<pre>"; print_r($results);echo "</pre>";die;
-    }
+     }
     /**
      * [getResourcesFrequency description]
      * @param  [type] $criteria [description]

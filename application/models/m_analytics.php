@@ -299,7 +299,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
         
         /*using CI Database Active Record*/
@@ -311,107 +311,28 @@ ORDER BY lq.lq_response ASC";
         
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
-        
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
-
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-        
-        $query = "SELECT
-    COUNT(gt.fac_mfl) AS facilities,
-    gt.guide_code AS training,
-    sum(gt.tg_trained_before_2010) AS trained,
-    sum(gt.tg_working) AS working
-FROM
-    training_guidelines gt
-WHERE
-    gt.guide_code IN (SELECT
-            guide_code
-        FROM
-            guidelines
-        WHERE
-            guide_for = '" . $survey . "')
-        AND gt.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-         JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-GROUP BY gt.guide_code
-ORDER BY gt.guide_code ASC";
-        
+		$query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
         try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
-            
+            $cat=$data['trained']=$data['working']=array();
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-                $i = 0;
-                
-                //var_dump($this->dataSet);die;
-                foreach ($this->dataSet as $value) {
-                    
-                    //if(isset($value['trained'])){
-                    $data_t[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['trained']);
-                    
-                    //}else if(isset($value['working'])){
-                    $data_w[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['working']);
-                    
-                    //}
-                    
-                    //get a set of the 3 staff trainings
-                    //$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
-                    
-                    
-                }
-                
-                $data['categories'] = json_encode($data_categories);
-                
-                $data['trained_values'] = $data_t;
-                $data['working_values'] = $data_w;
-                
-                $this->dataSet = $data;
-                
-                //var_dump($this->dataSet);die;
-                return $this->dataSet;
-            } else {
-                return $this->dataSet = null;
-            }
-            
-            //die(var_dump($this->dataSet));
-            
-            
-        }
+            	foreach ($this->dataSet as $value) {
+            		array_push($cat,$value['training']);
+					array_push($data['trained'],$value['trained']);
+					array_push($data['working'],$value['working']);
+                    }
+				//echo "<pre>";print_r($data);echo "</pre>";die;
+                    }
+                    }
         catch(exception $ex) {
             
             //ignore
             //die($ex->getMessage());//exit;
             
-            
         }
+		return $data;
     }
     
     /*
@@ -1508,7 +1429,153 @@ WHERE
             
             return $this->dataSet;
         }
-        
+	
+		//get treatment statistics
+		public function getTreatmentStatistics($criteria, $value, $survey, $for){
+		    $value = urldecode($value);
+            $newData = array();
+
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+		
+		$query = "CALL get_treatment_statistics('".$criteria."','".$value."','".$survey."','".$for."');";
+		try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                //echo($this->db->last_query());die;
+                if($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+						$treatment = $value['lt_classification'];
+						$total = $value['total'];
+						$data[$treatment][] =$total;
+					}
+				}
+		}
+		catch(exception $ex){
+			
+		}
+		return $data;
+		}
+	
+		
+		// get treatment symptoms statistics
+	public function getSymptomsStatistics($criteria, $value, $survey,$for){
+		$value = urldecode($value);
+            $newData = array();
+
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+		
+		$query = "CALL get_treatment_symptoms('".$criteria."','".$value."','".$survey."','".$for."');";
+		try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                //echo($this->db->last_query());die;
+                if($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+                        if(array_key_exists('treatment_name', $value))
+						$data[$value['commodity_name']][$value['treatment_name']] =(int)$value['total_response'];
+                    }
+				}
+		}
+		catch(exception $ex){
+			
+		}
+		return $data;
+	}
+		//get commodity statistics
+		public function getCommodityStatistics($criteria,$value,$survey,$for,$statistic){
+			/*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+			
+			$query = "CALL get_commodity_statistics('".$criteria."','".$value."','".$survey."','".$for."','".$statistic."');";
+			try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                            	$data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']]['unit']+= (int)$value['total_quantity'];
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+                } else {
+                    return null;
+                }
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+		}
+
+	
         /**
          * [getIndicatorStatistics description]
          * @param  [type] $criteria [description]
@@ -1990,13 +2057,14 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
+                    	if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
+                        } else if (array_key_exists('locations', $value)) {
+                            $location = explode(',', $value['locations']);
                             foreach ($location as $place) {
-                                $data[$value['supply_name']][$place]+= (int)$value['total_response'];
+                            	$data[$value['supply_name']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
@@ -2184,16 +2252,11 @@ LIMIT 0 , 1000
             
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
             
-            
-            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-            
-
             $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
-            
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
@@ -2204,13 +2267,14 @@ LIMIT 0 , 1000
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
-                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+                		if (array_key_exists('frequency', $value)) {
+                            $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['eq_name']][$place]+= (int)$value['total_response'];
                             }
                         } 
                     }
@@ -2623,8 +2687,6 @@ ORDER BY f.fac_county ASC;";
                 $myData->free_result();
                 
                 // Does what it says.
-                
-                
             }
             catch(exception $ex) {
                 

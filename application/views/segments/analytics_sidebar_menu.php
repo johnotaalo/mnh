@@ -61,43 +61,43 @@ switch($this->session->userdata('survey')) {
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityAvailabilityFrequency">
+				<li id="CHcommodityAvailability">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="commodityAvailabilityUnavailability">
+				<li id="CHcommodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="commodityAvailabilityLocation">
+				<li id="CHcommodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityAvailabilityQuantities">
+				<li id="CHcommodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="CHcommoditySuppliers">
+				<!--<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
-				</li>
+				</li>-->
 				
 			</ul>
 		</li>
 
-<li id="commodities-parent" class="has-sub start">
+<li id="bundling-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="bundlingFrequency">
-					<a href="#">Commodity Bundling Availability</a>
+				<li id="CHBundlingAvailability">
+					<a href="#"> Bundling Availability</a>
 				</li>
-				<li id="bundlingUnavailability">
-					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+				<li id="CHBundlingUnavailability">
+					<a href="#"> Reasons For Bundling Unavailability</a>
 				</li>
-				<li id="bundlingLocation">
+				<li id="CHBundlingLocation">
 					<a href="#">Bundling Location</a>
 				</li>
-				<li id="bundlingQuantities">
+				<li id="CHBundlingQuantity">
 					<a href="#">Bundling Quantities</a>
 				</li>
-				<li id="bundlingSuppliers">
+				<!--<li id="bundlingSuppliers">
 					<a href="#">Bundling Suppliers</a>
-				</li>
+				</li>-->
 			</ul>
 		</li>
 
@@ -261,29 +261,27 @@ case 'mnh' :
 				<li id="bemoncReason">
 					<a href="#">BEmONC Signal Function Challenges</a>
 				</li>
-				
-				
 			</ul>
 
 		</li>
 		<li id="commodities-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityAvailabilityFrequency">
+				<li id="MNHcommodityAvailability">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="commodityAvailabilityUnavailability">
+				<li id="MNHcommodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="commodityAvailabilityLocation">
+				<li id="MNHcommodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityAvailabilityQuantities">
+				<li id="MNHcommodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<li id="commoditySuppliers">
+				<!--<li id="commoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
-				</li>
+				</li>-->
 			</ul>
 		</li>
 		<li id="equipments-parent-mnh" class="has-sub start">
@@ -315,7 +313,7 @@ case 'mnh' :
 			</ul>
 
 		</li>
-		<li id="hardware-parentMnh" class="has-sub start">
+		<!--<li id="hardware-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="hardwareFrequencyMnh">
@@ -323,7 +321,7 @@ case 'mnh' :
 				</li>
 			</ul>
 
-		</li>
+		</li>-->
 		<li id="resources-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -333,8 +331,10 @@ case 'mnh' :
 				<li id="resourcesLocationMnh">
 					<a href="#">Resources Location</a>
 				</li>
+				<li id="hardwareFrequencyMnh">
+					<a href="#">Hardware Availability</a>
+				</li>
 			</ul>
-
 		</li>
 		
 	</ul>
