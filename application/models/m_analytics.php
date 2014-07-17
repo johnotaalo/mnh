@@ -315,15 +315,15 @@ ORDER BY lq.lq_response ASC";
         try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
-            
+            $cat=$data['trained']=$data['working']=array();
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
             	foreach ($this->dataSet as $value) {
-                 if (array_key_exists('training', $value)) {
-                            $data[$value['training']][$value['training']] = (int)$value['trained'];
-                        	$data[$value['training']][$value['training']] = (int)$value['working'];
-                        }
+            		array_push($cat,$value['training']);
+					array_push($data['trained'],$value['trained']);
+					array_push($data['working'],$value['working']);
                     }
+				//echo "<pre>";print_r($data);echo "</pre>";die;
                     }
                     }
         catch(exception $ex) {
@@ -1522,6 +1522,83 @@ WHERE
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
+                            	$data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']]['unit']+= (int)$value['total_quantity'];
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+                } else {
+                    return null;
+                }
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+		}
+
+	//get bundling statistics
+        
+        public function getBundlingStatistics($criteria,$value,$survey,$for,$statistic){
+			/*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+			
+			$query = "CALL get_bundling_statistics('".$criteria."','".$value."','".$survey."','".$for."','".$statistic."');";
+			try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
                                 $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('total_functional', $value)) {
@@ -1574,7 +1651,6 @@ WHERE
             
             return $data;
 		}
-        
         /**
          * [getIndicatorStatistics description]
          * @param  [type] $criteria [description]
@@ -2056,13 +2132,14 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
+                    	if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
+                        } else if (array_key_exists('locations', $value)) {
+                            $location = explode(',', $value['locations']);
                             foreach ($location as $place) {
-                                $data[$value['supply_name']][$place]+= (int)$value['total_response'];
+                            	$data[$value['supply_name']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
@@ -2270,13 +2347,14 @@ LIMIT 0 , 1000
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    foreach ($this->dataSet as $value) {
-                        if (array_key_exists('frequency', $value)) {
-                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                	foreach ($this->dataSet as $value) {
+                		if (array_key_exists('frequency', $value)) {
+                            $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['eq_name']][$place]+= (int)$value['total_response'];
                             }
                         } 
                     }
@@ -2679,7 +2757,7 @@ ORDER BY f.fac_county ASC;";
             
             try {
                 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '","'.$section.'");';
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
                 
@@ -2689,8 +2767,6 @@ ORDER BY f.fac_county ASC;";
                 $myData->free_result();
                 
                 // Does what it says.
-                
-                
             }
             catch(exception $ex) {
                 

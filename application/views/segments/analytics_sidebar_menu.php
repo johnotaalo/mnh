@@ -83,21 +83,21 @@ switch($this->session->userdata('survey')) {
 <li id="bundling-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="bundlingFrequency">
+				<li id="CHBundlingAvailability">
 					<a href="#"> Bundling Availability</a>
 				</li>
-				<li id="bundlingUnavailability">
+				<li id="CHBundlingUnavailability">
 					<a href="#"> Reasons For Bundling Unavailability</a>
 				</li>
-				<li id="bundlingLocation">
+				<li id="CHBundlingLocation">
 					<a href="#">Bundling Location</a>
 				</li>
-				<li id="bundlingQuantities">
+				<li id="CHBundlingQuantity">
 					<a href="#">Bundling Quantities</a>
 				</li>
-				<li id="bundlingSuppliers">
+				<!--<li id="bundlingSuppliers">
 					<a href="#">Bundling Suppliers</a>
-				</li>
+				</li>-->
 			</ul>
 		</li>
 
@@ -284,6 +284,26 @@ case 'mnh' :
 				</li>-->
 			</ul>
 		</li>
+		<li id="bundling-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="MNHBundlingAvailability">
+					<a href="#"> Bundling Availability</a>
+				</li>
+				<li id="MNHBundlingUnavailability">
+					<a href="#"> Reasons For Bundling Unavailability</a>
+				</li>
+				<li id="MNHBundlingLocation">
+					<a href="#">Bundling Location</a>
+				</li>
+				<li id="MNHBundlingQuantity">
+					<a href="#">Bundling Quantities</a>
+				</li>
+				<!--<li id="bundlingSuppliers">
+					<a href="#">Bundling Suppliers</a>
+				</li>-->
+			</ul>
+		</li>
 		<li id="equipments-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Equipment</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -313,7 +333,7 @@ case 'mnh' :
 			</ul>
 
 		</li>
-		<li id="hardware-parentMnh" class="has-sub start">
+		<!--<li id="hardware-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="hardwareFrequencyMnh">
@@ -321,7 +341,7 @@ case 'mnh' :
 				</li>
 			</ul>
 
-		</li>
+		</li>-->
 		<li id="resources-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -330,6 +350,9 @@ case 'mnh' :
 				</li>
 				<li id="resourcesLocationMnh">
 					<a href="#">Resources Location</a>
+				</li>
+				<li id="hardwareFrequencyMnh">
+					<a href="#">Hardware Availability</a>
 				</li>
 			</ul>
 
