@@ -284,26 +284,6 @@ case 'mnh' :
 				</li>-->
 			</ul>
 		</li>
-		<li id="bundling-parent" class="has-sub start">
-			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
-			<ul class="sub">
-				<li id="MNHBundlingAvailability">
-					<a href="#"> Bundling Availability</a>
-				</li>
-				<li id="MNHBundlingUnavailability">
-					<a href="#"> Reasons For Bundling Unavailability</a>
-				</li>
-				<li id="MNHBundlingLocation">
-					<a href="#">Bundling Location</a>
-				</li>
-				<li id="MNHBundlingQuantity">
-					<a href="#">Bundling Quantities</a>
-				</li>
-				<!--<li id="bundlingSuppliers">
-					<a href="#">Bundling Suppliers</a>
-				</li>-->
-			</ul>
-		</li>
 		<li id="equipments-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Equipment</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -355,7 +335,6 @@ case 'mnh' :
 					<a href="#">Hardware Availability</a>
 				</li>
 			</ul>
-
 		</li>
 		
 	</ul>

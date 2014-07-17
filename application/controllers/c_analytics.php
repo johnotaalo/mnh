@@ -547,6 +547,7 @@ ORDER BY fac_level;");
     public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -644,31 +645,6 @@ ORDER BY fac_level;");
             $category[] = $key;
             foreach ($result as $name => $value) {
                 if ($name != 'Sometimes Available'){// && $name != 'N/A' ) {
-                    $data[$name][] = (int)$value;
-                }
-            }
-        }
-        foreach ($data as $key => $val) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $key = str_replace(' ', '-', $key);
-            $resultArray[] = array('name' => $key, 'data' => $val);
-			//print_r($resultArray[]);die;
-        }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-    }
-	
-	//get bunbling statistics
-	//commodity statistics
-	public function getBundlingStatistics($criteria, $value, $survey, $for, $statistic){
-		$results = $this->m_analytics->getBundlingStatistics($criteria, $value, $survey, $for, $statistic);
-		//echo "<pre>";print_r($result);echo "</pre>";die;
-		foreach ($results as $key => $result) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $category[] = $key;
-            foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
                     $data[$name][] = (int)$value;
                 }
             }
@@ -780,7 +756,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -809,11 +785,9 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
-        $value = urldecode($value);
+        //$value = urldecode($value);
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
-        
-       // echo "<pre>"; print_r($results);echo "</pre>";die;
-    }
+     }
     /**
      * [getResourcesFrequency description]
      * @param  [type] $criteria [description]
