@@ -10,8 +10,6 @@ class C_Analytics extends MY_Controller
         $this->load->library('PHPExcel');
         
         //$this -> county = $this -> session -> userdata('county_analytics');
-        
-        
     }
     
     /**

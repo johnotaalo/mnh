@@ -22,10 +22,10 @@ switch($this->session->userdata('survey')) {
 				<li id="communityStrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="guidelinesAvailability">
+				<li id="guidelinesAvailabilityCH">
 					<a href="#">Guidelines Availability</a>
 				</li>
-				<li id="trainedStaffOne">
+				<li id="TrainedStaffCH">
 					<a href="#">Staff Trainings</a>
 				</li>
 				<li id="childrenServices">
@@ -49,8 +49,11 @@ switch($this->session->userdata('survey')) {
 				<li id="ChHealthServices">
 					<a href="#">Health Services</a>
 				</li>
-				<li id="CaseManagement">
-					<a href="#">Case Management</a>
+				<li id="CertificationA">
+					<a href="#">Certification A</a>
+				</li>
+				<li id="CertificationB">
+					<a href="#">Certification B</a>
 				</li>
 				<li id="IMCIConsultationRoom">
 					<a href="#">IMCI Consultation Room</a>
@@ -61,17 +64,17 @@ switch($this->session->userdata('survey')) {
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="CHcommodityAvailability">
+				<li id="commodityAvailability">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="CHcommodityAvailabilityUnavailability">
+				<li id="commodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="CHcommodityAvailabilityLocation">
+				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="CHcommodityAvailabilityQuantities">
-					<a href="#">Commodity Quantities</a>
+				<li id="commodityAvailabilityQuantity">
+					<a href="#">Commodity Quantity</a>
 				</li>
 				<!--<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
@@ -83,21 +86,21 @@ switch($this->session->userdata('survey')) {
 <li id="bundling-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="CHBundlingAvailability">
-					<a href="#"> Bundling Availability</a>
+				<li id="bundlingFrequency">
+					<a href="#">Bundling Availability</a>
 				</li>
-				<li id="CHBundlingUnavailability">
-					<a href="#"> Reasons For Bundling Unavailability</a>
+				<li id="bundlingUnavailability">
+					<a href="#">Bundling Reasons For Unavailability</a>
 				</li>
-				<li id="CHBundlingLocation">
+				<li id="bundlingLocation">
 					<a href="#">Bundling Location</a>
 				</li>
-				<li id="CHBundlingQuantity">
+				<li id="bundlingQuantities">
 					<a href="#">Bundling Quantities</a>
 				</li>
-				<!--<li id="bundlingSuppliers">
+				<li id="bundlingSuppliers">
 					<a href="#">Bundling Suppliers</a>
-				</li>-->
+				</li>
 			</ul>
 		</li>
 
@@ -236,7 +239,7 @@ case 'mnh' :
 				<li id="communitystrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="trainedStaff">
+				<li id="TrainedStaffMnh">
 					<a href="#" >Staff Training</a>
 				</li>
 
@@ -261,27 +264,29 @@ case 'mnh' :
 				<li id="bemoncReason">
 					<a href="#">BEmONC Signal Function Challenges</a>
 				</li>
+				
+				
 			</ul>
 
 		</li>
 		<li id="commodities-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="MNHcommodityAvailability">
+				<li id="commodityAvailabilityFrequency">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="MNHcommodityAvailabilityUnavailability">
+				<li id="commodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="MNHcommodityAvailabilityLocation">
+				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="MNHcommodityAvailabilityQuantities">
+				<li id="commodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
-				<!--<li id="commoditySuppliers">
+				<li id="commoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
-				</li>-->
+				</li>
 			</ul>
 		</li>
 		<li id="equipments-parent-mnh" class="has-sub start">
@@ -313,7 +318,7 @@ case 'mnh' :
 			</ul>
 
 		</li>
-		<!--<li id="hardware-parentMnh" class="has-sub start">
+		<li id="hardware-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="hardwareFrequencyMnh">
@@ -321,7 +326,7 @@ case 'mnh' :
 				</li>
 			</ul>
 
-		</li>-->
+		</li>
 		<li id="resources-parentMnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
@@ -331,10 +336,8 @@ case 'mnh' :
 				<li id="resourcesLocationMnh">
 					<a href="#">Resources Location</a>
 				</li>
-				<li id="hardwareFrequencyMnh">
-					<a href="#">Hardware Availability</a>
-				</li>
 			</ul>
+
 		</li>
 		
 	</ul>
