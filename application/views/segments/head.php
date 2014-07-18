@@ -23,6 +23,8 @@
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/intro.js/introjs.css">
 
 <link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/qunit/qunit/qunit.css">
+<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.css">
 
 
 
@@ -37,6 +39,9 @@
     <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-radio.js"></script>
     <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.tagsinput.js"></script>
     <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.placeholder.js"></script>
+    <script src="<?echo base_url();?>assets/bower_components/respond/dest/respond.min.js"></script>
+    <script src="<?echo base_url();?>assets/bower_components/qunit/qunit/qunit.js"></script>
+    <script src="<?echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.js"></script>
 <script src="<?echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
 <script src="<?echo base_url();?>assets/bower_components/select2/select2.js"></script>
 <script src="<?echo base_url();?>js/core.js"></script>

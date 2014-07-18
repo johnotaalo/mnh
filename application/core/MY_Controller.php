@@ -1,5 +1,5 @@
 <?php
-//error_reporting(1);
+error_reporting(1);
 //# Extend CI_Controller to include Doctrine Entity Manager
 
 class MY_Controller extends CI_Controller
@@ -14,17 +14,7 @@ class MY_Controller extends CI_Controller
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
 
 public $session_survey_category;
-=======
-    
-    public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
-    
-    //new sections
-    public $questionPDF, $hcwInterviewAspectsSectionPDF, $hcwInterviewAspectsSection, $hcwConsultingAspectsSection, $selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
-    
-    //pdf variables
-    public $mchpneumoniasevereTreatmentSection, $mchmalariaconfrimedtreatmentSection, $hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
-    
->>>>>>> feature/Data_Retrieval
+
     function __construct() {
         parent::__construct();
         
@@ -40,24 +30,19 @@ public $session_survey_category;
         $this->load->model('m_retrieve');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
         $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
-<<<<<<< HEAD
-        $this->treatments=$this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
 
-=======
-        $this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
+        $this->treatments=$this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
         
->>>>>>> feature/Data_Retrieval
+
         //new sections
         $this->selectAccessChallenges = $this->servicesPDF = $this->services = $this->beds = $this->mnhWasteDisposalAspectsSectionPDF = $this->mnhNewbornCareAspectsSection = $this->mnhPostNatalCareAspectsSection = $this->nurses = $this->hardwareSources = $this->mnhJobAidsAspectsSection = $this->mnhGuidelinesAspectsSection = $this->mnhPreparednessAspectsSection = $this->mnhHIVTestingAspectsSection = '';
         
         //pdf
         $this->hardwareMCHSectionPDF = $this->suppliesMCHSectionPDF = $this->ortCornerAspectsSectionPDF = $this->mchIndicatorsSectionPDF = $this->selectMCHCommoditySuppliersPDF = $this->mchCommodityAvailabilitySectionPDF = $this->mnhKangarooMotherCare = $this->mnhKangarooMotherCarePDF = $this->mnhCommitteeAspectSectionPDF = $this->mnhWasteDisposalAspectsSection = $this->mnhNewbornCareAspectsSectionPDF = $this->mnhPostNatalCareAspectsSectionPDF = $this->nursesPDF = $this->hardwareSourcesPDF = $this->mnhCommunityStrategySectionPDF = $this->selectMCHOtherSuppliersPDF = $this->mchGuidelineAvailabilitySectionPDF = $this->mnhJobAidsAspectsSectionPDF = $this->mnhGuidelinesAspectsSectionPDF = $this->mnhPreparednessAspectsSectionPDF = $this->mnhHIVTestingAspectsSectionPDF = $this->suppliesUsageAndOutageSectionPDF = $this->suppliesMNHOtherSectionPDF = $this->mnhWaterAspectsSectionPDF = $this->selectMNHOtherSuppliersPDF = $this->commodityUsageAndOutageSectionPDF = $this->mnhCEOCAspectsSectionPDF = $this->suppliesSectionPDF = $this->commodityAvailabilitySectionPDF = $this->selectCommoditySuppliersPDF = '';
-<<<<<<< HEAD
+
 $this->session_survey_category='';
 
-=======
-        
->>>>>>> feature/Data_Retrieval
+
         $this->myCount = 0;
         $this->mchIndicatorsSection = array();
         $this->getHealthFacilities();
@@ -126,10 +111,7 @@ $this->session_survey_category='';
         $this->creatediarrhoearesponsetreatmentsection();
         $this->createfeverresponsetreatment();
         $this->createearresponsetreatment();
-<<<<<<< HEAD
-=======
-        
->>>>>>> feature/Data_Retrieval
+
         //end of added section
         
         $this->createseverePneumoniaTreatmentTSection();
@@ -186,7 +168,7 @@ $this->session_survey_category='';
         
         $this->createConsultingAspectsSection();
         $this->createConsultingAspectsSectionforPDF();
-<<<<<<< HEAD
+
 
          $this->  createInterviewAspectsSection();
           $this->  createInterviewAspectsSectionforPDF();
@@ -198,12 +180,7 @@ $this->session_survey_category=$this->session->userdata('survey_category');
 
 $this->getTreatments();
 
-=======
-        
-        $this->createInterviewAspectsSection();
-        $this->createInterviewAspectsSectionforPDF();
-        $this->createWorkProfileSection();
->>>>>>> feature/Data_Retrieval
+
     }
     
     function getRepositoryByFormName($form) {
@@ -254,11 +231,9 @@ $this->getTreatments();
         /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
-<<<<<<< HEAD
+
         $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
-=======
-        $this->data_found = $this->m_analytics->getReportingCounties($survey, 'baseline');
->>>>>>> feature/Data_Retrieval
+
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
@@ -377,11 +352,9 @@ $this->getTreatments();
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-<<<<<<< HEAD
-            $this->selectMCHOtherSuppliersPDF.= $value['supplierName'] . '<input type="radio" value="'.$value['supplierName'].'" name="supplierName">';
-=======
+
             $this->selectMCHOtherSuppliersPDF.= '<span style="display:inline-block;vertical-align:top">'.$value['supplierName'] . '</span><input type="radio" value="' . $value['supplierCode'] . '" name="supplierName">';
->>>>>>> feature/Data_Retrieval
+
         }
     }
     
@@ -2260,24 +2233,7 @@ $this->getTreatments();
             
             $base++;
             $findingRow = '';
-<<<<<<< HEAD
-            if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl' && $section != 'con') {
-                 $findingHCWRow = $findingAssessorRow = "";
-                if ($value['indicatorFindings'] != NULL) {
-                    $findings = explode(';', $value['indicatorFindings']);
-                    if (sizeof($findings) == 1) {
-                        foreach ($findings as $finding) {
-                            $findingHCWRow = $finding . ' <input type="text" name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '">';
-                            $findingAssessorRow = $finding . ' <input type="text" name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '">';
-                        }
-                    } else {
-                        $findingHCWRow = $findingAssessorRow='';
-                        foreach ($findings as $finding) {
 
-                            if ($finding == 'other (specify)') {
-                                $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" id="indicatorhcwFindings_' . $counter . '"  type="text">';
-                                $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="text">';
-=======
             $findingHCWRow = $findingAssessorRow = "";
             if ($value['indicatorFindings'] != NULL) {
                 $findings = explode(';', $value['indicatorFindings']);
@@ -2298,7 +2254,7 @@ $this->getTreatments();
                             }
                             if ($indicatorAssesorFindings == $finding) {
                                 $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" checked="checked" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_' . $counter . '" id="indicatorassessorOtherFindings_' . $counter . '" />';
->>>>>>> feature/Data_Retrieval
+
                             } else {
                                 $findingAssessorRow.= $finding . ' <input name="indicatorassessorFindings_' . $counter . '" id="indicatorassessorFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorassessorOtherFindings_' . $counter . '" id="indicatorassessorOtherFindings_' . $counter . '" />';
                             }
@@ -2370,10 +2326,6 @@ $this->getTreatments();
             ' . $responseHCWRow . '
             <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
         </tr>';
-<<<<<<< HEAD
-                
-=======
->>>>>>> feature/Data_Retrieval
             }
         }
         
@@ -2402,28 +2354,7 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-<<<<<<< HEAD
-            $findingRow='';
-            
-             if($section!='sgn'&&$section!='svc'&&$section!='ror'&&$section!='tl'){
 
-                  $findings = explode(';', $value['indicatorFindings']);
-                  if($findings[0]==""){
-                    $findingRow="";
-                  }
-                  else if(sizeof($findings)==1){
-                    foreach($findings as $finding){
-                    $findingRow = $finding.' <input type="text">';
-                  }
-                  }
-                  else{
-                    foreach($findings as $finding){
-                        if($finding=='other (specify)'){
-                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'"  type="text">';
-                        }
-                        else{
-                            $findingRow .= $finding.' <input name="mchIndicatorFinding_'.$counter.'" value="'.$finding.'" type="radio">';
-=======
             $findingRow = '';
             if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl') {
                 
@@ -2438,7 +2369,7 @@ $this->getTreatments();
                             $findingRow.= $finding . ' <input name="mchIndicatorFinding_' . $counter . '"  type="text">';
                         } else {
                             $findingRow.= $finding . ' <input name="mchIndicatorFinding_' . $counter . '" value="' . $finding . '" type="radio">';
->>>>>>> feature/Data_Retrieval
+
                         }
                     }
                 }
@@ -2533,12 +2464,10 @@ $this->getTreatments();
                 $this->questionPDF[$key].= $val;
             }
         }
-<<<<<<< HEAD
-        //echo '<table>';echo($this->questionPDF['certa']);echo '</table>';die;
-=======
+
         
         //var_dump($this->questionPDF);die;
->>>>>>> feature/Data_Retrieval
+
         return $this->questionPDF;
     }
     
@@ -3946,25 +3875,16 @@ GROUP BY st_name,sc_name,facilityCode;";
                     $linkText = 'Continue Survey';
                     $linkClass = 'action';
                 }
-<<<<<<< HEAD
 
-                $link = '<td><div class="progress">  <div class="bar" style="width: ' . $progress . '%;">' . $progress . ' %</div>  </div></td>';
-                $link.= '<td colspan="5" id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
-
-                $this->districtFacilityListSection.= '<tr>
-        <td colspan="1">' . $counter . '</td>
-            <td colspan="7" >' . $value['facMfl'] . '</td>
-            <td colspan="4">' . $value['facName'] . '</td>
-=======
                 
-                $link = '<td><div class="progress">  <div class="bar" style="width: ' . $progress . '%;">' . $progress . ' %</div>  </div></td>';
+                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'.$progress.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$progress.'%;">'.$progress.'%</div></div></td>';
                 $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
                 
                 $this->districtFacilityListSection.= '<tr>
         <td >' . $counter . '</td>
             <td >' . $value['facMfl'] . '</td>
             <td >' . $value['facName'] . '</td>
->>>>>>> feature/Data_Retrieval
+
 
             ' . $link . '
             </tr>';

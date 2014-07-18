@@ -99,6 +99,11 @@ body{
         }
     }
 }
+#footer{
+    padding:1%;
+    background:whitesmoke;
+    text-align: center;
+}
 
 #firepad{
     border:2px solid #ddd;
@@ -145,7 +150,7 @@ form{
     nav{
         @extend .navbar ;
         @extend .navbar-default;
-        @extend .navbar-embossed;
+        //@extend .navbar-embossed;
     }
 }
 .open{
