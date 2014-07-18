@@ -13,6 +13,7 @@ class MY_Controller extends CI_Controller
     //pdf variables
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
 
+public $session_survey_category;
     function __construct() {
         parent::__construct();
 
@@ -34,6 +35,7 @@ class MY_Controller extends CI_Controller
 
         //pdf
         $this->hardwareMCHSectionPDF = $this->suppliesMCHSectionPDF = $this->ortCornerAspectsSectionPDF = $this->mchIndicatorsSectionPDF = $this->selectMCHCommoditySuppliersPDF = $this->mchCommodityAvailabilitySectionPDF = $this->mnhKangarooMotherCare = $this->mnhKangarooMotherCarePDF = $this->mnhCommitteeAspectSectionPDF = $this->mnhWasteDisposalAspectsSection = $this->mnhNewbornCareAspectsSectionPDF = $this->mnhPostNatalCareAspectsSectionPDF = $this->nursesPDF = $this->hardwareSourcesPDF = $this->mnhCommunityStrategySectionPDF = $this->selectMCHOtherSuppliersPDF = $this->mchGuidelineAvailabilitySectionPDF = $this->mnhJobAidsAspectsSectionPDF = $this->mnhGuidelinesAspectsSectionPDF = $this->mnhPreparednessAspectsSectionPDF = $this->mnhHIVTestingAspectsSectionPDF = $this->suppliesUsageAndOutageSectionPDF = $this->suppliesMNHOtherSectionPDF = $this->mnhWaterAspectsSectionPDF = $this->selectMNHOtherSuppliersPDF = $this->commodityUsageAndOutageSectionPDF = $this->mnhCEOCAspectsSectionPDF = $this->suppliesSectionPDF = $this->commodityAvailabilitySectionPDF = $this->selectCommoditySuppliersPDF = '';
+$this->session_survey_category='';
 
         $this->myCount = 0;
         $this->mchIndicatorsSection = array();
@@ -160,6 +162,8 @@ class MY_Controller extends CI_Controller
           $this->  createInterviewAspectsSectionforPDF();
 $this->createWorkProfileSection();
 
+//Define Survey Session Variables
+$this->session_survey_category=$this->session->userdata('survey_category');
 
     }
 
@@ -211,7 +215,7 @@ $this->createWorkProfileSection();
         /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
-        $this->data_found = $this->m_analytics->getReportingCounties($survey,'baseline');
+        $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
