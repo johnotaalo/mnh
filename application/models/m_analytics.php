@@ -1914,7 +1914,7 @@ ORDER BY f.fac_county ASC;";
             
             try {
                 
-                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '","section-6");';
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
                 

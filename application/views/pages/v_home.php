@@ -5,29 +5,29 @@
         <?php $this -> load -> view('segments/nav-public'); ?>
 
         <div class="main" >
-            <div class="row">
+          <!--  <div class="row">
                 <div class="tile link" id="surveys">
                     <h3>Current Surveys</h3>
-                    <img src="<?php echo base_url(); ?>images/survey.PNG" />
+                    <img src="<?php echo base_url(); ?>images/survey.PNG" />-->
 
-                    <div class="tile-content">
-                        <p>
+                   <!-- <div class="tile-content"> -->
+                       <!-- <p>-->
                             <!--img src="<?php echo base_url()?>images/survey.png" alt="" width="150" height="120" class="bordered" /-->
-                        </p>
+                        <!-- <p>-->
 
                         <!--div class="post-title"><h2><a>Take Survey</a></h2></div-->
-                        <p></p>
+                       <!-- <p></p>-->
 
                         <!--div class="post-date">Last Update 23:22, Saturday, June 15, 2013 by Admin</div-->
 
-                        <div class="post-body">
+                       <!-- <div class="post-body">-->
 
                             <!--p class="large">This is the Ministry of Health, Online Data Management tool.</p-->
 
-                            <p class="large"></p>
+                          <!--  <p class="large"></p>-->
 
-                            <p>
-                            <ul class="nice-list">
+                           <!-- <p>--></p>
+                            <!--<ul class="nice-list">
                                 <li>
                                     <a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment-Baseline </a>
                                 </li>
@@ -37,16 +37,16 @@
                                 <li>
                                     <a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool Assessment-Baseline</a>
                                 </li>
-                                <!--li>Post surveys online for easy access</li>
-<li>Conduct timely Analysis</li-->
-                            </ul>
+                                <!--li>Post surveys online for easy access</li>-->
+                <!--<li>Conduct timely Analysis</li-->
+                            <!--</ul>
                             </p>
                     </div>
-                </div>
+                </div>-->
 
                 <!--div class="content-separator"></div-->
 
-            </div>
+           <!-- </div>-->
 
             <div class="tile map" id="reporting-rates">
                 <h3>Reporting Rates</h3>
@@ -94,32 +94,49 @@
 
 
             </div><!--./middle_column-->
+            
+            <!-- Data analysis section-->
+            <div class="high charts", id="data analysis">
+            	<h3>Data From the Map</h3>
+            		<div> 
+            		<span><h4># of Target Facilities</h4></span>
+            		</div>
+            		<div> 
+            		<span><h4># of facilities finished reporting</h4></span>
+            		</div>
+            		<div> 
+            		<span><h4># of facilities started but not finished</h4></span>
+            		</div>
+            		<div> 
+            		<span><h4># of facilities not started</h4></span>
+            		</div>
+            </div>
 
-            <div class="tile link" id="analytics">
+          <!--  <div class="tile link" id="analytics">
 
                 <h3>Survey Analysis</h3>
                 <img src="<?php echo base_url(); ?>images/analysis.PNG" />
 
                 <div class="tile-content">
-                    <p>
+                    <p>-->
                         <!--img src="<?php echo base_url()?>images/analysis.png" alt="" width="150" height="120" class="bordered" /-->
-                    </p>
+                   <!-- </p>-->
 
                     <!--div class="post-title"><h2><a>Take Survey</a></h2></div-->
-                    <p></p>
+                   <!-- <p></p>-->
 
                     <!--div class="post-date">Last Update 23:22, Saturday, June 15, 2013 by Admin</div-->
 
-                    <div class="post-body">
+                   <!-- <div class="post-body">-->
 
                         <!--p class="large">This is the Ministry of Health, Online Data Management tool.</p-->
 
-                        <p class="large"></p>
+                       <!-- <p class="large"></p>
                         <p>
-                        <ul class="nice-list">
+                        <ul class="nice-list">-->
                             <!--li><a href="<?php echo base_url(); ?>mnh/analytics"> 1. Maternal and Newborn Health Survey Analytics</a></li-->
 
-                            <li>
+                           <!-- <li>
                                 <a href="<?php echo base_url(); ?>mnh/analytics" > 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
                             </li>
 
@@ -133,15 +150,16 @@
                         </ul>
                         </p>
                 </div>
-            </div>
+            </div>-->
 
             <!--div class="content-separator"></div-->
 
-        </div>
+      <!--  </div>
     </div>
 
 
-</div>
+</div>-->
+
 
 <!--footer-->
 <?php //$this->load->view('segments/footer-public'); ?>

@@ -10,6 +10,8 @@ class C_Analytics extends MY_Controller
         $this->load->library('PHPExcel');
         
         //$this -> county = $this -> session -> userdata('county_analytics');
+        
+        
     }
     
     /**
@@ -135,6 +137,7 @@ ORDER BY fac_level;");
     
     public function getFacilityProgress($survey, $survey_category) {
         $results = $this->m_analytics->getFacilityProgress($survey, $survey_category);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
         foreach ($results as $day => $value) {
             $data[] = (int)sizeof($value);
             $category[] = $day;
@@ -451,25 +454,29 @@ ORDER BY fac_level;");
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-        foreach ($results as $key => $result) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $category[] = $key;
-            foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
-                    $data[$name][] = (int)$value;
+        
+       // echo '<pre>'; print_r($results); echo '</pre>'; die;
+        
+        foreach ($results as $county) {
+            foreach ($county['trained_values'] as $k => $t) {
+                
+                if ($k == $training) {
+                    $finalYes[] = $t;
+                }
+            }
+            
+            foreach ($county['working_values'] as $k => $w) {
+                if ($k == $training) {
+                    $finalNo[] = $w;
                 }
             }
         }
-        foreach ($data as $key => $val) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $key = str_replace(' ', '-', $key);
-            $resultArray[] = array('name' => $key, 'data' => $val);
-			//print_r($resultArray[]);die;
-        }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        
+        //echo '<pre>';print_r($finalYes);echo '</pre>';
+        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
+    
     public function getTrainedStaffOne($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
@@ -545,7 +552,10 @@ ORDER BY fac_level;");
     public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
-        //echo "<pre>";print_r($results);echo "</pre>";die;
+        echo '<pre>';
+        print_r($results);
+        echo '</pre>';
+        die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -642,7 +652,7 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available'){// && $name != 'N/A' ) {
+                if ($name != 'Sometimes Available' ) {
                     $data[$name][] = (int)$value;
                 }
             }
@@ -656,32 +666,16 @@ ORDER BY fac_level;");
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
-
-	public function getMNHBundlingAvailability($criteria, $value, $survey){
-		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','availability');
-		
-	}
-	public function getMNHBundlingUnavailability($criteria, $value, $survey){
-		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','unavailability');
-		
-	}
-	public function getMNHBundlingLocation($criteria, $value, $survey){
-		$this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'location');
-		
-	}
-	public function getMNHBundlingQuantity($criteria, $value, $survey){
-		$this->getCommodityStatistics($criteria, $value, $survey, 'bun','quantity');
-		
-	}
+	
 	public function getTreatmentStatistics($criteria, $value, $survey, $for){
 		$results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey, $for);
+		//echo "<pre>"; print_r($results); echo "</pre>";die;
 		foreach ($results as $key => $value) {
-			//echo "<pre>"; print_r($results); echo "</pre>";die;
-            $treatment = $key;
+			$treatment = $key;
             $total[] = (int)$value[0];
         }
         $category[] = 'Total';
-        $resultArray[] = array('name' => 'Classification', 'data' => $total);
+        $resultArray[] = array('name' => $treatment, 'data' => $total);
         
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
@@ -754,7 +748,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-        //echo "<pre>";print_r($results);echo "</pre>";die;
+        
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -783,9 +777,11 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
-        //$value = urldecode($value);
+        $value = urldecode($value);
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
-     }
+        
+       // echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
     /**
      * [getResourcesFrequency description]
      * @param  [type] $criteria [description]
@@ -949,6 +945,7 @@ ORDER BY fac_level;");
      */
     public function getQuestionStatistics($criteria, $value, $survey, $for) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {
