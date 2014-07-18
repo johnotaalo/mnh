@@ -508,35 +508,35 @@ ORDER BY fac_level;");
     }
     
     public function getCHCommodityAvailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'ch','availability');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','availability');
     }
     
     public function getCHCommodityAvailabilityUnavailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'ch','unavailability');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','unavailability');
     }
     
     public function getCHCommodityAvailabilityLocation($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'ch','location');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','location');
     }
     
     public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'ch','quantity');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'ch','quantity');
     }
     
 	public function getMNHCommodityAvailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh','availability');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','availability');
     }
     
     public function getMNHCommodityAvailabilityUnavailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey,'mnh', 'unavailability');
+        $this->getCommodityStatistics($criteria, $value, $survey,'mnh', 'unavailability');
     }
     
     public function getMNHCommodityAvailabilityLocation($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey,'mnh', 'location');
+        $this->getCommodityStatistics($criteria, $value, $survey,'mnh', 'location');
     }
     
     public function getMNHCommodityAvailabilityQuantities($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh','quantity');
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh','quantity');
     }
     
     
@@ -652,7 +652,7 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
+                if ($name != 'Sometimes Available' ) {
                     $data[$name][] = (int)$value;
                 }
             }
