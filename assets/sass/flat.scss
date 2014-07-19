@@ -19,6 +19,9 @@
 @mixin tile{
     background-color: #fff;
 }
+
+//Variables
+$stat-color:#16a085;
 //Body
 body{
     font-family:Lato;
@@ -60,14 +63,10 @@ body{
 .tile{
     text-align: left;
     background:white !important;
-    li{
-        list-style: none;
-
-    }
-
-    h3{
-
-        margin-bottom:0;
+      h3{
+        background:whitesmoke;
+        padding: 2%;
+        margin-bottom:5px;
         i{
             color:white;
             font-weight:bold;
@@ -83,9 +82,20 @@ body{
             cursor: hand;
         }
     }
+    .outer{
+        padding:2%;
+
+    li{
+        list-style: none;
+
+    }
+
+
+    }
 }
-.tile.map{
+.tile.map,.tile.map-info{
     @extend .col-md-6;
+    height:80%;
 }
 .tile.link{
     @extend .col-md-3;
@@ -99,10 +109,22 @@ body{
         }
     }
 }
+.map-info{
+    button{
+        i{
+            padding-right:5px;
+        }
+      @extend .btn;
+    @extend .btn-primary;
+        //background: #1abc9c;
+    }
+
+}
 #footer{
     padding:1%;
     background:whitesmoke;
     text-align: center;
+   margin-bottom: -100px;
 }
 
 #firepad{
@@ -196,14 +218,14 @@ table{
         .progress{
             margin-bottom:0;
             .progress-bar{
-        margin-bottom:0;
+                margin-bottom:0;
             }
         }
     }
     td{
         max-width:200px !important;
-         word-wrap: break-word;
-    overflow-wrap: break-word;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
 }
 .begin:hover{
@@ -306,4 +328,43 @@ table{
     display: inline-block;
     max-width: 70% !important;
     margin-bottom: 0 !important;
+}
+//Icons
+.statistic{
+    display: block;
+    margin-bottom:5px;
+    .icon{
+
+        vertical-align: top;
+        display:inline-block;
+        border-radius:50%;
+
+        background:$stat_color;
+        color:white;
+span{display: table-cell;
+    width:50px;
+        height:50px;
+      vertical-align: middle;
+      text-align: center;
+        i{
+
+            font-size:1.5em;
+        }
+
+    }
+    }
+    .data{
+
+        margin-left:10px;
+        .text,.data{
+            display:block;
+            text-align: center;
+        }
+        display:inline-block;
+        vertical-align: top;
+    }
+    #county_name{
+        margin-top:10%;
+        font-size:1.3em;
+    }
 }

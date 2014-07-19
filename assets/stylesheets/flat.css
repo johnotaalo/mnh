@@ -343,9 +343,10 @@ th {
   }
 
   /* line 83, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_print.scss */
-  .btn > .caret, .map-header .btn-group button > .caret, form button > .caret, #logout > .caret, #sectionNavigation input > .caret,
+  .btn > .caret, .map-header .btn-group button > .caret, .map-info button > .caret, form button > .caret, #logout > .caret, #sectionNavigation input > .caret,
   .dropup > .btn > .caret,
   .map-header .btn-group .dropup > button > .caret,
+  .map-info .dropup > button > .caret,
   form .dropup > button > .caret,
   .dropup > #logout > .caret,
   #sectionNavigation .dropup > input > .caret {
@@ -2075,7 +2076,7 @@ pre code {
 }
 
 /* line 14, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .tile.link, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .portlet.box, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .tile.link, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .tile.map-info, .portlet.box, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -2605,7 +2606,7 @@ pre code {
 }
 @media (min-width: 992px) {
   /* line 33, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .tile.link, .col-md-4, .col-md-5, .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .portlet.box, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .tile.link, .col-md-4, .col-md-5, .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .tile.map-info, .portlet.box, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -2635,7 +2636,7 @@ pre code {
   }
 
   /* line 41, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .portlet.box {
+  .col-md-6, .login-container #form-description, .login-container #form-login, .tile.map, .tile.map-info, .portlet.box {
     width: 50%;
   }
 
@@ -3664,6 +3665,7 @@ input[type="checkbox"],
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
 .map-header .btn-group .input-group-sm > .input-group-btn > button,
+.map-info .input-group-sm > .input-group-btn > button,
 form .input-group-sm > .input-group-btn > button,
 .input-group-sm > .input-group-btn > #logout,
 #sectionNavigation .input-group-sm > .input-group-btn > input {
@@ -3702,6 +3704,7 @@ form .input-group-sm > select[multiple],
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
 .map-header .btn-group .input-group-lg > .input-group-btn > button,
+.map-info .input-group-lg > .input-group-btn > button,
 form .input-group-lg > .input-group-btn > button,
 .input-group-lg > .input-group-btn > #logout,
 #sectionNavigation .input-group-lg > .input-group-btn > input {
@@ -3762,6 +3765,7 @@ form .input-group-lg > select[multiple],
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .map-header .btn-group .input-group-lg > .input-group-btn > button + .form-control-feedback,
+.map-info .input-group-lg > .input-group-btn > button + .form-control-feedback,
 form .input-group-lg > .input-group-btn > button + .form-control-feedback,
 .input-group-lg > .input-group-btn > #logout + .form-control-feedback,
 #sectionNavigation .input-group-lg > .input-group-btn > input + .form-control-feedback {
@@ -3775,6 +3779,7 @@ form .input-group-lg > .input-group-btn > button + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .map-header .btn-group .input-group-sm > .input-group-btn > button + .form-control-feedback,
+.map-info .input-group-sm > .input-group-btn > button + .form-control-feedback,
 form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 .input-group-sm > .input-group-btn > #logout + .form-control-feedback,
 #sectionNavigation .input-group-sm > .input-group-btn > input + .form-control-feedback {
@@ -4006,7 +4011,7 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 9, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn, .map-header .btn-group button, form button, #logout, #sectionNavigation input {
+.btn, .map-header .btn-group button, .map-info button, form button, #logout, #sectionNavigation input {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -4026,25 +4031,25 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
   user-select: none;
 }
 /* line 25, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .map-header .btn-group button:focus, form button:focus, #logout:focus, #sectionNavigation input:focus, .btn:active:focus, .map-header .btn-group button:active:focus, form button:active:focus, #logout:active:focus, #sectionNavigation input:active:focus, .btn.active:focus, .map-header .btn-group button.active:focus, form button.active:focus, .active#logout:focus, #sectionNavigation input.active:focus {
+.btn:focus, .map-header .btn-group button:focus, .map-info button:focus, form button:focus, #logout:focus, #sectionNavigation input:focus, .btn:active:focus, .map-header .btn-group button:active:focus, .map-info button:active:focus, form button:active:focus, #logout:active:focus, #sectionNavigation input:active:focus, .btn.active:focus, .map-header .btn-group button.active:focus, .map-info button.active:focus, form button.active:focus, .active#logout:focus, #sectionNavigation input.active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 31, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .map-header .btn-group button:hover, form button:hover, #logout:hover, #sectionNavigation input:hover, .btn:focus, .map-header .btn-group button:focus, form button:focus, #logout:focus, #sectionNavigation input:focus {
+.btn:hover, .map-header .btn-group button:hover, .map-info button:hover, form button:hover, #logout:hover, #sectionNavigation input:hover, .btn:focus, .map-header .btn-group button:focus, .map-info button:focus, form button:focus, #logout:focus, #sectionNavigation input:focus {
   color: #333333;
   text-decoration: none;
 }
 /* line 37, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .map-header .btn-group button:active, form button:active, #logout:active, #sectionNavigation input:active, .btn.active, .map-header .btn-group button.active, form button.active, .active#logout, #sectionNavigation input.active {
+.btn:active, .map-header .btn-group button:active, .map-info button:active, form button:active, #logout:active, #sectionNavigation input:active, .btn.active, .map-header .btn-group button.active, .map-info button.active, form button.active, .active#logout, #sectionNavigation input.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 45, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .map-header .btn-group button.disabled, form button.disabled, .disabled#logout, #sectionNavigation input.disabled, .btn[disabled], .map-header .btn-group button[disabled], form button[disabled], [disabled]#logout, #sectionNavigation input[disabled], fieldset[disabled] .btn, fieldset[disabled] .map-header .btn-group button, .map-header .btn-group fieldset[disabled] button, fieldset[disabled] form button, form fieldset[disabled] button, fieldset[disabled] #logout, fieldset[disabled] #sectionNavigation input, #sectionNavigation fieldset[disabled] input {
+.btn.disabled, .map-header .btn-group button.disabled, .map-info button.disabled, form button.disabled, .disabled#logout, #sectionNavigation input.disabled, .btn[disabled], .map-header .btn-group button[disabled], .map-info button[disabled], form button[disabled], [disabled]#logout, #sectionNavigation input[disabled], fieldset[disabled] .btn, fieldset[disabled] .map-header .btn-group button, .map-header .btn-group fieldset[disabled] button, fieldset[disabled] .map-info button, .map-info fieldset[disabled] button, fieldset[disabled] form button, form fieldset[disabled] button, fieldset[disabled] #logout, fieldset[disabled] #sectionNavigation input, #sectionNavigation fieldset[disabled] input {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -4081,28 +4086,28 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 60, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-primary, #sectionNavigation input {
+.btn-primary, .map-info button, #sectionNavigation input {
   color: white;
   background-color: #428bca;
   border-color: #357ebd;
 }
 /* line 15, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:hover, #sectionNavigation input:hover, .btn-primary:focus, #sectionNavigation input:focus, .btn-primary:active, #sectionNavigation input:active, .btn-primary.active, #sectionNavigation input.active, .open > .btn-primary.dropdown-toggle, #sectionNavigation .open > input.dropdown-toggle {
+.btn-primary:hover, .map-info button:hover, #sectionNavigation input:hover, .btn-primary:focus, .map-info button:focus, #sectionNavigation input:focus, .btn-primary:active, .map-info button:active, #sectionNavigation input:active, .btn-primary.active, .map-info button.active, #sectionNavigation input.active, .open > .btn-primary.dropdown-toggle, .map-info .open > button.dropdown-toggle, #sectionNavigation .open > input.dropdown-toggle {
   color: white;
   background-color: #3071a9;
   border-color: #285e8e;
 }
 /* line 22, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active, #sectionNavigation input:active, .btn-primary.active, #sectionNavigation input.active, .open > .btn-primary.dropdown-toggle, #sectionNavigation .open > input.dropdown-toggle {
+.btn-primary:active, .map-info button:active, #sectionNavigation input:active, .btn-primary.active, .map-info button.active, #sectionNavigation input.active, .open > .btn-primary.dropdown-toggle, .map-info .open > button.dropdown-toggle, #sectionNavigation .open > input.dropdown-toggle {
   background-image: none;
 }
 /* line 32, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary.disabled, #sectionNavigation input.disabled, .btn-primary.disabled:hover, #sectionNavigation input.disabled:hover, .btn-primary.disabled:focus, #sectionNavigation input.disabled:focus, .btn-primary.disabled:active, #sectionNavigation input.disabled:active, .btn-primary.disabled.active, #sectionNavigation input.disabled.active, .btn-primary[disabled], #sectionNavigation input[disabled], .btn-primary[disabled]:hover, #sectionNavigation input[disabled]:hover, .btn-primary[disabled]:focus, #sectionNavigation input[disabled]:focus, .btn-primary[disabled]:active, #sectionNavigation input[disabled]:active, .btn-primary[disabled].active, #sectionNavigation input[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] #sectionNavigation input, #sectionNavigation fieldset[disabled] input, fieldset[disabled] .btn-primary:hover, fieldset[disabled] #sectionNavigation input:hover, #sectionNavigation fieldset[disabled] input:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] #sectionNavigation input:focus, #sectionNavigation fieldset[disabled] input:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] #sectionNavigation input:active, #sectionNavigation fieldset[disabled] input:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] #sectionNavigation input.active, #sectionNavigation fieldset[disabled] input.active {
+.btn-primary.disabled, .map-info button.disabled, #sectionNavigation input.disabled, .btn-primary.disabled:hover, .map-info button.disabled:hover, #sectionNavigation input.disabled:hover, .btn-primary.disabled:focus, .map-info button.disabled:focus, #sectionNavigation input.disabled:focus, .btn-primary.disabled:active, .map-info button.disabled:active, #sectionNavigation input.disabled:active, .btn-primary.disabled.active, .map-info button.disabled.active, #sectionNavigation input.disabled.active, .btn-primary[disabled], .map-info button[disabled], #sectionNavigation input[disabled], .btn-primary[disabled]:hover, .map-info button[disabled]:hover, #sectionNavigation input[disabled]:hover, .btn-primary[disabled]:focus, .map-info button[disabled]:focus, #sectionNavigation input[disabled]:focus, .btn-primary[disabled]:active, .map-info button[disabled]:active, #sectionNavigation input[disabled]:active, .btn-primary[disabled].active, .map-info button[disabled].active, #sectionNavigation input[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .map-info button, .map-info fieldset[disabled] button, fieldset[disabled] #sectionNavigation input, #sectionNavigation fieldset[disabled] input, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .map-info button:hover, .map-info fieldset[disabled] button:hover, fieldset[disabled] #sectionNavigation input:hover, #sectionNavigation fieldset[disabled] input:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .map-info button:focus, .map-info fieldset[disabled] button:focus, fieldset[disabled] #sectionNavigation input:focus, #sectionNavigation fieldset[disabled] input:focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .map-info button:active, .map-info fieldset[disabled] button:active, fieldset[disabled] #sectionNavigation input:active, #sectionNavigation fieldset[disabled] input:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] .map-info button.active, .map-info fieldset[disabled] button.active, fieldset[disabled] #sectionNavigation input.active, #sectionNavigation fieldset[disabled] input.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
 /* line 38, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary .badge, #sectionNavigation input .badge {
+.btn-primary .badge, .map-info button .badge, #sectionNavigation input .badge {
   color: #428bca;
   background-color: white;
 }
@@ -4245,7 +4250,7 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 124, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn, .map-header .btn-group .btn-group-lg > button, form .btn-group-lg > button, .btn-group-lg > #logout, #sectionNavigation .btn-group-lg > input {
+.btn-lg, .btn-group-lg > .btn, .map-header .btn-group .btn-group-lg > button, .map-info .btn-group-lg > button, form .btn-group-lg > button, .btn-group-lg > #logout, #sectionNavigation .btn-group-lg > input {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -4253,7 +4258,7 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 128, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn, form .btn-group-sm > button, #sectionNavigation .btn-group-sm > input, .map-header .btn-group button, #logout {
+.btn-sm, .btn-group-sm > .btn, .map-info .btn-group-sm > button, form .btn-group-sm > button, #sectionNavigation .btn-group-sm > input, .map-header .btn-group button, #logout {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -4261,7 +4266,7 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 132, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn, .map-header .btn-group .btn-group-xs > button, form .btn-group-xs > button, .btn-group-xs > #logout, #sectionNavigation .btn-group-xs > input {
+.btn-xs, .btn-group-xs > .btn, .map-header .btn-group .btn-group-xs > button, .map-info .btn-group-xs > button, form .btn-group-xs > button, .btn-group-xs > #logout, #sectionNavigation .btn-group-xs > input {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -4506,9 +4511,10 @@ tbody.collapse.in {
   vertical-align: middle;
 }
 /* line 11, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn, .map-header .btn-group > button, form .btn-group > button, .btn-group > #logout, #sectionNavigation .btn-group > input,
+.btn-group > .btn, .map-header .btn-group > button, .map-info .btn-group > button, form .btn-group > button, .btn-group > #logout, #sectionNavigation .btn-group > input,
 .btn-group-vertical > .btn,
 .map-header .btn-group .btn-group-vertical > button,
+.map-info .btn-group-vertical > button,
 form .btn-group-vertical > button,
 .btn-group-vertical > #logout,
 #sectionNavigation .btn-group-vertical > input {
@@ -4516,33 +4522,38 @@ form .btn-group-vertical > button,
   float: left;
 }
 /* line 18, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .map-header .btn-group > button:hover, form .btn-group > button:hover, .btn-group > #logout:hover, #sectionNavigation .btn-group > input:hover, .btn-group > .btn:focus, .map-header .btn-group > button:focus, form .btn-group > button:focus, .btn-group > #logout:focus, #sectionNavigation .btn-group > input:focus, .btn-group > .btn:active, .map-header .btn-group > button:active, form .btn-group > button:active, .btn-group > #logout:active, #sectionNavigation .btn-group > input:active, .btn-group > .btn.active, .map-header .btn-group > button.active, form .btn-group > button.active, .btn-group > .active#logout, #sectionNavigation .btn-group > input.active,
+.btn-group > .btn:hover, .map-header .btn-group > button:hover, .map-info .btn-group > button:hover, form .btn-group > button:hover, .btn-group > #logout:hover, #sectionNavigation .btn-group > input:hover, .btn-group > .btn:focus, .map-header .btn-group > button:focus, .map-info .btn-group > button:focus, form .btn-group > button:focus, .btn-group > #logout:focus, #sectionNavigation .btn-group > input:focus, .btn-group > .btn:active, .map-header .btn-group > button:active, .map-info .btn-group > button:active, form .btn-group > button:active, .btn-group > #logout:active, #sectionNavigation .btn-group > input:active, .btn-group > .btn.active, .map-header .btn-group > button.active, .map-info .btn-group > button.active, form .btn-group > button.active, .btn-group > .active#logout, #sectionNavigation .btn-group > input.active,
 .btn-group-vertical > .btn:hover,
 .map-header .btn-group .btn-group-vertical > button:hover,
+.map-info .btn-group-vertical > button:hover,
 form .btn-group-vertical > button:hover,
 .btn-group-vertical > #logout:hover,
 #sectionNavigation .btn-group-vertical > input:hover,
 .btn-group-vertical > .btn:focus,
 .map-header .btn-group .btn-group-vertical > button:focus,
+.map-info .btn-group-vertical > button:focus,
 form .btn-group-vertical > button:focus,
 .btn-group-vertical > #logout:focus,
 #sectionNavigation .btn-group-vertical > input:focus,
 .btn-group-vertical > .btn:active,
 .map-header .btn-group .btn-group-vertical > button:active,
+.map-info .btn-group-vertical > button:active,
 form .btn-group-vertical > button:active,
 .btn-group-vertical > #logout:active,
 #sectionNavigation .btn-group-vertical > input:active,
 .btn-group-vertical > .btn.active,
 .map-header .btn-group .btn-group-vertical > button.active,
+.map-info .btn-group-vertical > button.active,
 form .btn-group-vertical > button.active,
 .btn-group-vertical > .active#logout,
 #sectionNavigation .btn-group-vertical > input.active {
   z-index: 2;
 }
 /* line 21, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:focus, .map-header .btn-group > button:focus, form .btn-group > button:focus, .btn-group > #logout:focus, #sectionNavigation .btn-group > input:focus,
+.btn-group > .btn:focus, .map-header .btn-group > button:focus, .map-info .btn-group > button:focus, form .btn-group > button:focus, .btn-group > #logout:focus, #sectionNavigation .btn-group > input:focus,
 .btn-group-vertical > .btn:focus,
 .map-header .btn-group .btn-group-vertical > button:focus,
+.map-info .btn-group-vertical > button:focus,
 form .btn-group-vertical > button:focus,
 .btn-group-vertical > #logout:focus,
 #sectionNavigation .btn-group-vertical > input:focus {
@@ -4550,9 +4561,11 @@ form .btn-group-vertical > button:focus,
 }
 
 /* line 33, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn, .map-header .btn-group button + .btn, .btn-group form button + .btn, form .btn-group button + .btn, .btn-group #logout + .btn, .btn-group #sectionNavigation input + .btn, #sectionNavigation .btn-group input + .btn, .map-header .btn-group .btn + button, .map-header .btn-group button + button, .map-header .btn-group #logout + button, .map-header .btn-group #sectionNavigation input + button, #sectionNavigation .map-header .btn-group input + button, .map-header #sectionNavigation .btn-group input + button, .btn-group form .btn + button, form .btn-group .btn + button, .btn-group form button + button, form .btn-group button + button, .btn-group form #logout + button, form .btn-group #logout + button, .btn-group #sectionNavigation form input + button, form .btn-group #sectionNavigation input + button, #sectionNavigation .btn-group form input + button, form #sectionNavigation .btn-group input + button, .btn-group .btn + #logout, .map-header .btn-group button + #logout, .btn-group form button + #logout, form .btn-group button + #logout, .btn-group #logout + #logout, .btn-group #sectionNavigation input + #logout, #sectionNavigation .btn-group input + #logout, .btn-group #sectionNavigation .btn + input, #sectionNavigation .btn-group .btn + input, .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .map-header .btn-group button + input, .btn-group form #sectionNavigation button + input, #sectionNavigation .btn-group form button + input, form .btn-group #sectionNavigation button + input, #sectionNavigation form .btn-group button + input, .btn-group #sectionNavigation #logout + input, #sectionNavigation .btn-group #logout + input, .btn-group #sectionNavigation input + input, #sectionNavigation .btn-group input + input,
+.btn-group .btn + .btn, .map-header .btn-group button + .btn, .btn-group .map-info button + .btn, .map-info .btn-group button + .btn, .btn-group form button + .btn, form .btn-group button + .btn, .btn-group #logout + .btn, .btn-group #sectionNavigation input + .btn, #sectionNavigation .btn-group input + .btn, .map-header .btn-group .btn + button, .map-header .btn-group button + button, .map-header .btn-group #logout + button, .map-header .btn-group #sectionNavigation input + button, #sectionNavigation .map-header .btn-group input + button, .map-header #sectionNavigation .btn-group input + button, .btn-group .map-info .btn + button, .map-info .btn-group .btn + button, .btn-group .map-info button + button, .map-info .btn-group button + button, .btn-group .map-info #logout + button, .map-info .btn-group #logout + button, .btn-group #sectionNavigation .map-info input + button, .map-info .btn-group #sectionNavigation input + button, #sectionNavigation .btn-group .map-info input + button, .map-info #sectionNavigation .btn-group input + button, .btn-group form .btn + button, form .btn-group .btn + button, .btn-group form button + button, form .btn-group button + button, .btn-group form #logout + button, form .btn-group #logout + button, .btn-group #sectionNavigation form input + button, form .btn-group #sectionNavigation input + button, #sectionNavigation .btn-group form input + button, form #sectionNavigation .btn-group input + button, .btn-group .btn + #logout, .map-header .btn-group button + #logout, .btn-group .map-info button + #logout, .map-info .btn-group button + #logout, .btn-group form button + #logout, form .btn-group button + #logout, .btn-group #logout + #logout, .btn-group #sectionNavigation input + #logout, #sectionNavigation .btn-group input + #logout, .btn-group #sectionNavigation .btn + input, #sectionNavigation .btn-group .btn + input, .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .map-header .btn-group button + input, .btn-group .map-info #sectionNavigation button + input, #sectionNavigation .btn-group .map-info button + input, .map-info .btn-group #sectionNavigation button + input, #sectionNavigation .map-info .btn-group button + input, .btn-group form #sectionNavigation button + input, #sectionNavigation .btn-group form button + input, form .btn-group #sectionNavigation button + input, #sectionNavigation form .btn-group button + input, .btn-group #sectionNavigation #logout + input, #sectionNavigation .btn-group #logout + input, .btn-group #sectionNavigation input + input, #sectionNavigation .btn-group input + input,
 .btn-group .btn + .btn-group,
 .map-header .btn-group button + .btn-group,
+.btn-group .map-info button + .btn-group,
+.map-info .btn-group button + .btn-group,
 .btn-group form button + .btn-group,
 form .btn-group button + .btn-group,
 .btn-group #logout + .btn-group,
@@ -4560,6 +4573,8 @@ form .btn-group button + .btn-group,
 #sectionNavigation .btn-group input + .btn-group,
 .btn-group .btn-group + .btn,
 .map-header .btn-group .btn-group + button,
+.btn-group .map-info .btn-group + button,
+.map-info .btn-group .btn-group + button,
 .btn-group form .btn-group + button,
 form .btn-group .btn-group + button,
 .btn-group .btn-group + #logout,
@@ -4588,29 +4603,29 @@ form .btn-group .btn-group + button,
   float: left;
 }
 /* line 49, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn, .map-header .btn-group .btn-toolbar > button, form .btn-toolbar > button, .btn-toolbar > #logout, #sectionNavigation .btn-toolbar > input,
+.btn-toolbar > .btn, .map-header .btn-group .btn-toolbar > button, .map-info .btn-toolbar > button, form .btn-toolbar > button, .btn-toolbar > #logout, #sectionNavigation .btn-toolbar > input,
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group {
   margin-left: 5px;
 }
 
 /* line 54, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .map-header .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle), form .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > #logout:not(:first-child):not(:last-child):not(.dropdown-toggle), #sectionNavigation .btn-group > input:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .map-header .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle), .map-info .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle), form .btn-group > button:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > #logout:not(:first-child):not(:last-child):not(.dropdown-toggle), #sectionNavigation .btn-group > input:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 59, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child, .map-header .btn-group > button:first-child, form .btn-group > button:first-child, .btn-group > #logout:first-child, #sectionNavigation .btn-group > input:first-child {
+.btn-group > .btn:first-child, .map-header .btn-group > button:first-child, .map-info .btn-group > button:first-child, form .btn-group > button:first-child, .btn-group > #logout:first-child, #sectionNavigation .btn-group > input:first-child {
   margin-left: 0;
 }
 /* line 61, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .map-header .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle), form .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > #logout:first-child:not(:last-child):not(.dropdown-toggle), #sectionNavigation .btn-group > input:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .map-header .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle), .map-info .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle), form .btn-group > button:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > #logout:first-child:not(:last-child):not(.dropdown-toggle), #sectionNavigation .btn-group > input:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 67, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child), .map-header .btn-group > button:last-child:not(:first-child), form .btn-group > button:last-child:not(:first-child), .btn-group > #logout:last-child:not(:first-child), #sectionNavigation .btn-group > input:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .map-header .btn-group > button:last-child:not(:first-child), .map-info .btn-group > button:last-child:not(:first-child), form .btn-group > button:last-child:not(:first-child), .btn-group > #logout:last-child:not(:first-child), #sectionNavigation .btn-group > input:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -4622,19 +4637,19 @@ form .btn-group .btn-group + button,
 }
 
 /* line 75, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .map-header .btn-group > .btn-group:not(:first-child):not(:last-child) > button, form .btn-group > .btn-group:not(:first-child):not(:last-child) > button, .btn-group > .btn-group:not(:first-child):not(:last-child) > #logout, #sectionNavigation .btn-group > .btn-group:not(:first-child):not(:last-child) > input {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .map-header .btn-group > .btn-group:not(:first-child):not(:last-child) > button, .map-info .btn-group > .btn-group:not(:first-child):not(:last-child) > button, form .btn-group > .btn-group:not(:first-child):not(:last-child) > button, .btn-group > .btn-group:not(:first-child):not(:last-child) > #logout, #sectionNavigation .btn-group > .btn-group:not(:first-child):not(:last-child) > input {
   border-radius: 0;
 }
 
 /* line 80, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child > .btn:last-child, .map-header .btn-group > .btn-group:first-child > button:last-child, form .btn-group > .btn-group:first-child > button:last-child, .btn-group > .btn-group:first-child > #logout:last-child, #sectionNavigation .btn-group > .btn-group:first-child > input:last-child,
+.btn-group > .btn-group:first-child > .btn:last-child, .map-header .btn-group > .btn-group:first-child > button:last-child, .map-info .btn-group > .btn-group:first-child > button:last-child, form .btn-group > .btn-group:first-child > button:last-child, .btn-group > .btn-group:first-child > #logout:last-child, #sectionNavigation .btn-group > .btn-group:first-child > input:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 84, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child > .btn:first-child, .map-header .btn-group > .btn-group:last-child > button:first-child, form .btn-group > .btn-group:last-child > button:first-child, .btn-group > .btn-group:last-child > #logout:first-child, #sectionNavigation .btn-group > .btn-group:last-child > input:first-child {
+.btn-group > .btn-group:last-child > .btn:first-child, .map-header .btn-group > .btn-group:last-child > button:first-child, .map-info .btn-group > .btn-group:last-child > button:first-child, form .btn-group > .btn-group:last-child > button:first-child, .btn-group > .btn-group:last-child > #logout:first-child, #sectionNavigation .btn-group > .btn-group:last-child > input:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4646,13 +4661,13 @@ form .btn-group .btn-group + button,
 }
 
 /* line 108, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle, .map-header .btn-group > button + .dropdown-toggle, form .btn-group > button + .dropdown-toggle, .btn-group > #logout + .dropdown-toggle, #sectionNavigation .btn-group > input + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .map-header .btn-group > button + .dropdown-toggle, .map-info .btn-group > button + .dropdown-toggle, form .btn-group > button + .dropdown-toggle, .btn-group > #logout + .dropdown-toggle, #sectionNavigation .btn-group > input + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 112, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .map-header .btn-group .btn-group-lg.btn-group > button + .dropdown-toggle, form .btn-group-lg.btn-group > button + .dropdown-toggle, .btn-group-lg.btn-group > #logout + .dropdown-toggle, #sectionNavigation .btn-group-lg.btn-group > input + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .map-header .btn-group .btn-group-lg.btn-group > button + .dropdown-toggle, .map-info .btn-group-lg.btn-group > button + .dropdown-toggle, form .btn-group-lg.btn-group > button + .dropdown-toggle, .btn-group-lg.btn-group > #logout + .dropdown-toggle, #sectionNavigation .btn-group-lg.btn-group > input + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -4669,26 +4684,27 @@ form .btn-group .btn-group + button,
 }
 
 /* line 130, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn .caret, .map-header .btn-group button .caret, form button .caret, #logout .caret, #sectionNavigation input .caret {
+.btn .caret, .map-header .btn-group button .caret, .map-info button .caret, form button .caret, #logout .caret, #sectionNavigation input .caret {
   margin-left: 0;
 }
 
 /* line 134, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret, .map-header .btn-group .btn-group-lg > button .caret, form .btn-group-lg > button .caret, .btn-group-lg > #logout .caret, #sectionNavigation .btn-group-lg > input .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .map-header .btn-group .btn-group-lg > button .caret, .map-info .btn-group-lg > button .caret, form .btn-group-lg > button .caret, .btn-group-lg > #logout .caret, #sectionNavigation .btn-group-lg > input .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 139, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .map-header .btn-group .btn-group-lg > button .caret, .map-header .btn-group .dropup .btn-group-lg > button .caret, .dropup form .btn-group-lg > button .caret, form .dropup .btn-group-lg > button .caret, .dropup .btn-group-lg > #logout .caret, .dropup #sectionNavigation .btn-group-lg > input .caret, #sectionNavigation .dropup .btn-group-lg > input .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .map-header .btn-group .btn-group-lg > button .caret, .map-header .btn-group .dropup .btn-group-lg > button .caret, .dropup .map-info .btn-group-lg > button .caret, .map-info .dropup .btn-group-lg > button .caret, .dropup form .btn-group-lg > button .caret, form .dropup .btn-group-lg > button .caret, .dropup .btn-group-lg > #logout .caret, .dropup #sectionNavigation .btn-group-lg > input .caret, #sectionNavigation .dropup .btn-group-lg > input .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 150, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn, .map-header .btn-group .btn-group-vertical > button, form .btn-group-vertical > button, .btn-group-vertical > #logout, #sectionNavigation .btn-group-vertical > input,
+.btn-group-vertical > .btn, .map-header .btn-group .btn-group-vertical > button, .map-info .btn-group-vertical > button, form .btn-group-vertical > button, .btn-group-vertical > #logout, #sectionNavigation .btn-group-vertical > input,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
 .map-header .btn-group-vertical > .btn-group > button,
+.map-info .btn-group-vertical > .btn-group > button,
 form .btn-group-vertical > .btn-group > button,
 .btn-group-vertical > .btn-group > #logout,
 #sectionNavigation .btn-group-vertical > .btn-group > input {
@@ -4707,18 +4723,20 @@ form .btn-group-vertical > .btn-group > button,
   clear: both;
 }
 /* line 160, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn, .map-header .btn-group-vertical > .btn-group > button, form .btn-group-vertical > .btn-group > button, .btn-group-vertical > .btn-group > #logout, #sectionNavigation .btn-group-vertical > .btn-group > input {
+.btn-group-vertical > .btn-group > .btn, .map-header .btn-group-vertical > .btn-group > button, .map-info .btn-group-vertical > .btn-group > button, form .btn-group-vertical > .btn-group > button, .btn-group-vertical > .btn-group > #logout, #sectionNavigation .btn-group-vertical > .btn-group > input {
   float: none;
 }
 /* line 168, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn, .map-header .btn-group .btn-group-vertical > button + .btn, form .btn-group-vertical > button + .btn, .btn-group-vertical > #logout + .btn, #sectionNavigation .btn-group-vertical > input + .btn, .map-header .btn-group .btn-group-vertical > .btn + button, .map-header .btn-group .btn-group-vertical > button + button, .map-header .btn-group .btn-group-vertical > #logout + button, #sectionNavigation .map-header .btn-group .btn-group-vertical > input + button, .map-header .btn-group #sectionNavigation .btn-group-vertical > input + button, form .btn-group-vertical > .btn + button, form .btn-group-vertical > button + button, form .btn-group-vertical > #logout + button, #sectionNavigation form .btn-group-vertical > input + button, form #sectionNavigation .btn-group-vertical > input + button, .btn-group-vertical > .btn + #logout, .map-header .btn-group .btn-group-vertical > button + #logout, form .btn-group-vertical > button + #logout, .btn-group-vertical > #logout + #logout, #sectionNavigation .btn-group-vertical > input + #logout, #sectionNavigation .btn-group-vertical > .btn + input, .map-header .btn-group #sectionNavigation .btn-group-vertical > button + input, #sectionNavigation .map-header .btn-group .btn-group-vertical > button + input, form #sectionNavigation .btn-group-vertical > button + input, #sectionNavigation form .btn-group-vertical > button + input, #sectionNavigation .btn-group-vertical > #logout + input, #sectionNavigation .btn-group-vertical > input + input,
+.btn-group-vertical > .btn + .btn, .map-header .btn-group .btn-group-vertical > button + .btn, .map-info .btn-group-vertical > button + .btn, form .btn-group-vertical > button + .btn, .btn-group-vertical > #logout + .btn, #sectionNavigation .btn-group-vertical > input + .btn, .map-header .btn-group .btn-group-vertical > .btn + button, .map-header .btn-group .btn-group-vertical > button + button, .map-header .btn-group .btn-group-vertical > #logout + button, #sectionNavigation .map-header .btn-group .btn-group-vertical > input + button, .map-header .btn-group #sectionNavigation .btn-group-vertical > input + button, .map-info .btn-group-vertical > .btn + button, .map-info .btn-group-vertical > button + button, .map-info .btn-group-vertical > #logout + button, #sectionNavigation .map-info .btn-group-vertical > input + button, .map-info #sectionNavigation .btn-group-vertical > input + button, form .btn-group-vertical > .btn + button, form .btn-group-vertical > button + button, form .btn-group-vertical > #logout + button, #sectionNavigation form .btn-group-vertical > input + button, form #sectionNavigation .btn-group-vertical > input + button, .btn-group-vertical > .btn + #logout, .map-header .btn-group .btn-group-vertical > button + #logout, .map-info .btn-group-vertical > button + #logout, form .btn-group-vertical > button + #logout, .btn-group-vertical > #logout + #logout, #sectionNavigation .btn-group-vertical > input + #logout, #sectionNavigation .btn-group-vertical > .btn + input, .map-header .btn-group #sectionNavigation .btn-group-vertical > button + input, #sectionNavigation .map-header .btn-group .btn-group-vertical > button + input, .map-info #sectionNavigation .btn-group-vertical > button + input, #sectionNavigation .map-info .btn-group-vertical > button + input, form #sectionNavigation .btn-group-vertical > button + input, #sectionNavigation form .btn-group-vertical > button + input, #sectionNavigation .btn-group-vertical > #logout + input, #sectionNavigation .btn-group-vertical > input + input,
 .btn-group-vertical > .btn + .btn-group,
 .map-header .btn-group .btn-group-vertical > button + .btn-group,
+.map-info .btn-group-vertical > button + .btn-group,
 form .btn-group-vertical > button + .btn-group,
 .btn-group-vertical > #logout + .btn-group,
 #sectionNavigation .btn-group-vertical > input + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .map-header .btn-group .btn-group-vertical > .btn-group + button,
+.map-info .btn-group-vertical > .btn-group + button,
 form .btn-group-vertical > .btn-group + button,
 .btn-group-vertical > .btn-group + #logout,
 #sectionNavigation .btn-group-vertical > .btn-group + input,
@@ -4728,36 +4746,36 @@ form .btn-group-vertical > .btn-group + button,
 }
 
 /* line 175, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .map-header .btn-group .btn-group-vertical > button:not(:first-child):not(:last-child), form .btn-group-vertical > button:not(:first-child):not(:last-child), .btn-group-vertical > #logout:not(:first-child):not(:last-child), #sectionNavigation .btn-group-vertical > input:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .map-header .btn-group .btn-group-vertical > button:not(:first-child):not(:last-child), .map-info .btn-group-vertical > button:not(:first-child):not(:last-child), form .btn-group-vertical > button:not(:first-child):not(:last-child), .btn-group-vertical > #logout:not(:first-child):not(:last-child), #sectionNavigation .btn-group-vertical > input:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 178, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child), .map-header .btn-group .btn-group-vertical > button:first-child:not(:last-child), form .btn-group-vertical > button:first-child:not(:last-child), .btn-group-vertical > #logout:first-child:not(:last-child), #sectionNavigation .btn-group-vertical > input:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .map-header .btn-group .btn-group-vertical > button:first-child:not(:last-child), .map-info .btn-group-vertical > button:first-child:not(:last-child), form .btn-group-vertical > button:first-child:not(:last-child), .btn-group-vertical > #logout:first-child:not(:last-child), #sectionNavigation .btn-group-vertical > input:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 182, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child), .map-header .btn-group .btn-group-vertical > button:last-child:not(:first-child), form .btn-group-vertical > button:last-child:not(:first-child), .btn-group-vertical > #logout:last-child:not(:first-child), #sectionNavigation .btn-group-vertical > input:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .map-header .btn-group .btn-group-vertical > button:last-child:not(:first-child), .map-info .btn-group-vertical > button:last-child:not(:first-child), form .btn-group-vertical > button:last-child:not(:first-child), .btn-group-vertical > #logout:last-child:not(:first-child), #sectionNavigation .btn-group-vertical > input:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 187, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .map-header .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button, form .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #logout, #sectionNavigation .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > input {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .map-header .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button, .map-info .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button, form .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > button, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #logout, #sectionNavigation .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > input {
   border-radius: 0;
 }
 
 /* line 192, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .map-header .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child, form .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > #logout:last-child, #sectionNavigation .btn-group-vertical > .btn-group:first-child:not(:last-child) > input:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .map-header .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child, .map-info .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child, form .btn-group-vertical > .btn-group:first-child:not(:last-child) > button:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > #logout:last-child, #sectionNavigation .btn-group-vertical > .btn-group:first-child:not(:last-child) > input:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 196, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .map-header .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child, form .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > #logout:first-child, #sectionNavigation .btn-group-vertical > .btn-group:last-child:not(:first-child) > input:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .map-header .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child, .map-info .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child, form .btn-group-vertical > .btn-group:last-child:not(:first-child) > button:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > #logout:first-child, #sectionNavigation .btn-group-vertical > .btn-group:last-child:not(:first-child) > input:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -4770,21 +4788,22 @@ form .btn-group-vertical > .btn-group + button,
   border-collapse: separate;
 }
 /* line 211, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn, .map-header .btn-group .btn-group-justified > button, form .btn-group-justified > button, .btn-group-justified > #logout, #sectionNavigation .btn-group-justified > input,
+.btn-group-justified > .btn, .map-header .btn-group .btn-group-justified > button, .map-info .btn-group-justified > button, form .btn-group-justified > button, .btn-group-justified > #logout, #sectionNavigation .btn-group-justified > input,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 216, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn, .map-header .btn-group-justified > .btn-group button, .btn-group-justified > .btn-group form button, form .btn-group-justified > .btn-group button, .btn-group-justified > .btn-group #logout, .btn-group-justified > .btn-group #sectionNavigation input, #sectionNavigation .btn-group-justified > .btn-group input {
+.btn-group-justified > .btn-group .btn, .map-header .btn-group-justified > .btn-group button, .btn-group-justified > .btn-group .map-info button, .map-info .btn-group-justified > .btn-group button, .btn-group-justified > .btn-group form button, form .btn-group-justified > .btn-group button, .btn-group-justified > .btn-group #logout, .btn-group-justified > .btn-group #sectionNavigation input, #sectionNavigation .btn-group-justified > .btn-group input {
   width: 100%;
 }
 
 /* line 232, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn > input[type="radio"], .map-header .btn-group [data-toggle="buttons"] > button > input[type="radio"], form [data-toggle="buttons"] > button > input[type="radio"], [data-toggle="buttons"] > #logout > input[type="radio"], #sectionNavigation [data-toggle="buttons"] > input > input[type="radio"],
+[data-toggle="buttons"] > .btn > input[type="radio"], .map-header .btn-group [data-toggle="buttons"] > button > input[type="radio"], .map-info [data-toggle="buttons"] > button > input[type="radio"], form [data-toggle="buttons"] > button > input[type="radio"], [data-toggle="buttons"] > #logout > input[type="radio"], #sectionNavigation [data-toggle="buttons"] > input > input[type="radio"],
 [data-toggle="buttons"] > .btn > input[type="checkbox"],
 .map-header .btn-group [data-toggle="buttons"] > button > input[type="checkbox"],
+.map-info [data-toggle="buttons"] > button > input[type="checkbox"],
 form [data-toggle="buttons"] > button > input[type="checkbox"],
 [data-toggle="buttons"] > #logout > input[type="checkbox"],
 #sectionNavigation [data-toggle="buttons"] > input > input[type="checkbox"] {
@@ -4860,6 +4879,7 @@ form .input-group select:not(:first-child):not(:last-child) {
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .input-group-addon.btn,
 .map-header .btn-group .input-group-sm > .input-group-btn > button.input-group-addon,
+.map-info .input-group-sm > .input-group-btn > button.input-group-addon,
 form .input-group-sm > .input-group-btn > button.input-group-addon,
 .input-group-sm > .input-group-btn > .input-group-addon#logout,
 #sectionNavigation .input-group-sm > .input-group-btn > input.input-group-addon {
@@ -4872,6 +4892,7 @@ form .input-group-sm > .input-group-btn > button.input-group-addon,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon.btn,
 .map-header .btn-group .input-group-lg > .input-group-btn > button.input-group-addon,
+.map-info .input-group-lg > .input-group-btn > button.input-group-addon,
 form .input-group-lg > .input-group-btn > button.input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon#logout,
 #sectionNavigation .input-group-lg > .input-group-btn > input.input-group-addon {
@@ -4890,22 +4911,26 @@ form .input-group-lg > .input-group-btn > button.input-group-addon,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .map-header .btn-group .input-group-btn:first-child > button,
+.map-info .input-group-btn:first-child > button,
 form .input-group-btn:first-child > button,
 .input-group-btn:first-child > #logout,
 #sectionNavigation .input-group-btn:first-child > input,
 .input-group-btn:first-child > .btn-group > .btn,
 .map-header .input-group-btn:first-child > .btn-group > button,
+.map-info .input-group-btn:first-child > .btn-group > button,
 form .input-group-btn:first-child > .btn-group > button,
 .input-group-btn:first-child > .btn-group > #logout,
 #sectionNavigation .input-group-btn:first-child > .btn-group > input,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .map-header .btn-group .input-group-btn:last-child > button:not(:last-child):not(.dropdown-toggle),
+.map-info .input-group-btn:last-child > button:not(:last-child):not(.dropdown-toggle),
 form .input-group-btn:last-child > button:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > #logout:not(:last-child):not(.dropdown-toggle),
 #sectionNavigation .input-group-btn:last-child > input:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
 .map-header .input-group-btn:last-child > .btn-group:not(:last-child) > button,
+.map-info .input-group-btn:last-child > .btn-group:not(:last-child) > button,
 form .input-group-btn:last-child > .btn-group:not(:last-child) > button,
 .input-group-btn:last-child > .btn-group:not(:last-child) > #logout,
 #sectionNavigation .input-group-btn:last-child > .btn-group:not(:last-child) > input {
@@ -4923,22 +4948,26 @@ form .input-group-btn:last-child > .btn-group:not(:last-child) > button,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .map-header .btn-group .input-group-btn:last-child > button,
+.map-info .input-group-btn:last-child > button,
 form .input-group-btn:last-child > button,
 .input-group-btn:last-child > #logout,
 #sectionNavigation .input-group-btn:last-child > input,
 .input-group-btn:last-child > .btn-group > .btn,
 .map-header .input-group-btn:last-child > .btn-group > button,
+.map-info .input-group-btn:last-child > .btn-group > button,
 form .input-group-btn:last-child > .btn-group > button,
 .input-group-btn:last-child > .btn-group > #logout,
 #sectionNavigation .input-group-btn:last-child > .btn-group > input,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .map-header .btn-group .input-group-btn:first-child > button:not(:first-child),
+.map-info .input-group-btn:first-child > button:not(:first-child),
 form .input-group-btn:first-child > button:not(:first-child),
 .input-group-btn:first-child > #logout:not(:first-child),
 #sectionNavigation .input-group-btn:first-child > input:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
 .map-header .input-group-btn:first-child > .btn-group:not(:first-child) > button,
+.map-info .input-group-btn:first-child > .btn-group:not(:first-child) > button,
 form .input-group-btn:first-child > .btn-group:not(:first-child) > button,
 .input-group-btn:first-child > .btn-group:not(:first-child) > #logout,
 #sectionNavigation .input-group-btn:first-child > .btn-group:not(:first-child) > input {
@@ -4958,24 +4987,24 @@ form .input-group-btn:first-child > .btn-group:not(:first-child) > button,
   white-space: nowrap;
 }
 /* line 136, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn, .map-header .btn-group .input-group-btn > button, form .input-group-btn > button, .input-group-btn > #logout, #sectionNavigation .input-group-btn > input {
+.input-group-btn > .btn, .map-header .btn-group .input-group-btn > button, .map-info .input-group-btn > button, form .input-group-btn > button, .input-group-btn > #logout, #sectionNavigation .input-group-btn > input {
   position: relative;
 }
 /* line 138, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn, .map-header .btn-group .input-group-btn > button + .btn, form .input-group-btn > button + .btn, .input-group-btn > #logout + .btn, #sectionNavigation .input-group-btn > input + .btn, .map-header .btn-group .input-group-btn > .btn + button, .map-header .btn-group .input-group-btn > button + button, .map-header .btn-group .input-group-btn > #logout + button, #sectionNavigation .map-header .btn-group .input-group-btn > input + button, .map-header .btn-group #sectionNavigation .input-group-btn > input + button, form .input-group-btn > .btn + button, form .input-group-btn > button + button, form .input-group-btn > #logout + button, #sectionNavigation form .input-group-btn > input + button, form #sectionNavigation .input-group-btn > input + button, .input-group-btn > .btn + #logout, .map-header .btn-group .input-group-btn > button + #logout, form .input-group-btn > button + #logout, .input-group-btn > #logout + #logout, #sectionNavigation .input-group-btn > input + #logout, #sectionNavigation .input-group-btn > .btn + input, .map-header .btn-group #sectionNavigation .input-group-btn > button + input, #sectionNavigation .map-header .btn-group .input-group-btn > button + input, form #sectionNavigation .input-group-btn > button + input, #sectionNavigation form .input-group-btn > button + input, #sectionNavigation .input-group-btn > #logout + input, #sectionNavigation .input-group-btn > input + input {
+.input-group-btn > .btn + .btn, .map-header .btn-group .input-group-btn > button + .btn, .map-info .input-group-btn > button + .btn, form .input-group-btn > button + .btn, .input-group-btn > #logout + .btn, #sectionNavigation .input-group-btn > input + .btn, .map-header .btn-group .input-group-btn > .btn + button, .map-header .btn-group .input-group-btn > button + button, .map-header .btn-group .input-group-btn > #logout + button, #sectionNavigation .map-header .btn-group .input-group-btn > input + button, .map-header .btn-group #sectionNavigation .input-group-btn > input + button, .map-info .input-group-btn > .btn + button, .map-info .input-group-btn > button + button, .map-info .input-group-btn > #logout + button, #sectionNavigation .map-info .input-group-btn > input + button, .map-info #sectionNavigation .input-group-btn > input + button, form .input-group-btn > .btn + button, form .input-group-btn > button + button, form .input-group-btn > #logout + button, #sectionNavigation form .input-group-btn > input + button, form #sectionNavigation .input-group-btn > input + button, .input-group-btn > .btn + #logout, .map-header .btn-group .input-group-btn > button + #logout, .map-info .input-group-btn > button + #logout, form .input-group-btn > button + #logout, .input-group-btn > #logout + #logout, #sectionNavigation .input-group-btn > input + #logout, #sectionNavigation .input-group-btn > .btn + input, .map-header .btn-group #sectionNavigation .input-group-btn > button + input, #sectionNavigation .map-header .btn-group .input-group-btn > button + input, .map-info #sectionNavigation .input-group-btn > button + input, #sectionNavigation .map-info .input-group-btn > button + input, form #sectionNavigation .input-group-btn > button + input, #sectionNavigation form .input-group-btn > button + input, #sectionNavigation .input-group-btn > #logout + input, #sectionNavigation .input-group-btn > input + input {
   margin-left: -1px;
 }
 /* line 144, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .map-header .btn-group .input-group-btn > button:hover, form .input-group-btn > button:hover, .input-group-btn > #logout:hover, #sectionNavigation .input-group-btn > input:hover, .input-group-btn > .btn:focus, .map-header .btn-group .input-group-btn > button:focus, form .input-group-btn > button:focus, .input-group-btn > #logout:focus, #sectionNavigation .input-group-btn > input:focus, .input-group-btn > .btn:active, .map-header .btn-group .input-group-btn > button:active, form .input-group-btn > button:active, .input-group-btn > #logout:active, #sectionNavigation .input-group-btn > input:active {
+.input-group-btn > .btn:hover, .map-header .btn-group .input-group-btn > button:hover, .map-info .input-group-btn > button:hover, form .input-group-btn > button:hover, .input-group-btn > #logout:hover, #sectionNavigation .input-group-btn > input:hover, .input-group-btn > .btn:focus, .map-header .btn-group .input-group-btn > button:focus, .map-info .input-group-btn > button:focus, form .input-group-btn > button:focus, .input-group-btn > #logout:focus, #sectionNavigation .input-group-btn > input:focus, .input-group-btn > .btn:active, .map-header .btn-group .input-group-btn > button:active, .map-info .input-group-btn > button:active, form .input-group-btn > button:active, .input-group-btn > #logout:active, #sectionNavigation .input-group-btn > input:active {
   z-index: 2;
 }
 /* line 152, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn, .map-header .btn-group .input-group-btn:first-child > button, form .input-group-btn:first-child > button, .input-group-btn:first-child > #logout, #sectionNavigation .input-group-btn:first-child > input,
+.input-group-btn:first-child > .btn, .map-header .btn-group .input-group-btn:first-child > button, .map-info .input-group-btn:first-child > button, form .input-group-btn:first-child > button, .input-group-btn:first-child > #logout, #sectionNavigation .input-group-btn:first-child > input,
 .input-group-btn:first-child > .btn-group {
   margin-right: -1px;
 }
 /* line 158, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn, .map-header .btn-group .input-group-btn:last-child > button, form .input-group-btn:last-child > button, .input-group-btn:last-child > #logout, #sectionNavigation .input-group-btn:last-child > input,
+.input-group-btn:last-child > .btn, .map-header .btn-group .input-group-btn:last-child > button, .map-info .input-group-btn:last-child > button, form .input-group-btn:last-child > button, .input-group-btn:last-child > #logout, #sectionNavigation .input-group-btn:last-child > input,
 .input-group-btn:last-child > .btn-group {
   margin-left: -1px;
 }
@@ -5510,12 +5539,12 @@ form .input-group-btn:first-child > .btn-group:not(:first-child) > button,
   margin-bottom: 8px;
 }
 /* line 361, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, form .btn-group-sm > button.navbar-btn, #sectionNavigation .btn-group-sm > input.navbar-btn, .map-header .btn-group button.navbar-btn, .navbar-btn#logout {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .map-info .btn-group-sm > button.navbar-btn, form .btn-group-sm > button.navbar-btn, #sectionNavigation .btn-group-sm > input.navbar-btn, .map-header .btn-group button.navbar-btn, .navbar-btn#logout {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 364, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .map-header .btn-group .btn-group-xs > button.navbar-btn, form .btn-group-xs > button.navbar-btn, .btn-group-xs > .navbar-btn#logout, #sectionNavigation .btn-group-xs > input.navbar-btn {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .map-header .btn-group .btn-group-xs > button.navbar-btn, .map-info .btn-group-xs > button.navbar-btn, form .btn-group-xs > button.navbar-btn, .btn-group-xs > .navbar-btn#logout, #sectionNavigation .btn-group-xs > input.navbar-btn {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -5952,7 +5981,7 @@ form .input-group-btn:first-child > .btn-group:not(:first-child) > button,
   display: none;
 }
 /* line 25, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_labels.scss */
-.btn .label, .map-header .btn-group button .label, form button .label, #logout .label, #sectionNavigation input .label {
+.btn .label, .map-header .btn-group button .label, .map-info button .label, form button .label, #logout .label, #sectionNavigation input .label {
   position: relative;
   top: -1px;
 }
@@ -6038,12 +6067,12 @@ a.label:hover, a.label:focus {
   display: none;
 }
 /* line 27, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_badges.scss */
-.btn .badge, .map-header .btn-group button .badge, form button .badge, #logout .badge, #sectionNavigation input .badge {
+.btn .badge, .map-header .btn-group button .badge, .map-info button .badge, form button .badge, #logout .badge, #sectionNavigation input .badge {
   position: relative;
   top: -1px;
 }
 /* line 31, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_badges.scss */
-.btn-xs .badge, .btn-group-xs > .btn .badge, .map-header .btn-group .btn-group-xs > button .badge, form .btn-group-xs > button .badge, .btn-group-xs > #logout .badge, #sectionNavigation .btn-group-xs > input .badge {
+.btn-xs .badge, .btn-group-xs > .btn .badge, .map-header .btn-group .btn-group-xs > button .badge, .map-info .btn-group-xs > button .badge, form .btn-group-xs > button .badge, .btn-group-xs > #logout .badge, #sectionNavigation .btn-group-xs > input .badge {
   top: 0;
   padding: 1px 5px;
 }
@@ -7164,12 +7193,12 @@ button.close {
   clear: both;
 }
 /* line 107, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn + .btn, .modal-footer .map-header .btn-group button + .btn, .map-header .btn-group .modal-footer button + .btn, .modal-footer form button + .btn, form .modal-footer button + .btn, .modal-footer #logout + .btn, .modal-footer #sectionNavigation input + .btn, #sectionNavigation .modal-footer input + .btn, .modal-footer .map-header .btn-group .btn + button, .map-header .btn-group .modal-footer .btn + button, .modal-footer .map-header .btn-group button + button, .map-header .btn-group .modal-footer button + button, .modal-footer .map-header .btn-group #logout + button, .map-header .btn-group .modal-footer #logout + button, .modal-footer #sectionNavigation .map-header .btn-group input + button, .map-header .btn-group .modal-footer #sectionNavigation input + button, #sectionNavigation .modal-footer .map-header .btn-group input + button, .map-header .btn-group #sectionNavigation .modal-footer input + button, .modal-footer form .btn + button, form .modal-footer .btn + button, .modal-footer form button + button, form .modal-footer button + button, .modal-footer form #logout + button, form .modal-footer #logout + button, .modal-footer #sectionNavigation form input + button, form .modal-footer #sectionNavigation input + button, #sectionNavigation .modal-footer form input + button, form #sectionNavigation .modal-footer input + button, .modal-footer .btn + #logout, .modal-footer .map-header .btn-group button + #logout, .map-header .btn-group .modal-footer button + #logout, .modal-footer form button + #logout, form .modal-footer button + #logout, .modal-footer #logout + #logout, .modal-footer #sectionNavigation input + #logout, #sectionNavigation .modal-footer input + #logout, .modal-footer #sectionNavigation .btn + input, #sectionNavigation .modal-footer .btn + input, .modal-footer .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .modal-footer .map-header .btn-group button + input, .map-header .btn-group .modal-footer #sectionNavigation button + input, #sectionNavigation .map-header .btn-group .modal-footer button + input, .modal-footer form #sectionNavigation button + input, #sectionNavigation .modal-footer form button + input, form .modal-footer #sectionNavigation button + input, #sectionNavigation form .modal-footer button + input, .modal-footer #sectionNavigation #logout + input, #sectionNavigation .modal-footer #logout + input, .modal-footer #sectionNavigation input + input, #sectionNavigation .modal-footer input + input {
+.modal-footer .btn + .btn, .modal-footer .map-header .btn-group button + .btn, .map-header .btn-group .modal-footer button + .btn, .modal-footer .map-info button + .btn, .map-info .modal-footer button + .btn, .modal-footer form button + .btn, form .modal-footer button + .btn, .modal-footer #logout + .btn, .modal-footer #sectionNavigation input + .btn, #sectionNavigation .modal-footer input + .btn, .modal-footer .map-header .btn-group .btn + button, .map-header .btn-group .modal-footer .btn + button, .modal-footer .map-header .btn-group button + button, .map-header .btn-group .modal-footer button + button, .modal-footer .map-header .btn-group #logout + button, .map-header .btn-group .modal-footer #logout + button, .modal-footer #sectionNavigation .map-header .btn-group input + button, .map-header .btn-group .modal-footer #sectionNavigation input + button, #sectionNavigation .modal-footer .map-header .btn-group input + button, .map-header .btn-group #sectionNavigation .modal-footer input + button, .modal-footer .map-info .btn + button, .map-info .modal-footer .btn + button, .modal-footer .map-info button + button, .map-info .modal-footer button + button, .modal-footer .map-info #logout + button, .map-info .modal-footer #logout + button, .modal-footer #sectionNavigation .map-info input + button, .map-info .modal-footer #sectionNavigation input + button, #sectionNavigation .modal-footer .map-info input + button, .map-info #sectionNavigation .modal-footer input + button, .modal-footer form .btn + button, form .modal-footer .btn + button, .modal-footer form button + button, form .modal-footer button + button, .modal-footer form #logout + button, form .modal-footer #logout + button, .modal-footer #sectionNavigation form input + button, form .modal-footer #sectionNavigation input + button, #sectionNavigation .modal-footer form input + button, form #sectionNavigation .modal-footer input + button, .modal-footer .btn + #logout, .modal-footer .map-header .btn-group button + #logout, .map-header .btn-group .modal-footer button + #logout, .modal-footer .map-info button + #logout, .map-info .modal-footer button + #logout, .modal-footer form button + #logout, form .modal-footer button + #logout, .modal-footer #logout + #logout, .modal-footer #sectionNavigation input + #logout, #sectionNavigation .modal-footer input + #logout, .modal-footer #sectionNavigation .btn + input, #sectionNavigation .modal-footer .btn + input, .modal-footer .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .modal-footer .map-header .btn-group button + input, .map-header .btn-group .modal-footer #sectionNavigation button + input, #sectionNavigation .map-header .btn-group .modal-footer button + input, .modal-footer .map-info #sectionNavigation button + input, #sectionNavigation .modal-footer .map-info button + input, .map-info .modal-footer #sectionNavigation button + input, #sectionNavigation .map-info .modal-footer button + input, .modal-footer form #sectionNavigation button + input, #sectionNavigation .modal-footer form button + input, form .modal-footer #sectionNavigation button + input, #sectionNavigation form .modal-footer button + input, .modal-footer #sectionNavigation #logout + input, #sectionNavigation .modal-footer #logout + input, .modal-footer #sectionNavigation input + input, #sectionNavigation .modal-footer input + input {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 112, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn, .modal-footer .map-header .btn-group button + .btn, .map-header .modal-footer .btn-group button + .btn, .modal-footer .btn-group form button + .btn, form .modal-footer .btn-group button + .btn, .modal-footer .btn-group #logout + .btn, .modal-footer .btn-group #sectionNavigation input + .btn, #sectionNavigation .modal-footer .btn-group input + .btn, .modal-footer .map-header .btn-group .btn + button, .map-header .modal-footer .btn-group .btn + button, .modal-footer .map-header .btn-group button + button, .map-header .modal-footer .btn-group button + button, .modal-footer .map-header .btn-group #logout + button, .map-header .modal-footer .btn-group #logout + button, .modal-footer .map-header .btn-group #sectionNavigation input + button, .map-header .modal-footer .btn-group #sectionNavigation input + button, #sectionNavigation .modal-footer .map-header .btn-group input + button, .map-header #sectionNavigation .modal-footer .btn-group input + button, .modal-footer .btn-group form .btn + button, form .modal-footer .btn-group .btn + button, .modal-footer .btn-group form button + button, form .modal-footer .btn-group button + button, .modal-footer .btn-group form #logout + button, form .modal-footer .btn-group #logout + button, .modal-footer .btn-group #sectionNavigation form input + button, form .modal-footer .btn-group #sectionNavigation input + button, #sectionNavigation .modal-footer .btn-group form input + button, form #sectionNavigation .modal-footer .btn-group input + button, .modal-footer .btn-group .btn + #logout, .modal-footer .map-header .btn-group button + #logout, .map-header .modal-footer .btn-group button + #logout, .modal-footer .btn-group form button + #logout, form .modal-footer .btn-group button + #logout, .modal-footer .btn-group #logout + #logout, .modal-footer .btn-group #sectionNavigation input + #logout, #sectionNavigation .modal-footer .btn-group input + #logout, .modal-footer .btn-group #sectionNavigation .btn + input, #sectionNavigation .modal-footer .btn-group .btn + input, .modal-footer .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .modal-footer .map-header .btn-group button + input, .map-header .modal-footer .btn-group #sectionNavigation button + input, #sectionNavigation .map-header .modal-footer .btn-group button + input, .modal-footer .btn-group form #sectionNavigation button + input, #sectionNavigation .modal-footer .btn-group form button + input, form .modal-footer .btn-group #sectionNavigation button + input, #sectionNavigation form .modal-footer .btn-group button + input, .modal-footer .btn-group #sectionNavigation #logout + input, #sectionNavigation .modal-footer .btn-group #logout + input, .modal-footer .btn-group #sectionNavigation input + input, #sectionNavigation .modal-footer .btn-group input + input {
+.modal-footer .btn-group .btn + .btn, .modal-footer .map-header .btn-group button + .btn, .map-header .modal-footer .btn-group button + .btn, .modal-footer .btn-group .map-info button + .btn, .map-info .modal-footer .btn-group button + .btn, .modal-footer .btn-group form button + .btn, form .modal-footer .btn-group button + .btn, .modal-footer .btn-group #logout + .btn, .modal-footer .btn-group #sectionNavigation input + .btn, #sectionNavigation .modal-footer .btn-group input + .btn, .modal-footer .map-header .btn-group .btn + button, .map-header .modal-footer .btn-group .btn + button, .modal-footer .map-header .btn-group button + button, .map-header .modal-footer .btn-group button + button, .modal-footer .map-header .btn-group #logout + button, .map-header .modal-footer .btn-group #logout + button, .modal-footer .map-header .btn-group #sectionNavigation input + button, .map-header .modal-footer .btn-group #sectionNavigation input + button, #sectionNavigation .modal-footer .map-header .btn-group input + button, .map-header #sectionNavigation .modal-footer .btn-group input + button, .modal-footer .btn-group .map-info .btn + button, .map-info .modal-footer .btn-group .btn + button, .modal-footer .btn-group .map-info button + button, .map-info .modal-footer .btn-group button + button, .modal-footer .btn-group .map-info #logout + button, .map-info .modal-footer .btn-group #logout + button, .modal-footer .btn-group #sectionNavigation .map-info input + button, .map-info .modal-footer .btn-group #sectionNavigation input + button, #sectionNavigation .modal-footer .btn-group .map-info input + button, .map-info #sectionNavigation .modal-footer .btn-group input + button, .modal-footer .btn-group form .btn + button, form .modal-footer .btn-group .btn + button, .modal-footer .btn-group form button + button, form .modal-footer .btn-group button + button, .modal-footer .btn-group form #logout + button, form .modal-footer .btn-group #logout + button, .modal-footer .btn-group #sectionNavigation form input + button, form .modal-footer .btn-group #sectionNavigation input + button, #sectionNavigation .modal-footer .btn-group form input + button, form #sectionNavigation .modal-footer .btn-group input + button, .modal-footer .btn-group .btn + #logout, .modal-footer .map-header .btn-group button + #logout, .map-header .modal-footer .btn-group button + #logout, .modal-footer .btn-group .map-info button + #logout, .map-info .modal-footer .btn-group button + #logout, .modal-footer .btn-group form button + #logout, form .modal-footer .btn-group button + #logout, .modal-footer .btn-group #logout + #logout, .modal-footer .btn-group #sectionNavigation input + #logout, #sectionNavigation .modal-footer .btn-group input + #logout, .modal-footer .btn-group #sectionNavigation .btn + input, #sectionNavigation .modal-footer .btn-group .btn + input, .modal-footer .map-header .btn-group #sectionNavigation button + input, #sectionNavigation .modal-footer .map-header .btn-group button + input, .map-header .modal-footer .btn-group #sectionNavigation button + input, #sectionNavigation .map-header .modal-footer .btn-group button + input, .modal-footer .btn-group .map-info #sectionNavigation button + input, #sectionNavigation .modal-footer .btn-group .map-info button + input, .map-info .modal-footer .btn-group #sectionNavigation button + input, #sectionNavigation .map-info .modal-footer .btn-group button + input, .modal-footer .btn-group form #sectionNavigation button + input, #sectionNavigation .modal-footer .btn-group form button + input, form .modal-footer .btn-group #sectionNavigation button + input, #sectionNavigation form .modal-footer .btn-group button + input, .modal-footer .btn-group #sectionNavigation #logout + input, #sectionNavigation .modal-footer .btn-group #logout + input, .modal-footer .btn-group #sectionNavigation input + input, #sectionNavigation .modal-footer .btn-group input + input {
   margin-left: -1px;
 }
 /* line 116, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_modals.scss */
@@ -7663,7 +7692,7 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 /* line 200, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-caption .btn, .carousel-caption .map-header .btn-group button, .map-header .btn-group .carousel-caption button, .carousel-caption form button, form .carousel-caption button, .carousel-caption #logout, .carousel-caption #sectionNavigation input, #sectionNavigation .carousel-caption input {
+.carousel-caption .btn, .carousel-caption .map-header .btn-group button, .map-header .btn-group .carousel-caption button, .carousel-caption .map-info button, .map-info .carousel-caption button, .carousel-caption form button, form .carousel-caption button, .carousel-caption #logout, .carousel-caption #sectionNavigation input, #sectionNavigation .carousel-caption input {
   text-shadow: none;
 }
 
@@ -8209,7 +8238,7 @@ Page Header
 }
 
 /* line 121, metronic.css */
-.page-header.navbar .search-form .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form .input-group .input-group-btn button.submit, .page-header.navbar .search-form .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form .input-group .input-group-btn button.submit, .page-header.navbar .search-form .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form .input-group .input-group-btn input.submit {
+.page-header.navbar .search-form .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form .input-group .input-group-btn button.submit, .page-header.navbar .search-form .input-group .input-group-btn .map-info button.submit, .map-info .page-header.navbar .search-form .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form .input-group .input-group-btn .map-info button.submit, .map-info #navigation nav.page-header .search-form .input-group .input-group-btn button.submit, .page-header.navbar .search-form .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form .input-group .input-group-btn button.submit, .page-header.navbar .search-form .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form .input-group .input-group-btn input.submit {
   margin-left: -24px;
   padding: 0;
   width: 46px;
@@ -8219,7 +8248,7 @@ Page Header
 }
 
 /* line 129, metronic.css */
-.page-header.navbar .search-form .input-group .input-group-btn .btn.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn .btn.submit > i, .page-header.navbar .search-form .input-group .input-group-btn .map-header .btn-group button.submit > i, .map-header .btn-group .page-header.navbar .search-form .input-group .input-group-btn button.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn .map-header .btn-group button.submit > i, .map-header .btn-group #navigation nav.page-header .search-form .input-group .input-group-btn button.submit > i, .page-header.navbar .search-form .input-group .input-group-btn form button.submit > i, form .page-header.navbar .search-form .input-group .input-group-btn button.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn form button.submit > i, form #navigation nav.page-header .search-form .input-group .input-group-btn button.submit > i, .page-header.navbar .search-form .input-group .input-group-btn .submit#logout > i, #navigation nav.page-header .search-form .input-group .input-group-btn .submit#logout > i, .page-header.navbar .search-form .input-group .input-group-btn #sectionNavigation input.submit > i, #sectionNavigation .page-header.navbar .search-form .input-group .input-group-btn input.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn #sectionNavigation input.submit > i, #sectionNavigation #navigation nav.page-header .search-form .input-group .input-group-btn input.submit > i {
+.page-header.navbar .search-form .input-group .input-group-btn .btn.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn .btn.submit > i, .page-header.navbar .search-form .input-group .input-group-btn .map-header .btn-group button.submit > i, .map-header .btn-group .page-header.navbar .search-form .input-group .input-group-btn button.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn .map-header .btn-group button.submit > i, .map-header .btn-group #navigation nav.page-header .search-form .input-group .input-group-btn button.submit > i, .page-header.navbar .search-form .input-group .input-group-btn .map-info button.submit > i, .map-info .page-header.navbar .search-form .input-group .input-group-btn button.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn .map-info button.submit > i, .map-info #navigation nav.page-header .search-form .input-group .input-group-btn button.submit > i, .page-header.navbar .search-form .input-group .input-group-btn form button.submit > i, form .page-header.navbar .search-form .input-group .input-group-btn button.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn form button.submit > i, form #navigation nav.page-header .search-form .input-group .input-group-btn button.submit > i, .page-header.navbar .search-form .input-group .input-group-btn .submit#logout > i, #navigation nav.page-header .search-form .input-group .input-group-btn .submit#logout > i, .page-header.navbar .search-form .input-group .input-group-btn #sectionNavigation input.submit > i, #sectionNavigation .page-header.navbar .search-form .input-group .input-group-btn input.submit > i, #navigation nav.page-header .search-form .input-group .input-group-btn #sectionNavigation input.submit > i, #sectionNavigation #navigation nav.page-header .search-form .input-group .input-group-btn input.submit > i {
   font-size: 15px;
 }
 
@@ -8240,7 +8269,7 @@ Page Header
 }
 
 /* line 142, metronic.css */
-.page-header.navbar .search-form.open .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form.open .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form.open .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form.open .input-group .input-group-btn button.submit, .page-header.navbar .search-form.open .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form.open .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form.open .input-group .input-group-btn button.submit, .page-header.navbar .search-form.open .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form.open .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form.open .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form.open .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form.open .input-group .input-group-btn input.submit {
+.page-header.navbar .search-form.open .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form.open .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form.open .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form.open .input-group .input-group-btn button.submit, .page-header.navbar .search-form.open .input-group .input-group-btn .map-info button.submit, .map-info .page-header.navbar .search-form.open .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn .map-info button.submit, .map-info #navigation nav.page-header .search-form.open .input-group .input-group-btn button.submit, .page-header.navbar .search-form.open .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form.open .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form.open .input-group .input-group-btn button.submit, .page-header.navbar .search-form.open .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form.open .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form.open .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form.open .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form.open .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form.open .input-group .input-group-btn input.submit {
   margin-left: 0;
 }
 
@@ -8645,7 +8674,7 @@ Page Header
   }
 
   /* line 430, metronic.css */
-  .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn button.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn button.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn input.submit {
+  .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .btn.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .btn.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .map-header .btn-group button.submit, .map-header .btn-group #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn button.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .map-info button.submit, .map-info .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .map-info button.submit, .map-info #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn button.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn form button.submit, form .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn button.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn form button.submit, form #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn button.submit, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn .submit#logout, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn .submit#logout, .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation .page-header.navbar .search-form.search-form-expanded .input-group .input-group-btn input.submit, #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn #sectionNavigation input.submit, #sectionNavigation #navigation nav.page-header .search-form.search-form-expanded .input-group .input-group-btn input.submit {
     margin-left: 0;
   }
 }
@@ -9498,10 +9527,12 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
 }
 
 /* line 1064, metronic.css */
-.page-sidebar .sidebar-search .input-group .input-group-btn .btn, .page-sidebar .sidebar-search .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar .sidebar-search .input-group .input-group-btn button, .page-sidebar .sidebar-search .input-group .input-group-btn form button, form .page-sidebar .sidebar-search .input-group .input-group-btn button, .page-sidebar .sidebar-search .input-group .input-group-btn #logout, .page-sidebar .sidebar-search .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar .sidebar-search .input-group .input-group-btn input,
+.page-sidebar .sidebar-search .input-group .input-group-btn .btn, .page-sidebar .sidebar-search .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar .sidebar-search .input-group .input-group-btn button, .page-sidebar .sidebar-search .input-group .input-group-btn .map-info button, .map-info .page-sidebar .sidebar-search .input-group .input-group-btn button, .page-sidebar .sidebar-search .input-group .input-group-btn form button, form .page-sidebar .sidebar-search .input-group .input-group-btn button, .page-sidebar .sidebar-search .input-group .input-group-btn #logout, .page-sidebar .sidebar-search .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar .sidebar-search .input-group .input-group-btn input,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .btn,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .map-header .btn-group button,
 .map-header .btn-group .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .map-info button,
+.map-info .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn form button,
 form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn #logout,
@@ -9516,10 +9547,12 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
 }
 
 /* line 1073, metronic.css */
-.page-sidebar .sidebar-search .input-group .input-group-btn .btn > i, .page-sidebar .sidebar-search .input-group .input-group-btn .map-header .btn-group button > i, .map-header .btn-group .page-sidebar .sidebar-search .input-group .input-group-btn button > i, .page-sidebar .sidebar-search .input-group .input-group-btn form button > i, form .page-sidebar .sidebar-search .input-group .input-group-btn button > i, .page-sidebar .sidebar-search .input-group .input-group-btn #logout > i, .page-sidebar .sidebar-search .input-group .input-group-btn #sectionNavigation input > i, #sectionNavigation .page-sidebar .sidebar-search .input-group .input-group-btn input > i,
+.page-sidebar .sidebar-search .input-group .input-group-btn .btn > i, .page-sidebar .sidebar-search .input-group .input-group-btn .map-header .btn-group button > i, .map-header .btn-group .page-sidebar .sidebar-search .input-group .input-group-btn button > i, .page-sidebar .sidebar-search .input-group .input-group-btn .map-info button > i, .map-info .page-sidebar .sidebar-search .input-group .input-group-btn button > i, .page-sidebar .sidebar-search .input-group .input-group-btn form button > i, form .page-sidebar .sidebar-search .input-group .input-group-btn button > i, .page-sidebar .sidebar-search .input-group .input-group-btn #logout > i, .page-sidebar .sidebar-search .input-group .input-group-btn #sectionNavigation input > i, #sectionNavigation .page-sidebar .sidebar-search .input-group .input-group-btn input > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .btn > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .map-header .btn-group button > i,
 .map-header .btn-group .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button > i,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn .map-info button > i,
+.map-info .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn form button > i,
 form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn button > i,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search .input-group .input-group-btn #logout > i,
@@ -9546,10 +9579,12 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
 }
 
 /* line 1086, metronic.css */
-.page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .btn, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn form button, form .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn #logout, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn input,
+.page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .btn, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .map-info button, .map-info .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn form button, form .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn #logout, .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar .sidebar-search.sidebar-search-bordered .input-group .input-group-btn input,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .btn,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .map-header .btn-group button,
 .map-header .btn-group .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button,
+.page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn .map-info button,
+.map-info .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn form button,
 form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn button,
 .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search.sidebar-search-bordered .input-group .input-group-btn #logout,
@@ -9741,7 +9776,7 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
   }
 
   /* line 1215, metronic.css */
-  .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn .btn, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn form button, form .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn #logout, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn input {
+  .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn .btn, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn .map-info button, .map-info .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn form button, form .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn #logout, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search .input-group .input-group-btn input {
     display: block;
   }
 
@@ -9774,7 +9809,7 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
   }
 
   /* line 1238, metronic.css */
-  .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .btn, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn form button, form .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #logout, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn input {
+  .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .btn, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-info button, .map-info .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn form button, form .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #logout, .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn input {
     display: block;
     margin-right: 8px;
     margin-top: 1px;
@@ -9836,7 +9871,7 @@ form .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .sidebar-search
   }
 
   /* line 1280, metronic.css */
-  .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .btn, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn form button, form .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #logout, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn input {
+  .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .btn, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-header .btn-group button, .map-header .btn-group .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn .map-info button, .map-info .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn form button, form .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn button, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #logout, .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn #sectionNavigation input, #sectionNavigation .page-sidebar-closed.page-sidebar-reversed .page-sidebar .page-sidebar-menu.page-sidebar-menu-closed .sidebar-search.open .input-group .input-group-btn input {
     margin-right: 10px !important;
   }
 
@@ -10623,7 +10658,7 @@ Page content
 }
 
 /* line 1861, metronic.css */
-.page-breadcrumb.breadcrumb > li.btn-group .btn, .page-breadcrumb#network > li.btn-group .btn, .map-header .page-breadcrumb.breadcrumb > li.btn-group button, .map-header .page-breadcrumb#network > li.btn-group button, .page-breadcrumb.breadcrumb > li.btn-group form button, form .page-breadcrumb.breadcrumb > li.btn-group button, .page-breadcrumb#network > li.btn-group form button, form .page-breadcrumb#network > li.btn-group button, .page-breadcrumb.breadcrumb > li.btn-group #logout, .page-breadcrumb#network > li.btn-group #logout, .page-breadcrumb.breadcrumb > li.btn-group #sectionNavigation input, #sectionNavigation .page-breadcrumb.breadcrumb > li.btn-group input, .page-breadcrumb#network > li.btn-group #sectionNavigation input, #sectionNavigation .page-breadcrumb#network > li.btn-group input {
+.page-breadcrumb.breadcrumb > li.btn-group .btn, .page-breadcrumb#network > li.btn-group .btn, .map-header .page-breadcrumb.breadcrumb > li.btn-group button, .map-header .page-breadcrumb#network > li.btn-group button, .page-breadcrumb.breadcrumb > li.btn-group .map-info button, .map-info .page-breadcrumb.breadcrumb > li.btn-group button, .page-breadcrumb#network > li.btn-group .map-info button, .map-info .page-breadcrumb#network > li.btn-group button, .page-breadcrumb.breadcrumb > li.btn-group form button, form .page-breadcrumb.breadcrumb > li.btn-group button, .page-breadcrumb#network > li.btn-group form button, form .page-breadcrumb#network > li.btn-group button, .page-breadcrumb.breadcrumb > li.btn-group #logout, .page-breadcrumb#network > li.btn-group #logout, .page-breadcrumb.breadcrumb > li.btn-group #sectionNavigation input, #sectionNavigation .page-breadcrumb.breadcrumb > li.btn-group input, .page-breadcrumb#network > li.btn-group #sectionNavigation input, #sectionNavigation .page-breadcrumb#network > li.btn-group input {
   padding-top: 8px;
   padding-bottom: 8px;
 }
@@ -10836,7 +10871,7 @@ Page content
   }
 
   /* line 2018, metronic.css */
-  .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > .btn, .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > .btn, .page-content-wrapper .page-content .map-header .page-breadcrumb.breadcrumb > .btn-group > button, .map-header .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > button, .page-content-wrapper .page-content .map-header .page-breadcrumb#network > .btn-group > button, .map-header .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > button, .page-content-wrapper .page-content form .page-breadcrumb.breadcrumb > .btn-group > button, form .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > button, .page-content-wrapper .page-content form .page-breadcrumb#network > .btn-group > button, form .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > button, .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > #logout, .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > #logout, .page-content-wrapper .page-content #sectionNavigation .page-breadcrumb.breadcrumb > .btn-group > input, #sectionNavigation .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > input, .page-content-wrapper .page-content #sectionNavigation .page-breadcrumb#network > .btn-group > input, #sectionNavigation .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > input {
+  .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > .btn, .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > .btn, .page-content-wrapper .page-content .map-header .page-breadcrumb.breadcrumb > .btn-group > button, .map-header .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > button, .page-content-wrapper .page-content .map-header .page-breadcrumb#network > .btn-group > button, .map-header .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > button, .page-content-wrapper .page-content .map-info .page-breadcrumb.breadcrumb > .btn-group > button, .map-info .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > button, .page-content-wrapper .page-content .map-info .page-breadcrumb#network > .btn-group > button, .map-info .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > button, .page-content-wrapper .page-content form .page-breadcrumb.breadcrumb > .btn-group > button, form .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > button, .page-content-wrapper .page-content form .page-breadcrumb#network > .btn-group > button, form .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > button, .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > #logout, .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > #logout, .page-content-wrapper .page-content #sectionNavigation .page-breadcrumb.breadcrumb > .btn-group > input, #sectionNavigation .page-content-wrapper .page-content .page-breadcrumb.breadcrumb > .btn-group > input, .page-content-wrapper .page-content #sectionNavigation .page-breadcrumb#network > .btn-group > input, #sectionNavigation .page-content-wrapper .page-content .page-breadcrumb#network > .btn-group > input {
     padding-left: 7px;
     padding-right: 7px;
   }
@@ -11148,12 +11183,12 @@ Theme Panel
   background: #F1F1F1;
 }
 
-/* line 23, ../sass/flat.scss */
+/* line 26, ../sass/flat.scss */
 body {
   font-family: Lato;
 }
 
-/* line 26, ../sass/flat.scss */
+/* line 29, ../sass/flat.scss */
 #menu {
   position: fixed;
   top: 0;
@@ -11162,51 +11197,49 @@ body {
   @extends .fixed;
   border-bottom: 1.5px solid black;
 }
-/* line 33, ../sass/flat.scss */
+/* line 36, ../sass/flat.scss */
 #menu .top-bar {
   background: darkcyan !important;
 }
-/* line 36, ../sass/flat.scss */
+/* line 39, ../sass/flat.scss */
 #menu a {
   color: antiquewhite;
 }
 
-/* line 43, ../sass/flat.scss */
+/* line 46, ../sass/flat.scss */
 .row {
   max-width: 100%;
   margin-top: 1%;
 }
 
-/* line 47, ../sass/flat.scss */
+/* line 50, ../sass/flat.scss */
 #content {
   padding-top: 3em;
 }
 
-/* line 50, ../sass/flat.scss */
+/* line 53, ../sass/flat.scss */
 .main {
   padding: 0 5% 0 5%;
 }
 
-/* line 53, ../sass/flat.scss */
+/* line 56, ../sass/flat.scss */
 .login-container {
   background: #ecf0f1;
   padding: 10% 10%;
 }
 
-/* line 60, ../sass/flat.scss */
+/* line 63, ../sass/flat.scss */
 .tile {
   text-align: left;
   background: white !important;
 }
-/* line 63, ../sass/flat.scss */
-.tile li {
-  list-style: none;
-}
-/* line 68, ../sass/flat.scss */
+/* line 66, ../sass/flat.scss */
 .tile h3 {
-  margin-bottom: 0;
+  background: whitesmoke;
+  padding: 2%;
+  margin-bottom: 5px;
 }
-/* line 71, ../sass/flat.scss */
+/* line 70, ../sass/flat.scss */
 .tile h3 i {
   color: white;
   font-weight: bold;
@@ -11214,24 +11247,43 @@ body {
   cursor: pointer;
   margin-left: 10px;
 }
-/* line 78, ../sass/flat.scss */
+/* line 77, ../sass/flat.scss */
 .tile h3 i.selected {
   color: antiquewhite;
 }
-/* line 81, ../sass/flat.scss */
+/* line 80, ../sass/flat.scss */
 .tile h3 i:hover {
   color: antiquewhite;
   cursor: hand;
 }
+/* line 85, ../sass/flat.scss */
+.tile .outer {
+  padding: 2%;
+}
+/* line 88, ../sass/flat.scss */
+.tile .outer li {
+  list-style: none;
+}
 
-/* line 102, ../sass/flat.scss */
+/* line 96, ../sass/flat.scss */
+.tile.map, .tile.map-info {
+  height: 80%;
+}
+
+/* line 114, ../sass/flat.scss */
+.map-info button i {
+  padding-right: 5px;
+}
+
+/* line 123, ../sass/flat.scss */
 #footer {
   padding: 1%;
   background: whitesmoke;
   text-align: center;
+  margin-bottom: -100px;
 }
 
-/* line 108, ../sass/flat.scss */
+/* line 130, ../sass/flat.scss */
 #firepad {
   border: 2px solid #ddd;
   width: 95%;
@@ -11239,16 +11291,16 @@ body {
   height: 80%;
 }
 
-/* line 118, ../sass/flat.scss */
+/* line 140, ../sass/flat.scss */
 form button {
   background: #1abc9c;
   color: white;
 }
-/* line 122, ../sass/flat.scss */
+/* line 144, ../sass/flat.scss */
 form button i {
   padding: 0 2%;
 }
-/* line 127, ../sass/flat.scss */
+/* line 149, ../sass/flat.scss */
 form input[type="radio"], form input[type="checkbox"] {
   display: inline-block;
   vertical-align: top;
@@ -11256,124 +11308,124 @@ form input[type="radio"], form input[type="checkbox"] {
   width: auto;
   -webkit-box-shadow: none;
 }
-/* line 134, ../sass/flat.scss */
+/* line 156, ../sass/flat.scss */
 form input[type="radio"] {
   height: auto;
 }
 
-/* line 138, ../sass/flat.scss */
+/* line 160, ../sass/flat.scss */
 .form-container {
   padding: 0 !important;
 }
 
-/* line 141, ../sass/flat.scss */
+/* line 163, ../sass/flat.scss */
 #logout {
   margin-left: 20px;
   background: #e74c3c;
   color: white;
 }
 
-/* line 157, ../sass/flat.scss */
+/* line 179, ../sass/flat.scss */
 .open .dropdown-menu {
   margin-top: 0 !important;
 }
 
-/* line 164, ../sass/flat.scss */
+/* line 186, ../sass/flat.scss */
 #network li i {
   padding-right: 5px;
 }
 
-/* line 170, ../sass/flat.scss */
+/* line 192, ../sass/flat.scss */
 #content {
   padding-top: 0;
 }
 
-/* line 174, ../sass/flat.scss */
+/* line 196, ../sass/flat.scss */
 table {
   width: 100%;
 }
-/* line 177, ../sass/flat.scss */
+/* line 199, ../sass/flat.scss */
 table thead tr {
   background: #fd7972;
 }
-/* line 183, ../sass/flat.scss */
+/* line 205, ../sass/flat.scss */
 table tbody tr {
   background: #c8defc;
 }
-/* line 186, ../sass/flat.scss */
+/* line 208, ../sass/flat.scss */
 table tbody th {
   background: #72bcf5;
 }
-/* line 190, ../sass/flat.scss */
+/* line 212, ../sass/flat.scss */
 table td, table th {
   margin-bottom: 5px;
   padding: 0.5%;
   border: 2px solid white;
 }
-/* line 196, ../sass/flat.scss */
+/* line 218, ../sass/flat.scss */
 table td .progress {
   margin-bottom: 0;
 }
-/* line 198, ../sass/flat.scss */
+/* line 220, ../sass/flat.scss */
 table td .progress .progress-bar {
   margin-bottom: 0;
 }
-/* line 203, ../sass/flat.scss */
+/* line 225, ../sass/flat.scss */
 table td {
   max-width: 200px !important;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* line 209, ../sass/flat.scss */
+/* line 231, ../sass/flat.scss */
 .begin:hover {
   cursor: hand;
 }
 
-/* line 212, ../sass/flat.scss */
+/* line 234, ../sass/flat.scss */
 .instruction {
   background: #ffeacc;
 }
 
-/* line 215, ../sass/flat.scss */
+/* line 237, ../sass/flat.scss */
 .message.success {
   padding: 0.5%;
   background: #ecf0f1;
 }
 
-/* line 219, ../sass/flat.scss */
+/* line 241, ../sass/flat.scss */
 #sectionNavigation {
   width: 40%;
   margin: auto;
 }
-/* line 222, ../sass/flat.scss */
+/* line 244, ../sass/flat.scss */
 #sectionNavigation input {
   width: 45%;
   display: inline-block;
 }
 
-/* line 233, ../sass/flat.scss */
+/* line 255, ../sass/flat.scss */
 .portlet.box .portlet-title h4 {
   font-weight: bolder;
   padding: 1% 1.5%;
   background: #ecf0f1;
 }
-/* line 237, ../sass/flat.scss */
+/* line 259, ../sass/flat.scss */
 .portlet.box .portlet-title h4 i {
   padding-right: 2%;
 }
-/* line 240, ../sass/flat.scss */
+/* line 262, ../sass/flat.scss */
 .portlet.box .portlet-title h4 .statistic-free {
   font-weight: normal;
   padding-right: 2%;
 }
-/* line 246, ../sass/flat.scss */
+/* line 268, ../sass/flat.scss */
 .portlet.box .portlet-body {
   height: 300px;
   overflow-y: auto;
 }
 
-/* line 252, ../sass/flat.scss */
+/* line 274, ../sass/flat.scss */
 #reporting {
   overflow-y: auto;
   height: 300px;
@@ -11381,76 +11433,118 @@ table td {
   padding: 10px;
 }
 
-/* line 258, ../sass/flat.scss */
+/* line 280, ../sass/flat.scss */
 #reporting label, #reportingBar label {
   vertical-align: top;
   display: inline-block;
   width: 40%;
 }
 
-/* line 263, ../sass/flat.scss */
+/* line 285, ../sass/flat.scss */
 #reporting .progress, #reportingBar .progress {
   display: inline-block;
   width: 55%;
   margin-bottom: 0;
 }
 
-/* line 268, ../sass/flat.scss */
+/* line 290, ../sass/flat.scss */
 #countyHeader {
   width: 35%;
 }
 
-/* line 271, ../sass/flat.scss */
+/* line 293, ../sass/flat.scss */
 #countyHeader, #progressHeader {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 275, ../sass/flat.scss */
+/* line 297, ../sass/flat.scss */
 #progressHeader {
   width: 64%;
 }
 
-/* line 278, ../sass/flat.scss */
+/* line 300, ../sass/flat.scss */
 .progressRow {
   border-bottom: 1px solid #bbbbbb;
 }
 
-/* line 281, ../sass/flat.scss */
+/* line 303, ../sass/flat.scss */
 #reportingLabel {
   max-width: 60%;
   padding-left: 5%;
   margin-bottom: 0 !important;
 }
 
-/* line 286, ../sass/flat.scss */
+/* line 308, ../sass/flat.scss */
 #reportingLabel #reportingBar {
   max-width: 60%;
   margin-bottom: 0 !important;
 }
 
-/* line 290, ../sass/flat.scss */
+/* line 312, ../sass/flat.scss */
 #reportingLabel #reportingBar .progressRow {
   border-bottom: none;
 }
 
-/* line 294, ../sass/flat.scss */
+/* line 316, ../sass/flat.scss */
 #county_select_label {
   padding-left: 5%;
   max-width: 25%;
   margin-bottom: 0 !important;
 }
 
-/* line 299, ../sass/flat.scss */
+/* line 321, ../sass/flat.scss */
 #county_select_label select {
   max-width: 55% !important;
   height: auto;
   margin-bottom: 0 !important;
 }
 
-/* line 305, ../sass/flat.scss */
+/* line 327, ../sass/flat.scss */
 #reportingBar {
   display: inline-block;
   max-width: 70% !important;
   margin-bottom: 0 !important;
+}
+
+/* line 333, ../sass/flat.scss */
+.statistic {
+  display: block;
+  margin-bottom: 5px;
+}
+/* line 336, ../sass/flat.scss */
+.statistic .icon {
+  vertical-align: top;
+  display: inline-block;
+  border-radius: 50%;
+  background: #16a085;
+  color: white;
+}
+/* line 344, ../sass/flat.scss */
+.statistic .icon span {
+  display: table-cell;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  text-align: center;
+}
+/* line 349, ../sass/flat.scss */
+.statistic .icon span i {
+  font-size: 1.5em;
+}
+/* line 356, ../sass/flat.scss */
+.statistic .data {
+  margin-left: 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 359, ../sass/flat.scss */
+.statistic .data .text, .statistic .data .data {
+  display: block;
+  text-align: center;
+}
+/* line 366, ../sass/flat.scss */
+.statistic #county_name {
+  margin-top: 10%;
+  font-size: 1.3em;
 }
