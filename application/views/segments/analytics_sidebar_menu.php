@@ -22,10 +22,10 @@ switch($this->session->userdata('survey')) {
 				<li id="communityStrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="guidelinesAvailability">
+				<li id="guidelinesAvailabilityCH">
 					<a href="#">Guidelines Availability</a>
 				</li>
-				<li id="trainedStaffOne">
+				<li id="TrainedStaffCH">
 					<a href="#">Staff Trainings</a>
 				</li>
 				<li id="childrenServices">
@@ -49,8 +49,11 @@ switch($this->session->userdata('survey')) {
 				<li id="ChHealthServices">
 					<a href="#">Health Services</a>
 				</li>
-				<li id="CaseManagement">
-					<a href="#">Case Management</a>
+				<li id="CertificationA">
+					<a href="#">Certification A</a>
+				</li>
+				<li id="CertificationB">
+					<a href="#">Certification B</a>
 				</li>
 				<li id="IMCIConsultationRoom">
 					<a href="#">IMCI Consultation Room</a>
@@ -61,7 +64,7 @@ switch($this->session->userdata('survey')) {
 		<li id="commodities-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityAvailabilityFrequency">
+				<li id="commodityAvailability">
 					<a href="#">Commodity Availability</a>
 				</li>
 				<li id="commodityAvailabilityUnavailability">
@@ -70,24 +73,24 @@ switch($this->session->userdata('survey')) {
 				<li id="commodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityAvailabilityQuantities">
-					<a href="#">Commodity Quantities</a>
+				<li id="commodityAvailabilityQuantity">
+					<a href="#">Commodity Quantity</a>
 				</li>
-				<li id="CHcommoditySuppliers">
+				<!--<li id="CHcommoditySuppliers">
 					<a href="#">Commodity Suppliers</a>
-				</li>
+				</li>-->
 				
 			</ul>
 		</li>
 
-<li id="commodities-parent" class="has-sub start">
+<li id="bundling-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Bundling</span> <span class="arrow "></span> </a>
 			<ul class="sub">
 				<li id="bundlingFrequency">
-					<a href="#">Commodity Bundling Availability</a>
+					<a href="#">Bundling Availability</a>
 				</li>
 				<li id="bundlingUnavailability">
-					<a href="#">Commodity Reasons For Bundling Unavailability</a>
+					<a href="#">Bundling Reasons For Unavailability</a>
 				</li>
 				<li id="bundlingLocation">
 					<a href="#">Bundling Location</a>
@@ -236,7 +239,7 @@ case 'mnh' :
 				<li id="communitystrategy">
 					<a href="#" >Community Strategy</a>
 				</li>
-				<li id="trainedStaff">
+				<li id="TrainedStaffMnh">
 					<a href="#" >Staff Training</a>
 				</li>
 
