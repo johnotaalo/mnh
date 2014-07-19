@@ -1826,7 +1826,9 @@ ORDER BY f.fac_county ASC;";
             
             /*using CI Database Active Record*/
             try {
-                $query = "SELECT
+                $query = "SELECT county_name FROM counties;";
+
+ /* $query = "SELECT
     f.fac_county as county, c.county_id as countyID
 FROM
     facilities f
@@ -1844,8 +1846,9 @@ FROM
 WHERE
     c.county_name = f.fac_county
 GROUP BY f.fac_county
-ORDER BY f.fac_county ASC;";
-                $this->dataSet = $this->db->query($query);
+ORDER BY f.fac_county ASC;";*/
+		//query that gets all counties
+				$this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
                 
                 //die(var_dump($this->dataSet));

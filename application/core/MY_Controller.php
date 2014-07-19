@@ -223,7 +223,7 @@ $this->getTreatments();
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
 
-        //var_dump($this -> session -> userdata('allCounties')); exit;
+        //var_dump($this -> session -> userdata('allCounties')); die;
         return $this->selectReportingCounties;
     }
 
