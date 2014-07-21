@@ -237,6 +237,25 @@ function notify_email(email, message) {
     });
 }
 
+function getCountyData(base_url,county,survey_type,survey_category){
+ $.ajax({
+        url: base_url+'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        },
+        success: function(data) {
+             obj = jQuery.parseJSON(data);
+            console.log(obj);
+            $('#county_name').text(county);
+            $('#targeted .digit').text(obj[0].actual);
+            $('#finished .digit').text(obj[0].reported);
+            $('#started .digit').text();
+            $('not_started .digit').text((obj[0].actual-obj[0].reported));
+
+        }
+    });
+}
+
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -266,7 +285,7 @@ function startIntro() {
     intro.start();
 }
 $(document).ready(function() {
-    startIntro();
+    //startIntro();
 
 
 });

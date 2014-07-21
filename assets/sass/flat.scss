@@ -3,6 +3,7 @@
 @import "variables";
 @import "bootstrap";
 @import "CSS:../stylesheets/metronic";
+@import "typeplate/_typeplate";
 
 @mixin inner-style($height){
     overflow-y: auto;
@@ -13,7 +14,7 @@
         height: 90%;
         padding: 0 2% 0 2%;
         overflow-y: auto;
-        font-size: 1em !important;
+        @extend .epsilon;
     }
 }
 @mixin tile{
@@ -63,7 +64,7 @@ body{
 .tile{
     text-align: left;
     background:white !important;
-      h3{
+    h5{
         background:whitesmoke;
         padding: 2%;
         margin-bottom:5px;
@@ -85,10 +86,10 @@ body{
     .outer{
         padding:2%;
 
-    li{
-        list-style: none;
+        li{
+            list-style: none;
 
-    }
+        }
 
 
     }
@@ -114,8 +115,8 @@ body{
         i{
             padding-right:5px;
         }
-      @extend .btn;
-    @extend .btn-primary;
+        @extend .btn;
+        @extend .btn-primary;
         //background: #1abc9c;
     }
 
@@ -124,7 +125,7 @@ body{
     padding:1%;
     background:whitesmoke;
     text-align: center;
-   margin-bottom: -100px;
+    margin-bottom: -100px;
 }
 
 #firepad{
@@ -341,17 +342,16 @@ table{
 
         background:$stat_color;
         color:white;
-span{display: table-cell;
-    width:50px;
-        height:50px;
-      vertical-align: middle;
-      text-align: center;
-        i{
+        span{display: table-cell;
+            width:50px;
+            height:50px;
+            vertical-align: middle;
+            text-align: center;
+            i{
+                font-size:1.5em;
+            }
 
-            font-size:1.5em;
         }
-
-    }
     }
     .data{
 
@@ -365,6 +365,6 @@ span{display: table-cell;
     }
     #county_name{
         margin-top:10%;
-        font-size:1.3em;
+        @extend .epsilon;
     }
 }

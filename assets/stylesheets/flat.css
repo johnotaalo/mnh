@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 /* line 9, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_normalize.scss */
 html {
@@ -11183,12 +11184,394 @@ Theme Panel
   background: #F1F1F1;
 }
 
-/* line 26, ../sass/flat.scss */
+/*!
+TYPEPLATE
+URL ........... http://typeplate.com
+VERSION ....... 1.1.4
+Github ........ https://github.com/typeplate/bower
+AUTHORS ....... Dennis Gaebel (@gryghostvisuals) & Zachary Kain (@zakkain)
+LICENSE ....... Creative Commmons Attribution 3.0 (http://creativecommons.org/licenses/by/3.0)
+LICENSE URL ... https://github.com/typeplate/bower/blob/master/license.txt
+*/
+@font-face {
+  font-family: "Ampersand";
+  src: local("Georgia"), local("Garamond"), local("Palatino"), local("Book Antiqua");
+  unicode-range: U+0026;
+}
+
+@font-face {
+  font-family: "Ampersand";
+  src: local("Georgia");
+  unicode-range: U+270C;
+}
+
+/* line 397, ../sass/typeplate/_typeplate.scss */
+body {
+  word-wrap: break-word;
+}
+
+/* line 401, ../sass/typeplate/_typeplate.scss */
+pre code {
+  word-wrap: normal;
+}
+
+/**
+ * Dropcap Sass @include
+ * Use the following Sass @include with any selector you feel necessary.
+ *
+	@include dropcap($dropcap-float-position, $dropcap-font-size, $dropcap-font-family, $dropcap-txt-indent, $dropcap-margin, $dropcap-padding, $dropcap-color, $dropcap-line-height, $dropcap-bg);
+ *
+ * Extend this object into your custom stylesheet. Let the variables do the work.
+ *
+ */
+/* line 526, ../sass/typeplate/_typeplate.scss */
+html {
+  font: normal 112.5%/1.65 serif;
+}
+
+/* line 534, ../sass/typeplate/_typeplate.scss */
+body {
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  -o-hyphens: auto;
+  hyphens: auto;
+  color: #444444;
+}
+
+/* line 545, ../sass/typeplate/_typeplate.scss */
+small {
+  font-size: 65%;
+}
+
+/* line 569, ../sass/typeplate/_typeplate.scss */
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  line-height: 1;
+  margin-top: 0;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.tera {
+  font-size: 117px;
+  font-size: 6.5rem;
+  margin-bottom: 4.5692307692px;
+  margin-bottom: 0.2538461538rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.giga {
+  font-size: 90px;
+  font-size: 5rem;
+  margin-bottom: 5.94px;
+  margin-bottom: 0.33rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.mega {
+  font-size: 72px;
+  font-size: 4rem;
+  margin-bottom: 7.425px;
+  margin-bottom: 0.4125rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.alpha, h1 {
+  font-size: 60px;
+  font-size: 3.3333333333rem;
+  margin-bottom: 8.91px;
+  margin-bottom: 0.495rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.beta, h2 {
+  font-size: 48px;
+  font-size: 2.6666666667rem;
+  margin-bottom: 11.1375px;
+  margin-bottom: 0.61875rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.gamma, h3 {
+  font-size: 36px;
+  font-size: 2rem;
+  margin-bottom: 14.85px;
+  margin-bottom: 0.825rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.delta, h4 {
+  font-size: 24px;
+  font-size: 1.3333333333rem;
+  margin-bottom: 22.275px;
+  margin-bottom: 1.2375rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.epsilon, h5, .statistic #county_name {
+  font-size: 21px;
+  font-size: 1.1666666667rem;
+  margin-bottom: 25.4571428571px;
+  margin-bottom: 1.4142857143rem;
+}
+
+/* line 584, ../sass/typeplate/_typeplate.scss */
+.zeta, h6 {
+  font-size: 18px;
+  font-size: 1rem;
+  margin-bottom: 29.7px;
+  margin-bottom: 1.65rem;
+}
+
+/* line 624, ../sass/typeplate/_typeplate.scss */
+p {
+  margin: auto auto 1.5em;
+}
+/* line 629, ../sass/typeplate/_typeplate.scss */
+p + p {
+  text-indent: 1.5em;
+  margin-top: -1.5em;
+}
+
+/* line 654, ../sass/typeplate/_typeplate.scss */
+abbr,
+acronym,
+blockquote,
+code,
+dir,
+kbd,
+listing,
+plaintext,
+q,
+samp,
+tt,
+var,
+xmp {
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  -o-hyphens: none;
+  hyphens: none;
+}
+
+/* line 662, ../sass/typeplate/_typeplate.scss */
+pre code {
+  white-space: -moz-pre-wrap;
+  white-space: pre-wrap;
+}
+
+/* line 667, ../sass/typeplate/_typeplate.scss */
+pre {
+  white-space: pre;
+}
+
+/* line 671, ../sass/typeplate/_typeplate.scss */
+code {
+  white-space: pre;
+  font-family: monospace;
+}
+
+/**
+ * Abbreviations Markup
+ *
+	<abbr title="hyper text markup language">HMTL</abbr>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/* line 687, ../sass/typeplate/_typeplate.scss */
+abbr {
+  font-variant: small-caps;
+  font-weight: 600;
+  text-transform: lowercase;
+  color: gray;
+}
+/* line 689, ../sass/typeplate/_typeplate.scss */
+abbr[title]:hover {
+  cursor: help;
+}
+
+/* line 703, ../sass/typeplate/_typeplate.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #222222;
+}
+
+/* line 713, ../sass/typeplate/_typeplate.scss */
+p + .drop-cap {
+  text-indent: 0;
+  margin-top: 0;
+}
+
+/* line 428, ../sass/typeplate/_typeplate.scss */
+.drop-cap:first-letter {
+  float: left;
+  margin: inherit;
+  padding: inherit;
+  font-size: 4em;
+  font-family: inherit;
+  line-height: 1;
+  text-indent: 0;
+  background: transparent;
+  color: inherit;
+}
+
+/**
+ * Lining Definition Style Markup
+ *
+	<dl class="lining">
+		<dt><b></b></dt>
+		<dd></dd>
+	</dl>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/* line 467, ../sass/typeplate/_typeplate.scss */
+.lining dt,
+.lining dd {
+  display: inline;
+  margin: 0;
+}
+/* line 474, ../sass/typeplate/_typeplate.scss */
+.lining dt + dt:before,
+.lining dd + dt:before {
+  content: "\A";
+  white-space: pre;
+}
+/* line 482, ../sass/typeplate/_typeplate.scss */
+.lining dd + dd:before {
+  content: ", ";
+}
+/* line 486, ../sass/typeplate/_typeplate.scss */
+.lining dd:before {
+  content: ": ";
+  margin-left: -0.2rem;
+}
+
+/**
+ * Dictionary Definition Style Markup
+ *
+	<dl class="dictionary-style">
+		<dt><b></b></dt>
+			<dd></dd>
+	</dl>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/* line 494, ../sass/typeplate/_typeplate.scss */
+.dictionary-style dt {
+  display: inline;
+  counter-reset: definitions;
+}
+/* line 498, ../sass/typeplate/_typeplate.scss */
+.dictionary-style dt + dt:before {
+  content: ", ";
+  margin-left: -0.2rem;
+}
+/* line 504, ../sass/typeplate/_typeplate.scss */
+.dictionary-style dd {
+  display: block;
+  counter-increment: definitions;
+}
+/* line 507, ../sass/typeplate/_typeplate.scss */
+.dictionary-style dd:before {
+  content: counter(definitions,decimal) ". ";
+}
+
+/**
+ * Blockquote Markup
+ *
+		<figure>
+			<blockquote cite="">
+				<p></p>
+			</blockquote>
+			<figcaption>
+				<cite>
+					<small><a href=""></a></small>
+				</cite>
+			</figcaption>
+		</figure>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/**
+ * Pull Quotes Markup
+ *
+	<aside class="pull-quote">
+		<blockquote>
+			<p></p>
+		</blockquote>
+	</aside>
+ *
+ * Extend this object into your custom stylesheet.
+ *
+ */
+/* line 797, ../sass/typeplate/_typeplate.scss */
+.pull-quote {
+  position: relative;
+  padding: 1em;
+}
+/* line 369, ../sass/typeplate/_typeplate.scss */
+.pull-quote:before, .pull-quote:after {
+  height: 1em;
+  opacity: 0.5;
+  position: absolute;
+  font-size: 4em;
+  color: #dc976e;
+}
+/* line 376, ../sass/typeplate/_typeplate.scss */
+.pull-quote:before {
+  content: '“';
+  top: 0;
+  left: 0;
+}
+/* line 381, ../sass/typeplate/_typeplate.scss */
+.pull-quote:after {
+  content: '”';
+  bottom: 0;
+  right: 0;
+}
+
+/**
+ * Figures Markup
+ *
+	<figure>
+		<figcaption>
+			<strong>Fig. 4.2 | </strong>Type Anatomy, an excerpt from Mark Boulton's book<cite title="http://designingfortheweb.co.uk/book/part3/part3_chapter11.php">"Designing for the Web"</cite>
+		</figcaption>
+	</figure>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/**
+ * Footnote Markup : Replace 'X' with your unique number for each footnote
+ *
+	<article>
+		<p><sup><a href="#fn-itemX" id="fn-returnX"></a></sup></p>
+		<footer>
+			<ol class="foot-notes">
+				<li id="fn-itemX"><a href="#fn-returnX">↩</a></li>
+			</ol>
+		</footer>
+	</article>
+ *
+ * Extend this object into your markup.
+ *
+ */
+/* line 27, ../sass/flat.scss */
 body {
   font-family: Lato;
 }
 
-/* line 29, ../sass/flat.scss */
+/* line 30, ../sass/flat.scss */
 #menu {
   position: fixed;
   top: 0;
@@ -11197,85 +11580,85 @@ body {
   @extends .fixed;
   border-bottom: 1.5px solid black;
 }
-/* line 36, ../sass/flat.scss */
+/* line 37, ../sass/flat.scss */
 #menu .top-bar {
   background: darkcyan !important;
 }
-/* line 39, ../sass/flat.scss */
+/* line 40, ../sass/flat.scss */
 #menu a {
   color: antiquewhite;
 }
 
-/* line 46, ../sass/flat.scss */
+/* line 47, ../sass/flat.scss */
 .row {
   max-width: 100%;
   margin-top: 1%;
 }
 
-/* line 50, ../sass/flat.scss */
+/* line 51, ../sass/flat.scss */
 #content {
   padding-top: 3em;
 }
 
-/* line 53, ../sass/flat.scss */
+/* line 54, ../sass/flat.scss */
 .main {
   padding: 0 5% 0 5%;
 }
 
-/* line 56, ../sass/flat.scss */
+/* line 57, ../sass/flat.scss */
 .login-container {
   background: #ecf0f1;
   padding: 10% 10%;
 }
 
-/* line 63, ../sass/flat.scss */
+/* line 64, ../sass/flat.scss */
 .tile {
   text-align: left;
   background: white !important;
 }
-/* line 66, ../sass/flat.scss */
-.tile h3 {
+/* line 67, ../sass/flat.scss */
+.tile h5 {
   background: whitesmoke;
   padding: 2%;
   margin-bottom: 5px;
 }
-/* line 70, ../sass/flat.scss */
-.tile h3 i {
+/* line 71, ../sass/flat.scss */
+.tile h5 i {
   color: white;
   font-weight: bold;
   float: right;
   cursor: pointer;
   margin-left: 10px;
 }
-/* line 77, ../sass/flat.scss */
-.tile h3 i.selected {
+/* line 78, ../sass/flat.scss */
+.tile h5 i.selected {
   color: antiquewhite;
 }
-/* line 80, ../sass/flat.scss */
-.tile h3 i:hover {
+/* line 81, ../sass/flat.scss */
+.tile h5 i:hover {
   color: antiquewhite;
   cursor: hand;
 }
-/* line 85, ../sass/flat.scss */
+/* line 86, ../sass/flat.scss */
 .tile .outer {
   padding: 2%;
 }
-/* line 88, ../sass/flat.scss */
+/* line 89, ../sass/flat.scss */
 .tile .outer li {
   list-style: none;
 }
 
-/* line 96, ../sass/flat.scss */
+/* line 97, ../sass/flat.scss */
 .tile.map, .tile.map-info {
   height: 80%;
 }
 
-/* line 114, ../sass/flat.scss */
+/* line 115, ../sass/flat.scss */
 .map-info button i {
   padding-right: 5px;
 }
 
-/* line 123, ../sass/flat.scss */
+/* line 124, ../sass/flat.scss */
 #footer {
   padding: 1%;
   background: whitesmoke;
@@ -11283,7 +11666,7 @@ body {
   margin-bottom: -100px;
 }
 
-/* line 130, ../sass/flat.scss */
+/* line 131, ../sass/flat.scss */
 #firepad {
   border: 2px solid #ddd;
   width: 95%;
@@ -11291,16 +11674,16 @@ body {
   height: 80%;
 }
 
-/* line 140, ../sass/flat.scss */
+/* line 141, ../sass/flat.scss */
 form button {
   background: #1abc9c;
   color: white;
 }
-/* line 144, ../sass/flat.scss */
+/* line 145, ../sass/flat.scss */
 form button i {
   padding: 0 2%;
 }
-/* line 149, ../sass/flat.scss */
+/* line 150, ../sass/flat.scss */
 form input[type="radio"], form input[type="checkbox"] {
   display: inline-block;
   vertical-align: top;
@@ -11308,124 +11691,124 @@ form input[type="radio"], form input[type="checkbox"] {
   width: auto;
   -webkit-box-shadow: none;
 }
-/* line 156, ../sass/flat.scss */
+/* line 157, ../sass/flat.scss */
 form input[type="radio"] {
   height: auto;
 }
 
-/* line 160, ../sass/flat.scss */
+/* line 161, ../sass/flat.scss */
 .form-container {
   padding: 0 !important;
 }
 
-/* line 163, ../sass/flat.scss */
+/* line 164, ../sass/flat.scss */
 #logout {
   margin-left: 20px;
   background: #e74c3c;
   color: white;
 }
 
-/* line 179, ../sass/flat.scss */
+/* line 180, ../sass/flat.scss */
 .open .dropdown-menu {
   margin-top: 0 !important;
 }
 
-/* line 186, ../sass/flat.scss */
+/* line 187, ../sass/flat.scss */
 #network li i {
   padding-right: 5px;
 }
 
-/* line 192, ../sass/flat.scss */
+/* line 193, ../sass/flat.scss */
 #content {
   padding-top: 0;
 }
 
-/* line 196, ../sass/flat.scss */
+/* line 197, ../sass/flat.scss */
 table {
   width: 100%;
 }
-/* line 199, ../sass/flat.scss */
+/* line 200, ../sass/flat.scss */
 table thead tr {
   background: #fd7972;
 }
-/* line 205, ../sass/flat.scss */
+/* line 206, ../sass/flat.scss */
 table tbody tr {
   background: #c8defc;
 }
-/* line 208, ../sass/flat.scss */
+/* line 209, ../sass/flat.scss */
 table tbody th {
   background: #72bcf5;
 }
-/* line 212, ../sass/flat.scss */
+/* line 213, ../sass/flat.scss */
 table td, table th {
   margin-bottom: 5px;
   padding: 0.5%;
   border: 2px solid white;
 }
-/* line 218, ../sass/flat.scss */
+/* line 219, ../sass/flat.scss */
 table td .progress {
   margin-bottom: 0;
 }
-/* line 220, ../sass/flat.scss */
+/* line 221, ../sass/flat.scss */
 table td .progress .progress-bar {
   margin-bottom: 0;
 }
-/* line 225, ../sass/flat.scss */
+/* line 226, ../sass/flat.scss */
 table td {
   max-width: 200px !important;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* line 231, ../sass/flat.scss */
+/* line 232, ../sass/flat.scss */
 .begin:hover {
   cursor: hand;
 }
 
-/* line 234, ../sass/flat.scss */
+/* line 235, ../sass/flat.scss */
 .instruction {
   background: #ffeacc;
 }
 
-/* line 237, ../sass/flat.scss */
+/* line 238, ../sass/flat.scss */
 .message.success {
   padding: 0.5%;
   background: #ecf0f1;
 }
 
-/* line 241, ../sass/flat.scss */
+/* line 242, ../sass/flat.scss */
 #sectionNavigation {
   width: 40%;
   margin: auto;
 }
-/* line 244, ../sass/flat.scss */
+/* line 245, ../sass/flat.scss */
 #sectionNavigation input {
   width: 45%;
   display: inline-block;
 }
 
-/* line 255, ../sass/flat.scss */
+/* line 256, ../sass/flat.scss */
 .portlet.box .portlet-title h4 {
   font-weight: bolder;
   padding: 1% 1.5%;
   background: #ecf0f1;
 }
-/* line 259, ../sass/flat.scss */
+/* line 260, ../sass/flat.scss */
 .portlet.box .portlet-title h4 i {
   padding-right: 2%;
 }
-/* line 262, ../sass/flat.scss */
+/* line 263, ../sass/flat.scss */
 .portlet.box .portlet-title h4 .statistic-free {
   font-weight: normal;
   padding-right: 2%;
 }
-/* line 268, ../sass/flat.scss */
+/* line 269, ../sass/flat.scss */
 .portlet.box .portlet-body {
   height: 300px;
   overflow-y: auto;
 }
 
-/* line 274, ../sass/flat.scss */
+/* line 275, ../sass/flat.scss */
 #reporting {
   overflow-y: auto;
   height: 300px;
@@ -11433,86 +11816,86 @@ table td {
   padding: 10px;
 }
 
-/* line 280, ../sass/flat.scss */
+/* line 281, ../sass/flat.scss */
 #reporting label, #reportingBar label {
   vertical-align: top;
   display: inline-block;
   width: 40%;
 }
 
-/* line 285, ../sass/flat.scss */
+/* line 286, ../sass/flat.scss */
 #reporting .progress, #reportingBar .progress {
   display: inline-block;
   width: 55%;
   margin-bottom: 0;
 }
 
-/* line 290, ../sass/flat.scss */
+/* line 291, ../sass/flat.scss */
 #countyHeader {
   width: 35%;
 }
 
-/* line 293, ../sass/flat.scss */
+/* line 294, ../sass/flat.scss */
 #countyHeader, #progressHeader {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 297, ../sass/flat.scss */
+/* line 298, ../sass/flat.scss */
 #progressHeader {
   width: 64%;
 }
 
-/* line 300, ../sass/flat.scss */
+/* line 301, ../sass/flat.scss */
 .progressRow {
   border-bottom: 1px solid #bbbbbb;
 }
 
-/* line 303, ../sass/flat.scss */
+/* line 304, ../sass/flat.scss */
 #reportingLabel {
   max-width: 60%;
   padding-left: 5%;
   margin-bottom: 0 !important;
 }
 
-/* line 308, ../sass/flat.scss */
+/* line 309, ../sass/flat.scss */
 #reportingLabel #reportingBar {
   max-width: 60%;
   margin-bottom: 0 !important;
 }
 
-/* line 312, ../sass/flat.scss */
+/* line 313, ../sass/flat.scss */
 #reportingLabel #reportingBar .progressRow {
   border-bottom: none;
 }
 
-/* line 316, ../sass/flat.scss */
+/* line 317, ../sass/flat.scss */
 #county_select_label {
   padding-left: 5%;
   max-width: 25%;
   margin-bottom: 0 !important;
 }
 
-/* line 321, ../sass/flat.scss */
+/* line 322, ../sass/flat.scss */
 #county_select_label select {
   max-width: 55% !important;
   height: auto;
   margin-bottom: 0 !important;
 }
 
-/* line 327, ../sass/flat.scss */
+/* line 328, ../sass/flat.scss */
 #reportingBar {
   display: inline-block;
   max-width: 70% !important;
   margin-bottom: 0 !important;
 }
 
-/* line 333, ../sass/flat.scss */
+/* line 334, ../sass/flat.scss */
 .statistic {
   display: block;
   margin-bottom: 5px;
 }
-/* line 336, ../sass/flat.scss */
+/* line 337, ../sass/flat.scss */
 .statistic .icon {
   vertical-align: top;
   display: inline-block;
@@ -11520,7 +11903,7 @@ table td {
   background: #16a085;
   color: white;
 }
-/* line 344, ../sass/flat.scss */
+/* line 345, ../sass/flat.scss */
 .statistic .icon span {
   display: table-cell;
   width: 50px;
@@ -11528,7 +11911,7 @@ table td {
   vertical-align: middle;
   text-align: center;
 }
-/* line 349, ../sass/flat.scss */
+/* line 350, ../sass/flat.scss */
 .statistic .icon span i {
   font-size: 1.5em;
 }
@@ -11546,5 +11929,4 @@ table td {
 /* line 366, ../sass/flat.scss */
 .statistic #county_name {
   margin-top: 10%;
-  font-size: 1.3em;
 }

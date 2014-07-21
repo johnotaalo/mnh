@@ -9,7 +9,7 @@
 
 
                 <div class="tile map" id="reporting-rates">
-                    <h3>Reporting Rates</h3>
+                    <h5>Reporting Rates</h5>
                     <div class="outer">
                         <div class="map-header">
 
@@ -44,7 +44,7 @@
                                 </ul>
                             </div>
 
-                            <h5 id="current-map">Current Map : None Chosen</h5>
+                            <h6 id="current-map">Current Map : None Chosen</h6>
 
                         </div>
 
@@ -58,13 +58,13 @@
 
                 <!-- Data analysis section-->
                 <div class="tile map-info" id="map-info">
-                    <h3>Data From the Map</h3>
+                    <h5>Data From the Map</h5>
                     <div class="outer">
                        <div class="statistic"><div class="icon"><span><i class="fa fa-map-marker"></i></span></div><div class="data"><span class="text" id="county_name">No County Chosen</span></div></div>
-                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data"><span class="text">Targeted Facilities</span><span class="digit">0</span></div></div>
-                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div>
-                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div>
-                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="targeted"><span class="text">Targeted Facilities</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="finished"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="started"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
 
                         <button><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
                     </div>
@@ -133,7 +133,7 @@
                 $('#mnh-map').css(styles2);
                 $('#ch-map').css(styles2);
             });
-            runMap('empty','empty');
+            runMap('county','empty');
             $('.dropdown-menu li a').click(function(){
                 survey=$(this).attr('data-survey');
                 survey_category=$(this).attr('data-survey-category');
@@ -144,6 +144,15 @@
 
             });
         });
+
+        function runCountyData(data){
+            newData=data.split(',');
+            //console.log(newData);
+            base_url = '<?php echo base_url();?>';
+            getCountyData(base_url,newData[0],newData[1],newData[2]);
+        }
+
+
         function runMap(survey,survey_category){
 
             $.ajax({
