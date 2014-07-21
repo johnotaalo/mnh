@@ -1826,7 +1826,7 @@ ORDER BY f.fac_county ASC;";
             
             /*using CI Database Active Record*/
             try {
-                $query = "SELECT county_name FROM counties;";
+                $query = "SELECT county_name, county_id FROM counties;";
 
  /* $query = "SELECT
     f.fac_county as county, c.county_id as countyID

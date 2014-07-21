@@ -51,9 +51,7 @@
                         	
                            <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small> 
                             <h4 style="float:right;padding-right:3%;"><?php //echo $this->session->userdata('county_analytics') ?>
-
-
-                            </h4>
+							</h4>
                         </h3>
 
                         <ul class="breadcrumb">

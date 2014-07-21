@@ -219,11 +219,11 @@ $this->getTreatments();
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
         $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
-        foreach ($this->data_found as $value) {
-            $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
+		foreach ($this->data_found as $value) {
+			$this->selectReportingCounties.= '<option value="' . $value['county_name'] . '">' . $value['county_name'] . '</option>' . '<br />';
         }
-
-        //var_dump($this -> session -> userdata('allCounties')); die;
+		
+        //var_dump($this -> session -> userdata('allCounties')); exit;
         return $this->selectReportingCounties;
     }
 

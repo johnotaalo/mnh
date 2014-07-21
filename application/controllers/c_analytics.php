@@ -233,7 +233,9 @@ ORDER BY fac_level;");
     }
     
     public function getAllReportedCounties($survey, $survey_category) {
-        $reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
+        //$reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
+		$reportingCounties = $this->m_analytics->getReportingCounties($survey, $survey_category);
+        
         //echo "<pre>";print_r(($reportingCounties));echo "</pre>";die;
         //m var_dump($reportingCounties);
         $counter = 0;
