@@ -316,28 +316,103 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
         $query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
+
+
         try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('facilities', $value)) {
+                            array_push($cat,$value['training']);
+                            array_push($data['trained'],$value['trained']+= (int)$value['trained']);
+                            array_push($data['working'],$value['working']+= (int)$value['working']);
+                        } 
+                    }
+
+
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+               case 'mnh':
+               //$data_categories[] = $this->getMNHGuideName($value_['training']);
+                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+               break;
+
+               case 'ch':
+               //$data_categories[] = $this->getCHGuideName($value_['training']);
+                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+               break;
+                      }
+                } else {
+                    return null;
+                }
+                $this->dataSet = $data;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+        }
+
+
+
+        /*try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             $cat=$data['trained']=$data['working']=array();
-            //echo($this->db->last_query());die;
+            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            foreach ($this->dataSet as $value_) {
             if ($this->dataSet !== NULL) {
                 foreach ($this->dataSet as $value) {
                     array_push($cat,$value['training']);
-                    array_push($data['trained'],$value['trained']);
-                    array_push($data['working'],$value['working']);
+                    array_push($data['trained'],$value['trained']+= (int)$value['trained']);
+                    array_push($data['working'],$value['working']+= (int)$value['trained']);
                     }
-                //echo "<pre>";print_r($data);echo "</pre>";die;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     }
+            switch ($survey) {
+               case 'mnh':
+               //$data_categories[] = $this->getMNHGuideName($value_['training']);
+                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+               break;
+
+               case 'ch':
+               //$data_categories[] = $this->getCHGuideName($value_['training']);
+                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+               break;
+             }
+           }
+             $data['categories'] = (array_values(array_unique($data_categories)));
+             //$data['responses'] = $data_set;
+             $this->dataSet = $data;
+
+              echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     }
+                   
+                    
         catch(exception $ex) {
             
             //ignore
             //die($ex->getMessage());//exit;
             
         }
+       // 
         return $data;
-    }
+    }*/
     
     /*
      * Commodity Availability
@@ -738,30 +813,7 @@ ORDER BY lq.lq_response ASC";
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
         
-        /* $query = "SELECT
-        count(ea.ae_availability) AS total_response,
-        ea.eq_code as equipment,
-        ea.ae_availability AS frequency
-        FROM
-        available_equipments ea
-        WHERE
-        ea.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-        AND ea.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = 'ort')
-        GROUP BY ea.eq_code , ea.ae_availability
-        ORDER BY ea.eq_code ASC";*/
+        
         try {
             
             $this->dataSet = $this->db->query($query, array($value));
@@ -1755,7 +1807,6 @@ ORDER BY oa.question_code ASC";
                             $data[$value['equipment_name']]['non_functional']+= (int)$value['total_non_functional'];
                         }
                     }
-                    
                     /**
                      * Fix Data
                      */
@@ -1787,6 +1838,7 @@ ORDER BY oa.question_code ASC";
                 } else {
                     return null;
                 }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
             catch(exception $ex) {
                 
@@ -1798,7 +1850,82 @@ ORDER BY oa.question_code ASC";
             
             return $data;
         }
-        
+        public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_commodity_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('total_functional', $value)) {
+                            $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
+                            $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }
+                    }
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+                } else {
+                    return null;
+                }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+        }
         /**
          * [getSuppliesStatistics description]
          * @param  [type] $criteria  [description]

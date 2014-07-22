@@ -458,36 +458,13 @@ ORDER BY fac_level;");
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-        foreach ($results as $key => $result) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $category[] = $key;
-            foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' && $name != 'N/A' ) {
-                    $data[$name][] = (int)$value;
-                }
-            }
-        }
-        foreach ($data as $key => $val) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $key = str_replace(' ', '-', $key);
-            $resultArray[] = array('name' => $key, 'data' => $val);
-            //print_r($resultArray[]);die;
-        }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-    }
-    
-    public function getTrainedStaffOne($criteria, $value, $survey, $for) {
-        $yes = $no = $resultsArray = array();
-        $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
         
         //echo '<pre>';print_r($results);echo '</pre>';die ;
         $finalYes = $finalNo = $category = array();
 
         foreach ($results as $key => $county) {
-            foreach ($county['trained_values'] as $k => $t) {
+           // echo '<pre>';print_r($county);echo '</pre>';die ;
+            foreach ($county['trained'] as $k => $t) {
                 
                 if ($k == $training) {
                     $finalYes[] = $t;
@@ -496,7 +473,7 @@ ORDER BY fac_level;");
             }
 
             
-            foreach ($county['working_values'] as $k => $w) {
+            foreach ($county['working'] as $k => $w) {
                 if ($k == $training) {
                     $finalNo[] = $w;
                     $categories[] = $key;
@@ -506,24 +483,57 @@ ORDER BY fac_level;");
         
         //echo '<pre>';print_r($finalYes);echo '</pre>';
         $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+        //echo '<pre>';print_r($resultArray);echo '</pre>';
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+    
+    public function getTrainedStaffOne($criteria, $value, $survey, $for) {
+        $yes = $no = $resultsArray = array();
+        $value = urldecode($value);
+        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
+        
+        //echo '<pre>';print_r($resultsArray);echo '</pre>';die ;
+        $finalYes = $finalNo = $category = array();
+
+        foreach ($results as $key => $county) {
+            foreach ($county['trained'] as $k => $t) {
+                
+                if ($k == $training) {
+                    $finalYes[] = $t;
+                    $categories[] = $key;
+                }
+            }
+
+            
+            foreach ($county['working'] as $k => $w) {
+                if ($k == $training) {
+                    $finalNo[] = $w;
+                    $categories[] = $key;
+                }
+            }
+        }
+        
+        //echo '<pre>';print_r($finalYes);echo '</pre>';
+        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
+        //echo '<pre>';print_r($resultsArray);echo '</pre>';die ;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
 
     }
     
-    public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh', 'availability');
+    public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
     
-    public function getCommodityAvailabilityUnavailability($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh', 'unavailability');
+    public function getMNHCommodityAvailabilityUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'unavailability');
     }
     
-    public function getCommodityAvailabilityLocation($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh', 'location');
+    public function getMNHCommodityAvailabilityLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'location');
     }
     
-    public function getCommodityAvailabilityQuantities($criteria, $value, $survey) {
-        $this->getCommodityAvailability($criteria, $value, $survey, 'mnh', 'quantity');
+    public function getMNHCommodityAvailabilityQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'quantity');
     }
     
     public function getCommodityAvailability($criteria, $value, $survey, $for, $statistic) {
@@ -681,6 +691,27 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
     
+    public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
+        $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
+        
+        foreach ($results as $key => $result) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'Sometimes Available') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
 
     /**
      * [getResourcesStatistics description]

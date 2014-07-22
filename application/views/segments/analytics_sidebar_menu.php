@@ -264,16 +264,16 @@ case 'mnh' :
 		<li id="commodities-parent-mnh" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Commodities</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="commodityAvailabilityFrequency">
+				<li id="MNHcommodityAvailabilityFrequency">
 					<a href="#">Commodity Availability</a>
 				</li>
-				<li id="commodityAvailabilityUnavailability">
+				<li id="MNHcommodityAvailabilityUnavailability">
 					<a href="#">Commodity Reasons For Unavailability</a>
 				</li>
-				<li id="commodityAvailabilityLocation">
+				<li id="MNHcommodityAvailabilityLocation">
 					<a href="#">Commodity Location</a>
 				</li>
-				<li id="commodityAvailabilityQuantities">
+				<li id="MNHcommodityAvailabilityQuantities">
 					<a href="#">Commodity Quantities</a>
 				</li>
 				<li id="MNHCommoditySuppliers">
