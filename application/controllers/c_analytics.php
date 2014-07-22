@@ -233,20 +233,18 @@ ORDER BY fac_level;");
     }
     
     public function getAllReportedCounties($survey, $survey_category) {
-        //$reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
-		$reportingCounties = $this->m_analytics->getReportingCounties($survey, $survey_category);
-        
-        //echo "<pre>";print_r(($reportingCounties));echo "</pre>";die;
-        //m var_dump($reportingCounties);
+        $reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
+		
+        //echo "<pre>";print_r($reportingCounties);echo "</pre>";die;
         $counter = 0;
         $allProgress = '';
         foreach ($reportingCounties as $key => $county) {
-            
+        	
             //echo $key;
             $allProgress.= $this->getReportedCounty($county, $key);
             $counter++;
         }
-        echo $allProgress;
+		echo $allProgress;die;
     }
     
     public function getOneReportingCounty($county, $survey_category) {
