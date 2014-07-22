@@ -238,20 +238,23 @@ function notify_email(email, message) {
 }
 
 function getCountyData(base_url,county,survey_type,survey_category){
- $.ajax({
+    $.ajax({
         url: base_url+'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         },
         success: function(data) {
-             obj = jQuery.parseJSON(data);
+            obj = jQuery.parseJSON(data);
             console.log(obj);
             $('#county_name').text(county);
+            $('#survey_type').text(survey_type.toUpperCase());
+            $('#survey_category').text(survey_category.toUpperCase());
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
-            $('#started .digit').text();
-            $('not_started .digit').text((obj[0].actual-obj[0].reported));
-
+            $('#started .digit').text(obj[0].unfinished);
+            $('#not_started .digit').text((parseInt(obj[0].actual)-(parseInt(obj[0].reported)+parseInt(obj[0].unfinished))));
+            url=base_url+'c_analytcs/setActive/'+county+'/' + survey_type + '/' + survey_category;
+            $('#load_analytics').attr('data-url',url)
         }
     });
 }

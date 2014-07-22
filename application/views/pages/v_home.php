@@ -61,12 +61,14 @@
                     <h5>Data From the Map</h5>
                     <div class="outer">
                        <div class="statistic"><div class="icon"><span><i class="fa fa-map-marker"></i></span></div><div class="data"><span class="text" id="county_name">No County Chosen</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-pencil"></i></span></div><div class="data" id="survey"><span class="text" id="survey_type">No Survey Type Chosen</span><span class="text" id="survey_category">No Survey Category Chosen</span></div></div>
+
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="targeted"><span class="text">Targeted Facilities</span><span class="digit">0</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="finished"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="started"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
 
-                        <button><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
+                        <button id="load_analytics"><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
                     </div>
                 </div>
 
@@ -142,6 +144,10 @@
                 $('#current-map').css('textTransform', 'capitalize');
                 runMap(survey,survey_category);
 
+            });
+            $('#load_analytics').click(function(){
+                url = $(this).attr('data-url');
+                window.open(url);
             });
         });
 

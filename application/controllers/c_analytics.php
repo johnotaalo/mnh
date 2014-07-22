@@ -235,6 +235,7 @@ ORDER BY fac_level;");
     public function getAllReportedCounties($survey, $survey_category) {
         $reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
 
+
         //m var_dump($reportingCounties);
         $counter = 0;
         $allProgress = '';
@@ -2205,7 +2206,7 @@ ORDER BY fac_level;");
 
 public function getCountyData($county,$survey_type,$survey_category){
 
-    //$county = urldecode($county);
+    $county = urldecode($county);
     $results = $this->m_analytics->getReportingRatio($county,$survey_type,$survey_category);
     echo json_encode($results);
 

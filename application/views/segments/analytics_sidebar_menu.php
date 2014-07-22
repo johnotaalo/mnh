@@ -14,7 +14,7 @@ switch($this->session->userdata('survey')) {
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 		<li id="home-parent" class="has-sub start">
-			<a href="#"> <i class="fa fa-home"></i> <span class="title">Analytics Summary</span> </a>
+			<a href="#"> <i class="fa fa-home"></i> <span class="title"> Analytics Summary</span> </a>
 		</li>
 		<li id="facility-statistics-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
@@ -201,7 +201,7 @@ case 'mnh' :
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 		<li id="home-parent" class="has-sub start">
-			<a href="#"> <i class="fa fa-home"></i> <span class="title">Analytics Summary</span> </a>
+			<a href="#"> <i class="fa fa-home"></i> <span class="title"> Analytics Summary</span> </a>
 		</li>
 		<li id="facility-statistics-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
