@@ -392,7 +392,7 @@ ORDER BY lq.lq_response ASC";
                 if ($this->dataSet !== NULL) {
                 	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 	 foreach ($this->dataSet as $value) {
-                    	//echo "<pre>";print_r($value);echo "</pre>";die;
+                    	//echo "<pre>";print_r($this->dataSet );echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -403,6 +403,8 @@ ORDER BY lq.lq_response ASC";
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['commodity_name']]['functional']+= (int)$value['total_functional'];
                             $data[$value['commodity_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        }else if(array_key_exists('unit', $value)){
+                        	 $data[$value['commodity_name']]['unit']+= (int)$value['unit'];
                         }
                     }
                     
@@ -1212,7 +1214,7 @@ ORDER BY oa.question_code ASC";
                             $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
-                            foreach ($location as $place) {
+                            foreach ($location as $place){
                                 $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('total_functional', $value)) {
@@ -1291,18 +1293,16 @@ ORDER BY oa.question_code ASC";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
+                        } else if (array_key_exists('locations', $value)) {
+                            $location = explode(',', $value['locations']);
                             foreach ($location as $place) {
                                 $data[$value['supply_name']][$place]+= (int)$value['total_response'];
                             }
-                        } else if (array_key_exists('total_functional', $value)) {
-                            $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
-                            $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
-                        }
+                        } 
                     }
                     
                     /**

@@ -222,7 +222,6 @@ $this->getTreatments();
 		foreach ($this->data_found as $value) {
 			$this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
-		//echo($this->selectReportingCounties);
 		//var_dump($this -> session -> userdata('allCounties')); exit;
         return $this->selectReportingCounties;
     }

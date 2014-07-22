@@ -552,17 +552,18 @@ ORDER BY fac_level;");
     public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getSuppliesStatistics($criteria, $value, $survey, $for, $statistic);
-        echo '<pre>';
-        print_r($results);
-        echo '</pre>';
-        die;
+        // echo '<pre>';
+        // print_r($results);
+        // echo '</pre>';
+        // die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' && $name != 'N/A') {
-                    $data[$name][] = (int)$value;
+                //if ($name != 'Sometimes Available' && $name != 'N/A') {
+                	if ($name != 'Sometimes Available' && $name != 'N/A') {
+                 	$data[$name][] = (int)$value;
                 }
             }
         }
@@ -652,7 +653,8 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
-                if ($name != 'Sometimes Available' ) {
+                //if ($name != 'Sometimes Available' && $name !='N/A') {
+                	if ($name != 'Sometimes Available') {
                     $data[$name][] = (int)$value;
                 }
             }
