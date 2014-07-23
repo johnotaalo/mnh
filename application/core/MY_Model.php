@@ -120,11 +120,11 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> treatmentCommodity;
 	}
-	function getAllCommodityNames($surveyName) {
+	function getAllCommodityNames() {
 		/*using DQL*/
 		try {
-			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit, c.commFor FROM models\Entities\Commodities c WHERE c.commFor= :surveyName ORDER BY c.commCode ASC');
-			$this -> commodity -> setParameter('surveyName', $surveyName);
+			$this -> commodity = $this -> em -> createQuery('SELECT c.commId, c.commCode, c.commName, c.commUnit, c.commFor FROM models\Entities\Commodities c ORDER BY c.commFor, c.commCode ASC');
+			
 			$this -> commodity = $this -> commodity -> getResult();
 			//die(var_dump($this->commodity));
 		} catch(exception $ex) {
@@ -175,11 +175,11 @@ class  MY_Model  extends  CI_Model {
 		return $this -> challenges;
 	}/*end of getAllSupplyNames*/
 
-	function getAllEquipmentNames($surveyName) {
+	function getAllEquipmentNames() {
 		/*using DQL*/
 		try {
-			$this -> equipment = $this -> em -> createQuery('SELECT e.eqId, e.eqCode, e.eqName, e.eqUnit FROM models\Entities\Equipments e WHERE e.eqFor= :survey ORDER BY e.eqId ASC');
-			$this -> equipment -> setParameter('survey', $surveyName);
+			$this -> equipment = $this -> em -> createQuery('SELECT e.eqId, e.eqCode, e.eqName, e.eqUnit, e.eqFor FROM models\Entities\Equipments e  ORDER BY e.eqFor, e.eqCode ASC');
+			
 			$this -> equipment = $this -> equipment -> getResult();
 			//die(var_dump($this->equipment));
 		} catch(exception $ex) {
@@ -318,6 +318,21 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> treatmentbytype;
 	}
+	
+	function getTreatmentsTotal()
+	{
+		try {
+			$this -> treatmentbytype = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentFor,t.treatmentCode ASC');
+			
+			$this -> treatmentbytype = $this-> treatmentbytype -> getResult();
+			//die(var_dump($this->treatmentbytype));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentbytype;
+	}
+
 	function getAllTrainingGuidelines($surveyName) {
 		/*using DQL*/
 		try {

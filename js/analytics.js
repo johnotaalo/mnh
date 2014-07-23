@@ -21,7 +21,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     //$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
     //$('#breadcrumb-sub-title').text(smallText);
 
-    
+
     //Load Initial Graphs
 
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
@@ -131,14 +131,16 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
         $('ul.sub li').removeClass('active');
         $(this).addClass('active');
-        $('.has-sub.start').removeClass('active');
-        $('.has-sub.start a').remove('span');
+        $('ul.sub li a i').remove();
+        $(this).find('a').append('<i class="fa fa-eye"></i>');
+
+        $('.panel-heading').removeClass('active');
 
         $('span.statistic').text($(this).find('a').text());
-        $('#breadcrumb-title').text( $(this).parent().parent().find('a .title').text());
+        $('#breadcrumb-title').text( $(this).parent().parent().parent().parent().find('.panel-title a').text());
         $('#breadcrumb-sub-title').text($(this).find('a').text());
-        $(this).parent().parent().addClass('active');
-        $(this).parent().parent().find('a').append('<span class="selected"></span>');
+        $(this).parent().parent().parent().parent().find('.panel-heading').addClass('active');
+        //$(this).parent().parent().find('a').append('<span class="selected"></span>');
 
         currentChart = $(this).attr('id');
 
@@ -149,13 +151,65 @@ function startAnalytics(base_url, county, survey,survey_category) {
         function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_county, '#graph_county');
 
-        function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
-        loadGraph(base_url, function_url_district, '#graph_district');
+        //function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
+        //loadGraph(base_url, function_url_district, '#graph_district');
 
-        function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
-        loadGraph(base_url, function_url_facility, '#graph_facility');
+        //function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
+        //loadGraph(base_url, function_url_facility, '#graph_facility');
+    });
+$("#district_compare").click(function() {
+        compare = 'district';
+        //Load fields
+        $('select#compare_1').load(base_url + 'c_analytics/getSpecificDistrictNames');
+        $('select#compare_2').load(base_url + 'c_analytics/getSpecificDistrictNames');
+        $("#graph_10").empty();
+        $("#graph_11").empty();
+        $('#compareModal').modal('show');
+
+        //district = encodeURI(district);
+        statistic = $('ul.sub li.active a').text();
+        $('#compare_title').text(statistic);
+        $('#compare_title_1').text(statistic);
+        $('#compare_title_2').text(statistic);
+        $('#graph_10').delay(4000).queue(function(nxt) {
+            district = decodeURI(district);
+            $("select#compare_1").val(district);
+            district = encodeURI(district);
+            $('#graph_10').load(currentChart + '/district/' + district + '/' + survey + '/' + extraStat);
+            nxt();
+        });
+
+        //clearInterval(loadChart);
+
+
+
+        //$('').load('');
+        //bootbox.alert().load("<div>HELLO</div>");
     });
 
+            $("#county_compare").click(function() {
+                compare = 'county';
+                $('select#compare_1').empty();
+                $('select#compare_2').empty();
+                $('select#compare_1').load(base_url + 'c_analytics/getReportingCountyList/' + survey);
+                $('select#compare_2').load(base_url + 'c_analytics/getReportingCountyList/' + survey);
+                $("#graph_10").empty();
+                $("#graph_11").empty();
+                $('#compareModal').modal('show');
+
+                //county = decodeURI(county);
+                statistic = $('ul.sub li.active a').text();
+                $('#compare_title').text(statistic);
+                $('#compare_title_1').text(statistic);
+                $('#compare_title_2').text(statistic);
+                $('#graph_10').delay(4000).queue(function(nxt) {
+                    county = decodeURI(county);
+                    $("select#compare_1").val(county);
+                    county = encodeURI(county);
+                    $('#graph_10').load(currentChart + 'county/' + county + '/' + survey + '/' + extraStat);
+                    nxt();
+                });
+            });
     //Change Event for District Select
     $('select#fi_district').change(function() {
 
@@ -183,6 +237,22 @@ function startAnalytics(base_url, county, survey,survey_category) {
         loadGraph(base_url, function_url_facility, '#graph_facility');
 
     });
+    //Change Event for District Select
+            $('select#compare_1').change(function() {
+                $("#graph_10").empty();
+                compar2 = $('select#compare_1 option:selected').text();
+                compar2 = encodeURIComponent(compar2);
+                $("#graph_10").load(currentChart + compare + '/' + compar2 + '/' + survey + '/' + extraStat);
+                //$('#graph_10').load(currentChart+'district/'+district+'/ch/'+extraStat);
+            });
+
+            $('select#compare_2').change(function() {
+                $("#graph_11").empty();
+                compar = $('select#compare_2 option:selected').text();
+                compar = encodeURIComponent(compar);
+                $("#graph_11").load(currentChart + compare + '/' + compar + '/' + survey + '/' + extraStat);
+                //$('#graph_10').load(currentChart+'district/'+district+'/ch/'+extraStat);
+            });
 
     /**
      * [Facility List]
