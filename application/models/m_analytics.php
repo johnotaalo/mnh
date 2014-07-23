@@ -286,7 +286,7 @@ ORDER BY lq.lq_response ASC";
             }
             
             //die(var_dump($this->dataSet));
-            
+           // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             
         }
         catch(exception $ex) {
@@ -315,7 +315,7 @@ ORDER BY lq.lq_response ASC";
         
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
-        $query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
+        $query = "CALL get_staff_trained('". $criteria."', '".$value."', '".$survey."','".$for."');";
 
 
         try {
@@ -327,33 +327,39 @@ ORDER BY lq.lq_response ASC";
                 $queryData->free_result();
                 
                 //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
+                if ($this->dataSet !== NULL ) {
+                  //  echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
-                        if (array_key_exists('facilities', $value)) {
-                            array_push($cat,$value['training']);
-                            array_push($data['trained'],$value['trained']+= (int)$value['trained']);
-                            array_push($data['working'],$value['working']+= (int)$value['working']);
-                        } 
+                        if (array_key_exists('frequency', $value)) {
+                            $data_t[$value['guide_name']][$value['frequency']] += (int)$value['trained'];
+                            $data_w[$value['guide_name']][$value['frequency']] += (int)$value['working'];
+                            $data_a[$value['guide_name']][$value['frequency']] += (int)$value['trained_after'];
+                        }
                     }
-
-
                     /**
                      * Fix Data
                      */
                     switch ($survey) {
                case 'mnh':
                //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+                  $data['categories'] = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
                break;
 
                case 'ch':
                //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+                  $data['categories'] = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
                break;
                       }
                 } else {
                     return null;
                 }
+
+        
+                    
+                    
+                
+                $data['trained'] = $data_t;
+                $data['working'] = $data_w;
                 $this->dataSet = $data;
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
@@ -370,49 +376,7 @@ ORDER BY lq.lq_response ASC";
 
 
 
-        /*try {
-            $this->dataSet = $this->db->query($query, array($value));
-            $this->dataSet = $this->dataSet->result_array();
-            $cat=$data['trained']=$data['working']=array();
-            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            foreach ($this->dataSet as $value_) {
-            if ($this->dataSet !== NULL) {
-                foreach ($this->dataSet as $value) {
-                    array_push($cat,$value['training']);
-                    array_push($data['trained'],$value['trained']+= (int)$value['trained']);
-                    array_push($data['working'],$value['working']+= (int)$value['trained']);
-                    }
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    }
-            switch ($survey) {
-               case 'mnh':
-               //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
-               break;
-
-               case 'ch':
-               //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
-               break;
-             }
-           }
-             $data['categories'] = (array_values(array_unique($data_categories)));
-             //$data['responses'] = $data_set;
-             $this->dataSet = $data;
-
-              echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    }
-                   
-                    
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-        }
-       // 
-        return $data;
-    }*/
+       
     
     /*
      * Commodity Availability
@@ -2156,8 +2120,7 @@ LIMIT 0 , 1000
             
 
             $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
-            
-            try {
+           try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
@@ -2167,7 +2130,6 @@ LIMIT 0 , 1000
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2210,6 +2172,7 @@ LIMIT 0 , 1000
                 } else {
                     return null;
                 }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
             catch(exception $ex) {
                 
