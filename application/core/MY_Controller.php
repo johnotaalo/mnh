@@ -17,11 +17,11 @@ public $session_survey_category;
 
     function __construct() {
         parent::__construct();
-        
+
         /* Instantiate Doctrine's Entity manage so we don't have
-        
+
         to everytime we want to use Doctrine */
-        
+
         $this->em = $this->doctrine->em;
         $this->load->model('m_mnh_survey');
         $this->load->model('m_mch_survey');
@@ -32,11 +32,11 @@ public $session_survey_category;
         $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
 
         $this->treatments=$this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
-        
+
 
         //new sections
         $this->selectAccessChallenges = $this->servicesPDF = $this->services = $this->beds = $this->mnhWasteDisposalAspectsSectionPDF = $this->mnhNewbornCareAspectsSection = $this->mnhPostNatalCareAspectsSection = $this->nurses = $this->hardwareSources = $this->mnhJobAidsAspectsSection = $this->mnhGuidelinesAspectsSection = $this->mnhPreparednessAspectsSection = $this->mnhHIVTestingAspectsSection = '';
-        
+
         //pdf
         $this->hardwareMCHSectionPDF = $this->suppliesMCHSectionPDF = $this->ortCornerAspectsSectionPDF = $this->mchIndicatorsSectionPDF = $this->selectMCHCommoditySuppliersPDF = $this->mchCommodityAvailabilitySectionPDF = $this->mnhKangarooMotherCare = $this->mnhKangarooMotherCarePDF = $this->mnhCommitteeAspectSectionPDF = $this->mnhWasteDisposalAspectsSection = $this->mnhNewbornCareAspectsSectionPDF = $this->mnhPostNatalCareAspectsSectionPDF = $this->nursesPDF = $this->hardwareSourcesPDF = $this->mnhCommunityStrategySectionPDF = $this->selectMCHOtherSuppliersPDF = $this->mchGuidelineAvailabilitySectionPDF = $this->mnhJobAidsAspectsSectionPDF = $this->mnhGuidelinesAspectsSectionPDF = $this->mnhPreparednessAspectsSectionPDF = $this->mnhHIVTestingAspectsSectionPDF = $this->suppliesUsageAndOutageSectionPDF = $this->suppliesMNHOtherSectionPDF = $this->mnhWaterAspectsSectionPDF = $this->selectMNHOtherSuppliersPDF = $this->commodityUsageAndOutageSectionPDF = $this->mnhCEOCAspectsSectionPDF = $this->suppliesSectionPDF = $this->commodityAvailabilitySectionPDF = $this->selectCommoditySuppliersPDF = '';
 
@@ -46,7 +46,7 @@ $this->session_survey_category='';
         $this->myCount = 0;
         $this->mchIndicatorsSection = array();
         $this->getHealthFacilities();
-        
+
         $this->getCountyNames();
         $this->getDisctrictNames();
         $this->getFacilityLevels();
@@ -73,7 +73,7 @@ $this->session_survey_category='';
         $this->createDeliveryEquipmentSection();
         $this->createCommodityUsageAndOutageSection();
         $this->createSuppliesUsageAndOutageSection();
-        
+
         //$this->createTreatmentsMCHSection();
         $this->createFacilitiesListSection();
         $this->createMCHIndicatorsSection();
@@ -82,11 +82,11 @@ $this->session_survey_category='';
         $this->createMNHWaterAspectsSection();
         $this->createMNHCEOCAspectsSection();
         $this->createMCHCommunityStrategySection();
-        
+
         // $this->createHcwProfileSection();
         $this->createmchConsultationSection();
         $this->createHealthSection();
-        
+
         //pdf functions
         $this->getCommoditySuppliersforPDF();
         $this->createBemoncSignalFunctionsSectionforPDF();
@@ -99,7 +99,7 @@ $this->session_survey_category='';
         $this->createSuppliesUsageAndOutageSectionforPDF();
         $this->createMNHWaterAspectsSectionPDF();
         $this->createMNHCommunityStrategySection();
-        
+
         //added section
         //$this->();
         $this->createSevereDiarrhoeaTreatmentTSection();
@@ -113,18 +113,18 @@ $this->session_survey_category='';
         $this->createearresponsetreatment();
 
         //end of added section
-        
+
         $this->createseverePneumoniaTreatmentTSection();
         $this->createPneumoniaTreatmentTSection();
         $this->createmalariaconfrimedtreatmentSection();
         $this->createmalarianotconfrimedtreatmentSection();
-        
+
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
         $this->createQuestionsSectionPDF();
         $this->createQuestionsSection();
         $this->createSuppliesSectionPDF();
-        
+
         //new functions
         $this->getMCHOtherSuppliersforPDF();
         $this->createMNHHIVTestingAspectsSection();
@@ -138,15 +138,15 @@ $this->session_survey_category='';
         $this->createHardwareResourcesMNHSection();
         $this->createHardwareResourcesMNHSectionforPDF();
         $this->createNurses();
-        
+
         $this->createMNHNewbornCareAspectsSection();
         $this->createMNHNewbornCareAspectsSectionforPDF();
         $this->createMNHPostNatalCareAspectsSection();
         $this->createMNHPostNatalCareAspectsSectionforPDF();
-        
+
         $this->createMNHWasteDisposalAspectsSectionforPDF();
         $this->createMNHWasteDisposalAspectsSection();
-        
+
         $this->createMNHCommitteeAspectsSection();
         $this->createMNHCommitteeAspectsSectionforPDF();
         $this->createBeds();
@@ -160,12 +160,12 @@ $this->session_survey_category='';
         $this->createORTCornerAspectsSectionforPDF();
         $this->createSuppliesMCHSectionforPDF();
         $this->createHardwareResourcesMCHSectionforPDF();
-        
+
         $this->createMCHBundlingAvailabilitySection();
         $this->createMCHBundlingAvailabilitySectionforPDF();
-        
+
         $this->getAccessChallenges();
-        
+
         $this->createConsultingAspectsSection();
         $this->createConsultingAspectsSectionforPDF();
 
@@ -182,119 +182,116 @@ $this->getTreatments();
 
 
     }
-    
+
     function getRepositoryByFormName($form) {
         $this->the_form = $this->em->getRepository($form);
         return $this->theForm;
     }
-    
+
     public function getProvinceNames() {
-        
+
         //obtained from the session data
         if ($this->session->userdata('allProvinces'))
-        
+
         //  print var_dump($this -> session -> userdata('allProvinces'));exit;
         foreach ($this->session->userdata('allProvinces') as $key => $value) {
             $this->selectProvince.= '<option value="' . $value['provinceId'] . '">' . $value['provinceName'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this -> session -> userdata('allProvinces')); exit;
         return $this->selectProvince;
     }
-    
+
     public function getDisctrictNames() {
-        
+
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getDistrictNames();
         foreach ($this->data_found as $value) {
             $this->selectDistricts.= '<option value="' . $value['districtId'] . '">' . $value['districtName'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this -> session -> userdata('allDistricts')); exit;
         return $this->selectDistricts;
     }
-    
+
     public function getCountyNames() {
-        
+
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getCountyNames();
         foreach ($this->data_found as $value) {
             $this->selectCounties.= '<option value="' . $value['countyId'] . '">' . $value['countyName'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this -> session -> userdata('allCounties')); exit;
         return $this->selectCounties;
     }
-    
+
     public function getReportingCounties() {
-        
-        /*obtained from the session data*/
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
 
         $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
 
+        //echo "<pre>";print_r($this->data_found);echo "</pre>";die;
         foreach ($this->data_found as $value) {
             $this->selectReportingCounties.= '<option value="' . $value['county'] . '">' . $value['county'] . '</option>' . '<br />';
         }
-
-        
         //var_dump($this -> session -> userdata('allCounties')); exit;
 
         return $this->selectReportingCounties;
     }
-    
+
     public function getSpecificFacilities($mfc = 13001) {
-        
+
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getSpecificFacilityNames($mfc);
         foreach ($this->data_found as $value) {
-            
+
             // $this->selectFacilityType.= '<option value="'.$value['ft_id'].'">'.$value['facility_type'].'</option>'.'<br />';
             $this->selectFacilityType.= '<p>' . $value['fac_name'] . '</p>';
         }
-        
+
         //var_dump($this->data_found); exit;
         return $this->selectFacilityType;
     }
-    
+
     public function getFacilityTypes() {
-        
+
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getFacilityTypeNames();
         foreach ($this->data_found as $value) {
             $this->selectFacilityType.= '<option value="' . $value['ft_id'] . '">' . $value['fac_type'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this->data_found); exit;
         return $this->selectFacilityType;
     }
-    
+
     public function getFacilityLevels() {
-        
+
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getFacilityLevelNames();
         foreach ($this->data_found as $value) {
             $this->selectFacilityLevel.= '<option value="' . $value['flId'] . '">' . $value['flName'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this -> session -> userdata('allFacilityLevels')); exit;
         return $this->selectFacilityLevel;
     }
-    
+
     public function getFacilityOwners() {
-        
+
         /*obtained from the session data*/
-        
+
         $this->data_found = $this->m_mnh_survey->getFacilityOwnerNames();
         foreach ($this->data_found as $value) {
             $this->selectFacilityOwner.= '<option value="' . $value['foId'] . '">' . $value['foName'] . '</option>' . '<br />';
         }
-        
+
         //var_dump($this -> session -> userdata('allFacilityOwners')); exit;
         return $this->selectFacilityOwner;
     }
-    
+
     public function getCommoditySuppliers() {
         $this->data_found = $this->m_mnh_survey->getCommoditySupplierNames();
         $counter = 0;
@@ -303,7 +300,7 @@ $this->getTreatments();
             $this->selectCommoditySuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
-    
+
     public function getCommoditySuppliersforPDF() {
         $this->data_found = $this->m_mnh_survey->getCommoditySupplierNames();
         $counter = 0;
@@ -312,7 +309,7 @@ $this->getTreatments();
             $this->selectCommoditySuppliersPDF.= '<span style="display:inline-block;vertical-align:top">'.$value['supplierName'] . '</span><input type="radio" value="' . $value['supplierCode'] . '" name="supplierName">';
         }
     }
-    
+
     public function getMCHCommoditySuppliers() {
         $this->data_found = $this->m_mch_survey->getCommoditySupplierNames();
         $counter = 0;
@@ -321,7 +318,7 @@ $this->getTreatments();
             $this->selectMCHCommoditySuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
-    
+
     public function getMCHCommoditySuppliersPDF() {
         $this->data_found = $this->m_mch_survey->getCommoditySupplierNames();
         $counter = 0;
@@ -330,7 +327,7 @@ $this->getTreatments();
             $this->selectMCHCommoditySuppliersPDF.= '<span style="display:inline-block;vertical-align:top">'.$value['supplierName'] . '</span><input type="radio" value="' . $value['supplierCode'] . '" name="supplierName">';
         }
     }
-    
+
     public function getAccessChallenges() {
         $this->data_found = $this->m_mch_survey->getAccessChallenges();
         $counter = 0;
@@ -339,7 +336,7 @@ $this->getTreatments();
             $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "" type="radio">' . $value['achName'] . '</td></tr>';
         }
     }
-    
+
     public function getMCHOtherSuppliers() {
         $this->data_found = $this->m_mch_survey->getOtherSupplierNames();
         $counter = 0;
@@ -348,7 +345,7 @@ $this->getTreatments();
             $this->selectMCHOtherSuppliers.= '<span style="display:inline-block;vertical-align:top">'.$value['supplierName'] . '</span><input type="radio" value="' . $value['supplierCode'] . '" name="supplierName">';
         }
     }
-    
+
     public function getMCHOtherSuppliersforPDF() {
         $this->data_found = $this->m_mch_survey->getOtherSupplierNames();
         $counter = 0;
@@ -359,7 +356,7 @@ $this->getTreatments();
 
         }
     }
-    
+
     public function getAllSources() {
         $this->data_found = $this->m_mch_survey->getAllHWSources();
         $counter = 0;
@@ -368,22 +365,22 @@ $this->getTreatments();
             $this->hardwareSources.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
-    
+
     public function getAllSourcesforPDF() {
         $this->data_found = $this->m_mch_survey->getAllHWSources();
-        
+
         //var_dump($this -> data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
             $this->hardwareSourcesPDF.= $value['supplierName'] . '<input type="checkbox">';
         }
-        
+
         //echo $this -> hardwareSourcesPDF;die;
-        
-        
+
+
     }
-    
+
     public function getMNHOtherSuppliers() {
         $this->data_found = $this->m_mnh_survey->getOtherSupplierNames();
         $counter = 0;
@@ -392,7 +389,7 @@ $this->getTreatments();
             $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
         }
     }
-    
+
     public function getMNHOtherSuppliersPDF() {
         $this->data_found = $this->m_mnh_survey->getOtherSupplierNames();
         $counter = 0;
@@ -401,22 +398,22 @@ $this->getTreatments();
             $this->selectMNHOtherSuppliersPDF.= $value['supplierName'] . '<input type="checkbox">';
         }
     }
-    
+
     public function getHealthFacilities() {
         $this->data_found = $this->m_mnh_survey->getFacilityNames();
-        
+
         //var_dump($this -> data_found);die;
         foreach ($this->data_found as $value) {
             $this->selectFacility.= '<option value="' . $value['facName'] . '">' . $value['facName'] . '</option>' . '<br />';
         }
     }
-    
+
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
      * */
     public function createCommodityAvailabilitySection() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
         $retrieved = $this->m_retrieve->retrieveData('available_commodities', 'comm_code');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $survey = $this->session->userdata('survey');
@@ -430,10 +427,10 @@ $this->getTreatments();
                 break;
         }
         $supplier_names = $this->selectCommoditySuppliers;
-        
+
         $availabilities = array('Available', 'Never Available');
         $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $availabilityRow = $locationRow = $expiryRow = $quantityRow = $reasonUnavailableRow = '';
@@ -444,7 +441,7 @@ $this->getTreatments();
                 $reasonUnavailable = ($retrieved[$value['commCode']]['ac_reason_unavailable'] != 'N/A') ? $retrieved[$value['commCode']]['ac_reason_unavailable'] : '';
                 $quantity = ($retrieved[$value['commCode']]['ac_quantity'] != 'N/A') ? $retrieved[$value['commCode']]['ac_quantity'] : '';
             }
-            
+
             foreach ($availabilities as $aval) {
                 if ($availability == $aval) {
                     $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
@@ -511,16 +508,16 @@ $this->getTreatments();
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqCommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->commodityAvailabilitySection;die;
         return $this->commodityAvailabilitySection;
     }
-    
+
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
      * */
     public function createCommodityAvailabilitySectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectCommoditySuppliersPDF;
@@ -574,16 +571,16 @@ $this->getTreatments();
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->commodityAvailabilitySection;die;
         return $this->commodityAvailabilitySectionPDF;
     }
-    
+
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
      * */
     public function createMCHOrtCommodityAvailabilitySection() {
         $this->data_found = $this->m_mch_survey->getCommodityNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectMCHCommoditySuppliers;
@@ -638,18 +635,18 @@ $this->getTreatments();
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mchCommodityAvailabilitySection;die;
         return $this->mchCommodityAvailabilitySection;
     }
-    
+
     public function createMCHOrtCommodityAvailabilitySectionforPDF() {
         $this->data_found = $this->m_mch_survey->getCommodityNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectMCHCommoditySuppliersPDF;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchCommodityAvailabilitySectionPDF.= '<tr>
@@ -701,16 +698,16 @@ $this->getTreatments();
     </tr>';
         }
         $this->myCount = $counter;
-        
+
         //echo $this->mchCommodityAvailabilitySection;die;
         return $this->mchCommodityAvailabilitySectionPDF;
     }
-    
+
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
      * */
     public function createMCHBundlingAvailabilitySection() {
         $this->data_found = $this->m_mch_survey->getBundlingNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = $this->myCount;
         $supplier_names = $this->selectMCHCommoditySuppliers;
@@ -764,14 +761,14 @@ $this->getTreatments();
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mchCommodityAvailabilitySection;die;
         return $this->mchBundling;
     }
-    
+
     public function createMCHBundlingAvailabilitySectionforPDF() {
         $this->data_found = $this->m_mch_survey->getBundlingNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectMCHCommoditySuppliersPDF;
@@ -824,16 +821,16 @@ $this->getTreatments();
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqcommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this -> mchBundlingPDF;die;
         return $this->mchBundlingPDF;
     }
-    
+
     /**Function to create the section: PROVISION OF BEmONC SIGNAL FUNCTIONS IN THE LAST THREE MONTHS
      * */
     public function createBemoncSignalFunctionsSection() {
         $this->data_found = $this->m_mnh_survey->getSignalFunctions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -860,16 +857,16 @@ $this->getTreatments();
             <input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
         </tr>';
         }
-        
+
         //echo $this->signalFunctionsSection;die;
         return $this->signalFunctionsSection;
     }
-    
+
     /**Function to create the section: PROVISION OF BEmONC SIGNAL FUNCTIONS IN THE LAST THREE MONTHS
      * */
     public function createBemoncSignalFunctionsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getSignalFunctions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -894,16 +891,16 @@ $this->getTreatments();
             <input type="hidden"  name="bmsfSignalCode_' . $counter . '" id="bmsfSignalCode_' . $counter . '" value="' . $value['sfacilityMFL'] . '" />
         </tr>';
         }
-        
+
         //echo $this->signalFunctionsSection;die;
         return $this->signalFunctionsSectionPDF;
     }
-    
+
     /**Function to create the section: ORT Corner Aspects
      * */
     public function createORTCornerAspectsSection() {
         $this->data_found = $this->m_mch_survey->getOrtAspectQuestions('ort');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $ort_location = '';
@@ -911,9 +908,9 @@ $this->getTreatments();
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['questionCode'] == 'QUC01') {
-                
+
                 //set follow up question if qn on designated ort location is yes
-                
+
                 $aspect = '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -928,7 +925,7 @@ $this->getTreatments();
         </tr>';
                 $this->ortCornerAspectsSection.= $aspect;
             } else {
-                
+
                 if ($value['questionCode'] == 'QUC02b') {
                     $ort_location = '<tr id="ort_location" style="display:true">
             <td colspan="1">' . $value['questionName'] . '</td>
@@ -956,10 +953,10 @@ $this->getTreatments();
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
-                    
+
                     $this->ortCornerAspectsSection.= $ort_location;
                 } else {
-                    
+
                     $this->ortCornerAspectsSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -977,14 +974,14 @@ $this->getTreatments();
                 }
             }
         }
-        
+
         //echo $this->ortCornerAspectsSection;die;
         return $this->ortCornerAspectsSection;
     }
-    
+
     public function createORTCornerAspectsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getOrtAspectQuestions('ort');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $ort_location = '';
@@ -992,9 +989,9 @@ $this->getTreatments();
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['questionCode'] == 'QUC01') {
-                
+
                 //set follow up question if qn on designated ort location is yes
-                
+
                 $aspect = '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1004,7 +1001,7 @@ $this->getTreatments();
         </tr>';
                 $this->ortCornerAspectsSectionPDF.= $aspect;
             } else {
-                
+
                 if ($value['questionCode'] == 'QUC02b') {
                     $ort_location = '<tr id="ort_location" style="display:true">
             <td colspan="1">' . $value['questionName'] . '</td>
@@ -1032,7 +1029,7 @@ $this->getTreatments();
             </td>
             <input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
-                    
+
                     $this->ortCornerAspectsSectionPDF.= $ort_location;
                 } elseif ($value['questionCode'] == 'QUC02a') {
                     $ort_functional = $this->questionPDF['ortf'];
@@ -1043,7 +1040,7 @@ $this->getTreatments();
             <input type="hidden"  name="ortcAspectCode_' . $counter . '" id="ortcAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>' . $ort_functional;
                 } else {
-                    
+
                     $this->ortCornerAspectsSectionPDF.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1053,22 +1050,22 @@ $this->getTreatments();
                 }
             }
         }
-        
+
         //echo $this->ortCornerAspectsSection;die;
         return $this->ortCornerAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: Child Health--Community Strategy
      * */
     public function createMCHCommunityStrategySection() {
         $this->data_found = $this->m_mch_survey->getMchCommunityStrategyQuestions('cms');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mchCommunityStrategySection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1077,22 +1074,22 @@ $this->getTreatments();
             <input type="hidden"  name="mchCommunityStrategyQCode_' . $counter . '" id="mchCommunityStrategyQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mchCommunityStrategySection;die;
         return $this->mchCommunityStrategySection;
     }
-    
+
     /**Function to create the section: Child Health--Community Strategy
      * */
     public function createMNHCommunityStrategySection() {
         $this->data_found = $this->m_mnh_survey->getMnhCommunityStrategy('cms');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhCommunityStrategySectionPDF.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1101,24 +1098,24 @@ $this->getTreatments();
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCommunityStrategySection;die;
         return $this->mnhCommunityStrategySectionPDF;
     }
-    
+
     /**Function to create the section: Child Health--HCW Work Profile
      * */
     public function createWorkProfileSection() {
         $this->data_found = $this->m_hcw_survey->getworkProfile('wp');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $data = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['questionCode'] == 'QUC32') {
-                
+
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -1131,7 +1128,7 @@ $this->getTreatments();
         </tr>';
                 $this->hcwWorkProfile.= $data;
             } elseif ($value['questionCode'] == 'QUC33') {
-                
+
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -1144,7 +1141,7 @@ $this->getTreatments();
         </tr>';
                 $this->hcwWorkProfile.= $data;
             } elseif ($value['questionCode'] == 'QUC34') {
-                
+
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -1155,7 +1152,7 @@ $this->getTreatments();
         </tr>';
                 $this->hcwWorkProfile.= $data;
             } elseif ($value['questionCode'] == 'QUC35') {
-                
+
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -1168,7 +1165,7 @@ $this->getTreatments();
         </tr>';
                 $this->hcwWorkProfile.= $data;
             } else {
-                
+
                 $this->hcwWorkProfile.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1180,22 +1177,22 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         //echo $this->hcwWorkProfile;die;
         return $this->hcwWorkProfile;
     }
-    
+
     /**Function to create the section: Child Health--Consultation Questions
      * */
     public function createmchConsultationSection() {
         $this->data_found = $this->m_mch_survey->getmchConsultationQuestions('imci');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mchConsultationSection.= '<tr>
             <td colspan="1">(<strong>' . $counter . '</strong>) ' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -1205,16 +1202,16 @@ $this->getTreatments();
             <input type="hidden"  name="mchConsultationQCode_' . $counter . '" id="mchConsultationQCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mchConsultationSection;die;
         return $this->mchConsultationSection;
     }
-    
+
     /**Function to create the section: mnh water availability follow up questions in Section 6 of 7 ii
      * */
     public function createMNHWaterAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhWaterAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1222,7 +1219,7 @@ $this->getTreatments();
         foreach ($this->data_found as $value) {
             $counter++;
             $aspect_response_on_yes = '';
-            
+
             if ($value['questionCode'] == 'QMNH01') {
                 $aspect_response_on_yes = '<label>Water Storage Point</label><br/>
             <input type="text"  name="mnhwAspectWaterSpecify_' . $counter . '" id="mnhwStoragePoint_' . $counter . '" value="" size="45" placeholder="specify"/>';
@@ -1247,16 +1244,16 @@ $this->getTreatments();
             <input type="hidden"  name="mnhwAspectCode_' . $counter . '" id="mnhwAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhWaterAspectsSection;die;
         return $this->mnhWaterAspectsSection;
     }
-    
+
     /**Function to create the section: mnh water availability follow up questions in Section 6 of 7 ii
      * */
     public function createMNHWaterAspectsSectionPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhWaterAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1264,7 +1261,7 @@ $this->getTreatments();
         foreach ($this->data_found as $value) {
             $counter++;
             $aspect_response_on_yes = '';
-            
+
             if ($value['questionCode'] == 'QMNH01') {
                 $aspect_response_on_yes = '<label>Water Storage Point</label><br/>
             <input type="text"  name="mnhwAspectWaterSpecify_' . $counter . '" id="mnhwStoragePoint_' . $counter . '" value="" size="45" placeholder="specify"/>';
@@ -1282,22 +1279,22 @@ $this->getTreatments();
             <input type="hidden"  name="mnhwAspectCode_' . $counter . '" id="mnhwAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhWaterAspectsSection;die;
         return $this->mnhWaterAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createMNHCEOCAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhCeocAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
             $follow_up_question = '';
-            
+
             if ($value['questionCode'] == 'QMNH03') {
                 $follow_up_question = '<tr id="transfusion_y" style="display:none" disabled>
             <td colspan="7">If blood transfusion is performed, indicate <strong>main source</strong> of blood</td>
@@ -1344,7 +1341,7 @@ $this->getTreatments();
             </td>
             </tr>';
             }
-            
+
             $this->mnhCEOCAspectsSection.= '<tr>
         <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1357,21 +1354,21 @@ $this->getTreatments();
         <input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhCEOCAspectsSection;
     }
-    
+
     public function createMNHCEOCAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhCeocAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
             $follow_up_question = '';
-            
+
             if ($value['questionCode'] == 'QMNH03') {
                 $follow_up_question = '
             <tr id="transfusion_y" style="display:none" disabled>
@@ -1412,7 +1409,7 @@ $this->getTreatments();
     </td>
 </tr>';
             }
-            
+
             $this->mnhCEOCAspectsSectionPDF.= '<tr>
         <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1421,15 +1418,15 @@ $this->getTreatments();
         <input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhCEOCAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createMNHHIVTestingAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhHIVTestingAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1448,15 +1445,15 @@ $this->getTreatments();
             <input type="hidden"  name="mnhHIVAspectCode_' . $counter . '" id="mnhHIVAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhHIVTestingAspectsSection;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createConsultingAspectsSection() {
         $this->data_found = $this->m_hcw_survey->getConsultationQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1474,15 +1471,15 @@ $this->getTreatments();
             <input type="hidden"  name="questionAspectCode_' . $counter . '" id="questionAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->hcwConsultingAspectsSection;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii    * */
     public function createConsultingAspectsSectionforPDF() {
         $this->data_found = $this->m_hcw_survey->getConsultationQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1496,22 +1493,22 @@ $this->getTreatments();
             <input type="hidden"  name="hcwConsultingAspectCode_' . $counter . '" id="hcwConsultingAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->hcwConsultingAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: hcw Interview Apsect Section * */
     public function createInterviewAspectsSection() {
         $this->data_found = $this->m_hcw_survey->getInterviewQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['questionCode'] == 'QHC12') {
-                
+
                 $this->hcwInterviewAspectsSection.= '<tr>
             <td><strong>4.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td>
@@ -1526,7 +1523,7 @@ $this->getTreatments();
         </tr>';
             }
             if ($value['questionCode'] == 'QHC13') {
-                
+
                 $this->hcwInterviewAspectsSection.= '<tr>
             <td><strong>4.2.' . $counter . '</strong>  ' . $value['questionName'] . '</td>
             <td>
@@ -1578,20 +1575,20 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         //echo $this->hcwInterviewAspectsSection;die;
         return $this->hcwInterviewAspectsSection;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii    * */
     public function createInterviewAspectsSectionforPDF() {
         $this->data_found = $this->m_hcw_survey->getInterviewQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
-            
+
             $counter++;
             if ($value['questionCode'] == 'QHC12') {
                 $this->hcwInterviewAspectsSectionPDF.= '<tr>
@@ -1635,20 +1632,20 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->hcwInterviewAspectsSectionPDF;
     }
-    
+
     public function createMNHHIVTestingAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhHIVTestingAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhHIVTestingAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
@@ -1657,20 +1654,20 @@ $this->getTreatments();
         <input type="hidden"  name="mnhhivAspectCode_' . $counter . '" id="mnhhivAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhHIVTestingAspectsSectionPDF;
     }
-    
+
     public function createMNHWasteDisposalAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhWasteDisposalAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhWasteDisposalAspectsSection.= '<tr>
             <td colspan="7">' . $value['questionName'] . '</td>
             <td colspan="5">
@@ -1689,20 +1686,20 @@ $this->getTreatments();
             <input type="hidden"  name="wastedisposalAspectCode_' . $counter . '" id="wastedisposalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhWasteDisposalAspectsSection;
     }
-    
+
     public function createMNHWasteDisposalAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhWasteDisposalAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhWasteDisposalAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
@@ -1715,20 +1712,20 @@ $this->getTreatments();
         <input type="hidden"  name="wastedisposalAspectCode_' . $counter . '" id="wastedisposalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhWasteDisposalAspectsSectionPDF;
     }
-    
+
     public function createMNHPostNatalCareAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhPostNatalAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhPostNatalCareAspectsSection.= '<tr>
             <td colspan="7">' . $value['questionName'] . '</td>
             <td colspan="5">
@@ -1742,20 +1739,20 @@ $this->getTreatments();
             <input type="hidden"  name="postnatalAspectCode_' . $counter . '" id="postnatalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhPostNatalCareAspectsSection;
     }
-    
+
     public function createMNHPostNatalCareAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhPostNatalAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhPostNatalCareAspectsSectionPDF.= '<tr>
         <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1764,20 +1761,20 @@ $this->getTreatments();
         <input type="hidden"  name="postnatalAspectCode_' . $counter . '" id="postnatalAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhPostNatalCareAspectsSectionPDF;
     }
-    
+
     public function createMNHCommitteeAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhCommitteeAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhCommitteeAspectSection.= '<tr>
             <td colspan="7">' . $value['questionName'] . '</td>
             <td colspan="5">
@@ -1791,21 +1788,21 @@ $this->getTreatments();
             <input type="hidden"  name="committeeAspectCode_' . $counter . '" id="committeeAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhCommitteeAspectSection;
     }
-    
+
     public function createMNHCommitteeAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhCommitteeAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
             $follow_up_question = '';
-            
+
             $this->mnhCommitteeAspectSectionPDF.= '<tr>
     <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1814,20 +1811,20 @@ $this->getTreatments();
         <input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $counter . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhCommitteeAspectSectionPDF;
     }
-    
+
     public function createMNHNewbornCareAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhNewbornAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhNewbornCareAspectsSection.= '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -1841,20 +1838,20 @@ $this->getTreatments();
             <input type="hidden"  name="newbornAspectCode_' . $counter . '" id="newbornAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhNewbornCareAspectsSection;
     }
-    
+
     public function createMNHNewbornCareAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhNewbornAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhNewbornCareAspectsSectionPDF.= '<tr>
         <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1864,21 +1861,21 @@ $this->getTreatments();
     </tr>
     ';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhNewbornCareAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createMNHPreparednessAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhPreparednessTestingAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhPreparednessAspectsSection.= '<tr>
         <td colspan="7"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="5">
@@ -1891,20 +1888,20 @@ $this->getTreatments();
         <input type="hidden"  name="mnhPreparednessAspectCode_' . $counter . '" id="mnhPreparednessAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhPreparednessAspectsSection;
     }
-    
+
     public function createMNHPreparednessAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhPreparednessTestingAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhPreparednessAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
@@ -1913,15 +1910,15 @@ $this->getTreatments();
         <input type="hidden"  name="mnhpreparednessAspectCode_' . $counter . '" id="mnhpreparednessAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhPreparednessAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createMNHGuidelinesAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhGuidelinesAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1941,20 +1938,20 @@ $this->getTreatments();
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhGuidelinesAspectsSection;die;
         return $this->mnhGuidelinesAspectsSection;
     }
-    
+
     public function createMNHGuidelinesAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhGuidelinesAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhGuidelinesAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
@@ -1964,15 +1961,15 @@ $this->getTreatments();
         <input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhGuidelinesAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: mnh CEOC service provision in Section 2 of 7 iii  * */
     public function createMNHJobAidsAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhJobAidsAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
@@ -1992,20 +1989,20 @@ $this->getTreatments();
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhJobAidsAspectsSection;
     }
-    
+
     public function createMNHJobAidsAspectsSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhJobAidsAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             $this->mnhJobAidsAspectsSectionPDF.= '<tr>
         <td colspan="1"><strong>(' . $counter . ').</strong> ' . $value['questionName'] . '</td>
         <td colspan="1">
@@ -2015,16 +2012,16 @@ $this->getTreatments();
         <input type="hidden"  name="mnhceocAspectCode_' . $counter . '" id="mnhceocAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
     </tr>';
         }
-        
+
         //echo $this->mnhCEOCAspectsSection;die;
         return $this->mnhJobAidsAspectsSectionPDF;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createMCHGuidelineAvailabilitySection() {
         $this->data_found = $this->m_mch_survey->getGuidelineAvailabilityQuestions('gp');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2044,12 +2041,12 @@ $this->getTreatments();
         </tr>';
         }
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createMCHGuidelineAvailabilitySectionforPDF() {
         $this->data_found = $this->m_mch_survey->getGuidelineAvailabilityQuestions('gp');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2065,12 +2062,12 @@ $this->getTreatments();
         }
         return $this->mchGuidelineAvailabilitySectionPDF;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createNurses() {
         $this->data_found = $this->m_mnh_survey->getNursesAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2084,12 +2081,12 @@ $this->getTreatments();
         }
         return $this->nurses;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createKangaroo() {
         $this->data_found = $this->m_mnh_survey->getMnhKangarooAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2108,12 +2105,12 @@ $this->getTreatments();
         }
         return $this->mnhKangarooMotherCare;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createKangarooforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhKangarooAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2127,12 +2124,12 @@ $this->getTreatments();
         }
         return $this->mnhKangarooMotherCarePDF;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createServices() {
         $this->data_found = $this->m_mnh_survey->getMnhServicesAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2151,12 +2148,12 @@ $this->getTreatments();
         }
         return $this->services;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createServicesforPDF() {
         $this->data_found = $this->m_mnh_survey->getMnhServicesAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2170,12 +2167,12 @@ $this->getTreatments();
         }
         return $this->servicesPDF;
     }
-    
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createBeds() {
         $this->data_found = $this->m_mnh_survey->getMnhBedsAspectQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -2189,7 +2186,7 @@ $this->getTreatments();
         }
         return $this->beds;
     }
-    
+
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
         $retrieved = $this->m_retrieve->retrieveData('log_indicators', 'indicator_code');
@@ -2201,7 +2198,7 @@ $this->getTreatments();
         $b = 0;
         $current = "";
         $responseHCWRow = $responseAssessorRow = '';
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $b++;
@@ -2209,11 +2206,11 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             if (array_key_exists($value['indicatorCode'], $retrieved)) {
                 $indicatorHCWResponse = ($retrieved[$value['indicatorCode']]['li_hcwResponse'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_hcwResponse'] : '';
                 $indicatorAssessorResponse = ($retrieved[$value['indicatorCode']]['li_assessorResponse'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_assessorResponse'] : '';
-                
+
                 $indicatorHCWFindings = ($retrieved[$value['indicatorCode']]['li_hcwFindings'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_hcwFindings'] : '';
                 $indicatorAssessorFindings = ($retrieved[$value['indicatorCode']]['li_assessorFindings'] != 'N/A') ? $retrieved[$value['indicatorCode']]['li_assessorFindings'] : '';
             }
@@ -2224,7 +2221,7 @@ $this->getTreatments();
             } else {
                 $responseHCWRow = '<td>Yes <input id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" id="indicatorhcwResponse_' . $counter . '" name="indicatorhcwResponse_' . $counter . '"  type="radio">';
             }
-            
+
             if ($indicatorAssessorResponse == 'Yes') {
                 $responseAssessorRow = '<td>Yes <input checked="checked" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">';
             } else if ($indicatorAssessorResponse == 'No') {
@@ -2232,7 +2229,7 @@ $this->getTreatments();
             } else {
                 $responseAssessorRow = '<td>Yes <input name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="indicatorassessorResponse_' . $counter . '" id="indicatorassessorResponse_' . $counter . '" type="radio">';
             }
-            
+
             $base++;
             $findingRow = '';
 
@@ -2247,7 +2244,7 @@ $this->getTreatments();
                 } else {
                     $findingHCWRow = $findingAssessorRow = '';
                     foreach ($findings as $finding) {
-                        
+
                         if ($finding == 'other (specify)') {
                             if ($indicatorHCWFindings == $finding) {
                                 $findingHCWRow.= $finding . ' <input name="indicatorhcwFindings_' . $counter . '" checked="checked" id="indicatorhcwFindings_' . $counter . '"  type="radio"><input type="text" style="display:none" name="indicatorhcwOtherFindings_' . $counter . '" id="indicatorhcwOtherFindings_' . $counter . '" />';
@@ -2276,7 +2273,7 @@ $this->getTreatments();
                 }
             }
             if ($section != 'svc' && $section != 'ror' && $section != 'tl') {
-                
+
                 if ($value['indicatorName'] == 'Correct Classification') {
                     $data[$section][] = '
                 <tr>
@@ -2321,7 +2318,7 @@ $this->getTreatments();
                     }
                 }
             } else {
-                
+
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
@@ -2330,7 +2327,7 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSection[$key] = '';
             foreach ($value as $val) {
@@ -2341,7 +2338,7 @@ $this->getTreatments();
     }
     public function createMCHIndicatorsSectionforPDF() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
@@ -2354,12 +2351,12 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             $base++;
 
             $findingRow = '';
             if ($section != 'sgn' && $section != 'svc' && $section != 'ror' && $section != 'tl') {
-                
+
                 $findings = explode(';', $value['indicatorFindings']);
                 if (sizeof($findings) == 1) {
                     foreach ($findings as $finding) {
@@ -2415,7 +2412,7 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         foreach ($data as $key => $value) {
             $this->mchIndicatorsSectionPDF[$key] = '';
             foreach ($value as $val) {
@@ -2426,7 +2423,7 @@ $this->getTreatments();
     }
     public function createQuestionsSectionPDF() {
         $this->data_found = $this->m_mch_survey->getAllQuestions();
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
@@ -2439,7 +2436,7 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             $base++;
             if ($value['questionName'] == 'Document cases seen over 3 months') {
                 $data[$section][] = '
@@ -2458,7 +2455,7 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         //echo '<pre>'; print_r( $data);echo '</pre>';die;
         foreach ($data as $key => $value) {
             $this->questionPDF[$key] = '';
@@ -2467,16 +2464,16 @@ $this->getTreatments();
             }
         }
 
-        
+
         //var_dump($this->questionPDF);die;
 
         return $this->questionPDF;
     }
-    
+
     public function createQuestionsSection() {
         $this->data_found = $this->m_mch_survey->getAllQuestions();
         $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $section = '';
@@ -2489,13 +2486,13 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             if (array_key_exists($value['questionCode'], $retrieved)) {
                 $questionResponse = ($retrieved[$value['questionCode']]['lq_response'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_response'] : '';
                 $questionCount = ($retrieved[$value['questionCode']]['lq_question_count'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_count'] : '';
                 $questionReason = ($retrieved[$value['questionCode']]['lq_question_reason'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_reason'] : '';
             }
-            
+
             $base++;
             if ($value['questionName'] == 'Document cases seen over 3 months') {
                 $data[$section][] = '
@@ -2521,7 +2518,7 @@ $this->getTreatments();
         </tr>';
             }
         }
-        
+
         //echo '<pre>'; print_r( $data);echo '</pre>';die;
         foreach ($data as $key => $value) {
             $this->question[$key] = '';
@@ -2529,17 +2526,17 @@ $this->getTreatments();
                 $this->question[$key].= $val;
             }
         }
-        
+
         //var_dump($this->questionPDF);die;
         return $this->question;
     }
     public function createSuppliesSectionPDF() {
         $this->data_found = $this->m_mch_survey->getEverySupplyName();
-        
+
         //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
         $counter = 0;
         $section = '';
-        
+
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -2548,9 +2545,9 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             $base++;
-            
+
             $data[$section][] = '<tr>
             <td  style="width:200px;">' . $value['supplyName'] . '</td>
             <td style="vertical-align: middle; margin: 0px;text-align:center;">
@@ -2582,25 +2579,25 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //var_dump( $data);die;
-        
+
         foreach ($data as $key => $value) {
             foreach ($value as $val) {
                 $this->mchSuppliesPDF[$key].= $val;
             }
         }
-        
+
         //var_dump($this->mchSuppliesPDF);die;
         return $this->mchSuppliesPDF;
     }
     public function createSuppliesSection() {
         $this->data_found = $this->m_mch_survey->getEverySupplyName();
-        
+
         //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
         $counter = 0;
         $section = '';
-        
+
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -2609,10 +2606,10 @@ $this->getTreatments();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
+
             $base++;
             if ($section != 'tst') {
-                
+
                 $quantity = '<td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
             </td>';
@@ -2646,28 +2643,28 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //var_dump( $data);die;
-        
+
         foreach ($data as $key => $value) {
             foreach ($value as $val) {
                 $this->mchSupplies[$key].= $val;
             }
         }
-        
+
         //var_dump($this->mchSuppliesPDF);die;
         return $this->mchSupplies;
     }
-    
+
     /**
      * Function to create the section: INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIdELINES
      *
      */
     public function createStaffTrainingGuidelinesSection() {
         $this->data_found = $this->m_mnh_survey->getTrainingGuidelines();
-        
+
         //var_dump( $this->data_found );die;
-        
+
         $counter = 0;
         $section = '';
         $base = 0;
@@ -2676,7 +2673,7 @@ $this->getTreatments();
         $titles[2] = array('Total in Facility', 'Total Available On Duty');
         $staff = array('Doctor', 'Nurse', 'R.C.O.');
         $count = 0;
-        
+
         //Populate Titles
         foreach ($this->data_found as $value) {
             $count++;
@@ -2688,118 +2685,118 @@ $this->getTreatments();
         }
         $titles[1][] = 'Total Staff Members Still Working';
         $titles[2][] = 'Total Staff Members Still Working';
-        
+
         //echo '<pre>';print_r($titles);echo '</pre>';die;
-        
+
         foreach ($staff as $member) {
             $counter++;
             $row = '<tr><td>' . $member . '<input type="hidden" name="mchTrainingStaff_' . $counter . '" id="mchTrainingStaff_' . $counter . '" value="' . $member . '"></td>';
             foreach ($titles[1] as $header) {
-                
+
                 if (sizeof($header) == 3) {
                     $row.= '<td><input size="50" type="number" name="mchTrainingBefore_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" id="mchTrainingBefore_' . $counter . '" /></td><td><input size="50" type="number" id="mchTrainingAfter_' . $counter . '"  name=mchTrainingAfter_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" /></td>';
                 } else {
                     $row.= '<td><input type="number" name="mchTraining' . str_replace(' ', '', $header) . '_' . $counter . '" id="' . str_replace(' ', '', $header) . '_' . $counter . '"</td>';
                 }
             }
-            
+
             $row.= '</tr>';
-            
+
             //echo '<table>'.$row.'</table>';
             $data[1][$member] = $row;
         }
-        
+
         foreach ($staff as $member) {
             $counter++;
             $row = '<tr><td>' . $member . '<input type="hidden" name="mchTrainingStaff_' . $counter . '" id="mchTrainingStaff_' . $counter . '" value="' . $member . '"></td>';
             foreach ($titles[2] as $header) {
-                
+
                 if (sizeof($header) == 3) {
                     $row.= '<td><input size="50" type="number" name="mchTrainingBefore_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" id="mchTrainingBefore_' . $counter . '" /></td><td><input size="50" type="number" id="mchTrainingAfter_' . $counter . '"  name=mchTrainingAfter_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" /></td>';
                 } else {
                     $row.= '<td><input type="number" name="mchTraining' . str_replace(' ', '', $header) . '_' . $counter . '" id="' . str_replace(' ', '', $header) . '_' . $counter . '"</td>';
                 }
             }
-            
+
             $row.= '</tr>';
-            
+
             //echo '<table>'.$row.'</table>';
             $data[2][$member] = $row;
         }
-        
+
         //echo '<pre>';print_r($data);echo '</pre>';die;
-        
+
         foreach ($data[1] as $key => $value) {
             $this->trainingGuidelineSection[1].= $value;
         }
-        
+
         foreach ($data[2] as $key => $value) {
             $this->trainingGuidelineSection[2].= $value;
         }
-        
+
         //echo $this->mchTrainingGuidelineSection;die;
         return $this->trainingGuidelineSection;
     }
-    
+
     /**Function to create the section: INDICATE WHEN LAST ANY STAFF AT YOUR FACILITY RECEIVED TRAINING ON THE FOLLOWING GUIdELINES
      * */
     public function createMCHStaffTrainingGuidelinesSection() {
         $this->data_found = $this->m_mch_survey->getTrainingGuidelines();
-        
+
         $counter = 0;
         $section = '';
         $base = 0;
         $current = "";
         $titles = array('Total in Facility', 'Total Available On Duty');
         $staff = array('Doctor', 'Nurse', 'R.C.O.', 'Pharmaceutical Staff', 'Lab Staff');
-        
+
         //Populate Titles
         foreach ($this->data_found as $value) {
             $titles[] = array('guide' => $value['guideName'], 'code' => $value['guideCode'], 'training' => 'train');
         }
         $titles[] = 'Total Staff Members Still Working';
-        
+
         //echo '<pre>';print_r($titles);echo '</pre>';die;
-        
+
         foreach ($staff as $member) {
             $counter++;
             $row = '<tr><td>' . $member . '<input type="hidden" name="mchTrainingStaff_' . $counter . '" id="mchTrainingStaff_' . $counter . '" value="' . $member . '"></td>';
             foreach ($titles as $header) {
-                
+
                 if (sizeof($header) == 3) {
                     $row.= '<td><input size="50" type="number" name="mchTrainingBefore_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" id="mchTrainingBefore_' . $counter . '" /></td><td><input size="50" type="number" id="mchTrainingAfter_' . $counter . '"  name=mchTrainingAfter_' . $counter . '[' . str_replace(' ', '', $header['code']) . ']" /></td>';
                 } else {
                     $row.= '<td><input type="number" name="mchTraining' . str_replace(' ', '', $header) . '_' . $counter . '" id="' . str_replace(' ', '', $header) . '_' . $counter . '"</td>';
                 }
             }
-            
+
             $row.= '</tr>';
-            
+
             //echo '<table>'.$row.'</table>';
             $data[$member] = $row;
         }
-        
+
         //echo '<pre>';print_r($data);echo '</pre>';die;
-        
+
         foreach ($data as $key => $value) {
             $this->mchTrainingGuidelineSection.= $value;
         }
-        
+
         //echo $this->mchTrainingGuidelineSection;die;
         return $this->mchTrainingGuidelineSection;
     }
-    
+
     /**Function to create the section: INDICATE THE NUMBER OF UNITS USED AND THE NUMBER OF TIMES COMMODITIES WERE NOT AVAILABILE FOR MORE THAN 7 (SEVEN) DAYS.
      * */
     public function createCommodityUsageAndOutageSection() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['commUnit'] != null) {
                 $unit = $value['commUnit'];
             } else {
@@ -2840,20 +2837,20 @@ $this->getTreatments();
             <input type="hidden"  name="usoccommCode_' . $counter . '" id="usoccommCode_' . $counter . '" value="' . $value['commCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->commodityUsageAndOutageSection;die;
         return $this->commodityUsageAndOutageSection;
     }
-    
+
     public function createCommodityUsageAndOutageSectionPDF() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['commUnit'] != null) {
                 $unit = $value['commUnit'];
             } else {
@@ -2891,20 +2888,20 @@ $this->getTreatments();
             <input type="hidden"  name="usoccommCode_' . $counter . '" id="usoccommCode_' . $counter . '" value="' . $value['commCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->commodityUsageAndOutageSection;die;
         return $this->commodityUsageAndOutageSectionPDF;
     }
-    
+
     public function createSuppliesSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getSupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['supplyUnit'] != null) {
                 $unit = '(' . $value['supplyUnit'] . ')';
             } else {
@@ -2943,21 +2940,21 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->commodityUsageAndOutageSection;die;
         return $this->suppliesSectionPDF;
     }
-    
+
     public function createSuppliesMNHOtherSection() {
         $mh_supplier_names = $this->selectMNHOtherSuppliers;
         $this->data_found = $this->m_mnh_survey->getOthersupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['supplyUnit'] != null) {
                 $unit = '(' . $value['supplyUnit'] . ')';
             } else {
@@ -3007,21 +3004,21 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->createSuppliesMCHSection;die;
         return $this->suppliesMNHOtherSection;
     }
-    
+
     public function createSuppliesMNHOtherSectionPDF() {
         $mh_supplier_namesPDF = $this->selectMNHOtherSuppliersPDF;
         $this->data_found = $this->m_mnh_survey->getOthersupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['supplyUnit'] != null) {
                 $unit = '(' . $value['supplyUnit'] . ')';
             } else {
@@ -3065,21 +3062,21 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->createSuppliesMCHSection;die;
         return $this->suppliesMNHOtherSectionPDF;
     }
-    
+
     public function createSuppliesMCHSection() {
         $ch_supplier_names = $this->selectMCHOtherSuppliers;
         $this->data_found = $this->m_mch_survey->getSupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['supplyUnit'] != null) {
                 $unit = '(' . $value['supplyUnit'] . ')';
             } else {
@@ -3111,21 +3108,21 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->createSuppliesMCHSection;die;
         return $this->suppliesMCHSection;
     }
-    
+
     public function createSuppliesMCHSectionforPDF() {
         $ch_supplier_names = $this->selectMCHOtherSuppliersPDF;
         $this->data_found = $this->m_mch_survey->getSupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['supplyUnit'] != null) {
                 $unit = '(' . $value['supplyUnit'] . ')';
             } else {
@@ -3162,21 +3159,21 @@ $this->getTreatments();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->createSuppliesMCHSection;die;
         return $this->suppliesMCHSectionPDF;
     }
-    
+
     public function createHardwareResourcesMCHSection() {
         $ch_supplier_names = $this->selectMCHOtherSuppliers;
         $this->data_found = $this->m_mch_survey->getEquipmentNames('hwr');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
@@ -3222,20 +3219,20 @@ $this->getTreatments();
             <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         return $this->hardwareMCHSection;
     }
-    
+
     public function createHardwareResourcesMCHSectionforPDF() {
         $ch_supplier_names = $this->selectMCHOtherSuppliersPDF;
         $this->data_found = $this->m_mch_survey->getEquipmentNames('hwr');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
@@ -3272,10 +3269,10 @@ $this->getTreatments();
             <input type="hidden"  name="hwEqCode_' . $counter . '" id="hwEqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         return $this->hardwareMCHSectionPDF;
     }
-    
+
     /**
      * [createHardwareResourcesMNHSection description]
      * @return [type] [description]
@@ -3284,13 +3281,13 @@ $this->getTreatments();
         $ch_supplier_names = $this->selectMCHOtherSuppliers;
         $sources = $this->hardwareSources;
         $this->data_found = $this->m_mch_survey->getEquipmentNames('mhw');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
@@ -3316,23 +3313,23 @@ $this->getTreatments();
             <input type="hidden"  name="hweqCode_' . $counter . '" id="hweqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         return $this->hardwareMNHSection;
     }
-    
+
     public function createHardwareResourcesMNHSectionforPDF() {
-        
+
         $ch_supplier_names = $this->selectMCHOtherSuppliersPDF;
         $sources = $this->hardwareSourcesPDF;
-        
+
         $this->data_found = $this->m_mch_survey->getEquipmentNames('mhw');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
@@ -3358,14 +3355,14 @@ $this->getTreatments();
             <input type="hidden"  name="hweqCode_' . $counter . '" id="hweqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         return $this->hardwareMNHSectionPDF;
     }
-    
+
     public function createEquipmentSection() {
         $this->data_found = $this->m_mnh_survey->getEquipmentNames();
         $retrieved = $this->m_retrieve->retrieveData('available_equipments', 'eq_code');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
@@ -3381,7 +3378,7 @@ $this->getTreatments();
         }
         $availabilities = array('Available', 'Never Available');
         $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $availabilityRow = $locationRow = $expiryRow = $quantityRow = $reasonUnavailableRow = '';
@@ -3391,7 +3388,7 @@ $this->getTreatments();
                 $fully_functioning = ($retrieved[$value['eqCode']]['ae_fully_functional'] != 'N/A') ? $retrieved[$value['eqCode']]['ae_fully_functional'] : '';
                 $non_functioning = ($retrieved[$value['eqCode']]['ae_non_functional'] != 'N/A') ? $retrieved[$value['eqCode']]['ae_non_functional'] : '';
             }
-            
+
             foreach ($availabilities as $aval) {
                 if ($availability == $aval) {
                     $availabilityRow.= '<td style="vertical-align: middle; margin: 0px;text-align:center;">
@@ -3429,7 +3426,7 @@ $this->getTreatments();
             foreach ($locationRowTemp as $temp) {
                 $locationRow.= $temp;
             }
-            
+
             if ($fully_functioning != '') {
                 $fullyFunctioningRow = '<td style ="text-align:center;">
                                         <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  value="' . $fully_functioning . '" size="8" class="numbers" />
@@ -3453,40 +3450,40 @@ $this->getTreatments();
             } else {
                 $unit = '';
             }
-            
+
             $this->equipmentsSection[$value['eqFor']].= '<tr>
             <td >' . $value['eqName'] . ' ' . $unit . ' </td>
             ' . $availabilityRow . '
             ' . $locationRow . '
             ' . $fullyFunctioningRow . '
             ' . $nonFunctioningRow . '
-            
+
             <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
             $this->global_counter = $counter;
         }
-        
+
         //echo $this->commodityUsageAndOutageSection;die;
         return $this->equipmentsSection;
     }
-    
+
     public function createDeliveryEquipmentSection() {
         $this->data_found = $this->m_mnh_survey->getEquipmentNames('dke');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = $this->global_counter;
-        
+
         //pick up from the gen mnh equipment's list
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
                 $unit = '';
             }
-            
+
             $this->deliveryEquipmentSection.= '<tr>
             <td >' . $value['eqName'] . ' ' . $unit . ' </td>
             <td style ="text-align:center;">
@@ -3519,28 +3516,28 @@ $this->getTreatments();
             <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->deliveryEquipmentSection;die;
         return $this->deliveryEquipmentSection;
     }
-    
+
     public function createDeliveryEquipmentSectionPDF() {
         $this->data_found = $this->m_mnh_survey->getEquipmentNames('dke');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = $this->global_counter;
-        
+
         //pick up from the gen mnh equipment's list
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
                 $unit = '';
             }
-            
+
             $this->deliveryEquipmentSection.= '<tr>
             <td >' . $value['eqName'] . ' ' . $unit . ' </td>
             <td style ="text-align:center;">
@@ -3573,37 +3570,37 @@ $this->getTreatments();
             <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->deliveryEquipmentSection;die;
         return $this->deliveryEquipmentSection;
     }
-    
+
     public function createEquipmentMCHSection() {
         $this->data_found = $this->m_mch_survey->getEquipmentNames('ort');
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
-        
+
         $qtyIndicator = '';
-        
+
         //to determine if the equipment needs to be assessed as fully-functioning and not functioning or just quantity (fully-functioning) available only
-        
+
         $equipmentWithFN = array('', 'EQP38', 'EQP28', 'EQP34', 'EQP37');
-        
+
         //equipment whose quantity must indicate the functioning and non-functioning ones
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
-            
+
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
                 $unit = '';
             }
-            
+
             if (array_search($value['eqCode'], $equipmentWithFN) == TRUE) {
-                
+
                 $qtyIndicator = '<td style ="text-align:center;">
             <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  size="8" class="numbers" />
             </td>
@@ -3625,7 +3622,7 @@ $this->getTreatments();
             <input name="eqQtyNonFunctional_' . $counter . '" type="text"  size="8" />
             </td-->';
             }
-            
+
             $this->equipmentsMCHSection.= '<tr>
             <td >' . $value['eqName'] . ' ' . $unit . ' </td>
             <td style ="text-align:center;">
@@ -3653,20 +3650,20 @@ $this->getTreatments();
             <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->equipmentsMCHSection;die;
         return $this->equipmentsMCHSection;
     }
-    
+
     /*public function createTreatmentsMCHSection() {
         $this->data_found = $this->m_mch_survey->getcommNames();
-    
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-    
+
             if ($value['commName'] == 'Others') {
                 $this->severediatreatmentMCHSection.= '<tr>
             <td >' . $value['commName'] . ' ' . $unit . '<input name="mchtTreatmentOther_' . $counter . '" type="text"  size="64" placeholder="please specify"/> </td>
@@ -3709,14 +3706,14 @@ $this->getTreatments();
         </tr>';
             }
         }
-    
+
         //echo $this->equipmentsMCHSection;die;
         return $this->severediatreatmentMCHSection;
     }*/
-    
+
     public function createSuppliesUsageAndOutageSection() {
         $this->data_found = $this->m_mnh_survey->getSupplyNames();
-        
+
         $unit = "";
         $counter = 0;
         foreach ($this->data_found as $value) {
@@ -3759,14 +3756,14 @@ $this->getTreatments();
             <input type="hidden"  name="usosSupplyCode_' . $counter . '" id="usossupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->suppliesUsageAndOutageSection;die;
         return $this->suppliesUsageAndOutageSection;
     }
-    
+
     public function createSuppliesUsageAndOutageSectionforPDF() {
         $this->data_found = $this->m_mnh_survey->getSupplyNames();
-        
+
         //var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
@@ -3806,23 +3803,23 @@ $this->getTreatments();
             <input type="hidden"  name="usosSupplyCode_' . $counter . '" id="usosSupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
         }
-        
+
         //echo $this->suppliesUsageAndOutageSection;die;
         return $this->suppliesUsageAndOutageSectionPDF;
     }
     public function getSection($survey, $fac_mfl, $survey_category) {
-        
+
         /*$this->db->select_max('ast_id', 'maxId');
         $result = $this->db->get_where('assessment_tracker', array('ast_survey' => $survey, 'facilityCode' => $fac_mfl));
         $result = $result->result_array();
         $maxId = $result[0]['maxId'];
-        
+
         $this->db->select('ast_section');
         $result = $this->db->get_where('assessment_tracker', array('ast_id' => $maxId));
         $result = $result->result_array();
-        
+
         //var_dump($result);die;*/
-        $query = "SELECT 
+        $query = "SELECT
     max(ast_section) as ast_section, facilityCode,st.st_name,sc.sc_name
 FROM
     assessment_tracker ast
@@ -3836,23 +3833,23 @@ WHERE facilityCode=" . $fac_mfl . "
 GROUP BY st_name,sc_name,facilityCode;";
         $result = $this->db->query($query);
         $result = $result->result_array();
-        
+
         $section = (($result) != NULL) ? $result[0]['ast_section'] : NULL;
         return json_encode((int)trim($section, 'section-'));
     }
-    
+
     public function createFacilitiesListSection() {
-        
+
         /*retrieve facility list*/
         $this->m_mnh_survey->getFacilitiesByDistrict($this->session->userdata('dName'));
         $counter = 0;
         $link = '';
         $surveyCompleteFlag = '';
         if (count($this->m_mnh_survey->districtFacilities) > 0) {
-            
+
             //set session data
             $this->session->set_userdata(array('fCount' => count($this->m_mnh_survey->districtFacilities)));
-            
+
             //print 'true'; die;
             foreach ($this->m_mnh_survey->districtFacilities as $value) {
                 $counter++;
@@ -3878,10 +3875,10 @@ GROUP BY st_name,sc_name,facilityCode;";
                     $linkClass = 'action';
                 }
 
-                
+
                 $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="'.$progress.'" aria-valuemin="0" aria-valuemax="100" style="width: '.$progress.'%;">'.$progress.'%</div></div></td>';
                 $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
-                
+
                 $this->districtFacilityListSection.= '<tr>
         <td >' . $counter . '</td>
             <td >' . $value['facMfl'] . '</td>
@@ -3891,21 +3888,21 @@ GROUP BY st_name,sc_name,facilityCode;";
             ' . $link . '
             </tr>';
             }
-            
+
             //print 'fs: '.$this->districtFacilityListSection;die;
-            
-            
+
+
         } else {
-            
+
             //print 'false'; die;
             $this->districtFacilityListSection.= '<tr><td colspan="22">No Facilities Found</td></tr>';
         }
     }
-    
+
     /**Function to create malaria treatment section**/
     public function createmalariaconfrimedtreatmentSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $this->mchmalariaconfrimedtreatmentSection.= '
         <select name = "malTreatment" onchange="selectmalconfirmedTreatment(this);" id = "malariaconfirmedtreatment">
         <option value = "malconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -3913,30 +3910,30 @@ GROUP BY st_name,sc_name,facilityCode;";
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['commName'] != 'Others') {
-                
+
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->mchmalariaconfrimedtreatmentSection.= '<option value = "' . $value['commCode'] . '" id = "malconfirmedTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->mchmalariaconfrimedtreatmentSection.= '</select>';
         $this->mchmalariaconfrimedtreatmentSection.= '<ol></ol>';
         $this->mchmalariaconfrimedtreatmentSection.= '</div><div id = "chells">';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchmalariaconfrimedtreatmentSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "ConfirmedMalaria" id = "confirmedtoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '<input type = "number" class = "confirmedtoggled_' . $counter . '" name = "mchtreatmentnumbers[ConfirmedMalaria][]" readonly = "true"></div>';
         }
         return $this->mchmalariaconfrimedtreatmentSection;
     }
-    
+
     public function createmalarianotconfrimedtreatmentSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $this->mchmalarianotconfrimedtreatmentSection.= '
     <select name = "malTreatment" onchange="selectmalnotconfirmedTreatment(this);" id = "malarianotconfirmedtreatment">
     <option value = "malnotconfrimedTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -3945,25 +3942,25 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->mchmalarianotconfrimedtreatmentSection.= '<option value = "' . $value['commCode'] . '" id = "malnotconfirmedTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->mchmalarianotconfrimedtreatmentSection.= '</select>';
         $this->mchmalarianotconfrimedtreatmentSection.= '<ol></ol>';
         $this->mchmalarianotconfrimedtreatmentSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('fev');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchmalarianotconfrimedtreatmentSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "NotConfirmedMalaria" id = "noconfirmedtoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "noconfirmedtoggled_' . $counter . '" name = "mchtreatmentnumbers[NotConfirmedMalaria][]" readonly = "true"></div>';
         }
         return $this->mchmalarianotconfrimedtreatmentSection;
     }
-    
+
     /**Function to create pneumonia treatment**/
     public function createseverePneumoniaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
@@ -3975,25 +3972,25 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->mchpneumoniasevereTreatmentSection.= '<option value = "' . $value['commCode'] . '" id = "pnesevereTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->mchpneumoniasevereTreatmentSection.= '</select>';
         $this->mchpneumoniasevereTreatmentSection.= '<ol></ol>';
         $this->mchpneumoniasevereTreatmentSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchpneumoniasevereTreatmentSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "SeverePneumonia" id = "severepneumoniatoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "severepneumoniatoggled_' . $counter . '" name = "mchtreatmentnumbers[SeverePneumonia][]" readonly = "true"></div>';
         }
         return $this->mchpneumoniasevereTreatmentSection;
     }
-    
+
     public function createPneumoniaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
         $this->mchpneumoniaTreatmentSection.= '
@@ -4005,31 +4002,31 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->mchpneumoniaTreatmentSection.= '<option value = "' . $value['commCode'] . '" id = "pnesevereTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->mchpneumoniaTreatmentSection.= '</select>';
         $this->mchpneumoniaTreatmentSection.= '<ol></ol>';
         $this->mchpneumoniaTreatmentSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('pne');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->mchpneumoniaTreatmentSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "Pneumonia" id = "pneumoniatoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "pneumoniatoggled_' . $counter . '" name = "mchtreatmentnumbers[Pneumonia][]" readonly = "true"></div>';
         }
         return $this->mchpneumoniaTreatmentSection;
     }
-    
+
     /**Function to create diarrhoea section**/
     public function createSevereDiarrhoeaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->severediatreatmentMCHSection.= '
         <select name = "severediaTreatment" onchange="selectseverediaTreatment(this);">
         <option value = "severediaTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -4038,30 +4035,30 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->severediatreatmentMCHSection.= '<option value = "' . $value['commCode'] . '" id = "diaTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->severediatreatmentMCHSection.= '</select>';
         $this->severediatreatmentMCHSection.= '<ol></ol>';
         $this->severediatreatmentMCHSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->severediatreatmentMCHSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "SevereDehydration" id = "severediatoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "severediatoggled_' . $counter . '" name = "mchtreatmentnumbers[SevereDehydration][]" readonly = "true"></div>';
         }
         return $this->severediatreatmentMCHSection;
     }
-    
+
     public function createdysentryTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->dysentrydiaTreatmentMCHSection.= '
         <select name = "dysentryTreatment" onchange="selectdysentryTreatment(this);">
         <option value = "dysentryTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -4070,30 +4067,30 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->dysentrydiaTreatmentMCHSection.= '<option value = "' . $value['commCode'] . '" id = "dysentrydiaTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->dysentrydiaTreatmentMCHSection.= '</select>';
         $this->dysentrydiaTreatmentMCHSection.= '<ol></ol>';
         $this->dysentrydiaTreatmentMCHSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->dysentrydiaTreatmentMCHSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "Dysentry" id = "dysentrytoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "dysentrytoggled_' . $counter . '" name = "mchtreatmentnumbers[Dysentry][]" readonly = "true"></div>';
         }
         return $this->dysentrydiaTreatmentMCHSection;
     }
-    
+
     public function createsomedehydrationDiarrhoeaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->somedehydrationdiaTreatmentMCHSection.= '
         <select name = "somedehydrationdiaTreatment" onchange="selectsomedehydrationdiaTreatment(this);">
         <option value = "somedehydrationdiaTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -4102,30 +4099,30 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->somedehydrationdiaTreatmentMCHSection.= '<option value = "' . $value['commCode'] . '" id = "dysentrydiaTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->somedehydrationdiaTreatmentMCHSection.= '</select>';
         $this->somedehydrationdiaTreatmentMCHSection.= '<ol></ol>';
         $this->somedehydrationdiaTreatmentMCHSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->somedehydrationdiaTreatmentMCHSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "SomeDehydration" id = "somedehydrationtoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "somedehydrationtoggled_' . $counter . '" name = "mchtreatmentnumbers[SomeDehydration][]" readonly = "true"></div>';
         }
         return $this->somedehydrationdiaTreatmentMCHSection;
     }
-    
+
     public function createnodehydrationDiarrhoeaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->nodehydrationdiaTreatmentMCHSection.= '
         <select name = "nodehydration" onchange="selectnodehydrationdiaTreatment(this);">
         <option value = "nodehydrationTreatment_0" id = "not_selected">Select a treatment</option>';
@@ -4134,30 +4131,30 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->nodehydrationdiaTreatmentMCHSection.= '<option value = "' . $value['commCode'] . '" id = "nodehydrationTreatment_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->nodehydrationdiaTreatmentMCHSection.= '</select>';
         $this->nodehydrationdiaTreatmentMCHSection.= '<ol></ol>';
         $this->nodehydrationdiaTreatmentMCHSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->nodehydrationdiaTreatmentMCHSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "NoDehydration" id = "nodehydrationtoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "nodehydrationtoggled_' . $counter . '" name = "mchtreatmentnumbers[NoDehydration][]" readonly = "true"></div>';
         }
         return $this->nodehydrationdiaTreatmentMCHSection;
     }
-    
+
     public function createnoclassificationDiarrhoeaTreatmentTSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->noclassificationdiaTreatmentMCHSection.= '
         <select name = "noclassificationtreat" onchange="selectnoclassificationTreatment(this);">
         <option value = "noclassification_0" id = "not_selected">Select a treatment</option>';
@@ -4166,30 +4163,30 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->noclassificationdiaTreatmentMCHSection.= '<option value = "' . $value['commCode'] . '" id = "noclassification_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
         $this->noclassificationdiaTreatmentMCHSection.= '</select>';
         $this->noclassificationdiaTreatmentMCHSection.= '<ol></ol>';
         $this->noclassificationdiaTreatmentMCHSection.= '</div><div>';
-        
+
         $this->data_found = $this->m_mch_survey->getTreatmentFor('dia');
-        
+
         $counter = 0;
-        
+
         foreach ($this->data_found as $value) {
             $counter++;
             $this->noclassificationdiaTreatmentMCHSection.= '<div class = "specific-treatment"><input type = "checkbox" name = "NoClassification" id = "noclassificationtoggled_' . $counter . '" value = "' . $value['treatmentCode'] . '" onchange = "check(this)">' . $value['treatmentName'] . '</input><input type = "number" class = "noclassificationtoggled_' . $counter . '" name = "mchtreatmentnumbers[NoClassification][]" readonly = "true"></div>';
         }
         return $this->noclassificationdiaTreatmentMCHSection;
     }
-    
+
     public function createcoughresponsetreatmentsection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->othertreatmentsection.= '
         <select name = "othertreat" onchange="selectothertreatmentTreatment(this);">
         <option value = "othertreat_0" id = "not_selected">Select a treatment</option>';
@@ -4198,7 +4195,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->othertreatmentsection.= '<option value = "' . $value['commCode'] . '" id = "othertreat_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
@@ -4206,12 +4203,12 @@ GROUP BY st_name,sc_name,facilityCode;";
         $this->othertreatmentsection.= '<ol></ol>';
         return $this->othertreatmentsection;
     }
-    
+
     public function creatediarrhoearesponsetreatmentsection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->diaresponsetreatmentsection.= '
         <select name = "diaresponse" onchange="selectdiaresponseTreatment(this);">
         <option value = "diaresponse_0" id = "not_selected">Select a treatment</option>';
@@ -4220,7 +4217,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->diaresponsetreatmentsection.= '<option value = "' . $value['commCode'] . '" id = "othertreat_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
@@ -4228,12 +4225,12 @@ GROUP BY st_name,sc_name,facilityCode;";
         $this->diaresponsetreatmentsection.= '<ol></ol>';
         return $this->diaresponsetreatmentsection;
     }
-    
+
     public function createfeverresponsetreatment() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->fevresponsetreatmentsection.= '
         <select name = "fevresponse" onchange="selectfevresponseTreatment(this);">
         <option value = "fevresponse_0" id = "not_selected">Select a treatment</option>';
@@ -4242,7 +4239,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->fevresponsetreatmentsection.= '<option value = "' . $value['commCode'] . '" id = "othertreat_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
@@ -4250,12 +4247,12 @@ GROUP BY st_name,sc_name,facilityCode;";
         $this->fevresponsetreatmentsection.= '<ol></ol>';
         return $this->fevresponsetreatmentsection;
     }
-    
+
     public function createearresponsetreatment() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
-        
+
         $counter = 0;
-        
+
         $this->earresponsetreatmentsection.= '
         <select name = "earresponse" onchange="selectearresponseTreatment(this);">
         <option value = "earresponse_0" id = "not_selected">Select a treatment</option>';
@@ -4264,7 +4261,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             $counter++;
             if ($value['commName'] != 'Others') {
                 $unit = ($value['commUnit'] != '') ? ' [' . $value['commUnit'] . ']' : '';
-                
+
                 $this->earresponsetreatmentsection.= '<option value = "' . $value['commCode'] . '" id = "othertreat_' . $counter . '">' . $value['commName'] . ' ' . $unit . '</option>';
             }
         }
@@ -4272,20 +4269,20 @@ GROUP BY st_name,sc_name,facilityCode;";
         $this->earresponsetreatmentsection.= '<ol></ol>';
         return $this->earresponsetreatmentsection;
     }
-    
+
     /**Function to create the section: Child Health--Health Services Questions
-    
+
      * */
     public function createHealthSection() {
         $this->data_found = $this->m_mch_survey->getMchHealthQuestions('hs');
-        
+
         //var_dump($this->data_found);die;
         $counter = 0;
         $data = '';
         foreach ($this->data_found as $value) {
             $counter++;
             if ($value['questionCode'] == 'QUC30') {
-                
+
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
@@ -4303,7 +4300,7 @@ GROUP BY st_name,sc_name,facilityCode;";
         </tr>';
                 $this->HealthSection.= $data;
             } else {
-                
+
                 $this->HealthSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
@@ -4324,14 +4321,14 @@ GROUP BY st_name,sc_name,facilityCode;";
         </tr>';
             }
         }
-        
+
         //echo $this->HealthSection;die;
         return $this->HealthSection;
     }
 
     public function getTreatments(){
         $this->data_found = $this->m_mch_survey->getTreatmentsTotal();
-        
+
 
         $counter = 0;
 
