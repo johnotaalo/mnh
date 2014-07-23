@@ -128,14 +128,16 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
         $('ul.sub li').removeClass('active');
         $(this).addClass('active');
-        $('.has-sub.start').removeClass('active');
-        $('.has-sub.start a').remove('span');
+        $('ul.sub li a i').remove();
+        $(this).find('a').append('<i class="fa fa-eye"></i>');
+
+        $('.panel-heading').removeClass('active');
 
         $('span.statistic').text($(this).find('a').text());
-        $('#breadcrumb-title').text( $(this).parent().parent().find('a .title').text());
+        $('#breadcrumb-title').text( $(this).parent().parent().parent().parent().find('.panel-title a').text());
         $('#breadcrumb-sub-title').text($(this).find('a').text());
-        $(this).parent().parent().addClass('active');
-        $(this).parent().parent().find('a').append('<span class="selected"></span>');
+        $(this).parent().parent().parent().parent().find('.panel-heading').addClass('active');
+        //$(this).parent().parent().find('a').append('<span class="selected"></span>');
 
         currentChart = $(this).attr('id');
 

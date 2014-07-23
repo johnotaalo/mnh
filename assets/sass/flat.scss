@@ -25,7 +25,7 @@
 $stat-color:#16a085;
 //Body
 body{
-    font-family:Lato;
+    font-family:Lato !important;
 }
 #menu{
     position:fixed;
@@ -129,7 +129,7 @@ body{
 }
 
 #firepad{
-    border:2px solid #ddd;
+    border:2px solid #e7e7e7;
     width:95%;
     margin:auto;
     height:80%;
@@ -253,16 +253,33 @@ table{
 .portlet.box{
     @extend .col-md-6;
     .portlet-title{
-        h4{
+        h6{
+
             font-weight:bolder;
-            padding:1% 1.5%;
-            background:#ecf0f1;
+            padding: 10px 15px;
+            color: #333333;
+            background-color: whitesmoke;
+            border-color: #e7e7e7;
+            .statistic{
+                display: inline-block;
+                font-weight: normal;
+            }
             i{
                 padding-right:2%;
             }
             .statistic-free{
                 font-weight: normal;
                 padding-right:2%;
+            }
+            .compare{
+                width:21%;
+                float:right;
+                color:#999;
+                cursor:pointer;
+            }
+            .compare:hover{
+                color: #333333;
+                cursor: hand;
             }
         }
     }
@@ -301,6 +318,7 @@ table{
 .progressRow {
     border-bottom: 1px solid #bbbbbb;
 }
+
 #reportingLabel{
     max-width:60%;
     padding-left:5%;
@@ -316,7 +334,7 @@ table{
 
 #county_select_label{
     padding-left:5%;
-    max-width:25%;
+    width:30%;
     margin-bottom: 0 !important;
 }
 #county_select_label select{
@@ -368,3 +386,86 @@ table{
         @extend .epsilon;
     }
 }
+//Analytics Overrides
+h4.page-title{
+    @extend .delta;
+    padding-left:15px;
+}
+.breadcrumb{
+    border-color: #e7e7e7 !important;
+    a{
+        color:$stat-color !important;
+    }
+}
+#page_sidebar{
+    @extend .col-md-3;
+    border-right:1px solid #e7e7e7;
+    height:100%;
+    padding:0;
+    padding-left:15px;
+    h6{
+        padding-left:15px;
+        margin-bottom:0;
+    }
+}
+.analytics_row{
+    @extend .col-md-9;
+}
+.container-fluid{
+    padding:0 !important;
+}
+h6{
+    @extend .epsilon;
+}
+//SideBar
+.panel{
+    border:none !important;
+}
+ul.sub{
+    @extend .nav;
+    @extend .nav-pills;
+    @extend .nav-stacked;
+    li{
+        a{
+            border-radius: 0 !important;
+        }
+    }
+    li.active{
+    a{
+       background:whitesmoke !important;
+        color:#333;
+    }
+
+}
+}
+.panel-heading{
+    h4{
+        a{
+            i{
+                float:right;
+                color:#333;
+            }
+        }
+    }
+}
+.panel-heading.active{
+    background-color: $stat-color;
+    color:white;
+    i{
+        color:white;
+    }
+}
+
+.panel-body{
+    padding:0 !important;
+    li{
+        a{
+            color: $stat-color !important;
+            i{
+                float:right;
+                color:#999;
+            }
+        }
+    }
+}
+
