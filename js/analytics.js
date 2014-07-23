@@ -20,9 +20,14 @@ function startAnalytics(base_url, county, survey,survey_category) {
     //$('h3.page-title').text(smallText + appendToTitle);
     //$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
     //$('#breadcrumb-sub-title').text(smallText);
+
+    
     //Load Initial Graphs
+
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
     //loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_6');
+    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/case_summary/Cases/'+ survey+'/'+survey_category, '#graph_40');
     loadGraph(base_url, 'c_analytics/case_summary/Classification/'+ survey+'/'+survey_category, '#graph_41');
@@ -35,9 +40,6 @@ function startAnalytics(base_url, county, survey,survey_category) {
     loadGraph(base_url, 'c_analytics/tools_summary/Under%205%20register/'+ survey+'/'+survey_category, '#graph_46');
     loadGraph(base_url, 'c_analytics/tools_summary/ORT%20Corner%20register/'+ survey+'/'+survey_category, '#graph_47');
     loadGraph(base_url, 'c_analytics/tools_summary/Mother%20Child%20Booklet/'+ survey+'/'+survey_category, '#graph_48');
-
-    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/training_summary/ICCM/'+ survey+'/'+survey_category, '#graph_50');
     loadGraph(base_url, 'c_analytics/training_summary/IMCI/'+ survey+'/'+survey_category, '#graph_51');
@@ -57,6 +59,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care/'+ survey+'/'+survey_category, '#graph_81');
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative/'+ survey+'/'+survey_category, '#graph_82');
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines/'+ survey+'/'+survey_category, '#graph_83');
+
 
 
     $('select#county_select').change(function() {
@@ -146,11 +149,11 @@ function startAnalytics(base_url, county, survey,survey_category) {
         function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_county, '#graph_county');
 
-       // function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
-       // loadGraph(base_url, function_url_district, '#graph_district');
+        function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
+        loadGraph(base_url, function_url_district, '#graph_district');
 
-       // function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
-       // loadGraph(base_url, function_url_facility, '#graph_facility');
+        function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
+        loadGraph(base_url, function_url_facility, '#graph_facility');
     });
 $("#district_compare").click(function() {
         compare = 'district';
