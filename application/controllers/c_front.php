@@ -79,7 +79,8 @@ class C_Front extends MY_Controller
                     $status = '#ffffff';
                     break;
             }
-            $datas[] = array('id' => $countyMap, 'value' => $countyName, 'color' => $status, 'tooltext' => $countyName . '  Percentage Complete:  ' . $percentage . '% (' . $reported . '/' . $actual . ')', 'link' => base_url() . 'c_analytics/setActive/' . $countyName . '/' . $survey.'/'.$survey_category);
+            $datas[] = array('id' => $countyMap, 'value' => $countyName, 'color' => $status, 'tooltext' => $countyName . '  Percentage Complete:  ' . $percentage . '% (' . $reported . '/' . $actual . ')', 'link' => "Javascript:runCountyData('" . $countyName . "," . $survey.",".$survey_category."')");
+            //$datas[] = array('id' => $countyMap, 'value' => $countyName, 'color' => $status, 'tooltext' => $countyName . '  Percentage Complete:  ' . $percentage . '% (' . $reported . '/' . $actual . ')', 'link' => base_url() . 'c_analytics/setActive/' . $countyName . '/' . $survey.'/'.$survey_category);
         }
         $map = array("canvasBorderColor" => "#ffffff", "hoverColor" => "#aaaaaa", "fillcolor" => "D7F4FF", "numbersuffix" => "M", "includevalueinlabels" => "1", "labelsepchar" => ":", "basefontsize" => "9", "borderColor" => '#999999', "showBevel" => "0", 'showShadow' => "0");
         $styles = array("showBorder" => 0);
@@ -178,6 +179,13 @@ class C_Front extends MY_Controller
         //echo 'Vehicles';
 
 
+    }
+
+    public function retrieveData($table_name,$identifier){
+        echo $this->session->userdata('survey_status');
+        $this->load->model('m_retrieve');
+        $data = $this->m_retrieve->retrieveData($table_name,$identifier);
+        echo '<pre>';print_r($data);echo '</pre>';
     }
 
 

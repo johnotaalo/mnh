@@ -8,7 +8,7 @@
     <?php //$this->load->view('segments/meta');?>
     <?php $this->load->view('segments/head');?>
     <?php //$this->load->view('segments/analytics_css');?>
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/metronic.css">
+    <!--link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/metronic.css"-->
 
 </head>
 <!-- END HEAD -->
@@ -25,7 +25,7 @@
     <!-- BEGIN CONTAINER -->
     <div class="page-container row-fluid">
         <!-- BEGIN SIDEBAR -->
-        <?php $this->load->view('segments/analytics_sidebar_menu');?>
+
         <!-- END SIDEBAR -->
         <!-- BEGIN PAGE -->
         <div class="page-content">
@@ -47,12 +47,11 @@
                     <div class="span12">
 
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
-                        <h3 class="page-title">
-                        	
-                           <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small> 
-                            <h4 style="float:right;padding-right:3%;"><?php //echo $this->session->userdata('county_analytics') ?>
-							</h4>
-                        </h3>
+                        <h4 class="page-title">
+
+                           <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>
+
+                        </h4>
 
                         <ul class="breadcrumb">
 
@@ -77,7 +76,11 @@
                         <!-- END PAGE TITLE & BREADCRUMB-->
                     </div>
                 </div>
-                <?php $this->load->view($analytics_content_to_load);?>
+                <div class="row">
+                     <?php $this->load->view('segments/analytics_sidebar_menu');?>
+                     <?php $this->load->view($analytics_content_to_load);?>
+                </div>
+
                 <!-- END PAGE CONTENT-->
             </div>
             <!-- BEGIN PAGE CONTAINER-->

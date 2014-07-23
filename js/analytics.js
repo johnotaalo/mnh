@@ -21,7 +21,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     //$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
     //$('#breadcrumb-sub-title').text(smallText);
 
-    
+
     //Load Initial Graphs
 
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
@@ -131,14 +131,16 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
         $('ul.sub li').removeClass('active');
         $(this).addClass('active');
-        $('.has-sub.start').removeClass('active');
-        $('.has-sub.start a').remove('span');
+        $('ul.sub li a i').remove();
+        $(this).find('a').append('<i class="fa fa-eye"></i>');
+
+        $('.panel-heading').removeClass('active');
 
         $('span.statistic').text($(this).find('a').text());
-        $('#breadcrumb-title').text( $(this).parent().parent().find('a .title').text());
+        $('#breadcrumb-title').text( $(this).parent().parent().parent().parent().find('.panel-title a').text());
         $('#breadcrumb-sub-title').text($(this).find('a').text());
-        $(this).parent().parent().addClass('active');
-        $(this).parent().parent().find('a').append('<span class="selected"></span>');
+        $(this).parent().parent().parent().parent().find('.panel-heading').addClass('active');
+        //$(this).parent().parent().find('a').append('<span class="selected"></span>');
 
         currentChart = $(this).attr('id');
 
@@ -149,11 +151,11 @@ function startAnalytics(base_url, county, survey,survey_category) {
         function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_county, '#graph_county');
 
-        function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
-        loadGraph(base_url, function_url_district, '#graph_district');
+        //function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
+        //loadGraph(base_url, function_url_district, '#graph_district');
 
-        function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
-        loadGraph(base_url, function_url_facility, '#graph_facility');
+        //function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
+        //loadGraph(base_url, function_url_facility, '#graph_facility');
     });
 $("#district_compare").click(function() {
         compare = 'district';

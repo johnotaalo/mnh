@@ -18,14 +18,14 @@ class M_MNH_Survey extends MY_Model
     
     /*calls the query defined in MY_Model*/
     public function getCommodityNames() {
-        $this->commodityList = $this->getAllCommodityNames('mnh');
+        $this->commodityList = $this->getAllCommodityNames();
         
         //var_dump($this->commodityList);die;
         return $this->commodityList;
     }
     
-    public function getEquipmentNames($for) {
-        $this->equipmentList = $this->getAllEquipmentNames($for);
+    public function getEquipmentNames() {
+        $this->equipmentList = $this->getAllEquipmentNames();
         
         //var_dump($this->equipmentList);die;
         return $this->equipmentList;
