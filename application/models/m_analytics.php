@@ -2149,9 +2149,6 @@ LIMIT 0 , 1000
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-            
-            
-            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
