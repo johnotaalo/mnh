@@ -11973,55 +11973,56 @@ h4.page-title {
 }
 /* line 406, ../sass/flat.scss */
 #page_sidebar h6 {
-  padding-left: 15px;
+  padding: 10px 15px;
+  background: #e7e7e7;
   margin-bottom: 0;
 }
 
-/* line 414, ../sass/flat.scss */
+/* line 415, ../sass/flat.scss */
 .container-fluid {
   padding: 0 !important;
 }
 
-/* line 421, ../sass/flat.scss */
+/* line 422, ../sass/flat.scss */
 .panel {
   border: none !important;
 }
 
-/* line 429, ../sass/flat.scss */
+/* line 430, ../sass/flat.scss */
 ul.sub li a {
   border-radius: 0 !important;
 }
-/* line 434, ../sass/flat.scss */
+/* line 435, ../sass/flat.scss */
 ul.sub li.active a {
   background: whitesmoke !important;
   color: #333;
 }
 
-/* line 444, ../sass/flat.scss */
+/* line 445, ../sass/flat.scss */
 .panel-heading h4 a i {
   float: right;
   color: #333;
 }
 
-/* line 451, ../sass/flat.scss */
+/* line 452, ../sass/flat.scss */
 .panel-heading.active {
   background-color: #16a085;
   color: white;
 }
-/* line 454, ../sass/flat.scss */
+/* line 455, ../sass/flat.scss */
 .panel-heading.active i {
   color: white;
 }
 
-/* line 459, ../sass/flat.scss */
+/* line 460, ../sass/flat.scss */
 .panel-body {
   padding: 0 !important;
 }
-/* line 462, ../sass/flat.scss */
+/* line 463, ../sass/flat.scss */
 .panel-body li a {
   color: #16a085 !important;
 }
-/* line 464, ../sass/flat.scss */
+/* line 465, ../sass/flat.scss */
 .panel-body li a i {
   float: right;
   color: #999;
