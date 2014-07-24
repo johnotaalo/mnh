@@ -11802,7 +11802,7 @@ table td {
 }
 /* line 267, ../sass/flat.scss */
 .portlet.box .portlet-title h6 i {
-  padding-right: 2%;
+  padding-right: 5px;
 }
 /* line 270, ../sass/flat.scss */
 .portlet.box .portlet-title h6 .statistic-free {
@@ -11811,7 +11811,7 @@ table td {
 }
 /* line 274, ../sass/flat.scss */
 .portlet.box .portlet-title h6 .compare {
-  width: 21%;
+  width: 30%;
   float: right;
   color: #999;
   cursor: pointer;
