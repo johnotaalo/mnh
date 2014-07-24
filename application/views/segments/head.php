@@ -45,7 +45,7 @@
 <script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
 <script src="<?php echo base_url();?>js/core.js"></script>
-<!--script src="<?echo base_url();?>assets/bower_components/"></script-->
+<!--script src="<?php echo base_url();?>assets/bower_components/"></script-->
 
 
         <script src="<?php echo base_url()?>js/highcharts.js"></script>
