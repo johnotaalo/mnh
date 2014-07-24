@@ -11872,49 +11872,48 @@ table td {
 
 /* line 322, ../sass/flat.scss */
 #reportingLabel {
-  max-width: 60%;
-  padding-left: 5%;
+  width: 30%;
   margin-bottom: 0 !important;
 }
 
-/* line 327, ../sass/flat.scss */
+/* line 326, ../sass/flat.scss */
 #reportingLabel #reportingBar {
-  max-width: 60%;
+  width: 60%;
   margin-bottom: 0 !important;
 }
 
-/* line 331, ../sass/flat.scss */
+/* line 330, ../sass/flat.scss */
 #reportingLabel #reportingBar .progressRow {
   border-bottom: none;
 }
 
-/* line 335, ../sass/flat.scss */
+/* line 334, ../sass/flat.scss */
 #county_select_label {
   padding-left: 5%;
   width: 30%;
   margin-bottom: 0 !important;
 }
 
-/* line 340, ../sass/flat.scss */
+/* line 339, ../sass/flat.scss */
 #county_select_label select {
   max-width: 55% !important;
   height: auto;
   margin-bottom: 0 !important;
 }
 
-/* line 346, ../sass/flat.scss */
+/* line 345, ../sass/flat.scss */
 #reportingBar {
   display: inline-block;
   max-width: 70% !important;
   margin-bottom: 0 !important;
 }
 
-/* line 352, ../sass/flat.scss */
+/* line 351, ../sass/flat.scss */
 .statistic {
   display: block;
   margin-bottom: 5px;
 }
-/* line 355, ../sass/flat.scss */
+/* line 354, ../sass/flat.scss */
 .statistic .icon {
   vertical-align: top;
   display: inline-block;
@@ -11922,7 +11921,7 @@ table td {
   background: #16a085;
   color: white;
 }
-/* line 363, ../sass/flat.scss */
+/* line 362, ../sass/flat.scss */
 .statistic .icon span {
   display: table-cell;
   width: 50px;
@@ -11930,99 +11929,99 @@ table td {
   vertical-align: middle;
   text-align: center;
 }
-/* line 368, ../sass/flat.scss */
+/* line 367, ../sass/flat.scss */
 .statistic .icon span i {
   font-size: 1.5em;
 }
-/* line 374, ../sass/flat.scss */
+/* line 373, ../sass/flat.scss */
 .statistic .data {
   margin-left: 10px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 377, ../sass/flat.scss */
+/* line 376, ../sass/flat.scss */
 .statistic .data .text, .statistic .data .data {
   display: block;
   text-align: center;
 }
-/* line 384, ../sass/flat.scss */
+/* line 383, ../sass/flat.scss */
 .statistic #county_name {
   margin-top: 10%;
 }
 
-/* line 390, ../sass/flat.scss */
+/* line 389, ../sass/flat.scss */
 h4.page-title {
   padding-left: 15px;
 }
 
-/* line 394, ../sass/flat.scss */
+/* line 393, ../sass/flat.scss */
 .breadcrumb, #network {
   border-color: #e7e7e7 !important;
 }
-/* line 396, ../sass/flat.scss */
+/* line 395, ../sass/flat.scss */
 .breadcrumb a, #network a {
   color: #16a085 !important;
 }
 
-/* line 400, ../sass/flat.scss */
+/* line 399, ../sass/flat.scss */
 #page_sidebar {
   border-right: 1px solid #e7e7e7;
   height: 100%;
   padding: 0;
   padding-left: 15px;
 }
-/* line 406, ../sass/flat.scss */
+/* line 405, ../sass/flat.scss */
 #page_sidebar h6 {
   padding: 10px 15px;
   background: #e7e7e7;
   margin-bottom: 0;
 }
 
-/* line 415, ../sass/flat.scss */
+/* line 414, ../sass/flat.scss */
 .container-fluid {
   padding: 0 !important;
 }
 
-/* line 422, ../sass/flat.scss */
+/* line 421, ../sass/flat.scss */
 .panel {
   border: none !important;
 }
 
-/* line 430, ../sass/flat.scss */
+/* line 429, ../sass/flat.scss */
 ul.sub li a {
   border-radius: 0 !important;
 }
-/* line 435, ../sass/flat.scss */
+/* line 434, ../sass/flat.scss */
 ul.sub li.active a {
   background: whitesmoke !important;
   color: #333;
 }
 
-/* line 445, ../sass/flat.scss */
+/* line 444, ../sass/flat.scss */
 .panel-heading h4 a i {
   float: right;
   color: #333;
 }
 
-/* line 452, ../sass/flat.scss */
+/* line 451, ../sass/flat.scss */
 .panel-heading.active {
   background-color: #16a085;
   color: white;
 }
-/* line 455, ../sass/flat.scss */
+/* line 454, ../sass/flat.scss */
 .panel-heading.active i {
   color: white;
 }
 
-/* line 460, ../sass/flat.scss */
+/* line 459, ../sass/flat.scss */
 .panel-body {
   padding: 0 !important;
 }
-/* line 463, ../sass/flat.scss */
+/* line 462, ../sass/flat.scss */
 .panel-body li a {
   color: #16a085 !important;
 }
-/* line 465, ../sass/flat.scss */
+/* line 464, ../sass/flat.scss */
 .panel-body li a i {
   float: right;
   color: #999;
