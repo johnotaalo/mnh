@@ -90,7 +90,7 @@
     <!-- END CONTAINER -->
 
     <!-- BEGIN FOOTER -->
-    <div class="footer">
+    <div id="footer">
           &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
         <div class="span pull-right">
             Move to Top
@@ -111,7 +111,8 @@
     var base_url = "<?php echo base_url();?>";
     var county   = "<?php echo $this->session->userdata('county_analytics');?>";
     var survey   = "<?php echo $this->session->userdata('survey')?>";
-    $(document).ready(startAnalytics(base_url,county,survey));
+        var survey_category   = "<?php echo $this->session->userdata('survey_category')?>";
+    $(document).ready(startAnalytics(base_url,county,survey,survey_category));
     </script>
     <!-- END JAVASCRIPTS -->
     <?php $this->load->view('segments/modals')?>
