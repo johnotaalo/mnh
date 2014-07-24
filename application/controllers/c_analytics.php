@@ -775,10 +775,9 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-    public function getResourcesStatistics($criteria, $value, $survey) {
+    public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
 
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-
 
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
@@ -795,7 +794,8 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
-           // echo '<pre>';print_r($resultArray);echo '</pre>';die;
+
+
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
@@ -809,12 +809,28 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
-        $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+       
+       $this->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
 
 
 
        // echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+     /**
+     * [getHardwareFrequencyMnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getHardwareFrequencyCH($criteria, $value, $survey) {
+       
+       $this->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+
+
+
+       //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     /**
      * [getResourcesFrequencymnh description]
@@ -825,10 +841,11 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getresourcesFrequencyMnh($criteria, $value, $survey) {
-        $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        
+        $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        
 
-        echo "<pre>"; print_r($results);echo "</pre>";die;
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
 
 
@@ -842,8 +859,38 @@ ORDER BY fac_level;");
      */
 
     public function getresourcesLocationMnh($criteria, $value, $survey) {
-        $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        
+       $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+
+    /**
+     * [getResourcesFrequencymnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getresourcesFrequencyCh($criteria, $value, $survey) {
+       
+        $this->getResourcesStatistics($criteria, $value, $survey, 'mch', 'availability');
+
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+    /**
+     * [getResourcesLocationmnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+
+    public function getresourcesLocationCh($criteria, $value, $survey) {
+        
+       $this->getResourcesStatistics($criteria, $value, $survey, 'mch', 'location');
 
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
