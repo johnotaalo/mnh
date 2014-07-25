@@ -1055,7 +1055,8 @@ ORDER BY fac_level;");
     public function getHIV($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
     }
-
+    
+    
 
     /**
      * [getJobAids description]
@@ -1098,7 +1099,57 @@ ORDER BY fac_level;");
     public function getGuidelinesAvailabilityMNH($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'guide');
     }
+    /**
+     * [getIMCIInterview description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getIMCIInterview($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'int');
+    }
+    /**
+     * [getIMCIConsultation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getIMCIConsultation($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'obs');
+    }
 
+     /**
+     * [getIMCICertificate description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getIMCICertificate($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'out');
+    }
+     /**
+     * [getIMCICertificateA description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getIMCICertificateA($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'certa');
+    }
+     /**
+     * [getIMCICertificateB description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getIMCICertificateB($criteria, $value, $survey) {
+        $this->getQuestionStatistics($criteria, $value, $survey, 'certb');
+    }
     /**
      * [getIndicatorStatistics description]
      * @param  [type] $criteria [description]
@@ -1320,17 +1371,7 @@ ORDER BY fac_level;");
         $this->getIndicatorStatistics($criteria, $value, $survey, 'cert');
     }
 
-    /**
-     * [getIMCIConsultation description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
-    public function getIMCIConsultation($criteria, $value, $survey) {
-        $this->getIndicatorStatistics($criteria, $value, $survey, 'imci');
-    }
-
+    
     /*
      * Diarrhoea case numbers per Month
     */

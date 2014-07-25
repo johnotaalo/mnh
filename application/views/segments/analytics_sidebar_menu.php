@@ -66,6 +66,21 @@
                 <li id="TrainedStaffMnh">
                     <a href="#" >Staff Training</a>
                 </li>
+                <li id="IMCIConsultation">
+                    <a href="#" >Consultation</a>
+                </li>
+                <li id="IMCIInterview">
+                    <a href="#" >Interview</a>
+                </li>
+                <li id="IMCICertificate">
+                    <a href="#" >Certificate</a>
+                </li>
+                <li id="IMCICertificateA">
+                    <a href="#" >Certificate A</a>
+                </li>
+                <li id="IMCICertificateB">
+                    <a href="#" >Certificate B</a>
+                </li>
 
             </ul>
             </div>
