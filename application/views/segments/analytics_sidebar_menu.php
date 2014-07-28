@@ -470,30 +470,22 @@ switch($this->session->userdata('survey')) {
         <div id="facility" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="communityStrategy">
-                        <a href="#" >Community Strategy</a>
+                    <li id="IMCIConsultation">
+                        <a href="#" >Consultation</a>
                     </li>
-                    <li id="guidelinesAvailabilityCH">
-                        <a href="#">Guidelines Availability</a>
+                    <li id="IMCIInterview">
+                        <a href="#">Interview</a>
                     </li>
-                    <li id="TrainedStaffCH">
-                        <a href="#">Staff Trainings</a>
+                    <li id="IMCICertificate">
+                        <a href="#">Certificate</a>
                     </li>
-                    <li id="childrenServices">
-                        <a href="#">Services Offered</a>
+                    <li id="IMCICertificateA">
+                        <a href="#">Certificate A</a>
                     </li>
-                    <li id="dangerSigns">
-                        <a href="#">Danger Signs</a>
+                    <li id="IMCICertificateB">
+                        <a href="#">Certificate B</a>
                     </li>
-                    <li id="actionsPerformed">
-                        <a href="#">Actions Performed</a>
-                    </li>
-                    <li id="counselGiven">
-                        <a href="#">Counsel Given</a>
-                    </li>
-                    <li id="tools">
-                        <a href="#">Tools in a given Unit</a>
-                    </li>
+                    
                 </ul>
             </div>
         </div>
