@@ -26,6 +26,7 @@ $stat-color:#16a085;
 //Body
 body{
     font-family:Lato !important;
+   // @extend .zeta;
 }
 #menu{
     position:fixed;
@@ -265,14 +266,14 @@ table{
                 font-weight: normal;
             }
             i{
-                padding-right:2%;
+                padding-right:5px;
             }
             .statistic-free{
                 font-weight: normal;
                 padding-right:2%;
             }
             .compare{
-                width:21%;
+                width:30%;
                 float:right;
                 color:#999;
                 cursor:pointer;
