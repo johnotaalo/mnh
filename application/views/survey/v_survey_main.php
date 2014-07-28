@@ -161,6 +161,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 function renderFacilityInfo(facilityMFL){
                     $.ajax({
                         type: "GET",
+
                         url: "<?php echo base_url()?>c_load/getFacilityDetails",
                         dataType:"json",
                         cache:"true",
@@ -286,11 +287,14 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                             //show no follow up qn, and hide yes one
                             $('#transfusion_y').hide();
                             $('#transfusion_y').prop('disabled',true);
+
                             $('#mnhceocFollowUpOther_1').hide();
                             $('#label_followup_other_1').hide();
                             $('#mnhceocFollowUpOther_1').prop('disabled',true);
                             $('#mnhceocFollowUp_1').prop('disabled',true);
                             $('#mnhceocFollowUp_1').hide();
+
+
                             $('#transfusion_n').prop('disabled',false);
                             $('#transfusion_n').show();
                         }
@@ -358,6 +362,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                         }
 
                         if($(this).attr('id')=='mnhceocReason_2' && $(this).val()!='Other'){
+
                             //hide other input field
                             $('#mnhceocReasonOther_2').prop('disabled',true);
                             $('#mnhceocReasonOther_2').hide();
@@ -429,34 +434,36 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 });
 
             }); /*close document ready*/
-            /*function additionfunction()
-            {
-                var malsevere = document.getElementById("malsevere").value;
-                var malsome = document.getElementById("malsome").value;
-                var malnodehydration = document.getElementById("malnodehydration").value;
-                var maldysentry = document.getElementById("maldysentry").value;
-                var malnoclass = document.getElementById("malnoclass").value;
 
-                var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
-                document.getElementById("diatotal").value = diatotal;
+            // function additionfunction()
+            // {
+            //     var malsevere = document.getElementById("malsevere").value;
+            //     var malsome = document.getElementById("malsome").value;
+            //     var malnodehydration = document.getElementById("malnodehydration").value;
+            //     var maldysentry = document.getElementById("maldysentry").value;
+            //     var malnoclass = document.getElementById("malnoclass").value;
 
-                var severepne = document.getElementById("severepne").value;
-                var pne = document.getElementById("pne").value;
+            //     var diatotal = Number(malnoclass) + Number(malsome) + Number(malnodehydration) + Number(maldysentry) + Number(malsevere);
+            //     document.getElementById("diatotal").value = diatotal;
 
-                var pnetotal = Number(severepne) + Number(pne);
-                document.getElementById("pnetotal").value = pnetotal;
+            //     var severepne = document.getElementById("severepne").value;
+            //     var pne = document.getElementById("pne").value;
+
+            //     var pnetotal = Number(severepne) + Number(pne);
+            //     document.getElementById("pnetotal").value = pnetotal;
 
 
-                var malconfirmed = document.getElementById("malconfirmed").value;
-                var malnotconfirmed = document.getElementById("malnotconfirmed").value;
+            //     var malconfirmed = document.getElementById("malconfirmed").value;
+            //     var malnotconfirmed = document.getElementById("malnotconfirmed").value;
 
-                var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
-                document.getElementById("malariatotal").value = malariatotal;
+            //     var malariatotal = Number(malconfirmed) + Number(malnotconfirmed);
+            //     document.getElementById("malariatotal").value = malariatotal;
 
-                var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
+            //     var u5total = Number(diatotal) + Number(pnetotal) + Number(malariatotal);
 
-                document.getElementById("totalu5").value = u5total;
-            }*/
+            //     document.getElementById("totalu5").value = u5total;
+            // }
+
             function selectpnesevereTreatment(select)
             {
                 var value = select.options[select.selectedIndex].value;
@@ -824,6 +831,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     ul.appendChild(li);
                 }
             }// close select treatment
+
             function toggle_table(el)
             {
                 id = $(el).attr("id");
@@ -933,6 +941,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                             return data; //return true to make the wizard move to the next step, false will cause the wizard to stay on the current step
                         }
+
                     };
 
 
@@ -1052,6 +1061,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     success: function(data){
                         survey = '<?php echo $this->session->userdata("survey");?>';
                         //alert(data);
+
                         (data!='') ? $(form_id).formwizard('show','section-'+(data+1)):$(form_id).formwizard('show','section-1');
 
 

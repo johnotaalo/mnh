@@ -51,7 +51,7 @@ body{
     padding:0 5% 0 5%;
 }
 .login-container{
-    background:#3498db;
+    background:#ecf0f1;
     padding:10% 10%;
     #form-description,#form-login{
         @extend .col-md-6;
@@ -114,6 +114,9 @@ form{
         @extend .btn;
         background:#1abc9c;
         color:white;
+        i{
+            padding:0 2%;
+        }
 
     }
     input[type="radio"],input[type="checkbox"]{
@@ -123,6 +126,12 @@ form{
         width:auto;
         -webkit-box-shadow:none;
     }
+    input[type="radio"]{
+        height:auto;
+    }
+}
+.form-container{
+    padding:0 !important;
 }
 #logout{
     margin-left:20px;
@@ -177,6 +186,19 @@ table{
         margin-bottom: 5px;
         padding:0.5%;
         border:2px solid white;
+    }
+    td{
+        .progress{
+            margin-bottom:0;
+            .progress-bar{
+        margin-bottom:0;
+            }
+        }
+    }
+    td{
+        max-width:200px !important;
+         word-wrap: break-word;
+    overflow-wrap: break-word;
     }
 }
 .begin:hover{

@@ -183,8 +183,8 @@ function runNotification(base_url, function_url, messsage) {
                 }
 
                 newMessage = period + ' ' + v.cl_name + ',  ' + message;
-                console.log(newMessage);
-                //notify(phoneNumber, newMessage);
+                //console.log(newMessage);
+               // notify(phoneNumber, newMessage);
 
             });
         }

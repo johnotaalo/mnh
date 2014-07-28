@@ -20,7 +20,7 @@
                 <!--p style="margin-bottom:5px"><label for="username">Facility Name</label</p><p><input id="username" name="username" type="text" placeholder="Facility Name"></p-->
 
                 <div class="form-group">
-                    <select id="username" name="username">
+                    <select id="username" name="username" class="select2">
                         <option selected="selected" value="">Select District/Sub County</option>
                         <?php echo $this->selectDistricts; ?>
                     </select>

@@ -21,8 +21,8 @@ function startAnalytics(base_url, county, survey) {
     //$('#breadcrumb-title').text($('li.has-sub.start.open a span.title').text());
     //$('#breadcrumb-sub-title').text(smallText);
     //Load Initial Graphs
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/mid-term', '#graph_5');
-    loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/mid-term', '#graph_6');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/baseline', '#graph_5');
+    loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/baseline', '#graph_6');
 
     loadGraph(base_url, 'c_analytics/case_summary/Cases', '#graph_40');
     loadGraph(base_url, 'c_analytics/case_summary/Classification', '#graph_41');
@@ -69,8 +69,8 @@ function startAnalytics(base_url, county, survey) {
     $('#home-parent').append('<span class="selected"></span>');
     $('#facility_list').hide();
     $('#reportingLabel').hide();
-    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/mid-term');
-    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/mid-term');
+    $('#reporting').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
+    $('#reportingModalBody').load(base_url + 'c_analytics/getAllReportedCounties/' + survey+'/baseline');
     if (county !== '' && county != 'Unselected') {
         $("select#county_select").find("option").filter(function(index) {
             return county === $(this).text();
@@ -80,7 +80,7 @@ function startAnalytics(base_url, county, survey) {
         $('#reportingLabel').show();
         //Load Progress
         //alert(county);
-        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/mid-term');
+        $('#reportingBar').load(base_url + 'c_analytics/getOneReportingCounty/' + county+'/baseline');
 
     } else {
         $('#reportingLabel').hide();
@@ -132,6 +132,8 @@ function startAnalytics(base_url, county, survey) {
         $('.has-sub.start a').remove('span');
 
         $('span.statistic').text($(this).find('a').text());
+        $('#breadcrumb-title').text( $(this).parent().parent().find('a .title').text());
+        $('#breadcrumb-sub-title').text($(this).find('a').text());
         $(this).parent().parent().addClass('active');
         $(this).parent().parent().find('a').append('<span class="selected"></span>');
 
@@ -144,10 +146,10 @@ function startAnalytics(base_url, county, survey) {
         function_url_county = 'c_analytics' + '/get' + currentChart + '/county/' + county + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_county, '#graph_county');
 
-        function_url_district = 'c_analytics' + '/get' + currentChart + '/county/' + district + '/' + survey + '/' + extraStat;
+        function_url_district = 'c_analytics' + '/get' + currentChart + '/district/' + district + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_district, '#graph_district');
 
-        function_url_facility = 'c_analytics' + '/get' + currentChart + '/county/' + facility + '/' + survey + '/' + extraStat;
+        function_url_facility = 'c_analytics' + '/get' + currentChart + '/facility/' + facility + '/' + survey + '/' + extraStat;
         loadGraph(base_url, function_url_facility, '#graph_facility');
     });
 
