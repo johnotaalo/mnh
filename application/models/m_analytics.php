@@ -1535,6 +1535,7 @@ ORDER BY oa.question_code ASC";
 
             return $data;
         }
+
         public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
             $value = urldecode($value);
             $newData = array();
@@ -1552,11 +1553,11 @@ ORDER BY oa.question_code ASC";
 
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+				//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    //foreach ($this->dataSet as $value) {
-                    	echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                    	
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1570,6 +1571,7 @@ ORDER BY oa.question_code ASC";
                             $data[$value['commodity_name']][$value['unit']]= (int)$value['total_response'];
                         }
                     }
+					//echo "<pre>";print_r($data);echo "</pre>";die;
                     /**
                      * Fix Data
                      */
@@ -1597,20 +1599,17 @@ ORDER BY oa.question_code ASC";
                             }
                         }
                         $data = $newData;
-                    }
-                } 
-            //     else {
-            //         return null;
-            //     }
-            //     //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            // }
+                    }else {
+                    
+                }
+       //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+             }
+             }
             catch(exception $ex) {
 
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
-            }
+				}
 
             return $data;
         }
@@ -1855,14 +1854,14 @@ LIMIT 0 , 1000
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
-                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['eq_name']][$place]+= (int)$value['total_response'];
                             }
                         }
                     }
@@ -1896,17 +1895,15 @@ LIMIT 0 , 1000
                         $data = $newData;
                     }
                 } else {
-                    return null;
+                    
                 }
             }
             catch(exception $ex) {
 
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
             }
-
+			//var_dump($data);die;
             return $data;
         }
 
@@ -3253,58 +3250,12 @@ ORDER BY question_code";
          */
         public function getBeds($criteria, $value, $survey) {
 
-            /*using CI Database Active Record*/
-            $value = urldecode($value);
-            $data = array();
-
-            switch ($criteria) {
-                case 'national':
-                    $criteria_condition = ' ';
-                    break;
-
-                case 'county':
-                    $criteria_condition = 'WHERE fac_county=?';
-                    break;
-
-                case 'district':
-                    $criteria_condition = 'WHERE fac_district=?';
-                    break;
-
-                case 'facility':
-                    $criteria_condition = 'WHERE fac_mfl=?';
-                    break;
-
-                case 'none':
-                    $criteria_condition = '';
-                    break;
-            }
-            $query = "SELECT
-    question_code,SUM(lq_response_count) as response
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'bed')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-            GROUP BY question_code
-ORDER BY question_code";
+            $query = "CALL get_question_statistics('".$criteria."','".$value."','".$survey."','".$for."');";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
                 foreach ($this->dataSet as $value_) {
+                	echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     $question = $this->getQuestionName($value_['question_code']);
                     $response = $value_['response'];
 
