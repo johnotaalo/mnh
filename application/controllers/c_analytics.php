@@ -550,7 +550,12 @@ ORDER BY fac_level;");
 
     }
 
+<<<<<<< HEAD
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
+=======
+
+    public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
+>>>>>>> ccb476e54420c45f69fe99ac5e8842701c4e2e0e
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
 
@@ -841,11 +846,26 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getresourcesFrequencyMnh($criteria, $value, $survey) {
+<<<<<<< HEAD
         
         $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         
 
         //echo "<pre>"; print_r($results);echo "</pre>";die;
+=======
+        $value = urldecode($value);
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+    public function getCountyReportingSummary($survey, $survey_category){
+        $results =$this->m_analytics->getCountyReportingSummary($survey, $survey_category);
+        $titles = array('Facility County', 'Facility District','Facility');
+        //echo "<pre>"; print_r($titles);echo "</pre>";
+        $data['data'] = $results;
+        $data['title'] = $titles;
+        $this->loadExcel($data,'Summary for Counties Reporting for'.' '.strtoupper($survey).' : '.strtoupper($survey_category).$value);
+        
+>>>>>>> ccb476e54420c45f69fe99ac5e8842701c4e2e0e
     }
 
 

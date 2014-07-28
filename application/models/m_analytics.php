@@ -26,6 +26,38 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
 
+    public function getCountyReportingSummary($survey, $survey_category){
+        /* using CI database active record*/
+        try{
+            $query = "SELECT 
+                        f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
+                        FROM
+                        assessment_tracker ast
+                            JOIN
+                        facilities f ON ast.facilityCode = f.fac_mfl
+                            JOIN
+                        survey_status ss ON ss.fac_id = f.fac_mfl
+                            JOIN
+                        survey_types st ON st.st_id = ss.st_id AND st.st_name = '".$survey."'
+                           JOIN
+                        survey_categories sc ON sc.sc_id = ss.sc_id AND sc.sc_name = '".$survey_category."'
+                        WHERE ast.ast_section = 'section-6'
+                    ORDER BY f.fac_county , f.fac_district";
+
+                $this->dataSet = $this->db->query($query,  array($survey));
+                $this->dataSet = $this->dataSet->result_array();
+                 if($this->dataSet){
+                    return $this->dataSet;
+                 }else{
+                    return $this->dataSet = false;
+                 }
+
+                   //var_dump($this->dataSet);die;
+        }
+        catch(exception $ex){
+
+        }
+    }
     public function get_facility_reporting_summary($survey) {
 
         /*using CI Database Active Record*/
