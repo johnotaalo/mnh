@@ -35,59 +35,7 @@ switch($this->session->userdata('survey')) {
         <div id="facility_statistics" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-<<<<<<< HEAD
-                <li id="nursesDeployed">
-                    <a href="#" >Nurses Deployed</a>
-                </li>
-                <li id="beds">
-                    <a href="#" >Beds in Facility</a>
-                </li>
-                <li id="services">
-                    <a href="#" >Services</a>
-                </li>
-                <li id="hfm">
-                    <a href="#" >Health Facility Management</a>
-                </li>
-                <li id="deliveries">
-                    <a href="#" >Deliveries</a>
-                </li>
-                <li id="hiv">
-                    <a href="#" >HIV Testing</a>
-                </li>
-                <!--li id="newborn">
-                    <a href="#" >Newborn Care</a>
-                </li>
-                <li id="kmc">
-                    <a href="#" >Kangaroo Mother Care</a>
-                </li-->
-                <li id="jobaids">
-                    <a href="#" >Job Aids</a>
-                </li>
-                <li id="guidelinesAvailabilitymnh">
-                    <a href="#" >Guidelines Availability</a>
-                </li>
-                <li id="communitystrategy">
-                    <a href="#" >Community Strategy</a>
-                </li>
-                <li id="TrainedStaffMnh">
-                    <a href="#" >Staff Training</a>
-                </li>
-                <li id="IMCIConsultation">
-                    <a href="#" >Consultation</a>
-                </li>
-                <li id="IMCIInterview">
-                    <a href="#" >Interview</a>
-                </li>
-                <li id="IMCICertificate">
-                    <a href="#" >Certificate</a>
-                </li>
-                <li id="IMCICertificateA">
-                    <a href="#" >Certificate A</a>
-                </li>
-                <li id="IMCICertificateB">
-                    <a href="#" >Certificate B</a>
-                </li>
-=======
+
                     <li id="nursesDeployed">
                         <a href="#" >Nurses Deployed</a>
                     </li>
@@ -124,7 +72,7 @@ switch($this->session->userdata('survey')) {
                     <li id="TrainedStaffMnh">
                         <a href="#" >Staff Training</a>
                     </li>
->>>>>>> ccb476e54420c45f69fe99ac5e8842701c4e2e0e
+
 
                 </ul>
             </div>
@@ -511,6 +459,51 @@ switch($this->session->userdata('survey')) {
     break;
     case 'hcw':
     ?>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#facility">
+                    Facility Statistics <i class="fa fa-chevron-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="facility" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ul class="sub">
+                    <li id="communityStrategy">
+                        <a href="#" >Community Strategy</a>
+                    </li>
+                    <li id="guidelinesAvailabilityCH">
+                        <a href="#">Guidelines Availability</a>
+                    </li>
+                    <li id="TrainedStaffCH">
+                        <a href="#">Staff Trainings</a>
+                    </li>
+                    <li id="childrenServices">
+                        <a href="#">Services Offered</a>
+                    </li>
+                    <li id="dangerSigns">
+                        <a href="#">Danger Signs</a>
+                    </li>
+                    <li id="actionsPerformed">
+                        <a href="#">Actions Performed</a>
+                    </li>
+                    <li id="counselGiven">
+                        <a href="#">Counsel Given</a>
+                    </li>
+                    <li id="tools">
+                        <a href="#">Tools in a given Unit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <?php
     break;
 }
