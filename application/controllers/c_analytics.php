@@ -807,7 +807,7 @@ ORDER BY fac_level;");
         $this->loadExcel($data,'Summary for Counties Reporting for'.' '.strtoupper($survey).' : '.strtoupper($survey_category).$value);
         
     }
-
+    
       /**
      * [getResourcesLocationmnh description]
      * @param  [type] $criteria [description]
