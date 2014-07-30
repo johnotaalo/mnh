@@ -62,12 +62,12 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
 
 
-    $('select#county_select').change(function() {
+    /*$('select#county_select').change(function() {
         countyClicked = $(this).val(); //$('select#county_select option:selected').text();
         countyClicked = encodeURIComponent(countyClicked);
 
         window.location.href = base_url + 'c_analytics/setActive/' + countyClicked + '/' + survey+'/'+survey_category;
-    });
+    });*/
     $('#home-parent').addClass('active');
     $('#home-parent').append('<span class="selected"></span>');
     $('#facility_list').hide();
@@ -294,6 +294,7 @@ $("#district_compare").click(function() {
         window.open(base_url + 'c_analytics/commodity_supplies_summary/district/' + district + '/' + survey);
 
     });
+     $("select").selectpicker({style: 'btn-primary', menuStyle: 'dropdown'});
 
 
 }

@@ -16,9 +16,9 @@
 
 
     <!-- New Bower Components -->
-
-<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/flat.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
+
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">
 
@@ -28,7 +28,7 @@
 
 
 
-<!-- Load JS here for greater good 
+<!-- Load JS here for greater good
 
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
     =============================-->
