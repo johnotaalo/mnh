@@ -2233,6 +2233,7 @@ public function get_hcw_form() {
             <th style="width:100px">Response</th>
             <th style="width:400px">Findings</th>
         </tr>
+         '.$this -> mchIndicatorsSection['fed'].'
 </table>
 
 <table class = "center">
@@ -2251,6 +2252,7 @@ public function get_hcw_form() {
             <th style="width:100px">Response</th>
             <th style="width:400px">Findings</th>
         </tr>
+         '.$this -> mchIndicatorsSection['wgt'].'
 </table>
 
 <table class = "center">
@@ -2269,6 +2271,7 @@ public function get_hcw_form() {
             <th style="width:100px">Response</th>
             <th style="width:400px">Findings</th>
         </tr>
+         '.$this -> mchIndicatorsSection['stn'].'
 </table>
 </div>
 
