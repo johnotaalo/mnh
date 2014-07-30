@@ -172,13 +172,22 @@ switch($this->session->userdata('survey')) {
 			</ul>
 
 		</li>
+		<li id="hardware-parentMnh" class="has-sub start">
+			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Hardware</span> <span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="hardwareFrequencyCH">
+					<a href="#">Hardware Availability</a>
+				</li>
+			</ul>
+
+		</li>
 		<li id="resources-parent" class="has-sub start">
 			<a href="javascript:;"> <i class="fa fa-bar-chart"></i> <span class="title">Resources</span> <span class="arrow "></span> </a>
 			<ul class="sub">
-				<li id="resourceFrequency">
+				<li id="resourceFrequencyCH">
 					<a href="#">Resource Availability</a>
 				</li>
-				<li id="resourceLocation">
+				<li id="resourceLocationCH">
 					<a href="#">Resource Location</a>
 				</li>
 			</ul>

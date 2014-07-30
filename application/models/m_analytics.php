@@ -185,33 +185,33 @@ GROUP BY cs.strategy_code ASC;";
             } else {
                 return $this->dataSet = null;
             }
-
+            
             //die(var_dump($this->dataSet));
-
-
+            
+            
         }
         catch(Exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
     }
-
+    
     /*
      * Guidelines Availability
     */
 
     public function getGuidelinesAvailability($criteria, $value, $survey) {
-
+        
 
         /*using CI Database Active Record*/
         $data = array();
         $data_prefix_y = '';
         $data_prefix_n = '';
         $data_y = $data_n = $data_categories = array();
-
+        
         switch ($criteria) {
             case 'national':
                 $criteria_condition = ' ';
@@ -233,7 +233,7 @@ GROUP BY cs.strategy_code ASC;";
                 $criteria_condition = '';
                 break;
         }
-
+        
         $query = "SELECT
     COUNT(lq.fac_mfl) AS total_facilities,
     lq.question_code AS guideline,
@@ -263,16 +263,16 @@ ORDER BY lq.lq_response ASC";
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
                 $i = 0;
-
+                
                 //get a set of the 4 guidelines
                 $data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
-
+                
                 //$data['categories'] = json_encode($data_categories);
-
+                
                 foreach ($this->dataSet as $value) {
                     switch ($this->getTrainingGuidelineName($value['guideline'])) {
                         case 'Does the facility have updated 2012 IMCI guidelines?':
@@ -291,100 +291,107 @@ ORDER BY lq.lq_response ASC";
                             $guideline = 'ICCM';
                             break;
                     }
-
+                    
                     if ($value['availability'] == 'Yes') {
                         $data_y[] = array($guideline => (int)$value['total_facilities']);
                     } else {
                         $data_n[] = array($guideline => (int)$value['total_facilities']);
                     }
-
+                    
                     //$data['categories'][]=$guideline;
-
-
+                    
+                    
                 }
+
+                
 
                 $data['yes_values'] = $data_y;
                 $data['no_values'] = $data_n;
-
+                
                 $this->dataSet = $data;
-
+                
                 //var_dump($this->dataSet);die;
-
-
+                
+                
             } else {
                 return $this->dataSet = null;
             }
-
+            
             //die(var_dump($this->dataSet));
-
-
+           // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
-
+        
         return $this->dataSet;
     }
-
+    
     /*
      * Trained Staff
     */
     public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
-
+        
         /*using CI Database Active Record*/
         $data = array();
         $data_prefix_y = '';
-
+        
         //"name:'Trained (Last 2 years)',data:";
         $data_prefix_n = '';
-
+        
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
-
-        $query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
+        $query = "CALL get_staff_trained('". $criteria."', '".$value."', '".$survey."','".$for."');";
 
 
         try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
+                if ($this->dataSet !== NULL ) {
+                  //  echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
-                        if (array_key_exists('facilities', $value)) {
-                            array_push($cat,$value['training']);
-                            array_push($data['trained'],$value['trained']+= (int)$value['trained']);
-                            array_push($data['working'],$value['working']+= (int)$value['working']);
+                        if (array_key_exists('frequency', $value)) {
+                            $data_t[$value['guide_name']][$value['frequency']] += (int)$value['trained'];
+                            $data_w[$value['guide_name']][$value['frequency']] += (int)$value['working'];
+                            $data_a[$value['guide_name']][$value['frequency']] += (int)$value['trained_after'];
                         }
                     }
-
-
                     /**
                      * Fix Data
                      */
                     switch ($survey) {
                case 'mnh':
                //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+                  $data['categories'] = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
                break;
 
                case 'ch':
                //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+                  $data['categories'] = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
                break;
                       }
                 } else {
                     return null;
                 }
+
+        
+                    
+                    
+                
+                $data['trained'] = $data_t;
+                $data['working'] = $data_w;
                 $this->dataSet = $data;
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
@@ -398,6 +405,7 @@ ORDER BY lq.lq_response ASC";
 
             return $data;
         }
+
 
 
 
@@ -444,6 +452,7 @@ ORDER BY lq.lq_response ASC";
        //
         return $data;
     }*/
+
 
     /*
      * Commodity Availability
@@ -1109,8 +1118,10 @@ ORDER BY ea.eq_code ASC";
                         //data set by each equipment
                         $data_set[$this->getCHEquipmentName($value_['equipment']) ][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
 
+
                     }
                 }
+
 
 
                 //var_dump($analytic_var);die;
@@ -1450,6 +1461,7 @@ WHERE
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
+
 
                 $queryData->next_result();
 
@@ -1889,6 +1901,7 @@ ORDER BY oa.question_code ASC";
                 //die($ex->getMessage());//exit;
 
 
+
             }
 
             return $data;
@@ -2187,21 +2200,15 @@ LIMIT 0 , 1000
          *  Availability, Location and Functionality of Electricity and Hardware Resources
         */
         public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
 
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
 
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
 
-
-
-            /**
-             * something of this kind:
-             * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
-             */
-
-            $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
-
+            $query = "CALL get_resource_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
@@ -2212,16 +2219,15 @@ LIMIT 0 , 1000
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
-                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['resource_name']][$place]+= (int)$value['total_response'];
                             }
-                        }
+                        } 
                     }
 
                     /**
@@ -2229,7 +2235,7 @@ LIMIT 0 , 1000
                      */
                     switch ($survey) {
                         case 'mnh':
-                            $location = array('Delivery room', 'Pharmacy', 'Store', 'Other', 'Not Applicable');
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
                             break;
 
                         case 'ch':
@@ -2255,11 +2261,13 @@ LIMIT 0 , 1000
                 } else {
                     return null;
                 }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
             catch(exception $ex) {
 
                 //ignore
                 //die($ex->getMessage());//exit;
+
 
 
             }
@@ -2641,8 +2649,6 @@ ORDER BY f.fac_county ASC;";*/
                 //ignore
                 //echo($ex -> getMessage());
 
-
-
             }
             return $finalData;
         }
@@ -2731,6 +2737,7 @@ FROM
     ORDER BY COUNT(fac_Level) ASC) AS tracker;';
 
                 $myData = $this->db->query($query);
+
 
 
                 // echo $this->db->last_query();die;
@@ -3523,7 +3530,6 @@ ORDER BY tl.treatment_code ASC";
         //-----------------------------------------------------------------------------
 
 
-
         /**
          * Nurses Deployed in Maternity
          */
@@ -3609,6 +3615,8 @@ ORDER BY question_code";
          * Beds in facility
          */
         public function getBeds($criteria, $value, $survey) {
+
+
 
             /*using CI Database Active Record*/
             $value = urldecode($value);
@@ -3772,6 +3780,8 @@ ORDER BY question_code";
             /*using CI Database Active Record*/
             $data = array();
 
+
+
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -3855,6 +3865,7 @@ ORDER BY question_code";
             $data = array();
 
             $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
+
 
 
             try {
@@ -4468,3 +4479,4 @@ WHERE
         }
 
     }
+

@@ -447,6 +447,8 @@ ORDER BY fac_level;");
 
         $resultArray = array(array('name' => 'Yes', 'data' => $yesF), array('name' => 'No', 'data' => $noF));
 
+
+
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
 
@@ -454,45 +456,69 @@ ORDER BY fac_level;");
      * Get Trained Stuff
     */
     public function getTrainedStaff($criteria, $value, $survey, $for) {
-        $yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
 
+        $train = $results['trained'];
 
-        //echo '<pre>';print_r($results);echo '</pre>';die ;
-        $finalYes = $finalNo = $category = array();
+        $work = $results['working'];
+        $tCount = 0;
+        $wCount = 0;
+        $trainSize = sizeof($train);
+        $workSize = sizeof($work);
+        
+       // foreach($results as $key1 => $categories){
+            //echo '<pre>';print_r($categories);echo '</pre>';die ;
 
-        foreach ($results as $key => $county) {
-           // echo '<pre>';print_r($county);echo '</pre>';die ;
-            foreach ($county['trained'] as $k => $t) {
+            foreach ($categories as $key1 => $category) {
+              //echo '<pre>';print_r($key2);echo '</pre>';die ;
+                if ($tCount < $trainSize) {
+                    if (in_array($value, $category, true)) {
+                    //if (array_key_exists($category,$value)) {
+                        array_push($data['trained'],$value['working']+=(int)$value['trained']);
+                        array_push($data['working'],$value['working']+=(int)$value['working']);
+                        $tCount++;
+                    } else {
+                        $trainF[] = 0;
+                    }
+                } else {
+                    $trainF[] = 0;
 
-
-                if ($k == $training) {
-                    $finalYes[] = $t;
-                    $categories[] = $key;
                 }
+               //echo '<pre>';print_r($trainF);echo '</pre>';die ;
             }
 
-
-
-            foreach ($county['working'] as $k => $w) {
-                if ($k == $training) {
-                    $finalNo[] = $w;
-                    $categories[] = $key;
+        
+        
+            foreach ($categories as $key1 => $category) {
+                //echo '<pre>';print_r($category);echo '</pre>';die ;
+                if ($wCount < $workSize) {
+                    if (in_array($value, $category, true)) {
+                        array_push($data['trained'],$value['working']+=(int)$value['trained']);
+                        array_push($data['working'],$value['working']+=(int)$value['working']);
+                        $wCount++;
+                    } else {
+                        $workF[] = 0;
+                    }
+                } else {
+                    $workF[] = 0;
                 }
             }
-        }
+       // }
+        
+        $resultArray = array(array('name' => 'Trained', 'data' => $trainF), array('name' => 'Working', 'data' => $workF));
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die ;
+        $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
 
-        //echo '<pre>';print_r($finalYes);echo '</pre>';
-        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        //echo '<pre>';print_r($resultArray);echo '</pre>';
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
 
     public function getTrainedStaffOne($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
+
+        
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die ;
 
         $finalYes = $finalNo = $category = array();
 
@@ -524,8 +550,7 @@ ORDER BY fac_level;");
 
     }
 
-
-    public function getCommodityAvailabilityFrequency($criteria, $value, $survey) {
+    public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
 
@@ -681,7 +706,6 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey, 'mh', 'location');
     }
 
-
     /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
@@ -693,6 +717,7 @@ ORDER BY fac_level;");
      */
     public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey, $for, $statistic);
+
 
 
         foreach ($results as $key => $result) {
@@ -711,12 +736,14 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
 
+
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
 
     public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
+
 
 
         foreach ($results as $key => $result) {
@@ -748,7 +775,8 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-    public function getResourcesStatistics($criteria, $value, $survey) {
+    public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
+
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
 
         foreach ($results as $key => $result) {
@@ -766,7 +794,8 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
-            //echo "<pre>"; print_r($results);echo "</pre>";die;
+
+
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
@@ -780,10 +809,28 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
-        $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+       
+       $this->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+
+
 
        // echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+     /**
+     * [getHardwareFrequencyMnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getHardwareFrequencyCH($criteria, $value, $survey) {
+       
+       $this->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+
+
+
+       //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     /**
      * [getResourcesFrequencymnh description]
@@ -794,19 +841,13 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getresourcesFrequencyMnh($criteria, $value, $survey) {
-        $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        
+        $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        
+
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
-    public function getCountyReportingSummary($survey, $survey_category){
-        $results =$this->m_analytics->getCountyReportingSummary($survey, $survey_category);
-        $titles = array('Facility County', 'Facility District','Facility');
-        //echo "<pre>"; print_r($titles);echo "</pre>";
-        $data['data'] = $results;
-        $data['title'] = $titles;
-        $this->loadExcel($data,'Summary for Counties Reporting for'.' '.strtoupper($survey).' : '.strtoupper($survey_category).$value);
-        
-    }
+
 
       /**
      * [getResourcesLocationmnh description]
@@ -816,9 +857,41 @@ ORDER BY fac_level;");
      * @param  [type] $choice   [description]
      * @return [type]           [description]
      */
+
     public function getresourcesLocationMnh($criteria, $value, $survey) {
-        $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        
+       $this->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+
+    /**
+     * [getResourcesFrequencymnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getresourcesFrequencyCh($criteria, $value, $survey) {
+       
+        $this->getResourcesStatistics($criteria, $value, $survey, 'mch', 'availability');
+
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+    /**
+     * [getResourcesLocationmnh description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+
+    public function getresourcesLocationCh($criteria, $value, $survey) {
+        
+       $this->getResourcesStatistics($criteria, $value, $survey, 'mch', 'location');
+
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     /**
@@ -1372,6 +1445,7 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getCHSuppliesSupplier($criteria, $value, $survey);
 
+
         //var_dump($results);
         $category = $results['analytic_variables'];
         $suppliers = $results['responses'];
@@ -1391,6 +1465,8 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $finalD);
             unset($finalD);
         }
+
+
 
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
