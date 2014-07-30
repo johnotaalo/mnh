@@ -22,7 +22,7 @@
   <div id="activity_hcw"></div>
   	<script>
   		var base_url = '<?php echo base_url();?>';
-  		loadGraph(base_url, 'c_analytics/getFacilityProgress/hcw/baseline', '#activity_hcw');
+  		loadGraph(base_url, 'c_analytics/getFacilityProgress/hcw/mid-term', '#activity_hcw');
   	</script>
 
   </div></div></div>

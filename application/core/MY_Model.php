@@ -318,6 +318,21 @@ class  MY_Model  extends  CI_Model {
 		}
 		return $this -> treatmentbytype;
 	}
+	
+	function getTreatmentsTotal()
+	{
+		try {
+			$this -> treatmentbytype = $this -> em -> createQuery('SELECT t.treatmentCode, t.treatmentName,t.treatmentFor FROM models\Entities\treatments t ORDER BY t.treatmentFor,t.treatmentCode ASC');
+			
+			$this -> treatmentbytype = $this-> treatmentbytype -> getResult();
+			//die(var_dump($this->treatmentbytype));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> treatmentbytype;
+	}
+
 	function getAllTrainingGuidelines($surveyName) {
 		/*using DQL*/
 		try {

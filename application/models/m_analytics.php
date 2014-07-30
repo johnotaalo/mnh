@@ -26,6 +26,38 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
 
+    public function getCountyReportingSummary($survey, $survey_category){
+        /* using CI database active record*/
+        try{
+            $query = "SELECT 
+                        f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
+                        FROM
+                        assessment_tracker ast
+                            JOIN
+                        facilities f ON ast.facilityCode = f.fac_mfl
+                            JOIN
+                        survey_status ss ON ss.fac_id = f.fac_mfl
+                            JOIN
+                        survey_types st ON st.st_id = ss.st_id AND st.st_name = '".$survey."'
+                           JOIN
+                        survey_categories sc ON sc.sc_id = ss.sc_id AND sc.sc_name = '".$survey_category."'
+                        WHERE ast.ast_section = 'section-6'
+                    ORDER BY f.fac_county , f.fac_district";
+
+                $this->dataSet = $this->db->query($query,  array($survey));
+                $this->dataSet = $this->dataSet->result_array();
+                 if($this->dataSet){
+                    return $this->dataSet;
+                 }else{
+                    return $this->dataSet = false;
+                 }
+
+                   //var_dump($this->dataSet);die;
+        }
+        catch(exception $ex){
+
+        }
+    }
     public function get_facility_reporting_summary($survey) {
 
         /*using CI Database Active Record*/
@@ -170,7 +202,9 @@ GROUP BY cs.strategy_code ASC;";
     /*
      * Guidelines Availability
     */
+
     public function getGuidelinesAvailability($criteria, $value, $survey) {
+
 
         /*using CI Database Active Record*/
         $data = array();
@@ -299,7 +333,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey) {
+    public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
 
         /*using CI Database Active Record*/
@@ -312,158 +346,122 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
 
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
+        $query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
 
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-
-        $query = "SELECT
-    COUNT(gt.fac_mfl) AS facilities,
-    gt.guide_code AS training,
-    sum(gt.tg_trained_before_2010) AS trained,
-    sum(gt.tg_working) AS working
-FROM
-    training_guidelines gt
-WHERE
-    gt.guide_code IN (SELECT
-            guide_code
-        FROM
-            guidelines
-        WHERE
-            guide_for = '" . $survey . "')
-        AND gt.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-         JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-GROUP BY gt.guide_code
-ORDER BY gt.guide_code ASC";
 
         try {
-            $this->dataSet = $this->db->query($query, array($value));
-            $this->dataSet = $this->dataSet->result_array();
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
 
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
+                // Dump the extra resultset.
+                $queryData->free_result();
 
-                //prep data for the pie chart format
-                $size = count($this->dataSet);
-                $i = 0;
-
-                //var_dump($this->dataSet);die;
-                foreach ($this->dataSet as $value) {
-
-                    //if(isset($value['trained'])){
-                    $data_t[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['trained']);
-
-                    //}else if(isset($value['working'])){
-                    $data_w[$this->getStaffTrainingGuidelineById($value['training']) ] = (int)($value['working']);
-
-                    //}
-
-                    //get a set of the 3 staff trainings
-                    //$data_categories[] = $this -> getStaffTrainingGuidelineById($value['training']);
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('facilities', $value)) {
+                            array_push($cat,$value['training']);
+                            array_push($data['trained'],$value['trained']+= (int)$value['trained']);
+                            array_push($data['working'],$value['working']+= (int)$value['working']);
+                        }
+                    }
 
 
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+               case 'mnh':
+               //$data_categories[] = $this->getMNHGuideName($value_['training']);
+                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+               break;
+
+               case 'ch':
+               //$data_categories[] = $this->getCHGuideName($value_['training']);
+                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+               break;
+                      }
+                } else {
+                    return null;
                 }
-
-                $data['categories'] = json_encode($data_categories);
-
-                $data['trained_values'] = $data_t;
-                $data['working_values'] = $data_w;
-
                 $this->dataSet = $data;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            }
+            catch(exception $ex) {
 
-                //var_dump($this->dataSet);die;
-                return $this->dataSet;
-            } else {
-                return $this->dataSet = null;
+                //ignore
+                //die($ex->getMessage());//exit;
+
+
             }
 
-            //die(var_dump($this->dataSet));
-
-
+            return $data;
         }
+
+
+
+        /*try {
+            $this->dataSet = $this->db->query($query, array($value));
+            $this->dataSet = $this->dataSet->result_array();
+            $cat=$data['trained']=$data['working']=array();
+            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            foreach ($this->dataSet as $value_) {
+            if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $value) {
+                    array_push($cat,$value['training']);
+                    array_push($data['trained'],$value['trained']+= (int)$value['trained']);
+                    array_push($data['working'],$value['working']+= (int)$value['trained']);
+                    }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    }
+            switch ($survey) {
+               case 'mnh':
+               //$data_categories[] = $this->getMNHGuideName($value_['training']);
+                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
+               break;
+
+               case 'ch':
+               //$data_categories[] = $this->getCHGuideName($value_['training']);
+                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
+               break;
+             }
+           }
+             $data['categories'] = (array_values(array_unique($data_categories)));
+             //$data['responses'] = $data_set;
+             $this->dataSet = $data;
+
+              echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    }
+
+
         catch(exception $ex) {
 
             //ignore
             //die($ex->getMessage());//exit;
 
-
         }
-    }
+       //
+        return $data;
+    }*/
 
     /*
      * Commodity Availability
     */
-    public function getCommodityAvailability($criteria, $value, $survey) {
+    public function getCommodityAvailability($criteria, $value, $survey, $for, $statistic) {
 
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
 
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
+        $query = "CALL get_commodity_statistics('" . $criteria . "' ,'" . $value . "' ,'" . $survey . "' ,'" . $for . "' ,'" . $statistic . "' );";
+        //
 
         /**
          * something of this kind:
          * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
          */
-        switch ($criteria) {
-            case 'national':
-                $criteria_condition = ' ';
-                break;
 
-            case 'county':
-                $criteria_condition = 'WHERE fac_county=?';
-                break;
-
-            case 'district':
-                $criteria_condition = 'WHERE fac_district=?';
-                break;
-
-            case 'facility':
-                $criteria_condition = 'WHERE fac_mfl=?';
-                break;
-
-            case 'none':
-                $criteria_condition = '';
-                break;
-        }
-
-        /*--------------------begin commodities availability by frequency----------------------------------------------*/
-        $query = "SELECT count(ca.ac_Availability) AS total_response,ca.comm_code as commodities,ca.ac_Availability AS frequency,c.comm_unit as unit FROM available_commodities ca,commodities c
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-                    GROUP BY ca.comm_code,ca.ac_Availability
-                    ORDER BY ca.comm_code";
         try {
             $this->dataSet = $this->db->query($query, array($value));
 
@@ -550,19 +548,10 @@ ORDER BY gt.guide_code ASC";
         /*--------------------end commodities availability by frequency----------------------------------------------*/
 
         /*--------------------begin commodities reason for unavailability----------------------------------------------*/
+        if ($statistic == 'unavailabilty') {
         $this->dataSet = array();
-        $query = "SELECT count(ca.ac_reason_unavailable) AS total_response,ca.comm_code as commodities,ca.ac_reason_unavailable AS reason, c.comm_unit as unit FROM available_commodities ca,commodities c
-                    WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-                    AND ca.comm_code IN (SELECT comm_code FROM commodities WHERE comm_for='" . $survey . "')
-                    AND ca.ac_reason_unavailable !='Not Applicable'
-                    GROUP BY ca.comm_code,ca.ac_reason_unavailable
-                    ORDER BY ca.comm_code,reason ASC";
+
+
         try {
             $this->dataSet = $this->db->query($query, array($value));
 
@@ -573,6 +562,7 @@ ORDER BY gt.guide_code ASC";
 
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
+
 
                 foreach ($this->dataSet as $value_) {
 
@@ -634,39 +624,11 @@ ORDER BY gt.guide_code ASC";
 
 
         }
-
+        }
         /*--------------------end commodities reason for unavailability----------------------------------------------*/
 
         /*--------------------begin commodities location of availability----------------------------------------------*/
-        $query = "SELECT
-    count(ca.ac_location) AS total_response,
-    ca.comm_code as commodities,
-    ca.ac_location AS location,
-    commodities.comm_unit as unit
-FROM
-    available_commodities ca,
-    commodities
-WHERE
-    ca.comm_code = commodities.comm_code
-        AND ca.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ca.comm_code IN (SELECT
-            comm_code
-        FROM
-            commodities
-        WHERE
-            comm_for = '$survey')
-        AND ca.ac_location NOT LIKE '%Not Applicable%'
-GROUP BY ca.comm_code , ca.ac_location
-ORDER BY ca.comm_code,location ASC";
+       if ($statistic == 'location') {
         try {
             $this->dataSet = $this->db->query($query, array($value));
 
@@ -761,6 +723,7 @@ ORDER BY ca.comm_code,location ASC";
             } else {
                 return null;
             }
+
         }
         catch(exception $ex) {
 
@@ -769,36 +732,11 @@ ORDER BY ca.comm_code,location ASC";
 
 
         }
-
+        }
         /*--------------------end commodities location of availability----------------------------------------------*/
 
         /*--------------------begin commodities availability by quantity----------------------------------------------*/
-        $query = "SELECT
-    SUM(ca.ac_quantity) AS total_quantity,
-    ca.comm_code as commodities,commodities.comm_unit AS unit
-FROM
-    available_commodities ca,commodities
-WHERE
-commodities.comm_code=ca.comm_code AND
-    ca.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-        AND ca.comm_code IN (SELECT
-            comm_code
-        FROM
-            commodities
-        WHERE
-            comm_for = '$survey')
-        AND ca.ac_quantity != - 1
-GROUP BY ca.comm_code
-ORDER BY ca.comm_code";
+       if ($statistic == 'quantity') {
         try {
             $this->dataSet = $this->db->query($query, array($value));
 
@@ -855,6 +793,7 @@ ORDER BY ca.comm_code";
             //die(var_dump($this->final_data_set));
 
 
+
         }
         catch(exception $ex) {
 
@@ -863,13 +802,14 @@ ORDER BY ca.comm_code";
 
 
         }
+      }
     }
 
     /*
      * Availability, Location and Functionality of Equipment at ORT Corner
     */
-    public function getORTCornerEquipmement($criteria, $value, $survey) {
 
+    public function getORTCornerEquipmement($criteria, $value, $survey) {
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
 
@@ -887,6 +827,7 @@ ORDER BY ca.comm_code";
                 $criteria_condition = ' ';
                 $value = ' ';
                 break;
+
 
             case 'county':
                 $criteria_condition = 'WHERE fac_county=?';
@@ -908,30 +849,7 @@ ORDER BY ca.comm_code";
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
 
-        /* $query = "SELECT
-        count(ea.ae_availability) AS total_response,
-        ea.eq_code as equipment,
-        ea.ae_availability AS frequency
-        FROM
-        available_equipments ea
-        WHERE
-        ea.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')" . $criteria_condition . ")
-        AND ea.eq_code IN (SELECT
-            eq_code
-        FROM
-            equipments
-        WHERE
-            eq_for = 'ort')
-        GROUP BY ea.eq_code , ea.ae_availability
-        ORDER BY ea.eq_code ASC";*/
+
         try {
 
             $this->dataSet = $this->db->query($query, array($value));
@@ -972,6 +890,7 @@ ORDER BY ca.comm_code";
                     } else if ($frequency == 'Never Available') {
                         $data_set['Never Available'][] = intval($value_['total_response']);
                     }
+
                 }
 
                 //var_dump($data_set);die;
@@ -1005,6 +924,7 @@ ORDER BY ca.comm_code";
             } else {
                 return null;
             }
+
         }
         catch(exception $ex) {
 
@@ -1188,8 +1108,10 @@ ORDER BY ea.eq_code ASC";
 
                         //data set by each equipment
                         $data_set[$this->getCHEquipmentName($value_['equipment']) ][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
+
                     }
                 }
+
 
                 //var_dump($analytic_var);die;
 
@@ -1528,6 +1450,7 @@ WHERE
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
+
                 $queryData->next_result();
 
                 // Dump the extra resultset.
@@ -1547,15 +1470,22 @@ WHERE
 
                         //echo $value['indicator'];die;
                         $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
-                    }
+
                     $data['categories'] = array_keys($data['response']);
+                }
                     $this->dataSet = $data;
+
                     return $this->dataSet;
+
                 } else {
+
                     return $this->dataSet = null;
                 }
 
+
+
                 die(var_dump($this->dataSet));
+
             }
             catch(exception $ex) {
 
@@ -1951,6 +1881,7 @@ ORDER BY oa.question_code ASC";
                 } else {
                     return null;
                 }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
             catch(exception $ex) {
 
@@ -1962,7 +1893,84 @@ ORDER BY oa.question_code ASC";
 
             return $data;
         }
+        public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
 
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+
+            $query = "CALL get_commodity_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                    	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                            }
+                        } else if (array_key_exists('reason', $value)) {
+                            $data[$value['commodity_name']][$value['reason']]= (int)$value['total_response'];
+                        }else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']][$value['unit']]= (int)$value['total_response'];
+                        }
+                    }
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                            break;
+
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
+
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
+                } else {
+                    return null;
+                }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+
+
+            }
+
+            return $data;
+        }
         /**
          * [getSuppliesStatistics description]
          * @param  [type] $criteria  [description]
@@ -1990,11 +1998,12 @@ ORDER BY oa.question_code ASC";
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
-                        } else if (array_key_exists('location', $value)) {
-                            $location = explode(',', $value['location']);
+                        } else if (array_key_exists('locations', $value)) {
+                            $location = explode(',', $value['locations']);
                             foreach ($location as $place) {
                                 $data[$value['supply_name']][$place]+= (int)$value['total_response'];
                             }
@@ -2177,7 +2186,7 @@ LIMIT 0 , 1000
         /*
          *  Availability, Location and Functionality of Electricity and Hardware Resources
         */
-        public function getResourcesStatistics($criteria, $value, $survey) {
+        public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
 
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
@@ -2191,37 +2200,58 @@ LIMIT 0 , 1000
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
 
-            /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
-            $query = "CALL get_resources('" . $criteria . "', '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','" . $choice . "');";
+            $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
 
             try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
 
-                $this->dataSet = $this->db->query($query, array($value));
-
-                $this->dataSet = $this->dataSet->result_array();
+                // Dump the extra resultset.
+                $queryData->free_result();
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-
-                    //prep data for the pie chart format
-                    $size = count($this->dataSet);
-
-                    echo '<pre>';
-                    print_r($this->dataSet);
-                    echo '</pre>';
-                    die;
+                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                        } else if (array_key_exists('location', $value)) {
+                            $location = explode(',', $value['location']);
+                            foreach ($location as $place) {
+                                $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                            }
+                        }
                     }
-                    return $this->dataSet;
 
-                    //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
+                    /**
+                     * Fix Data
+                     */
+                    switch ($survey) {
+                        case 'mnh':
+                            $location = array('Delivery room', 'Pharmacy', 'Store', 'Other', 'Not Applicable');
+                            break;
 
-                    //unset the arrays for reuse in the next query
-                    $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+                        case 'ch':
+                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                            break;
 
-                    //return $this -> final_data_set;
-
-
+                        default:
+                            $location = array();
+                            break;
+                    }
+                    if ($statistic == 'location') {
+                        foreach ($data as $key => $value) {
+                            foreach ($location as $place) {
+                                if (array_key_exists($place, $value) == false) {
+                                    $newData[$key][$place] = 0;
+                                } else {
+                                    $newData[$key][$place] = $value[$place];
+                                }
+                            }
+                        }
+                        $data = $newData;
+                    }
                 } else {
                     return null;
                 }
@@ -2233,7 +2263,12 @@ LIMIT 0 , 1000
 
 
             }
+
+            return $data;
         }
+
+
+
         public function get_response_count($survey) {
             try {
 
@@ -2499,7 +2534,8 @@ ORDER BY f.fac_county ASC;";
 
             /*using CI Database Active Record*/
             try {
-                $query = "SELECT
+
+                /*$query = "SELECT
     f.fac_county as county, c.county_id as countyID
 FROM
     facilities f
@@ -2517,12 +2553,12 @@ FROM
 WHERE
     c.county_name = f.fac_county
 GROUP BY f.fac_county
-ORDER BY f.fac_county ASC;";
+ORDER BY f.fac_county ASC;";*/
+                $query = "SELECT county_name as county, county_id as countyID FROM counties";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
 
                 //die(var_dump($this->dataSet));
-
 
             }
             catch(exception $ex) {
@@ -2604,6 +2640,7 @@ ORDER BY f.fac_county ASC;";
 
                 //ignore
                 //echo($ex -> getMessage());
+
 
 
             }
@@ -2695,8 +2732,11 @@ FROM
 
                 $myData = $this->db->query($query);
 
+
                 // echo $this->db->last_query();die;
+
                 $finalData = $myData->result_array();
+                //echo $finalData;
             }
             catch(exception $ex) {
 
@@ -2705,7 +2745,8 @@ FROM
 
 
             }
-            return $finalData;
+           return $finalData;
+
         }
 
         /**
@@ -3813,105 +3854,9 @@ ORDER BY question_code";
             $value = urldecode($value);
             $data = array();
 
-            switch ($criteria) {
-                case 'national':
-                    $criteria_condition = ' ';
-                    break;
-
-                case 'county':
-                    $criteria_condition = 'WHERE fac_county=?';
-                    break;
-
-                case 'district':
-                    $criteria_condition = 'WHERE fac_district=?';
-                    break;
-
-                case 'facility':
-                    $criteria_condition = 'WHERE fac_mfl=?';
-                    break;
-
-                case 'none':
-                    $criteria_condition = '';
-                    break;
-            }
-            $query = "SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-    sum(if (lq_response ='No' , 1 , 0)) as no_values
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-GROUP BY question_code
-ORDER BY question_code";
-            try {
-                $this->dataSet = $this->db->query($query, array($value));
-                $this->dataSet = $this->dataSet->result_array();
-                foreach ($this->dataSet as $value_) {
-                    $question = $this->getQuestionName($value_['question_code']);
-                    $yes = $value_['yes_values'];
-                    $no = $value_['no_values'];
-
-                    //1. collect the categories
-                    $data['overview'][$question]['yes'] = $yes;
-                    $data['overview'][$question]['no'] = $no;
-                }
-
-                //die(var_dump($this->dataSet));
+            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
 
 
-            }
-            catch(exception $ex) {
-
-                //ignore
-                //die($ex->getMessage());//exit;
-
-
-            }
-            $query = "SELECT
-    question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-        (fac_level) as facility_level
-        FROM
-            log_questions
-        JOIN
-            facilities
-        ON
-            facilities.fac_mfl = log_questions.fac_mfl and facilities.fac_level!=''
-        WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'prep')
-        AND facilities.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-               " . $criteria_condition . ")
-GROUP BY fac_level
-ORDER BY fac_level;";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
@@ -3955,7 +3900,7 @@ ORDER BY fac_level;";
          *      .bemonc
          *      .cemonc
          */
-        public function getSignalFunction($criteria, $value, $survey, $signal) {
+        public function getSignalFunction($criteria, $value, $survey, $statistic, $function) {
 
             /*using CI Database Active Record*/
             $value = urldecode($value);
@@ -3963,52 +3908,12 @@ ORDER BY fac_level;";
             /*using CI Database Active Record*/
             $data = array();
 
-            switch ($criteria) {
-                case 'national':
-                    $criteria_condition = ' ';
-                    break;
+            $query = "CALL get_signal_function('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "','" . $function . "');";
 
-                case 'county':
-                    $criteria_condition = 'WHERE fac_county=?';
-                    break;
-
-                case 'district':
-                    $criteria_condition = 'WHERE fac_district=?';
-                    break;
-
-                case 'facility':
-                    $criteria_condition = 'WHERE fac_mfl=?';
-                    break;
-
-                case 'none':
-                    $criteria_condition = '';
-                    break;
-            }
-            switch ($signal) {
+            switch ($statistic) {
                 case 'bemonc':
-                    $query = "SELECT
-    sf_code,
-    sum(if(bem_conducted = 'Yes', 1, 0)) as yes_values,
-    sum(if(bem_conducted = 'No', 1, 0)) as no_values
-FROM
-    bemonc_functions
-WHERE
-    sf_code IN (SELECT
-            sf_code
-        FROM
-            signal_functions)
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-" . $criteria_condition . ")
-GROUP BY sf_code
-ORDER BY sf_code";
+                    switch ($function){
+                        case 'question':
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
@@ -4033,30 +3938,12 @@ ORDER BY sf_code";
 
 
                     }
+                    return $data;
+                      break;
 
-                    $query = "SELECT
-    count(*) as response,challenge_code,fac_level as level
-FROM
-    bemonc_functions join
-    facilities f ON bemonc_functions.fac_mfl = f.fac_mfl AND f.fac_level!=''
-WHERE
-    sf_code IN (SELECT
-            sf_code
-        FROM
-            signal_functions)
-        AND f.fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-GROUP BY challenge_code,f.fac_level
-ORDER BY challenge_code
-";
+
+
+                        case 'reason':
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
@@ -4080,81 +3967,9 @@ ORDER BY challenge_code
 
                     return $data;
                     break;
+                   }
 
                 case 'ceoc':
-                    $query = "SELECT
-     question_code,
-    sum(if (lq_response ='Yes' , 1 , 0)) as yes_values,
-    sum(if (lq_response ='No' , 1 , 0)) as no_values
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = '$signal')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-            GROUP BY question_code
-ORDER BY question_code";
-                    try {
-                        $this->dataSet = $this->db->query($query, array($value));
-                        $this->dataSet = $this->dataSet->result_array();
-                        foreach ($this->dataSet as $value_) {
-                            $question = $this->getQuestionName($value_['question_code']);
-                            $yes = $value_['yes_values'];
-                            $no = $value_['no_values'];
-
-                            //1. collect the categories
-                            $data['conducted'][$question]['yes'] = $yes;
-                            $data['conducted'][$question]['no'] = $no;
-                        }
-
-                        //die(var_dump($this->dataSet));
-
-
-                    }
-                    catch(exception $ex) {
-
-                        //ignore
-                        //die($ex->getMessage());//exit;
-
-
-                    }
-
-                    $query = "SELECT
-     count(*) as lq_response,lq_reason,question_code
-FROM
-    log_questions
-WHERE
-    question_code IN (SELECT
-            question_code
-        FROM
-            questions
-        WHERE
-            question_for = 'ceoc')
-        AND fac_mfl IN (SELECT
-            fac_mfl
-        FROM
-            facilities f
-                JOIN
-            survey_status ss ON ss.fac_id = f.fac_mfl
-                JOIN
-            survey_types st ON (st.st_id = ss.st_id
-                AND st.st_name = '" . $survey . "')
-                 " . $criteria_condition . ")
-            GROUP BY lq_reason,question_code
-ORDER BY question_code";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
@@ -4207,7 +4022,7 @@ ORDER BY question_code";
                 $queryData->free_result();
 
                 foreach ($this->dataSet as $value_) {
-                    $question = $this->getQuestionName($value_['question_code']);
+                	$question = $this->getQuestionName($value_['question_code']);
                     $question = trim($question, 'Does this facility have an updated');
                     $question = trim($question, '?');
 
@@ -4230,7 +4045,6 @@ ORDER BY question_code";
                 }
 
                 //die(var_dump($this->dataSet));
-
 
             }
             catch(exception $ex) {
@@ -4652,5 +4466,5 @@ WHERE
             catch(exception $e) {
             }
         }
-    }
 
+    }

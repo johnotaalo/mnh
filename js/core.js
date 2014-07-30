@@ -164,12 +164,13 @@ function runNotification(base_url, function_url, messsage) {
             //console.log(data);die;
             obj = jQuery.parseJSON(data);
             $.each(obj, function(k, v) {
-                console.log(v.cl_country);
+                //console.log(v.cl_country);
                 //console.log(getCountryInfo(v.cl_country));
-                phoneNumber = getCountryInfo(v.cl_country) + v.cl_phone_number;
+                phoneNumber = encodeURIComponent(getCountryInfo(v.cl_country) + v.cl_phone_number);
+                email = encodeURIComponent(v.cl_email_address);
                 today = new Date();
                 hours = today.getHours();
-                console.log(hours);
+                //console.log(hours);
 
 
                 if (hours < 12) {
@@ -183,8 +184,11 @@ function runNotification(base_url, function_url, messsage) {
                 }
 
                 newMessage = period + ' ' + v.cl_name + ',  ' + message;
-                //console.log(newMessage);
-               // notify(phoneNumber, newMessage);
+                var emailmessage = [period, v.cl_name, message];
+                emailmessage = JSON.stringify(emailmessage);
+                console.log(emailmessage);
+                notify_email(email, emailmessage);
+                //notify_sms(phoneNumber, newMessage);
 
             });
         }
@@ -193,12 +197,12 @@ function runNotification(base_url, function_url, messsage) {
 
 
 /**
- * [notify description]
+ * [notify_sms description]
  * @param  {[type]} phoneNumber [description]
  * @param  {[type]} message     [description]
  * @return {[type]}             [description]
  */
-function notify(phoneNumber, message) {
+function notify_sms(phoneNumber, message) {
     //message="test";
     $.ajax({
         //url: base_url + function_url,
@@ -212,3 +216,92 @@ function notify(phoneNumber, message) {
         }
     });
 }
+/**
+ * [notify_email description]
+ * @param  {[type]} email   [description]
+ * @param  {[type]} message [description]
+ * @return {[type]}         [description]
+ */
+function notify_email(email, message) {
+    //message="test";
+    $.ajax({
+        //url: base_url + function_url,
+        url: 'http://localhost/mnh/c_admin/notify/email/' + email + '/' + encodeURIComponent(message),
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        },
+        success: function(data) {
+            console.log(data);
+
+        }
+    });
+}
+
+function getCountyData(base_url,county,survey_type,survey_category){
+    $.ajax({
+        url: base_url+'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+        },
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            console.log(obj);
+            $('#county_name').text(county);
+            $('#survey_type').text(survey_type.toUpperCase());
+            $('#survey_category').text(survey_category.toUpperCase());
+            $('#targeted .digit').text(obj[0].actual);
+            $('#finished .digit').text(obj[0].reported);
+            $('#started .digit').text(obj[0].unfinished);
+            $('#not_started .digit').text((parseInt(obj[0].actual)-(parseInt(obj[0].reported)+parseInt(obj[0].unfinished))));
+            url=base_url+'c_analytics/setActive/'+county+'/' + survey_type + '/' + survey_category;
+            $('#load_analytics').attr('data-url',url)
+        }
+    });
+}
+
+function startIntro() {
+    var intro = introJs();
+    intro.setOptions({
+        steps: [{
+            element: '#network',
+            intro: "This is a Top Bar showing the Date, User and System Information.",
+            position: 'bottom'
+        }, {
+            element: '#navigation',
+            intro: "The <b>Navigation</b> Menu has the links to the Surveys and Analytics as well as <b>HCMP</b> and <b>PMT</b>.",
+            position: 'top'
+        }, {
+            element: '#surveys',
+            intro: 'The <b>Surveys</b> Section contains links to access the <span style="color:blue">Forms</span> for the 3 Surveys i.e. MNH, CH and HCW. ',
+            position: 'right'
+        }, {
+            element: '#reporting-rates',
+            intro: "The <b>Reporting</b> Section displays the Kenyan Map, <span style='color:red'>C</span> <span style='color:orange'>o</span> <span style='color:gold'>l</span> <span style='color:lightgreen'>o</span> <span style='color:green'>r</span> Coded to represent the Completion Rate.",
+            position: 'left'
+        }, {
+            element: '#analytics',
+            intro: 'The <b>Analytics</b> Analytics contains links to access the <span style="color:blue">Data</span> for the 3 Surveys i.e. MNH, CH and HCW.',
+            position: 'left'
+        }]
+    });
+
+    intro.start();
+}
+$(document).ready(function() {
+    //startIntro();
+ $('.panel-collapse.collapse.in').parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-down');
+    //Handling Collapses
+    $('.panel-collapse').on('show.bs.collapse', function () {
+        $(this).parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-down');
+        //$('.panel-collapse collapse in').collapse('hide');
+        //$(this).collapse('show');
+
+    })
+     $('.panel-collapse').on('hide.bs.collapse', function () {
+        $(this).parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-right');
+        //$('.panel-collapse collapse in').collapse('hide');
+        //$(this).collapse('show');
+
+    })
+
+});

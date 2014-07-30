@@ -204,38 +204,7 @@ class C_Load extends MY_Controller {
             <th>NAME</th>
             <th >MOBILE</th>
             <th >EMAIL</th>
-        </tr>
-        <tr>
-            <TD  colspan="2">Incharge </TD><td>
-            <input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <TD  colspan="2">MCH Incharge</TD><td>
-            <input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <TD  colspan="2">Maternity Incharge</TD><td>
-            <input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>
+        </tr>'.$this -> facilitycontactinformation .'
         </table>
                 <table>
         <tr>
@@ -1168,7 +1137,7 @@ class C_Load extends MY_Controller {
                 <th style="text-align:left">AFTER 2014</th>
             </tr>
 
-        '.$this -> mchTrainingGuidelineSection.'
+        '.$this->mchTrainingGuidelineSection.'
 
     </table>
     <table>
@@ -1182,7 +1151,7 @@ class C_Load extends MY_Controller {
                     <th>RESPONSE</th>
 
                 </tr>
-            '.$this -> HealthSection.'
+            '.$this->HealthSection.'
         </table>
     <table>
         <thead><th colspan = "12"> INFRASTRACTURE: IMCI CONSULTATION ROOM</th></thead>
@@ -1247,13 +1216,12 @@ Indicate the total # of children that received the following treatment. </br>
             </tr>
             <tr>
                 <th colspan="2">Diarrhoea Total</th>
-                    <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
-
+                <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
                 <th colspan = "2"></th>
             </tr>
             </tbody>
             <tr>
-                <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
+            <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
             <td>Some Dehydration: <input type = "number" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
             <td>No Dehydration: <input type = "number" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
             <td>Dysentry: <input type = "number" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
@@ -1940,6 +1908,17 @@ public function get_hcw_form() {
             <input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
             </td>
         </tr>
+        <tr>
+            <TD  colspan="2">Team Lead</TD><td>
+            <input type="text" id="facilityteamleadname" name="facilityMaternityname" class="cloned" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityteamleadmobile" name="facilityMaternitymobile" class="phone" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityteamleademail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+            </td>
+        </tr>
         </table>
 
         <table>
@@ -1956,7 +1935,8 @@ public function get_hcw_form() {
             <td>
             <input type="email" size="40" name = "assesoremail_1">
             </td>
-            </td><td>Phone Number </td>
+            </td>
+            <td>Phone Number </td>
             <td>
             <input type="phoneNumber" size="40" name = "assesorphoneNumber_1">
             </td>
@@ -1987,12 +1967,17 @@ public function get_hcw_form() {
             <td><input type="text" name="hpphonenumber_1" id="hpphonenumber"></td>
         </tr>
         <tr>
+            <td>Personal Number</td>
+            <td><input type="text" name="hppersonalnumber_1" id="hppersonalnumber"></td>
+            <td colspan = "2"></td>
+        </tr>
+        <tr>
             <td colspan="1">Year, Month when trained <input type="text" name="hpyear_1" id="hpyear"></td>
-            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b>
-                MOH/KPA/CHAI<input type="radio" name="hpcoordinator_1" value="MOH/KPA/CHAI">
-                MOH only<input type="radio" name="hpcoordinator_1" value="MOH only">
-                Other<input type="radio" name="hpcoordinator_1" value="Other">
-                (If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other" style="display:none">
+            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></br>
+                MOH/KPA/CHAI<input type="radio" name="hpcoordinator_1" value="MOH/KPA/CHAI"></br>
+                MOH only<input type="radio" name="hpcoordinator_1" value="MOH only"></br>
+                Other<input type="radio" name="hpcoordinator_1" value="Other"></br>
+                (If other, indicate the name of the coordinator/partner)<input type="text" name="hpother" id="hp_other">
             </td>
         </tr>
         <tr>
@@ -2024,10 +2009,22 @@ public function get_hcw_form() {
 
         <input type="hidden" name="step_name" value="section-2"/>
 <p class="message success" style = "text-align: center;">SECTION 2</p>
-<p class="message success">SECTION 2A: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
 <p class="instruction">
         * Assessor should indicate findings alongside Healthcare Worker findings.
 </p>
+<table class="centre">
+    <thead>
+    <tr>
+        <th colspan="6">CHILD PROFILE</th>
+    </tr>
+    </thead>
+        <tr>
+            <td>Gender (M or F)</td><td><input type="text"></td>
+            <td>Age (In Months)</td><td><input type="text"></td>
+            <td>Presenting complaints?</td><td><input size="100" type="text"></td>
+        </tr>
+</table>
 <table class="centre">
 
         <tr>
@@ -2052,22 +2049,14 @@ public function get_hcw_form() {
 
     ' . $this -> mchIndicatorsSection['sgn'] . '
 </table>
+<p class="message success">SECTION 2A: ASSESSMENT OF THE SICK CHILD AGE 2 MONTHS UP TO 5 YEARS</p>
 <table class="centre">
-    <thead>
     <tr>
-        <th colspan="6">CHILD PROFILE</th>
+    <th colspan = "5">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
     </tr>
-    </thead>
-        <tr>
-            <td>Gender (M or F)</td><td><input type="text"></td>
-            <td>Age (In Months)</td><td><input type="text"></td>
-            <td>Presenting complaints?</td><td><input size="100" type="text"></td>
-        </tr>
-</table>
-<p class="message success">SECTION 2B: ASSESSMENT OF THE SICK YOUNG INFANT(IF APPLICABLE)</p>
-<table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "pnechoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
+    	<th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "pnechoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input></td>
+        <p class = "instruction">* If NO proceed to the next symptom.</p>
     	</tr>
           <tr>
             <th width="500px">Symptom</th>
@@ -2088,8 +2077,9 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
-    	</tr>
+        <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "dgnchoice" value = "0">No</input></td>
+        <p class = "instruction">* If NO proceed to the next symptom.</p>
+        </tr>
          <tr>
             <th width="500px">Symptom</th>
 
@@ -2109,8 +2099,9 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
     	<tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
-    	</tr>
+        <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "fevchoice" value = "1">Yes</input> <input type = "radio" name = "fevchoice" value = "0">No</input></td>
+        <p class = "instruction">* If NO proceed to the next symptom.</p>
+        </tr>
           <tr>
             <th width="500px">Symptom</th>
 
@@ -2130,8 +2121,9 @@ public function get_hcw_form() {
 </table>
 <table class="centre">
         <tr>
-    	<td colspan = "5">Does the child have the symptom below? <input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "pnechoice" value = "0">No</input>(If NO proceed to the next symptom)</td>
-    	</tr>
+        <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "earchoice" value = "1">Yes</input> <input type = "radio" name = "earchoice" value = "0">No</input></td>
+        <p class = "instruction">* If NO proceed to the next symptom.</p>
+        </tr>
         <tr>
             <th width="500px">Symptom</th>
 
@@ -2148,12 +2140,180 @@ public function get_hcw_form() {
         </tr>
      ' . $this -> mchIndicatorsSection['ear'] . '
 </table>
+<p class="message success">SECTION 2B: ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "svdchoice" value = "1">Yes</input> <input type = "radio" name = "svdchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">1. Very Severe Disease</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['svd'].'
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "jauchoice" value = "1">Yes</input> <input type = "radio" name = "jauchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">2. Jaundice</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['jau'].'
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "eyechoice" value = "1">Yes</input> <input type = "radio" name = "eyechoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">3. Eye Infection</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['eye'].'
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "dgnchoice" value = "1">Yes</input> <input type = "radio" name = "dgnchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">4. Diarrhoea</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['dgn'].'
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "5achoice" value = "1">Yes</input> <input type = "radio" name = "5achoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">5A. Feeding Problem</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "5bchoice" value = "1">Yes</input> <input type = "radio" name = "5bchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">5B. Weight</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "5bchoice" value = "1">Yes</input> <input type = "radio" name = "5bchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">6. Special treatments needs</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+</table>
 </div>
 
 <div id="section-3" class="step">
 
 <input type="hidden" name="step_name" value="section-3"/>
 <p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING</p>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "malchoice" value = "1">Yes</input> <input type = "radio" name = "malchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">Malnutrition</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['mal'].'
+</table>
+
+<table class = "center">
+<tr>
+    <th colspan = "3">Does the child have the symptom below? <th><td colspan = "3"><input type = "radio" name = "anmchoice" value = "1">Yes</input> <input type = "radio" name = "anmchoice" value = "0">No</input></td>
+    <p class = "instruction">* If NO proceed to the next symptom.</p>
+</tr>
+<tr>
+    <th width="500px" rowspan = "2">Malnutrition</th>
+    <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+            <th style="width:100px">Response</th>
+            <th style="width:400px">Findings</th>
+        </tr>
+        '.$this -> mchIndicatorsSection['anm'].'
+</table>
 <table class="centre">
 
         <tr>
@@ -2188,7 +2348,7 @@ public function get_hcw_form() {
     <tbody>
         ' . $this -> mchIndicatorsSection['cnl'] . '
     </tbody>
-</table>
+    </table>
 </div>
 
 
@@ -2223,13 +2383,6 @@ public function get_hcw_form() {
     </tbody>
     <tfoot></tfoot>
 </table>
-</div>
-
-
-<div id="section-5" class="step">
-
-        <input type="hidden" name="step_name" value="section-5"/>
-
 <table>
 <thead>
     <tr>
@@ -2238,14 +2391,14 @@ public function get_hcw_form() {
 </thead>
     <tr>
         <td>
-            <input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
+            <input name="questionResponse_1000" type="radio">   Fully Practicing IMCI
         </td>
         <td>
         </td>
     </tr>
     <tr>
         <td>
-            <input name="questionResponse_1000" type="radio">	Practicing with gaps
+            <input name="questionResponse_1000" type="radio">   Practicing with gaps
         </td>
         <td>
             Reason <input name="questionResponseOther_1000" type="text" size="100">
@@ -2253,7 +2406,7 @@ public function get_hcw_form() {
     </tr>
     <tr>
         <td>
-           	<input name="questionResponse_1000" type="radio">	Not practicing at all
+            <input name="questionResponse_1000" type="radio">   Not practicing at all
         </td>
          <td>
             Reason <input name="questionResponseOther_1000" type="text" size="100">
@@ -2322,8 +2475,8 @@ If YES to all, consider HCW for TOT and Mentorship Training
             <td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
         </tr>
         <tr>
-            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
-            <td>Date	<input type="text" style="width:500px;padding:10px"></td>
+            <td>Date    <input type="text" style="width:500px;padding:10px"></td>
+            <td>Date    <input type="text" style="width:500px;padding:10px"></td>
         </tr>
     </tbody>
 </table>
@@ -2334,6 +2487,12 @@ If YES to all, consider HCW for TOT and Mentorship Training
         <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
     </tr>
 </table>
+</div>
+
+
+<div id="section-5" class="step">
+
+<input type="hidden" name="step_name" value="section-5"/>
 
 </div>
 <div id="sectionNavigation" class="buttonsPane">

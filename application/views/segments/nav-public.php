@@ -24,13 +24,13 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Surveys <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool </a>
                                 </li>
                             </ul>
                         </li>
@@ -38,13 +38,13 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Analytics <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a href="<?php echo base_url(); ?>mnh/analytics" id="mnh_analytics"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>mnh/analytics" id="mnh_analytics"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url(); ?>ch/analytics" id="mch_analytics"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>ch/analytics" id="mch_analytics"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url(); ?>hcw/analytics" id="mch_analytics"> 3. IMCI Follow-Up Tool Analysis - Baseline </a>
+                                    <a href="<?php echo base_url(); ?>hcw/analytics" id="mch_analytics"> 3. IMCI Follow-Up Tool Analysis </a>
                                 </li>
                             </ul>
                         </li>
@@ -52,10 +52,10 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Offline Forms <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
                                 <li id="mnh-form">
-                                    <a href="#"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis - Baseline </a>
+                                    <a href="#"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis </a>
                                 </li>
                                 <li id="mch-form">
-                                    <a href="#"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis - Baseline </a>
+                                    <a href="#"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis </a>
                                 </li>
                                 <li id="hcw-form">
                                     <a href="#"> 3. Follow-Up Tool after IMCI Training </a>

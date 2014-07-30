@@ -17,30 +17,35 @@
 
     <!-- New Bower Components -->
 
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/stylesheets/flat.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/intro.js/introjs.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/flat.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">
 
-<link rel="stylesheet" href="<?echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.css">
 
 
 
 <!-- Load JS here for greater good =============================-->
-    <script src="<?echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-switch.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-checkbox.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-radio.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.tagsinput.js"></script>
-    <script src="<?echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.placeholder.js"></script>
-<script src="<?echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
-<script src="<?echo base_url();?>assets/bower_components/select2/select2.js"></script>
-<script src="<?echo base_url();?>js/core.js"></script>
-<!--script src="<?echo base_url();?>assets/bower_components/"></script-->
+    <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-switch.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-checkbox.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/flatui-radio.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.tagsinput.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.placeholder.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/respond/dest/respond.min.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.js"></script>
+    <script src="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
+<script src="<?php echo base_url();?>js/core.js"></script>
+<!--script src="<?php echo base_url();?>assets/bower_components/"></script-->
 
 
         <script src="<?php echo base_url()?>js/highcharts.js"></script>

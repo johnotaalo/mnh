@@ -495,6 +495,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                     var diver = document.getElementById("pneTreatmentSection");
 
                     diver.appendChild(txt);
+
+                    
                 }
             }// close select treatment
 
