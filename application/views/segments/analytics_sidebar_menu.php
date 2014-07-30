@@ -118,19 +118,19 @@ switch($this->session->userdata('survey')) {
         <div id="commodities" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="commodityAvailabilityFrequency">
+                    <li id="MNHCommodityAvailabilityFrequency">
                         <a href="#">Commodity Availability</a>
                     </li>
-                    <li id="commodityAvailabilityUnavailability">
+                    <li id="MNHCommodityAvailabilityUnavailability">
                         <a href="#">Commodity Reasons For Unavailability</a>
                     </li>
-                    <li id="commodityAvailabilityLocation">
+                    <li id="MNHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="commodityAvailabilityQuantities">
+                    <li id="MNHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantities</a>
-                    </li>
-                    <li id="commoditySuppliers">
+                    </li>s
+                    <li id="MNHcommoditySuppliers">
                         <a href="#">Commodity Suppliers</a>
                     </li>
                 </ul>
@@ -196,7 +196,7 @@ switch($this->session->userdata('survey')) {
         <div id="hardware" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="hardwareFrequencyMnh">
+                    <li id="HardwareFrequencyMNH">
                         <a href="#">Hardware Availability</a>
                     </li>
                 </ul>
@@ -298,16 +298,16 @@ switch($this->session->userdata('survey')) {
         <div id="commodities" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="commodityAvailability">
+                    <li id="CHCommodityAvailabilityFrequency">
                         <a href="#">Commodity Availability</a>
                     </li>
-                    <li id="commodityAvailabilityUnavailability">
+                    <li id="CHCommodityAvailabilityUnavailability">
                         <a href="#">Commodity Reasons For Unavailability</a>
                     </li>
-                    <li id="commodityAvailabilityLocation">
+                    <li id="CHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="commodityAvailabilityQuantity">
+                    <li id="CHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantity</a>
                     </li>
                     <!--<li id="CHcommoditySuppliers">
