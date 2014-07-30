@@ -27,7 +27,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
     //loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_6');
     loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
+    loadGraph(base_url, 'c_analytics/getFacilityTypePerCounty/county/Turkana/' + survey +'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/case_summary/Cases/'+ survey+'/'+survey_category, '#graph_40');
     loadGraph(base_url, 'c_analytics/case_summary/Classification/'+ survey+'/'+survey_category, '#graph_41');

@@ -1619,20 +1619,42 @@ ORDER BY fac_level;");
     /**
      * Get Lever Ownership
      */
-    public function getFacilityLevelPerCounty($county, $survey, $survey_category) {
+    public function getFacilityLevelPerCounty($criteria, $value, $survey, $survey_category) {
 
         //$allCounties = $this -> m_analytics -> getReportingCounties('ch','mid-term');
-        $county = urldecode($county);
+        $value = urldecode($value);
 
         //foreach ($allCounties as $county) {
-        $category[] = $county;
-        $results = $this->m_analytics->getFacilityLevelPerCounty($county, $survey, $survey_category);
+        $category[] = $value;
+        $results = $this->m_analytics->getFacilityLevelPerCounty($criteria, $value, $survey, $survey_category);
         //echo '<pre>';print_r($results);echo '</pre>';die;
         $resultArray = array();
         foreach ($results as $value) {
             $data = array();
+            
             $name = 'Level  ' . $value['facilityLevel'];
+            //echo '<pre>';print_r($name);echo '</pre>';die;
             $data[] = (int)$value['level_total'];
+            $resultArray[] = array('name' => $name, 'data' => $data);
+            //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+    }
+
+    public function getFacilityTypePerCounty($criteria, $value, $survey, $survey_category) {
+
+        //$allCounties = $this -> m_analytics -> getReportingCounties('ch','mid-term');
+        $value = urldecode($value);
+
+        //foreach ($allCounties as $county) {
+        $category[] = $value;
+        $results = $this->m_analytics->getFacilityTypePerCounty($criteria, $value, $survey, $survey_category);
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        $resultArray = array();
+        foreach ($results as $value) {
+            $data = array();
+            $name = 'Level  ' . $value['facilityType'];
+            $data[] = (int)$value['type_total'];
             $resultArray[] = array('name' => $name, 'data' => $data);
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         }

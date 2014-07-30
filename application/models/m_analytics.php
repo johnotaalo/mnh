@@ -2308,30 +2308,13 @@ ORDER BY COUNT(facilityOwner) ASC) as tracker;';
             return $finalData;
         }
 
-        function getFacilityLevelPerCounty($county, $survey, $survey_category) {
+        function getFacilityLevelPerCounty($criteria, $value, $survey, $survey_category) {
 
             /*using DQL*/
             try {
 
-                $query = 'SELECT
-    tracker.level_total, tracker.facilityLevel
-FROM
-    (SELECT
-        COUNT(fac_level) as level_total,
-            fac_level as facilityLevel,
-            fac_county as countyName
-    FROM
-        facilities f
-    JOIN survey_status ss ON ss.fac_id = f.fac_mfl
-    JOIN survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = "' . $survey . '")
-        JOIN
-    survey_categories sc ON (ss.sc_id = sc.sc_id
-        AND sc.sc_name = "' . $survey_category . '")
-    WHERE
-        f.fac_county = "' . $county . '" and f.fac_level!=""
-    GROUP BY fac_Level
-    ORDER BY COUNT(fac_Level) ASC) AS tracker;';
+                
+              $query = 'CALL get_level_care("' . $criteria . '","' . $value . '","' . $survey . '","' . $survey_category . '");';
 
                 $myData = $this->db->query($query);
 
@@ -2340,7 +2323,35 @@ FROM
                 // echo $this->db->last_query();die;
 
                 $finalData = $myData->result_array();
-                //echo $finalData;
+               // echo $finalData;
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //echo($ex -> getMessage());
+
+
+            }
+           return $finalData;
+
+        }
+
+        function getFacilityTypePerCounty($criteria, $value, $survey, $survey_category) {
+
+            /*using DQL*/
+            try {
+
+                
+              $query = 'CALL get_facility_type("' . $criteria . '","' . $value . '","' . $survey . '","' . $survey_category . '");';
+
+                $myData = $this->db->query($query);
+
+
+
+                // echo $this->db->last_query();die;
+
+                $finalData = $myData->result_array();
+               // echo $finalData;
             }
             catch(exception $ex) {
 
