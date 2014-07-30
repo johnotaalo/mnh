@@ -28,9 +28,12 @@
 
 
 
-<!-- Load JS here for greater good =============================-->
+<!-- Load JS here for greater good 
+
+<script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
+    =============================-->
     <script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
-    <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="<?php echo base_url();?>components/jquery/jquery.js"></script>
     <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
     <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
     <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
