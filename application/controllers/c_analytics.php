@@ -554,7 +554,22 @@ ORDER BY fac_level;");
     public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'ch', 'quantity');
     }
+	public function getbundlingFrequency($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'availability');
+    }
 
+    public function getbundlingUnavailability($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'unavailability');
+    }
+
+    public function getbundlingLocation($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'location');
+    }
+
+    public function getbundlingQuantities($criteria, $value, $survey) {
+        $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'quantity');
+    }
+	
     public function getCommodityAvailability($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getCommodityAvailability($criteria, $value, $survey, $for, $statistic);
@@ -792,6 +807,12 @@ ORDER BY fac_level;");
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
+	public function getresourcesFrequencyCH($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+	
     public function getCountyReportingSummary($survey, $survey_category){
         $results =$this->m_analytics->getCountyReportingSummary($survey, $survey_category);
         $titles = array('Facility County', 'Facility District','Facility');
@@ -811,6 +832,11 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getresourcesLocationMnh($criteria, $value, $survey) {
+        $value = urldecode($value);
+       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+    }
+	public function getresourcesLocationCH($criteria, $value, $survey) {
         $value = urldecode($value);
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;

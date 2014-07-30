@@ -1842,7 +1842,7 @@ LIMIT 0 , 1000
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
 
-            $query = "CALL get_resources('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
+            $query = "CALL get_resource_statistics('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
 
             try {
                 $queryData = $this->db->query($query, array($value));
@@ -1854,7 +1854,7 @@ LIMIT 0 , 1000
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];

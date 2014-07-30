@@ -283,6 +283,12 @@ switch($this->session->userdata('survey')) {
                     <li id="tools">
                         <a href="#">Tools in a given Unit</a>
                     </li>
+                    <li id="IMCIConsultation">
+                    	<a href = "#">IMCI Consultation</a>
+                    </li>
+                    <li id="ChHealthServices">
+                    	<a href = "#">Health Services</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -443,10 +449,10 @@ switch($this->session->userdata('survey')) {
         <div id="resources" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="resourceFrequency">
+                    <li id="resourcesFrequencyCH">
                         <a href="#">Resource Availability</a>
                     </li>
-                    <li id="resourceLocation">
+                    <li id="resourcesLocationCH">
                         <a href="#">Resource Location</a>
                     </li>
                 </ul>
