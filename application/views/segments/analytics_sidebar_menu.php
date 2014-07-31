@@ -129,12 +129,12 @@ switch($this->session->userdata('survey')) {
                     <li id="MNHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="MNHCommodityAvailabilityQuantities">
+                   <!-- <li id="MNHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantities</a>
-                    </li>s
+                    </li>
                     <li id="MNHcommoditySuppliers">
                         <a href="#">Commodity Suppliers</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -285,6 +285,12 @@ switch($this->session->userdata('survey')) {
                     <li id="tools">
                         <a href="#">Tools in a given Unit</a>
                     </li>
+                    <li id="IMCIConsultation">
+                    	<a href = "#">IMCI Consultation</a>
+                    </li>
+                    <li id="ChHealthServices">
+                    	<a href = "#">Health Services</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -309,9 +315,9 @@ switch($this->session->userdata('survey')) {
                     <li id="CHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="CHCommodityAvailabilityQuantities">
+                    <!--<li id="CHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantity</a>
-                    </li>
+                    </li>-->
                     <!--<li id="CHcommoditySuppliers">
 <a href="#">Commodity Suppliers</a>
 </li>-->
@@ -445,11 +451,14 @@ switch($this->session->userdata('survey')) {
         <div id="resources" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="resourceFrequency">
+                    <li id="resourcesFrequencyCH">
                         <a href="#">Resource Availability</a>
                     </li>
-                    <li id="resourceLocation">
+                    <li id="resourcesLocationCH">
                         <a href="#">Resource Location</a>
+                    </li>
+                    <li id = "FacilityOwnerAll">
+                    	<a href="#">Ownership</a>
                     </li>
                 </ul>
             </div>
