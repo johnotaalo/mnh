@@ -461,14 +461,14 @@ ORDER BY fac_level;");
      * Get Trained Stuff
     */
     public function getTrainedStaff($criteria, $value, $survey, $for) {
-        $yes = $no = $resultsArray = array();
+        //$yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-
-
-        //echo '<pre>';print_r($results);echo '</pre>';die ;
+		//print_r($results );die;
+		//echo '<pre>';print_r($results);echo '</pre>';die ;
         $finalYes = $finalNo = $category = array();
 
+<<<<<<< HEAD
         foreach ($results as $key => $county) {
             // echo '<pre>';print_r($county);echo '</pre>';die ;
             foreach ($county['trained'] as $k => $t) {
@@ -488,12 +488,14 @@ ORDER BY fac_level;");
                     $categories[] = $key;
                 }
             }
+=======
+        foreach ($results as $key => $val) {
+>>>>>>> 9024d90fd85a24aa6b0291116f08dc2efbd6cc1f
         }
-
-        //echo '<pre>';print_r($finalYes);echo '</pre>';
-        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        //echo '<pre>';print_r($resultArray);echo '</pre>';
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $resultArray = array(array('name' => $val['cadre'], 'data' => $val['total'], 'category'=>$val['guide_name']));	
+		
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
     public function getTrainedStaffOne($criteria, $value, $survey, $for) {
@@ -1570,23 +1572,34 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
 
-    public function getFacilityOwnerAll($survey) {
-        $counties = $this->m_analytics->getReportingCounties($survey);
-        foreach ($counties as $county) {
-            $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey);
-            $categories[] = $county['county'];
-        }
-        $resultArray = array();
-        foreach ($results as $county) {
-            foreach ($county as $level) {
-                $data[$level['facilityOwner']][] = (int)$level['ownership_total'];
-            }
-        }
-        foreach ($data as $key => $val) {
-            $resultArray[] = array('name' => $key, 'data' => $val);
-        }
-
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    public function getFacilityOwnerAll($criteria, $value, $survey) {
+    	$resultArray = array();
+    	$results = $this->m_analytics->getFacilityOwnerPerCounty($criteria, $value, $survey);
+		foreach ($results as $value) {
+			$data[$value['facilityOwner']] = (int)$value['ownership_total'];
+			$category[]=$value['facilityOwner'];
+		}
+		//echo "<pre>";print_r($data);echo "</pre>";die;
+		foreach ($data as $key => $value) {
+			$resultArray[]=array('name' => $key, 'data'=> $value);
+		}
+		$this->populateGraph($resultArray, '', $category, $criteria, 'percent', 0, 'pie');
+        // $counties = $this->m_analytics->getReportingCounties($criteria, $value,$survey);
+        // foreach ($counties as $county) {
+            // $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey);
+            // $categories[] = $county['county'];
+        // }
+        // $resultArray = array();
+        // foreach ($results as $county) {
+            // foreach ($county as $level) {
+                // $data[$level['facilityOwner']][] = (int)$level['ownership_total'];
+            // }
+        // }
+        // foreach ($data as $key => $val) {
+            // $resultArray[] = array('name' => $key, 'data' => $val);
+        // }
+// 
+        // $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
     /**

@@ -127,12 +127,12 @@ switch($this->session->userdata('survey')) {
                     <li id="MNHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="MNHCommodityAvailabilityQuantities">
+                   <!-- <li id="MNHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantities</a>
-                    </li>s
+                    </li>
                     <li id="MNHcommoditySuppliers">
                         <a href="#">Commodity Suppliers</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -313,9 +313,9 @@ switch($this->session->userdata('survey')) {
                     <li id="CHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="CHCommodityAvailabilityQuantities">
+                    <!--<li id="CHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantity</a>
-                    </li>
+                    </li>-->
                     <!--<li id="CHcommoditySuppliers">
 <a href="#">Commodity Suppliers</a>
 </li>-->
@@ -454,6 +454,9 @@ switch($this->session->userdata('survey')) {
                     </li>
                     <li id="resourcesLocationCH">
                         <a href="#">Resource Location</a>
+                    </li>
+                    <li id = "FacilityOwnerAll">
+                    	<a href="#">Ownership</a>
                     </li>
                 </ul>
             </div>

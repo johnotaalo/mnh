@@ -367,7 +367,7 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
 
-        $query = "CALL get_trained_staff('". $criteria."', '".$value."', '".$survey."','".$for."');";
+        $query = "CALL get_staff_trained('". $criteria."', '".$value."', '".$survey."','".$for."');";
 
 
         try {
@@ -380,13 +380,10 @@ ORDER BY lq.lq_response ASC";
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    foreach ($this->dataSet as $value) {
-                        if (array_key_exists('facilities', $value)) {
-                            array_push($cat,$value['training']);
-                            array_push($data['trained'],$value['trained']+= (int)$value['trained']);
-                            array_push($data['working'],$value['working']+= (int)$value['working']);
-                        }
-                    }
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    //foreach ($this->dataSet as $value) {
+                        
+                    //}
 
 
                     /**
@@ -406,7 +403,7 @@ ORDER BY lq.lq_response ASC";
                 } else {
                     return null;
                 }
-                $this->dataSet = $data;
+                //$this->dataSet = $data;
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
             catch(exception $ex) {
@@ -416,8 +413,9 @@ ORDER BY lq.lq_response ASC";
 
 
             }
-
-            return $data;
+			//var_dump($this->dataSet);die;
+			//$data=$this->dataSet;
+            return $this->dataSet;
         }
 
 
@@ -1874,7 +1872,7 @@ LIMIT 0 , 1000
 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2309,61 +2307,15 @@ ORDER BY f.fac_county ASC;";*/
             return $finalData;
         }
 
-        function getFacilityOwnerPerCounty($county, $survey) {
+        function getFacilityOwnerPerCounty($criteria, $value, $survey) {
 
             /*using DQL*/
-
-            $finalData = array();
-            switch ($survey) {
-                case 'ch':
-                    $search = '';
-                    break;
-
-                case 'mnh':
-                    $search = '';
-                    break;
-            }
-            try {
-
-                $query = 'SELECT
-    tracker.ownership_total, tracker.facilityOwner
-FROM(SELECT
-    COUNT(fac_ownership) as ownership_total,
-    (CASE
-                WHEN fac_ownership = "Private Practice - General Practitioner" THEN "Private"
-                WHEN fac_ownership = "Private Practice - Nurse / Midwife" THEN "Private"
-                WHEN fac_ownership = "Private Enterprise (Institution)" THEN "Private"
-                WHEN fac_ownership = "Private Practice - Clinical Officer" THEN "Private"
-                WHEN fac_ownership = "Christian Health Association of Kenya" THEN "Faith Based Organisation"
-                WHEN fac_ownership = "Other Faith Based" THEN "Faith Based Organisation"
-                WHEN fac_ownership = "FBO" THEN "Faith Based Organisation"
-                WHEN fac_ownership = "Kenya Episcopal Conference-Catholic Secretariat" THEN "Faith Based Organisation"
-                WHEN fac_ownership = "GOK" THEN "Ministry of Health"
-                ELSE fac_ownership
-            END) as facilityOwner,
-    fac_county as countyName
-FROM
-    facilities f
-        JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = "' . $survey . '")
-WHERE
-    f.fac_county = "' . $county . '"
-GROUP BY facilityOwner
-ORDER BY COUNT(facilityOwner) ASC) as tracker;';
-
+            
+				$query = "CALL get_ownership_statistics('".$criteria."','".$value."','".$survey."');";
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
-            }
-            catch(exception $ex) {
-
-                //ignore
-                //echo($ex -> getMessage());
-
-
-            }
+            	//print_r($finalData);die;
+            	
             return $finalData;
         }
 
