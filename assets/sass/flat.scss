@@ -135,6 +135,12 @@ body{
     margin:auto;
     height:80%;
 }
+button{
+        i{
+            padding:0 2%;
+        }
+
+    }
 form{
     input,select{
         @extend .form-control;
@@ -144,7 +150,7 @@ form{
         background:#1abc9c;
         color:white;
         i{
-            padding:0 2%;
+            padding:0 5px;
         }
 
     }
@@ -250,12 +256,14 @@ table{
         display: inline-block;
     }
 }
-
+.portlet.md.box{
+     @extend .col-md-4;
+}
 .portlet.box{
     @extend .col-md-6;
     .portlet-title{
         h6{
-
+margin-bottom:0;
             font-weight:bolder;
             padding: 10px 15px;
             color: #333333;
@@ -387,6 +395,10 @@ h4.page-title{
     @extend .delta;
     padding-left:15px;
 }
+h4{
+  @extend .epsilon;
+    padding-left:15px;
+}
 .breadcrumb{
     border-color: #e7e7e7 !important;
 
@@ -463,9 +475,28 @@ ul.sub{
         }
     }
 }
+
+
+.chart{
+    ul{
+        @extend .nav;
+        @extend .nav-stacked;
+        @extend .nav-pills;
+    }
+}
+.btn-primary{
+    background:$stat_color !important;
+    border-color: #27ae60 !important;
+}
+.select .btn .filter-option{
+    top:5px !important;
+}
+.open > .dropdown-arrow {
+display:none !important;
+}
 .dropdown-menu{
     width:100% !important;
-    top:60% !important;
+    top:100% !important;
 }
 li.selected{
     color:white !important;

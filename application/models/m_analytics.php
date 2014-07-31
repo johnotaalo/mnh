@@ -29,7 +29,7 @@ class M_Analytics extends MY_Model
     public function getCountyReportingSummary($survey, $survey_category){
         /* using CI database active record*/
         try{
-            $query = "SELECT 
+            $query = "SELECT
                         f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
                         FROM
                         assessment_tracker ast
@@ -58,7 +58,7 @@ class M_Analytics extends MY_Model
 
         }
     }
-   
+
     public function get_facility_reporting_summary($survey) {
 
         /*using CI Database Active Record*/
@@ -446,7 +446,7 @@ ORDER BY lq.lq_response ASC";
         return $data;
     }*/
 
-    
+
     /*
      * Availability, Location and Functionality of Equipment at ORT Corner
     */
@@ -1553,11 +1553,11 @@ ORDER BY oa.question_code ASC";
 
                 // Dump the extra resultset.
                 $queryData->free_result();
-				//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                    	
+
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1571,7 +1571,7 @@ ORDER BY oa.question_code ASC";
                             $data[$value['commodity_name']][$value['unit']]= (int)$value['total_response'];
                         }
                     }
-					//echo "<pre>";print_r($data);echo "</pre>";die;
+                    //echo "<pre>";print_r($data);echo "</pre>";die;
                     /**
                      * Fix Data
                      */
@@ -1600,7 +1600,7 @@ ORDER BY oa.question_code ASC";
                         }
                         $data = $newData;
                     }else {
-                    
+
                 }
        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
              }
@@ -1609,7 +1609,7 @@ ORDER BY oa.question_code ASC";
 
                 //ignore
                 //die($ex->getMessage());//exit;
-				}
+                }
 
             return $data;
         }
@@ -1895,7 +1895,7 @@ LIMIT 0 , 1000
                         $data = $newData;
                     }
                 } else {
-                    
+
                 }
             }
             catch(exception $ex) {
@@ -1903,7 +1903,7 @@ LIMIT 0 , 1000
                 //ignore
                 //die($ex->getMessage());//exit;
             }
-			//var_dump($data);die;
+            //var_dump($data);die;
             return $data;
         }
 
@@ -2025,7 +2025,7 @@ ORDER BY lastActivity DESC";
                     $search = "ss_id='complete'";
                     break;
             }
-            $myOptions = '<option>Please Select a Facility</option>';
+            $myOptions = '<option data-scope="sub-county">All Facilities Selected</option>';
 
             /*using CI Database Active Record*/
             try {

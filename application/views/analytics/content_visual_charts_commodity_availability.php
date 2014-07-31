@@ -50,6 +50,94 @@ switch($this->session->userdata('survey')) {
     </div>
     <div id="reporting"></div>
     </div>
+     <div class="portlet box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Sections</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+                <ul id="sectionList">
+                    <?php echo $this->sectionList;?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--div class="portlet box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i><span class="statistic-free">Reporting Facility Ownership</span>Summary</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div id="graph_60" class="chart"></div>
+        </div>
+    </div-->
+
+
+
+</div>
+<div class="analytics_row section" id="section-1">
+    <h4>Section 1 : Facility Information</h4>
+     <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training & Retention in CH Unit</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart">
+            </div>
+        </div>
+    </div>
     <!--div class="portlet box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i><span class="statistic-free">Reporting Facility Ownership</span>Summary</h6>

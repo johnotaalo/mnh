@@ -57,17 +57,17 @@
                             <label id="survey_type_label" for="survey_type">
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
-                                    <option>MNH</option>
-                                    <option>CH</option>
-                                    <option>HCW</option>
+                                    <option value="mnh">MNH</option>
+                                    <option value="ch">CH</option>
+                                    <option value="hcw">HCW</option>
                                 </select>
                             </label>
                             <label id="survey_category_label" for="survey_category">
                                 <select  name="survey_category" id="survey_category" class="input">
                                     <option>No Survey Category Selected</option>
-                                    <option value="">Baseline</option>
-                                    <option value="">Mid-Term</option>
-                                    <option value="">End-Term</option>
+                                    <option value="baseline">Baseline</option>
+                                    <option value="mid-term">Mid-Term</option>
+                                    <option value="end-term">End-Term</option>
                                 </select>
                             </label>
                             <label id="county_select_label" for="county_select">
@@ -76,9 +76,9 @@
                                     <?php echo $this->selectReportingCounties;?>
                                 </select>
                             </label>
-                             <label id="sub_district_select_label" for="sub_district_select">
-                                <select name="sub_district_select" id="sub_district_select" class="input">
-                                    <option data-scope="county" >All Sub-Districts Selected</option>
+                             <label id="sub_county_select_label" for="sub_county_select">
+                                <select name="sub_county_select" id="sub_county_select" class="input">
+                                    <option data-scope="county" >All Sub-Counties Selected</option>
 
                                 </select>
                             </label>
@@ -94,6 +94,10 @@
                                     <?php echo $this->sectionLinks; ?>
                                 </select>
                             </label>
+                            <label>
+                                <button id="showData" style="margin-top: -13px"class="btn btn-info"><i class="fa fa-bar-chart-o"></i>Show Data</button>
+                            </label>
+
                             <!--label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><span>Reporting Statistics : </span>
                                 <div id="reportingBar">
 

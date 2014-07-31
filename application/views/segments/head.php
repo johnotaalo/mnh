@@ -16,8 +16,8 @@
 
 
     <!-- New Bower Components -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/flat.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/css/flat-ui.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/stylesheets/flat.css">
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/flat-ui-official/bootstrap/css/prettify.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">

@@ -14,6 +14,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     if (county === '') {
         county = 'Unselected';
     }
+//$('.section').hide();
 
     //smallText = $('ul.sub li.active a').text();
     //$('h3.page-title').text($('li.has-sub.start.open a span.title').text());
@@ -26,7 +27,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
     //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_60');
     //loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + county+'/'+survey+'/'+survey_category, '#graph_6');
-    loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
+    /*loadGraph(base_url, 'c_analytics/getFacilityLevelAll/' + survey+'/'+survey_category, '#graph_49');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerAll/' + survey+'/'+survey_category, '#graph_60');
 
     loadGraph(base_url, 'c_analytics/case_summary/Cases/'+ survey+'/'+survey_category, '#graph_40');
@@ -59,7 +60,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Quality%20Obstetric%20and%20Prenatal%20Care/'+ survey+'/'+survey_category, '#graph_81');
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Baby%20Friendly%20Hospital%20Initiative/'+ survey+'/'+survey_category, '#graph_82');
     loadGraph(base_url, 'c_analytics/guidelines_summaryMNH/Post%20Abortion%20Guidelines/'+ survey+'/'+survey_category, '#graph_83');
-
+*/
 
 
     /*$('select#county_select').change(function() {
@@ -92,6 +93,53 @@ function startAnalytics(base_url, county, survey,survey_category) {
         $('#analytics-page').append('<h4 class="temp">Please Choose a County</h4>');
     }
 
+    if (survey_category !== '') {
+        $("select#survey_category").find("option").filter(function(index) {
+            return survey_category === $(this).attr('value');
+        }).prop("selected", "selected");
+
+
+    }
+ if (survey !== '') {
+        $("select#survey_type").find("option").filter(function(index) {
+            return survey === $(this).attr('value');
+        }).prop("selected", "selected");
+
+
+    }
+    $('#sectionList').click(function(){
+        $(this).find('li a').attr('#id');
+
+    });
+$('select#sub_county_select').load(base_url + 'c_analytics/getSpecificDistrictNames');
+
+    $('select#county_select').change(function() {
+
+        county = $('select#county_select option:selected').text();
+        county = encodeURIComponent(county);
+        //alert(currentChart+district+'/ch/'+extraStat);
+
+         $('select#sub_county_select').load(base_url + 'c_analytics/getSpecificDistrictNamesChosen/' + county);
+
+    });
+    $('select#sub_county_select').change(function() {
+
+        district = $('select#sub_county_select option:selected').text();
+        district = encodeURIComponent(district);
+        //alert(district);
+        //alert(currentChart+district+'/ch/'+extraStat);
+
+         $('select#facility_select').load(base_url + 'c_analytics/getFacilitiesByDistrictOptions/' + district + '/' + survey);
+
+    });
+
+    $('#showData').click(function(){
+        section = $('#section_select').val();
+        //alert(section);
+        showData(section);
+    });
+
+
     $('#reporting-parent').show();
     $('#analytics-page').hide();
 
@@ -113,14 +161,14 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
     /**
      * New Graph Loading Function
-     */
+
     $('ul.sub li').click(function() {
         $('#graph_county').empty();
         $('#graph_national').empty();
         $('#graph_facility').empty();
         $('#graph_district').empty();
 
-        $('select#fi_district').load(base_url + 'c_analytics/getSpecificDistrictNames');
+
         $('#facility_list').hide();
         $('#facility_list_never').hide();
         $('#facility_list_commodity_supplies_county').hide();
@@ -297,4 +345,10 @@ $("#district_compare").click(function() {
      $("select").selectpicker({style: 'btn-primary', menuStyle: 'dropdown'});
 
 
+}
+
+function showData(section){
+    $('#reporting-parent').hide();
+    //alert('#'+section);
+    $('#'+section).css('display','block');
 }

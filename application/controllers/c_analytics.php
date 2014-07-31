@@ -554,7 +554,7 @@ ORDER BY fac_level;");
     public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'ch', 'quantity');
     }
-	public function getbundlingFrequency($criteria, $value, $survey) {
+    public function getbundlingFrequency($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'availability');
     }
 
@@ -569,7 +569,7 @@ ORDER BY fac_level;");
     public function getbundlingQuantities($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'bun', 'quantity');
     }
-	
+
     public function getCommodityAvailability($criteria, $value, $survey, $for, $statistic) {
         $value = urldecode($value);
         $results = $this->m_analytics->getCommodityAvailability($criteria, $value, $survey, $for, $statistic);
@@ -707,7 +707,7 @@ ORDER BY fac_level;");
      */
     public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getEquipmentStatistics($criteria, $value, $survey, $for, $statistic);
-		foreach ($results as $key => $result) {
+        foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
@@ -729,8 +729,8 @@ ORDER BY fac_level;");
 
     public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
-		//print_r($results);die;
-		foreach ($results as $key => $result) {
+        //print_r($results);die;
+        foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
@@ -761,7 +761,7 @@ ORDER BY fac_level;");
      */
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-		//sprint_r($results );die;
+        //sprint_r($results );die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -807,12 +807,12 @@ ORDER BY fac_level;");
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
-	public function getresourcesFrequencyCH($criteria, $value, $survey) {
+    public function getresourcesFrequencyCH($criteria, $value, $survey) {
         $value = urldecode($value);
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
-	
+
     public function getCountyReportingSummary($survey, $survey_category){
         $results =$this->m_analytics->getCountyReportingSummary($survey, $survey_category);
         $titles = array('Facility County', 'Facility District','Facility');
@@ -820,9 +820,9 @@ ORDER BY fac_level;");
         $data['data'] = $results;
         $data['title'] = $titles;
         $this->loadExcel($data,'Summary for Counties Reporting for'.' '.strtoupper($survey).' : '.strtoupper($survey_category).$value);
-        
+
     }
-    
+
       /**
      * [getResourcesLocationmnh description]
      * @param  [type] $criteria [description]
@@ -836,7 +836,7 @@ ORDER BY fac_level;");
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
-	public function getresourcesLocationCH($criteria, $value, $survey) {
+    public function getresourcesLocationCH($criteria, $value, $survey) {
         $value = urldecode($value);
        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
@@ -1002,7 +1002,7 @@ ORDER BY fac_level;");
     public function getHIV($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'hiv');
     }
-	
+
 
     /**
      * [getJobAids description]
@@ -1589,7 +1589,19 @@ ORDER BY fac_level;");
         $county = $this->session->userdata('county_analytics');
         $options = '';
         $results = $this->m_analytics->getSpecificDistrictNames($county);
-        $options = '<option selected=selected>Please Select a District</option>';
+        $options = '<option selected=selected>All Sub-Counties Selected</option>';
+        foreach ($results as $result) {
+            $options.= '<option>' . $result['facDistrict'] . '</option>';
+        }
+
+        //return $dataArray;
+        echo ($options);
+    }
+    public function getSpecificDistrictNamesChosen($county) {
+        $county=urldecode($county);
+        $options = '';
+        $results = $this->m_analytics->getSpecificDistrictNames($county);
+        $options = '<option selected=selected>All Sub-Counties Selected</option>';
         foreach ($results as $result) {
             $options.= '<option>' . $result['facDistrict'] . '</option>';
         }
