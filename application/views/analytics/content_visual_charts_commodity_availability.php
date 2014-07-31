@@ -4,7 +4,7 @@
     }
 </style>
 <!-- BEGIN CHART PORTLET 1-->
-<div data-0="padding-top:0" data-top="padding-top:10%" class="analytics_row" data-survey='ch' id="reporting-parent">
+<div class="analytics_row" data-survey='ch' id="reporting-parent">
    <div class="portlet box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
@@ -22,8 +22,6 @@
         <div class="portlet-title">
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
-
-
         </div>
         <div id="reporting"></div>
     </div>

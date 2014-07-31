@@ -53,7 +53,7 @@
 
                         </h4>
 
-                        <ul class="breadcrumb" data-start="position:relative" data-top="z-index:1000000;position:fixed;top:0;width:100%">
+                        <ul class="breadcrumb" data-start="border-bottom:0;position:relative" data-top="z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
                             <label id="survey_type_label" for="survey_type">
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
