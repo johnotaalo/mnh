@@ -196,11 +196,11 @@ class MY_Controller extends CI_Controller
         switch($survey){
             case 'mnh':
              $sectionNames=array('Facility Information');
-            $sections =9;
+            $sections =8;
             break;
             case 'ch':
-            $sectionNames=array('Facility Information','Guidelines,Job Aids and Tools');
-            $sections=8;
+            $sectionNames=array('Facility Information','Guidelines,Job Aids and Tools','Assessment','Commodity & Bundling','On-Site Rehydration','Equipment','Supplies','Resources','Community Strategy');
+            $sections=9;
             break;
             case 'hcw':
             $sections=5;
@@ -209,8 +209,8 @@ class MY_Controller extends CI_Controller
             break;
         }
         for($x=1;$x<=$sections;$x++){
-            $this->sectionLinks.='<option value="section-'.$x.'">Section '.$x.'</option>';
-            $this->sectionList.='<li><a href="#" id="section-'.$x.'">Section '.$x.' : '.$sectionNames[$x-1].'</a></li>';
+            $this->sectionLinks.='<option href="section-'.$x.'" value="section-'.$x.'">Section '.$x.'</option>';
+            $this->sectionList.='<li><a href="#section-'.$x.'">Section '.$x.' : '.$sectionNames[$x-1].'</a></li>';
         }
     }
     public function getProvinceNames() {

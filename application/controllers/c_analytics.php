@@ -284,31 +284,38 @@ ORDER BY fac_level;");
          */
 
         switch ($percentage) {
+            case ($percentage == 0):
+            $status = '#ffffff';
+            break;
             case ($percentage < 20):
-                $status = '#e93939';
-                break;
+            $status = '#e93939';
+            break;
 
             case ($percentage < 40):
-                $status = '#da8a33';
-                break;
+            $status = '#da8a33';
+            break;
 
             case ($percentage < 60):
-                $status = '#dad833';
-                break;
+            $status = '#dad833';
+            break;
 
             case ($percentage < 80):
-                $status = '#91da33';
-                break;
+            $status = '#91da33';
+            break;
 
             case ($percentage < 100):
-                $status = '#7ada33';
-                break;
+            $status = '#7ada33';
+            break;
 
-            case ($percentage == 100):
+            /*case ($percentage == 100):
                 $status = '#13b00b';
-                break;
+                break;*/
+            default:
+            $status = 'transparent';
+            break;
         }
-        $progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
+        $progress='<div class="progressRow"><label>' . $countyName . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div></div></div>';
+        //$progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
         return $progress;
 
         //echo($progress);
@@ -463,7 +470,7 @@ ORDER BY fac_level;");
         $finalYes = $finalNo = $category = array();
 
         foreach ($results as $key => $county) {
-           // echo '<pre>';print_r($county);echo '</pre>';die ;
+            // echo '<pre>';print_r($county);echo '</pre>';die ;
             foreach ($county['trained'] as $k => $t) {
 
 
@@ -613,7 +620,7 @@ ORDER BY fac_level;");
             $category[] = $key;
             foreach ($result as $name => $value) {
                 if ($name != 'Sometimes Available') {
-                //if ($name != 'Sometimes Available') {
+                    //if ($name != 'Sometimes Available') {
                     $data[$name][] = (int)$value;
                 }
             }
@@ -792,7 +799,7 @@ ORDER BY fac_level;");
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'hwr', 'availability');
     }
     /**
      * [getResourcesFrequencymnh description]
@@ -815,7 +822,7 @@ ORDER BY fac_level;");
 
     public function getCountyReportingSummary($survey, $survey_category){
         $results =$this->m_analytics->getCountyReportingSummary($survey, $survey_category);
-        $titles = array('Facility County', 'Facility District','Facility');
+        $titles = array('Facility','Ownership','Facility District','Facility County');
         //echo "<pre>"; print_r($titles);echo "</pre>";
         $data['data'] = $results;
         $data['title'] = $titles;
@@ -823,7 +830,7 @@ ORDER BY fac_level;");
 
     }
 
-      /**
+    /**
      * [getResourcesLocationmnh description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
@@ -833,12 +840,12 @@ ORDER BY fac_level;");
      */
     public function getresourcesLocationMnh($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     public function getresourcesLocationCH($criteria, $value, $survey) {
         $value = urldecode($value);
-       $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         //echo "<pre>"; print_r($results);echo "</pre>";die;
     }
     /**
@@ -1014,14 +1021,14 @@ ORDER BY fac_level;");
     public function getJobAids($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'job');
     }
-     /**
+    /**
      * [getCEOCQuestion description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
      * @return [type]           [description]
      */
-     public function getCEOCQuestion($criteria, $value, $survey) {
+    public function getCEOCQuestion($criteria, $value, $survey) {
         $this->getQuestionStatistics($criteria, $value, $survey, 'ceoc');
     }
 
@@ -1331,24 +1338,24 @@ ORDER BY fac_level;");
         }
         switch ($filter) {
             case 'SevereDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
+            break;
 
             case 'SomeDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
+            break;
 
             case 'NoDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
+            break;
 
             case 'Dysentry':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
+            break;
 
             case 'NoClassification':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
+            break;
         }
 
         $resultArray = json_encode($resultArray);
@@ -1378,7 +1385,7 @@ ORDER BY fac_level;");
     }
 
 
-     public function getMNHSuppliesSuppliers($criteria, $value, $survey) {
+    public function getMNHSuppliesSuppliers($criteria, $value, $survey) {
         $this->getSuppliesSupplier($criteria, $value, 'mnh');
     }
 
@@ -1639,9 +1646,9 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
 
-    public function getFacilitiesByDistrictOptions($district, $survey) {
+    public function getFacilitiesByDistrictOptions($district, $survey,$survey_category) {
         $district = urldecode($district);
-        $options = $this->m_analytics->getFacilitiesByDistrictOptions($district, $survey);
+        $options = $this->m_analytics->getFacilitiesByDistrictOptions($district, $survey,$survey_category);
 
         //var_dump($options);
         echo $options;
@@ -1663,27 +1670,27 @@ ORDER BY fac_level;");
         switch ($choice) {
             case 'Cases':
 
-                //group cases
-                foreach ($results as $result) {
-                    $severe_dehydration[] = (int)$result[0]['severe_dehydration'];
-                    $some_dehydration[] = (int)$result[0]['some_dehydration'];
-                    $no_dehydration[] = (int)$result[0]['no_dehydration'];
-                    $dysentry[] = (int)$result[0]['dysentry'];
-                    $no_classification[] = (int)$result[0]['no_classification'];
-                }
-                $resultArray = array(array('name' => 'Severe Dehydration', 'data' => $severe_dehydration), array('name' => 'Some Dehydration', 'data' => $some_dehydration), array('name' => 'No Dehydration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
-                break;
+            //group cases
+            foreach ($results as $result) {
+                $severe_dehydration[] = (int)$result[0]['severe_dehydration'];
+                $some_dehydration[] = (int)$result[0]['some_dehydration'];
+                $no_dehydration[] = (int)$result[0]['no_dehydration'];
+                $dysentry[] = (int)$result[0]['dysentry'];
+                $no_classification[] = (int)$result[0]['no_classification'];
+            }
+            $resultArray = array(array('name' => 'Severe Dehydration', 'data' => $severe_dehydration), array('name' => 'Some Dehydration', 'data' => $some_dehydration), array('name' => 'No Dehydration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
+            break;
 
             case 'Classification':
-                foreach ($results as $value) {
-                    foreach ($value as $key => $val) {
-                        $formattedArray[$key][] = (int)$val[0]['total'];
-                    }
+            foreach ($results as $value) {
+                foreach ($value as $key => $val) {
+                    $formattedArray[$key][] = (int)$val[0]['total'];
                 }
-                foreach ($formattedArray as $key => $arr) {
-                    $resultArray[] = array('name' => $key, 'data' => $arr);
-                }
-                break;
+            }
+            foreach ($formattedArray as $key => $arr) {
+                $resultArray[] = array('name' => $key, 'data' => $arr);
+            }
+            break;
         }
 
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
@@ -1731,7 +1738,7 @@ ORDER BY fac_level;");
             //echo '<pre>';print_r($guideline);echo '</pre>';die;
         }
 
-       $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
+        $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
 
         //echo '<pre>';print_r($guideline);echo '</pre>';die;
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
@@ -1811,9 +1818,9 @@ ORDER BY fac_level;");
         $counties = $this->m_analytics->getReportingCounties('ch', 'mid-term');
         //echo '<pre>';print_r($counties);echo '</pre>';die;
         foreach ($counties as $county) {
-             $results[$county['county']] = $this->getTools('county', $county['county'],'ch','tl');
-             //echo '<pre>';print_r($results);echo '</pre>';die;
-             $categories[] = $county['county'];
+            $results[$county['county']] = $this->getTools('county', $county['county'],'ch','tl');
+            //echo '<pre>';print_r($results);echo '</pre>';die;
+            $categories[] = $county['county'];
         }
         //echo '<pre>';print_r($results);echo '</pre>';die;
         foreach ($results as $county) {
@@ -2021,7 +2028,7 @@ ORDER BY fac_level;");
         $results['reason'] = $results['categories'] = array();
         $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $statistic, $function);
 
-       // echo '<pre>';print_r($results);echo '</pre>';die ;
+        // echo '<pre>';print_r($results);echo '</pre>';die ;
         foreach ($results['categories'] as $cat) {
             $category[] = $cat;
         }
@@ -2033,35 +2040,35 @@ ORDER BY fac_level;");
         switch ($statistic) {
             case 'bemonc':
 
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($value as $level => $val) {
-                        $data['Level ' . $level][] = $val;
-                    }
-
-                    //$data = array();;
-
-
+            foreach ($results['reason'] as $key => $value) {
+                foreach ($value as $level => $val) {
+                    $data['Level ' . $level][] = $val;
                 }
-                $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
 
-                //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-                break;
+                //$data = array();;
+
+
+            }
+            $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
+
+            //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+            break;
 
             case 'ceoc':
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($cat as $c) {
-                        if (array_key_exists($c, $value)) {
-                            $numbers[] = $value[$c];
-                        } else {
-                            $numbers[] = 0;
-                        }
-                        $categories[] = $c;
+            foreach ($results['reason'] as $key => $value) {
+                foreach ($cat as $c) {
+                    if (array_key_exists($c, $value)) {
+                        $numbers[] = $value[$c];
+                    } else {
+                        $numbers[] = 0;
                     }
-                    $resultArray[] = array('name' => $key, 'data' => $numbers);
-                    $numbers = array();
+                    $categories[] = $c;
                 }
-                //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-                break;
+                $resultArray[] = array('name' => $key, 'data' => $numbers);
+                $numbers = array();
+            }
+            //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+            break;
         }
 
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
@@ -2217,6 +2224,68 @@ ORDER BY fac_level;");
 
     }
 
+    public function loadExcelNew($data, $filename) {
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Rufus Mbugua");
+        $objPHPExcel->getProperties()->setLastModifiedBy("Rufus Mbugua");
+        $objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Test Document");
+        $objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Test Document");
+        $objPHPExcel->getProperties()->setDescription(" ");
+
+        // Add some data
+        //  echo date('H:i:s') . " Add some data\n";
+        $objPHPExcel->setActiveSheetIndex(0);
+
+        $rowExec = 1;
+
+        //Looping through the cells
+        $column = 0;
+        foreach ($data['title'] as $cell) {
+
+            //echo $column . $rowExec; die;
+            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column, $rowExec, $cell);
+            $objPHPExcel->getActiveSheet()->getStyle(PHPExcel_Cell::stringFromColumnIndex($column) . $rowExec)->getFont()->setBold(true)->setSize(14);
+            $objPHPExcel->getActiveSheet()->getColumnDimension(PHPExcel_Cell::stringFromColumnIndex($column))->setAutoSize(true);
+
+            $column++;
+        }
+        $rowExec = 2;
+        foreach ($data['data'] as $survey) {
+//$column = 0;
+            foreach($survey as $k=>$rowSet){
+                $column=($k=='mnh')?2:0;
+                //Looping through the cells per facility
+
+                foreach ($rowSet as $cell) {
+                    //var_dump($cell);die;
+                    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($column, $rowExec, $cell);
+                    $column++;
+                }
+                $rowExec++;
+
+            }
+
+        }
+
+        // Save Excel 2007 file
+        //echo date('H:i:s') . " Write to Excel2007 format\n";
+        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+
+        // We'll be outputting an excel file
+        header('Content-type: application/vnd.ms-excel');
+
+        // It will be called file.xls
+        header('Content-Disposition: attachment; filename=' . $filename . '.xlsx');
+
+        // Write file to the browser
+        $objWriter->save('php://output');
+
+        // Echo done
+        //echo date('H:i:s') . " Done writing file.\r\n";
+
+
+    }
+
     /**
      * [loadPDF description]
      * @param  [type] $pdf [description]
@@ -2269,15 +2338,15 @@ ORDER BY fac_level;");
         $datas['chart_margin'] = $margin;
         switch ($type) {
             case 'line':
-                $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
-                $datas['chart_length'] = 300;
-                break;
+            $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
+            $datas['chart_length'] = 300;
+            break;
 
             default:
-                $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+            $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
 
-                //$datas['chart_width'] = 100;
-                break;
+            //$datas['chart_width'] = 100;
+            break;
         }
         $datas['chart_stacking'] = $stacking;
         $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
@@ -2289,12 +2358,68 @@ ORDER BY fac_level;");
     }
 
 
-public function getCountyData($county,$survey_type,$survey_category){
+    public function getCountyData($county,$survey_type,$survey_category){
 
-    $county = urldecode($county);
-    $results = $this->m_analytics->getReportingRatio($county,$survey_type,$survey_category);
-    echo json_encode($results);
+        $county = urldecode($county);
+        $results = $this->m_analytics->getReportingRatio($county,$survey_type,$survey_category);
+        echo json_encode($results);
 
-}
+    }
+    public function getSectionsChosen($survey){
+        switch($survey){
+            case 'mnh':
+            $sectionNames=array('Facility Information');
+            $sections =8;
+            break;
+            case 'ch':
+            $sectionNames=array('Facility Information','Guidelines,Job Aids and Tools','Assessment','Commodity & Bundling','On-Site Rehydration','Equipment','Supplies','Resources','Community Strategy');
+            $sections=9;
+            break;
+            case 'hcw':
+            $sections=5;
+            break;
+            default:
+            break;
+        }
+        for($x=1;$x<=$sections;$x++){
+            $sectionList.='<li><a href="#section-'.$x.'">Section '.$x.' : '.$sectionNames[$x-1].'</a></li>';
+        }
+        echo json_encode($sectionList);
+    }
 
+    public function collectData(){
+        $surveys=array('mnh','ch');
+        $category='mid-term';
+
+        foreach($surveys as $survey){
+            $data[$survey]=$this->getReportingRatioAll($survey,$category);
+        }
+        $this->formatData($data);
+
+
+    }
+    public function formatData($data){
+        foreach($data as $survey=>$entry){
+            $data['title'][]='County Name';
+            foreach($entry as $county=>$row){
+                $data['data'][$survey][]=array($county,$row);
+            }
+            $data['title'][]=strtoupper($survey);
+        }
+        //echo '<pre>';print_r($data);echo '</pre>';die;
+$this->loadExcelNew($data,'Reporting Rate');
+
+    }
+    public function getReportingRatioAll($survey, $survey_category){
+        $reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category);
+        foreach($reportingCounties as $key=>$county){
+            if($county[0]['reported']!=0){
+                $countyData[$key]=$county[0]['percentage'].'%  ('.$county[0]['reported'].'/'.$county[0]['actual'].')';
+            }
+
+
+        }
+        return $countyData;
+
+    }
 }

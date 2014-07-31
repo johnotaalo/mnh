@@ -53,7 +53,7 @@
 
                         </h4>
 
-                        <ul class="breadcrumb">
+                        <ul class="breadcrumb" data-start="position:relative" data-top="z-index:1000000;position:fixed;top:0;width:100%">
                             <label id="survey_type_label" for="survey_type">
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
@@ -88,14 +88,14 @@
 
                                 </select>
                             </label>
-                              <label id="section_select_label" for="section_select">
+                              <!--label id="section_select_label" for="section_select">
                                 <select name="section_select" id="section_select" class="input">
                                     <option data-scope="national" >No Section Selected</option>
-                                    <?php echo $this->sectionLinks; ?>
+                                    <?php //echo $this->sectionLinks; ?>
                                 </select>
                             </label>
                             <label>
-                                <button id="showData" style="margin-top: -13px"class="btn btn-info"><i class="fa fa-bar-chart-o"></i>Show Data</button>
+                                <button id="showData" style="margin-top: -13px;background:#333;color:white"class="btn"><i class="fa fa-bar-chart-o"></i>Show Data for Section</button>
                             </label>
 
                             <!--label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><span>Reporting Statistics : </span>
