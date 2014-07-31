@@ -53,56 +53,40 @@
 
                         </h4>
 
-                        <ul class="breadcrumb" data-start="border-bottom:0;position:relative" data-top="z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
-                            <label id="survey_type_label" for="survey_type">
+                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
+                         
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
                                     <option value="mnh">MNH</option>
                                     <option value="ch">CH</option>
                                     <option value="hcw">HCW</option>
                                 </select>
-                            </label>
-                            <label id="survey_category_label" for="survey_category">
                                 <select  name="survey_category" id="survey_category" class="input">
                                     <option>No Survey Category Selected</option>
                                     <option value="baseline">Baseline</option>
                                     <option value="mid-term">Mid-Term</option>
                                     <option value="end-term">End-Term</option>
                                 </select>
-                            </label>
-                            <label id="county_select_label" for="county_select">
+                            
                                 <select name="county_select" id="county_select" class="input">
                                     <option data-scope="national" >All Counties Selected</option>
                                     <?php echo $this->selectReportingCounties;?>
                                 </select>
-                            </label>
-                             <label id="sub_county_select_label" for="sub_county_select">
+                            
                                 <select name="sub_county_select" id="sub_county_select" class="input">
                                     <option data-scope="county" >All Sub-Counties Selected</option>
 
                                 </select>
-                            </label>
-                             <label id="facility_select_label" for="facility_select">
                                 <select name="facility_select" id="facility_select" class="input">
                                     <option data-scope="national" >All Facilities Selected</option>
 
                                 </select>
-                            </label>
-                              <!--label id="section_select_label" for="section_select">
-                                <select name="section_select" id="section_select" class="input">
-                                    <option data-scope="national" >No Section Selected</option>
-                                    <?php //echo $this->sectionLinks; ?>
-                                </select>
-                            </label>
-                            <label>
-                                <button id="showData" style="margin-top: -13px;background:#333;color:white"class="btn"><i class="fa fa-bar-chart-o"></i>Show Data for Section</button>
-                            </label>
-
-                            <!--label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><span>Reporting Statistics : </span>
-                                <div id="reportingBar">
-
-                                </div>
-                            </label-->
+                            <a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
+                <i class="fa fa-chevron-up title="Top""></i>
+                &nbsp; Move to Top
+            </a>
+                               
+                           
 
 
                         </ul>
@@ -125,15 +109,7 @@
     <!-- BEGIN FOOTER -->
     <div id="footer">
         &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
-        <div class="span pull-right">
-            Move to Top
-            <a href="#" class="go-top">
-                <i class="fa fa-angle-double-up fa-7x title="Top""></i>
-                &nbsp; Move to Top
-            </a>
-
-
-        </div>
+       
     </div>
     <!-- END FOOTER -->
     <!-- BEGIN JAVASCRIPTS -->

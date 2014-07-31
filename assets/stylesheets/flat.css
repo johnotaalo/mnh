@@ -8949,13 +8949,18 @@ ul.sub li.active a {
   display: none !important;
 }
 
-/* line 502, ../sass/flat.scss */
-.dropdown-menu {
+/* line 503, ../sass/flat.scss */
+.breadcrumb .dropdown-menu, #network .dropdown-menu {
   width: 100% !important;
   top: 100% !important;
+  font-size: 14px !important;
 }
-
-/* line 506, ../sass/flat.scss */
-li.selected {
+/* line 508, ../sass/flat.scss */
+.breadcrumb .dropdown-toggle, #network .dropdown-toggle {
+  font-size: 14px;
+  width: 200px !important;
+}
+/* line 512, ../sass/flat.scss */
+.breadcrumb li.selected, #network li.selected {
   color: white !important;
 }

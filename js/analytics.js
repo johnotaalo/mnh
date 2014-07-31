@@ -153,7 +153,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
 
     });
     $("select").selectpicker({style: 'btn-primary', menuStyle: 'dropdown'});
-$('body').scrollspy({ target: 'ul.dropdown-menu.down',offset:5 });
+//$('body').scrollspy({ target: 'ul.dropdown-menu.down',offset:250 });
 
 }
 

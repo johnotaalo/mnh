@@ -464,36 +464,15 @@ ORDER BY fac_level;");
         //$yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-		//print_r($results );die;
-		//echo '<pre>';print_r($results);echo '</pre>';die ;
+        //print_r($results );die;
+        //echo '<pre>';print_r($results);echo '</pre>';die ;
         $finalYes = $finalNo = $category = array();
 
-<<<<<<< HEAD
-        foreach ($results as $key => $county) {
-            // echo '<pre>';print_r($county);echo '</pre>';die ;
-            foreach ($county['trained'] as $k => $t) {
 
-
-                if ($k == $training) {
-                    $finalYes[] = $t;
-                    $categories[] = $key;
-                }
-            }
-
-
-
-            foreach ($county['working'] as $k => $w) {
-                if ($k == $training) {
-                    $finalNo[] = $w;
-                    $categories[] = $key;
-                }
-            }
-=======
         foreach ($results as $key => $val) {
->>>>>>> 9024d90fd85a24aa6b0291116f08dc2efbd6cc1f
         }
-        $resultArray = array(array('name' => $val['cadre'], 'data' => $val['total'], 'category'=>$val['guide_name']));	
-		
+        $resultArray = array(array('name' => $val['cadre'], 'data' => $val['total'], 'category'=>$val['guide_name']));
+
         //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
@@ -1575,15 +1554,15 @@ ORDER BY fac_level;");
     public function getFacilityOwnerAll($criteria, $value, $survey) {
     	$resultArray = array();
     	$results = $this->m_analytics->getFacilityOwnerPerCounty($criteria, $value, $survey);
-		foreach ($results as $value) {
-			$data[$value['facilityOwner']] = (int)$value['ownership_total'];
-			$category[]=$value['facilityOwner'];
-		}
-		//echo "<pre>";print_r($data);echo "</pre>";die;
-		foreach ($data as $key => $value) {
-			$resultArray[]=array('name' => $key, 'data'=> $value);
-		}
-		$this->populateGraph($resultArray, '', $category, $criteria, 'percent', 0, 'pie');
+        foreach ($results as $value) {
+            $data[$value['facilityOwner']] = (int)$value['ownership_total'];
+            $category[]=$value['facilityOwner'];
+        }
+        //echo "<pre>";print_r($data);echo "</pre>";die;
+        foreach ($data as $key => $value) {
+            $resultArray[]=array('name' => $key, 'data'=> $value);
+        }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 0, 'pie');
         // $counties = $this->m_analytics->getReportingCounties($criteria, $value,$survey);
         // foreach ($counties as $county) {
             // $results[$county['county']] = $this->m_analytics->getFacilityOwnerPerCounty($county['county'], $survey);
@@ -1598,7 +1577,7 @@ ORDER BY fac_level;");
         // foreach ($data as $key => $val) {
             // $resultArray[] = array('name' => $key, 'data' => $val);
         // }
-// 
+//
         // $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
