@@ -457,54 +457,36 @@ ORDER BY fac_level;");
         //$yes = $no = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-		//print_r($results );die;
-		//echo '<pre>';print_r($results);echo '</pre>';die ;
-        $finalYes = $finalNo = $category = array();
-
-        foreach ($results as $key => $val) {
-        }
-        $resultArray = array(array('name' => $val['cadre'], 'data' => $val['total'], 'category'=>$val['guide_name']));	
-		
-        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+		$category = array();
+		$name = array();
+		foreach($results as $value){
+			if(in_array($value['guide_name'], $category)){
+				
+			}else{
+				array_push($category,$value['guide_name']);
+			}
+		}
+        //$this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
-    public function getTrainedStaffOne($criteria, $value, $survey, $for) {
+    public function getStaffTraining($criteria, $value, $survey, $for) {
         $yes = $no = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
-
-        $finalYes = $finalNo = $category = array();
-
-        foreach ($results as $key => $county) {
-
-            foreach ($county['trained'] as $k => $t) {
-
-
-                if ($k == $training) {
-                    $finalYes[] = $t;
-                    $categories[] = $key;
-                }
-            }
-
-
-
-            foreach ($county['working'] as $k => $w) {
-                if ($k == $training) {
-                    $finalNo[] = $w;
-                    $categories[] = $key;
-                }
-            }
+        $results = $this->m_analytics->getStaffAvailability($criteria, $value, $survey, $for);
+		 //echo "<pre>";print_r($results );echo "</pre>";die;
+       	$category = array();
+	    foreach ($results as $key => $result) {
+	    	$category = $result['cadre'];
+			$data[$result['cadre']]= (int)$result['total_in_facility'];
+			$data[$result['cadre']]= (int)$result['total_on_duty'];
+		}
+		//echo "<pre>";print_r($data);echo "</pre>";die;
+		foreach($data as $key => $value){
+			$resultArray = array(array('name' => $key, 'data' => $value));
+		}
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
         }
-
-        //echo '<pre>';print_r($finalYes);echo '</pre>';
-        $resultArray = array(array('name' => 'Trained', 'data' => $finalYes), array('name' => 'Working', 'data' => $finalNo));
-        //echo '<pre>';print_r($resultsArray);echo '</pre>';die ;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
-
-    }
-
-
+	   
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
