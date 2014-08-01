@@ -13,7 +13,7 @@
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="fixed-top">
+<body class="fixed-top" >
     <!-- BEGIN HEADER -->
 
     <?php $this->load->view('segments/header');?>
@@ -41,7 +41,7 @@
             </div>
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN PAGE CONTAINER-->
-            <div class="container-fluid">
+            <div class="container-fluid" data-spy="scroll" data-target=".sectionList">
                 <!-- BEGIN PAGE HEADER-->
                 <div class="row-fluid">
                     <div class="span12">

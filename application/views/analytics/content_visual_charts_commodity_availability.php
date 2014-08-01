@@ -12,7 +12,7 @@
         <div class="portlet-body">
 
             <div class="chart">
-                <ul class="sectionList">
+                <ul class="sectionList" data-offset-top="-300" >
 
                 </ul>
             </div>
@@ -30,13 +30,13 @@
 
 <div class="analytics_row section" data-survey='ch' id="section-1">
     <h4>Section 1 : Facility Information</h4>
-    <div class="portlet md box ">
+    <div class="portlet md box " >
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="ch_ownership">
             </div>
         </div>
     </div>
