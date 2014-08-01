@@ -8,12 +8,14 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
 
     //new sections
-    public $treatments,$questionPDF,$hcwInterviewpectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
+
+    public $sectionList,$sectionLinks,$facilitycontactinformation, $treatments,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
+
 
     //pdf variables
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
 
-public $session_survey_category;
+    public $session_survey_category;
 
     function __construct() {
         parent::__construct();
@@ -29,7 +31,7 @@ public $session_survey_category;
         $this->load->model('m_analytics');
         $this->load->model('m_retrieve');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
-        $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
+        $this->sectionList=$this->sectionLinks= $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
 
         $this->treatments=$this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
 
@@ -40,7 +42,7 @@ public $session_survey_category;
         //pdf
         $this->hardwareMCHSectionPDF = $this->suppliesMCHSectionPDF = $this->ortCornerAspectsSectionPDF = $this->mchIndicatorsSectionPDF = $this->selectMCHCommoditySuppliersPDF = $this->mchCommodityAvailabilitySectionPDF = $this->mnhKangarooMotherCare = $this->mnhKangarooMotherCarePDF = $this->mnhCommitteeAspectSectionPDF = $this->mnhWasteDisposalAspectsSection = $this->mnhNewbornCareAspectsSectionPDF = $this->mnhPostNatalCareAspectsSectionPDF = $this->nursesPDF = $this->hardwareSourcesPDF = $this->mnhCommunityStrategySectionPDF = $this->selectMCHOtherSuppliersPDF = $this->mchGuidelineAvailabilitySectionPDF = $this->mnhJobAidsAspectsSectionPDF = $this->mnhGuidelinesAspectsSectionPDF = $this->mnhPreparednessAspectsSectionPDF = $this->mnhHIVTestingAspectsSectionPDF = $this->suppliesUsageAndOutageSectionPDF = $this->suppliesMNHOtherSectionPDF = $this->mnhWaterAspectsSectionPDF = $this->selectMNHOtherSuppliersPDF = $this->commodityUsageAndOutageSectionPDF = $this->mnhCEOCAspectsSectionPDF = $this->suppliesSectionPDF = $this->commodityAvailabilitySectionPDF = $this->selectCommoditySuppliersPDF = '';
 
-$this->session_survey_category='';
+        $this->session_survey_category='';
 
 
         $this->myCount = 0;
@@ -138,6 +140,7 @@ $this->session_survey_category='';
         $this->createHardwareResourcesMNHSection();
         $this->createHardwareResourcesMNHSectionforPDF();
         $this->createNurses();
+        $this->createfacilitycontactinformtion();
 
         $this->createMNHNewbornCareAspectsSection();
         $this->createMNHNewbornCareAspectsSectionforPDF();
@@ -170,15 +173,16 @@ $this->session_survey_category='';
         $this->createConsultingAspectsSectionforPDF();
 
 
-         $this->  createInterviewAspectsSection();
-          $this->  createInterviewAspectsSectionforPDF();
-$this->createWorkProfileSection();
+        $this->  createInterviewAspectsSection();
+        $this->  createInterviewAspectsSectionforPDF();
+        $this->createWorkProfileSection();
 
-//Define Survey Session Variables
-$this->session_survey_category=$this->session->userdata('survey_category');
+        //Define Survey Session Variables
+        $this->session_survey_category=$this->session->userdata('survey_category');
 
 
-$this->getTreatments();
+        $this->getTreatments();
+        $this->getSections();
 
 
     }
@@ -187,14 +191,35 @@ $this->getTreatments();
         $this->the_form = $this->em->getRepository($form);
         return $this->theForm;
     }
-
+    public function getSections(){
+        $survey = $this->session->userdata('survey');
+        switch($survey){
+            case 'mnh':
+             $sectionNames=array('Facility Information');
+            $sections =8;
+            break;
+            case 'ch':
+            $sectionNames=array('Facility Information','Guidelines,Job Aids and Tools','Assessment','Commodity & Bundling','On-Site Rehydration','Equipment','Supplies','Resources','Community Strategy');
+            $sections=9;
+            break;
+            case 'hcw':
+            $sections=5;
+            break;
+            default:
+            break;
+        }
+        for($x=1;$x<=$sections;$x++){
+            $this->sectionLinks.='<option href="section-'.$x.'" value="section-'.$x.'">Section '.$x.'</option>';
+            $this->sectionList.='<li><a href="#section-'.$x.'">Section '.$x.' : '.$sectionNames[$x-1].'</a></li>';
+        }
+    }
     public function getProvinceNames() {
 
         //obtained from the session data
         if ($this->session->userdata('allProvinces'))
 
-        //  print var_dump($this -> session -> userdata('allProvinces'));exit;
-        foreach ($this->session->userdata('allProvinces') as $key => $value) {
+            //  print var_dump($this -> session -> userdata('allProvinces'));exit;
+            foreach ($this->session->userdata('allProvinces') as $key => $value) {
             $this->selectProvince.= '<option value="' . $value['provinceId'] . '">' . $value['provinceName'] . '</option>' . '<br />';
         }
 
@@ -408,6 +433,45 @@ $this->getTreatments();
         }
     }
 
+    public function createfacilitycontactinformtion()
+    {
+        // $retrieved = $this->m_retrieve->retrieveData('hr_information');
+        $facilitycontactinformation = '';
+        $facilitycontactinformation .= '
+        <tr>
+            <TD  colspan="2">Incharge </TD><td>
+            <input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+            </td><td>
+            <input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+            </td>
+        </tr>
+        <tr>
+            <TD  colspan="2">MCH Incharge</TD><td>
+            <input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+            </td><td>
+            <input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+            </td>
+        </tr>
+        <tr>
+            <TD  colspan="2">Maternity Incharge</TD><td>
+            <input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+            </td>
+            <td>
+            <input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+            </td>
+        </tr>';
+
+        return $this->facilitycontactinformation;
+    }
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
      * */
     public function createCommodityAvailabilitySection() {
@@ -419,12 +483,12 @@ $this->getTreatments();
         $survey = $this->session->userdata('survey');
         switch ($survey) {
             case 'mnh':
-                $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
-                break;
+            $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
+            break;
 
             case 'ch':
-                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-                break;
+            $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+            break;
         }
         $supplier_names = $this->selectCommoditySuppliers;
 
@@ -1145,7 +1209,7 @@ $this->getTreatments();
                 $data = '<tr>
             <td >' . $value['questionName'] . '</td>
             <td >
-            County
+            Facility
             <input type="text" class="cloned" name="questionResponseYes_' . $counter . '[]" id="questionResponseYes_' . $counter . '" class="cloned"/>
            </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
@@ -3369,12 +3433,12 @@ $this->getTreatments();
         $survey = $this->session->userdata('survey');
         switch ($survey) {
             case 'mnh':
-                $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
-                break;
+            $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
+            break;
 
             case 'ch':
-                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-                break;
+            $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+            break;
         }
         $availabilities = array('Available', 'Never Available');
         $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
@@ -4335,7 +4399,7 @@ GROUP BY st_name,sc_name,facilityCode;";
         foreach ($this->data_found as $value) {
             $counter++;
             $this->treatments[$value['treatmentFor']] .=
-            '<p><input type = "checkbox" >'.$value['treatmentName'].'<input type="text" style="margin-left:20px" size="8"></p>';
+                '<p><input type = "checkbox" >'.$value['treatmentName'].'<input type="text" style="margin-left:20px" size="8"></p>';
         }
         //echo '<pre>'; print_r( $this->treatments);echo '</pre>';die;
         return  $this->treatments;
