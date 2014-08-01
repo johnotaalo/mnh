@@ -377,32 +377,52 @@ ORDER BY lq.lq_response ASC";
 
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+				$category= array();
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    //foreach ($this->dataSet as $value) {
-                        
-                    //}
+                	// foreach ($this->dataSet as $value) {
+                       // if(in_array($value['guide_name'], $category)){
+                       // }else{
+                       	// array_push($category,$value['guide_name']);
+                       // }
+// 					   
+					// }
+					
+					}
+		}
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
 
 
-                    /**
-                     * Fix Data
-                     */
-                    switch ($survey) {
-               case 'mnh':
-               //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
-               break;
+            }
+			
+            return $this->dataSet;
+        }
 
-               case 'ch':
-               //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
-               break;
-                      }
-                } else {
-                    return null;
-                }
+
+		/*
+     *Staff Availability
+    */
+    public function getStaffAvailability($criteria, $value, $survey, $for) {
+        $value = urldecode($value);
+		$query = "CALL get_staff_training('". $criteria."', '".$value."', '".$survey."','".$for."');";
+				try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+				$result = $category = array();
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                	foreach($this->dataSet as $key => $value){
+                	}
+                  
+                } 
+                
                 //$this->dataSet = $data;
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
             }
@@ -413,13 +433,11 @@ ORDER BY lq.lq_response ASC";
 
 
             }
-			//var_dump($this->dataSet);die;
-			//$data=$this->dataSet;
+			
             return $this->dataSet;
         }
 
-
-
+		
         /*try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
