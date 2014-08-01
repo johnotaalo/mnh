@@ -12,7 +12,7 @@ function startAnalytics(base_url, county, survey,survey_category) {
 var countyClicked;
 
 criteria= value= stat_for= statistic='';
-    
+
 
     if (county === '') {
         county = 'Unselected';
@@ -203,10 +203,18 @@ function variableHandler(){
 function statisticsHandler(criteria,value,survey){
     //CH
     //Section 1
-    switch(criteria){
-        case 'county':
-            loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
-        break;
-    }
-    
+    //switch(criteria){
+        //case 'county':
+            //loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
+       // break;
+    //}
+
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#levels_of_care');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#facility_type');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_training');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_availability');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_retention');
+
+
 }

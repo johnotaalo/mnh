@@ -46,7 +46,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="levels_of_care">
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="facility_type"f>
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_training">
             </div>
         </div>
     </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_availability">
             </div>
         </div>
     </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_retention">
             </div>
         </div>
     </div>
