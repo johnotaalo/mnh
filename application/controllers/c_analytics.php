@@ -1028,7 +1028,7 @@ ORDER BY fac_level;");
     public function getQuestionStatistics($criteria, $value, $survey, $for) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
 
-        echo "<pre>";print_r($results);echo "</pre>";die;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {
@@ -1062,8 +1062,48 @@ ORDER BY fac_level;");
      * @param  [type] $survey   [description]
      * @return [type]           [description]
      */
-    public function getORT($criteria, $value, $survey) {
-        $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+    public function getORTOne($criteria, $value, $survey) {
+          $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey,'ort');
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array(); 
+        $count=0;
+        foreach ($results as $key => $value) {
+           
+           if($count==0):
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+            endif;
+            $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+       // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+    }
+
+    public function getORTTwo($criteria, $value, $survey) {
+          $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey,'ort');
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array(); 
+        $count=0;
+        foreach ($results as $key => $value) {
+           
+           if($count==1):
+            $q[] = $key;
+            $yes = (int)$value['yes'];
+            $no = (int)$value['no'];
+            endif;
+            $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+       // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
     }
 
     /**

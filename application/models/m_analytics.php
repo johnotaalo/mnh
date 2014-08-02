@@ -3639,6 +3639,7 @@ ORDER BY question_code";
                 $queryData->free_result();
 
                 foreach ($this->dataSet as $value_) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 	$question = $this->getQuestionName($value_['question_code']);
                     $question = trim($question, 'Does this facility have an updated');
                     $question = trim($question, '?');
@@ -3653,6 +3654,11 @@ ORDER BY question_code";
 
 
                     }
+                    if ($question=='Does this Facility have a designated location for oral rehydration?'){
+                         
+                    }
+
+
                     $yes = $value_['yes_values'];
                     $no = $value_['no_values'];
 
@@ -3671,7 +3677,7 @@ ORDER BY question_code";
 
 
             }
-
+           // var_dump($data);die;
             return $data;
         }
 
