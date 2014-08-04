@@ -40,7 +40,14 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
         },
         tooltip: {
             formatter: function() {
-      return  this.series.name +'<i>('+this.series.options.stack+')</i><br/>'+this.point.category+' : <b>'+this.y+'</b>';    
+                if(typeof this.series.options.stack !='undefined'){
+                    return  this.series.name +'<i>('+this.series.options.stack+')</i><br/>'+this.point.category+' : <b>'+this.y+'</b>'; 
+                }
+                else{
+                    return  this.point.category+'<br/>'+this.series.name +' : <b>'+this.y+'</b>'; 
+            
+                }
+         
     },
     followPointer: true
 

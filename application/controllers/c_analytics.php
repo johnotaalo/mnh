@@ -469,13 +469,14 @@ ORDER BY fac_level;");
                 }
             }
         }
-         //echo '<pre>';print_r($category);echo '</pre>'; exit;
-        $colors=array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
-        '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
+        //echo '<pre>';print_r($category);echo '</pre>'; exit;
+        $colors = array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
         //echo '<pre>';print_r($gData);echo '</pre>'; exit;
-        $colorCount=0;
+        $colorCount = 0;
         foreach ($gData as $name => $data) {
-            $color=$colors[$colorCount];
+            $color = $colors[$colorCount];
             $count = 0;
             foreach ($data as $stack => $actual) {
                 if ($count == 0) {
@@ -491,28 +492,32 @@ ORDER BY fac_level;");
         //echo '<pre>';print_r($resultArray);echo '</pre>'; exit;
         
         $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 90, 'bar');
+        
+        //echo '<pre>';print_r($resultArray);echo '</pre>'; exit;
+        //  $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'column');
+        
+        
     }
     public function getStaffRetention($criteria, $value, $survey, $for) {
         $in_facility = $on_duty = $resultsArray = array();
-        $value = urldecode($value);
         $results = $this->m_analytics->getStaffRetention($criteria, $value, $survey, $for);
         
-         //echo '<pre>';print_r($results);echo '</pre>'; exit;
+        //echo '<pre>';print_r($results);echo '</pre>'; exit;
         $category = array();
         foreach ($results as $guide => $result) {
-           $category[]=$guide;
-           foreach($result as $name=>$data){
-            $gData[$name]['trained'][]=(int)$data['trained'];
-            $gData[$name]['working'][]=(int)$data['working'];
-           }
+            $category[] = $guide;
+            foreach ($result as $name => $data) {
+                $gData[$name]['trained'][] = (int)$data['trained'];
+                $gData[$name]['working'][] = (int)$data['working'];
+            }
         }
-
-       $colors=array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
-        '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
+        $colors = array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
         //echo '<pre>';print_r($gData);echo '</pre>'; exit;
-        $colorCount=0;
+        $colorCount = 0;
         foreach ($gData as $name => $data) {
-            $color=$colors[$colorCount];
+            $color = $colors[$colorCount];
             $count = 0;
             foreach ($data as $stack => $actual) {
                 if ($count == 0) {
@@ -524,31 +529,31 @@ ORDER BY fac_level;");
             }
             $colorCount++;
         }
+        
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 90, 'bar');
     }
-
+    
     public function getStaffAvailability($criteria, $value, $survey, $for) {
         $in_facility = $on_duty = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getStaffAvailability($criteria, $value, $survey, $for);
         
-        
         $category = array();
         foreach ($results as $guide => $result) {
-           $category[]=$guide;
-           foreach($result as $name=>$data){
-            $gData[$name]['total_in_facility'][]=(int)$data['total_facility'];
-            $gData[$name]['total_on_duty'][]=(int)$data['total_duty'];
-           }
+            $category[] = $guide;
+            foreach ($result as $name => $data) {
+                $gData[$name]['total_in_facility'][] = (int)$data['total_facility'];
+                $gData[$name]['total_on_duty'][] = (int)$data['total_duty'];
+            }
         }
-
-       $colors=array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970',
-        '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
+        $colors = array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+        
         //echo '<pre>';print_r($gData);echo '</pre>'; exit;
-        $colorCount=0;
+        $colorCount = 0;
         foreach ($gData as $name => $data) {
-            $color=$colors[$colorCount];
+            $color = $colors[$colorCount];
             $count = 0;
             foreach ($data as $stack => $actual) {
                 if ($count == 0) {
@@ -560,10 +565,56 @@ ORDER BY fac_level;");
             }
             $colorCount++;
         }
+        
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 90, 'bar');
     }
     
+    //get treatment symptoms
+    public function getTreatmentSymptoms($criteria, $value, $survey) {
+        $results = $this->m_analytics->getTreatmentSymptoms($criteria, $value, $survey);
+        echo "<pre>";
+        print_r($results);
+        echo "</pre>";
+        die;
+    }
+    public function getTreatmentStatistics($criteria, $value, $survey) {
+        $results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey);
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $category = array('Pneumonia','Malaria / Fever','Diarrhoea');
+        $count = 0;
+        foreach ($results as $stack => $result) {
+            foreach ($result as $name => $data) {
+                switch ($count) {
+                    case 0:
+                        $resultArray[] = array('name' => $name, 'data' => array(NULL, NULL, $data), 'stack' => $stack);
+                        break;
+
+                    case 1:
+                        $resultArray[] = array('name' => $name, 'data' => array(NULL, $data, NULL), 'stack' => $stack);
+                        break;
+
+                    case 2:
+                        $resultArray[] = array('name' => $name, 'data' => array($data, NULL, NULL), 'stack' => $stack);
+                        break;
+                }
+                
+            }
+            $count++;
+        }
+        /*foreach ($results as $stack => $result) {
+            foreach ($result as $name => $data) {
+                
+                $resultArray[] = array('name' => $name, 'data' => array($data), 'stack' => $stack, 'category' => $stack);
+            }
+        }*/
+        //echo "<pre>";
+        //print_r($resultArray);
+        //echo "</pre>";
+        //die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 120, 'bar');
+    }
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
@@ -630,6 +681,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $val);
             
             //echo '<pre>';print_r($results);echo '</pre>';die;
+            
             
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
@@ -822,6 +874,7 @@ ORDER BY fac_level;");
             
             //echo "<pre>"; print_r($results);echo "</pre>";die;
             
+            
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
@@ -853,12 +906,14 @@ ORDER BY fac_level;");
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
+        
     }
     public function getresourcesFrequencyCH($criteria, $value, $survey) {
         $value = urldecode($value);
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
+        
         
     }
     
@@ -886,12 +941,14 @@ ORDER BY fac_level;");
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
+        
     }
     public function getresourcesLocationCH($criteria, $value, $survey) {
         $value = urldecode($value);
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
+        
         
     }
     
@@ -1122,7 +1179,7 @@ ORDER BY fac_level;");
         $category = $results['categories'];
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -1593,6 +1650,7 @@ ORDER BY fac_level;");
             
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
             
+            
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     }
@@ -1652,6 +1710,7 @@ ORDER BY fac_level;");
         // }
         //
         // $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        
         
     }
     
@@ -1792,6 +1851,7 @@ ORDER BY fac_level;");
             
             //echo '<pre>';print_r($guideline);echo '</pre>';die;
             
+            
         }
         
         $resultArray = array(array('name' => 'Yes', 'data' => $finalYes), array('name' => 'No', 'data' => $finalNo));
@@ -1891,6 +1951,7 @@ ORDER BY fac_level;");
                     
                     //echo '<pre>';print_r($yes);echo '</pre>';die;
                     
+                    
                 }
             }
         }
@@ -1919,6 +1980,7 @@ ORDER BY fac_level;");
                     $categories[] = $key;
                     
                     //echo '<pre>';print_r($categories);echo '</pre>';die;
+                    
                     
                 }
             }
@@ -2335,7 +2397,7 @@ ORDER BY fac_level;");
     public function populateGraph($resultArray = '', $drilldown = '', $category = '', $criteria = '', $stacking = '', $margin = 0, $type = '', $resultSize = '') {
         $datas = array();
         $chart_size = (count($category) < 5) ? 5 : count($category);
-        $given_size = ($resultSize != '' && $resultSize < 5) ? 5 : $resultSize;
+        $given_size = ($category != '' && $category < 5) ? 5 : $category;
         $datas['container'] = 'chart_' . $criteria . mt_rand();
         $datas['chart_type'] = $type;
         $datas['chart_margin'] = $margin;

@@ -218,5 +218,8 @@ function statisticsHandler(criteria,value,survey){
     loadGraph(base_url, 'c_analytics/getStaffAvailability/'+criteria+'/'+ value +'/'+survey+'/'+survey,'#staff_availability');
     loadGraph(base_url, 'c_analytics/getStaffRetention/'+criteria+'/'+ value +'/'+survey+'/'+survey,'#staff_retention');
 
+//Section 3
+    loadGraph(base_url, 'c_analytics/getTreatmentStatistics/'+criteria+'/'+ value +'/'+survey,'#u5_register');
+    loadGraph(base_url, 'c_analytics/getDangerSigns/'+criteria+'/'+ value +'/'+survey,'#danger_signs');
 
 }

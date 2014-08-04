@@ -142,31 +142,31 @@
     <h4>Section 3 : Assessment</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="u5_register">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="treatment_options">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="danger_signs">
             </div>
         </div>
     </div>
