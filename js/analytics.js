@@ -209,7 +209,7 @@ function statisticsHandler(criteria,value,survey){
        // break;
     //}
 
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
+    loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#levels_of_care');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#facility_type');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_training');
