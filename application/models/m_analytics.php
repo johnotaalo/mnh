@@ -3681,6 +3681,57 @@ ORDER BY question_code";
             return $data;
         }
 
+        public function getLocationStatistics($criteria, $value, $survey, $for) {
+
+            /*using CI Database Active Record*/
+            $value = urldecode($value);
+            $data = array();
+
+            $query = "CALL get_location_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                foreach ($this->dataSet as $value_) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    $question = $this->getQuestionName($value_['question_code']);
+                    
+
+
+                    $mch = $value_['mch_values'];
+                    $ward = $value_['ward_values'];
+                    $opd = $value_['opd_values'];
+                    $uc = $value_['uc_values'];
+                    $other = $value_['other_values'];
+
+                    //1. collect the categories
+                    $data[$question]['mch'] = $mch;
+                    $data[$question]['ward'] = $ward;
+                    $data[$question]['opd'] = $opd;
+                    $data[$question]['u5 clinic'] = $uc;
+
+                    $data[$question]['other'] = $other;
+                    
+                }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //die(var_dump($this->dataSet));
+
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+
+
+            }
+           // var_dump($data);die;
+            return $data;
+        }
+
         /**
          * Community Strategy
          */

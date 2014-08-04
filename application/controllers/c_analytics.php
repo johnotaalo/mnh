@@ -1015,7 +1015,41 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
     } 
 
+    /**
+     * [getLocationStatistics description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+     */
+    public function getLocationStatistics($criteria, $value, $survey, $for) {
+        $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $for);
 
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $mch = $ward = $other = $opd = $uc = array();
+        $count=0;
+
+        foreach ($results as $key => $value) {
+   //echo "<pre>";print_r($results);echo "</pre>";die;
+        if($count==2):
+           $q[] = $key;
+            $mch[] = (int)$value['mch'];
+            $ward[] = (int)$value['ward'];
+            $other[] = (int)$value['other'];
+            $opd[] = (int)$value['opd'];
+            $uc[] = (int)$value['u5 clinic'];
+
+            endif;
+            $count++;
+            
+        }
+        $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'WARD', 'data' => $ward), array('name' => 'OTHER', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'U5 CLINIC', 'data' => $uc));
+
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
 
     /**
      * [getQuestionStatistics description]
