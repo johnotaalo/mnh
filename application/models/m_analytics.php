@@ -410,12 +410,60 @@ ORDER BY lq.lq_response ASC";
 			
             return $this->dataSet;
         }
+	// get treatment statistics
+	 public function getTreatmentStatistics($criteria, $value, $survey) {
+        $value = urldecode($value);
+		$query = "CALL get_treatment_statistics('". $criteria."', '".$value."', '".$survey."');";
+				try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
 
-	/*
-	*get staff retention
-	*/
-		
-        
+                // Dump the extra resultset.
+                $queryData->free_result();
+				$result = $category = array();
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                  
+                } 
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+				}
+			
+            return $this->dataSet;
+        }
+	
+    // get treatment symptoms
+	 public function getTreatmentSymptoms($criteria, $value, $survey) {
+        $value = urldecode($value);
+		$query = "CALL get_treatment_symptoms('". $criteria."', '".$value."', '".$survey."');";
+				try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+				$result = $category = array();
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                	echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                  
+                } 
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+				}
+			
+            return $this->dataSet;
+        }
+	
     
     /*
      * Availability, Location and Functionality of Equipment at ORT Corner

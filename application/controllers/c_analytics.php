@@ -533,6 +533,25 @@ ORDER BY fac_level;");
         $this->populateGraph($resultsArray, '', $category, $criteria, 'normal', 70, 'bar');
         }
 	   
+	   //get treatment statistics
+	   public function getTreatmentStatistics($criteria, $value, $survey){
+	   	$results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey);
+		$category =$treatment = array();
+		foreach ($results  as $key => $value) {
+			if(in_array($value['treatment_for'], $category)){
+				
+			}else{
+				array_push($category,$value['treatment_for']);
+			}
+		
+		}
+		
+	   }
+	   //get treatment symptoms
+	   public function getTreatmentSymptoms($criteria, $value, $survey){
+	   	$results = $this->m_analytics->getTreatmentSymptoms($criteria, $value, $survey);
+	
+	   }
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
         $this->getCommodityStatistics($criteria, $value, $survey, 'mnh', 'availability');
     }
