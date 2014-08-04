@@ -22,8 +22,8 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             type: chart_type,
             marginBottom: chart_margin
         },
-        title: {
-            text: chart_title
+        title:{
+            text:''
         },
         xAxis: {
             categories: chart_categories
@@ -39,7 +39,11 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             }
         },
         tooltip: {
-            valueSuffix: ''
+            formatter: function() {
+      return  this.series.name +'<i>('+this.series.options.stack+')</i><br/>'+this.point.category+' : <b>'+this.y+'</b>';    
+    },
+    followPointer: true
+
         },
         plotOptions: {
             series: {

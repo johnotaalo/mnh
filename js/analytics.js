@@ -43,12 +43,13 @@ criteria= value= stat_for= statistic='';
     $('select#county_select').change(function() {
 
         county = $('select#county_select option:selected').attr('value');
-variableHandler();
+variableHandler(county,district,facility,survey);
     });
     $('select#survey_type').change(function() {
         district = $('select#sub_county_select option:selected').text();
 
         survey = $('select#survey_type option:selected').attr('value');
+
 
         if(district!='All Sub-Counties Selected'){
             district = encodeURIComponent(district);
@@ -58,7 +59,7 @@ variableHandler();
         loadSurvey(survey);
         console.log(district);
         console.log(survey);
-variableHandler();
+variableHandler(county,district,facility,survey);
 
     });
     $('select#survey_category').change(function() {
@@ -71,12 +72,13 @@ variableHandler();
             district = encodeURIComponent(district);
             loadFacilities(base_url,district,survey,survey_category);
         }
-variableHandler();
+variableHandler(county,district,facility,survey);
     });
     $('select#county_select').change(function() {
 
         county = $('select#county_select option:selected').text();
         county = encodeURIComponent(county);
+        //console.log(county);
         //alert(currentChart+district+'/ch/'+extraStat);
 
         loadDistricts(base_url,county);
@@ -89,14 +91,14 @@ variableHandler();
             district = encodeURIComponent(district);
             loadFacilities(base_url,district,survey,survey_category);
         }
-variableHandler();
+variableHandler(county,district,facility,survey);
     });
     $('select#sub_county_select').change(function() {
 
         district = $('select#sub_county_select option:selected').text();
         district = encodeURIComponent(district);
         loadFacilities(base_url,district,survey,survey_category);
-        variableHandler();
+        variableHandler(county,district,facility);
     });
 
    //Change Event for District Select
@@ -185,16 +187,16 @@ function loadFacilities(base_url,district,survey,survey_category){
     $('select#facility_select').load(base_url + 'c_analytics/getFacilitiesByDistrictOptions/' + district + '/' + survey+'/' + survey_category);
 
 }
-function variableHandler(){
+function variableHandler(county,district,facility,survey){
     if(county!=''){
         criteria='county';
         statisticsHandler(criteria,county,survey);
     }
-    if(district!=''){
+    else if(district!=''){
         criteria='district'
         statisticsHandler(criteria,district,survey);
     }
-    if(facility!=''){
+    else if(facility!=''){
         criteria='facility';
         statisticsHandler(criteria,district,survey);
     }
@@ -209,12 +211,12 @@ function statisticsHandler(criteria,value,survey){
        // break;
     //}
 
-    loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/'+criteria+'/'+ value +'/'+survey,'#ch_ownership');
+    loadGraph(base_url, 'c_analytics/','#ch_ownership');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#levels_of_care');
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#facility_type');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_training');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_availability');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/'+criteria+'/'+ value +'/'+survey,'#staff_retention');
+    loadGraph(base_url, 'c_analytics/getTrainedStaff/'+criteria+'/'+ value +'/'+survey+'/'+survey,'#staff_training');
+    loadGraph(base_url, 'c_analytics/getStaffAvailability/'+criteria+'/'+ value +'/'+survey+'/'+survey,'#staff_availability');
+    loadGraph(base_url, 'c_analytics/getStaffRetention/'+criteria+'/'+ value +'/'+survey+'/'+survey,'#staff_retention');
 
 
 }
