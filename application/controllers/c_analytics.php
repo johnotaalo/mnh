@@ -458,33 +458,79 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
 		$category = array();
-		$name = array();
+		$cadre = $resultArray=array();
+		
 		foreach($results as $value){
 			if(in_array($value['guide_name'], $category)){
-				
+			
 			}else{
 				array_push($category,$value['guide_name']);
 			}
+
+			if(count($resultArray)>0):
+			foreach($resultArray as $key=> $graph_data){
+				//echo '<pre>';print_r($resultArray);echo '</pre>'; exit;
+				if(($value['cadre']==$graph_data['name']) && $graph_data['stacking']=='total'){
+					$resultArray[$key]['name']['value']=array_merge($resultArray[$key]['name']['value'],$value['total']);
+					
+				}else{
+					$temp=array('name'=>$value['cadre'],'value'=>array($value['total']),'stacking'=>'total');
+					$resultArray[]=array_merge($resultArray,array($temp));
+				}
+				if(($value['cadre']==$graph_data['name']) && $graph_data['stacking']=='before'){
+					$resultArray[$key]['name']['value']=array_merge($resultArray[$key]['name']['value'],$value['trained_before']);;
+				}else{
+				$temp=array('name'=>$value['cadre'],'value'=>array($value['trained_before']),'stacking'=>'before');
+				$resultArray[]=array_merge($resultArray,array($temp));
+					
+				}
+				if(($value['cadre']==$graph_data['name']) && $graph_data['stacking']=='after'){
+					$resultArray[$key]['name']['value']=array_merge($resultArray[$key]['name']['value'],$value['trained_after']);;
+				}else{
+					$temp=array('name'=>$value['cadre'],'value'=>array($value['trained_after']),'stacking'=>'after');
+					$resultArray[]=array_merge($resultArray,array($temp));
+				}
+			}
+           
+			else:
+				$resultArray=array();
+			$temp=array('name'=>$value['cadre'],'stacking'=>'total','value'=>array($value['total']));
+			$resultArray=array_push($resultArray,array($temp));
+			$temp=array('name'=>$value['cadre'],'stacking'=>'before','value'=>array($value['trained_before']));
+			$resultArray=array_merge($resultArray,array($temp));
+			$temp=array('name'=>$value['cadre'],'value'=>array($value['trained_after']),'stacking'=>'after');
+			$resultArray=array_merge($resultArray,array($temp));
+
+
+		//	echo '<pre>';print_r($resultArray);echo '</pre>'; exit;
+			 endif;
+			
+			
 		}
-        //$this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+       //echo '<pre>';print_r($resultArray);echo '</pre>'; exit;
+      //  $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'column');
     }
 
-    public function getStaffTraining($criteria, $value, $survey, $for) {
-        $yes = $no = $resultsArray = array();
+    public function getStaffAvailability($criteria, $value, $survey, $for) {
+        $in_facility = $on_duty = $resultsArray = array();
         $value = urldecode($value);
         $results = $this->m_analytics->getStaffAvailability($criteria, $value, $survey, $for);
 		 //echo "<pre>";print_r($results );echo "</pre>";die;
        	$category = array();
 	    foreach ($results as $key => $result) {
-	    	$category = $result['cadre'];
-			$data[$result['cadre']]= (int)$result['total_in_facility'];
-			$data[$result['cadre']]= (int)$result['total_on_duty'];
+	    	if(in_array($result['cadre'], $category)){
+	    		
+	    	}else{
+	    		array_push($category,$result['cadre']);
+		
+			}
+			$in_facility[]=(int)$result['total_in_facility'];
+			$on_duty[]=(int)$result['total_on_duty'];
+			
 		}
-		//echo "<pre>";print_r($data);echo "</pre>";die;
-		foreach($data as $key => $value){
-			$resultArray = array(array('name' => $key, 'data' => $value));
-		}
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        
+		$resultsArray[]=array(array('name'=>'total_in_facility','data'=>$in_facility),array('name'=>'total_on_duty','data'=>$on_duty));
+        $this->populateGraph($resultsArray, '', $category, $criteria, 'normal', 70, 'bar');
         }
 	   
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey) {
@@ -949,7 +995,7 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-
+		print_r($resultArray );die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
