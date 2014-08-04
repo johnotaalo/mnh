@@ -233,28 +233,7 @@ class C_Load extends MY_Controller {
                     <th colspan ="2"> Other (Please specify)</th>
                 </tr>
     </thead>
-                <tr>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="Inadequate skill" class="cloned" />
-                    </td>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate staff" />
-                    </td>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate infrastructure" />
-                    </td>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="Inadequate Equipment" />
-                    </td>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="Inadequate commodities and supplies" />
-                    </td>
-                    <td style ="text-align:center;" colspan ="2">
-                    <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="Other (Please specify)" />
-                    <input type="text" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="" />
-                    </td>
-                    <input type="hidden" name="facRsnNoDeliveriesCode" id="facRsnNoDeliveriesCode" value="QMNH200"
-                </tr>
+                <tr>'.$this -> deliveriessection.'</tr>
             </table>
 <table>
             <thead>

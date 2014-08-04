@@ -8,7 +8,7 @@ class MY_Controller extends CI_Controller
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection;
 
     //new sections
-    public $facilitycontactinformation, $treatments,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
+    public $facilitycontactinformation, $treatments,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection, $deliveriessection;
 
     //pdf variables
     public $mchpneumoniasevereTreatmentSection,$mchmalariaconfrimedtreatmentSection,$hcwConsultingAspectsSectionPDF, $myCount, $mchBundling, $mchBundlingPDF, $hardwareMCHSectionPDF, $suppliesMCHSectionPDF, $ortCornerAspectsSectionPDF, $mchIndicatorsSectionPDF, $selectMCHCommoditySuppliersPDF, $mchCommodityAvailabilitySectionPDF, $servicesPDF, $mnhKangarooMotherCarePDF, $mnhKangarooMotherCare, $services, $mnhCommitteeAspectSectionPDF, $mnhWasteDisposalAspectsSectionPDF, $mnhNewbornCareAspectsSectionPDF, $mnhPostNatalCareAspectsSectionPDF, $nursesPDF, $mnhCommunityStrategySectionPDF, $selectMCHOtherSuppliersPDF, $hardwareMNHSectionPDF, $mchGuidelineAvailabilitySectionPDF, $mnhJobAidsAspectsSectionPDF, $mnhGuidelinesAspectsSectionPDF, $mnhPreparednessAspectsSectionPDF, $mnhHIVTestingAspectsSectionPDF, $suppliesUsageAndOutageSectionPDF, $suppliesMNHOtherSectionPDF, $mnhWaterAspectsSectionPDF, $selectMNHOtherSuppliersPDF, $commodityUsageAndOutageSectionPDF, $signalFunctionsSectionPDF, $mnhCEOCAspectsSectionPDF, $suppliesSectionPDF, $commodityAvailabilitySectionPDF, $selectCommoditySuppliersPDF;
@@ -86,6 +86,7 @@ $this->session_survey_category='';
         // $this->createHcwProfileSection();
         $this->createmchConsultationSection();
         $this->createHealthSection();
+        $this->createmnhdeliveriessection();
 
         //pdf functions
         $this->getCommoditySuppliersforPDF();
@@ -411,9 +412,10 @@ $this->getTreatments();
 
     public function createfacilitycontactinformtion()
     {
-        // $retrieved = $this->m_retrieve->retrieveData('hr_information');
-        $facilitycontactinformation = '';
-        $facilitycontactinformation .= '
+        //$this->data_found = $this->m_mnh_survey->getCommodityNames();
+        $retrieved = $this->m_retrieve->retrieveData('hr_information');
+        $this->facilitycontactinformation = '';
+        $this->facilitycontactinformation .= '
         <tr>
             <TD  colspan="2">Incharge </TD><td>
             <input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
@@ -1856,6 +1858,65 @@ $this->getTreatments();
         return $this->mnhCommitteeAspectSectionPDF;
     }
 
+public function createmnhdeliveriessection()
+{
+    $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
+
+    //echo "<pre>";print_r($retrieved);  echo "</pre>";
+    $survey = $this->session->userdata('survey');
+        switch ($survey) {
+            case 'mnh':
+                $reasons = array('Inadequate skill','Inadequate staff','Inadequate infrastructure','Inadequate Equipment','Inadequate commodities and supplies','others');
+                break;
+
+            // case 'ch':
+            //     $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+            //     break;
+        }
+        $this->deliveriessection = "";
+        foreach ($retrieved as $key => $deliveries) {
+            if($key == 'QMNH200')
+            {
+                if(!$deliveries[''])
+                {
+                    $lq_reasons = explode(',', $deliveries['lq_reason']);
+                    foreach ($reasons as $reason) {
+                        $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2">';
+                        if(in_array($reason, $lq_reasons))
+                        {
+                            $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned" checked/>';
+                        }
+                        else
+                        {
+                            $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/>';
+                        }
+                        $this->deliveriessection .= '</td>';
+                    }
+            }
+            }
+        }
+            // '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="Inadequate skill" class="cloned" />
+            //$this->deliveriessection .='</td>';
+            // <td style ="text-align:center;" colspan ="2">
+            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate staff" />
+            // </td>
+            // <td style ="text-align:center;" colspan ="2">
+            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate infrastructure" />
+            // </td>
+            // <td style ="text-align:center;" colspan ="2">
+            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="Inadequate Equipment" />
+            // </td>
+            // <td style ="text-align:center;" colspan ="2">
+            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="Inadequate commodities and supplies" />
+            // </td>
+            // <td style ="text-align:center;" colspan ="2">
+            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="Other (Please specify)" />
+            // <input type="text" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="" />
+            // </td>
+            // <input type="hidden" name="facRsnNoDeliveriesCode" id="facRsnNoDeliveriesCode" value="QMNH200">';
+
+                    return $this->deliveriessection;
+}
     public function createMNHNewbornCareAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhNewbornAspectQuestions();
 
