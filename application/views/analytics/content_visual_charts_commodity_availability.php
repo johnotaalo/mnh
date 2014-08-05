@@ -170,6 +170,16 @@
             </div>
         </div>
     </div>
+     <div class="portlet box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span></h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="indicator_comparison">
+            </div>
+        </div>
+    </div>
 
 
 

@@ -1181,6 +1181,43 @@ ORDER BY fac_level;");
         
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
+    /**
+     * [getIndicatorComparison description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $for             [description]
+     * @return [type]                  [description]
+     */
+    public function getIndicatorComparison($criteria, $value, $survey,$survey_category, $for) {
+        $value = urldecode($value);
+        $results = $this->m_analytics->getIndicatorComparison($criteria, $value, $survey,$survey_category, $for);
+        
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        foreach ($results as $indicator=>$values) {
+            $category[]=$indicator;
+            foreach($values as $verdict=>$answer){
+                $gData[$verdict][]=$answer;
+            }
+        }
+        
+        foreach($gData as $name=>$data){
+             $resultArray[] = array('name' => ucwords($name), 'data' => $data);
+        }
+        //echo '<pre>';print_r($resultArray);echo '</pre>';die;
+        
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    public function getIndicatorTypes(){
+        $results = $this->m_analytics->getIndicatorTypes();
+        //echo '<pre>';print_r($results);echo '</pre>';die;
+        $options='<option>Choose Indicator Type</option>';
+        foreach($results as $value){
+            $options.='<option value="'.$value['il_for'].'">'.$value['il_full_name'].'</option>';
+        }
+echo $options;
+    }
     
     /**
      * [getChildrenServices description]
