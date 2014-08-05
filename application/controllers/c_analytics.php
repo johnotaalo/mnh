@@ -1652,7 +1652,7 @@ ORDER BY fac_level;");
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getFacilityLevelAll($survey) {
