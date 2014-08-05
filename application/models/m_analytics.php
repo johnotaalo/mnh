@@ -14,42 +14,24 @@ use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 class M_Analytics extends MY_Model
 {
-
+    
     /*user variables*/
     var $dataSet, $final_data_set, $query, $rsm, $districtName, $countyFacilities;
-
+    
     /*constructor*/
     function __construct() {
         parent::__construct();
-
+        
         //var initialization
         $this->dataSet = $this->query = null;
     }
-
-    public function getCountyReportingSummary($survey, $survey_category){
+    
+    public function getCountyReportingSummary($survey, $survey_category) {
+        
         /* using CI database active record*/
-        switch($survey){
-            case 'mnh':
-                $section = 8;
-            break;
-            case 'ch':
-                $section=9;
-            break;
-        }
-        try{
-            $query = "SELECT
-                            f.fac_name AS facility, (CASE
-        WHEN f.fac_ownership = 'Private Practice - General Practitioner' THEN 'Private'
-        WHEN f.fac_ownership = 'Private Practice - Nurse / Midwife' THEN 'Private'
-        WHEN f.fac_ownership = 'Private Enterprise (Institution)' THEN 'Private'
-        WHEN f.fac_ownership = 'Private Practice - Clinical Officer' THEN 'Private'
-        WHEN f.fac_ownership = 'Christian Health Association of Kenya' THEN 'Faith Based Organisation'
-        WHEN f.fac_ownership = 'Other Faith Based' THEN 'Faith Based Organisation'
-        WHEN f.fac_ownership = 'FBO' THEN 'Faith Based Organisation'
-        WHEN f.fac_ownership = 'Kenya Episcopal Conference-Catholic Secretariat' THEN 'Faith Based Organisation'
-        WHEN f.fac_ownership = 'GOK' THEN 'Ministry of Health'
-        ELSE f.fac_ownership
-    END) as ownership,f.fac_district AS district, f.fac_county AS county
+        try {
+            $query = "SELECT 
+                        f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
                         FROM
                         assessment_tracker ast
                             JOIN
@@ -57,30 +39,30 @@ class M_Analytics extends MY_Model
                             JOIN
                         survey_status ss ON ss.fac_id = f.fac_mfl
                             JOIN
-                        survey_types st ON st.st_id = ss.st_id AND st.st_name = '".$survey."'
+                        survey_types st ON st.st_id = ss.st_id AND st.st_name = '" . $survey . "'
                            JOIN
-                        survey_categories sc ON sc.sc_id = ss.sc_id AND sc.sc_name = '".$survey_category."'
-                        WHERE ast.ast_section = 'section-".$section."'
-                    ORDER BY f.fac_county , f.fac_district,f.fac_ownership";
-
-                $this->dataSet = $this->db->query($query,  array($survey));
-                $this->dataSet = $this->dataSet->result_array();
-            //echo $this->db->last_query();die;
-                 if($this->dataSet){
-                    return $this->dataSet;
-                 }else{
-                    return $this->dataSet = false;
-                 }
-
-                   //var_dump($this->dataSet);die;
+                        survey_categories sc ON sc.sc_id = ss.sc_id AND sc.sc_name = '" . $survey_category . "'
+                        WHERE ast.ast_section = 'section-6'
+                    ORDER BY f.fac_county , f.fac_district";
+            
+            $this->dataSet = $this->db->query($query, array($survey));
+            $this->dataSet = $this->dataSet->result_array();
+            if ($this->dataSet) {
+                return $this->dataSet;
+            } else {
+                return $this->dataSet = false;
+            }
+            
+            //var_dump($this->dataSet);die;
+            
+            
         }
-        catch(exception $ex){
-
+        catch(exception $ex) {
         }
     }
-
+    
     public function get_facility_reporting_summary($survey) {
-
+        
         /*using CI Database Active Record*/
         try {
             $query = "SELECT fac_mfl,fac_name,fac_district,fac_county,fac_incharge_contact_person,fac_incharge_email,fac_updated
@@ -88,36 +70,36 @@ class M_Analytics extends MY_Model
                      FROM facilities   ORDER BY fac_name ASC";
             $this->dataSet = $this->db->query($query, array($survey));
             $this->dataSet = $this->dataSet->result_array();
-
+            
             if ($this->dataSet) {
                 return $this->dataSet;
             } else {
                 return $this->dataSet = false;
             }
-
+            
             //die(var_dump($this->dataSet));
-
-
+            
+            
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
     }
-
+    
     /**
      * Community Strategy
      */
     public function getCommunityStrategy($criteria, $value, $survey) {
-
+        
         /*using CI Database Active Record*/
-
+        
         //$data=array();
         $data = '';
-
+        
         switch ($criteria) {
             case 'national':
                 $criteria_condition = ' ';
@@ -139,7 +121,7 @@ class M_Analytics extends MY_Model
                 $criteria_condition = '';
                 break;
         }
-
+        
         $query = "SELECT
     cs.strategy_code AS strategy,
     SUM(cs.cs_response) AS strategy_number
@@ -168,7 +150,7 @@ GROUP BY cs.strategy_code ASC;";
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $i = 1;
                 $size = count($this->dataSet);
@@ -206,33 +188,32 @@ GROUP BY cs.strategy_code ASC;";
             } else {
                 return $this->dataSet = null;
             }
-
+            
             //die(var_dump($this->dataSet));
-
-
+            
+            
         }
         catch(Exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
     }
-
+    
     /*
      * Guidelines Availability
     */
-
+    
     public function getGuidelinesAvailability($criteria, $value, $survey) {
-
-
+        
         /*using CI Database Active Record*/
         $data = array();
         $data_prefix_y = '';
         $data_prefix_n = '';
         $data_y = $data_n = $data_categories = array();
-
+        
         switch ($criteria) {
             case 'national':
                 $criteria_condition = ' ';
@@ -254,7 +235,7 @@ GROUP BY cs.strategy_code ASC;";
                 $criteria_condition = '';
                 break;
         }
-
+        
         $query = "SELECT
     COUNT(lq.fac_mfl) AS total_facilities,
     lq.question_code AS guideline,
@@ -284,16 +265,16 @@ ORDER BY lq.lq_response ASC";
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
                 $i = 0;
-
+                
                 //get a set of the 4 guidelines
                 $data['categories'] = array('2012 IMCI', 'ORT Corner', 'ICCM', 'Paediatric Protocol');
-
+                
                 //$data['categories'] = json_encode($data_categories);
-
+                
                 foreach ($this->dataSet as $value) {
                     switch ($this->getTrainingGuidelineName($value['guideline'])) {
                         case 'Does the facility have updated 2012 IMCI guidelines?':
@@ -312,216 +293,318 @@ ORDER BY lq.lq_response ASC";
                             $guideline = 'ICCM';
                             break;
                     }
-
+                    
                     if ($value['availability'] == 'Yes') {
                         $data_y[] = array($guideline => (int)$value['total_facilities']);
                     } else {
                         $data_n[] = array($guideline => (int)$value['total_facilities']);
                     }
-
+                    
                     //$data['categories'][]=$guideline;
-
-
+                    
+                    
                 }
-
+                
                 $data['yes_values'] = $data_y;
                 $data['no_values'] = $data_n;
-
+                
                 $this->dataSet = $data;
-
+                
                 //var_dump($this->dataSet);die;
-
-
+                
+                
             } else {
                 return $this->dataSet = null;
             }
-
+            
             //die(var_dump($this->dataSet));
-
-
+            
+            
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
-
+        
         return $this->dataSet;
     }
-
+    
     /*
      * Trained Staff
     */
     public function getTrainedStaff($criteria, $value, $survey, $for) {
         $value = urldecode($value);
-
+        
         /*using CI Database Active Record*/
         $data = array();
         $data_prefix_y = '';
-
+        
         //"name:'Trained (Last 2 years)',data:";
         $data_prefix_n = '';
-
+        
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
-
-        $query = "CALL get_staff_trained('". $criteria."', '".$value."', '".$survey."','".$for."');";
-
-
+        
+        $query = "CALL get_staff_trained('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        
         try {
-                $queryData = $this->db->query($query, array($value));
-                $this->dataSet = $queryData->result_array();
-                $queryData->next_result();
-
-                // Dump the extra resultset.
-                $queryData->free_result();
-
-                //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
-                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    //foreach ($this->dataSet as $value) {
-                        
-                    //}
-
-
-                    /**
-                     * Fix Data
-                     */
-                    switch ($survey) {
-               case 'mnh':
-               //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
-               break;
-
-               case 'ch':
-               //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
-               break;
-                      }
-                } else {
-                    return null;
-                }
-                //$this->dataSet = $data;
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            }
-            catch(exception $ex) {
-
-                //ignore
-                //die($ex->getMessage());//exit;
-
-
-            }
-			//var_dump($this->dataSet);die;
-			//$data=$this->dataSet;
-            return $this->dataSet;
-        }
-
-
-
-
-        /*try {
-            $this->dataSet = $this->db->query($query, array($value));
-            $this->dataSet = $this->dataSet->result_array();
-            $cat=$data['trained']=$data['working']=array();
-            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            foreach ($this->dataSet as $value_) {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $category = array();
+            
+            //echo '<pre>';print_r($this->dataSet);echo '</pre>';
+            //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
                 foreach ($this->dataSet as $value) {
-                    array_push($cat,$value['training']);
-                    array_push($data['trained'],$value['trained']+= (int)$value['trained']);
-                    array_push($data['working'],$value['working']+= (int)$value['trained']);
-                    }
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    }
-            switch ($survey) {
-               case 'mnh':
-               //$data_categories[] = $this->getMNHGuideName($value_['training']);
-                  $data_categories = array('Basic Emergency Obstetric Neonatal Care (BEmONC)', 'Focused Antenatal Care (FANC)', 'Post Natal Care (PNC)', 'Post Abortion Care (PAC)', 'Essential Newborn care','Maternal and Perinatal Death Surveillance and revi...','Standards-Based Management and Recognition (SBM-R)','Uterine Balloon Tamponade (UBT)');
-               break;
-
-               case 'ch':
-               //$data_categories[] = $this->getCHGuideName($value_['training']);
-                  $data_categories = array('ICCM','IMCI','Diarrhoea Manangement in children U5 CMEs');
-               break;
-             }
-           }
-             $data['categories'] = (array_values(array_unique($data_categories)));
-             //$data['responses'] = $data_set;
-             $this->dataSet = $data;
-
-              echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    }
-
-
+                    
+                    $data[$value['guide_name']][$value['cadre']]['total'] = $value['total'];
+                    $data[$value['guide_name']][$value['cadre']]['before'] = $value['trained'];
+                    $data[$value['guide_name']][$value['cadre']]['after'] = $value['trained_after'];
+                }
+            }
+        }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
+            
+            
         }
-       //
+        
         return $data;
-    }*/
+    }
+    
+    public function getStaffRetention($criteria, $value, $survey, $for) {
+        $value = urldecode($value);
+        
+        /*using CI Database Active Record*/
+        $data = array();
+        $data_prefix_y = '';
+        
+        //"name:'Trained (Last 2 years)',data:";
+        $data_prefix_n = '';
+        
+        //"name:'Trained & Working in CH',data:";
+        $data_t = $data_w = $data_categories = array();
+        
+        $query = "CALL get_staff_retention('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $category = array();
+            
+            //echo '<pre>';print_r($this->dataSet);echo '</pre>';
+            //echo($this->db->last_query());die;
+            if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $value) {
+                    
+                    $data[$value['guide_name']][$value['cadre']]['trained'] = $value['trained'];
+                    $data[$value['guide_name']][$value['cadre']]['working'] = $value['working'];
+                }
+            }
+        }
 
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $data;
+    }
+    
+    /*
+     *Staff Availability
+    */
+    public function getStaffAvailability($criteria, $value, $survey, $for) {
+        $value = urldecode($value);
+        $query = "CALL get_staff_training('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $result = $category = array();
+            
+            //echo($this->db->last_query());die;
 
+            if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $value) {
+                    $data[$value['guide_name']][$value['cadre']]['total_facility'] = $value['total_in_facility'];
+                    $data[$value['guide_name']][$value['cadre']]['total_duty'] = $value['total_on_duty'];
+                }
+            }
+        }
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $data;
+
+    }
+    
+    // get treatment statistics
+    public function getTreatmentStatistics($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $query = "CALL get_treatment_statistics('" . $criteria . "', '" . $value . "', '" . $survey . "');";
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $result = $category = array();
+            
+            //echo($this->db->last_query());die;
+            if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $value) {
+                    $data[$value['treatment_for']][$value['treatment']] = (int)$value['total'];
+                }
+            }
+        }
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $data;
+    }
+    
+    // get treatment symptoms
+    public function getTreatmentSymptoms($criteria, $value, $survey) {
+        $value = urldecode($value);
+        $query = "CALL get_treatment_symptoms('" . $criteria . "', '" . $value . "', '" . $survey . "');";
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $result = $category = array();
+            
+            //echo($this->db->last_query());die;
+            if ($this->dataSet !== NULL) {
+                echo "<pre>";
+                print_r($this->dataSet);
+                echo "</pre>";
+                die;
+            }
+        }
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $this->dataSet;
+    }
+    
 
     /*
      * Availability, Location and Functionality of Equipment at ORT Corner
     */
-
+    
     public function getORTCornerEquipmement($criteria, $value, $survey) {
+        
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+        
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+        
+        
+        
         /**
          * something of this kind:
          * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
          */
 
-      
+        
+        switch ($criteria) {
+            case 'national':
+                $criteria_condition = ' ';
+                $value = ' ';
+                break;
+
+            case 'county':
+                $criteria_condition = 'WHERE fac_county=?';
+                break;
+
+            case 'district':
+                $criteria_condition = 'WHERE fac_district=?';
+                break;
+
+            case 'facility':
+                $criteria_condition = 'WHERE fac_mfl=?';
+                break;
+
+            case 'none':
+                $criteria_condition = '';
+                break;
+        }
+        
 
         /*--------------------begin ort equipment availability by frequency----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
-
-
+        
         try {
-
+            
             $this->dataSet = $this->db->query($query, array($value));
-
+            
             $this->dataSet = $this->dataSet->result_array();
-
+            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
-
+                
                 foreach ($this->dataSet as $value_) {
-
+                    
                     //1. collect the categories
                     $data_categories[] = $this->getCHEquipmentName($value_['equipment']);
-
+                    
                     //incase of duplicates--do an array_unique outside the foreach()
-
+                    
                     //2. collect the analytic variables
                     if ($value_['frequency'] == 'Some Available') {
-
+                        
                         //a hardcore fix...for Nairobi County data only--> (there was a typo in the naming 'Sometimes Available', so Nairobi data has it as 'Some Available')
-
+                        
                         $frequency = 'Sometimes Available';
                     } else {
                         $frequency = $value_['frequency'];
                     }
                     $analytic_var[] = $frequency;
-
+                    
                     //includes duplicates--so we'll array_unique outside the foreach()
-
+                    
                     //collect the data_sets for the 3 analytic variables under availability
                     if ($frequency == 'Available') {
                         $data_set['Available'][] = intval($value_['total_response']);
@@ -530,52 +613,50 @@ ORDER BY lq.lq_response ASC";
                     } else if ($frequency == 'Never Available') {
                         $data_set['Never Available'][] = intval($value_['total_response']);
                     }
-
                 }
-
+                
                 //var_dump($data_set);die;
-
+                
                 //make cat array unique if we got duplicates then json_encode and set to $data array
                 $data['categories'] = (array_values(array_unique($data_categories)));
-
+                
                 //expected 28
-
+                
                 //get a unique set of analytic variables
                 $analytic_var = array_unique($analytic_var);
-
+                
                 //expected to be 3 in this particular context
                 $data['analytic_variables'] = $analytic_var;
-
+                
                 //get the data sets
                 $data['responses'] = $data_set;
-
+                
                 //sets of the 3 analytic variables: Available | Sometimes Available | Never Available
-
+                
                 $this->final_data_set['frequency'] = $data;
-
+                
                 //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-
+                
                 //unset the arrays for reuse in the next query
                 $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+                
                 //return $this -> final_data_set;
-
-
+                
+                
             } else {
                 return null;
             }
-
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
-
+        
         /*--------------------end ort equipment availability by frequency----------------------------------------------*/
-
+        
         /*--------------------begin ort equipment location of availability----------------------------------------------*/
         $query = "CALL get_resources('" . $criteria . "' , '" . $analytic_value . "', '" . $survey_type . "', '" . $equipmentfor . "','availability' ); ";
         /*$query = "SELECT
@@ -602,35 +683,37 @@ WHERE
             eq_for = 'ort')
         AND ea.ae_location NOT LIKE '%Not Applicable%'
 GROUP BY ea.eq_code , ea.ae_location
-ORDER BY ea.eq_code ASC";*/
+
+ORDER BY ea.eq_code ASC";
+        
 
         try {
-
+            
             //echo $query;die;
             //die(print $status.$value);
             $this->dataSet = $this->db->query($query, array($value));
-
+            
             //var_dump($this->dataSet);die;
             $this->dataSet = $this->dataSet->result_array();
-
+            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
                 $count_instances = array('MCH' => 0, 'OPD' => 0, 'U5 Clinic' => 0, 'Ward' => 0, 'Other' => 0);
-
+                
                 //to hold the location instances
                 foreach ($this->dataSet as $value_) {
-
+                    
                     //1. collect the categories
                     $data_categories[] = $this->getCHEquipmentName($value_['equipment']);
-
+                    
                     //incase of duplicates--do an array_unique outside the foreach()
-
+                    
                     //2. collect the analytic variables
                     //$analytic_var[] = $value['location'];-->hard fix outside the loop as values are coma separated...good fix..have v-look up in the db
-
+                    
                     //collect the data_sets from the coma separated responses
                     if (strpos($value_['location'], 'OPD') !== FALSE) {
                         $count_instances['OPD']+= intval($value_['total_response']);
@@ -653,51 +736,51 @@ ORDER BY ea.eq_code ASC";*/
                         $data_set[$this->getCHEquipmentName($value_['equipment']) ]['Other'] = $count_instances['Other'];
                     }
                 }
-
+                
                 //var_dump($count_instances);die;
                 //var_dump($data_set);die;
-
+                
                 //make array unique if we got duplicates and set to $data array
                 $data['categories'] = array_values(array_unique($data_categories));
-
+                
                 //expected 28
-
+                
                 //get a unique set of analytic variables
                 $analytic_var = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-
+                
                 //expected to be 5 in this particular context, again we know they r just these 5 :)
                 $data['analytic_variables'] = $analytic_var;
-
+                
                 //get the data sets
                 $data['responses'] = $data_set;
-
+                
                 //sets of the 5 analytic variables: 'OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other'
-
+                
                 $this->final_data_set['location'] = $data;
-
+                
                 //note, I've introduced $final_data_set to be used in place of $data since $data is reset and reused
-
+                
                 $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+                
                 //unset the arrays for reuse
-
+                
                 //return $this -> final_data_set;
-
-
+                
+                
             } else {
                 return null;
             }
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
-
+        
         /*--------------------end ort equipment location of availability----------------------------------------------*/
-
+        
         /*--------------------begin ort equipment availability by functionality----------------------------------------------*/
         $query = "SELECT
     ea.eq_code as equipment,
@@ -725,91 +808,89 @@ WHERE
         AND ea.ae_non_functional != - 1
 GROUP BY ea.eq_code
 ORDER BY ea.eq_code ASC";
-
+        
         //echo $query; die;
         try {
             $this->dataSet = $this->db->query($query, array($value));
-
+            
             $this->dataSet = $this->dataSet->result_array();
-
+            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
-
+                
                 foreach ($this->dataSet as $value_) {
                     if ($this->getCHEquipmentName($value_['equipment']) == 'Table spoons' || $this->getCHEquipmentName($value_['equipment']) == 'Wall Clock/Timing device' || $this->getCHEquipmentName($value_['equipment']) == 'Weighing scale' || $this->getCHEquipmentName($value_['equipment']) == 'Thermometer') {
-
+                        
                         //1. collect the categories
                         $data_categories[] = $this->getCHEquipmentName($value_['equipment']);
-
+                        
                         //includes duplicates--so we'll array_unique outside the foreach()
-
+                        
                         //data set by each equipment
                         $data_set[$this->getCHEquipmentName($value_['equipment']) ][] = array('Fully-functional' => intval($value_['total_functional']), 'Non-functional' => intval($value_['total_non_functional']));
-
                     }
                 }
-
-
+                
                 //var_dump($analytic_var);die;
-
+                
                 //make cat array unique if we got duplicates and set to $data array
                 $data['categories'] = array_values(array_unique($data_categories));
-
+                
                 //expected 28
-
+                
                 //get a unique set of analytic variables
                 $analytic_var = array('Fully-functional', 'Non-functional');
-
+                
                 //expected to be 2 in this particular context
-
+                
                 //assign data set to $data
                 $data['responses'] = $data_set;
-
+                
                 //assign $data to $final_data_set
                 $this->final_data_set['quantities'] = $data;
                 $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+                
                 //unset the arrays for reuse
-
+                
                 /*--------------------end ort equipment availability by quantity----------------------------------------------*/
-
+                
                 // /var_dump($this -> final_data_set['quantities']);die;
-
+                
                 return $this->final_data_set;
             } else {
                 return null;
             }
-
+            
             //die(var_dump($this->final_data_set));
-
-
+            
+            
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
     }
-
+    
     public function getCHCommoditySupplier($criteria, $value, $survey) {
-
+        
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+        
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+        
+        
+        
         /**
          * something of this kind:
          * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
          */
-
+        
         switch ($criteria) {
             case 'national':
                 $criteria_condition = ' ';
@@ -831,7 +912,7 @@ ORDER BY ea.eq_code ASC";
                 $criteria_condition = '';
                 break;
         }
-
+        
         /*--------------------begin equipment main supplier----------------------------------------------*/
         $query = "SELECT count(ca.supplier_code) AS total_response,ca.comm_code as commodities,ca.supplier_code AS supplier, c.comm_unit as unit FROM available_commodities ca,commodities c
                  WHERE ca.comm_code=c.comm_code AND ca.fac_mfl IN (SELECT fac_mfl FROM facilities f
@@ -845,88 +926,88 @@ ORDER BY ea.eq_code ASC";
                 GROUP BY ca.comm_code,ca.supplier_code
                 ORDER BY ca.comm_code";
         try {
-
+            
             $this->dataSet = $this->db->query($query, array($value));
-
+            
             $this->dataSet = $this->dataSet->result_array();
-
+            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
-
+                
                 foreach ($this->dataSet as $value_) {
-
+                    
                     //1. collect the categories
                     $data_categories[] = $value_['supplier'];
-
+                    
                     //incase of duplicates--do an array_unique outside the foreach()
-
+                    
                     //2. collect the analytic variables
                     $analytic_var[] = $this->getCommodityNameById($value_['commodities']) . '[' . $value_['unit'] . ']';
-
+                    
                     //includes duplicates--so we'll array_unique outside the foreach()
-
+                    
                     //data set by each analytic variable
                     $data_set[$value_['supplier']][] = intval($value_['total_response']);
                 }
-
+                
                 //var_dump($data_set);die;
-
+                
                 //make cat array unique if we got duplicates then json_encode and set to $data array
                 $data['categories'] = (array_values(array_unique($data_categories)));
-
+                
                 //expected 28
-
+                
                 //get a unique set of analytic variables
                 $analytic_var = array_unique($analytic_var);
-
+                
                 //expected to be 3 in this particular context
                 $data['analytic_variables'] = $analytic_var;
-
+                
                 //get the data sets
                 $data['responses'] = $data_set;
-
+                
                 //sets of the 3 analytic variables: Available | Sometimes Available | Never Available
-
+                
                 $this->dataSet = $data;
-
+                
                 return $this->dataSet;
             } else {
                 return $this->dataSet = null;
             }
         }
         catch(exception $ex) {
-
+            
             //ignore
             //die($ex->getMessage());//exit;
-
-
+            
+            
         }
     }
-
+    
     /*
      * Services to Children with Diarrhoea
     */
     public function getChildrenServices($criteria, $value, $survey) {
-
+        
         /*using CI Database Active Record*/
         $data = $data_set = $data_series = $analytic_var = $data_categories = array();
         $data_y = array();
         $data_n = array();
         $temp = $muac = $weight = $height = $mch = array();
         $MCHY = $MCHN = $temperatureY = $temperatureN = $weightY = $weightN = $HLY = $HLN = $MUACY = $MUACN = 0;
-
+        
         //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+        
+        
+        
         /**
          * something of this kind:
          * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
          */
-
+        
         switch ($criteria) {
             case 'national':
                 $criteria_condition = ' ';
@@ -948,7 +1029,7 @@ ORDER BY ea.eq_code ASC";
                 $criteria_condition = '';
                 break;
         }
-
+        
         $query = "SELECT
     il.indicator_code AS indicator, il.li_response as response
 FROM
@@ -969,22 +1050,22 @@ WHERE
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = 'mnh')" . $criteria_condition . ")";
-
+        
         try {
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
-
+            
             //echo $this->db->last_query();die;
             if ($this->dataSet !== NULL) {
-
+                
                 //prep data for the pie chart format
                 $size = count($this->dataSet);
                 $i = 0;
                 $yesCount = 0;
                 $noCount = 0;
-
+                
                 //var_dump($this->dataSet);
-
+                
                 //Forced One Values
                 foreach ($this->dataSet as $value) {
                     switch ($this->getChildHealthIndicatorName($value['indicator'])) {
@@ -1028,7 +1109,7 @@ WHERE
                             }
                             break;
                         }
-
+                        
                         //echo $MCHY;
                         /*if ($value['response'] == 'Yes') {
                         $data_y[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
@@ -1037,40 +1118,40 @@ WHERE
                         $data_n[] = array($this -> getChildHealthIndicatorName($value['indicator']), 1);
                         $noCount++;
                         }*/
-
+                        
                         //get a set of the 5 services offered
-
-
+                        
+                        
                     }
                     $data_categories = array('Use of MCH booklet', 'Temperature taken', 'Weight taken', 'Height/Length taken', 'MUAC taken');
                     $data['categories'] = $data_categories;
-
+                    
                     $data['yes_values'] = array((int)$MCHY, (int)$temperatureY, (int)$weightY, (int)$HLY, (int)$MUACY);
                     $data['no_values'] = array((int)$MCHN, (int)$temperatureN, (int)$weightN, (int)$HLN, (int)$MUACN);
-
+                    
                     $this->dataSet = $data;
-
+                    
                     //var_dump($this->dataSet);die;
                     return $this->dataSet;
                 } else {
                     return $this->dataSet = null;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $this->dataSet;
         }
-
+        
         /**
          * [getIndicatorStatistics description]
          * @param  [type] $criteria [description]
@@ -1080,81 +1161,139 @@ WHERE
          * @return [type]           [description]
          */
         public function getIndicatorStatistics($criteria, $value, $survey, $for) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             $data_y = array();
             $data_n = array();
-
+            
             $query = "CALL get_indicator_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
-
+                
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     $i = 0;
-
+                    
                     //var_dump($this->dataSet);
                     foreach ($this->dataSet as $value) {
-
+                        
                         $indicator = $value['indicator_name'];
-
+                        
                         //echo $value['indicator'];die;
                         $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
-
-                    $data['categories'] = array_keys($data['response']);
-                }
+                        
+                        $data['categories'] = array_keys($data['response']);
+                    }
                     $this->dataSet = $data;
-
+                    
                     return $this->dataSet;
-
                 } else {
-
+                    
+                    return $this->dataSet = null;
+                }
+                
+                die(var_dump($this->dataSet));
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $this->dataSet;
+        }
+        public function getIndicatorComparison($criteria, $value, $survey, $survey_category, $for) {
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            $data_y = array();
+            $data_n = array();
+            
+            $query = "CALL get_indicator_comparison('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo $this->db->last_query();die;
+                if ($this->dataSet !== NULL) {
+                    
+                    //prep data for the pie chart format
+                    $size = count($this->dataSet);
+                    $i = 0;
+                    
+                    //var_dump($this->dataSet);
+                    foreach ($this->dataSet as $value) {
+                        $data[$value['indicator_name']][$value['verdict']] = (int)$value['total'];
+                    }
+                    $this->dataSet = $data;
+                    
+                    return $this->dataSet;
+                } else {
+                    
                     return $this->dataSet = null;
                 }
 
-
-
-                //die(var_dump($this->dataSet));
+                
+                die(var_dump($this->dataSet));
 
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
+            return $data;
+        }
+        public function getIndicatorTypes() {
+            $query = "SELECT * FROM indicator_lookup";
+            try {
+                $this->dataSet = $this->db->query($query);
+                $this->dataSet = $this->dataSet->result_array();
+                
+            }
+            catch(exception $ex) {
+            }
+            
             return $this->dataSet;
         }
-
+        
         /*
          * Diarrhoea case numbers per Month
         */
         public function getDiarrhoeaCaseNumbers($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+            
+            
+            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -1176,7 +1315,7 @@ WHERE
                     $criteria_condition = '';
                     break;
             }
-
+            
             $query = "SELECT SUM(d.jan13) AS jan, SUM(d.feb13) AS feb, SUM(d.mar13) AS mar, SUM(d.apr13) AS apr,
 SUM(d.may13) AS may, SUM(d.june13) AS june, SUM(d.july13) AS july, SUM(d.aug13) AS aug,
 SUM(d.sept13) AS sept, SUM(d.oct13) AS oct, SUM(d.nov13) AS nov, SUM(d.dec13) AS december
@@ -1185,62 +1324,62 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     $i = 0;
-
+                    
                     foreach ($this->dataSet as $value => $key) {
                         $data['num_of_diarrhoea_cases'][] = $key;
                     }
-
+                    
                     //fixed set of 12 months in a year..not an option but to hard code.. :)
                     $data_categories = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
-
+                    
                     $data['categories'] = $data_categories;
-
+                    
                     $this->dataSet = $data;
-
+                    
                     //var_dump($this->dataSet);die;
                     return $this->dataSet;
                 } else {
                     return $this->dataSet = null;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
         }
-
+        
         /*
          * Diarrhoea case treatments
         */
-
+        
         public function getDiarrhoeaCaseTreatment($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+            
+            
+            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -1262,7 +1401,7 @@ WHERE " . $status_condition . "  " . $criteria_condition . ")";
                     $criteria_condition = '';
                     break;
             }
-
+            
             $query = "SELECT tl.treatmentID AS treatment,SUM(tl.severeDehydrationNo) AS severe_dehydration, SUM(tl.someDehydrationNo) AS some_dehydration,
 SUM(tl.noDehydrationNo) AS no_dehydration, SUM(tl.dysentryNo) AS dysentry, SUM(tl.noClassificationNo) AS no_classification
 FROM log_treatment tl WHERE tl.treatmentID IN (SELECT treatmentCode FROM mch_treatments
@@ -1271,66 +1410,66 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     $i = 0;
-
+                    
                     foreach ($this->dataSet as $value) {
-
+                        
                         //get a set of the 5 diarrhoea treatment types available
                         $data_categories[] = $this->getChildHealthTreatmentName($value['treatment']);
-
+                        
                         //get the responses by classification per given treatment type
                         $data[$this->getChildHealthTreatmentName($value['treatment']) ] = array('severe_dehydration' => intval($value['severe_dehydration']), 'some_dehydration' => intval($value['some_dehydration']), 'no_dehydration' => intval($value['no_dehydration']), 'dysentry' => intval($value['dysentry']), 'no_classification' => intval($value['no_classification']));
                     }
-
+                    
                     $data['categories'] = $data_categories;
-
+                    
                     $this->dataSet = $data;
-
+                    
                     //var_dump($this->dataSet);die;
                     return $this->dataSet;
                 } else {
                     return $this->dataSet = null;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
         }
-
+        
         /*
          * ORT Corner Assessment
         */
         public function getORTCornerAssessment($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             $data_y = array();
             $data_n = array();
             $functionalTotalY = $functionalTotalN = $rehydrationTotalY = $rehydrationTotalN = $locationY = $locationN = 0;
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+            
+            
+            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -1352,7 +1491,7 @@ GROUP BY tl.treatmentID ORDER BY tl.treatmentID ASC";
                     $criteria_condition = '';
                     break;
             }
-
+            
             $query = "SELECT
     oa.question_code AS assessment_item, oa.lq_response as response
 FROM
@@ -1377,14 +1516,14 @@ ORDER BY oa.question_code ASC";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
                     $i = 0;
-
+                    
                     foreach ($this->dataSet as $value) {
                         switch ($this->getQuestionName($value['assessment_item'])) {
                             case 'Is the ORT Corner functional?':
@@ -1411,42 +1550,42 @@ ORDER BY oa.question_code ASC";
                                 }
                                 break;
                             }
-
+                            
                             /*if ($value['response'] == 'Yes') {
                                 $data_y[] = array($this -> getChildHealthQuestionName($value['assessment_item']), 1);
                                 } else if ($value['response'] == 'No') {
                                 $data_n[] = array($this -> getChildHealthQuestionName($value['assessment_item']), 1);
                                 }*/
-
+                            
                             //get a set of the 3 items for ORT assessment
-
-
+                            
+                            
                         }
                         $data['categories'] = array('Is the ORT Corner functional?', 'Does this Facility have a designated location for oral rehydration?');
                         $data['yes_values'] = array($functionalTotalY, $rehydrationTotalY);
                         $data['no_values'] = array($functionalTotalN, $rehydrationTotalN);
-
+                        
                         $this->dataSet = $data;
-
+                        
                         //var_dump($this->dataSet);die;
                         return $this->dataSet;
                     } else {
                         return $this->dataSet = null;
                     }
-
+                    
                     //die(var_dump($this->dataSet));
-
-
+                    
+                    
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
         }
-
+        
         /**
          * [getEquipmentStatistics description]
          * @param  [type] $criteria  [description]
@@ -1459,21 +1598,21 @@ ORDER BY oa.question_code ASC";
         public function getEquipmentStatistics($criteria, $value, $survey, $for, $statistic) {
             $value = urldecode($value);
             $newData = array();
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
+            
             $query = "CALL get_equipment_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
@@ -1489,7 +1628,7 @@ ORDER BY oa.question_code ASC";
                             $data[$value['equipment_name']]['non_functional']+= (int)$value['total_non_functional'];
                         }
                     }
-
+                    
                     /**
                      * Fix Data
                      */
@@ -1521,41 +1660,45 @@ ORDER BY oa.question_code ASC";
                 } else {
                     return null;
                 }
+                
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
             $value = urldecode($value);
             $newData = array();
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
+            
             $query = "CALL get_commodity_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
+                
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-
+                        
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1564,12 +1707,16 @@ ORDER BY oa.question_code ASC";
                                 $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('reason', $value)) {
-                            $data[$value['commodity_name']][$value['reason']]= (int)$value['total_response'];
-                        }else if (array_key_exists('unit', $value)) {
-                            $data[$value['commodity_name']][$value['unit']]= (int)$value['total_response'];
+                            $data[$value['commodity_name']][$value['reason']] = (int)$value['total_response'];
+                        } else if (array_key_exists('unit', $value)) {
+                            $data[$value['commodity_name']][$value['unit']] = (int)$value['total_response'];
                         }
                     }
+                    
                     //echo "<pre>";print_r($data);echo "</pre>";die;
+                    
+                    
+                    
                     /**
                      * Fix Data
                      */
@@ -1597,20 +1744,25 @@ ORDER BY oa.question_code ASC";
                             }
                         }
                         $data = $newData;
-                    }else {
-
+                    } else {
+                    }
+                    
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    
+                    
                 }
-       //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-             }
-             }
+            }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-                }
-
+                
+                
+            }
+            
             return $data;
         }
+        
         /**
          * [getSuppliesStatistics description]
          * @param  [type] $criteria  [description]
@@ -1621,24 +1773,25 @@ ORDER BY oa.question_code ASC";
          * @return [type]            [description]
          */
         public function getSuppliesStatistics($criteria, $value, $survey, $for, $statistic) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
+            
             $query = "CALL get_supplies_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
@@ -1652,7 +1805,7 @@ ORDER BY oa.question_code ASC";
                             $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
                         }
                     }
-
+                    
                     /**
                      * Fix Data
                      */
@@ -1681,34 +1834,30 @@ ORDER BY oa.question_code ASC";
                         }
                         $data = $newData;
                     }
-
                 }
             }
             catch(exception $ex) {
             }
             return $data;
         }
-
-
-
-
+        
         /*
          * Availability, Location and Functionality of Supplies at ORT Corner
         */
         public function getCHSuppliesSupplier($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+            
+            
+            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -1730,7 +1879,7 @@ ORDER BY oa.question_code ASC";
                     $criteria_condition = '';
                     break;
             }
-
+            
             /*--------------------begin equipment main supplier----------------------------------------------*/
             $query = "SELECT
     count(sq.supply_code)/2 AS total_response,
@@ -1762,66 +1911,67 @@ ORDER BY sq.supply_code
 LIMIT 0 , 1000
 ";
             try {
-
+                
                 $this->dataSet = $this->db->query($query, array($value));
-
+                
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
-
+                    
                     foreach ($this->dataSet as $value_) {
-
+                        
                         //1. collect the categories
                         $data_categories[] = $value_['supplier'];
-
+                        
                         //incase of duplicates--do an array_unique outside the foreach()
-
+                        
                         //2. collect the analytic variables
                         $analytic_var[] = $this->getSupplyName($value_['supplies'], $survey);
-
+                        
                         //includes duplicates--so we'll array_unique outside the foreach()
-
+                        
                         //data set by each analytic variable
                         $data_set[$value_['supplier']][] = intval($value_['total_response']);
                     }
-
+                    
                     //var_dump($data_set);die;
-
+                    
                     //make cat array unique if we got duplicates then json_encode and set to $data array
                     $data['categories'] = (array_values(array_unique($data_categories)));
-
+                    
                     //expected 28
-
+                    
                     //get a unique set of analytic variables
                     $analytic_var = array_unique($analytic_var);
-
+                    
                     //expected to be 3 in this particular context
                     $data['analytic_variables'] = $analytic_var;
-
+                    
                     //get the data sets
                     $data['responses'] = $data_set;
-
+                    
                     //sets of the 3 analytic variables: Available | Sometimes Available | Never Available
-
+                    
                     $this->dataSet = $data;
-
+                    
                     return $this->dataSet;
                 } else {
                     return $this->dataSet = null;
                 }
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
         }
+
 
          public function getChallengeStatistics($criteria, $value, $survey) {
             
@@ -1865,35 +2015,34 @@ LIMIT 0 , 1000
         }
 
 
+
         /*
          *  Availability, Location and Functionality of Electricity and Hardware Resources
         */
         public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
 
-
-
             /*using CI Database Active Record*/
             $data = $data_set = $data_series = $analytic_var = $data_categories = array();
-
+            
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
-
-
-
+            
+            
+            
             /**
              * something of this kind:
              * $data_series[0]="name: '.$value['analytic_variable'].',data:".json_encode($data_set[0])
              */
-
+            
             $query = "CALL get_resource_statistics('" . $criteria . "', '" . $value . "', '" . $survey . "', '" . $for . "','" . $statistic . "');";
-
+            
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
 
@@ -1909,7 +2058,7 @@ LIMIT 0 , 1000
                             }
                         }
                     }
-
+                    
                     /**
                      * Fix Data
                      */
@@ -1940,131 +2089,130 @@ LIMIT 0 , 1000
                     }
                 } else {
 
-
-
                 }
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
 
+                
+                
             }
+            
 
             //var_dump($data);die;
 
             return $data;
         }
-
-
-
+        
         public function get_response_count($survey) {
             try {
-
+                
                 /*using CI Database Active Record*/
                 try {
                     $query = "SELECT DISTINCT(facilityCode),trackerID,lastActivity FROM assessment_tracker WHERE survey=? AND trackerSection='section-6'
 ORDER BY lastActivity DESC";
                     $this->dataSet = $this->db->query($query, array($survey));
                     $this->dataSet = $this->dataSet->result_array();
-
+                    
                     //die(var_dump($this->dataSet));
-
-
+                    
+                    
                 }
                 catch(exception $ex) {
-
+                    
                     //ignore
                     //die($ex->getMessage());//exit;
-
-
+                    
+                    
                 }
                 return $this->dataSet;
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex -> getMessage());
-
-
+                
+                
             }
-
+            
             return $this->dataSet;
         }
-
+        
         function getSpecificDistrictNames($county) {
-
+            
             /*using DQL*/
             try {
                 $query = $this->em->createQuery('SELECT DISTINCT(f.facDistrict) FROM  models\Entities\Facilities f WHERE f.facCounty = :county ORDER BY f.facDistrict ASC');
                 $query->setParameter('county', $county);
                 $this->districtName = $query->getResult();
-
+                
                 //die(var_dump($this->districtName));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //$ex->getMessage();
-
-
+                
+                
             }
             return $this->districtName;
         }
-
+        
         /*end of getSpecificDistrictNames*/
-
+        
         function getCountyFacilities() {
-
+            
             /*using DQL*/
             try {
                 $query = "SELECT COUNT(facilities.fac_name),fac_county FROM facilities GROUP BY facilities.fac_county ORDER BY COUNT(facilities.fac_name) DESC;";
                 $this->countyFacilities = $this->db->query($query);
                 $this->countyFacilities = $this->countyFacilities->result_array();
-
+                
                 //die(var_dump($this->districtName));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //$ex->getMessage();
-
-
+                
+                
             }
             return $this->countyFacilities;
         }
-
+        
         /*end of getSpecificDistrictNames*/
-
+        
         function getCountyFacilitiesByOwner($county) {
-
+            
             /*using DQL*/
             try {
                 $query = "SELECT COUNT(facilityOwnedBy),facilityOwnedBy FROM facilities WHERE fac_county='Nairobi' GROUP BY facilityOwnedBy ORDER BY COUNT(facilityOwnedBy) DESC;";
                 $this->countyFacilities = $this->db->query($query);
                 $this->countyFacilities = $this->countyFacilities->result_array();
-
+                
                 //die(var_dump($this->districtName));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //$ex->getMessage();
-
-
+                
+                
             }
             return $this->countyFacilities;
         }
-
+        
         /*end of getSpecificDistrictNames*/
-
-        public function getFacilitiesByDistrictOptions($district, $survey,$survey_category) {
+        
+        public function getFacilitiesByDistrictOptions($district, $survey) {
             switch ($survey) {
                 case 'ch':
                     $search = "facilityCHSurveyStatus='complete'";
@@ -2074,8 +2222,8 @@ ORDER BY lastActivity DESC";
                     $search = "ss_id='complete'";
                     break;
             }
-            $myOptions = '<option data-scope="sub-county">All Facilities Selected</option>';
-
+            $myOptions = '<option>Please Select a Facility</option>';
+            
             /*using CI Database Active Record*/
             try {
                 $query = "SELECT DISTINCT
@@ -2087,52 +2235,50 @@ ORDER BY lastActivity DESC";
         JOIN
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = '" . $survey . "')
-        JOIN survey_categories sc ON
-        (sc.sc_id=ss.sc_id AND sc.sc_name='".$survey_category."')
 WHERE
     fac_district = '" . $district . "'
 ORDER BY fac_name;";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //die(var_dump($this->dataSet));
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
-
+                    
                     foreach ($this->dataSet as $value_) {
                         $myOptions.= '<option value=' . $value_['fac_mfl'] . '>' . $value_['fac_name'] . '</option>';
-
+                        
                         //1. collect the categories
                         //$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
                         //incase of duplicates--do an array_unique outside the foreach()
-
-
+                        
+                        
                     }
-
+                    
                     //unset the arrays for reuse
-
+                    
                     //return $this -> final_data_set;
-
-
+                    
+                    
                 } else {
                     return null;
                 }
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
             return $myOptions;
         }
-
+        
         public function getFacilitiesByDistrictOptionsNew($district, $table) {
             $myOptions = '<option>Please Select a Facility</option>';
-
+            
             /*using CI Database Active Record*/
             try {
                 $query = "SELECT DISTINCT
@@ -2146,44 +2292,44 @@ AND facilities.fac_mfl = " . $table . ".fac_mfl
 ORDER BY fac_name;";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //die(var_dump($this->dataSet));
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
-
+                    
                     foreach ($this->dataSet as $value_) {
                         $myOptions.= '<option value=' . $value_['fac_mfl'] . '>' . $value_['fac_name'] . '</option>';
-
+                        
                         //1. collect the categories
                         //$data_categories[] = $this -> getCHEquipmentName($value_['equipment']);
                         //incase of duplicates--do an array_unique outside the foreach()
-
-
+                        
+                        
                     }
-
+                    
                     //unset the arrays for reuse
-
+                    
                     //return $this -> final_data_set;
-
-
+                    
+                    
                 } else {
                     return null;
                 }
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
             return $myOptions;
         }
-
+        
         public function getReportingCountiesCore() {
-
+            
             /*using CI Database Active Record*/
             try {
                 $query = "SELECT
@@ -2200,84 +2346,85 @@ GROUP BY f.fac_county
 ORDER BY f.fac_county ASC;";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             //var_dump($myOptions);
             //var_dump($this -> dataSet);
             return $this->dataSet;
         }
-
+        
         /**
          * List of Counties that have reported
          */
         public function getReportingCounties($survey, $survey_category) {
-
+            
             /*using CI Database Active Record*/
             try {
-
+                
                 /*$query = "SELECT
-    f.fac_county as county, c.county_id as countyID
-FROM
-    facilities f
-        JOIN
-    survey_status ss ON ss.fac_id = f.fac_mfl
-        JOIN
-    survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = '" . $survey . "')
-        JOIN
-    survey_categories sc ON (ss.sc_id = sc.sc_id
-        AND sc.sc_name = '" . $survey_category . "')
-        JOIN assessment_tracker ast ON ast.facilityCode = f.fac_mfl
-        AND ast.ast_section = 'section-6' AND ast.ast_survey='" . $survey . "',
-    counties c
-WHERE
-    c.county_name = f.fac_county
-GROUP BY f.fac_county
-ORDER BY f.fac_county ASC;";*/
+                f.fac_county as county, c.county_id as countyID
+                FROM
+                facilities f
+                JOIN
+                survey_status ss ON ss.fac_id = f.fac_mfl
+                JOIN
+                survey_types st ON (st.st_id = ss.st_id
+                AND st.st_name = '" . $survey . "')
+                JOIN
+                survey_categories sc ON (ss.sc_id = sc.sc_id
+                AND sc.sc_name = '" . $survey_category . "')
+                JOIN assessment_tracker ast ON ast.facilityCode = f.fac_mfl
+                AND ast.ast_section = 'section-6' AND ast.ast_survey='" . $survey . "',
+                counties c
+                WHERE
+                c.county_name = f.fac_county
+                GROUP BY f.fac_county
+                ORDER BY f.fac_county ASC;";*/
                 $query = "SELECT county_name as county, county_id as countyID FROM counties";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //die(var_dump($this->dataSet));
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             //var_dump($myOptions);
             //var_dump($this -> dataSet);
             return $this->dataSet;
         }
-
+        
         public function generateFacilityList() {
             $result;
             try {
                 $query = "";
                 $this->dataSet = $this->db->query($query);
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //die(var_dump($this->dataSet));
                 if ($this->dataSet !== NULL) {
-
+                    
                     //prep data for the pie chart format
                     $size = count($this->dataSet);
-
+                    
                     foreach ($this->dataSet as $value_) {
                     }
                 } else {
@@ -2285,126 +2432,119 @@ ORDER BY f.fac_county ASC;";*/
                 }
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
             return $result;
         }
-
+        
         function getAllReportingRatio($survey, $survey_category) {
             $reportingCounties = $this->getReportingCounties($survey, $survey_category);
-
+            
             //var_dump($reportingCounties);die;
             for ($x = 0; $x < sizeof($reportingCounties); $x++) {
                 $allData[$reportingCounties[$x]['county']] = $this->getReportingRatio($reportingCounties[$x]['county'], $survey, $survey_category);
             }
-
+            
             //var_dump($allData);
             return $allData;
         }
-
+        
         function getReportingRatio($county, $survey, $survey_category) {
-
+            
             /*using DQL*/
-
+            
             $finalData = array();
-
+            
             try {
-
+                
                 $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
                 $myData = $this->db->query($query);
                 $finalData = $myData->result_array();
-
+                
                 $myData->next_result();
-
+                
                 // Dump the extra resultset.
                 $myData->free_result();
-
+                
                 // Does what it says.
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //echo($ex -> getMessage());
-
-
-
+                
+                
             }
             return $finalData;
         }
-
+        
         function getFacilityOwnerPerCounty($criteria, $value, $survey) {
-
+            
             /*using DQL*/
             
-				$query = "CALL get_ownership_statistics('".$criteria."','".$value."','".$survey."');";
-                $myData = $this->db->query($query);
-                $finalData = $myData->result_array();
-            	//print_r($finalData);die;
-            	
+            $query = "CALL get_ownership_statistics('" . $criteria . "','" . $value . "','" . $survey . "');";
+            $myData = $this->db->query($query);
+            $finalData = $myData->result_array();
+            
+            //print_r($finalData);die;
+            
             return $finalData;
         }
 
-        function getFacilityLevelPerCounty($criteria, $value, $survey, $survey_category) {
-
+        
+        function getFacilityLevelPerCounty($county, $survey, $survey_category) {
+            
             /*using DQL*/
             try {
-
                 
-              $query = 'CALL get_level_care("' . $criteria . '","' . $value . '","' . $survey . '","' . $survey_category . '");';
-
+                $query = 'SELECT
+    tracker.level_total, tracker.facilityLevel
+FROM
+    (SELECT
+        COUNT(fac_level) as level_total,
+            fac_level as facilityLevel,
+            fac_county as countyName
+    FROM
+        facilities f
+    JOIN survey_status ss ON ss.fac_id = f.fac_mfl
+    JOIN survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = "' . $survey . '")
+        JOIN
+    survey_categories sc ON (ss.sc_id = sc.sc_id
+        AND sc.sc_name = "' . $survey_category . '")
+    WHERE
+        f.fac_county = "' . $county . '" and f.fac_level!=""
+    GROUP BY fac_Level
+    ORDER BY COUNT(fac_Level) ASC) AS tracker;';
+                
                 $myData = $this->db->query($query);
-
-
+                
 
                 // echo $this->db->last_query();die;
-
+                
                 $finalData = $myData->result_array();
-               // echo $finalData;
-            }
-            catch(exception $ex) {
-
-                //ignore
-                //echo($ex -> getMessage());
-
-
-            }
-           return $finalData;
-
-        }
-
-        function getFacilityTypePerCounty($criteria, $value, $survey, $survey_category) {
-
-            /*using DQL*/
-            try {
 
                 
-              $query = 'CALL get_facility_type("' . $criteria . '","' . $value . '","' . $survey . '","' . $survey_category . '");';
+                //echo $finalData;
+                
 
-                $myData = $this->db->query($query);
-
-
-                // echo $this->db->last_query();die;
-
-                $finalData = $myData->result_array();
-               // echo $finalData;
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //echo($ex -> getMessage());
-
-
+                
+                
             }
-           return $finalData;
-
+            return $finalData;
         }
-
+        
         /**
          * Run County Maps
          */
@@ -2413,20 +2553,20 @@ ORDER BY f.fac_county ASC;";*/
             $counties = $this->getAllCountyNames();
             foreach ($counties as $county) {
                 $countyName = $county['countyName'];
-
+                
                 //$countyName=str_replace("'","", $countyName);
                 $myData[$countyName] = array($this->getReportingRatio($countyName, $survey, $survey_category), $county['countyFusionMapId'], $countyName);
             }
-
+            
             return $myData;
         }
-
+        
         /**
          * Lists for NO
          */
         public function getFacilityListForNo($criteria, $value, $survey, $choice) {
             urldecode($value);
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -2451,7 +2591,7 @@ ORDER BY f.fac_county ASC;";*/
             }
             switch ($choice) {
                 case 'GuidelinesAvailability':
-
+                    
                     //Facility List
                     $query = "SELECT DISTINCT lq.fac_mfl, g.question_name, f.fac_name
                     FROM log_questions lq,questions g, facilities f WHERE response = 'No'AND lq.question_code IN (SELECT question_code FROM questions
@@ -2467,7 +2607,7 @@ ORDER BY f.fac_county ASC;";*/
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2513,9 +2653,9 @@ WHERE
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2523,10 +2663,10 @@ WHERE
                                 $facilities[$value['indicatorName']][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $this->dataSet = null;
                         }
@@ -2565,9 +2705,9 @@ WHERE
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2575,10 +2715,10 @@ WHERE
                                 $facilities[$value['indicatorName']][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $this->dataSet = null;
                         }
@@ -2617,9 +2757,9 @@ WHERE
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2627,10 +2767,10 @@ WHERE
                                 $facilities[$value['indicatorName']][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $this->dataSet = null;
                         }
@@ -2669,9 +2809,9 @@ WHERE
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2679,10 +2819,10 @@ WHERE
                                 $facilities[$value['indicatorName']][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $this->dataSet = null;
                         }
@@ -2721,9 +2861,9 @@ WHERE
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
@@ -2731,10 +2871,10 @@ WHERE
                                 $facilities[$value['indicatorName']][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $this->dataSet = null;
                         }
@@ -2742,13 +2882,13 @@ WHERE
                     catch(exception $ex) {
                     }
                     break;
-
+                    
                     /**
                      * MNH Questions
                      */
             }
         }
-
+        
         /**
          * Lists for NEVER
          */
@@ -2811,24 +2951,24 @@ ORDER BY ca.comm_code";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
                             foreach ($this->dataSet as $value) {
-
+                                
                                 //$title[$this->getCommodityNameById($value['commodities'])][]=$this->getCommodityNameById($value['commodities']).'  ['.$value['unit'].']';
                                 $facilities[$this->getCommodityNameById($value['commodities']) . '  [' . $value['unit'] . ']'][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //$this -> dataSet = array('breastfeed' => $breastfeed, 'lethargy' => $lethargy);
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $facilities = null;
                         }
@@ -2869,21 +3009,21 @@ ORDER BY ea.eq_code ASC";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
                             $facilities = array();
                             $size = count($this->dataSet);
                             $i = 0;
-
+                            
                             foreach ($this->dataSet as $value) {
                                 $facilities[$this->getCHEquipmentName($value['equipment']) ][] = array($value['fac_mfl'], $value['fac_name']);
                             }
-
+                            
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $facilities = null;
                         }
@@ -2926,20 +3066,20 @@ ORDER BY sq.supply_code;";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
                             $facilities = array();
                             $size = count($this->dataSet);
                             $i = 0;
-
+                            
                             foreach ($this->dataSet as $value) {
                                 $facilities[$this->getSupplyName($value['supplies']) ][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $facilities = null;
                         }
@@ -2982,20 +3122,20 @@ ORDER BY sq.supply_code;";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
                             $facilities = array();
                             $size = count($this->dataSet);
                             $i = 0;
-
+                            
                             foreach ($this->dataSet as $value) {
                                 $facilities[$this->getSupplyName($value['supplies']) ][] = array($value['fac_mfl'], $value['fac_name']);
                             }
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $facilities = null;
                         }
@@ -3046,21 +3186,21 @@ ORDER BY ra.eq_code ASC";
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
-
+                        
                         if ($this->dataSet !== NULL) {
-
+                            
                             $size = count($this->dataSet);
                             $i = 0;
                             $facilities = array();
                             foreach ($this->dataSet as $value) {
                                 $facilities[$this->getCHEquipmentName($value['equipment']) ][] = array($value['fac_mfl'], $value['fac_name']);
                             }
-
+                            
                             return $facilities;
-
+                            
                             //var_dump($this->dataSet);die;
-
-
+                            
+                            
                         } else {
                             return $facilities = null;
                         }
@@ -3070,7 +3210,7 @@ ORDER BY ra.eq_code ASC";
                     break;
             }
         }
-
+        
         public function case_summary($county, $choice) {
             $final = array();
             $query = '';
@@ -3159,9 +3299,9 @@ GROUP BY tl.treatment_code
 ORDER BY tl.treatment_code ASC";
                     $results = $this->db->query($query);
                     $results = $results->result_array();
-
+                    
                     foreach ($results as $result) {
-
+                        
                         //echo $this->getChildHealthTreatmentName($result['treatment']);
                         //$result['treatment']=$this->getChildHealthTreatmentName($result['treatment']);
                         $final[$this->getChildHealthTreatmentName($result['treatment']) ][] = array('treatment' => $this->getChildHealthTreatmentName($result['treatment']), 'total' => $result['total']);
@@ -3170,25 +3310,25 @@ ORDER BY tl.treatment_code ASC";
                     break;
             }
         }
-
+        
         /**
          * Mother and Neonatal Health Section
          */
-
+        
         //Section 1
         //-----------------------------------------------------------------------------
-
-
-
+        
+        
+        
         /**
          * Nurses Deployed in Maternity
          */
         public function getNursesDeployed($criteria, $value, $survey) {
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             $data = array();
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -3236,77 +3376,77 @@ ORDER BY question_code";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();die;
                 foreach ($this->dataSet as $value_) {
                     $question = $this->getQuestionName($value_['question_code']);
                     $response = $value_['response'];
-
+                    
                     //1. collect the categories
                     $data[$question][] = $response;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         /**
          * Beds in facility
          */
         public function getBeds($criteria, $value, $survey) {
 
-
-            $query = "CALL get_question_statistics('".$criteria."','".$value."','".$survey."','".$for."');";
+            
+            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
 
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
                 foreach ($this->dataSet as $value_) {
-                	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+
                     $question = $this->getQuestionName($value_['question_code']);
                     $response = $value_['response'];
-
+                    
                     //1. collect the categories
                     $data[$question][] = $response;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
-        
 
         /**
          * 24 Hour Service
          */
         public function getService($criteria, $value, $survey) {
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             $data = array();
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -3357,35 +3497,35 @@ ORDER BY question_code";
                 foreach ($this->dataSet as $value_) {
                     $question = $this->getQuestionName($value_['question_code']);
                     $response = $value_['response'];
-
+                    
                     //1. collect the categories
                     $data[$question][] = $response;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         /**
          * Health Facility Management
          */
         public function getHFM($criteria, $value, $survey) {
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             $data = array();
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -3438,76 +3578,75 @@ ORDER BY question_code";
                     $question = $this->getQuestionName($value_['question_code']);
                     $yes = $value_['yes_values'];
                     $no = $value_['no_values'];
-
+                    
                     //1. collect the categories
                     $data[$question]['yes'] = $yes;
                     $data[$question]['no'] = $no;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         /**
          * Deliveries
          */
         public function getDeliveries($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $value = urldecode($value);
             $data = array();
-
+            
             $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
-
-
+            
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
                 foreach ($this->dataSet as $value_) {
                     $fac_level = $value_['facility_level'];
                     $yes = $value_['yes_values'];
-
+                    
                     //1. collect the categories
                     $data['drilldown'][$fac_level] = $yes;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         //Section 2
         //-----------------------------------------------------------------------------
-
-
-
+        
+        
+        
         /**
          * Deliveries Conducted
          */
         public function getDeliveriesConducted($criteria, $value, $survey) {
         }
-
+        
         /**
          * Signal Functions
          * Options:
@@ -3515,105 +3654,99 @@ ORDER BY question_code";
          *      .cemonc
          */
         public function getSignalFunction($criteria, $value, $survey, $statistic, $function) {
-
+            
             /*using CI Database Active Record*/
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             $data = array();
-
+            
             $query = "CALL get_signal_function('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "','" . $statistic . "','" . $function . "');";
-
+            
             switch ($statistic) {
                 case 'bemonc':
-                    switch ($function){
+                    switch ($function) {
                         case 'question':
-                    try {
-                        $this->dataSet = $this->db->query($query, array($value));
-                        $this->dataSet = $this->dataSet->result_array();
-                        foreach ($this->dataSet as $value_) {
-                            $question = $this->getSignalName($value_['sf_code']);
-                            $yes = $value_['yes_values'];
-                            $no = $value_['no_values'];
-
-                            //1. collect the categories
-                            $data['conducted'][$question]['yes'] = $yes;
-                            $data['conducted'][$question]['no'] = $no;
-                        }
-
-                        //die(var_dump($this->dataSet));
-
-
-                    }
-                    catch(exception $ex) {
-
-                        //ignore
-                        //die($ex->getMessage());//exit;
-
-
-                    }
-                    return $data;
-                      break;
-
-
+                            try {
+                                $this->dataSet = $this->db->query($query, array($value));
+                                $this->dataSet = $this->dataSet->result_array();
+                                foreach ($this->dataSet as $value_) {
+                                    $question = $this->getSignalName($value_['sf_code']);
+                                    $yes = $value_['yes_values'];
+                                    $no = $value_['no_values'];
+                                    
+                                    //1. collect the categories
+                                    $data['conducted'][$question]['yes'] = $yes;
+                                    $data['conducted'][$question]['no'] = $no;
+                                }
+                                
+                                //die(var_dump($this->dataSet));
+                                
+                                
+                            }
+                            catch(exception $ex) {
+                                
+                                //ignore
+                                //die($ex->getMessage());//exit;
+                                
+                                
+                            }
+                            return $data;
+                            break;
 
                         case 'reason':
-                    try {
-                        $this->dataSet = $this->db->query($query, array($value));
-                        $this->dataSet = $this->dataSet->result_array();
-                        foreach ($this->dataSet as $value_) {
-                            $data['reason'][$value_['challenge_code']][$value_['level']] = (int)$value_['response'];
-                            $data['categories'][] = $value_['challenge_code'];
-                        }
-                        $data['categories'] = array_unique($data['categories']);
-
-                        //die(var_dump($this->dataSet));
-
-
+                            try {
+                                $this->dataSet = $this->db->query($query, array($value));
+                                $this->dataSet = $this->dataSet->result_array();
+                                foreach ($this->dataSet as $value_) {
+                                    $data['reason'][$value_['challenge_code']][$value_['level']] = (int)$value_['response'];
+                                    $data['categories'][] = $value_['challenge_code'];
+                                }
+                                $data['categories'] = array_unique($data['categories']);
+                                
+                                //die(var_dump($this->dataSet));
+                                
+                                
+                            }
+                            catch(exception $ex) {
+                                
+                                //ignore
+                                //die($ex->getMessage());//exit;
+                                
+                                
+                            }
+                            
+                            return $data;
+                            break;
                     }
-                    catch(exception $ex) {
-
-                        //ignore
-                        //die($ex->getMessage());//exit;
-
-
-                    }
-
-                    return $data;
-                    break;
-                   }
-
                 case 'ceoc':
                     try {
                         $this->dataSet = $this->db->query($query, array($value));
                         $this->dataSet = $this->dataSet->result_array();
                         foreach ($this->dataSet as $value_) {
                             $question = $this->getSignalName($value_['question_code']);
-
+                            
                             $data['reason'][$value_['lq_reason']][$value_['question_code']] = (int)$value_['lq_response'];
                             $data['categories'][] = $question;
                         }
                         $data['categories'] = array_unique($data['categories']);
-
+                        
                         //die(var_dump($this->dataSet));
-
-
+                        
+                        
                     }
                     catch(exception $ex) {
-
+                        
                         //ignore
                         //die($ex->getMessage());//exit;
-
-
+                        
+                        
                     }
-
+                    
                     return $data;
                     break;
             }
         }
-
-
-         
 
         /**
          * [getQuestionStatistics description]
@@ -3624,35 +3757,36 @@ ORDER BY question_code";
          * @return [type]           [description]
          */
         public function getQuestionStatistics($criteria, $value, $survey, $for) {
-
+            
             /*using CI Database Active Record*/
             $value = urldecode($value);
             $data = array();
-
+            
             $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $for . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 foreach ($this->dataSet as $value_) {
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                	$question = $this->getQuestionName($value_['question_code']);
+
+                    $question = $this->getQuestionName($value_['question_code']);
+
                     $question = trim($question, 'Does this facility have an updated');
                     $question = trim($question, '?');
-
+                    
                     if ($question == 'Has the facility done baby friendly hospital initiative in the last 6 months') {
                         $question = 'Baby Friendly Hospital Initiative';
                     } else if ($question == 'National Guidelines for Quality Obstetric and Prenatal Care') {
                         $question = 'Quality Obstetric and Prenatal Care';
                     } else {
-
+                        
                         //$question = trim($question, 'National Guidelines for ');
-
-
+                        
+                        
                     }
                     if ($question=='Does this Facility have a designated location for oral rehydration?'){
                          
@@ -3661,22 +3795,25 @@ ORDER BY question_code";
 
                     $yes = $value_['yes_values'];
                     $no = $value_['no_values'];
-
+                    
                     //1. collect the categories
                     $data[$question]['yes'] = $yes;
                     $data[$question]['no'] = $no;
                 }
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                //die(var_dump($this->dataSet));
 
+
+                //die(var_dump($this->dataSet));
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
+
            // var_dump($data);die;
             return $data;
         }
@@ -3729,20 +3866,21 @@ ORDER BY question_code";
 
             }
            // var_dump($data);die;
+
             return $data;
         }
-
+        
         /**
          * Community Strategy
          */
         public function getCommunityStrategyMNH($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             $data = array();
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -3793,39 +3931,39 @@ ORDER BY question_code";
                 foreach ($this->dataSet as $value_) {
                     $question = $this->getQuestionName($value_['question_code']);
                     $response = $value_['response'];
-
+                    
                     //1. collect the categories
                     $data[$question][] = $response;
                 }
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         //Summary Excel
         //-----------------------------------------------------------------------------
-
-
-
+        
+        
+        
         /**
          *
          */
         public function commodities_supplies_summary($criteria, $value, $survey) {
-
+            
             /*using CI Database Active Record*/
             $value = urldecode($value);
-
+            
             /*using CI Database Active Record*/
             switch ($criteria) {
                 case 'national':
@@ -3879,17 +4017,17 @@ ORDER BY f.fac_district,f.fac_name,ca.comm_code;";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();
                 $data['commodity_categories'][] = 'Facility Name';
                 $data['commodity_categories'][] = 'District/Sub County';
                 foreach ($this->dataSet as $value_) {
-
+                    
                     //$data['commodities_categories'][0] = 'Facility Name';
                     $supply = $this->getCommodityNameById($value_['commodities'], $survey) . ' ' . $value_['unit'];
                     $facility = $value_['fac_name'];
                     $district = $value_['fac_district'];
-
+                    
                     //$response = $value_['supplies'];
                     //1. collect the categories
                     $data['commodities'][$facility]['facility'] = $facility;
@@ -3898,20 +4036,20 @@ ORDER BY f.fac_district,f.fac_name,ca.comm_code;";
                     $data['commodity_categories'][] = $supply;
                 }
                 $data['commodity_categories'] = array_unique($data['commodity_categories']);
-
+                
                 //echo '<pre>';print_r($data['commodity_categories']);echo '</pre>';
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             $query = "SELECT
     f.fac_name,f.fac_district,SUM(sa.as_quantity) AS total_quantity,
     sa.supply_code as Supplies
@@ -3947,25 +4085,25 @@ ORDER BY f.fac_name,sa.supply_code;";
                     $supply = $this->getSupplyName($value_['Supplies'], $survey);
                     $facility = $value_['fac_name'];
                     $district = $value_['fac_district'];
-
+                    
                     //1. collect the categories
                     $data['supplies'][$facility][$supply] = $value_['total_quantity'];
                     $data['supply_categories'][] = $supply;
                 }
                 $data['supply_categories'] = array_unique($data['supply_categories']);
-
+                
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             $query = "SELECT
     f.fac_name,
     f.fac_district,
@@ -3998,16 +4136,16 @@ ORDER BY f.fac_district,f.fac_name , sa.eq_code;";
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 //echo $this->db->last_query();
-
+                
                 foreach ($this->dataSet as $value_) {
-
+                    
                     //$data['commodities_categories'][0] = 'Facility Name';
                     $supply = $this->getCHEquipmentName($value_['Equipments'], $survey);
                     $facility = $value_['fac_name'];
                     $district = $value_['fac_district'];
-
+                    
                     //$response = $value_['supplies'];
                     //1. collect the categories
                     $data['equipments'][$facility][$supply . ' (Fully Functional)'] = $value_['fully'];
@@ -4016,26 +4154,26 @@ ORDER BY f.fac_district,f.fac_name , sa.eq_code;";
                     $data['equipment_categories'][] = $supply . ' (Non-Functional)';
                 }
                 $data['equipment_categories'] = array_unique($data['equipment_categories']);
-
+                
                 //echo '<pre>';print_r($data['equipment_categories']);echo '</pre>';die;
                 //die(var_dump($this->dataSet));
-
-
+                
+                
             }
             catch(exception $ex) {
-
+                
                 //ignore
                 //die($ex->getMessage());//exit;
-
-
+                
+                
             }
-
+            
             return $data;
         }
-
+        
         public function getFacilityListForNoMNH($criteria, $value, $survey, $question) {
             urldecode($value);
-
+            
             switch ($criteria) {
                 case 'national':
                     $criteria_condition = ' ';
@@ -4058,7 +4196,7 @@ ORDER BY f.fac_district,f.fac_name , sa.eq_code;";
                     $criteria_condition = '';
                     break;
             }
-
+            
             $query = "SELECT
     q.question_name, lq.fac_mfl, f.fac_name
 FROM
@@ -4084,13 +4222,13 @@ WHERE
                 JOIN
             survey_types st ON (st.st_id = ss.st_id
                 AND st.st_name = '" . $survey . "')" . $criteria_condition . ") ";
-
+            
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-
+                
                 if ($this->dataSet !== NULL) {
-
+                    
                     $size = count($this->dataSet);
                     $i = 0;
                     $facilities = array();
@@ -4098,10 +4236,10 @@ WHERE
                         $facilities[$value['question_name']][] = array($value['fac_mfl'], $value['fac_name']);
                     }
                     return $facilities;
-
+                    
                     //var_dump($this->dataSet);die;
-
-
+                    
+                    
                 } else {
                     return $this->dataSet = null;
                 }
@@ -4109,36 +4247,36 @@ WHERE
             catch(exception $ex) {
             }
         }
-
+        
         public function getFacilityProgress($survey, $survey_category) {
-
+            
             $query = "CALL get_facility_activity('" . $survey . "','" . $survey_category . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
-
+                
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+                
                 //echo $this->db->last_query();die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-
+                        
                         //echo $value['ast_last_activity'];
                         $day = new DateTime($value['ast_last_activity']);
                         $day = $day->format('M-Y');
                         $data[$day][] = $value;
                     }
-
+                    
                     //die;
-
-
+                    
+                    
                 }
                 return $data;
             }
             catch(exception $e) {
             }
         }
-
     }
+    

@@ -4,7 +4,7 @@
     }
 </style>
 <!-- BEGIN CHART PORTLET 1-->
-<div data-0="padding-top:0" data-top="padding-top:10%" class="analytics_row" data-survey='ch' id="reporting-parent">
+<div class="analytics_row" data-survey='ch' id="reporting-parent">
    <div class="portlet box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
@@ -12,7 +12,7 @@
         <div class="portlet-body">
 
             <div class="chart">
-                <ul class="sectionList">
+                <ul class="sectionList" data-offset-top="-300" >
 
                 </ul>
             </div>
@@ -22,8 +22,6 @@
         <div class="portlet-title">
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
-
-
         </div>
         <div id="reporting"></div>
     </div>
@@ -32,13 +30,13 @@
 
 <div class="analytics_row section" data-survey='ch' id="section-1">
     <h4>Section 1 : Facility Information</h4>
-    <div class="portlet md box ">
+    <div class="portlet md box " >
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="ch_ownership">
             </div>
         </div>
     </div>
@@ -48,7 +46,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="levels_of_care">
             </div>
         </div>
     </div>
@@ -58,7 +56,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="facility_type"f>
             </div>
         </div>
     </div>
@@ -68,7 +66,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_training">
             </div>
         </div>
     </div>
@@ -78,7 +76,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_availability">
             </div>
         </div>
     </div>
@@ -88,7 +86,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="staff_retention">
             </div>
         </div>
     </div>
@@ -144,31 +142,41 @@
     <h4>Section 3 : Assessment</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="u5_register">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="treatment_options">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="danger_signs">
+            </div>
+        </div>
+    </div>
+     <div class="portlet box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span></h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="indicator_comparison">
             </div>
         </div>
     </div>
