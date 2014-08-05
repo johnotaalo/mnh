@@ -453,14 +453,14 @@ ORDER BY fac_level;");
     /*
      * Get Trained Stuff
     */
-    public function getTrainedStaff($criteria, $value, $survey, $for) {
+    public function getTrainedStaff($criteria, $value, $survey, $category,$for) {
         
         //$yes = $no = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey, $for);
+        $results = $this->m_analytics->getTrainedStaff($criteria, $value, $survey,$category, $for);
         
         //echo '<pre>';print_r($results);echo '</pre>'; exit;
-        
+        $category = array();
         foreach ($results as $guide => $result) {
             $category[] = $guide;
             foreach ($result as $name => $data) {
@@ -498,9 +498,9 @@ ORDER BY fac_level;");
         
         
     }
-    public function getStaffRetention($criteria, $value, $survey, $for) {
+    public function getStaffRetention($criteria, $value, $survey,$category, $for) {
         $in_facility = $on_duty = $resultsArray = array();
-        $results = $this->m_analytics->getStaffRetention($criteria, $value, $survey, $for);
+        $results = $this->m_analytics->getStaffRetention($criteria, $value, $survey, $category,$for);
         
         //echo '<pre>';print_r($results);echo '</pre>'; exit;
         $category = array();
@@ -534,10 +534,10 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 90, 'bar');
     }
     
-    public function getStaffAvailability($criteria, $value, $survey, $for) {
+    public function getStaffAvailability($criteria, $value, $survey, $category,$for) {
         $in_facility = $on_duty = $resultsArray = array();
         $value = urldecode($value);
-        $results = $this->m_analytics->getStaffAvailability($criteria, $value, $survey, $for);
+        $results = $this->m_analytics->getStaffAvailability($criteria, $value, $survey,$category, $for);
         
         $category = array();
         foreach ($results as $guide => $result) {
@@ -1668,14 +1668,14 @@ echo $options;
     /**
      * Get Lever Ownership
      */
-    public function getFacilityLevelPerCounty($county, $survey, $survey_category) {
+    public function getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category) {
         
         //$allCounties = $this -> m_analytics -> getReportingCounties('ch','mid-term');
         $county = urldecode($county);
         
         //foreach ($allCounties as $county) {
         $category[] = $county;
-        $results = $this->m_analytics->getFacilityLevelPerCounty($county, $survey, $survey_category);
+        $results = $this->m_analytics->getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category);
         
         //echo '<pre>';print_r($results);echo '</pre>';die;
         $resultArray = array();
@@ -1717,9 +1717,9 @@ echo $options;
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
     }
     
-    public function getFacilityOwnerAll($criteria, $value, $survey) {
+    public function getFacilityOwnerAll($criteria, $value, $survey,$category) {
         $resultArray = array();
-        $results = $this->m_analytics->getFacilityOwnerPerCounty($criteria, $value, $survey);
+        $results = $this->m_analytics->getFacilityOwnerPerCounty($criteria, $value, $survey,$category);
         foreach ($results as $value) {
             $data[$value['facilityOwner']] = (int)$value['ownership_total'];
             $category[] = $value['facilityOwner'];

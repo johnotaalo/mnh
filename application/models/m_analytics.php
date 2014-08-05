@@ -335,7 +335,7 @@ ORDER BY lq.lq_response ASC";
     /*
      * Trained Staff
     */
-    public function getTrainedStaff($criteria, $value, $survey, $for) {
+    public function getTrainedStaff($criteria, $value, $survey,$category, $for) {
         $value = urldecode($value);
         
         /*using CI Database Active Record*/
@@ -348,7 +348,7 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
         
-        $query = "CALL get_staff_trained('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        $query = "CALL get_staff_trained('" . $criteria . "', '" . $value . "', '" . $survey . "','".$category."','" . $for . "');";
         
         try {
             $queryData = $this->db->query($query, array($value));
@@ -381,7 +381,7 @@ ORDER BY lq.lq_response ASC";
         return $data;
     }
     
-    public function getStaffRetention($criteria, $value, $survey, $for) {
+    public function getStaffRetention($criteria, $value, $survey, $category,$for) {
         $value = urldecode($value);
         
         /*using CI Database Active Record*/
@@ -394,7 +394,7 @@ ORDER BY lq.lq_response ASC";
         //"name:'Trained & Working in CH',data:";
         $data_t = $data_w = $data_categories = array();
         
-        $query = "CALL get_staff_retention('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        $query = "CALL get_staff_retention('" . $criteria . "', '" . $value . "', '" . $survey . "','".$category."','" . $for . "');";
         
         try {
             $queryData = $this->db->query($query, array($value));
@@ -429,9 +429,9 @@ ORDER BY lq.lq_response ASC";
     /*
      *Staff Availability
     */
-    public function getStaffAvailability($criteria, $value, $survey, $for) {
+    public function getStaffAvailability($criteria, $value, $survey,$category, $for) {
         $value = urldecode($value);
-        $query = "CALL get_staff_training('" . $criteria . "', '" . $value . "', '" . $survey . "','" . $for . "');";
+        $query = "CALL get_staff_training('" . $criteria . "', '" . $value . "', '" . $survey . "','".$category."','" . $for . "');";
         try {
             $queryData = $this->db->query($query, array($value));
             $this->dataSet = $queryData->result_array();
@@ -461,9 +461,9 @@ ORDER BY lq.lq_response ASC";
     }
     
     // get treatment statistics
-    public function getTreatmentStatistics($criteria, $value, $survey) {
+    public function getTreatmentStatistics($criteria, $value,$survey,$category) {
         $value = urldecode($value);
-        $query = "CALL get_treatment_statistics('" . $criteria . "', '" . $value . "', '" . $survey . "');";
+        $query = "CALL get_treatment_statistics('" . $criteria . "', '" . $value . "', '" . $survey . "','".$category."');";
         try {
             $queryData = $this->db->query($query, array($value));
             $this->dataSet = $queryData->result_array();
@@ -2425,11 +2425,11 @@ ORDER BY f.fac_county ASC;";
             return $finalData;
         }
         
-        function getFacilityOwnerPerCounty($criteria, $value, $survey) {
+        function getFacilityOwnerPerCounty($criteria, $value, $survey,$category) {
             
             /*using DQL*/
             
-            $query = "CALL get_ownership_statistics('" . $criteria . "','" . $value . "','" . $survey . "');";
+            $query = "CALL get_ownership_statistics('" . $criteria . "','" . $value . "','" . $survey . "','".$category."');";
             $myData = $this->db->query($query);
             $finalData = $myData->result_array();
             
@@ -2438,30 +2438,12 @@ ORDER BY f.fac_county ASC;";
             return $finalData;
         }
         
-        function getFacilityLevelPerCounty($county, $survey, $survey_category) {
+        function getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category) {
             
             /*using DQL*/
             try {
                 
-                $query = 'SELECT
-    tracker.level_total, tracker.facilityLevel
-FROM
-    (SELECT
-        COUNT(fac_level) as level_total,
-            fac_level as facilityLevel,
-            fac_county as countyName
-    FROM
-        facilities f
-    JOIN survey_status ss ON ss.fac_id = f.fac_mfl
-    JOIN survey_types st ON (st.st_id = ss.st_id
-        AND st.st_name = "' . $survey . '")
-        JOIN
-    survey_categories sc ON (ss.sc_id = sc.sc_id
-        AND sc.sc_name = "' . $survey_category . '")
-    WHERE
-        f.fac_county = "' . $county . '" and f.fac_level!=""
-    GROUP BY fac_Level
-    ORDER BY COUNT(fac_Level) ASC) AS tracker;';
+                $query = "CALL get_facility_level('".$criteria."','".$value."','".$survey."','".$survey_category."');";
                 
                 $myData = $this->db->query($query);
                 
