@@ -1682,9 +1682,9 @@ class M_MCH_Survey extends MY_Model
                  //end of catch
 
                 //on the last record to be inserted, log the process and return true;
-                echo $i;if ($i == $this->noOfInsertsBatch) {
+                if ($i == $this->noOfInsertsBatch) {
 
-                    //die(print $i);
+                    //die(print . $i);
                     // $this->writeAssessmentTrackerLog();
                     return true;
                 }
@@ -3077,7 +3077,7 @@ class M_MCH_Survey extends MY_Model
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if(/*$this->addQuestionsInfo() == true*/ /*&& $this->addTotalMCHTreatment()== true &&&&*/ $this->addMCHIndicatorInfo() == true){
+                        if($this->addTotalMCHTreatment()== true  && $this->addQuestionsInfo() == true && $this->addMCHIndicatorInfo() == true){
                             //defined in this model
 
                             $this->writeAssessmentTrackerLog();
