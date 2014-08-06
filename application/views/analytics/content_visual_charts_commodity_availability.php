@@ -189,31 +189,62 @@
     <h4>Section 4 : Commodity & Bundling</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="commodity_availability">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart"id="commodity_unavailability">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart"id="commodity_location">
+            </div>
+        </div>
+    </div>
+    <!-- Bundling -->
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Availability</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="bundling_availability">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Unavailability</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="bundling_unavailability">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Location</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="bundling_location">
             </div>
         </div>
     </div>
@@ -267,7 +298,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="equipment_availability">
             </div>
         </div>
     </div>
@@ -277,7 +308,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="equipment_functionality">
             </div>
         </div>
     </div>
@@ -287,7 +318,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="equipment_location">
             </div>
         </div>
     </div>
@@ -304,7 +335,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="supplies_availability">
             </div>
         </div>
     </div>
@@ -314,7 +345,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="supplies_location">
             </div>
         </div>
     </div>
@@ -331,7 +362,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="resource_availability">
             </div>
         </div>
     </div>
@@ -341,11 +372,11 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="resource_location">
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <!--div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
         </div>
@@ -354,7 +385,7 @@
             <div class="chart">
             </div>
         </div>
-    </div>
+    </div>--
 
 
 

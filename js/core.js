@@ -35,7 +35,10 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                 align: 'high'
             },
             labels: {
-                overflow: 'justify'
+                overflow: 'justify',
+                style: {
+    'word-break': 'break-all'
+}
             }
         },
         tooltip: {
