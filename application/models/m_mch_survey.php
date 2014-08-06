@@ -3064,7 +3064,8 @@ class M_MCH_Survey extends MY_Model
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                    	if($this->addQuestionsInfo() == true && $this->addTotalMCHTreatment()== true && $this->addMCHIndicatorInfo() == true &&  $this->addResponseTreatments() == true){
+                    	if($this->addQuestionsInfo() == true && $this->addTotalMCHTreatment()== true && $this->addMCHIndicatorInfo() == true){
+                    		//&&  $this->addResponseTreatments() == true
                     		//defined in this model
 
                             $this->writeAssessmentTrackerLog();

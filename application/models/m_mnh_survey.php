@@ -379,7 +379,15 @@ class M_MNH_Survey extends MY_Model
     }
     
     //end of addRecord()
-    
+    // private function addhrinfromation()
+    // {
+    //     foreach ($this->input->post() as $key => $val) {
+    //         if (stripos($key, 'facility')) {
+                
+    //             $this->frags = explode('_', $key);
+    //         }
+    //     }
+    // }
     private function addDiarrhoeaByMonthInfo() {
         
         //print_r($this -> input -> post());die;
@@ -4893,12 +4901,11 @@ class M_MNH_Survey extends MY_Model
                     
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
-                    
                     //print var_dump($this->section);
-                    
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries() == true) {
+                        // if ($this->updateFacilityInfo()==true && 
+                           if($this->addQuestionsInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries() == true) {
                             
                             //Defined in MY_Model
                             //if($this->addNoReasonForDeliveries()== true){
