@@ -237,13 +237,13 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     //Section 1
     loadGraph(base_url, 'c_analytics/', '#ch_ownership');
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + value + '/' + survey + '/' + survey_category, '#levels_of_care');
-    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + criteria + '/' + value + '/' + survey, '#facility_type');
-    loadGraph(base_url, 'c_analytics/getTrainedStaff/' + criteria + '/' + value + '/' + survey + '/' + survey, '#staff_training');
-    loadGraph(base_url, 'c_analytics/getStaffAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey, '#staff_availability');
-    loadGraph(base_url, 'c_analytics/getStaffRetention/' + criteria + '/' + value + '/' + survey + '/' + survey, '#staff_retention');
+    loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#facility_type');
+    loadGraph(base_url, 'c_analytics/getTrainedStaff/' + criteria + '/' + value + '/' + survey + '/' + survey+ '/' + survey_category, '#staff_training');
+    loadGraph(base_url, 'c_analytics/getStaffAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey+ '/' + survey_category, '#staff_availability');
+    loadGraph(base_url, 'c_analytics/getStaffRetention/' + criteria + '/' + value + '/' + survey + '/' + survey+ '/' + survey_category, '#staff_retention');
 
     //Section 3
-    loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey, '#u5_register');
+    loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#u5_register');
     loadGraph(base_url, 'c_analytics/getDangerSigns/' + criteria + '/' + value + '/' + survey, '#danger_signs');
 
     loadGraph(base_url, 'c_analytics/getIndicatorComparison/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/'+indicator_type, '#indicator_comparison');
