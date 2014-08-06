@@ -22,8 +22,8 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             type: chart_type,
             marginBottom: chart_margin
         },
-        title: {
-            text: chart_title
+        title:{
+            text:''
         },
         xAxis: {
             categories: chart_categories
@@ -39,7 +39,18 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             }
         },
         tooltip: {
-            valueSuffix: ''
+            formatter: function() {
+                if(typeof this.series.options.stack !='undefined'){
+                    return  this.series.name +'<i>('+this.series.options.stack+')</i><br/>'+this.point.category+' : <b>'+this.y+'</b>';
+                }
+                else{
+                    return  this.point.category+'<br/>'+this.series.name +' : <b>'+this.y+'</b>';
+
+                }
+
+    },
+    followPointer: true
+
         },
         plotOptions: {
             series: {
@@ -98,10 +109,12 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
  * @return {[type]}               [description]
  */
 function loadGraph(base_url, function_url, graph_section) {
+
     $.ajax({
         url: base_url + function_url,
         beforeSend: function(xhr) {
-            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+            $(graph_section).empty();
+    $(graph_section).append('<div class="loader" >Loading...</div>');
         },
         success: function(data) {
             //console.log(data);

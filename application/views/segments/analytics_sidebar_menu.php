@@ -118,21 +118,21 @@ switch($this->session->userdata('survey')) {
         <div id="commodities" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="commodityAvailabilityFrequency">
+                    <li id="MNHCommodityAvailabilityFrequency">
                         <a href="#">Commodity Availability</a>
                     </li>
-                    <li id="commodityAvailabilityUnavailability">
+                    <li id="MNHCommodityAvailabilityUnavailability">
                         <a href="#">Commodity Reasons For Unavailability</a>
                     </li>
-                    <li id="commodityAvailabilityLocation">
+                    <li id="MNHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="commodityAvailabilityQuantities">
+                   <!-- <li id="MNHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantities</a>
                     </li>
-                    <li id="commoditySuppliers">
+                    <li id="MNHcommoditySuppliers">
                         <a href="#">Commodity Suppliers</a>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
         </div>
@@ -196,7 +196,7 @@ switch($this->session->userdata('survey')) {
         <div id="hardware" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="hardwareFrequencyMnh">
+                    <li id="HardwareFrequencyMNH">
                         <a href="#">Hardware Availability</a>
                     </li>
                 </ul>
@@ -283,6 +283,12 @@ switch($this->session->userdata('survey')) {
                     <li id="tools">
                         <a href="#">Tools in a given Unit</a>
                     </li>
+                    <li id="IMCIConsultation">
+                    	<a href = "#">IMCI Consultation</a>
+                    </li>
+                    <li id="ChHealthServices">
+                    	<a href = "#">Health Services</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -298,18 +304,18 @@ switch($this->session->userdata('survey')) {
         <div id="commodities" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="commodityAvailability">
+                    <li id="CHCommodityAvailabilityFrequency">
                         <a href="#">Commodity Availability</a>
                     </li>
-                    <li id="commodityAvailabilityUnavailability">
+                    <li id="CHCommodityAvailabilityUnavailability">
                         <a href="#">Commodity Reasons For Unavailability</a>
                     </li>
-                    <li id="commodityAvailabilityLocation">
+                    <li id="CHCommodityAvailabilityLocation">
                         <a href="#">Commodity Location</a>
                     </li>
-                    <li id="commodityAvailabilityQuantity">
+                    <!--<li id="CHCommodityAvailabilityQuantities">
                         <a href="#">Commodity Quantity</a>
-                    </li>
+                    </li>-->
                     <!--<li id="CHcommoditySuppliers">
 <a href="#">Commodity Suppliers</a>
 </li>-->
@@ -443,11 +449,14 @@ switch($this->session->userdata('survey')) {
         <div id="resources" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
-                    <li id="resourceFrequency">
+                    <li id="resourcesFrequencyCH">
                         <a href="#">Resource Availability</a>
                     </li>
-                    <li id="resourceLocation">
+                    <li id="resourcesLocationCH">
                         <a href="#">Resource Location</a>
+                    </li>
+                    <li id = "FacilityOwnerAll">
+                    	<a href="#">Ownership</a>
                     </li>
                 </ul>
             </div>

@@ -13,10 +13,10 @@
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
-<body class="fixed-top">
+<body class="fixed-top" >
     <!-- BEGIN HEADER -->
 
-        <?php $this->load->view('segments/header');?>
+    <?php $this->load->view('segments/header');?>
 
     <?php $this -> load -> view('segments/nav-public'); ?>
 
@@ -41,7 +41,7 @@
             </div>
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN PAGE CONTAINER-->
-            <div class="container-fluid">
+            <div class="container-fluid" data-spy="scroll" data-target=".sectionList">
                 <!-- BEGIN PAGE HEADER-->
                 <div class="row-fluid">
                     <div class="span12">
@@ -49,27 +49,44 @@
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                         <h4 class="page-title">
 
-                           <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>
+                            <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>
 
                         </h4>
 
-                        <ul class="breadcrumb">
-
-                            <li><a id="breadcrumb-title">No Section Selected</a></li>
-                            <i class="fa fa-chevron-right"></i>
-                            <li><a id="breadcrumb-sub-title">Select a Statistic</a></li>
-                            <label id="county_select_label" for="county_select">
-                            <span>Select a County</span>
-                            <select name="county_select" id="county_select" class="input">
-                                <option selected=selected>No County Selected</option>
+                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
+                         
+                                <select name="survey_type" id="survey_type" class="input">
+                                    <option>No Survey Type Selected</option>
+                                    <option value="mnh">MNH</option>
+                                    <option value="ch">CH</option>
+                                    <option value="hcw">HCW</option>
+                                </select>
+                                <select  name="survey_category" id="survey_category" class="input">
+                                    <option>No Survey Category Selected</option>
+                                    <option value="baseline">Baseline</option>
+                                    <option value="mid-term">Mid-Term</option>
+                                    <option value="end-term">End-Term</option>
+                                </select>
+                            
+                                <select name="county_select" id="county_select" class="input">
+                                    <option data-scope="national" >All Counties Selected</option>
                                     <?php echo $this->selectReportingCounties;?>
-                            </select>
-                            </label>
-                            <label href="#reportingCountiesModal" data-toggle="modal" id="reportingLabel"><span>Reporting Statistics : </span>
-                                <div id="reportingBar">
+                                </select>
+                            
+                                <select name="sub_county_select" id="sub_county_select" class="input">
+                                    <option data-scope="county" >All Sub-Counties Selected</option>
 
-                                </div>
-                            </label>
+                                </select>
+                                <select name="facility_select" id="facility_select" class="input">
+                                    <option data-scope="national" >All Facilities Selected</option>
+
+                                </select>
+                            <a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
+                <i class="fa fa-chevron-up title="Top""></i>
+                &nbsp; Move to Top
+            </a>
+                               
+                           
 
 
                         </ul>
@@ -77,8 +94,8 @@
                     </div>
                 </div>
                 <div class="row">
-                     <?php $this->load->view('segments/analytics_sidebar_menu');?>
-                     <?php $this->load->view($analytics_content_to_load);?>
+                    <?php //$this->load->view('segments/analytics_sidebar_menu');?>
+                    <?php $this->load->view($analytics_content_to_load);?>
                 </div>
 
                 <!-- END PAGE CONTENT-->
@@ -91,16 +108,8 @@
 
     <!-- BEGIN FOOTER -->
     <div id="footer">
-          &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
-        <div class="span pull-right">
-            Move to Top
-            <a href="#" class="go-top">
-                <i class="fa fa-angle-double-up fa-7x title="Top""></i>
-                &nbsp; Move to Top
-            </a>
-
-
-        </div>
+        &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
+       
     </div>
     <!-- END FOOTER -->
     <!-- BEGIN JAVASCRIPTS -->
@@ -108,11 +117,11 @@
     <script src="<?php echo base_url();?>js/core.js"></script>
     <script src="<?php echo base_url();?>js/analytics.js"></script>
     <script>
-    var base_url = "<?php echo base_url();?>";
-    var county   = "<?php echo $this->session->userdata('county_analytics');?>";
-    var survey   = "<?php echo $this->session->userdata('survey')?>";
+        var base_url = "<?php echo base_url();?>";
+        var county   = "<?php echo $this->session->userdata('county_analytics');?>";
+        var survey   = "<?php echo $this->session->userdata('survey')?>";
         var survey_category   = "<?php echo $this->session->userdata('survey_category')?>";
-    $(document).ready(startAnalytics(base_url,county,survey,survey_category));
+        $(document).ready(startAnalytics(base_url,county,survey,survey_category));
     </script>
     <!-- END JAVASCRIPTS -->
     <?php $this->load->view('segments/modals')?>

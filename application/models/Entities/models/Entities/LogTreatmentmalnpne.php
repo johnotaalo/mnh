@@ -211,4 +211,34 @@ class LogTreatmentmalnpne
     {
         return $this->ssId;
     }
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lt_code", type="string", length=4, nullable=false)
+     */
+    private $ltCode;
+
+
+    /**
+     * Set ltCode
+     *
+     * @param string $ltCode
+     * @return LogTreatmentmalnpne
+     */
+    public function setLtCode($ltCode)
+    {
+        $this->ltCode = $ltCode;
+    
+        return $this;
+    }
+
+    /**
+     * Get ltCode
+     *
+     * @return string 
+     */
+    public function getLtCode()
+    {
+        return $this->ltCode;
+    }
 }
