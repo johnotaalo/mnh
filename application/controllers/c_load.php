@@ -1530,9 +1530,8 @@ Indicate the total # of children that received the following treatment. </br>
 
     <div id="section-4" class="step">
     <input type="hidden" name="step_name" value="section-4"/>
-    <p class="message success">
-    SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY
-    </p>
+    <p class="message success">SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY</p>
+    
      <table  class="centre persist-area" >
     <thead>
         
