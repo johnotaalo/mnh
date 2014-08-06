@@ -250,9 +250,10 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
 
     //Section 3
     loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#u5_register');
-    loadGraph(base_url, 'c_analytics/getDangerSigns/' + criteria + '/' + value + '/' + survey, '#danger_signs');
+    loadGraph(base_url, 'c_analytics/getDangerSigns/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#danger_signs');
 
     loadGraph(base_url, 'c_analytics/getIndicatorComparison/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/'+indicator_type, '#indicator_comparison');
+<<<<<<< HEAD
     
     //Sections 4
     loadGraph(base_url, 'c_analytics/getCHCommodityAvailabilityFrequency/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#commodity_availability');
@@ -275,4 +276,15 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     loadGraph(base_url, 'c_analytics/getresourcesFrequencyCH/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_availability');
     loadGraph(base_url, 'c_analytics/getresourcesLocationCH/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_location');
     
+=======
+
+
+
+    //Section 5
+    loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
+    loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
+>>>>>>> 93dce8fad381a8562fb3732a75d7ad236d2c86d2
 }
+
+
+
