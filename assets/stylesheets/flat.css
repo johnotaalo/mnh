@@ -9011,13 +9011,13 @@ ul.sub li.active a {
   0%,
   80%,
   100% {
-    box-shadow: 0 0 #FFF;
+    box-shadow: 0 0 #ddd;
     height: 4em;
   }
 
   /* line 555, ../sass/flat.scss */
   40% {
-    box-shadow: 0 -2em #ffffff;
+    box-shadow: 0 -2em #ddd;
     height: 5em;
   }
 }
@@ -9027,13 +9027,13 @@ ul.sub li.active a {
   0%,
   80%,
   100% {
-    box-shadow: 0 0 #FFF;
+    box-shadow: 0 0 #ddd;
     height: 4em;
   }
 
   /* line 567, ../sass/flat.scss */
   40% {
-    box-shadow: 0 -2em #ffffff;
+    box-shadow: 0 -2em #ddd;
     height: 5em;
   }
 }
