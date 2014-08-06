@@ -1014,8 +1014,6 @@ $this->theForm->setTgCreated(new DateTime());
 
      //close addGuidelinesStaffInfo
 
-
-
     private function addCommodityQuantityAvailabilityInfo() {
         $supplier_code = $this->input->post('supplierName');
         //echo  $supplier_code;die;
@@ -1413,7 +1411,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addCommodityQuantityAvailabilityInfo
 
     private function addMCHIndicatorInfo() {
-         $count = $finalCount = 1;
+        $count = $finalCount = 1;
          // print_r($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
@@ -1556,8 +1554,6 @@ $this->theForm->setTgCreated(new DateTime());
         }
          //end of innner loop
 return true;
-
-
     }
      //close addMchGuidelinesAvailabilityInfo
 

@@ -1862,6 +1862,7 @@ public function createmnhdeliveriessection()
 {
     $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
 
+    // echo "<pre>"; print_r($retrieved); echo "</pre>";
     $survey = $this->session->userdata('survey');
         switch ($survey) {
             case 'mnh':
