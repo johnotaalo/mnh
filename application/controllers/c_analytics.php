@@ -1089,7 +1089,7 @@ ORDER BY fac_level;");
     public function getQuestionStatistics($criteria, $value, $survey, $for) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $for);
         
-        //echo "<pre>";print_r($results);echo "</pre>";die;
+        echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {
@@ -1098,7 +1098,7 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        print_r($resultArray);
+        //print_r($resultArray);
         die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');

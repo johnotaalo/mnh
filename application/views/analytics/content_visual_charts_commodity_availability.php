@@ -99,7 +99,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="guidelines">
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="job_aids">
             </div>
         </div>
     </div>
@@ -119,7 +119,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="tools">
             </div>
         </div>
     </div>
