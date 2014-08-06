@@ -36,7 +36,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="ch_ownership">
+            <div class="chart" id="facility_ownership">
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="levels_of_care">
+            <div class="chart" id="facility_levels">
             </div>
         </div>
     </div>

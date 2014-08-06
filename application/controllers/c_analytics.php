@@ -831,12 +831,9 @@ ORDER BY fac_level;");
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey,$survey_category, $for, $statistic);
 
         
-<<<<<<< HEAD
-        //echo '<pre>';print_r($results);'</pre>';die;
-=======
+
 
         //print_r($results);die;
->>>>>>> 93dce8fad381a8562fb3732a75d7ad236d2c86d2
         foreach ($results as $key => $result) {
 
             $key = str_replace('_', ' ', $key);
@@ -866,18 +863,13 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-<<<<<<< HEAD
-    public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
-        $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
-        
-        print_r($results );die;
-=======
+
     public function getResourcesStatistics($criteria, $value, $survey,$survey_category, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, $for, $statistic);
 
         //sprint_r($results );die;
 
->>>>>>> 93dce8fad381a8562fb3732a75d7ad236d2c86d2
+
         foreach ($results as $key => $result) {
 
             $key = str_replace('_', ' ', $key);
@@ -937,13 +929,10 @@ ORDER BY fac_level;");
     }
     public function getresourcesFrequencyCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
-<<<<<<< HEAD
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'availability');
-        
-=======
+
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'availability');
 
->>>>>>> 93dce8fad381a8562fb3732a75d7ad236d2c86d2
+
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
         
@@ -980,11 +969,9 @@ ORDER BY fac_level;");
     }
     public function getresourcesLocationCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
-<<<<<<< HEAD
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'location');
-=======
+
         $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'location');
->>>>>>> 93dce8fad381a8562fb3732a75d7ad236d2c86d2
+
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
@@ -1163,21 +1150,21 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
    //echo "<pre>";print_r($results);echo "</pre>";die;
         if($count==2):
-           $q[] = $key;
-            $mch[] = (int)$value['mch'];
-            $ward[] = (int)$value['ward'];
-            $other[] = (int)$value['other'];
-            $opd[] = (int)$value['opd'];
-            $uc[] = (int)$value['u5 clinic'];
+          //var_dump($value);
+          foreach($value as $location=>$val){
+            $gData[]=array(ucwords($location),(int)$val); 
+          }
 
             endif;
             $count++;
             
         }
-        $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'WARD', 'data' => $ward), array('name' => 'OTHER', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'U5 CLINIC', 'data' => $uc));
+        $category[]="Location";
+        //echo "<pre>";print_r($gData);echo "</pre>";die;
+        $resultArray[] = array('name'=>'ORT Location','data'=>$gData);
 
         $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
 
 
