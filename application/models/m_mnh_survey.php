@@ -4905,7 +4905,7 @@ class M_MNH_Survey extends MY_Model
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
                         // if ($this->updateFacilityInfo()==true && 
-                           if($this->addNurseInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries() == true) {
+                           if($this->addQuestionsInfo() == true && $this->addServicesInfo() == true && $this->addCommitteeInfo() == true && $this->addBedsInfo() == true && $this->addNoReasonForDeliveries() == true) {
                             
                             //Defined in MY_Model
                             //if($this->addNoReasonForDeliveries()== true){

@@ -138,7 +138,7 @@ $this->session_survey_category='';
         $this->createMNHJobAidsAspectsSectionforPDF();
         $this->createHardwareResourcesMNHSection();
         $this->createHardwareResourcesMNHSectionforPDF();
-        $this->createNurses();
+       // $this->createNurses();
         $this->createfacilitycontactinformtion();
 
         $this->createMNHNewbornCareAspectsSection();
@@ -465,7 +465,7 @@ $this->getTreatments();
                 break;
 
             case 'ch':
-                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
+                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other', 'Not Applicable');
                 break;
         }
         $supplier_names = $this->selectCommoditySuppliers;
@@ -1862,60 +1862,46 @@ public function createmnhdeliveriessection()
 {
     $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
 
-    //echo "<pre>";print_r($retrieved);  echo "</pre>";
     $survey = $this->session->userdata('survey');
         switch ($survey) {
             case 'mnh':
                 $reasons = array('Inadequate skill','Inadequate staff','Inadequate infrastructure','Inadequate Equipment','Inadequate commodities and supplies','others');
                 break;
-
-            // case 'ch':
-            //     $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-            //     break;
         }
         $this->deliveriessection = "";
-        foreach ($retrieved as $key => $deliveries) {
-            if($key == 'QMNH200')
-            {
-                if(!$deliveries[''])
+        if($retrieved)
+        {
+            foreach ($retrieved as $key => $deliveries) {
+                if($key == 'QMNH200')
                 {
-                    $lq_reasons = explode(',', $deliveries['lq_reason']);
-                    foreach ($reasons as $reason) {
-                        $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2">';
-                        if(in_array($reason, $lq_reasons))
-                        {
-                            $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned" checked/>';
+                    //echo "<pre>";print_r($deliveries);  echo "</pre>";
+                    if(!$deliveries[''])
+                    {
+                        $lq_reasons = explode(',', $deliveries['lq_reason']);
+                        foreach ($reasons as $reason) {
+                            $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2">';
+                            if(in_array($reason, $lq_reasons))
+                            {
+                                $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned" checked/>';
+                            }
+                            else
+                            {
+                                $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/>';
+                            }
+                            $this->deliveriessection .= '</td>';
                         }
-                        else
-                        {
-                            $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/>';
-                        }
-                        $this->deliveriessection .= '</td>';
                     }
-            }
+                }
             }
         }
-            // '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="Inadequate skill" class="cloned" />
-            //$this->deliveriessection .='</td>';
-            // <td style ="text-align:center;" colspan ="2">
-            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate staff" />
-            // </td>
-            // <td style ="text-align:center;" colspan ="2">
-            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesInfra" value="Inadequate infrastructure" />
-            // </td>
-            // <td style ="text-align:center;" colspan ="2">
-            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesCommo" value="Inadequate Equipment" />
-            // </td>
-            // <td style ="text-align:center;" colspan ="2">
-            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesequiip" value="Inadequate commodities and supplies" />
-            // </td>
-            // <td style ="text-align:center;" colspan ="2">
-            // <input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="Other (Please specify)" />
-            // <input type="text" name="facRsnNoDeliveries[]" id="rsnDeliveriesOther" value="" />
-            // </td>
-            // <input type="hidden" name="facRsnNoDeliveriesCode" id="facRsnNoDeliveriesCode" value="QMNH200">';
-
-                    return $this->deliveriessection;
+        else
+        {
+            foreach ($reasons as $reason) {
+               $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2" ><input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/></td>';
+            }
+        }
+        
+        return $this->deliveriessection;
 }
     public function createMNHNewbornCareAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhNewbornAspectQuestions();
@@ -2168,18 +2154,45 @@ public function createmnhdeliveriessection()
      * */
     public function createNurses() {
         $this->data_found = $this->m_mnh_survey->getNursesAspectQuestions();
+        $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
+        $this->nurses.= '<tr>';
+        if($retrieved)
+        {
+            foreach ($retrieved as $key => $retrieve) {
+                echo "<pre>";print_r($retrieve);echo "</pre>";
+                $counter = 0;
+                foreach ($this->data_found as $value) {
+                $counter++;
+                $this->nurses.= '<td colspan="1">' . $value['questionName'] . '</td>';
+                if($key == 'QMNH32')
+                {
+                    $this->nurses .='<td colspan="1"><input type="text" name="nurseCount_' . $counter . '" id="nurseCount_' . $counter . '" style="width:200px" class="numbers" value = "'.$retrieve['lq_response_count'].'" disabled/></td>
+                    <input type="hidden"  name="nurseAspectCode_' . $counter . '" id="nurseAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />';
+                }
+                }die;
+            }
+        }
+
+
+        // else
+        // {
+        //     foreach ($this->data_found as $value) {
+        //     $counter++;
+        //     $this->nurses.= '<tr>
+        //     <td colspan="1">' . $value['questionName'] . '</td>';
+        //     if($key == 'QMNH32')
+        //     {
+        //         $this->nurses .='<td colspan="1"><input type="text" name="nurseCount_' . $counter . '" id="nurseCount_' . $counter . '" style="width:200px" class="numbers" value = "'.$retrieve['lq_response_count'].'" disabled/></td>
+        //         <input type="hidden"  name="nurseAspectCode_' . $counter . '" id="nurseAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />';
+        //     }
+        //     $this->nurses .= '</tr>';
+        //     }
+        // }
+        $this->nurses .= '</tr>';
+        // $survey = $this->session->userdata('survey');
+
 
         //var_dump($this->data_found);die;
-        $counter = 0;
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $this->nurses.= '<tr>
-            <td colspan="1">' . $value['questionName'] . '</td>
-
-            <td colspan="1"><input type="text" name="nurseCount_' . $counter . '" id="nurseCount_' . $counter . '" style="width:200px" class="numbers" disabled/></td>
-            <input type="hidden"  name="nurseAspectCode_' . $counter . '" id="nurseAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
-        }
         return $this->nurses;
     }
 
@@ -2590,11 +2603,26 @@ public function createmnhdeliveriessection()
 
             if (array_key_exists($value['questionCode'], $retrieved)) {
                 $questionResponse = ($retrieved[$value['questionCode']]['lq_response'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_response'] : '';
-                $questionCount = ($retrieved[$value['questionCode']]['lq_question_count'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_count'] : '';
+                $questionCount = ($retrieved[$value['questionCode']]['lq_response_count'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_response_count'] : '';
                 $questionReason = ($retrieved[$value['questionCode']]['lq_question_reason'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_reason'] : '';
             }
 
             $base++;
+
+            if ($section == 'nur') {
+                if ($questionCount != NULL) {
+                        $questionRow = '<td><input name="questionCount_' . $counter . '"  value="'.$questionCount.'" type="text"></td>';
+                 } else {
+                        $questionRow = '<td><input name="questionCount_' . $counter . '"  value="" type="text"></td>';
+                    }
+                $data[$section][] = '
+                <tr>
+                    <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+                        ' . $questionRow . '
+                    <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
+else{
             if ($value['questionName'] == 'Document cases seen over 3 months') {
                 $data[$section][] = '
                 <tr>
@@ -2618,7 +2646,7 @@ public function createmnhdeliveriessection()
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             }
-        }
+        }}
 
         //echo '<pre>'; print_r( $data);echo '</pre>';die;
         foreach ($data as $key => $value) {

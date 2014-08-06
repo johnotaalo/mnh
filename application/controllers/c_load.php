@@ -244,7 +244,7 @@ class C_Load extends MY_Controller {
                     <th>RESPONSE</th>
                 </tr>
 
-            ' . $this -> nurses . '
+            ' . $this -> question['nur'] . '
         </table>
 
 
@@ -1171,6 +1171,14 @@ class C_Load extends MY_Controller {
 
         </tr>' . $this -> mchGuidelineAvailabilitySection . '
     </table>
+      <table class="centre">
+            <thead>
+                <th colspan="3" >DOES THE UNIT HAVE THE FOLLOWING TOOLS?</th>
+            </thead>
+                <th  style="width:35%">TOOLS</th>
+                <th colspan = "2" style="width:65%;text-align:left">RESPONSE</th>
+            </tr>' . $this -> mchIndicatorsSection['ror'] . '
+        </table>
     <p class="instruction">
         <strong style="text-decoration:underline">Guide for the 1st part(Commodity List):</strong></br>
 
@@ -1512,37 +1520,44 @@ Indicate the total # of children that received the following treatment. </br>
     <p class="message success">
     SECTION 4 of 9: COMMODITY AND BUNDLING AVAILABILITY
     </p>
+    <table>
+    <tr>
+        <tr>
+            <th colspan="2">Main Supplier</th>
+        </tr>
+        <tr>
+            <td>Who is the Main Supplier of the Commodities <strong>Below</strong>?</td>
+            <td>'.$this-> selectCommoditySuppliersPDF.'</td>
+        </tr>
+    </tr>
+    </table>
      <table  class="centre persist-area" >
     <thead>
         
-            <th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+            <th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
       
         </thead>
         <tr>
-            <th rowspan="2">Commodity Name</th>
-            <th rowspan="2">Commodity Unit</th>
-            <th colspan="2" style="text-align:center"> Availability
-             <strong></br>
-            (One Selection Allowed) </strong></div></th>
-            <th rowspan="2">
-                Main Reason For  Unavailability
-            </th>
-            <th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-            <th colspan="2">Available Quantities</th>
-            
-
+            <th rowspan="2" >Commodity Name</th>
+            <th rowspan="2" >Commodity Unit</th>
+            <th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+            <th rowspan="2"> Main Reason For  Unavailability </th>
+            <th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
+            <th rowspan="1" colspan="2" >Available Quantities</th>
         </tr>
-        <tr >
+        <tr>
             <th >Available</th>
             <th>Not Available</th>
-            <th>Delivery room</th>
+            <th>OPD</th>
+            <th>MCH</th>
+            <th>U5 Clinic</th>
+            <th>Ward</th>
             <th>Pharmacy</th>
-            <th>Store</th>
             <th>Other</th>
             <th>Not Applicable</th>
             <th><div style="width:100px">No. of Units</div></th>
             <th><div style="width:100px">Expiry Date</div></th>
-        </tr>
+         </tr>
         ' . $this -> commodityAvailabilitySection['ch'] . '
 
     </table>
@@ -1562,30 +1577,26 @@ Indicate the total # of children that received the following treatment. </br>
         </tr>
 
         <tr>
-            <th rowspan="2">Commodity Name</th>
-            <th rowspan="2">Commodity Unit</th>
-            <th colspan="2" style="text-align:center"> Availability
-             <strong></br>
-            (One Selection Allowed) </strong></div></th>
-            <th rowspan="2">
-                Main Reason For  Unavailability
-            </th>
-            <th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
-            <th colspan="2">Available Quantities</th>
-            
-
+            <th rowspan="2" >Commodity Name</th>
+            <th rowspan="2" >Commodity Unit</th>
+            <th colspan="2" style="text-align:center"> Availability <strong></br> (One Selection Allowed) </strong></th>
+            <th rowspan="2"> Main Reason For  Unavailability </th>
+            <th colspan="7" style="text-align:center"> Location of Availability </br><strong> (Multiple Selections Allowed)</strong></th>
+            <th rowspan="1" colspan="2" >Available Quantities</th>
         </tr>
-        <tr >
+        <tr>
             <th >Available</th>
             <th>Not Available</th>
-            <th>Delivery room</th>
+            <th>OPD</th>
+            <th>MCH</th>
+            <th>U5 Clinic</th>
+            <th>Ward</th>
             <th>Pharmacy</th>
-            <th>Store</th>
             <th>Other</th>
             <th>Not Applicable</th>
             <th><div style="width:100px">No. of Units</div></th>
             <th><div style="width:100px">Expiry Date</div></th>
-        </tr>
+         </tr>
         ' . $this -> commodityAvailabilitySection['bun'] . '
 
     </table>
