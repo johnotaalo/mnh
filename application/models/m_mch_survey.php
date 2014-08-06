@@ -1600,7 +1600,7 @@ return true;
 
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
 
-            //echo 'Done'.$i;
+            echo 'Done'.$i;
 
             $this->theForm = new \models\Entities\LogTreatments();
 
@@ -3238,7 +3238,7 @@ return true;
 
                     // if($this->addTotalMCHTreatment()== true &&  && $this->addQuestionsInfo() == true && $this->addResponseTreatments() == true){
                     /* && $this->addIndicatorInfo() == true*///(){//( &&  &&  && $this->addIndicatorInfo()== true){
-                        if($this->addMCHIndicatorInfo() ==true){
+                        if($this->addMCHIndicatorInfo() ==true && $this->addTotalMCHTreatment()== true && $this->addQuestionsInfo()){
                              //defined in this model
 
                             $this->writeAssessmentTrackerLog();

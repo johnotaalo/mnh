@@ -2485,6 +2485,34 @@ ORDER BY f.fac_county ASC;";
             }
             return $finalData;
         }
+        function getFacilityTypePerCounty($criteria, $value,$survey,$survey_category) {
+            
+            /*using DQL*/
+            try {
+                
+                $query = "CALL get_facility_type('".$criteria."','".$value."','".$survey."','".$survey_category."');";
+                
+                $myData = $this->db->query($query);
+                
+
+                // echo $this->db->last_query();die;
+                
+                $finalData = $myData->result_array();
+
+                
+                //echo $finalData;
+                
+
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //echo($ex -> getMessage());
+                
+                
+            }
+            return $finalData;
+        }
         
         /**
          * Run County Maps

@@ -504,7 +504,7 @@ class MY_Controller extends CI_Controller
             if (array_key_exists($value['commCode'], $retrieved)) {
                 $availability = ($retrieved[$value['commCode']]['ac_availability'] != 'N/A') ? $retrieved[$value['commCode']]['ac_availability'] : '';
                 $location = ($retrieved[$value['commCode']]['ac_location'] != 'N/A') ? $retrieved[$value['commCode']]['ac_location'] : '';
-                $expiryDate = ($retrieved[$value['commCode']]['ac_expiryDate'] != 'N/A') ? $retrieved[$value['commCode']]['ac_expiryDate'] : '';
+                $expiryDate = ($retrieved[$value['commCode']]['ac_expiry_date'] != 'N/A') ? $retrieved[$value['commCode']]['ac_expiry_date'] : '';
                 $reasonUnavailable = ($retrieved[$value['commCode']]['ac_reason_unavailable'] != 'N/A') ? $retrieved[$value['commCode']]['ac_reason_unavailable'] : '';
                 $quantity = ($retrieved[$value['commCode']]['ac_quantity'] != 'N/A') ? $retrieved[$value['commCode']]['ac_quantity'] : '';
             }
@@ -531,9 +531,9 @@ class MY_Controller extends CI_Controller
             </td>';
                 }
             }
-            if ($expiry != '') {
+            if ($expiryDate != '') {
                 $expiryRow = '<td style ="text-align:center;">
-            <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="350" class="cloned expiryDate" value="' . $expiry . '"/>
+            <input name="cqExpiryDate_' . $counter . '" id="cqExpiryDate_' . $counter . '" type="text" size="350" class="cloned expiryDate" value="' . $expiryDate . '"/>
             </td>';
             } else {
                 $expiryRow = '<td style ="text-align:center;">
@@ -556,6 +556,7 @@ class MY_Controller extends CI_Controller
                     $reasonUnavailableRow.= '<option value="' . $reason . '">' . $reason . '</option>';
                 }
             }
+            //echo $value['commFor'];die;
             $this->commodityAvailabilitySection[$value['commFor']].= '<tr>
             <td> ' . $value['commName'] . ' </td>
             <td> ' . $value['commUnit'] . '</td>
@@ -574,8 +575,9 @@ class MY_Controller extends CI_Controller
             ' . $expiryRow . '
             <input type="hidden"  name="cqCommCode_' . $counter . '" id="cqCommCode_' . $counter . '" value="' . $value['commCode'] . '" />
     </tr>';
+    //echo $this->commodityAvailabilitySection[$value['commFor']];
         }
-
+//echo $this->commodityAvailabilitySection['bun'];die;
         //echo $this->commodityAvailabilitySection;die;
         return $this->commodityAvailabilitySection;
     }

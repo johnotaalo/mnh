@@ -1907,7 +1907,7 @@ echo $options;
         }
         $finalResult = $resultArray;
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
     }
     
     /**
@@ -1922,7 +1922,7 @@ echo $options;
 
         //foreach ($allCounties as $county) {
 
-        $category[] = $county;
+        $category[] = $value;
         $results = $this->m_analytics->getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category);
         
 
@@ -1940,7 +1940,7 @@ echo $options;
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
     }
 
 
@@ -1956,12 +1956,12 @@ echo $options;
         $resultArray = array();
         foreach ($results as $value) {
             $data = array();
-            $name = 'Level  ' . $value['facilityType'];
+            $name =  $value['facilityType'];
             $data[] = (int)$value['type_total'];
             $resultArray[] = array('name' => $name, 'data' => $data);
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
     }
 
 
