@@ -721,7 +721,7 @@ ORDER BY fac_level;");
         }
         
         //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -817,13 +817,13 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getCommodityStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $for, $statistic);
         
-        //print_r($results);die;
+        //echo '<pre>';print_r($results);'</pre>';die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -840,7 +840,7 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -855,7 +855,7 @@ ORDER BY fac_level;");
     public function getResourcesStatistics($criteria, $value, $survey, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, $for, $statistic);
         
-        //sprint_r($results );die;
+        print_r($results );die;
         foreach ($results as $key => $result) {
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
@@ -876,7 +876,7 @@ ORDER BY fac_level;");
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -910,7 +910,7 @@ ORDER BY fac_level;");
     }
     public function getresourcesFrequencyCH($criteria, $value, $survey) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'availability');
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'availability');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
@@ -945,7 +945,7 @@ ORDER BY fac_level;");
     }
     public function getresourcesLocationCH($criteria, $value, $survey) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'mnh', 'location');
+        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey, 'ch', 'location');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
