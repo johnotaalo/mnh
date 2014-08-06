@@ -488,13 +488,10 @@ class MY_Controller extends CI_Controller
             break;
 
             case 'ch':
-<<<<<<< HEAD
-            $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
-            break;
-=======
+
                 $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other', 'Not Applicable');
                 break;
->>>>>>> f6e8bad494bb188f0133869863bf8dee8db03323
+
         }
         $supplier_names = $this->selectCommoditySuppliers;
 
