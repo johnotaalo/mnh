@@ -1172,7 +1172,7 @@ ORDER BY fac_level;");
     public function getQuestionStatistics($criteria, $value, $survey,$survey_category, $for) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey,$survey_category, $for);
         
-        echo "<pre>";print_r($results);echo "</pre>";die;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {
@@ -1201,7 +1201,7 @@ ORDER BY fac_level;");
 
 
      /**
-     * [getORTA description]
+     * [getORTOne description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
@@ -1229,6 +1229,13 @@ ORDER BY fac_level;");
        // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
     }
 
+    /**
+     * [getORTTwo description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
     public function getORTTwo($criteria, $value, $survey,$survey_category) {
           $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey,$survey_category,'ort');
         //echo "<pre>";print_r($results);echo "</pre>";die;
@@ -1243,6 +1250,34 @@ ORDER BY fac_level;");
             $no = (int)$value['no'];
             endif;
             $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+       // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+    }
+    /**
+     * [getORTThree description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @return [type]           [description]
+     */
+    public function getORTThree($criteria, $value, $survey,$survey_category) {
+          $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey,$survey_category,'ortf');
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array(); 
+        
+        foreach ($results as $key => $value) {
+           
+           
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+            
+            
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
 

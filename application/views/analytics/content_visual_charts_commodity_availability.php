@@ -246,11 +246,11 @@
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons for Non-Functionality</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="ort_reasons">
             </div>
         </div>
     </div>
