@@ -1589,7 +1589,7 @@ ORDER BY oa.question_code ASC";
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
-                            $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['question_name']][$value['frequency']] = (int)$value['total_response'];
                         } 
                         }
                     }

@@ -791,7 +791,10 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey,$survey_category, 'mh', 'location');
     }
     
-
+     public function getORTReason($criteria, $value, $survey,$survey_category) {
+        $this->getReasonStatistics($criteria, $value, $survey,$survey_category, 'ortf');
+    }
+    
     /**
      * [getReasonStatistics description]
      * @param  [type] $criteria  [description]
@@ -801,7 +804,7 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-    public function getReasonStatistics($criteria, $value, $survey,$survey_category) {
+    public function getReasonStatistics($criteria, $value, $survey,$survey_category,$for) {
         $results = $this->m_analytics->getReasonStatistics($criteria, $value, $survey,$survey_category, $for);
        //echo "<pre>"; print_r($results);echo "</pre>";die;
         foreach ($results as $key => $result) {
@@ -886,9 +889,7 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
-    public function getORTReason($criteria, $value, $survey,$survey_category) {
-        $this->getReasonStatistics($criteria, $value, $survey,$survey_category, 'ortf');
-    }
+   
     /**
      * [getResourcesStatistics description]
      * @param  [type] $criteria  [description]
