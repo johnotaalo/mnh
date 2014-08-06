@@ -767,7 +767,7 @@ class M_MCH_Survey extends MY_Model
             (isset($this->elements[$i]['mchBefore']) && $this->elements[$i]['mchBefore'] != '') ? $this->theForm->setTgBefore($this->elements[$i]['mchBefore']) : $this->theForm->setTgBefore(-1);
             (isset($this->elements[$i]['mchAfter']) && $this->elements[$i]['mchAfter'] != '') ? $this->theForm->setTgAfter($this->elements[$i]['mchAfter']) : $this->theForm->setTgAfter(-1);
 
-$this->theForm->setTgCreated(new DateTime());
+//$this->theForm->setTgCreated(new DateTime());
 
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
@@ -1704,7 +1704,7 @@ $this->theForm->setTgCreated(new DateTime());
      //close addMchGuidelinesAvailabilityInfo
 
     private function addTotalMCHTreatment() {
-        
+
         $treatment =$this->input->post('mchtreatment');
         $totalTreatment =$this->input->post('mchtotalTreatment');
         $realtreatments = $this->input->post('mchtreatmentnew');
@@ -1765,7 +1765,7 @@ $this->theForm->setTgCreated(new DateTime());
 
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLtOtherTreatments($this->elements[$i]['treatmentnew']);
-            //$this->theForm->setLtOtherTreatmentsNumbers($this->elements[$i]['treatmentnumbers']);
+            $this->theForm->setLtOtherTreatmentsNumbers($this->elements[$i]['treatmentnumbers']);
             $this->em->persist($this->theForm);
 
             //now do a batched insert, default at 5
@@ -3346,8 +3346,8 @@ $this->theForm->setTgCreated(new DateTime());
 
 
                        // $this->addMchCommunityStrategyInfo() == true) {
-                        	 $this->addmchConsultationQuestions() == true
-                             /*$this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true &&*/ /*$this->addMchStaffTrainingInfo()==true*/){
+                        	 $this->addmchConsultationQuestions() == true &&
+                             $this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true){
 
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
