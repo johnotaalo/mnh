@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
 
     //new sections
 
-    public $sectionList,$sectionLinks,$facilitycontactinformation, $treatments,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
+    public $sectionList,$sectionLinks,$facilitycontactinformation, $treatments,$question,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
 
 
     //pdf variables
@@ -31,7 +31,7 @@ class MY_Controller extends CI_Controller
         $this->load->model('m_analytics');
         $this->load->model('m_retrieve');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
-        $this->sectionList=$this->sectionLinks= $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
+        $this->question=$this->sectionList=$this->sectionLinks= $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
 
         $this->treatments=$this->mchBundling = $this->mchBundlingPDF = $this->commodityAvailabilitySection = $this->mchCommodityAvailabilitySection = $this->districtFacilityListSection = $this->treatmentMCHSection = $this->signalFunctionsSection = $this->signalFunctionsSectionPDF = $this->ortCornerAspectsSection = $this->mchGuidelineAvailabilitySection = $this->trainingGuidelineSection = $this->mchTrainingGuidelineSection = $this->commodityUsageAndOutageSection = $this->hardwareMCHSection = $this->equipmentsMCHSection = $this->equipmentsSection = '';
 
@@ -46,6 +46,8 @@ class MY_Controller extends CI_Controller
 
 
         $this->myCount = 0;
+        $this->createQuestionsSectionPDF();
+        $this->createQuestionsSection();
         $this->mchIndicatorsSection = array();
         $this->getHealthFacilities();
 
@@ -123,8 +125,7 @@ class MY_Controller extends CI_Controller
 
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
-        $this->createQuestionsSectionPDF();
-        $this->createQuestionsSection();
+        
         $this->createSuppliesSectionPDF();
 
         //new functions
@@ -964,6 +965,7 @@ class MY_Controller extends CI_Controller
      * */
     public function createORTCornerAspectsSection() {
         $this->data_found = $this->m_mch_survey->getOrtAspectQuestions('ort');
+        //var_dump( $this->question);
 
         //var_dump($this->data_found);die;
         $counter = 0;
@@ -1019,7 +1021,23 @@ class MY_Controller extends CI_Controller
         </tr>';
 
                     $this->ortCornerAspectsSection.= $ort_location;
-                } else {
+                }elseif ($value['questionCode'] == 'QUC02a') {
+                    $ort_functional = $this->question['ortf'];
+                    //var_dump($this->questionPDF);die;
+                    $this->ortCornerAspectsSection.= '<tr>
+            <td colspan="1">' . $value['questionName'] . '</td>
+            <td colspan="1">
+            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
+                <option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+
+            </select>
+            </td>
+            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+       </tr>' . $ort_functional;
+                } 
+                else {
 
                     $this->ortCornerAspectsSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
@@ -2562,8 +2580,8 @@ class MY_Controller extends CI_Controller
                 $data[$section][] = '
                 <tr>
             <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td>March <input name="questionResponse_' . $counter . '"  type="text">  April <input name="questionResponse_' . $counter . '"  type="text">
-            May <input name="questionResponse_' . $counter . '"  type="text"></td>
+         <td>March <input name="questionResponse_' . $counter . '[]"  type="text">  April <input name="questionResponse_' . $counter . '[]"  type="text">
+            May <input name="questionResponse_' . $counter . '[]"  type="text"></td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
             } else {
@@ -2591,7 +2609,7 @@ class MY_Controller extends CI_Controller
             }
         }
 
-        //var_dump($this->questionPDF);die;
+        //var_dump($this->question);die;
         return $this->question;
     }
     public function createSuppliesSectionPDF() {
