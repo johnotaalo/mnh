@@ -966,7 +966,7 @@ ORDER BY fac_level;");
     public function getresourcesFrequencyCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
 
-        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'ch', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mhw', 'availability');
 
 
         //echo "<pre>"; print_r($results);echo "</pre>";die;
@@ -997,7 +997,7 @@ ORDER BY fac_level;");
      */
     public function getresourcesLocationMnh($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'location');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'location');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
@@ -1006,7 +1006,7 @@ ORDER BY fac_level;");
     public function getresourcesLocationCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
 
-        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'ch', 'location');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mhw', 'location');
 
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
