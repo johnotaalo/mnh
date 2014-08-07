@@ -145,7 +145,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
             
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-            $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
+            $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line');
         }
     }
     
@@ -685,7 +685,7 @@ ORDER BY fac_level;");
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -1137,7 +1137,7 @@ ORDER BY fac_level;");
         $newCat[] = 'Metronidazole (Flagyl)';
         $category = $newCat;
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
 
@@ -1164,7 +1164,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $val);
             //echo "<pre>"; print_r($results);echo "</pre>";die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     } 
 
     /**
@@ -1742,7 +1742,7 @@ echo $options;
             $monthCounter++;
         }
         $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /*
@@ -1857,7 +1857,7 @@ echo $options;
             unset($finalD);
         }
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -1956,7 +1956,7 @@ echo $options;
         }
         $finalResult = $resultArray;
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -2010,7 +2010,7 @@ echo $options;
             $resultArray[] = array('name' => $name, 'data' => $data);
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
 
@@ -2100,7 +2100,7 @@ echo $options;
         $category = $county;
         $resultArray[] = array('type' => 'column', 'name' => 'Facilities', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getCountyFacilitiesByOwner($criteria) {
@@ -2115,7 +2115,7 @@ echo $options;
         $resultArray[] = array('type' => 'column', 'name' => 'Facility Owners', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getFacilitiesByDistrictOptions($district, $survey) {
