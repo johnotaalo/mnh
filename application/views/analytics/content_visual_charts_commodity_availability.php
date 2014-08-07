@@ -23,7 +23,7 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 
 </div>
@@ -384,8 +384,8 @@
 
             <div class="chart">
             </div>
-        </div>
-    </div>--
+        </div-->
+    </div>
 
 
 
@@ -450,6 +450,6 @@
 
 
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 </div>

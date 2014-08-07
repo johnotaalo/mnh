@@ -70,6 +70,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
             loadFacilities(base_url, district, survey, survey_category);
         }
         variableHandler('national',county,district,facility, survey, survey_category,indicator_type);
+         $('.reporting').load(base_url+'c_analytics/getAllReportedCounties/'+survey+'/'+survey_category);
     });
     $('select#county_select').change(function() {
 
@@ -89,6 +90,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
             loadFacilities(base_url, district, survey, survey_category);
         }
         variableHandler('county',county,district,facility, survey, survey_category,indicator_type);
+
     });
     $('select#sub_county_select').change(function() {
 
@@ -96,6 +98,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
         district = encodeURIComponent(district);
         loadFacilities(base_url, district, survey, survey_category);
         variableHandler('district',county,district,facility, survey, survey_category,indicator_type);
+
     });
 
     $('select#indicator_types').change(function() {
@@ -245,6 +248,7 @@ function indicatorHandler(criteria, value, survey, survey_category,indicator_typ
 }
 function statisticsHandler(criteria, value, survey, survey_category,indicator_type) {
     //Section 1
+    
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#facility_owner');
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#facility_levels');
     loadGraph(base_url, 'c_analytics/getFacilityTypePerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#facility_type');

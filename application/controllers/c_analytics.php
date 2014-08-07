@@ -946,7 +946,33 @@ ORDER BY fac_level;");
         $this->loadExcel($data, 'Summary for Counties Reporting for' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category) . $value);
 
     }
-    
+    /**
+     * [getSectionsChosen description]
+     * @param  [type] $survey [description]
+     * @return [type]         [description]
+     */
+    public function getSectionsChosen($survey){
+        switch($survey){
+            case 'mnh':
+            $sectionNames=array('Facility Information');
+            $sections =8;
+            break;
+            case 'ch':
+            $sectionNames=array('Facility Information','Guidelines,Job Aids and Tools','Assessment','Commodity & Bundling','On-Site Rehydration','Equipment','Supplies','Resources','Community Strategy');
+            $sections=9;
+            break;
+            case 'hcw':
+            $sections=5;
+            break;
+            default:
+            break;
+        }
+        for($x=1;$x<=$sections;$x++){
+            $sectionList.='<li><a href="#section-'.$x.'">Section '.$x.' : '.$sectionNames[$x-1].'</a></li>';
+        }
+        echo json_encode($sectionList);
+    }
+
     /**
 
      * [getResourcesLocationmnh description]
@@ -1147,22 +1173,23 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
    //echo "<pre>";print_r($results);echo "</pre>";die;
         if($count==2):
-           $q[] = $key;
-            $mch[] = (int)$value['mch'];
-            $ward[] = (int)$value['ward'];
-            $other[] = (int)$value['other'];
-            $opd[] = (int)$value['opd'];
-            $uc[] = (int)$value['u5 clinic'];
+          //var_dump($value);
+          foreach($value as $location=>$val){
+            $gData[]=array(ucwords($location),(int)$val); 
+          }
 
             endif;
             $count++;
             
         }
-        $resultArray = array(array('name' => 'MCH', 'data' => $mch), array('name' => 'WARD', 'data' => $ward), array('name' => 'OTHER', 'data' => $other), array('name' => 'OPD', 'data' => $opd), array('name' => 'U5 CLINIC', 'data' => $uc));
+        $category[]="Location";
+        //echo "<pre>";print_r($gData);echo "</pre>";die;
+        $resultArray[] = array('name'=>'ORT Location','data'=>$gData);
 
         $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
+
 
 
     /**
@@ -2025,7 +2052,8 @@ echo $options;
     }
     
     /**
-     * Get Specific Districts Filter
+     * [getSpecificDistrictNames description]
+     * @return [type] [description]
      */
     public function getSpecificDistrictNames() {
         $county = $this->session->userdata('county_analytics');
@@ -2036,6 +2064,23 @@ echo $options;
             $options.= '<option>' . $result['facDistrict'] . '</option>';
         }
         
+        //return $dataArray;
+        echo ($options);
+    }
+    /**
+     * [getSpecificDistrictNamesChosen description]
+     * @param  [type] $county [description]
+     * @return [type]         [description]
+     */
+    public function getSpecificDistrictNamesChosen($county) {
+        $county=urldecode($county);
+        $options = '';
+        $results = $this->m_analytics->getSpecificDistrictNames($county);
+        $options = '<option selected=selected>All Sub-Counties Selected</option>';
+        foreach ($results as $result) {
+            $options.= '<option>' . $result['facDistrict'] . '</option>';
+        }
+
         //return $dataArray;
         echo ($options);
     }
