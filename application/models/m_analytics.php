@@ -2059,11 +2059,11 @@ LIMIT 0 , 1000
                     //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
-                            $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['eq_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['resource_name']][$place]+= (int)$value['total_response'];
 
                             }
                         }
