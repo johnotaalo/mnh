@@ -162,7 +162,7 @@ class M_MCH_Survey extends MY_Model
 
 
     private function addQuestionsInfo() {
-        //print_r($this->input->post());die;
+        // print_r($this->input->post());die;
 
         $count = $finalCount = 1;
         foreach ($this->input->post() as $key => $val) {
@@ -221,11 +221,11 @@ class M_MCH_Survey extends MY_Model
         }
          //close foreach ($this -> input -> post() as $key => $val)
 
-        //print var_dump($this->elements);
+        //var_dump($this->elements);die;
 
 
 
-        //exit;
+       // exit;
 
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
@@ -322,154 +322,6 @@ class M_MCH_Survey extends MY_Model
 
 
     }
-     //close addMchGuidelinesAvailabilityInfo
-    private function addMchHealthQuestion(){
-        $count = $finalCount = 1;
-        foreach ($this->input->post() as $key => $val) {
-        	//print_r($this->input->post());die;
-            //For every posted values
-            if (strpos($key, 'mchH') !== FALSE) {
-                //select data for health service question
-                //we separate the attribute name from the number
-                $this->frags = explode("_", $key);
-                //$this->id = $this->frags[1];  // the id
-
-                $this->id = $count;
-
-                // the id
-
-                $this->attr = $this->frags[0];
-                //the attribute name
-
-                //print $key.' ='.$val.' <br />';
-                //print 'ids: '.$this->id.'<br />';
-                if (is_array($val)) {
-                    $val = implode(',', $val);
-                }
-
-                //mark the end of 1 row...for record count
-                if ($this->attr == "mchHealthServiceQCode") {
-                    // print 'count at:'.$count.'<br />';
-
-                    $finalCount = $count;
-                    $count++;
-
-                    // print 'count at:'.$count.'<br />';
-                    //print 'final count at:'.$finalCount.'<br />';
-                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
-
-                }
-
-                //collect key and value to an array
-                if (!empty($val)) {
-
-                    //We then store the value of this attribute for this element.
-                    $this->elements[$this->id][$this->attr] = htmlentities($val);
-
-                    //$this->elements[$this->attr]=htmlentities($val);
-
-                } else {
-                    $this->elements[$this->id][$this->attr] = '';
-
-                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
-
-                }
-            }
-        }
-         //close foreach ($this -> input -> post() as $key => $val)
-       //print_r($this->elements);die;
-
-        //exit;
-
-        //get the highest value of the array that will control the number of inserts to be done
-        $this->noOfInsertsBatch = $finalCount;
-
-        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
-
-            //go ahead and persist data posted
-            $this->theForm = new \models\Entities\LogQuestions();
-
-            //create an object of the model
-
-            //$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-
-            //check if that key exists, else set it to some default value
-
-
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['mchHealthServiceResponse']);
-
-
-
-            (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
-            (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
-            (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['mchHealthServiceQCode']);
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLqCreated(new DateTime());
-
-            /*timestamp option*/
-            $this->em->persist($this->theForm);
-
-            //now do a batched insert, default at 5
-            $this->batchSize = 5;
-            if ($i % $this->batchSize == 0) {
-                try {
-
-                    $this->em->flush();
-                    $this->em->clear();
-
-                    //detaches all objects from doctrine
-                    //return true;
-
-                }
-                catch(Exception $ex) {
-
-                    die($ex->getMessage());
-                    return false;
-
-                    /*display user friendly message*/
-                }
-                 //end of catch
-
-
-            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
-
-                //total records less than a batch, insert all of them
-                try {
-
-                    $this->em->flush();
-                    $this->em->clear();
-
-                    //detactes all objects from doctrine
-                    //return true;
-
-                }
-                catch(Exception $ex) {
-
-                    die($ex->getMessage());
-                    return false;
-
-                    /*display user friendly message*/
-                }
-                 //end of catch
-
-                //on the last record to be inserted, log the process and return true;
-                if ($i == $this->noOfInsertsBatch) {
-
-                    //die(print $i);
-                    // $this->writeAssessmentTrackerLog();
-                    return true;
-                }
-            }
-
-            //end of batch condition
-
-        }
-         //end of innner loop
-
-    }
-     //close addMchHealthServiceQuestion
 
      private function addMchCommunityStrategyInfo() {
 
@@ -538,16 +390,13 @@ class M_MCH_Survey extends MY_Model
             //go ahead and persist data posted
             $this->theForm = new \models\Entities\CommunityStrategies();
 
-            //create an object of the model
-
-            $this->theForm->setStrategyCode('questionCode');
-             //$this -> elements[$i]['mchCommunityStrategyQCode']);
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-
-            //check if that key exists, else set it to some default value
+           	//check if that key exists, else set it to some default value
             (isset($this->elements[$i]['mchCommunityStrategy']) && $this->elements[$i]['mchCommunityStrategy'] != '') ? $this->theForm->setCsResponse($this->elements[$i]['mchCommunityStrategy']) : $this->theForm->setCsResponse(-1);
-            $this->theForm->setCsCreated(new DateTime());
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->theForm->setStrategyCode('mchCommunityStrategyQCode');
+			$this->theForm->setStrategyCode($this->elements[$i]['mchCommunityStrategyQCode']);
+			$this->theForm->setCsCreated(new DateTime());
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+			$this->theForm->setSsId((int)$this->session->userdata('survey_status'));
 
             /*timestamp option*/
             $this->em->persist($this->theForm);
@@ -1414,14 +1263,30 @@ class M_MCH_Survey extends MY_Model
 
     private function addMCHIndicatorInfo() {
          $count = $finalCount = 1;
-         // print_r($this->input->post());die;
+        $indicatorsymptom = $this->input->post('indicatormchsymptom');
+        $count = 0;
+        foreach ($indicatorsymptom as $key => $value) {
+            $responselist[$count] = $value;
+            $count++;
+        }
+        for ($i = 0; $i < count($responselist); $i++){
+            if (is_array($responselist[$i])){
+                $responselist[$i] = implode($responselist[$i], ',');
+            }
+        }
+
+        $finallist = implode($responselist, ',');
+
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
             if (strpos($key, 'indicator') !== FALSE) {
                  //select data for bemonc signal functions
                 //we separate the attribute name from the number
 
+                //print_r($indicatorsymptom);
                 $this->frags = explode("_", $key);
+
+                //print_r($this->frags);
 
                 //$this->id = $this->frags[1];  // the id
 
@@ -1458,6 +1323,7 @@ class M_MCH_Survey extends MY_Model
 
                     //We then store the value of this attribute for this element.
                     $this->elements[$this->id][$this->attr] = htmlentities($val);
+                    $this->elements[$this->id]['symptomlist'] = $finallist;
 
                     //$this->elements[$this->attr]=htmlentities($val);
 
@@ -1491,6 +1357,7 @@ class M_MCH_Survey extends MY_Model
             (isset($this->elements[$i]['indicatorhcwFindings'])) ? $this->theForm->setLiHcwFindings($this->elements[$i]['indicatorhcwFindings']) : $this->theForm->setLiHcwFindings("N/A");
             (isset($this->elements[$i]['indicatorassessorResponse'])) ? $this->theForm->setLiAssessorresponse($this->elements[$i]['indicatorassessorResponse']) : $this->theForm->setLiAssessorresponse("N/A");
             (isset($this->elements[$i]['indicatorassessorFindings'])) ? $this->theForm->setLiAssessorfindings($this->elements[$i]['indicatorassessorFindings']) : $this->theForm->setLiAssessorfindings("N/A");
+            (isset($this->elements[$i]['symptomlist'])) ? $this->theForm->setLiTreatments($this->elements[$i]['symptomlist']) : $this->theForm->setLiTreatments("N/A");
             $this->theForm->setIndicatorCode($this->elements[$i]['indicatorCode']);
             $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
             $this->theForm->setLiCreated(new DateTime());
@@ -1513,7 +1380,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -1535,7 +1402,7 @@ class M_MCH_Survey extends MY_Model
                 }
                 catch(Exception $ex) {
 
-                    //die($ex->getMessage());
+                    die($ex->getMessage());
                     return false;
 
                     /*display user friendly message*/
@@ -1555,8 +1422,153 @@ class M_MCH_Survey extends MY_Model
 
         }
          //end of innner loop
-return true;
 
+        return true;
+    }
+     //close addMCHIndicatorInfo
+        private function addmchConsultationQuestions() {
+        $count = $finalCount = 1;
+        foreach ($this->input->post() as $key => $val) {
+        	//For every posted values
+            if (strpos($key, 'mchC') !== FALSE) {
+                //select data for bemonc signal functions
+                //we separate the attribute name from the number
+                $this->frags = explode("_", $key);
+
+                //$this->id = $this->frags[1];  // the id
+
+                $this->id = $count;
+
+                // the id
+
+                $this->attr = $this->frags[0];
+
+                //the attribute name
+
+                //print $key.' ='.$val.' <br />';
+                //print 'ids: '.$this->id.'<br />';
+                if (is_array($val)) {
+                    $val = implode(',', $val);
+                }
+
+                //mark the end of 1 row...for record count
+                if ($this->attr == "mchConsultationQCode") {
+
+                    // print 'count at:'.$count.'<br />';
+
+                    $finalCount = $count;
+                    $count++;
+
+                    // print 'count at:'.$count.'<br />';
+                    //print 'final count at:'.$finalCount.'<br />';
+                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
+
+                }
+
+                //collect key and value to an array
+                if (!empty($val)) {
+
+                    //We then store the value of this attribute for this element.
+                    $this->elements[$this->id][$this->attr] = htmlentities($val);
+
+                    //$this->elements[$this->attr]=htmlentities($val);
+
+                } else {
+                    $this->elements[$this->id][$this->attr] = '';
+
+                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
+
+                }
+            }
+        }
+         //close foreach ($this -> input -> post() as $key => $val)
+        //print_r($this->elements);die;
+
+        //exit;
+
+        //get the highest value of the array that will control the number of inserts to be done
+        $this->noOfInsertsBatch = $finalCount;
+
+        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
+
+            //go ahead and persist data posted
+            $this->theForm = new \models\Entities\LogQuestions();
+
+            //create an object of the model
+
+            //$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
+            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
+
+            //check if that key exists, else set it to some default value
+
+            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['mchConsultationResponse']);
+
+            (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
+            (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
+            (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
+            $this->theForm->setQuestionCode($this->elements[$i]['mchConsultationQCode']);
+            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
+            $this->theForm->setLqCreated(new DateTime());
+
+            /*timestamp option*/
+            $this->em->persist($this->theForm);
+
+            //now do a batched insert, default at 5
+            $this->batchSize = 5;
+            if ($i % $this->batchSize == 0) {
+                try {
+
+                    $this->em->flush();
+                    $this->em->clear();
+
+                    //detaches all objects from doctrine
+                    //return true;
+
+                }
+                catch(Exception $ex) {
+
+                    die($ex->getMessage());
+                    return false;
+
+                    /*display user friendly message*/
+                }
+                 //end of catch
+
+
+            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
+
+                //total records less than a batch, insert all of them
+                try {
+
+                    $this->em->flush();
+                    $this->em->clear();
+
+                    //detactes all objects from doctrine
+                    //return true;
+
+                }
+                catch(Exception $ex) {
+
+                    die($ex->getMessage());
+                    return false;
+
+                    /*display user friendly message*/
+                }
+                 //end of catch
+
+                //on the last record to be inserted, log the process and return true;
+                if ($i == $this->noOfInsertsBatch) {
+
+                    //die(print $i);
+                    // $this->writeAssessmentTrackerLog();
+                    return true;
+                }
+            }
+
+            //end of batch condition
+
+        }
+         //end of innner loop
 
     }
      //close addMchGuidelinesAvailabilityInfo
@@ -1590,7 +1602,6 @@ return true;
         }
         //die;
          //close foreach ($this -> input -> post() as $key => $val)
-       //print_r($this->elements);die;
         //exit;
         //echo $count;
         //get the highest value of the array that will control the number of inserts to be done
@@ -1600,9 +1611,10 @@ return true;
 
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
 
-            echo 'Done'.$i;
+            //echo 'Done '.$i;
 
             $this->theForm = new \models\Entities\LogTreatments();
+
 
             //create an object of the model
 
@@ -1670,9 +1682,9 @@ return true;
                  //end of catch
 
                 //on the last record to be inserted, log the process and return true;
-                echo $i;if ($i == $this->noOfInsertsBatch) {
+                if ($i == $this->noOfInsertsBatch) {
 
-                    die(print $i);
+                    //die(print . $i);
                     // $this->writeAssessmentTrackerLog();
                     return true;
                 }
@@ -1682,8 +1694,6 @@ return true;
 
         }
          //end of innner loop
-
-
     }
      //close addTotalMCHTreatment
      private function addDiarrhoeaCasesByMonthInfo() {
@@ -2119,164 +2129,7 @@ return true;
 
     }
      //close addMchOrtConerAssessmentInfo
-     private function addIndicatorInfo() {
-        //var_dump($this->input->post());die;
-        //print_r($treat);die;
-
-        $count = $finalCount = 1;
-        foreach ($this->input->post() as $key => $val) {
-             //For every posted values
-            if (strpos($key, 'question') !== FALSE) {
-                 //select data for bemonc signal functions
-                //we separate the attribute name from the number
-
-                $this->frags = explode("_", $key);
-
-                //$this->id = $this->frags[1];  // the id
-
-                $this->id = $count;
-
-                // the id
-
-                $this->attr = $this->frags[0];
-
-                //the attribute name
-
-                //print $key.' ='.$val.' <br />';
-                //print 'ids: '.$this->id.'<br />';
-                if (is_array($val)) {
-                    $val = implode(',', $val);
-                }
-
-                //mark the end of 1 row...for record count
-                if ($this->attr == "questionCode") {
-
-                    // print 'count at:'.$count.'<br />';
-
-                    $finalCount = $count;
-                    $count++;
-
-                    // print 'count at:'.$count.'<br />';
-                    //print 'final count at:'.$finalCount.'<br />';
-                    //print 'DOM: '.$key.' Attr: '.$this->attr.' val='.$val.' id='.$this->id.' <br />';
-
-                }
-
-                //collect key and value to an array
-                if (!empty($val)) {
-
-                    //We then store the value of this attribute for this element.
-                    $this->elements[$this->id][$this->attr] = htmlentities($val);
-
-                    //$this->elements[$this->attr]=htmlentities($val);
-
-                } else {
-                    $this->elements[$this->id][$this->attr] = '';
-
-                    //$this->element=array('id'=>$this->id,'name'=>$this->attr,'value'=>'');
-
-                }
-            }
-        }
-         //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
-
-        //exit;
-
-        //get the highest value of the array that will control the number of inserts to be done
-        $this->noOfInsertsBatch = $finalCount;
-
-        for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
-
-            //go ahead and persist data posted
-            $this->theForm = new \models\Entities\LogQuestions();
-
-            //create an object of the model
-
-            //$this -> theForm -> setIdMCHQuestionLog($this->elements[$i]['ortcAspectCode']);
-            $this->theForm->setFacMfl($this->session->userdata('facilityMFL'));
-
-            //check if that key exists, else set it to some default value
-
-            (array_key_exists('questionLocResponse', $this->elements[$i])) ? $this->theForm->setLqResponse($this->elements[$i]['questionLocResponse']) : $this->theForm->setLqResponse($this->elements[$i]['questionResponse']);
-            (array_key_exists('questionCount', $this->elements[$i])) ? $this->theForm->setLqResponseCount($this->elements[$i]['questionCount']) : $this->theForm->setLqResponseCount(-1);
-            (array_key_exists('questionReason', $this->elements[$i])) ? $this->theForm->setLqReason($this->elements[$i]['questionReason']) : $this->theForm->setLqReason('n/a');
-            (array_key_exists('questionSpecified', $this->elements[$i])) ? $this->theForm->setLqSpecifiedOrFollowUp($this->elements[$i]['questionSpecified']) : $this->theForm->setLqSpecifiedOrFollowUp('n/a');
-            $this->theForm->setQuestionCode($this->elements[$i]['questionCode']);
-            $this->theForm->setSsId((int)$this->session->userdata('survey_status'));
-            $this->theForm->setLqCreated(new DateTime());
-
-            /*timestamp option*/
-            $this->em->persist($this->theForm);
-
-            //now do a batched insert, default at 5
-            $this->batchSize = 5;
-            if ($i % $this->batchSize == 0) {
-                try {
-
-                    $this->em->flush();
-                    $this->em->clear();
-
-                    //detaches all objects from doctrine
-                    //return true;
-
-                }
-                catch(Exception $ex) {
-
-                    die($ex->getMessage());
-                    return false;
-
-                    /*display user friendly message*/
-                }
-                 //end of catch
-
-
-            } else if ($i < $this->batchSize || $i > $this->batchSize || $i == $this->noOfInsertsBatch && $this->noOfInsertsBatch - $i < $this->batchSize) {
-
-                //total records less than a batch, insert all of them
-                try {
-
-                    $this->em->flush();
-                    $this->em->clear();
-
-                    //detactes all objects from doctrine
-                    //return true;
-
-                }
-                catch(Exception $ex) {
-
-                    die($ex->getMessage());
-                    return false;
-
-                    /*display user friendly message*/
-                }
-                 //end of catch
-
-                //on the last record to be inserted, log the process and return true;
-                if ($i == $this->noOfInsertsBatch) {
-
-                    //die(print $i);
-                    // $this->writeAssessmentTrackerLog();
-                    return true;
-                }
-            }
-
-            //end of batch condition
-
-        }
-         //end of innner loop
-
-
-    }
-
-     //close addMchOrtConerAssessmentInfo
-
-
-        //end of innner loop
-
-
-
-
+     
 
     private function addEquipmentQuantityAvailabilityInfo() {
         $count = $finalCount = 1;
@@ -3097,9 +2950,9 @@ return true;
            (isset($this->elements[$i]['facilityMchmobile']) && $this->elements[$i]['facilityMchmobile'] != '') ? $this->theForm->setMchInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
            (isset($this->elements[$i]['facilityMchemail']) && $this->elements[$i]['facilityMchemail'] != '') ? $this->theForm->setMchInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
 
-           (isset($this->elements[$i]['facilityMaternityname']) && $this->elements[$i]['facilityMaternityname'] != '') ? $this->theForm->setMaternityInchargeName($this->elements[$i]['facilityMchname']) : $this->theForm->setMchInchargeName('N/A');
-           (isset($this->elements[$i]['facilityMaternitymobile']) && $this->elements[$i]['facilityMaternitymobile'] != '') ? $this->theForm->setMaternityInchargeMobile($this->elements[$i]['facilityMchmobile']) : $this->theForm->setMchInchargeMobile('-1');
-           (isset($this->elements[$i]['facilityMaternityemail']) && $this->elements[$i]['facilityMaternityemail'] != '') ? $this->theForm->setMaternityInchargeEmailaddress($this->elements[$i]['facilityMchemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
+           (isset($this->elements[$i]['facilityMaternityname']) && $this->elements[$i]['facilityMaternityname'] != '') ? $this->theForm->setMaternityInchargeName($this->elements[$i]['facilityMaternityname']) : $this->theForm->setMchInchargeName('N/A');
+           (isset($this->elements[$i]['facilityMaternitymobile']) && $this->elements[$i]['facilityMaternitymobile'] != '') ? $this->theForm->setMaternityInchargeMobile($this->elements[$i]['facilityMaternitymobile']) : $this->theForm->setMchInchargeMobile('-1');
+           (isset($this->elements[$i]['facilityMaternityemail']) && $this->elements[$i]['facilityMaternityemail'] != '') ? $this->theForm->setMaternityInchargeEmailaddress($this->elements[$i]['facilityMaternityemail']) : $this->theForm->setMchInchargeEmailaddress('N/A');
 
            (isset($this->elements[$i]['facilityopdname']) && $this->elements[$i]['facilityopdname'] != '') ? $this->theForm->setOpdInchargeName($this->elements[$i]['facilityopdname']) : $this->theForm->setOpdInchargeName('N/A');
            (isset($this->elements[$i]['facilityopdmobile']) && $this->elements[$i]['facilityopdmobile'] != '') ? $this->theForm->setOpdInchargeMobile($this->elements[$i]['facilityopdmobile']) : $this->theForm->setOpdInchargeMobile('-1');
@@ -3194,19 +3047,11 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
 
-                        if (
-                         /*$this->updateFacilityInfo()	==	true &&*/
-
-
-                       // $this->addMchCommunityStrategyInfo() == true) {
-                        	 $this->addmchConsultationQuestions() == true &&
-                             $this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true){
-
+                        if ($this->addMchAssessorInfo() == true && $this->addMchHRInfo()==true && $this->addMchStaffTrainingInfo()==true && $this->addQuestionsInfo()== true && $this->addmchConsultationQuestions() == true ){
                              //Defined in MY_Model
                             $this->writeAssessmentTrackerLog();
 
@@ -3223,7 +3068,7 @@ return true;
                     //return $this -> response = 'true';
                     break;
 
-                case 'section-2':
+               case 'section-2':
 
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
@@ -3232,14 +3077,8 @@ return true;
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-
-
-                       //if (&& $this->addGuidelinesStaffInfo() == true && $this->addCommodityQuantityAvailabilityInfo() == true && $this->addMCHTreatmentInfo() == true) {
-
-                    // if($this->addTotalMCHTreatment()== true &&  && $this->addQuestionsInfo() == true && $this->addResponseTreatments() == true){
-                    /* && $this->addIndicatorInfo() == true*///(){//( &&  &&  && $this->addIndicatorInfo()== true){
-                        if($this->addMCHIndicatorInfo() ==true && $this->addTotalMCHTreatment()== true && $this->addQuestionsInfo()){
-                             //defined in this model
+                        if($this->addTotalMCHTreatment()== true  && $this->addQuestionsInfo() == true && $this->addMCHIndicatorInfo() == true){
+                            //defined in this model
 
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -3258,12 +3097,11 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
 
-                        if ($this->addIndicatorInfo() == true) {
+                        if ($this->addMCHIndicatorInfo()== true) {
                         	 //defined in this model
 
                             $this->writeAssessmentTrackerLog();
@@ -3282,8 +3120,7 @@ return true;
 
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
-
-                    //print var_dump($this->section);
+;
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
@@ -3307,11 +3144,10 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        if ($this->addAccessChallengesInfo() == true && $this->addMchOrtConerAssessmentInfo() == true ) {
+                        if ($this->addAccessChallengesInfo() == true && $this->addQuestionsInfo() == true ) {
                              //defined in this model ....
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -3319,8 +3155,6 @@ return true;
                             return $this->response = 'false';
                         }
                     } else {
-
-                        //die('Entry exsits');
                         return $this->response = 'true';
                     }
                     break;
@@ -3330,12 +3164,10 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        //if ($this->addMchOrtConerAssessmentInfo() == true && $this->addAccessChallengesInfo() == true) {
-                        	if($this->addEquipmentQuantityAvailabilityInfo()== true){
+                        if($this->addEquipmentQuantityAvailabilityInfo()== true){
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -3348,45 +3180,12 @@ return true;
                         return $this->response = 'true';
                     }
                     break;
-
-
-                case 'section-6':
-
-
-
-                    //check if entry exists
-                    $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
-
-                    // die($this->session->userdata('facilityMFL').':'.$this->session->userdata('survey'));
-                    //print var_dump($this->section);
-
-                    //insert log entry if new, else update the existing one
-                    if ($this->sectionExists == false) {
-                        if ($this->addEquipmentQuantityAvailabilityInfo() == true ) {
-                             //defined in this model
-                            $this->writeAssessmentTrackerLog();
-
-                            //update facility survey status
-                            //$this->markSurveyStatusAsComplete();
-                            return $this->response = 'true';
-                        } else {
-                            return $this->response = 'false';
-                        }
-                    } else {
-
-                        //die('Entry exsits');
-                        //update facility survey status
-                        //$this->markSurveyStatusAsComplete();
-                        return $this->response = 'true';
-                    }
-                    break;
-
+					
                     case 'section-7':
 
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
@@ -3399,7 +3198,6 @@ return true;
                         }
                     } else {
 
-                        //die('Entry exsits');
                         return $this->response = 'true';
                     }
                     break;
@@ -3409,12 +3207,10 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    //print var_dump($this->section);
 
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-                        //if ($this->addMchOrtConerAssessmentInfo() == true && $this->addAccessChallengesInfo() == true) {
-                        	if ($this->addResourceAvailabilityInfo()== true) {
+                        if ($this->addResourceAvailabilityInfo()== true) {
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
                             return $this->response = 'true';
@@ -3423,7 +3219,6 @@ return true;
                         }
                     } else {
 
-                        //die('Entry exsits');
                         return $this->response = 'true';
                     }
                     break;
@@ -3433,13 +3228,9 @@ return true;
                     //check if entry exists
                     $this->section = $this->sectionEntryExists($this->session->userdata('facilityMFL'), $this->input->post('step_name', TRUE), $this->session->userdata('survey'));
 
-                    // die($this->session->userdata('facilityMFL').':'.$this->session->userdata('survey'));
-                    //print var_dump($this->section);
-
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-
-                        if ($this->addMchCommunityStrategyInfo() == true ) {
+                    	if ($this->addMchCommunityStrategyInfo() == true ) {
 
                              //defined in this model
                             $this->writeAssessmentTrackerLog();
