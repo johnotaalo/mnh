@@ -1165,6 +1165,12 @@ WHERE
                     
                     //var_dump($this->dataSet);
                     foreach ($this->dataSet as $value) {
+                        if (array_key_exists('response', $value)) {
+                            $data[$value['indicator_name']][$value['frequency']] = (int)$value['total_response'];
+                        } 
+                    }
+
+                    /*foreach ($this->dataSet as $value) {
                         
                         $indicator = $value['indicator_name'];
                         
@@ -1172,7 +1178,7 @@ WHERE
                         $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
                         
                         $data['categories'] = array_keys($data['response']);
-                    }
+                    }*/
                     $this->dataSet = $data;
                     
                     return $this->dataSet;
@@ -1565,6 +1571,57 @@ ORDER BY oa.question_code ASC";
             }
         }
         
+
+
+        public function getReasonStatistics($criteria, $value, $survey, $survey_category, $for) {
+            $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_reason_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('frequency', $value)) {
+                            $data[$value['question_name']][$value['frequency']] = (int)$value['total_response'];
+                        } 
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    
+                    
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                
+                
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+        }
+
+
         /**
          * [getEquipmentStatistics description]
          * @param  [type] $criteria  [description]
@@ -1640,7 +1697,7 @@ ORDER BY oa.question_code ASC";
                     return null;
                 }
                 
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 
                 
             }
@@ -1956,7 +2013,7 @@ LIMIT 0 , 1000
                             $data[$value['ch_name']][$value['challenge']] = (int)$value['total_response'];
                         }
                     }
-              // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+              //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 //die(var_dump($this->dataSet));
 
             }
@@ -2008,11 +2065,11 @@ LIMIT 0 , 1000
                     echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
-                            $data[$value['eq_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['eq_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['resource_name']][$place]+= (int)$value['total_response'];
 
                             }
                         }

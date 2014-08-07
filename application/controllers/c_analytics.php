@@ -145,7 +145,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => 'Daily Entries', 'data' => $data);
             
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-            $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line', sizeof($category));
+            $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'line');
         }
     }
     
@@ -685,7 +685,7 @@ ORDER BY fac_level;");
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -791,6 +791,44 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey,$survey_category, 'mh', 'location');
     }
     
+     public function getORTReason($criteria, $value, $survey,$survey_category) {
+        $this->getReasonStatistics($criteria, $value, $survey,$survey_category, 'ortf');
+    }
+    
+    /**
+     * [getReasonStatistics description]
+     * @param  [type] $criteria  [description]
+     * @param  [type] $value     [description]
+     * @param  [type] $survey    [description]
+     * @param  [type] $for       [description]
+     * @param  [type] $statistic [description]
+     * @return [type]            [description]
+     */
+    public function getReasonStatistics($criteria, $value, $survey,$survey_category,$for) {
+        $results = $this->m_analytics->getReasonStatistics($criteria, $value, $survey,$survey_category, $for);
+       //echo "<pre>"; print_r($results);echo "</pre>";die;
+        foreach ($results as $key => $result) {
+
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'n/a') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            
+        }
+        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+
     /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
@@ -851,6 +889,7 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
+   
     /**
      * [getResourcesStatistics description]
      * @param  [type] $criteria  [description]
@@ -884,7 +923,7 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
             
-            //echo "<pre>"; print_r($results);echo "</pre>";die;
+            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
             
             
         }
@@ -903,7 +942,7 @@ ORDER BY fac_level;");
 
         $value = urldecode($value);
 
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'hwr', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'hwr', 'availability');
 
     }
     
@@ -918,7 +957,7 @@ ORDER BY fac_level;");
     public function getresourcesFrequencyMnh($criteria, $value, $survey,$survey_category) {
 
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'availability');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
@@ -927,7 +966,7 @@ ORDER BY fac_level;");
     public function getresourcesFrequencyCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
 
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'ort', 'availability');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mhw', 'availability');
 
 
         //echo "<pre>"; print_r($results);echo "</pre>";die;
@@ -958,7 +997,7 @@ ORDER BY fac_level;");
      */
     public function getresourcesLocationMnh($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'location');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mnh', 'location');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
@@ -967,7 +1006,7 @@ ORDER BY fac_level;");
     public function getresourcesLocationCH($criteria, $value, $survey,$survey_category) {
         $value = urldecode($value);
 
-        $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'ort', 'location');
+        $this->getResourcesStatistics($criteria, $value, $survey,$survey_category, 'mhw', 'location');
 
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
@@ -1098,7 +1137,7 @@ ORDER BY fac_level;");
         $newCat[] = 'Metronidazole (Flagyl)';
         $category = $newCat;
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
 
@@ -1125,7 +1164,7 @@ ORDER BY fac_level;");
             $resultArray[] = array('name' => $key, 'data' => $val);
             //echo "<pre>"; print_r($results);echo "</pre>";die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     } 
 
     /**
@@ -1185,8 +1224,7 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        //print_r($resultArray);
-        //die;
+        //print_r($resultArray);die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
@@ -1412,14 +1450,25 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey,$survey_category, $for);
         
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        foreach ($results['response'] as $service) {
-            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
-            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+        foreach ($results as $key => $result) {
+
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'NULL') {
+                    $data[$name][] = (int)$value;
+                }
+            }
         }
-        $category = $results['categories'];
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+        }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     /**
@@ -1512,7 +1561,7 @@ echo $options;
      * @return [type]           [description]
      */
     public function getTools($criteria, $value, $survey,$survey_category) {
-        $this->getIndicatorStatistics($criteria, $value, $survey,$survey_category, $for);
+        $this->getIndicatorStatistics($criteria, $value, $survey,$survey_category, 'tl');
     }
     
     /**
@@ -1693,7 +1742,7 @@ echo $options;
             $monthCounter++;
         }
         $resultArray = array(array('name' => 'Cases', 'data' => $dataArray));
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /*
@@ -1808,7 +1857,7 @@ echo $options;
             unset($finalD);
         }
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -1907,7 +1956,7 @@ echo $options;
         }
         $finalResult = $resultArray;
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     /**
@@ -1922,7 +1971,7 @@ echo $options;
 
         //foreach ($allCounties as $county) {
 
-        $category[] = $value;
+        $category[] = $county;
         $results = $this->m_analytics->getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category);
         
 
@@ -1940,7 +1989,7 @@ echo $options;
             
             
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
 
@@ -1956,12 +2005,12 @@ echo $options;
         $resultArray = array();
         foreach ($results as $value) {
             $data = array();
-            $name =  $value['facilityType'];
+            $name = 'Level  ' . $value['facilityType'];
             $data[] = (int)$value['type_total'];
             $resultArray[] = array('name' => $name, 'data' => $data);
             //echo '<pre>';print_r($resultArray);echo '</pre>';die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 100, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
 
@@ -2051,7 +2100,7 @@ echo $options;
         $category = $county;
         $resultArray[] = array('type' => 'column', 'name' => 'Facilities', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getCountyFacilitiesByOwner($criteria) {
@@ -2066,7 +2115,7 @@ echo $options;
         $resultArray[] = array('type' => 'column', 'name' => 'Facility Owners', 'data' => $facilities);
         $resultArray = json_encode($resultArray);
         
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', sizeof($category));
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
     public function getFacilitiesByDistrictOptions($district, $survey) {
