@@ -1965,14 +1965,14 @@ echo $options;
     /**
      * Get Facility Ownership
      */
-    public function getFacilityOwnerPerCounty($county) {
+    public function getFacilityOwnerPerCounty($criteria, $value,$survey,$survey_category) {
         
         //$allCounties = $this -> m_analytics -> getReportingCounties('ch','mid-term');
         $county = urldecode($county);
         
         //foreach ($allCounties as $county) {
         $category[] = $county;
-        $results = $this->m_analytics->getFacilityOwnerPerCounty($county);
+        $results = $this->m_analytics->getFacilityOwnerPerCounty($criteria, $value,$survey,$survey_category);
         $resultArray = array();
         foreach ($results as $value) {
             $data = array();

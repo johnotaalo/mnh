@@ -36,7 +36,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="facility_owner">
             </div>
         </div>
     </div>
@@ -411,7 +411,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="MNHfacility_owner">
             </div>
         </div>
     </div>
@@ -421,7 +421,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_levels">
+            <div class="chart" id="MNHfacility_levels">
             </div>
         </div>
     </div>
@@ -431,7 +431,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_type"f>
+            <div class="chart" id="MNHfacility_type">
             </div>
         </div>
     </div>

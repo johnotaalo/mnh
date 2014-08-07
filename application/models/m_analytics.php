@@ -2507,7 +2507,7 @@ ORDER BY f.fac_county ASC;";
             $query = "CALL get_ownership_statistics('" . $criteria . "','" . $value . "','" . $survey . "','".$survey_category."');";
             $myData = $this->db->query($query);
             $finalData = $myData->result_array();
-            
+            //echo $this->db->last_query();die;
             //print_r($finalData);die;
             
             return $finalData;
