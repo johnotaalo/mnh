@@ -129,7 +129,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart">
+            <div class="chart" id="challenge">
             </div>
         </div>
     </div>

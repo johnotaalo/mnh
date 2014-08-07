@@ -1165,6 +1165,12 @@ WHERE
                     
                     //var_dump($this->dataSet);
                     foreach ($this->dataSet as $value) {
+                        if (array_key_exists('response', $value)) {
+                            $data[$value['indicator_name']][$value['frequency']] = (int)$value['total_response'];
+                        } 
+                    }
+
+                    /*foreach ($this->dataSet as $value) {
                         
                         $indicator = $value['indicator_name'];
                         
@@ -1172,7 +1178,7 @@ WHERE
                         $data['response'][$indicator][$value['response']] = (int)$value['count(il.li_response)'];
                         
                         $data['categories'] = array_keys($data['response']);
-                    }
+                    }*/
                     $this->dataSet = $data;
                     
                     return $this->dataSet;
@@ -2007,7 +2013,7 @@ LIMIT 0 , 1000
                             $data[$value['ch_name']][$value['challenge']] = (int)$value['total_response'];
                         }
                     }
-              // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+              //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 //die(var_dump($this->dataSet));
 
             }

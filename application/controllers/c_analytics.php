@@ -1224,8 +1224,7 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        //print_r($resultArray);
-        die;
+        //print_r($resultArray);die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
@@ -1451,14 +1450,25 @@ ORDER BY fac_level;");
         $value = urldecode($value);
         $results = $this->m_analytics->getIndicatorStatistics($criteria, $value, $survey,$survey_category, $for);
         
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        foreach ($results['response'] as $service) {
-            $yes[] = (array_key_exists('Yes', $service)) ? $service['Yes'] : 0;
-            $no[] = (array_key_exists('No', $service)) ? $service['No'] : 0;
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+        foreach ($results as $key => $result) {
+
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'NULL') {
+                    $data[$name][] = (int)$value;
+                }
+            }
         }
-        $category = $results['categories'];
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+        }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     /**
@@ -1551,7 +1561,7 @@ echo $options;
      * @return [type]           [description]
      */
     public function getTools($criteria, $value, $survey,$survey_category) {
-        $this->getIndicatorStatistics($criteria, $value, $survey,$survey_category, $for);
+        $this->getIndicatorStatistics($criteria, $value, $survey,$survey_category, 'tl');
     }
     
     /**
