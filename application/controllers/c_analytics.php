@@ -791,6 +791,44 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey,$survey_category, 'mh', 'location');
     }
     
+     public function getORTReason($criteria, $value, $survey,$survey_category) {
+        $this->getReasonStatistics($criteria, $value, $survey,$survey_category, 'ortf');
+    }
+    
+    /**
+     * [getReasonStatistics description]
+     * @param  [type] $criteria  [description]
+     * @param  [type] $value     [description]
+     * @param  [type] $survey    [description]
+     * @param  [type] $for       [description]
+     * @param  [type] $statistic [description]
+     * @return [type]            [description]
+     */
+    public function getReasonStatistics($criteria, $value, $survey,$survey_category,$for) {
+        $results = $this->m_analytics->getReasonStatistics($criteria, $value, $survey,$survey_category, $for);
+       //echo "<pre>"; print_r($results);echo "</pre>";die;
+        foreach ($results as $key => $result) {
+
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'n/a') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            
+        }
+        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+
     /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
@@ -851,6 +889,7 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
+   
     /**
      * [getResourcesStatistics description]
      * @param  [type] $criteria  [description]
