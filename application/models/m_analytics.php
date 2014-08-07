@@ -1691,7 +1691,7 @@ ORDER BY oa.question_code ASC";
                     return null;
                 }
                 
-                echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 
                 
             }
@@ -2056,7 +2056,7 @@ LIMIT 0 , 1000
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
 
-                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
