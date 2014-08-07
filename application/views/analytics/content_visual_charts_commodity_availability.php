@@ -376,6 +376,7 @@
             </div>
         </div>
     </div>
+   </div>
     <!--div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
@@ -453,3 +454,6 @@
         <div id="reporting"></div>
     </div>
 </div>
+
+
+

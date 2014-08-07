@@ -1186,7 +1186,7 @@ ORDER BY fac_level;");
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         //print_r($resultArray);
-        die;
+        //die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
