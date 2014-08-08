@@ -589,7 +589,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart"id="commodity_location">
+            <div class="chart"id="MNHcommodity_location">
             </div>
         </div>
     </div>
