@@ -31,7 +31,7 @@ class M_Analytics extends MY_Model
         /* using CI database active record*/
         try {
             $query = "SELECT 
-                        f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
+                        f.fac_mfl, f.fac_name,f.fac_ownership,f.fac_type,f.fac_level, f.fac_district, f.fac_county
                         FROM
                         assessment_tracker ast
                             JOIN

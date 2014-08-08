@@ -1001,11 +1001,11 @@ ORDER BY fac_level;");
     
     public function getCountyReportingSummary($survey, $survey_category) {
         $results = $this->m_analytics->getCountyReportingSummary($survey, $survey_category);
-        $titles = array('Facility County', 'Facility District', 'Facility');
+       $data['title']=array('Facility MFL','Facility Name','Facility Ownership','Facility Type','Facility Level','Facility District','Facility County');
         
         //echo "<pre>"; print_r($titles);echo "</pre>";
         $data['data'] = $results;
-        $data['title'] = $titles;
+       // $data['title'] = $titles;
         
         $this->loadExcel($data, 'Summary for Counties Reporting for' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category) . $value);
     }
