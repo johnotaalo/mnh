@@ -23,7 +23,7 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 
 </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="facility_owner">
             </div>
         </div>
     </div>
@@ -398,7 +398,7 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 
 </div>
@@ -411,7 +411,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="MNHfacility_owner">
             </div>
         </div>
     </div>
@@ -421,7 +421,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_levels">
+            <div class="chart" id="MNHfacility_levels">
             </div>
         </div>
     </div>
@@ -431,7 +431,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_type"f>
+            <div class="chart" id="MNHfacility_type"f>
             </div>
         </div>
     </div>
@@ -531,7 +531,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="guidelinesMNH">
+            <div class="chart" id="MNHguidelines">
             </div>
         </div>
     </div>
@@ -551,7 +551,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="tools">
+            <div class="chart" id="MNHtools">
             </div>
         </div>
     </div>
@@ -619,7 +619,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart"id="commodity_location">
+            <div class="chart"id="MNHcommodity_location">
             </div>
         </div>
     </div>
