@@ -13,8 +13,8 @@
  * @return {[type]}                  [description]
  */
 function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme) {
-    file_name=container.replace('#','');
-    file_name=file_name.replace('_',' ');
+    file_name = container.replace('#', '');
+    file_name = file_name.replace('_', ' ');
     $('#' + container).highcharts({
         colors: color_scheme,
         /*exporting: {
@@ -62,7 +62,14 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
                 }
+/**
+ * else if(typeof this.point.category != 'undefined' && this.point.category.length>0) {
+                    return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
+                } else{
+ return this.x.name + ' : <b>' + this.y + '</b>';
+                }
+ */
             },
             followPointer: true
 
@@ -78,7 +85,16 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                 dataLabels: {
                     enabled: false
                 },
-                showInLegend: true
+                showInLegend: true,
+                tooltip: {
+                    formatter: function() {
+
+                        return this.series.name + ' : <b>' + this.y + '</b>';
+
+                    }
+
+                },
+                followPointer: true
             },
             bar: {
                 dataLabels: {
@@ -139,8 +155,7 @@ function loadGraph(base_url, function_url, graph_section) {
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
                 runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
-            }
-            else{
+            } else {
                 $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
             }
         },

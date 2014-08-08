@@ -1697,7 +1697,7 @@ ORDER BY oa.question_code ASC";
                     return null;
                 }
                 
-                echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 
                 
             }
@@ -2062,7 +2062,7 @@ LIMIT 0 , 1000
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
 
-                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2507,7 +2507,7 @@ ORDER BY f.fac_county ASC;";
             $query = "CALL get_ownership_statistics('" . $criteria . "','" . $value . "','" . $survey . "','".$survey_category."');";
             $myData = $this->db->query($query);
             $finalData = $myData->result_array();
-            
+            //echo $this->db->last_query();die;
             //print_r($finalData);die;
             
             return $finalData;
