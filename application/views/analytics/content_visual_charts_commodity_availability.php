@@ -435,58 +435,71 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHstaff_training">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHstaff_availability">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training & Retention in CH Unit</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHstaff_retention">
-            </div>
-        </div>
-    </div>
-</div>
+    
 <div class="analytics_row section" data-survey='mnh' id="section-2">
-    <h4>Section 2 : Guidelines, Job Aids and Tools</h4>
+    <h4>Section 2 : Facility Data And Maternal And Neotanal Service Delivery</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data Deliveries</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="MNHguidelines">
+            <div class="chart" id="MNHdeliveries">
+            </div>
+        </div>
+    </div>
+    
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="BEmONC">
+            </div>
+        </div>
+       </div>
+       
+        <div class="portlet md box ">
+           <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>CEmONC</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="CEmONC">
+            </div>
+        </div>
+        </div>
+        <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting C.S</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="Reasons">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Services Offered</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="MNHjob_aids">
+            <div class="chart" id="services">
             </div>
         </div>
+    </div>
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Delivery Preparedness</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="delivery_preparedness">
+            </div>
+        </div>
+    </div>
     </div>
 
     <!--<div class="portlet md box ">
@@ -509,60 +522,77 @@
             </div>
         </div>
     </div>-->
-
-
-
-
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-3">
-    <h4>Section 3 : Assessment</h4>
+    <h4>Section 3 : Guidelines, Job Aid and Tools Availability</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="u5_register">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="treatment_options">
+            <div class="chart" id="guidelinesMNH">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="danger_signs">
+            <div class="chart" id="MNHjob_aids">
             </div>
         </div>
     </div>
-     <div class="portlet box ">
+    <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Tools Availability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="indicator_comparison">
+            <div class="chart" id="tools">
             </div>
         </div>
     </div>
-
-
-
-
 </div>
+
 <div class="analytics_row section" data-survey='mnh' id="section-4">
-    <h4>Section 4 : Commodity </h4>
+    <h4>Section 4: Staff Training</h4>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhStaffAvailability">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Retention</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHstaffRetention">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHStaffTraining">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="analytics_row section" data-survey='mnh' id="section-5">
+    <h4>Section 5 : Commodity Availability </h4>
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability</h6>
@@ -593,105 +623,37 @@
             </div>
         </div>
     </div>
-    <!-- Bundling 
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Availability</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="bundling_availability">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Unavailability</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="bundling_unavailability">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Location</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="bundling_location">
-            </div>
-        </div>
-    </div>-->
-
-</div>
-<div class="analytics_row section" data-survey='mnh' id="section-5">
-    <h4>Section 5 : COMMODITY USAGE</h4>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Availability</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHort_availability">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Location</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHort_location">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons for Non-Functionality</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="MNHort_reason">
-            </div>
-        </div>
-    </div>
-
-
-
 
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-6">
-    <h4>Section 6 :Equipment</h4>
+    <h4>Section 6 : Commodity  Usage</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Consumption</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="equipment_availability">
+            <div class="chart" id="MNHcommodity_consumption">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Functionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Duration Of Unavailability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="equipment_functionality">
+            <div class="chart" id="MNHunavailability">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>What Happened when commodity was Unavailable</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="equipment_location">
+            <div class="chart" id="MNHReason">
             </div>
         </div>
     </div>
@@ -701,24 +663,34 @@
 
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-7">
-    <h4>Section 7 : Supplies</h4>
+    <h4>Section 7 :Equipment Availability and Functionality</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Availability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="MNHsupplies_availability">
+            <div class="chart" id="mnhequipment_availability">
             </div>
         </div>
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Functionality</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="MNHsupplies_location">
+            <div class="chart" id="mnhequipment_functionality">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Location</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhquipment_location">
             </div>
         </div>
     </div>
@@ -728,14 +700,58 @@
 
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-8">
-    <h4>Section 8 : Resources</h4>
+    <h4>Section 8: Supplies</h4>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Availability</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHsupplies_availability">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHsupplies_functionality">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Location</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHsupplies_location">
+            </div>
+        </div>
+    </div>
+	<div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHsupplies_supplier">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="analytics_row section" data-survey='mnh' id="section-9">
+    <h4>Section 9 : Resources</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="resource_availability">
+            <div class="chart" id="mnhresource_availability">
             </div>
         </div>
     </div>
@@ -745,7 +761,37 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="resource_location">
+            <div class="chart" id="mnhresource_location">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Storage</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhresource_storage">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Waste Disposal</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhresource_wasteDisposal">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Main Source</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhresource_mainSource">
             </div>
         </div>
     </div>
@@ -759,51 +805,51 @@
             <div class="chart">
             </div>
         </div>
-    </div>--
+    </div>-->
+
+
+
+
+<!--</div>-->
+<div class="analytics_row section" data-survey='mnh' id="section-10">
+    <h4>Section 10 : Community Strategy</h4>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Community Units</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="community_units">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Referred Cases</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="community_cases">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>IMCI Training</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="imci_trainings">
+            </div>
+        </div>
+    </div>
 
 
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-9">
-    <h4>Section 9 : Community Strategy</h4>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
-        </div>
-        <div class="portlet-body">
 
-            <div class="chart">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>...</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart">
-            </div>
-        </div>
-    </div>
-
-
-
-
-</div>
-
-<div class="analytics_row" data-survey='mnh' id="reporting-parent">
+<!--<div class="analytics_row" data-survey='mnh' id="reporting-parent">
     <div class="portlet box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections</h6>
@@ -826,4 +872,4 @@
         </div>
         <div id="reporting"></div>
     </div>
-</div>
+</div>-->

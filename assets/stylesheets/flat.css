@@ -8693,7 +8693,6 @@ table td {
 /* line 267, ../sass/flat.scss */
 .portlet.box .portlet-title h6 {
   margin-bottom: 0;
-  font-weight: bolder;
   padding: 10px 15px;
   color: #333333;
   background-color: whitesmoke;
@@ -9036,4 +9035,15 @@ ul.sub li.active a {
     box-shadow: 0 -2em #ddd;
     height: 5em;
   }
+}
+
+/* line 574, ../sass/flat.scss */
+.null_message {
+  line-height: 200px;
+  text-align: center;
+  color: crimson;
+}
+/* line 578, ../sass/flat.scss */
+.null_message i {
+  padding-right: 5px;
 }

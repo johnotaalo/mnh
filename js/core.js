@@ -13,17 +13,30 @@
  * @return {[type]}                  [description]
  */
 function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme) {
+    file_name=container.replace('#','');
+    file_name=file_name.replace('_',' ');
     $('#' + container).highcharts({
         colors: color_scheme,
+        /*exporting: {
+            filename: file_name
+        },*/
         chart: {
             zoomType: 'x',
             height: chart_length,
             width: chart_width,
             type: chart_type,
             marginBottom: chart_margin
+            /*events: {
+                load: function () {
+                    var ch = this;
+                    setTimeout(function(){
+                        ch.exportChart();
+                    },1);
+                }
+            }*/
         },
-        title:{
-            text:''
+        title: {
+            text: ''
         },
         xAxis: {
             categories: chart_categories
@@ -37,24 +50,24 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             labels: {
                 overflow: 'justify',
                 style: {
-    'word-break': 'break-all'
-}
+                    'word-break': 'break-all'
+                }
             }
         },
         tooltip: {
             formatter: function() {
-                if(typeof this.series.options.stack !='undefined'){
-                    return  this.series.name +'<i>('+this.series.options.stack+')</i><br/>'+this.point.category+' : <b>'+this.y+'</b>';
-                }
-                else{
-                    return  this.point.category+'<br/>'+this.series.name +' : <b>'+this.y+'</b>';
+                if (typeof this.series.options.stack != 'undefined') {
+                    return this.series.name + '<i>(' + this.series.options.stack + ')</i><br/>' + this.point.category + ' : <b>' + this.y + '</b>';
+                } else {
+                    return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
                 }
 
-    },
-    followPointer: true
+            },
+            followPointer: true
 
         },
+
         plotOptions: {
             series: {
                 stacking: chart_stacking
@@ -117,14 +130,23 @@ function loadGraph(base_url, function_url, graph_section) {
         url: base_url + function_url,
         beforeSend: function(xhr) {
             $(graph_section).empty();
-    $(graph_section).append('<div class="loader" >Loading...</div>');
+            $(graph_section).append('<div class="loader" >Loading...</div>');
         },
         success: function(data) {
             //console.log(data);
             obj = jQuery.parseJSON(data);
             $(graph_section).empty();
-            $(graph_section).append('<div id="' + obj.container + '" ></div>');
-            runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
+            if (obj.chart_series != null && obj.chart_series[0] != null) {
+                $(graph_section).append('<div id="' + obj.container + '" ></div>');
+                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
+            }
+            else{
+                $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
+            }
+        },
+        error: function(xhr) {
+            $(graph_section).empty();
+            $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>Process Interrupted</div>');
         }
     });
 }
@@ -253,9 +275,9 @@ function notify_email(email, message) {
     });
 }
 
-function getCountyData(base_url,county,survey_type,survey_category){
+function getCountyData(base_url, county, survey_type, survey_category) {
     $.ajax({
-        url: base_url+'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
+        url: base_url + 'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
         },
@@ -268,9 +290,9 @@ function getCountyData(base_url,county,survey_type,survey_category){
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
-            $('#not_started .digit').text((parseInt(obj[0].actual)-(parseInt(obj[0].reported)+parseInt(obj[0].unfinished))));
-            url=base_url+'c_analytics/setActive/'+county+'/' + survey_type + '/' + survey_category;
-            $('#load_analytics').attr('data-url',url)
+            $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
+            url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
+            $('#load_analytics').attr('data-url', url)
         }
     });
 }
@@ -305,16 +327,16 @@ function startIntro() {
 }
 $(document).ready(function() {
     //startIntro();
- $('.panel-collapse.collapse.in').parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-down');
+    $('.panel-collapse.collapse.in').parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-down');
     //Handling Collapses
-    $('.panel-collapse').on('show.bs.collapse', function () {
-        $(this).parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-down');
+    $('.panel-collapse').on('show.bs.collapse', function() {
+        $(this).parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-down');
         //$('.panel-collapse collapse in').collapse('hide');
         //$(this).collapse('show');
 
     })
-     $('.panel-collapse').on('hide.bs.collapse', function () {
-        $(this).parent().find('.panel-heading h4 a i').attr('class','fa fa-chevron-right');
+    $('.panel-collapse').on('hide.bs.collapse', function() {
+        $(this).parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-right');
         //$('.panel-collapse collapse in').collapse('hide');
         //$(this).collapse('show');
 

@@ -509,10 +509,10 @@ ORDER BY lq.lq_response ASC";
             
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                echo "<pre>";
-                print_r($this->dataSet);
-                echo "</pre>";
-                die;
+                // echo "<pre>";
+                // print_r($this->dataSet);
+                // echo "</pre>";
+                // die;
             }
         }
         catch(exception $ex) {
@@ -2062,7 +2062,7 @@ LIMIT 0 , 1000
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
 
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2520,6 +2520,34 @@ ORDER BY f.fac_county ASC;";
             try {
                 
                 $query = "CALL get_facility_level('".$criteria."','".$value."','".$survey."','".$survey_category."');";
+                
+                $myData = $this->db->query($query);
+                
+
+                // echo $this->db->last_query();die;
+                
+                $finalData = $myData->result_array();
+
+                
+                //echo $finalData;
+                
+
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //echo($ex -> getMessage());
+                
+                
+            }
+            return $finalData;
+        }
+        function getFacilityTypePerCounty($criteria, $value,$survey,$survey_category) {
+            
+            /*using DQL*/
+            try {
+                
+                $query = "CALL get_facility_type('".$criteria."','".$value."','".$survey."','".$survey_category."');";
                 
                 $myData = $this->db->query($query);
                 
@@ -3770,7 +3798,7 @@ ORDER BY question_code";
                 $queryData->free_result();
                 
                 foreach ($this->dataSet as $value_) {
-
+						//print_r($this->dataSet);die;
                     $question = $this->getQuestionName($value_['question_code']);
 
                     $question = trim($question, 'Does this facility have an updated');
