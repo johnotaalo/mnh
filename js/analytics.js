@@ -70,7 +70,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
             loadFacilities(base_url, district, survey, survey_category);
         }
         variableHandler('national',county,district,facility, survey, survey_category,indicator_type);
-         $('.reporting').load(base_url+'c_analytics/getAllReportedCounties/'+survey+'/'+survey_category);
+        loadProgress(survey,survey_category); 
     });
     $('select#county_select').change(function() {
 
@@ -187,7 +187,20 @@ function loadSurvey(survey) {
         }
     });
 }
+function loadProgress(survey,survey_category) {
 
+    $.ajax({
+        url: base_url + 'c_analytics/getAllReportedCounties/' +survey+'/'+survey_category,
+        beforeSend: function(xhr) {
+            $('.reporting').empty();
+            $('.reporting').append('<div class="loader" >Loading...</div>');
+        },
+        success: function(data) {
+            $('.reporting').empty();
+            $('.reporting').append(data);
+        }
+    });
+}
 function loadIndicatorTypes() {
     $('#indicator_types').load(base_url + 'c_analytics/getIndicatorTypes');
 }

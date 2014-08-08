@@ -306,16 +306,7 @@ margin-bottom:0;
     width: 97%;
     padding: 10px;
 }
-.reporting label, .reportingBar label {
-    vertical-align: top;
-    display: inline-block;
-    width: 40%;
-}
-.reporting .progress, .reportingBar .progress {
-    display: inline-block;
-    width: 55%;
-    margin-bottom: 0;
-}
+
 #countyHeader {
     width: 35%;
 }
@@ -331,10 +322,12 @@ margin-bottom:0;
     border-bottom: 1px solid #ddd;
     label,div{
         display:inline-block;
-        vertical-align: bottom;
+        vertical-align: top;
     }
     label{
         width:40%;
+        line-height: 10px;
+        margin-bottom: 5px;
     }
     .progress{
         margin-bottom:0;

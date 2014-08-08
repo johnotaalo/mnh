@@ -4304,5 +4304,50 @@ WHERE
             catch(exception $e) {
             }
         }
+        public function get_question_raw_data($survey,$survey_category,$question_for){
+            $query = "SELECT 
+    f.fac_mfl,f.fac_name,f.fac_district,f.fac_county
+FROM
+    log_questions lq
+        JOIN
+    questions q ON (lq.question_code = q.question_code
+        AND q.question_for = '".$question_for."')
+        JOIN
+    facilities f ON (lq.fac_mfl = f.fac_mfl)
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_categories sc ON (sc.sc_id = ss.sc_id
+        AND sc.sc_name = '".$survey_category."')
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')
+ORDER BY fac_county,fac_district;";
+            
+            try {
+                $this->dataSet = $this->db->query($query, array($value));
+                $this->dataSet = $this->dataSet->result_array();
+                
+                if ($this->dataSet !== NULL) {
+                    
+                    $size = count($this->dataSet);
+                    $i = 0;
+                    $facilities = array();
+                    foreach ($this->dataSet as $value) {
+                        //$facilities[$value['question_name']][] = array($value['fac_mfl'], $value['fac_name']);
+                    }
+                    //return $facilities;
+                    
+                    //var_dump($this->dataSet);die;
+                    
+                    
+                } else {
+                    return $this->dataSet = null;
+                }
+            }
+            catch(exception $ex) {
+            }
+            return $this->dataSet;
+    }
     }
     

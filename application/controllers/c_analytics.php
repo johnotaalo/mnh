@@ -258,6 +258,17 @@ ORDER BY fac_level;");
         $oneProgress = $this->getReportedCounty($reportingCounty, $county);
         echo ($oneProgress);
     }
+    public function get_question_raw_data($survey, $survey_category, $question_for) {
+        $result = $this->m_analytics->get_question_raw_data($survey, $survey_category, $question_for);
+        $data['title']=array_keys($result[0]);
+        $data['data']=$result;
+        $this->loadExcel($data, 'Question Data' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category));
+
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+        // die;
+    }
     
     /**
      * [getReportedCounty description]
@@ -283,6 +294,10 @@ ORDER BY fac_level;");
          */
         
         switch ($percentage) {
+            case ($percentage == 0):
+                $status = '#fff';
+                break;
+
             case ($percentage < 20):
                 $status = '#e93939';
                 break;
@@ -306,8 +321,14 @@ ORDER BY fac_level;");
             case ($percentage == 100):
                 $status = '#13b00b';
                 break;
+
+            default:
+                $status = '#fff';
+                break;
         }
-        $progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
+        $progress = '<div class="progressRow"><label>' . $countyName . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div><div style="float:right">' . $reported . ' / ' . $actual . '</div></div></div>';
+        
+        //$progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
         return $progress;
         
         //echo($progress);
@@ -997,7 +1018,7 @@ ORDER BY fac_level;");
     public function getSectionsChosen($survey) {
         switch ($survey) {
             case 'mnh':
-                $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality','Supplies','Resources');
+                $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality', 'Supplies', 'Resources');
                 $sections = 8;
                 break;
 
