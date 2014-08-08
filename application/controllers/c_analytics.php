@@ -1240,8 +1240,12 @@ ORDER BY fac_level;");
         $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'hiv');
     }
 
-
-
+	public function getKangarooMotherCare($criteria, $value, $survey,$survey_category) {
+        $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'kang');
+    }
+	public function getNewborn($criteria, $value, $survey,$survey_category) {
+        $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'newb');
+    }
      /**
      * [getORTOne description]
      * @param  [type] $criteria [description]

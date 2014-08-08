@@ -407,11 +407,11 @@
     <h4>Section 1 : Facility Information</h4>
     <div class="portlet md box " >
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Ownership</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="MNHfacility_ownership">
             </div>
         </div>
     </div>
@@ -421,7 +421,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_levels">
+            <div class="chart" id="MNHfacility_levels">
             </div>
         </div>
     </div>
@@ -431,7 +431,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_type"f>
+            <div class="chart" id="MNHfacility_type">
             </div>
         </div>
     </div>
@@ -482,11 +482,31 @@
     </div>
     <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Services Offered</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and Counselling</h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="services">
+            <div class="chart" id="MNHhiv">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>New Born</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHnewborn">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Kangaroo Mother Care</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHkmc">
             </div>
         </div>
     </div>
@@ -531,7 +551,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="guidelinesMNH">
+            <div class="chart" id="MNHguidelines">
             </div>
         </div>
     </div>
@@ -551,7 +571,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="tools">
+            <div class="chart" id="MNHtools">
             </div>
         </div>
     </div>
