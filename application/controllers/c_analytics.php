@@ -260,7 +260,7 @@ ORDER BY fac_level;");
     }
     public function get_question_raw_data($survey, $survey_category, $question_for) {
         $result = $this->m_analytics->get_question_raw_data($survey, $survey_category, $question_for);
-        $data['title']=array_keys($result[0]);
+        $data['title']=array('Facility MFL','Facility Name','Facility District','Facility County')
         $data['data']=$result;
         $this->loadExcel($data, 'Question Data' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category));
 
