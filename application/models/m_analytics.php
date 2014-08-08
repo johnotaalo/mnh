@@ -4306,7 +4306,7 @@ WHERE
         }
         public function get_question_raw_data($survey,$survey_category,$question_for){
             $query = "SELECT 
-    f.fac_mfl,f.fac_name,f.fac_district,f.fac_county
+    f.fac_mfl, f.fac_name,f.fac_ownership,f.fac_type,f.fac_level, f.fac_district, f.fac_county
 FROM
     log_questions lq
         JOIN
