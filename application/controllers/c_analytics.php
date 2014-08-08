@@ -1997,7 +1997,7 @@ echo $options;
 
         //foreach ($allCounties as $county) {
 
-        $category[] = $value;
+        $category[] = $county;
         $results = $this->m_analytics->getFacilityLevelPerCounty($criteria, $value,$survey,$survey_category);
         
 

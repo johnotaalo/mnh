@@ -509,10 +509,10 @@ ORDER BY lq.lq_response ASC";
             
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                echo "<pre>";
-                print_r($this->dataSet);
-                echo "</pre>";
-                die;
+                // echo "<pre>";
+                // print_r($this->dataSet);
+                // echo "</pre>";
+                // die;
             }
         }
         catch(exception $ex) {
@@ -3798,7 +3798,7 @@ ORDER BY question_code";
                 $queryData->free_result();
                 
                 foreach ($this->dataSet as $value_) {
-
+						//print_r($this->dataSet);die;
                     $question = $this->getQuestionName($value_['question_code']);
 
                     $question = trim($question, 'Does this facility have an updated');
