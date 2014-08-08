@@ -2579,7 +2579,7 @@ ORDER BY fac_level;");
         // echo '<pre>';print_r($results);echo '</pre>';die ;
         foreach ($results['categories'] as $cat) {
             $category[] = $cat;
-        }
+        }@
         
         //$categories = $results['categories'];
         $number = $q = $resultArray = $yes = $no = array();

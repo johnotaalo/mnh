@@ -402,7 +402,7 @@
     </div>
 
 </div>
-
+<!-- MNH Analytics Section-->
 <div class="analytics_row section" data-survey='mnh' id="section-1">
     <h4>Section 1 : Facility Information</h4>
     <div class="portlet md box " >
@@ -431,7 +431,27 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="MNHfacility_type"f>
+            <div class="chart" id="MNHfacility_type">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Services</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHservices">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Health Facility Managementt</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHhfm">
             </div>
         </div>
     </div>
@@ -472,11 +492,21 @@
         </div>
         <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting C.S</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting Caesarian Section</h6>
         </div>
         <div class="portlet-body">
 
             <div class="chart" id="Reasons">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and  Counselling</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="MNHhiv">
             </div>
         </div>
     </div>
@@ -690,7 +720,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="mnhquipment_location">
+            <div class="chart" id="mnhequipment_location">
             </div>
         </div>
     </div>
@@ -843,10 +873,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 <!--<div class="analytics_row" data-survey='mnh' id="reporting-parent">
