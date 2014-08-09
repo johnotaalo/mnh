@@ -1799,6 +1799,45 @@ ORDER BY oa.question_code ASC";
             return $data;
         }
         
+		public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_commodity_usage('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                	echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        
+                        
+                    }
+                 } 
+                    
+			}
+                  
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+             }
+            
+            return $data;
+        }
+        
         /**
          * [getSuppliesStatistics description]
          * @param  [type] $criteria  [description]

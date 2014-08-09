@@ -862,6 +862,9 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
+	public function getCommodityUsage($criteria, $value, $survey,$survey_category, $for, $statistic) {
+        $results = $this->m_analytics->getCommodityUsage($criteria, $value, $survey,$survey_category, $for, $statistic);
+	}
     public function getCommodityStatistics($criteria, $value, $survey,$survey_category, $for, $statistic) {
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey,$survey_category, $for, $statistic);
         //echo "<pre>"; print_r($results);echo "</pre>";die;
