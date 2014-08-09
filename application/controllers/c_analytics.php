@@ -260,9 +260,20 @@ ORDER BY fac_level;");
     }
     public function get_question_raw_data($survey, $survey_category, $question_for) {
         $result = $this->m_analytics->get_question_raw_data($survey, $survey_category, $question_for);
-        $data['title']=array('Facility MFL','Facility Name','Facility Ownership','Facility Type','Facility Level','Facility District','Facility County');
+        $data['title']=array('Facility MFL','Facility Name','Facility Ownership','Facility Type','Facility Level','Facility District','Facility County','Response');
         $data['data']=$result;
         $this->loadExcel($data, 'Question Data' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category));
+
+        // echo '<pre>';
+        // print_r($data);
+        // echo '</pre>';
+        // die;
+    }
+    public function get_signal_function_raw_data($survey, $survey_category) {
+        $result = $this->m_analytics->get_signal_function_raw_data($survey, $survey_category);
+        $data['title']=array('Facility MFL','Facility Name','Facility Ownership','Facility Type','Facility Level','Facility District','Facility County','Signal Function','BEMONC Conducted','Challenge');
+        $data['data']=$result;
+        $this->loadExcel($data, 'Signal Function Data' . ' ' . strtoupper($survey) . ' : ' . strtoupper($survey_category));
 
         // echo '<pre>';
         // print_r($data);

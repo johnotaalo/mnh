@@ -4306,7 +4306,7 @@ WHERE
         }
         public function get_question_raw_data($survey,$survey_category,$question_for){
             $query = "SELECT 
-    f.fac_mfl, f.fac_name,f.fac_ownership,f.fac_type,f.fac_level, f.fac_district, f.fac_county
+    f.fac_mfl, f.fac_name,f.fac_ownership,f.fac_type,f.fac_level, f.fac_district, f.fac_county,lq.lq_response
 FROM
     log_questions lq
         JOIN
@@ -4323,6 +4323,51 @@ FROM
     survey_types st ON (st.st_id = ss.st_id
         AND st.st_name = '".$survey."')
 ORDER BY fac_county,fac_district;";
+            
+            try {
+                $this->dataSet = $this->db->query($query, array($value));
+                $this->dataSet = $this->dataSet->result_array();
+                
+                if ($this->dataSet !== NULL) {
+                    
+                    $size = count($this->dataSet);
+                    $i = 0;
+                    $facilities = array();
+                    foreach ($this->dataSet as $value) {
+                        //$facilities[$value['question_name']][] = array($value['fac_mfl'], $value['fac_name']);
+                    }
+                    //return $facilities;
+                    
+                    //var_dump($this->dataSet);die;
+                    
+                    
+                } else {
+                    return $this->dataSet = null;
+                }
+            }
+            catch(exception $ex) {
+            }
+            return $this->dataSet;
+    }
+    public function get_signal_function_raw_data($survey,$survey_category){
+            $query = "SELECT 
+            f.fac_mfl,f.fac_name,f.fac_ownership,f.fac_type,f.fac_level,f.fac_district,f.fac_county,sf.sf_name,bf.bem_conducted,bf.challenge_code
+FROM
+    bemonc_functions bf
+        JOIN
+    signal_functions sf ON bf.sf_code = sf.sf_code
+        JOIN
+    facilities f ON bf.fac_mfl = f.fac_mfl
+        AND f.fac_level != ''
+        JOIN
+    survey_status ss ON ss.fac_id = f.fac_mfl
+        JOIN
+    survey_categories sc ON (sc.sc_id = ss.sc_id
+        AND sc.sc_name = '".$survey_category."')
+        JOIN
+    survey_types st ON (st.st_id = ss.st_id
+        AND st.st_name = '".$survey."')
+ORDER BY fac_county , fac_district , fac_name;";
             
             try {
                 $this->dataSet = $this->db->query($query, array($value));
