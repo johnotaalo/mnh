@@ -1304,9 +1304,19 @@ ORDER BY fac_level;");
     public function getHIV($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'hiv');
     }
-    
-    /**
-     * [getORTOne description]
+
+    public function getCEOC($criteria, $value, $survey, $survey_category) {
+        $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceoc');
+    }
+
+	public function getKangarooMotherCare($criteria, $value, $survey,$survey_category) {
+        $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'kang');
+    }
+	public function getNewborn($criteria, $value, $survey,$survey_category) {
+        $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'newb');
+    }
+     /**
+      * [getORTOne description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
@@ -1422,17 +1432,7 @@ ORDER BY fac_level;");
     public function getJobAids($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'job');
     }
-    
-    /**
-     * [getCEOCQuestion description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
-     */
-    public function getCEOCQuestion($criteria, $value, $survey, $survey_category) {
-        $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceoc');
-    }
+   
     
     /**
      * [getGuidelinesAvailabilityCH description]
@@ -2577,9 +2577,54 @@ ORDER BY fac_level;");
      *      .bemonc
      *      .cemonc
      */
-    public function getSignalFunction($criteria, $value, $survey, $survey_category, $statistic, $function) {
+
+    public function getBemoncQuestion($criteria, $value, $survey, $survey_category){
+         $results = $this->m_analytics->getBemONCQuestion($criteria, $value, $survey, $survey_category);
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        foreach ($results as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        //print_r($resultArray);die;
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+    
+    public function getBemONCReason($criteria, $value, $survey,$survey_category) {
+        $results = $this->m_analytics->getBemONCReason($criteria, $value, $survey,$survey_category);
+        
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+        foreach ($results as $key => $result) {
+            
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'n/a' && $name != '') {
+                    $data[$name][] = (int)$value;
+                }
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+        }
+        
+        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+    }
+
+    public function getSignalFunction($criteria, $value, $survey, $survey_category, $function) {
         $results['conducted'] = array();
-        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $survey_category, $statistic, $function);
+        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $survey_category, $function);
         
         //echo '<pre>';print_r($results);echo '</pre>';die ;
         
@@ -2595,73 +2640,97 @@ ORDER BY fac_level;");
         
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
-    
-    public function getBEMONCReason($criteria, $value, $survey, $survey_category, $statistic, $function) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, $survey_category, 'bemonc', 'reason');
-    }
-    
-    public function getCEOCReason($criteria, $value, $survey, $survey_category, $statistic, $function) {
-        $this->getSignalFunctionReason($criteria, $value, $survey, $survey_category, 'ceoc', 'reason');
-    }
-    
-    public function getSignalFunctionReason($criteria, $value, $survey, $survey_category, $statistic, $function) {
-        $results['reason'] = $results['categories'] = array();
-        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $survey_category, $statistic, $function);
-        
-        // echo '<pre>';print_r($results);echo '</pre>';die ;
-        foreach ($results['categories'] as $cat) {
-            $category[] = $cat;
-        }
-        
-        //$categories = $results['categories'];
-        $number = $q = $resultArray = $yes = $no = array();
-        $counter = 0;
-        
-        switch ($statistic) {
-            case 'bemonc':
-                
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($value as $level => $val) {
-                        $data['Level ' . $level][] = $val;
-                    }
-                    
-                    //$data = array();;
-                    
-                    
-                }
-                $resultArray = array(array('name' => 'Level 1', 'data' => $data['Level 1']), array('name' => 'Level 2', 'data' => $data['Level 2']), array('name' => 'Level 3', 'data' => $data['Level 3']));
-                
-                //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-                break;
 
-            case 'ceoc':
-                foreach ($results['reason'] as $key => $value) {
-                    foreach ($cat as $c) {
-                        if (array_key_exists($c, $value)) {
-                            $numbers[] = $value[$c];
-                        } else {
-                            $numbers[] = 0;
-                        }
-                        $categories[] = $c;
-                    }
-                    $resultArray[] = array('name' => $key, 'data' => $numbers);
-                    $numbers = array();
+     public function getBEMONC($criteria, $value, $survey, $survey_category, $function) {
+        $this->getSignalFunction($criteria, $value, $survey, $survey_category, 'question');
+    }
+    
+    
+    
+    
+    
+    public function getSignalFunctionReason($criteria, $value, $survey, $survey_category, $function) {
+        
+        $results = $this->m_analytics->getSignalFunction($criteria, $value, $survey, $survey_category, $function);
+        
+        //echo '<pre>';print_r($results);echo '</pre>';die ;
+        foreach ($results as $key => $result) {
+            
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $category[] = $key;
+            foreach ($result as $name => $value) {
+                if ($name != 'n/a' && $name="") {
+                    $data[$name][] = (int)$value;
                 }
-                
-                //echo '<pre>';print_r($resultArray);echo '</pre>';die;
-                break;
+            }
+        }
+        foreach ($data as $key => $val) {
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
         }
         
+        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
-    public function getCEMONC($criteria, $value, $survey, $survey_category, $statistic, $function) {
-        $this->getSignalFunction($criteria, $value, $survey, $survey_category, 'ceoc', $function);
-    }
     
-    public function getBEMONC($criteria, $value, $survey, $survey_category, $statistic, $function) {
-        $this->getSignalFunction($criteria, $value, $survey, $survey_category, 'bemonc', 'question');
+    public function getCEOCB($criteria, $value, $survey, $survey_category) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceocx');
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        $count = 0;
+        foreach ($results as $key => $value) {
+            
+            if ($count == 0):
+                $q[] = $key;
+                $yes[] = (int)$value['yes'];
+                $no[] = (int)$value['no'];
+            endif;
+            $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        
+        // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+        
+        
     }
+
+    public function getCEOCA($criteria, $value, $survey, $survey_category) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceocx');
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        $count = 0;
+        foreach ($results as $key => $value) {
+            
+            if ($count == 1):
+                $q[] = $key;
+                $yes[] = (int)$value['yes'];
+                $no[] = (int)$value['no'];
+            endif;
+            $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        
+        // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+        
+        
+    }
+
+
+   
     
     /**
      * Deliveriy Preparedness
