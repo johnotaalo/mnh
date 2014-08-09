@@ -2546,7 +2546,7 @@ ORDER BY fac_level;");
      *      .cemonc
      */
 
-    public function getBemoncQuestion($criteria, $value, $survey, $survey_category){
+    public function getBemONCQuestion($criteria, $value, $survey, $survey_category){
          $results = $this->m_analytics->getBemONCQuestion($criteria, $value, $survey, $survey_category);
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
@@ -2557,7 +2557,7 @@ ORDER BY fac_level;");
             $yes[] = (int)$value['yes'];
             $no[] = (int)$value['no'];
         }
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $resultArray[] = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
         //print_r($resultArray);die;
         $category = $q;
@@ -2609,9 +2609,6 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
-     public function getBEMONC($criteria, $value, $survey, $survey_category, $function) {
-        $this->getSignalFunction($criteria, $value, $survey, $survey_category, 'question');
-    }
     
     
     
@@ -2654,7 +2651,7 @@ ORDER BY fac_level;");
         $count = 0;
         foreach ($results as $key => $value) {
             
-            if ($count == 0):
+            if ($count == 1):
                 $q[] = $key;
                 $yes[] = (int)$value['yes'];
                 $no[] = (int)$value['no'];
@@ -2680,7 +2677,33 @@ ORDER BY fac_level;");
         $count = 0;
         foreach ($results as $key => $value) {
             
-            if ($count == 1):
+            if ($count == 0):
+                $q[] = $key;
+                $yes[] = (int)$value['yes'];
+                $no[] = (int)$value['no'];
+            endif;
+            $count++;
+        }
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        
+        // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
+        
+        
+    }
+
+     public function getCEOCC($criteria, $value, $survey, $survey_category) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceocx');
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        $count = 0;
+        foreach ($results as $key => $value) {
+            
+            if ($count == 2):
                 $q[] = $key;
                 $yes[] = (int)$value['yes'];
                 $no[] = (int)$value['no'];

@@ -3680,10 +3680,11 @@ ORDER BY question_code";
          *      .cemonc
          */
         public function getBemONCQuestion($criteria, $value, $survey,$survey_category){
-           
+           $value = urldecode($value);
+            $newData = array();
+            
             /*using CI Database Active Record*/
-            $value = urldecode($value);
-            $data = array();
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             
             $query = "CALL get_bemonc_question('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "');";
             try {
@@ -3717,10 +3718,11 @@ ORDER BY question_code";
         }
 
         public function getBemONCReason($criteria, $value, $survey,$survey_category){
-           
+           $value = urldecode($value);
+            $newData = array();
+            
             /*using CI Database Active Record*/
-            $value = urldecode($value);
-            $data = array();
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             
             $query = "CALL get_bemonc_reason('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "');";
              try {
@@ -3733,6 +3735,7 @@ ORDER BY question_code";
                 
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('challenge', $value)) {
                             $data[$value['flevel']][$value['challenge']] = (int)$value['total_response'];
@@ -3781,37 +3784,7 @@ ORDER BY question_code";
                                 }
                                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                                 //die(var_dump($this->dataSet));
-                                
-                                
-                            }
-                            catch(exception $ex) {
-                                
-                                //ignore
-                                //die($ex->getMessage());//exit;
-                                
-                                
-                            }
-                            return $data;
-                            break;
 
-                        //case 'reason':
-                             try {
-                $queryData = $this->db->query($query, array($value));
-                $this->dataSet = $queryData->result_array();
-                $queryData->next_result();
-                
-                // Dump the extra resultset.
-                $queryData->free_result();
-                
-                //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
-                    foreach ($this->dataSet as $value) {
-                        if (array_key_exists('challenge', $value)) {
-                            $data[$value['flevel']][$value['challenge']] = (int)$value['total_response'];
-                        } 
-                        }
-                    }
- 
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 
                 
