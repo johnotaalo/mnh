@@ -476,7 +476,7 @@
         </div>
         <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting Caesarian Section</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
         </div>
         <div class="portlet-body">
 

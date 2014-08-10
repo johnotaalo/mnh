@@ -3628,23 +3628,22 @@ ORDER BY question_code";
         /**
          * Deliveries
          */
-        public function getDeliveries($criteria, $value, $survey,$survey_category) {
+        public function getQuestionStatisticsSingle($criteria, $value, $survey,$survey_category,$for) {
             
             /*using CI Database Active Record*/
             $value = urldecode($value);
             $data = array();
             
-            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "',,'" . $survey_category . "','" . $for . "');";
+            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
             
             try {
                 $this->dataSet = $this->db->query($query, array($value));
                 $this->dataSet = $this->dataSet->result_array();
-                foreach ($this->dataSet as $value_) {
-                    $fac_level = $value_['facility_level'];
-                    $yes = $value_['yes_values'];
-                    
-                    //1. collect the categories
-                    $data['drilldown'][$fac_level] = $yes;
+
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                foreach ($this->dataSet as $value) {
+                    $question = $this->getQuestionName($value['question_code']);
+                    $data[$question]=array('yes'=>$value['yes_values'],'no'=>$value['no_values']);
                 }
                 
                 //die(var_dump($this->dataSet));
