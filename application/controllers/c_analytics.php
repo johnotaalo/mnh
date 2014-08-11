@@ -539,7 +539,7 @@ ORDER BY fac_level;");
         $in_facility = $on_duty = $resultsArray = array();
         $results = $this->m_analytics->getStaffRetention($criteria, $value, $survey, $survey_category, $for);
         
-        //echo '<pre>';print_r($results);echo '</pre>'; exit;
+        echo '<pre>';print_r($results);echo '</pre>'; exit;
         $category = array();
         foreach ($results as $guide => $result) {
             $category[] = $guide;

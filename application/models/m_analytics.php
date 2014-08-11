@@ -405,7 +405,7 @@ ORDER BY lq.lq_response ASC";
             $queryData->free_result();
             $category = array();
             
-            //echo '<pre>';print_r($this->dataSet);echo '</pre>';
+            echo '<pre>';print_r($this->dataSet);echo '</pre>';
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
                 foreach ($this->dataSet as $value) {
