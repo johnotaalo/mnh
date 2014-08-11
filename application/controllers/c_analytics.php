@@ -946,7 +946,6 @@ ORDER BY fac_level;");
      */
     public function getHardwareFrequencyMNH($criteria, $value, $survey, $survey_category) {
         
-        $value = urldecode($value);
         
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
     }
@@ -961,7 +960,7 @@ ORDER BY fac_level;");
      */
     public function getresourcesFrequencyMnh($criteria, $value, $survey, $survey_category) {
         
-        $value = urldecode($value);
+        
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'availability');
         
         //echo "<pre>"; print_r($results);echo "</pre>";die;
@@ -969,7 +968,7 @@ ORDER BY fac_level;");
         
     }
     public function getresourcesFrequencyCH($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
+       
         
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'availability');
         
@@ -1270,12 +1269,17 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getHIV($criteria, $value, $survey, $survey_category) {
-        $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'hiv');
+         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'hiv');
+    
     }
 
     public function getCEOC($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceoc');
     }
+    
+   // public function getWaste($criteria, $value, $survey, $survey_category) {
+     //   $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'waste');
+    //}
 
 	public function getKangarooMotherCare($criteria, $value, $survey,$survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey,$survey_category, 'kang');
@@ -1314,6 +1318,34 @@ ORDER BY fac_level;");
         // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
         
         
+    }
+
+    public function getWasteStatistics($criteria, $value, $survey,$survey_category, $for) {
+        $results = $this->m_analytics->getWasteStatistics($criteria, $value, $survey,$survey_category, $for);
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $waste = $inci = $other = $placenta = $burning = array();
+        $count = 0;
+        
+        foreach ($results as $key => $value) {
+            
+            //echo "<pre>";print_r($results);echo "</pre>";die;
+    
+                
+                //var_dump($value);
+                foreach ($value as $waste => $val) {
+                    $getData[] = array(ucwords($waste), (int)$val);
+                }
+           
+        }
+        $category[] = "Question";
+        
+        //echo "<pre>";print_r($gData);echo "</pre>";die;
+        $resultArray[] = array('name' => 'Waste', 'data' => $getData);
+        
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
     
     /**
@@ -1399,6 +1431,7 @@ ORDER BY fac_level;");
      */
     public function getJobAids($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'job');
+
     }
    
     

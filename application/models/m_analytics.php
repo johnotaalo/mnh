@@ -3925,6 +3925,57 @@ ORDER BY question_code";
 
             return $data;
         }
+
+        public function getWasteStatistics($criteria, $value, $survey,$survey_category, $for) {
+
+            /*using CI Database Active Record*/
+            $value = urldecode($value);
+            $data = array();
+
+            $query = "CALL get_waste_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+
+                foreach ($this->dataSet as $value_) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    $question = $this->getQuestionName($value_['question_code']);
+                    
+
+
+                    $waste = $value_['waste_values'];
+                    $placenta = $value_['placenta_values'];
+                    $inci = $value_['inci_values'];
+                    $burning= $value_['burning_values'];
+                    $other = $value_['other_values'];
+
+                    //1. collect the categories
+                    $data[$question]['waste'] = $waste;
+                    $data[$question]['placenta'] = $placenta;
+                    $data[$question]['inci'] = $inci;
+                    $data[$question]['burning'] = $burning;
+                    $data[$question]['other'] = $other;
+                    
+                }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //die(var_dump($this->dataSet));
+
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+
+
+            }
+           // var_dump($data);die;
+
+            return $data;
+        }
         
         /**
          * Community Strategy
