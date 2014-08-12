@@ -106,6 +106,10 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
             // facilityMFL=12864;
             //loadGlobalScript();//renderFacilityInfo(facilityMFL);
 
+            $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
             //so which link was clicked?
             $('.action').on('click',function(){
                 link_id='#'+$(this).find('a').attr('id');
@@ -496,7 +500,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
                     diver.appendChild(txt);
 
-                    
+
                 }
             }// close select treatment
 

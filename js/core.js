@@ -384,5 +384,9 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
+    $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
 
-});
+});});

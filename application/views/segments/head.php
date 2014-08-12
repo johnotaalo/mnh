@@ -24,8 +24,11 @@
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2.css">
+<!--
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.css">
+-->
+<!--<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables/media/css/jquery.dataTables.css">-->
 
 
 
@@ -35,7 +38,7 @@
 =============================-->
 <script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
 <script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
+<!--<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>-->
 <script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
 
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
