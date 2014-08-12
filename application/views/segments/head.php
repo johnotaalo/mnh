@@ -23,8 +23,12 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2.css">
+<!--
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.css">
+-->
+<!--<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables/media/css/jquery.dataTables.css">-->
 
 
 
@@ -32,8 +36,11 @@
 
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
 =============================-->
-<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
-<script src="<?php echo base_url();?>components/jquery/jquery.js"></script>
+<script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
+<script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
+<!--<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>-->
+<script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
+
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
@@ -46,7 +53,7 @@
 <script src="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
+
 <script src="<?php echo base_url();?>assets/bower_components/skrollr/dist//skrollr.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist//skrollr.menu.min.js"></script>
 
@@ -56,7 +63,7 @@
 
 <script src="<?php echo base_url()?>js/highcharts.js"></script>
 <script src="<?php echo base_url()?>js/exporting.js"></script>
-<script src="<?php echo base_url()?>js/Merged-JS.js"></script>
+<!--<script src="<?php echo base_url()?>js/Merged-JS.js"></script>-->
 <script src="<?php echo base_url()?>js/FusionMaps/FusionCharts.js"></script>
 
 
@@ -68,7 +75,7 @@
         var selectClicked2;
         var selectValue2;
         var selectLink;
-        $('.select2').select2();
+        //$('.select2').select2();
         $('.level2').click(function(){
             selectClicked2  = $(this).attr('id');
             selectValue2 = $('#'+selectClicked2).attr('value');

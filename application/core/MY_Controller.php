@@ -256,7 +256,7 @@ class MY_Controller extends CI_Controller
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
 
-        $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
+        $this->data_found = $this->m_analytics->getReportingCounties();
 
         //echo "<pre>";print_r($this->data_found);echo "</pre>";die;
         foreach ($this->data_found as $value) {
