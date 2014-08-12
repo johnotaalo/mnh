@@ -65,7 +65,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
                 }
-/**
+                /**
  * else if(typeof this.point.category != 'undefined' && this.point.category.length>0) {
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
@@ -314,6 +314,31 @@ function getCountyData(base_url, county, survey_type, survey_category) {
         }
     });
 }
+
+
+function loadData(base_url,function_url,value,container,placeholder_text){
+    if(value!==''){
+       ajax_url= base_url + 'c_analytics/' + function_url + '/' + value
+    }
+    else{
+        ajax_url= base_url + 'c_analytics/' + function_url
+    }
+    $.ajax({
+        url: ajax_url ,
+        async:false,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+
+            $(container).empty();
+        },
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            $(container).select2({ placeholder:placeholder_text, data: obj});
+
+        }
+    });
+}
+
 
 function startIntro() {
     var intro = introJs();

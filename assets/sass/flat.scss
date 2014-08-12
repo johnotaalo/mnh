@@ -59,7 +59,7 @@ body{
 }
 .login-container{
     background:#ecf0f1;
-    padding:10% 10%;
+    padding:5% 10%;
     #form-description,#form-login{
         @extend .col-md-6;
     }
@@ -582,4 +582,9 @@ li.selected{
     i{
         padding-right:5px;
     }
+}
+
+//Select
+.select2-container{
+    width:100%;
 }

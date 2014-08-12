@@ -8506,7 +8506,7 @@ body {
 /* line 60, ../sass/flat.scss */
 .login-container {
   background: #ecf0f1;
-  padding: 10% 10%;
+  padding: 5% 10%;
 }
 
 /* line 67, ../sass/flat.scss */
@@ -9048,4 +9048,9 @@ ul.sub li.active a {
 /* line 582, ../sass/flat.scss */
 .null_message i {
   padding-right: 5px;
+}
+
+/* line 588, ../sass/flat.scss */
+.select2-container {
+  width: 100%;
 }

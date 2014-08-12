@@ -2425,7 +2425,7 @@ ORDER BY f.fac_county ASC;";
     /**
      * List of Counties that have reported
      */
-    public function getReportingCounties($survey, $survey_category) {
+    public function getReportingCounties() {
         
         /*using CI Database Active Record*/
         try {
