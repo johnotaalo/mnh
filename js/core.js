@@ -12,7 +12,7 @@
  * @param  {[type]} color_scheme     [description]
  * @return {[type]}                  [description]
  */
-function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme) {
+function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme,chart_label_rotation,chart_legend_floating) {
     file_name = container.replace('#', '');
     file_name = file_name.replace('_', ' ');
     $('#' + container).highcharts({
@@ -39,7 +39,10 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             text: ''
         },
         xAxis: {
-            categories: chart_categories
+            categories: chart_categories,
+            labels: {
+                rotation:chart_label_rotation
+            }
         },
         yAxis: {
             min: 0,
@@ -113,7 +116,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                         return false; // <== returning false will cancel the default action
                     }
                 }
-            }
+            },
         },
         legend: {
             layout: 'horizontal',
@@ -154,7 +157,7 @@ function loadGraph(base_url, function_url, graph_section) {
             $(graph_section).empty();
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
-                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
+                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme,obj.chart_label_rotation,obj.chart_legend_floating);
             } else {
                 $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
             }
