@@ -300,22 +300,13 @@ margin-bottom:0;
     }
 }
 
-#reporting {
+.reporting {
     overflow-y: auto;
     height: 300px;
     width: 97%;
     padding: 10px;
 }
-#reporting label, #reportingBar label {
-    vertical-align: top;
-    display: inline-block;
-    width: 40%;
-}
-#reporting .progress, #reportingBar .progress {
-    display: inline-block;
-    width: 55%;
-    margin-bottom: 0;
-}
+
 #countyHeader {
     width: 35%;
 }
@@ -329,6 +320,19 @@ margin-bottom:0;
 .progressRow {
     padding-top:10px;
     border-bottom: 1px solid #ddd;
+    label,div{
+        display:inline-block;
+        vertical-align: top;
+    }
+    label{
+        width:40%;
+        line-height: 10px;
+        margin-bottom: 5px;
+    }
+    .progress{
+        margin-bottom:0;
+        width:55%;
+    }
 }
 
 #reportingLabel{

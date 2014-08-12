@@ -62,7 +62,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li><a href="">Master Facility List</a></li>
+                        <!--li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> MNH Reporting Facilities (Baseline) <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
                                 <li id="mnh-completed">
@@ -72,7 +73,7 @@
                                     <a href="#"> 2. List of Partially Completed facilities </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li-->
                         <li>
                             <a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
                         </li>

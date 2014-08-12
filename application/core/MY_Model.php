@@ -134,6 +134,20 @@ class  MY_Model  extends  CI_Model {
 		return $this -> commodity;
 	}/*end of getAllCommodityNames*/
 
+	function getCommodityUsageOptions() {
+		/*using DQL*/
+		try {
+			$this -> commodityOptions = $this -> em -> createQuery('SELECT c.cooId, c.cooDescription FROM models\Entities\CommodityOutageOptions c ');
+			
+			$this -> commodityOptions = $this -> commodityOptions -> getResult();
+			//die(var_dump($this->commodity));
+		} catch(exception $ex) {
+			//ignore
+			//$ex->getMessage();
+		}
+		return $this -> commodityOptions;
+	}/*end of getAllCommodityNames*/
+
 	function getAllSupplyNames($surveyName) {
 		/*using DQL*/
 		try {

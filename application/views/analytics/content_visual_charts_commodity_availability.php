@@ -23,7 +23,7 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 
 </div>
@@ -36,7 +36,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="facility_ownership">
+            <div class="chart" id="facility_owner">
             </div>
         </div>
     </div>
@@ -398,11 +398,11 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
-        <div id="reporting"></div>
+        <div class="reporting"></div>
     </div>
 
 </div>
-
+<!-- MNH Analytics Section-->
 <div class="analytics_row section" data-survey='mnh' id="section-1">
     <h4>Section 1 : Facility Information</h4>
     <div class="portlet md box " >
@@ -411,7 +411,9 @@
         </div>
         <div class="portlet-body">
 
+
             <div class="chart" id="MNHfacility_ownership">
+
             </div>
         </div>
     </div>
@@ -432,6 +434,8 @@
         <div class="portlet-body">
 
             <div class="chart" id="MNHfacility_type">
+
+
             </div>
         </div>
     </div>
@@ -472,7 +476,7 @@
         </div>
         <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting C.S</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
         </div>
         <div class="portlet-body">
 
@@ -482,7 +486,9 @@
     </div>
     <div class="portlet md box ">
          <div class="portlet-title">
+
             <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and Counselling</h6>
+
         </div>
         <div class="portlet-body">
 
@@ -639,7 +645,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart"id="commodity_location">
+            <div class="chart"id="MNHcommodity_location">
             </div>
         </div>
     </div>
@@ -710,7 +716,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="mnhquipment_location">
+            <div class="chart" id="mnhequipment_location">
             </div>
         </div>
     </div>
@@ -731,7 +737,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <!--<div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
         </div>
@@ -740,7 +746,7 @@
             <div class="chart" id="MNHsupplies_functionality">
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Location</h6>
@@ -863,10 +869,6 @@
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 <!--<div class="analytics_row" data-survey='mnh' id="reporting-parent">

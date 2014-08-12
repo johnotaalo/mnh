@@ -56,7 +56,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
         loadSurvey(survey);
         console.log(district);
         console.log(survey);
-        variableHandler('national', survey, survey_category,indicator_type);
+        //variableHandler('national', survey, survey_category,indicator_type);
 
     });
     $('select#survey_category').change(function() {
@@ -70,6 +70,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
             loadFacilities(base_url, district, survey, survey_category);
         }
         variableHandler('national',county,district,facility, survey, survey_category,indicator_type);
+        loadProgress(survey,survey_category); 
     });
     $('select#county_select').change(function() {
 
@@ -186,7 +187,20 @@ function loadSurvey(survey) {
         }
     });
 }
+function loadProgress(survey,survey_category) {
 
+    $.ajax({
+        url: base_url + 'c_analytics/getAllReportedCounties/' +survey+'/'+survey_category,
+        beforeSend: function(xhr) {
+            $('.reporting').empty();
+            $('.reporting').append('<div class="loader" >Loading...</div>');
+        },
+        success: function(data) {
+            $('.reporting').empty();
+            $('.reporting').append(data);
+        }
+    });
+}
 function loadIndicatorTypes() {
     $('#indicator_types').load(base_url + 'c_analytics/getIndicatorTypes');
 }
@@ -254,7 +268,7 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     loadGraph(base_url, 'c_analytics/getStaffRetention/' + criteria + '/' + value + '/' + survey +  '/' + survey_category+'/' + survey, '#staff_retention');
 
     //Section 2 CH
-    loadGraph(base_url, 'c_analytics/getGuidelinesAvailabilityCH/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHguidelines');
+    loadGraph(base_url, 'c_analytics/getGuidelinesAvailabilityCH/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#guidelines');
     loadGraph(base_url, 'c_analytics/getJobAIds/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#job_aids');
     loadGraph(base_url, 'c_analytics/getTools/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#tools');
     loadGraph(base_url, 'c_analytics/getChallengeStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#challenge');
@@ -300,20 +314,24 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     
 	//MNH Analytics
 	//Section 1 MNH
+
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHfacility_ownership');
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHfacility_levels');
     loadGraph(base_url, 'c_analytics/getFacilityTypePerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHfacility_type');
     
-	//Section 2 MNH
+
+	//Section 2 MNH 
     loadGraph(base_url, 'c_analytics/getDeliveries/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHdeliveries');
-    loadGraph(base_url, 'c_analytics/getBEMONC/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#BEmONC');
-    loadGraph(base_url, 'c_analytics/getCEMONC/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#CEmONC');
-    loadGraph(base_url, 'c_analytics/getCEOCReason/' + criteria + '/' + value + '/' + survey +  '/' + survey_category+'/' + survey, '#Reasons');
-	loadGraph(base_url, 'c_analytics/getHIV/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHhiv');
+
+    loadGraph(base_url, 'c_analytics/getBemoncQuestion/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#BEmONC');
+    loadGraph(base_url, 'c_analytics/getBemONCReason/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#BEMONCReasons');
+    loadGraph(base_url, 'c_analytics/getCEOC/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#CEmONC');
+    loadGraph(base_url, 'c_analytics/getCEOCReason/' + criteria + '/' + value + '/' + survey +  '/' + survey_category+'/' + survey, '#CEOCReasons');
+
 	loadGraph(base_url, 'c_analytics/getNewborn/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHnewborn');
 	loadGraph(base_url, 'c_analytics/getKangarooMotherCare/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHkmc');
     loadGraph(base_url, 'c_analytics/getDeliveryPreparedness/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#delivery_preparedness');
-    
+    loadGraph(base_url, 'c_analytics/getHIV/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#MNHhiv');
     //Section 3  MNH
     loadGraph(base_url, 'c_analytics/getGuidelinesAvailabilityMNH/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHguidelines');
     loadGraph(base_url, 'c_analytics/getJobAIds/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHjob_aids');
@@ -321,27 +339,30 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     //loadGraph(base_url, 'c_analytics/getChallengeStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#challenge');
 	
 	//Section 4  MNH
-    loadGraph(base_url, 'c_analytics/getTrainedStaff/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhStaffAvailability');
-    loadGraph(base_url, 'c_analytics/getStaffRetention/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHstaffRetention');
-    loadGraph(base_url, 'c_analytics/getStaffAvailability/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHStaffTraining');
+    loadGraph(base_url, 'c_analytics/getTrainedStaff/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+ '/' + survey, '#mnhStaffAvailability');
+    loadGraph(base_url, 'c_analytics/getStaffRetention/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+ '/' + survey, '#MNHstaffRetention');
+    loadGraph(base_url, 'c_analytics/getStaffAvailability/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+ '/' + survey, '#MNHStaffTraining');
     //loadGraph(base_url, 'c_analytics/getChallengeStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#challenge');
 
 	//Sections 5 MNH
+    loadGraph(base_url, 'c_analytics/getCommodityUsage/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey +'/consumption', '#MNHcommodity_consumption');
+    loadGraph(base_url, 'c_analytics/getCommodityUsage/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey +'/unavailability', '#MNHunavailability');
+    loadGraph(base_url, 'c_analytics/getCommodityUsage/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + survey+'/reason', '#MNHReason');
+    
+    //Section 6 MNH
     loadGraph(base_url, 'c_analytics/getMNHCommodityAvailabilityFrequency/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey , '#MNHcommodity_availability');
     loadGraph(base_url, 'c_analytics/getMNHCommodityAvailabilityUnavailability/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey , '#MNHcommodity_unavailability');
     loadGraph(base_url, 'c_analytics/getMNHCommodityAvailabilityLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + survey, '#MNHcommodity_location');
     
-    //Section 6 MNH
-    
     //Section 7 MNH
     loadGraph(base_url, 'c_analytics/getMNHEquipmentFrequency/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey , '#mnhequipment_availability');
     loadGraph(base_url, 'c_analytics/getMNHEquipmentFunctionality/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/' + survey , '#mnhequipment_functionality');
-    loadGraph(base_url, 'c_analytics/getMNHEquipmentLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + survey, '#mnhquipment_location');
+    loadGraph(base_url, 'c_analytics/getMNHEquipmentLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + survey, '#mnhequipment_location');
     
     //Section 8 MNH
     loadGraph(base_url, 'c_analytics/getMNHSuppliesAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#MNHsupplies_availability');
     loadGraph(base_url, 'c_analytics/getMNHSuppliesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#MNHsupplies_location');
-    
+    //loadGraph(base_url, 'c_analytics/getMNHSuppliers/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/', '#MNHsupplies_supplier'); 
     //Section 9 MNH
     loadGraph(base_url, 'c_analytics/getresourcesFrequencyMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_availability');
     loadGraph(base_url, 'c_analytics/getresourcesLocationMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_location');
