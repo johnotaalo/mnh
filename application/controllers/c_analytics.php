@@ -906,7 +906,7 @@ ORDER BY fac_level;");
     public function getResourcesStatistics($criteria, $value, $survey,$survey_category, $for, $statistic) {
         $results = $this->m_analytics->getResourcesStatistics($criteria, $value, $survey,$survey_category, $for, $statistic);
 
-        //sprint_r($results );die;
+        //print_r($results );die;
 
 
         foreach ($results as $key => $result) {
