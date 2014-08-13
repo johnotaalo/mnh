@@ -29,7 +29,7 @@ class C_Auth extends MY_Controller {
 
 
 
-            redirect(base_url().$this -> session -> userdata('survey'). '/assessment', 'refresh');
+            redirect(base_url().'assessment', 'refresh');
             $data['title']='MoH::Data Management Tool';
             $this -> load -> view('survey/index', $this->data);
 

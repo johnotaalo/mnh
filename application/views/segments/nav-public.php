@@ -20,6 +20,13 @@
                         <li>
                             <a href="<?php echo base_url(); ?>">Home</a>
                         </li>
+                        <li>
+                            <a href="<?php echo base_url('takesurvey'); ?>">Take Survey</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url('analytics'); ?>">View Analytics</a>
+                        </li>
+<!--
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Surveys <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
@@ -34,6 +41,8 @@
                                 </li>
                             </ul>
                         </li>
+-->
+<!--
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Analytics <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
@@ -48,6 +57,7 @@
                                 </li>
                             </ul>
                         </li>
+-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Offline Forms <b class="caret"></b> </a>
                             <ul class="dropdown-menu">

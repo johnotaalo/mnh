@@ -254,36 +254,6 @@ class M_MNH_Survey extends MY_Model
         return $this->mnhCeocQuestionsList;
     }
 
-    public function verifyRespondedByDistrict() {
-
-        if ($this->input->post()) {
-
-            //check if a post was made
-
-            //die(var_dump($this->input->post()));
-
-            //Working with an object of the entity
-            try {
-                $this->district = $this->em->getRepository('models\Entities\Districts')->findOneBy(array('districtName' => $this->input->post('district', TRUE), 'districtAccessCode' => md5($this->input->post('usercode', TRUE))));
-
-                if ($this->district) {
-                    return $this->isDistrict = 'true';
-                } else {
-                    return $this->isDistrict = 'false';
-                }
-            }
-            catch(exception $ex) {
-
-                //ignore
-                die($ex->getMessage());
-            }
-        }
-
-        //close the this->input->post
-
-
-    }
-
     /*close verifyRespondedByDistrict*/
 
     public function getFacilitiesByDistrict($district) {
