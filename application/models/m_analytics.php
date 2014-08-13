@@ -1168,7 +1168,7 @@ WHERE
                     foreach ($this->dataSet as $value) {
                     	//echo "<pre>"; print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('response', $value)) {
-                            $data[$value['indicator_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['indicator_name']][$value['response']] = (int)$value['total_response'];
                         }
                     /*foreach ($this->dataSet as $value) {
                         
@@ -1180,11 +1180,11 @@ WHERE
                         $data['categories'] = array_keys($data['response']);
                     }*/
                     $this->dataSet = $data;
-                    return $this->dataSet;
+                    //return $this->dataSet;
 					}
                 }else {
                     
-                    return $this->dataSet = null;
+                    //return $this->dataSet = null;
                 }
                 
                 //die(var_dump($this->dataSet));
@@ -1195,7 +1195,7 @@ WHERE
                 //ignore
                 //die($ex->getMessage());//exit;
                 }
-            //var_dump($data);die;
+            //var_dump($this->dataSet);die;
             return $this->dataSet;
         }
         public function getIndicatorComparison($criteria, $value, $survey, $survey_category, $for) {
@@ -1886,8 +1886,7 @@ ORDER BY oa.question_code ASC";
                         $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
                         $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
                     }else if (array_key_exists('supplier_code', $value)) {
-                        $data[$value['supply_name']]['supplier_code']= (int)$value['total_response'];
-                        //$data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
+                        $data[$value['supply_name']][$value['supplier_code']]= (int)$value['total_response'];
                     }
                 }
                 
@@ -2426,7 +2425,7 @@ ORDER BY f.fac_county ASC;";
     /**
      * List of Counties that have reported
      */
-    public function getReportingCounties($survey, $survey_category) {
+    public function getReportingCounties() {
         
         /*using CI Database Active Record*/
         try {
@@ -3918,6 +3917,7 @@ ORDER BY question_code";
                 //1. collect the categories
                 $data[$question]['yes'] = $yes;
                 $data[$question]['no'] = $no;
+            	
             }
             }
             //die(var_dump($this->dataSet));
@@ -4046,7 +4046,8 @@ ORDER BY question_code";
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             foreach ($this->dataSet as $value_) {
-                $question = $this->getQuestionName($value_['question_code']);
+            	//print_r($this->dataSet);die;
+            	$question = $this->getQuestionName($value_['question_code']);
                 $response = $value_['response'];
                 
                 //1. collect the categories

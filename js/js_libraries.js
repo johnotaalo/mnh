@@ -90,1093 +90,1093 @@
 (function($) {
 
 $.extend($.fn, {
-	// http://docs.jquery.com/Plugins/Validation/validate
-	validate: function( options ) {
+    // http://docs.jquery.com/Plugins/Validation/validate
+    validate: function( options ) {
 
-		// if nothing is selected, return nothing; can't chain anyway
-		if (!this.length) {
-			options && options.debug && window.console && console.warn( "nothing selected, can't validate, returning nothing" );
-			return;
-		}
+        // if nothing is selected, return nothing; can't chain anyway
+        if (!this.length) {
+            options && options.debug && window.console && console.warn( "nothing selected, can't validate, returning nothing" );
+            return;
+        }
 
-		// check if a validator for this form was already created
-		var validator = $.data(this[0], 'validator');
-		if ( validator ) {
-			return validator;
-		}
+        // check if a validator for this form was already created
+        var validator = $.data(this[0], 'validator');
+        if ( validator ) {
+            return validator;
+        }
 
-		// Add novalidate tag if HTML5.
-		this.attr('novalidate', 'novalidate');
+        // Add novalidate tag if HTML5.
+        this.attr('novalidate', 'novalidate');
 
-		validator = new $.validator( options, this[0] );
-		$.data(this[0], 'validator', validator);
+        validator = new $.validator( options, this[0] );
+        $.data(this[0], 'validator', validator);
 
-		if ( validator.settings.onsubmit ) {
+        if ( validator.settings.onsubmit ) {
 
-			var inputsAndButtons = this.find("input, button");
+            var inputsAndButtons = this.find("input, button");
 
-			// allow suppresing validation by adding a cancel class to the submit button
-			inputsAndButtons.filter(".cancel").click(function () {
-				validator.cancelSubmit = true;
-			});
+            // allow suppresing validation by adding a cancel class to the submit button
+            inputsAndButtons.filter(".cancel").click(function () {
+                validator.cancelSubmit = true;
+            });
 
-			// when a submitHandler is used, capture the submitting button
-			if (validator.settings.submitHandler) {
-				inputsAndButtons.filter(":submit").click(function () {
-					validator.submitButton = this;
-				});
-			}
+            // when a submitHandler is used, capture the submitting button
+            if (validator.settings.submitHandler) {
+                inputsAndButtons.filter(":submit").click(function () {
+                    validator.submitButton = this;
+                });
+            }
 
-			// validate the form on submit
-			this.submit( function( event ) {
-				if ( validator.settings.debug )
-					// prevent form submit to be able to see console output
-					event.preventDefault();
+            // validate the form on submit
+            this.submit( function( event ) {
+                if ( validator.settings.debug )
+                    // prevent form submit to be able to see console output
+                    event.preventDefault();
 
-				function handle() {
-					if ( validator.settings.submitHandler ) {
-						if (validator.submitButton) {
-							// insert a hidden input as a replacement for the missing submit button
-							var hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val(validator.submitButton.value).appendTo(validator.currentForm);
-						}
-						validator.settings.submitHandler.call( validator, validator.currentForm );
-						if (validator.submitButton) {
-							// and clean up afterwards; thanks to no-block-scope, hidden can be referenced
-							hidden.remove();
-						}
-						return false;
-					}
-					return true;
-				}
+                function handle() {
+                    if ( validator.settings.submitHandler ) {
+                        if (validator.submitButton) {
+                            // insert a hidden input as a replacement for the missing submit button
+                            var hidden = $("<input type='hidden'/>").attr("name", validator.submitButton.name).val(validator.submitButton.value).appendTo(validator.currentForm);
+                        }
+                        validator.settings.submitHandler.call( validator, validator.currentForm );
+                        if (validator.submitButton) {
+                            // and clean up afterwards; thanks to no-block-scope, hidden can be referenced
+                            hidden.remove();
+                        }
+                        return false;
+                    }
+                    return true;
+                }
 
-				// prevent submit for invalid forms or custom submit handlers
-				if ( validator.cancelSubmit ) {
-					validator.cancelSubmit = false;
-					return handle();
-				}
-				if ( validator.form() ) {
-					if ( validator.pendingRequest ) {
-						validator.formSubmitted = true;
-						return false;
-					}
-					return handle();
-				} else {
-					validator.focusInvalid();
-					return false;
-				}
-			});
-		}
+                // prevent submit for invalid forms or custom submit handlers
+                if ( validator.cancelSubmit ) {
+                    validator.cancelSubmit = false;
+                    return handle();
+                }
+                if ( validator.form() ) {
+                    if ( validator.pendingRequest ) {
+                        validator.formSubmitted = true;
+                        return false;
+                    }
+                    return handle();
+                } else {
+                    validator.focusInvalid();
+                    return false;
+                }
+            });
+        }
 
-		return validator;
-	},
-	// http://docs.jquery.com/Plugins/Validation/valid
-	valid: function() {
+        return validator;
+    },
+    // http://docs.jquery.com/Plugins/Validation/valid
+    valid: function() {
         if ( $(this[0]).is('form')) {
             return this.validate().form();
         } else {
             var valid = true;
             var validator = $(this[0].form).validate();
             this.each(function() {
-				valid &= validator.element(this);
+                valid &= validator.element(this);
             });
             return valid;
         }
     },
-	// attributes: space seperated list of attributes to retrieve and remove
-	removeAttrs: function(attributes) {
-		var result = {},
-			$element = this;
-		$.each(attributes.split(/\s/), function(index, value) {
-			result[value] = $element.attr(value);
-			$element.removeAttr(value);
-		});
-		return result;
-	},
-	// http://docs.jquery.com/Plugins/Validation/rules
-	rules: function(command, argument) {
-		var element = this[0];
+    // attributes: space seperated list of attributes to retrieve and remove
+    removeAttrs: function(attributes) {
+        var result = {},
+            $element = this;
+        $.each(attributes.split(/\s/), function(index, value) {
+            result[value] = $element.attr(value);
+            $element.removeAttr(value);
+        });
+        return result;
+    },
+    // http://docs.jquery.com/Plugins/Validation/rules
+    rules: function(command, argument) {
+        var element = this[0];
 
-		if (command) {
-			var settings = $.data(element.form, 'validator').settings;
-			var staticRules = settings.rules;
-			var existingRules = $.validator.staticRules(element);
-			switch(command) {
-			case "add":
-				$.extend(existingRules, $.validator.normalizeRule(argument));
-				staticRules[element.name] = existingRules;
-				if (argument.messages)
-					settings.messages[element.name] = $.extend( settings.messages[element.name], argument.messages );
-				break;
-			case "remove":
-				if (!argument) {
-					delete staticRules[element.name];
-					return existingRules;
-				}
-				var filtered = {};
-				$.each(argument.split(/\s/), function(index, method) {
-					filtered[method] = existingRules[method];
-					delete existingRules[method];
-				});
-				return filtered;
-			}
-		}
+        if (command) {
+            var settings = $.data(element.form, 'validator').settings;
+            var staticRules = settings.rules;
+            var existingRules = $.validator.staticRules(element);
+            switch(command) {
+            case "add":
+                $.extend(existingRules, $.validator.normalizeRule(argument));
+                staticRules[element.name] = existingRules;
+                if (argument.messages)
+                    settings.messages[element.name] = $.extend( settings.messages[element.name], argument.messages );
+                break;
+            case "remove":
+                if (!argument) {
+                    delete staticRules[element.name];
+                    return existingRules;
+                }
+                var filtered = {};
+                $.each(argument.split(/\s/), function(index, method) {
+                    filtered[method] = existingRules[method];
+                    delete existingRules[method];
+                });
+                return filtered;
+            }
+        }
 
-		var data = $.validator.normalizeRules(
-		$.extend(
-			{},
-			$.validator.metadataRules(element),
-			$.validator.classRules(element),
-			$.validator.attributeRules(element),
-			$.validator.staticRules(element)
-		), element);
+        var data = $.validator.normalizeRules(
+        $.extend(
+            {},
+            $.validator.metadataRules(element),
+            $.validator.classRules(element),
+            $.validator.attributeRules(element),
+            $.validator.staticRules(element)
+        ), element);
 
-		// make sure required is at front
-		if (data.required) {
-			var param = data.required;
-			delete data.required;
-			data = $.extend({required: param}, data);
-		}
+        // make sure required is at front
+        if (data.required) {
+            var param = data.required;
+            delete data.required;
+            data = $.extend({required: param}, data);
+        }
 
-		return data;
-	}
+        return data;
+    }
 });
 
 // Custom selectors
 $.extend($.expr[":"], {
-	// http://docs.jquery.com/Plugins/Validation/blank
-	blank: function(a) {return !$.trim("" + a.value);},
-	// http://docs.jquery.com/Plugins/Validation/filled
-	filled: function(a) {return !!$.trim("" + a.value);},
-	// http://docs.jquery.com/Plugins/Validation/unchecked
-	unchecked: function(a) {return !a.checked;}
+    // http://docs.jquery.com/Plugins/Validation/blank
+    blank: function(a) {return !$.trim("" + a.value);},
+    // http://docs.jquery.com/Plugins/Validation/filled
+    filled: function(a) {return !!$.trim("" + a.value);},
+    // http://docs.jquery.com/Plugins/Validation/unchecked
+    unchecked: function(a) {return !a.checked;}
 });
 
 // constructor for validator
 $.validator = function( options, form ) {
-	this.settings = $.extend( true, {}, $.validator.defaults, options );
-	this.currentForm = form;
-	this.init();
+    this.settings = $.extend( true, {}, $.validator.defaults, options );
+    this.currentForm = form;
+    this.init();
 };
 
 $.validator.format = function(source, params) {
-	if ( arguments.length == 1 )
-		return function() {
-			var args = $.makeArray(arguments);
-			args.unshift(source);
-			return $.validator.format.apply( this, args );
-		};
-	if ( arguments.length > 2 && params.constructor != Array  ) {
-		params = $.makeArray(arguments).slice(1);
-	}
-	if ( params.constructor != Array ) {
-		params = [ params ];
-	}
-	$.each(params, function(i, n) {
-		source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
-	});
-	return source;
+    if ( arguments.length == 1 )
+        return function() {
+            var args = $.makeArray(arguments);
+            args.unshift(source);
+            return $.validator.format.apply( this, args );
+        };
+    if ( arguments.length > 2 && params.constructor != Array  ) {
+        params = $.makeArray(arguments).slice(1);
+    }
+    if ( params.constructor != Array ) {
+        params = [ params ];
+    }
+    $.each(params, function(i, n) {
+        source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
+    });
+    return source;
 };
 
 $.extend($.validator, {
 
-	defaults: {
-		messages: {},
-		groups: {},
-		rules: {},
-		errorClass: "error",
-		validClass: "valid",
-		errorElement: "label",
-		focusInvalid: true,
-		errorContainer: $( [] ),
-		errorLabelContainer: $( [] ),
-		onsubmit: true,
-		ignore: ":hidden",
-		ignoreTitle: false,
-		onfocusin: function(element, event) {
-			this.lastActive = element;
+    defaults: {
+        messages: {},
+        groups: {},
+        rules: {},
+        errorClass: "error",
+        validClass: "valid",
+        errorElement: "label",
+        focusInvalid: true,
+        errorContainer: $( [] ),
+        errorLabelContainer: $( [] ),
+        onsubmit: true,
+        ignore: ":hidden",
+        ignoreTitle: false,
+        onfocusin: function(element, event) {
+            this.lastActive = element;
 
-			// hide error label and remove error class on focus if enabled
-			if ( this.settings.focusCleanup && !this.blockFocusCleanup ) {
-				this.settings.unhighlight && this.settings.unhighlight.call( this, element, this.settings.errorClass, this.settings.validClass );
-				this.addWrapper(this.errorsFor(element)).hide();
-			}
-		},
-		onfocusout: function(element, event) {
-			if ( !this.checkable(element) && (element.name in this.submitted || !this.optional(element)) ) {
-				this.element(element);
-			}
-		},
-		onkeyup: function(element, event) {
-			if ( element.name in this.submitted || element == this.lastElement ) {
-				this.element(element);
-			}
-		},
-		onclick: function(element, event) {
-			// click on selects, radiobuttons and checkboxes
-			if ( element.name in this.submitted )
-				this.element(element);
-			// or option elements, check parent select in that case
-			else if (element.parentNode.name in this.submitted)
-				this.element(element.parentNode);
-		},
-		highlight: function(element, errorClass, validClass) {
-			if (element.type === 'radio') {
-				this.findByName(element.name).addClass(errorClass).removeClass(validClass);
-			} else {
-				$(element).addClass(errorClass).removeClass(validClass);
-			}
-		},
-		unhighlight: function(element, errorClass, validClass) {
-			if (element.type === 'radio') {
-				this.findByName(element.name).removeClass(errorClass).addClass(validClass);
-			} else {
-				$(element).removeClass(errorClass).addClass(validClass);
-			}
-		}
-	},
+            // hide error label and remove error class on focus if enabled
+            if ( this.settings.focusCleanup && !this.blockFocusCleanup ) {
+                this.settings.unhighlight && this.settings.unhighlight.call( this, element, this.settings.errorClass, this.settings.validClass );
+                this.addWrapper(this.errorsFor(element)).hide();
+            }
+        },
+        onfocusout: function(element, event) {
+            if ( !this.checkable(element) && (element.name in this.submitted || !this.optional(element)) ) {
+                this.element(element);
+            }
+        },
+        onkeyup: function(element, event) {
+            if ( element.name in this.submitted || element == this.lastElement ) {
+                this.element(element);
+            }
+        },
+        onclick: function(element, event) {
+            // click on selects, radiobuttons and checkboxes
+            if ( element.name in this.submitted )
+                this.element(element);
+            // or option elements, check parent select in that case
+            else if (element.parentNode.name in this.submitted)
+                this.element(element.parentNode);
+        },
+        highlight: function(element, errorClass, validClass) {
+            if (element.type === 'radio') {
+                this.findByName(element.name).addClass(errorClass).removeClass(validClass);
+            } else {
+                $(element).addClass(errorClass).removeClass(validClass);
+            }
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            if (element.type === 'radio') {
+                this.findByName(element.name).removeClass(errorClass).addClass(validClass);
+            } else {
+                $(element).removeClass(errorClass).addClass(validClass);
+            }
+        }
+    },
 
-	// http://docs.jquery.com/Plugins/Validation/Validator/setDefaults
-	setDefaults: function(settings) {
-		$.extend( $.validator.defaults, settings );
-	},
+    // http://docs.jquery.com/Plugins/Validation/Validator/setDefaults
+    setDefaults: function(settings) {
+        $.extend( $.validator.defaults, settings );
+    },
 
-	messages: {
-		required: "Required field.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Please enter the same value again.",
-		accept: "Please enter a value with a valid extension.",
-		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
-		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
-		range: $.validator.format("Please enter a value between {0} and {1}."),
-		max: $.validator.format("Please enter a value less than or equal to {0}."),
-		min: $.validator.format("Please enter a value greater than or equal to {0}.")
-	},
+    messages: {
+        required: "Required field.",
+        remote: "Please fix this field.",
+        email: "Please enter a valid email address.",
+        url: "Please enter a valid URL.",
+        date: "Please enter a valid date.",
+        dateISO: "Please enter a valid date (ISO).",
+        number: "Please enter a valid number.",
+        digits: "Please enter only digits.",
+        creditcard: "Please enter a valid credit card number.",
+        equalTo: "Please enter the same value again.",
+        accept: "Please enter a value with a valid extension.",
+        maxlength: $.validator.format("Please enter no more than {0} characters."),
+        minlength: $.validator.format("Please enter at least {0} characters."),
+        rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
+        range: $.validator.format("Please enter a value between {0} and {1}."),
+        max: $.validator.format("Please enter a value less than or equal to {0}."),
+        min: $.validator.format("Please enter a value greater than or equal to {0}.")
+    },
 
-	autoCreateRanges: false,
+    autoCreateRanges: false,
 
-	prototype: {
+    prototype: {
 
-		init: function() {
-			this.labelContainer = $(this.settings.errorLabelContainer);
-			this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
-			this.containers = $(this.settings.errorContainer).add( this.settings.errorLabelContainer );
-			this.submitted = {};
-			this.valueCache = {};
-			this.pendingRequest = 0;
-			this.pending = {};
-			this.invalid = {};
-			this.reset();
+        init: function() {
+            this.labelContainer = $(this.settings.errorLabelContainer);
+            this.errorContext = this.labelContainer.length && this.labelContainer || $(this.currentForm);
+            this.containers = $(this.settings.errorContainer).add( this.settings.errorLabelContainer );
+            this.submitted = {};
+            this.valueCache = {};
+            this.pendingRequest = 0;
+            this.pending = {};
+            this.invalid = {};
+            this.reset();
 
-			var groups = (this.groups = {});
-			$.each(this.settings.groups, function(key, value) {
-				$.each(value.split(/\s/), function(index, name) {
-					groups[name] = key;
-				});
-			});
-			var rules = this.settings.rules;
-			$.each(rules, function(key, value) {
-				rules[key] = $.validator.normalizeRule(value);
-			});
+            var groups = (this.groups = {});
+            $.each(this.settings.groups, function(key, value) {
+                $.each(value.split(/\s/), function(index, name) {
+                    groups[name] = key;
+                });
+            });
+            var rules = this.settings.rules;
+            $.each(rules, function(key, value) {
+                rules[key] = $.validator.normalizeRule(value);
+            });
 
-			function delegate(event) {
-				var validator = $.data(this[0].form, "validator"),
-					eventType = "on" + event.type.replace(/^validate/, "");
-				validator.settings[eventType] && validator.settings[eventType].call(validator, this[0], event);
-			}
-			$(this.currentForm)
-			       .validateDelegate("[type='text'], [type='password'], [type='file'], select, textarea, " +
-						"[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
-						"[type='email'], [type='datetime'], [type='date'], [type='month'], " +
-						"[type='week'], [type='time'], [type='datetime-local'], " +
-						"[type='range'], [type='color'] ",
-						"focusin focusout keyup", delegate)
-				.validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
+            function delegate(event) {
+                var validator = $.data(this[0].form, "validator"),
+                    eventType = "on" + event.type.replace(/^validate/, "");
+                validator.settings[eventType] && validator.settings[eventType].call(validator, this[0], event);
+            }
+            $(this.currentForm)
+                   .validateDelegate("[type='text'], [type='password'], [type='file'], select, textarea, " +
+                        "[type='number'], [type='search'] ,[type='tel'], [type='url'], " +
+                        "[type='email'], [type='datetime'], [type='date'], [type='month'], " +
+                        "[type='week'], [type='time'], [type='datetime-local'], " +
+                        "[type='range'], [type='color'] ",
+                        "focusin focusout keyup", delegate)
+                .validateDelegate("[type='radio'], [type='checkbox'], select, option", "click", delegate);
 
-			if (this.settings.invalidHandler)
-				$(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
-		},
+            if (this.settings.invalidHandler)
+                $(this.currentForm).bind("invalid-form.validate", this.settings.invalidHandler);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/form
-		form: function() {
-			this.checkForm();
-			$.extend(this.submitted, this.errorMap);
-			this.invalid = $.extend({}, this.errorMap);
-			if (!this.valid())
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
-			this.showErrors();
-			return this.valid();
-		},
+        // http://docs.jquery.com/Plugins/Validation/Validator/form
+        form: function() {
+            this.checkForm();
+            $.extend(this.submitted, this.errorMap);
+            this.invalid = $.extend({}, this.errorMap);
+            if (!this.valid())
+                $(this.currentForm).triggerHandler("invalid-form", [this]);
+            this.showErrors();
+            return this.valid();
+        },
 
-		checkForm: function() {
-			this.prepareForm();
-			for ( var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++ ) {
-				this.check( elements[i] );
-			}
-			return this.valid();
-		},
+        checkForm: function() {
+            this.prepareForm();
+            for ( var i = 0, elements = (this.currentElements = this.elements()); elements[i]; i++ ) {
+                this.check( elements[i] );
+            }
+            return this.valid();
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/element
-		element: function( element ) {
-			element = this.validationTargetFor( this.clean( element ) );
-			this.lastElement = element;
-			this.prepareElement( element );
-			this.currentElements = $(element);
-			var result = this.check( element );
-			if ( result ) {
-				delete this.invalid[element.name];
-			} else {
-				this.invalid[element.name] = true;
-			}
-			if ( !this.numberOfInvalids() ) {
-				// Hide error containers on last error
-				this.toHide = this.toHide.add( this.containers );
-			}
-			this.showErrors();
-			return result;
-		},
+        // http://docs.jquery.com/Plugins/Validation/Validator/element
+        element: function( element ) {
+            element = this.validationTargetFor( this.clean( element ) );
+            this.lastElement = element;
+            this.prepareElement( element );
+            this.currentElements = $(element);
+            var result = this.check( element );
+            if ( result ) {
+                delete this.invalid[element.name];
+            } else {
+                this.invalid[element.name] = true;
+            }
+            if ( !this.numberOfInvalids() ) {
+                // Hide error containers on last error
+                this.toHide = this.toHide.add( this.containers );
+            }
+            this.showErrors();
+            return result;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/showErrors
-		showErrors: function(errors) {
-			if(errors) {
-				// add items to error list and map
-				$.extend( this.errorMap, errors );
-				this.errorList = [];
-				for ( var name in errors ) {
-					this.errorList.push({
-						message: errors[name],
-						element: this.findByName(name)[0]
-					});
-				}
-				// remove items from success list
-				this.successList = $.grep( this.successList, function(element) {
-					return !(element.name in errors);
-				});
-			}
-			this.settings.showErrors
-				? this.settings.showErrors.call( this, this.errorMap, this.errorList )
-				: this.defaultShowErrors();
-		},
+        // http://docs.jquery.com/Plugins/Validation/Validator/showErrors
+        showErrors: function(errors) {
+            if(errors) {
+                // add items to error list and map
+                $.extend( this.errorMap, errors );
+                this.errorList = [];
+                for ( var name in errors ) {
+                    this.errorList.push({
+                        message: errors[name],
+                        element: this.findByName(name)[0]
+                    });
+                }
+                // remove items from success list
+                this.successList = $.grep( this.successList, function(element) {
+                    return !(element.name in errors);
+                });
+            }
+            this.settings.showErrors
+                ? this.settings.showErrors.call( this, this.errorMap, this.errorList )
+                : this.defaultShowErrors();
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Validator/resetForm
-		resetForm: function() {
-			if ( $.fn.resetForm )
-				$( this.currentForm ).resetForm();
-			this.submitted = {};
-			this.lastElement = null;
-			this.prepareForm();
-			this.hideErrors();
-			this.elements().removeClass( this.settings.errorClass );
-		},
+        // http://docs.jquery.com/Plugins/Validation/Validator/resetForm
+        resetForm: function() {
+            if ( $.fn.resetForm )
+                $( this.currentForm ).resetForm();
+            this.submitted = {};
+            this.lastElement = null;
+            this.prepareForm();
+            this.hideErrors();
+            this.elements().removeClass( this.settings.errorClass );
+        },
 
-		numberOfInvalids: function() {
-			return this.objectLength(this.invalid);
-		},
+        numberOfInvalids: function() {
+            return this.objectLength(this.invalid);
+        },
 
-		objectLength: function( obj ) {
-			var count = 0;
-			for ( var i in obj )
-				count++;
-			return count;
-		},
+        objectLength: function( obj ) {
+            var count = 0;
+            for ( var i in obj )
+                count++;
+            return count;
+        },
 
-		hideErrors: function() {
-			this.addWrapper( this.toHide ).hide();
-		},
+        hideErrors: function() {
+            this.addWrapper( this.toHide ).hide();
+        },
 
-		valid: function() {
-			return this.size() == 0;
-		},
+        valid: function() {
+            return this.size() == 0;
+        },
 
-		size: function() {
-			return this.errorList.length;
-		},
+        size: function() {
+            return this.errorList.length;
+        },
 
-		focusInvalid: function() {
-			if( this.settings.focusInvalid ) {
-				try {
-					$(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
-					.filter(":visible")
-					.focus()
-					// manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
-					.trigger("focusin");
-				} catch(e) {
-					// ignore IE throwing errors when focusing hidden elements
-				}
-			}
-		},
+        focusInvalid: function() {
+            if( this.settings.focusInvalid ) {
+                try {
+                    $(this.findLastActive() || this.errorList.length && this.errorList[0].element || [])
+                    .filter(":visible")
+                    .focus()
+                    // manually trigger focusin event; without it, focusin handler isn't called, findLastActive won't have anything to find
+                    .trigger("focusin");
+                } catch(e) {
+                    // ignore IE throwing errors when focusing hidden elements
+                }
+            }
+        },
 
-		findLastActive: function() {
-			var lastActive = this.lastActive;
-			return lastActive && $.grep(this.errorList, function(n) {
-				return n.element.name == lastActive.name;
-			}).length == 1 && lastActive;
-		},
+        findLastActive: function() {
+            var lastActive = this.lastActive;
+            return lastActive && $.grep(this.errorList, function(n) {
+                return n.element.name == lastActive.name;
+            }).length == 1 && lastActive;
+        },
 
-		elements: function() {
-			var validator = this,
-				rulesCache = {};
+        elements: function() {
+            var validator = this,
+                rulesCache = {};
 
-			// select all valid inputs inside the form (no submit or reset buttons)
-			return $(this.currentForm)
-			.find("input, select, textarea")
-			.not(":submit, :reset, :image, [disabled]")
-			.not( this.settings.ignore )
-			.filter(function() {
-				!this.name && validator.settings.debug && window.console && console.error( "%o has no name assigned", this);
+            // select all valid inputs inside the form (no submit or reset buttons)
+            return $(this.currentForm)
+            .find("input, select, textarea")
+            .not(":submit, :reset, :image, [disabled]")
+            .not( this.settings.ignore )
+            .filter(function() {
+                !this.name && validator.settings.debug && window.console && console.error( "%o has no name assigned", this);
 
-				// select only the first element for each name, and only those with rules specified
-				if ( this.name in rulesCache || !validator.objectLength($(this).rules()) )
-					return false;
+                // select only the first element for each name, and only those with rules specified
+                if ( this.name in rulesCache || !validator.objectLength($(this).rules()) )
+                    return false;
 
-				rulesCache[this.name] = true;
-				return true;
-			});
-		},
+                rulesCache[this.name] = true;
+                return true;
+            });
+        },
 
-		clean: function( selector ) {
-			return $( selector )[0];
-		},
+        clean: function( selector ) {
+            return $( selector )[0];
+        },
 
-		errors: function() {
-			return $( this.settings.errorElement + "." + this.settings.errorClass, this.errorContext );
-		},
+        errors: function() {
+            return $( this.settings.errorElement + "." + this.settings.errorClass, this.errorContext );
+        },
 
-		reset: function() {
-			this.successList = [];
-			this.errorList = [];
-			this.errorMap = {};
-			this.toShow = $([]);
-			this.toHide = $([]);
-			this.currentElements = $([]);
-		},
+        reset: function() {
+            this.successList = [];
+            this.errorList = [];
+            this.errorMap = {};
+            this.toShow = $([]);
+            this.toHide = $([]);
+            this.currentElements = $([]);
+        },
 
-		prepareForm: function() {
-			this.reset();
-			this.toHide = this.errors().add( this.containers );
-		},
+        prepareForm: function() {
+            this.reset();
+            this.toHide = this.errors().add( this.containers );
+        },
 
-		prepareElement: function( element ) {
-			this.reset();
-			this.toHide = this.errorsFor(element);
-		},
+        prepareElement: function( element ) {
+            this.reset();
+            this.toHide = this.errorsFor(element);
+        },
 
-		check: function( element ) {
-			element = this.validationTargetFor( this.clean( element ) );
+        check: function( element ) {
+            element = this.validationTargetFor( this.clean( element ) );
 
-			var rules = $(element).rules();
-			var dependencyMismatch = false;
-			for (var method in rules ) {
-				var rule = { method: method, parameters: rules[method] };
-				try {
-					var result = $.validator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
+            var rules = $(element).rules();
+            var dependencyMismatch = false;
+            for (var method in rules ) {
+                var rule = { method: method, parameters: rules[method] };
+                try {
+                    var result = $.validator.methods[method].call( this, element.value.replace(/\r/g, ""), element, rule.parameters );
 
-					// if a method indicates that the field is optional and therefore valid,
-					// don't mark it as valid when there are no other rules
-					if ( result == "dependency-mismatch" ) {
-						dependencyMismatch = true;
-						continue;
-					}
-					dependencyMismatch = false;
+                    // if a method indicates that the field is optional and therefore valid,
+                    // don't mark it as valid when there are no other rules
+                    if ( result == "dependency-mismatch" ) {
+                        dependencyMismatch = true;
+                        continue;
+                    }
+                    dependencyMismatch = false;
 
-					if ( result == "pending" ) {
-						this.toHide = this.toHide.not( this.errorsFor(element) );
-						return;
-					}
+                    if ( result == "pending" ) {
+                        this.toHide = this.toHide.not( this.errorsFor(element) );
+                        return;
+                    }
 
-					if( !result ) {
-						this.formatAndAdd( element, rule );
-						return false;
-					}
-				} catch(e) {
-					this.settings.debug && window.console && console.log("exception occured when checking element " + element.id
-						 + ", check the '" + rule.method + "' method", e);
-					throw e;
-				}
-			}
-			if (dependencyMismatch)
-				return;
-			if ( this.objectLength(rules) )
-				this.successList.push(element);
-			return true;
-		},
+                    if( !result ) {
+                        this.formatAndAdd( element, rule );
+                        return false;
+                    }
+                } catch(e) {
+                    this.settings.debug && window.console && console.log("exception occured when checking element " + element.id
+                         + ", check the '" + rule.method + "' method", e);
+                    throw e;
+                }
+            }
+            if (dependencyMismatch)
+                return;
+            if ( this.objectLength(rules) )
+                this.successList.push(element);
+            return true;
+        },
 
-		// return the custom message for the given element and validation method
-		// specified in the element's "messages" metadata
-		customMetaMessage: function(element, method) {
-			if (!$.metadata)
-				return;
+        // return the custom message for the given element and validation method
+        // specified in the element's "messages" metadata
+        customMetaMessage: function(element, method) {
+            if (!$.metadata)
+                return;
 
-			var meta = this.settings.meta
-				? $(element).metadata()[this.settings.meta]
-				: $(element).metadata();
+            var meta = this.settings.meta
+                ? $(element).metadata()[this.settings.meta]
+                : $(element).metadata();
 
-			return meta && meta.messages && meta.messages[method];
-		},
+            return meta && meta.messages && meta.messages[method];
+        },
 
-		// return the custom message for the given element name and validation method
-		customMessage: function( name, method ) {
-			var m = this.settings.messages[name];
-			return m && (m.constructor == String
-				? m
-				: m[method]);
-		},
+        // return the custom message for the given element name and validation method
+        customMessage: function( name, method ) {
+            var m = this.settings.messages[name];
+            return m && (m.constructor == String
+                ? m
+                : m[method]);
+        },
 
-		// return the first defined argument, allowing empty strings
-		findDefined: function() {
-			for(var i = 0; i < arguments.length; i++) {
-				if (arguments[i] !== undefined)
-					return arguments[i];
-			}
-			return undefined;
-		},
+        // return the first defined argument, allowing empty strings
+        findDefined: function() {
+            for(var i = 0; i < arguments.length; i++) {
+                if (arguments[i] !== undefined)
+                    return arguments[i];
+            }
+            return undefined;
+        },
 
-		defaultMessage: function( element, method) {
-			return this.findDefined(
-				this.customMessage( element.name, method ),
-				this.customMetaMessage( element, method ),
-				// title is never undefined, so handle empty string as undefined
-				!this.settings.ignoreTitle && element.title || undefined,
-				$.validator.messages[method],
-				"<strong>Warning: No message defined for " + element.name + "</strong>"
-			);
-		},
+        defaultMessage: function( element, method) {
+            return this.findDefined(
+                this.customMessage( element.name, method ),
+                this.customMetaMessage( element, method ),
+                // title is never undefined, so handle empty string as undefined
+                !this.settings.ignoreTitle && element.title || undefined,
+                $.validator.messages[method],
+                "<strong>Warning: No message defined for " + element.name + "</strong>"
+            );
+        },
 
-		formatAndAdd: function( element, rule ) {
-			var message = this.defaultMessage( element, rule.method ),
-				theregex = /\$?\{(\d+)\}/g;
-			if ( typeof message == "function" ) {
-				message = message.call(this, rule.parameters, element);
-			} else if (theregex.test(message)) {
-				message = jQuery.format(message.replace(theregex, '{$1}'), rule.parameters);
-			}
-			this.errorList.push({
-				message: message,
-				element: element
-			});
+        formatAndAdd: function( element, rule ) {
+            var message = this.defaultMessage( element, rule.method ),
+                theregex = /\$?\{(\d+)\}/g;
+            if ( typeof message == "function" ) {
+                message = message.call(this, rule.parameters, element);
+            } else if (theregex.test(message)) {
+                message = jQuery.format(message.replace(theregex, '{$1}'), rule.parameters);
+            }
+            this.errorList.push({
+                message: message,
+                element: element
+            });
 
-			this.errorMap[element.name] = message;
-			this.submitted[element.name] = message;
-		},
+            this.errorMap[element.name] = message;
+            this.submitted[element.name] = message;
+        },
 
-		addWrapper: function(toToggle) {
-			if ( this.settings.wrapper )
-				toToggle = toToggle.add( toToggle.parent( this.settings.wrapper ) );
-			return toToggle;
-		},
+        addWrapper: function(toToggle) {
+            if ( this.settings.wrapper )
+                toToggle = toToggle.add( toToggle.parent( this.settings.wrapper ) );
+            return toToggle;
+        },
 
-		defaultShowErrors: function() {
-			for ( var i = 0; this.errorList[i]; i++ ) {
-				var error = this.errorList[i];
-				this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
-				this.showLabel( error.element, error.message );
-			}
-			if( this.errorList.length ) {
-				this.toShow = this.toShow.add( this.containers );
-			}
-			if (this.settings.success) {
-				for ( var i = 0; this.successList[i]; i++ ) {
-					this.showLabel( this.successList[i] );
-				}
-			}
-			if (this.settings.unhighlight) {
-				for ( var i = 0, elements = this.validElements(); elements[i]; i++ ) {
-					this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.validClass );
-				}
-			}
-			this.toHide = this.toHide.not( this.toShow );
-			this.hideErrors();
-			this.addWrapper( this.toShow ).show();
-		},
+        defaultShowErrors: function() {
+            for ( var i = 0; this.errorList[i]; i++ ) {
+                var error = this.errorList[i];
+                this.settings.highlight && this.settings.highlight.call( this, error.element, this.settings.errorClass, this.settings.validClass );
+                this.showLabel( error.element, error.message );
+            }
+            if( this.errorList.length ) {
+                this.toShow = this.toShow.add( this.containers );
+            }
+            if (this.settings.success) {
+                for ( var i = 0; this.successList[i]; i++ ) {
+                    this.showLabel( this.successList[i] );
+                }
+            }
+            if (this.settings.unhighlight) {
+                for ( var i = 0, elements = this.validElements(); elements[i]; i++ ) {
+                    this.settings.unhighlight.call( this, elements[i], this.settings.errorClass, this.settings.validClass );
+                }
+            }
+            this.toHide = this.toHide.not( this.toShow );
+            this.hideErrors();
+            this.addWrapper( this.toShow ).show();
+        },
 
-		validElements: function() {
-			return this.currentElements.not(this.invalidElements());
-		},
+        validElements: function() {
+            return this.currentElements.not(this.invalidElements());
+        },
 
-		invalidElements: function() {
-			return $(this.errorList).map(function() {
-				return this.element;
-			});
-		},
+        invalidElements: function() {
+            return $(this.errorList).map(function() {
+                return this.element;
+            });
+        },
 
-		showLabel: function(element, message) {
-			var label = this.errorsFor( element );
-			if ( label.length ) {
-				// refresh error/success class
-				label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
+        showLabel: function(element, message) {
+            var label = this.errorsFor( element );
+            if ( label.length ) {
+                // refresh error/success class
+                label.removeClass( this.settings.validClass ).addClass( this.settings.errorClass );
 
-				// check if we have a generated label, replace the message then
-				label.attr("generated") && label.html(message);
-			} else {
-				// create label
-				label = $("<" + this.settings.errorElement + "/>")
-					.attr({"for":  this.idOrName(element), generated: true})
-					.addClass(this.settings.errorClass)
-					.html(message || "");
-				if ( this.settings.wrapper ) {
-					// make sure the element is visible, even in IE
-					// actually showing the wrapped element is handled elsewhere
-					label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
-				}
-				if ( !this.labelContainer.append(label).length )
-					this.settings.errorPlacement
-						? this.settings.errorPlacement(label, $(element) )
-						: label.insertAfter(element);
-			}
-			if ( !message && this.settings.success ) {
-				label.text("");
-				typeof this.settings.success == "string"
-					? label.addClass( this.settings.success )
-					: this.settings.success( label );
-			}
-			this.toShow = this.toShow.add(label);
-		},
+                // check if we have a generated label, replace the message then
+                label.attr("generated") && label.html(message);
+            } else {
+                // create label
+                label = $("<" + this.settings.errorElement + "/>")
+                    .attr({"for":  this.idOrName(element), generated: true})
+                    .addClass(this.settings.errorClass)
+                    .html(message || "");
+                if ( this.settings.wrapper ) {
+                    // make sure the element is visible, even in IE
+                    // actually showing the wrapped element is handled elsewhere
+                    label = label.hide().show().wrap("<" + this.settings.wrapper + "/>").parent();
+                }
+                if ( !this.labelContainer.append(label).length )
+                    this.settings.errorPlacement
+                        ? this.settings.errorPlacement(label, $(element) )
+                        : label.insertAfter(element);
+            }
+            if ( !message && this.settings.success ) {
+                label.text("");
+                typeof this.settings.success == "string"
+                    ? label.addClass( this.settings.success )
+                    : this.settings.success( label );
+            }
+            this.toShow = this.toShow.add(label);
+        },
 
-		errorsFor: function(element) {
-			var name = this.idOrName(element);
+        errorsFor: function(element) {
+            var name = this.idOrName(element);
     		return this.errors().filter(function() {
-				return $(this).attr('for') == name;
-			});
-		},
+                return $(this).attr('for') == name;
+            });
+        },
 
-		idOrName: function(element) {
-			return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
-		},
+        idOrName: function(element) {
+            return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
+        },
 
-		validationTargetFor: function(element) {
-			// if radio/checkbox, validate first element in group instead
-			if (this.checkable(element)) {
-				element = this.findByName( element.name ).not(this.settings.ignore)[0];
-			}
-			return element;
-		},
+        validationTargetFor: function(element) {
+            // if radio/checkbox, validate first element in group instead
+            if (this.checkable(element)) {
+                element = this.findByName( element.name ).not(this.settings.ignore)[0];
+            }
+            return element;
+        },
 
-		checkable: function( element ) {
-			return /radio|checkbox/i.test(element.type);
-		},
+        checkable: function( element ) {
+            return /radio|checkbox/i.test(element.type);
+        },
 
-		findByName: function( name ) {
-			// select by name and filter by form for performance over form.find("[name=...]")
-			var form = this.currentForm;
-			return $(document.getElementsByName(name)).map(function(index, element) {
-				return element.form == form && element.name == name && element  || null;
-			});
-		},
+        findByName: function( name ) {
+            // select by name and filter by form for performance over form.find("[name=...]")
+            var form = this.currentForm;
+            return $(document.getElementsByName(name)).map(function(index, element) {
+                return element.form == form && element.name == name && element  || null;
+            });
+        },
 
-		getLength: function(value, element) {
-			switch( element.nodeName.toLowerCase() ) {
-			case 'select':
-				return $("option:selected", element).length;
-			case 'input':
-				if( this.checkable( element) )
-					return this.findByName(element.name).filter(':checked').length;
-			}
-			return value.length;
-		},
+        getLength: function(value, element) {
+            switch( element.nodeName.toLowerCase() ) {
+            case 'select':
+                return $("option:selected", element).length;
+            case 'input':
+                if( this.checkable( element) )
+                    return this.findByName(element.name).filter(':checked').length;
+            }
+            return value.length;
+        },
 
-		depend: function(param, element) {
-			return this.dependTypes[typeof param]
-				? this.dependTypes[typeof param](param, element)
-				: true;
-		},
+        depend: function(param, element) {
+            return this.dependTypes[typeof param]
+                ? this.dependTypes[typeof param](param, element)
+                : true;
+        },
 
-		dependTypes: {
-			"boolean": function(param, element) {
-				return param;
-			},
-			"string": function(param, element) {
-				return !!$(param, element.form).length;
-			},
-			"function": function(param, element) {
-				return param(element);
-			}
-		},
+        dependTypes: {
+            "boolean": function(param, element) {
+                return param;
+            },
+            "string": function(param, element) {
+                return !!$(param, element.form).length;
+            },
+            "function": function(param, element) {
+                return param(element);
+            }
+        },
 
-		optional: function(element) {
-			return !$.validator.methods.required.call(this, $.trim(element.value), element) && "dependency-mismatch";
-		},
+        optional: function(element) {
+            return !$.validator.methods.required.call(this, $.trim(element.value), element) && "dependency-mismatch";
+        },
 
-		startRequest: function(element) {
-			if (!this.pending[element.name]) {
-				this.pendingRequest++;
-				this.pending[element.name] = true;
-			}
-		},
+        startRequest: function(element) {
+            if (!this.pending[element.name]) {
+                this.pendingRequest++;
+                this.pending[element.name] = true;
+            }
+        },
 
-		stopRequest: function(element, valid) {
-			this.pendingRequest--;
-			// sometimes synchronization fails, make sure pendingRequest is never < 0
-			if (this.pendingRequest < 0)
-				this.pendingRequest = 0;
-			delete this.pending[element.name];
-			if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
-				$(this.currentForm).submit();
-				this.formSubmitted = false;
-			} else if (!valid && this.pendingRequest == 0 && this.formSubmitted) {
-				$(this.currentForm).triggerHandler("invalid-form", [this]);
-				this.formSubmitted = false;
-			}
-		},
+        stopRequest: function(element, valid) {
+            this.pendingRequest--;
+            // sometimes synchronization fails, make sure pendingRequest is never < 0
+            if (this.pendingRequest < 0)
+                this.pendingRequest = 0;
+            delete this.pending[element.name];
+            if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
+                $(this.currentForm).submit();
+                this.formSubmitted = false;
+            } else if (!valid && this.pendingRequest == 0 && this.formSubmitted) {
+                $(this.currentForm).triggerHandler("invalid-form", [this]);
+                this.formSubmitted = false;
+            }
+        },
 
-		previousValue: function(element) {
-			return $.data(element, "previousValue") || $.data(element, "previousValue", {
-				old: null,
-				valid: true,
-				message: this.defaultMessage( element, "remote" )
-			});
-		}
+        previousValue: function(element) {
+            return $.data(element, "previousValue") || $.data(element, "previousValue", {
+                old: null,
+                valid: true,
+                message: this.defaultMessage( element, "remote" )
+            });
+        }
 
-	},
+    },
 
-	classRuleSettings: {
-		required: {required: true},
-		email: {email: true},
-		url: {url: true},
-		date: {date: true},
-		dateISO: {dateISO: true},
-		dateDE: {dateDE: true},
-		number: {number: true},
-		numberDE: {numberDE: true},
-		digits: {digits: true},
-		creditcard: {creditcard: true}
-	},
+    classRuleSettings: {
+        required: {required: true},
+        email: {email: true},
+        url: {url: true},
+        date: {date: true},
+        dateISO: {dateISO: true},
+        dateDE: {dateDE: true},
+        number: {number: true},
+        numberDE: {numberDE: true},
+        digits: {digits: true},
+        creditcard: {creditcard: true}
+    },
 
-	addClassRules: function(className, rules) {
-		className.constructor == String ?
-			this.classRuleSettings[className] = rules :
-			$.extend(this.classRuleSettings, className);
-	},
+    addClassRules: function(className, rules) {
+        className.constructor == String ?
+            this.classRuleSettings[className] = rules :
+            $.extend(this.classRuleSettings, className);
+    },
 
-	classRules: function(element) {
-		var rules = {};
-		var classes = $(element).attr('class');
-		classes && $.each(classes.split(' '), function() {
-			if (this in $.validator.classRuleSettings) {
-				$.extend(rules, $.validator.classRuleSettings[this]);
-			}
-		});
-		return rules;
-	},
+    classRules: function(element) {
+        var rules = {};
+        var classes = $(element).attr('class');
+        classes && $.each(classes.split(' '), function() {
+            if (this in $.validator.classRuleSettings) {
+                $.extend(rules, $.validator.classRuleSettings[this]);
+            }
+        });
+        return rules;
+    },
 
-	attributeRules: function(element) {
-		var rules = {};
-		var $element = $(element);
+    attributeRules: function(element) {
+        var rules = {};
+        var $element = $(element);
 
-		for (var method in $.validator.methods) {
-			var value;
-			// If .prop exists (jQuery >= 1.6), use it to get true/false for required
-			if (method === 'required' && typeof $.fn.prop === 'function') {
-				value = $element.prop(method);
-			} else {
-				value = $element.attr(method);
-			}
-			if (value) {
-				rules[method] = value;
-			} else if ($element[0].getAttribute("type") === method) {
-				rules[method] = true;
-			}
-		}
+        for (var method in $.validator.methods) {
+            var value;
+            // If .prop exists (jQuery >= 1.6), use it to get true/false for required
+            if (method === 'required' && typeof $.fn.prop === 'function') {
+                value = $element.prop(method);
+            } else {
+                value = $element.attr(method);
+            }
+            if (value) {
+                rules[method] = value;
+            } else if ($element[0].getAttribute("type") === method) {
+                rules[method] = true;
+            }
+        }
 
-		// maxlength may be returned as -1, 2147483647 (IE) and 524288 (safari) for text inputs
-		if (rules.maxlength && /-1|2147483647|524288/.test(rules.maxlength)) {
-			delete rules.maxlength;
-		}
+        // maxlength may be returned as -1, 2147483647 (IE) and 524288 (safari) for text inputs
+        if (rules.maxlength && /-1|2147483647|524288/.test(rules.maxlength)) {
+            delete rules.maxlength;
+        }
 
-		return rules;
-	},
+        return rules;
+    },
 
-	metadataRules: function(element) {
-		if (!$.metadata) return {};
+    metadataRules: function(element) {
+        if (!$.metadata) return {};
 
-		var meta = $.data(element.form, 'validator').settings.meta;
-		return meta ?
-			$(element).metadata()[meta] :
-			$(element).metadata();
-	},
+        var meta = $.data(element.form, 'validator').settings.meta;
+        return meta ?
+            $(element).metadata()[meta] :
+            $(element).metadata();
+    },
 
-	staticRules: function(element) {
-		var rules = {};
-		var validator = $.data(element.form, 'validator');
-		if (validator.settings.rules) {
-			rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
-		}
-		return rules;
-	},
+    staticRules: function(element) {
+        var rules = {};
+        var validator = $.data(element.form, 'validator');
+        if (validator.settings.rules) {
+            rules = $.validator.normalizeRule(validator.settings.rules[element.name]) || {};
+        }
+        return rules;
+    },
 
-	normalizeRules: function(rules, element) {
-		// handle dependency check
-		$.each(rules, function(prop, val) {
-			// ignore rule when param is explicitly false, eg. required:false
-			if (val === false) {
-				delete rules[prop];
-				return;
-			}
-			if (val.param || val.depends) {
-				var keepRule = true;
-				switch (typeof val.depends) {
-					case "string":
-						keepRule = !!$(val.depends, element.form).length;
-						break;
-					case "function":
-						keepRule = val.depends.call(element, element);
-						break;
-				}
-				if (keepRule) {
-					rules[prop] = val.param !== undefined ? val.param : true;
-				} else {
-					delete rules[prop];
-				}
-			}
-		});
+    normalizeRules: function(rules, element) {
+        // handle dependency check
+        $.each(rules, function(prop, val) {
+            // ignore rule when param is explicitly false, eg. required:false
+            if (val === false) {
+                delete rules[prop];
+                return;
+            }
+            if (val.param || val.depends) {
+                var keepRule = true;
+                switch (typeof val.depends) {
+                    case "string":
+                        keepRule = !!$(val.depends, element.form).length;
+                        break;
+                    case "function":
+                        keepRule = val.depends.call(element, element);
+                        break;
+                }
+                if (keepRule) {
+                    rules[prop] = val.param !== undefined ? val.param : true;
+                } else {
+                    delete rules[prop];
+                }
+            }
+        });
 
-		// evaluate parameters
-		$.each(rules, function(rule, parameter) {
-			rules[rule] = $.isFunction(parameter) ? parameter(element) : parameter;
-		});
+        // evaluate parameters
+        $.each(rules, function(rule, parameter) {
+            rules[rule] = $.isFunction(parameter) ? parameter(element) : parameter;
+        });
 
-		// clean number parameters
-		$.each(['minlength', 'maxlength', 'min', 'max'], function() {
-			if (rules[this]) {
-				rules[this] = Number(rules[this]);
-			}
-		});
-		$.each(['rangelength', 'range'], function() {
-			if (rules[this]) {
-				rules[this] = [Number(rules[this][0]), Number(rules[this][1])];
-			}
-		});
+        // clean number parameters
+        $.each(['minlength', 'maxlength', 'min', 'max'], function() {
+            if (rules[this]) {
+                rules[this] = Number(rules[this]);
+            }
+        });
+        $.each(['rangelength', 'range'], function() {
+            if (rules[this]) {
+                rules[this] = [Number(rules[this][0]), Number(rules[this][1])];
+            }
+        });
 
-		if ($.validator.autoCreateRanges) {
-			// auto-create ranges
-			if (rules.min && rules.max) {
-				rules.range = [rules.min, rules.max];
-				delete rules.min;
-				delete rules.max;
-			}
-			if (rules.minlength && rules.maxlength) {
-				rules.rangelength = [rules.minlength, rules.maxlength];
-				delete rules.minlength;
-				delete rules.maxlength;
-			}
-		}
+        if ($.validator.autoCreateRanges) {
+            // auto-create ranges
+            if (rules.min && rules.max) {
+                rules.range = [rules.min, rules.max];
+                delete rules.min;
+                delete rules.max;
+            }
+            if (rules.minlength && rules.maxlength) {
+                rules.rangelength = [rules.minlength, rules.maxlength];
+                delete rules.minlength;
+                delete rules.maxlength;
+            }
+        }
 
-		// To support custom messages in metadata ignore rule methods titled "messages"
-		if (rules.messages) {
-			delete rules.messages;
-		}
+        // To support custom messages in metadata ignore rule methods titled "messages"
+        if (rules.messages) {
+            delete rules.messages;
+        }
 
-		return rules;
-	},
+        return rules;
+    },
 
-	// Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
-	normalizeRule: function(data) {
-		if( typeof data == "string" ) {
-			var transformed = {};
-			$.each(data.split(/\s/), function() {
-				transformed[this] = true;
-			});
-			data = transformed;
-		}
-		return data;
-	},
+    // Converts a simple string to a {string: true} rule, e.g., "required" to {required:true}
+    normalizeRule: function(data) {
+        if( typeof data == "string" ) {
+            var transformed = {};
+            $.each(data.split(/\s/), function() {
+                transformed[this] = true;
+            });
+            data = transformed;
+        }
+        return data;
+    },
 
-	// http://docs.jquery.com/Plugins/Validation/Validator/addMethod
-	addMethod: function(name, method, message) {
-		$.validator.methods[name] = method;
-		$.validator.messages[name] = message != undefined ? message : $.validator.messages[name];
-		if (method.length < 3) {
-			$.validator.addClassRules(name, $.validator.normalizeRule(name));
-		}
-	},
+    // http://docs.jquery.com/Plugins/Validation/Validator/addMethod
+    addMethod: function(name, method, message) {
+        $.validator.methods[name] = method;
+        $.validator.messages[name] = message != undefined ? message : $.validator.messages[name];
+        if (method.length < 3) {
+            $.validator.addClassRules(name, $.validator.normalizeRule(name));
+        }
+    },
 
-	methods: {
+    methods: {
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/required
-		required: function(value, element, param) {
-			// check if dependency is met
-			if ( !this.depend(param, element) )
-				return "dependency-mismatch";
-			switch( element.nodeName.toLowerCase() ) {
-			case 'select':
-				// could be an array for select-multiple or a string, both are fine this way
-				var val = $(element).val();
-				return val && val.length > 0;
-			case 'input':
-				if ( this.checkable(element) )
-					return this.getLength(value, element) > 0;
-			default:
-				return $.trim(value).length > 0;
-			}
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/required
+        required: function(value, element, param) {
+            // check if dependency is met
+            if ( !this.depend(param, element) )
+                return "dependency-mismatch";
+            switch( element.nodeName.toLowerCase() ) {
+            case 'select':
+                // could be an array for select-multiple or a string, both are fine this way
+                var val = $(element).val();
+                return val && val.length > 0;
+            case 'input':
+                if ( this.checkable(element) )
+                    return this.getLength(value, element) > 0;
+            default:
+                return $.trim(value).length > 0;
+            }
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/remote
-		remote: function(value, element, param) {
-			if ( this.optional(element) )
-				return "dependency-mismatch";
+        // http://docs.jquery.com/Plugins/Validation/Methods/remote
+        remote: function(value, element, param) {
+            if ( this.optional(element) )
+                return "dependency-mismatch";
 
-			var previous = this.previousValue(element);
-			if (!this.settings.messages[element.name] )
-				this.settings.messages[element.name] = {};
-			previous.originalMessage = this.settings.messages[element.name].remote;
-			this.settings.messages[element.name].remote = previous.message;
+            var previous = this.previousValue(element);
+            if (!this.settings.messages[element.name] )
+                this.settings.messages[element.name] = {};
+            previous.originalMessage = this.settings.messages[element.name].remote;
+            this.settings.messages[element.name].remote = previous.message;
 
-			param = typeof param == "string" && {url:param} || param;
+            param = typeof param == "string" && {url:param} || param;
 
-			if ( this.pending[element.name] ) {
-				return "pending";
-			}
-			if ( previous.old === value ) {
-				return previous.valid;
-			}
+            if ( this.pending[element.name] ) {
+                return "pending";
+            }
+            if ( previous.old === value ) {
+                return previous.valid;
+            }
 
-			previous.old = value;
-			var validator = this;
-			this.startRequest(element);
-			var data = {};
-			data[element.name] = value;
-			$.ajax($.extend(true, {
-				url: param,
-				mode: "abort",
-				port: "validate" + element.name,
-				dataType: "json",
-				data: data,
-				success: function(response) {
-					validator.settings.messages[element.name].remote = previous.originalMessage;
-					var valid = response === true;
-					if ( valid ) {
-						var submitted = validator.formSubmitted;
-						validator.prepareElement(element);
-						validator.formSubmitted = submitted;
-						validator.successList.push(element);
-						validator.showErrors();
-					} else {
-						var errors = {};
-						var message = response || validator.defaultMessage( element, "remote" );
-						errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
-						validator.showErrors(errors);
-					}
-					previous.valid = valid;
-					validator.stopRequest(element, valid);
-				}
-			}, param));
-			return "pending";
-		},
+            previous.old = value;
+            var validator = this;
+            this.startRequest(element);
+            var data = {};
+            data[element.name] = value;
+            $.ajax($.extend(true, {
+                url: param,
+                mode: "abort",
+                port: "validate" + element.name,
+                dataType: "json",
+                data: data,
+                success: function(response) {
+                    validator.settings.messages[element.name].remote = previous.originalMessage;
+                    var valid = response === true;
+                    if ( valid ) {
+                        var submitted = validator.formSubmitted;
+                        validator.prepareElement(element);
+                        validator.formSubmitted = submitted;
+                        validator.successList.push(element);
+                        validator.showErrors();
+                    } else {
+                        var errors = {};
+                        var message = response || validator.defaultMessage( element, "remote" );
+                        errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
+                        validator.showErrors(errors);
+                    }
+                    previous.valid = valid;
+                    validator.stopRequest(element, valid);
+                }
+            }, param));
+            return "pending";
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/minlength
-		minlength: function(value, element, param) {
-			return this.optional(element) || this.getLength($.trim(value), element) >= param;
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/minlength
+        minlength: function(value, element, param) {
+            return this.optional(element) || this.getLength($.trim(value), element) >= param;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/maxlength
-		maxlength: function(value, element, param) {
-			return this.optional(element) || this.getLength($.trim(value), element) <= param;
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/maxlength
+        maxlength: function(value, element, param) {
+            return this.optional(element) || this.getLength($.trim(value), element) <= param;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/rangelength
-		rangelength: function(value, element, param) {
-			var length = this.getLength($.trim(value), element);
-			return this.optional(element) || ( length >= param[0] && length <= param[1] );
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/rangelength
+        rangelength: function(value, element, param) {
+            var length = this.getLength($.trim(value), element);
+            return this.optional(element) || ( length >= param[0] && length <= param[1] );
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/min
-		min: function( value, element, param ) {
-			return this.optional(element) || value >= param;
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/min
+        min: function( value, element, param ) {
+            return this.optional(element) || value >= param;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/max
-		max: function( value, element, param ) {
-			return this.optional(element) || value <= param;
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/max
+        max: function( value, element, param ) {
+            return this.optional(element) || value <= param;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/range
-		range: function( value, element, param ) {
-			return this.optional(element) || ( value >= param[0] && value <= param[1] );
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/range
+        range: function( value, element, param ) {
+            return this.optional(element) || ( value >= param[0] && value <= param[1] );
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/email
-		email: function(value, element) {
-			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-			return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(value);
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/email
+        email: function(value, element) {
+            // contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
+            return this.optional(element) || /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test(value);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/url
-		url: function(value, element) {
-			// contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
-			return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/url
+        url: function(value, element) {
+            // contributed by Scott Gonzalez: http://projects.scottsplayground.com/iri/
+            return this.optional(element) || /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/date
-		date: function(value, element) {
-			return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/date
+        date: function(value, element) {
+            return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/dateISO
-		dateISO: function(value, element) {
-			return this.optional(element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(value);
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/dateISO
+        dateISO: function(value, element) {
+            return this.optional(element) || /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/.test(value);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/number
-		number: function(value, element) {
-			return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value);
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/number
+        number: function(value, element) {
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(value);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/digits
-		digits: function(value, element) {
-			return this.optional(element) || /^\d+$/.test(value);
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/digits
+        digits: function(value, element) {
+            return this.optional(element) || /^\d+$/.test(value);
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/creditcard
-		// based on http://en.wikipedia.org/wiki/Luhn
-		creditcard: function(value, element) {
-			if ( this.optional(element) )
-				return "dependency-mismatch";
-			// accept only spaces, digits and dashes
-			if (/[^0-9 -]+/.test(value))
-				return false;
-			var nCheck = 0,
-				nDigit = 0,
-				bEven = false;
+        // http://docs.jquery.com/Plugins/Validation/Methods/creditcard
+        // based on http://en.wikipedia.org/wiki/Luhn
+        creditcard: function(value, element) {
+            if ( this.optional(element) )
+                return "dependency-mismatch";
+            // accept only spaces, digits and dashes
+            if (/[^0-9 -]+/.test(value))
+                return false;
+            var nCheck = 0,
+                nDigit = 0,
+                bEven = false;
 
-			value = value.replace(/\D/g, "");
+            value = value.replace(/\D/g, "");
 
-			for (var n = value.length - 1; n >= 0; n--) {
-				var cDigit = value.charAt(n);
-				var nDigit = parseInt(cDigit, 10);
-				if (bEven) {
-					if ((nDigit *= 2) > 9)
-						nDigit -= 9;
-				}
-				nCheck += nDigit;
-				bEven = !bEven;
-			}
+            for (var n = value.length - 1; n >= 0; n--) {
+                var cDigit = value.charAt(n);
+                var nDigit = parseInt(cDigit, 10);
+                if (bEven) {
+                    if ((nDigit *= 2) > 9)
+                        nDigit -= 9;
+                }
+                nCheck += nDigit;
+                bEven = !bEven;
+            }
 
-			return (nCheck % 10) == 0;
-		},
+            return (nCheck % 10) == 0;
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/accept
-		accept: function(value, element, param) {
-			param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
-			return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
-		},
+        // http://docs.jquery.com/Plugins/Validation/Methods/accept
+        accept: function(value, element, param) {
+            param = typeof param == "string" ? param.replace(/,/g, '|') : "png|jpe?g|gif";
+            return this.optional(element) || value.match(new RegExp(".(" + param + ")$", "i"));
+        },
 
-		// http://docs.jquery.com/Plugins/Validation/Methods/equalTo
-		equalTo: function(value, element, param) {
-			// bind to the blur event of the target in order to revalidate whenever the target field is updated
-			// TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
-			var target = $(param).unbind(".validate-equalTo").bind("blur.validate-equalTo", function() {
-				$(element).valid();
-			});
-			return value == target.val();
-		}
+        // http://docs.jquery.com/Plugins/Validation/Methods/equalTo
+        equalTo: function(value, element, param) {
+            // bind to the blur event of the target in order to revalidate whenever the target field is updated
+            // TODO find a way to bind the event just once, avoiding the unbind-rebind overhead
+            var target = $(param).unbind(".validate-equalTo").bind("blur.validate-equalTo", function() {
+                $(element).valid();
+            });
+            return value == target.val();
+        }
 
-	}
+    }
 
 });
 
@@ -1189,33 +1189,33 @@ $.format = $.validator.format;
 // usage: $.ajax({ mode: "abort"[, port: "uniqueport"]});
 // if mode:"abort" is used, the previous request on that port (port can be undefined) is aborted via XMLHttpRequest.abort()
 ;(function($) {
-	var pendingRequests = {};
-	// Use a prefilter if available (1.5+)
-	if ( $.ajaxPrefilter ) {
-		$.ajaxPrefilter(function(settings, _, xhr) {
-			var port = settings.port;
-			if (settings.mode == "abort") {
-				if ( pendingRequests[port] ) {
-					pendingRequests[port].abort();
-				}
-				pendingRequests[port] = xhr;
-			}
-		});
-	} else {
-		// Proxy ajax
-		var ajax = $.ajax;
-		$.ajax = function(settings) {
-			var mode = ( "mode" in settings ? settings : $.ajaxSettings ).mode,
-				port = ( "port" in settings ? settings : $.ajaxSettings ).port;
-			if (mode == "abort") {
-				if ( pendingRequests[port] ) {
-					pendingRequests[port].abort();
-				}
-				return (pendingRequests[port] = ajax.apply(this, arguments));
-			}
-			return ajax.apply(this, arguments);
-		};
-	}
+    var pendingRequests = {};
+    // Use a prefilter if available (1.5+)
+    if ( $.ajaxPrefilter ) {
+        $.ajaxPrefilter(function(settings, _, xhr) {
+            var port = settings.port;
+            if (settings.mode == "abort") {
+                if ( pendingRequests[port] ) {
+                    pendingRequests[port].abort();
+                }
+                pendingRequests[port] = xhr;
+            }
+        });
+    } else {
+        // Proxy ajax
+        var ajax = $.ajax;
+        $.ajax = function(settings) {
+            var mode = ( "mode" in settings ? settings : $.ajaxSettings ).mode,
+                port = ( "port" in settings ? settings : $.ajaxSettings ).port;
+            if (mode == "abort") {
+                if ( pendingRequests[port] ) {
+                    pendingRequests[port].abort();
+                }
+                return (pendingRequests[port] = ajax.apply(this, arguments));
+            }
+            return ajax.apply(this, arguments);
+        };
+    }
 })(jQuery);
 
 // provides cross-browser focusin and focusout events
@@ -1224,43 +1224,43 @@ $.format = $.validator.format;
 // provides delegate(type: String, delegate: Selector, handler: Callback) plugin for easier event delegation
 // handler is only called when $(event.target).is(delegate), in the scope of the jquery-object for event.target
 ;(function($) {
-	// only implement if not provided by jQuery core (since 1.4)
-	// TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
-	if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
-		$.each({
-			focus: 'focusin',
-			blur: 'focusout'
-		}, function( original, fix ){
-			$.event.special[fix] = {
-				setup:function() {
-					this.addEventListener( original, handler, true );
-				},
-				teardown:function() {
-					this.removeEventListener( original, handler, true );
-				},
-				handler: function(e) {
-					arguments[0] = $.event.fix(e);
-					arguments[0].type = fix;
-					return $.event.handle.apply(this, arguments);
-				}
-			};
-			function handler(e) {
-				e = $.event.fix(e);
-				e.type = fix;
-				return $.event.handle.call(this, e);
-			}
-		});
-	};
-	$.extend($.fn, {
-		validateDelegate: function(delegate, type, handler) {
-			return this.bind(type, function(event) {
-				var target = $(event.target);
-				if (target.is(delegate)) {
-					return handler.apply(target, arguments);
-				}
-			});
-		}
-	});
+    // only implement if not provided by jQuery core (since 1.4)
+    // TODO verify if jQuery 1.4's implementation is compatible with older jQuery special-event APIs
+    if (!jQuery.event.special.focusin && !jQuery.event.special.focusout && document.addEventListener) {
+        $.each({
+            focus: 'focusin',
+            blur: 'focusout'
+        }, function( original, fix ){
+            $.event.special[fix] = {
+                setup:function() {
+                    this.addEventListener( original, handler, true );
+                },
+                teardown:function() {
+                    this.removeEventListener( original, handler, true );
+                },
+                handler: function(e) {
+                    arguments[0] = $.event.fix(e);
+                    arguments[0].type = fix;
+                    return $.event.handle.apply(this, arguments);
+                }
+            };
+            function handler(e) {
+                e = $.event.fix(e);
+                e.type = fix;
+                return $.event.handle.call(this, e);
+            }
+        });
+    };
+    $.extend($.fn, {
+        validateDelegate: function(delegate, type, handler) {
+            return this.bind(type, function(event) {
+                var target = $(event.target);
+                if (target.is(delegate)) {
+                    return handler.apply(target, arguments);
+                }
+            });
+        }
+    });
 })(jQuery);
 /*---------------------------end of jquery.validate.js------------------------------------------------------------------------------------------------------------------*/
 
@@ -1305,7 +1305,7 @@ $.format = $.validator.format;
             target: '#output'
         });
     });
-    
+
     You can also use ajaxForm with delegation (requires jQuery v1.7+), so the
     form does not have to exist when you invoke ajaxForm:
 
@@ -1313,7 +1313,7 @@ $.format = $.validator.format;
         delegation: true,
         target: '#output'
     });
-    
+
     When using ajaxForm, the ajaxSubmit function will be invoked for you
     at the appropriate time.
 */
@@ -1337,7 +1337,7 @@ $.fn.ajaxSubmit = function(options) {
         log('ajaxSubmit: skipping submit process - no element selected');
         return this;
     }
-    
+
     var method, action, url, $form = this;
 
     if (typeof options == 'function') {
@@ -1379,7 +1379,7 @@ $.fn.ajaxSubmit = function(options) {
     if ( traditional === undefined ) {
         traditional = $.ajaxSettings.traditional;
     }
-    
+
     var elements = [];
     var qx, a = this.formToArray(options.semantic, elements);
     if (options.data) {
@@ -1403,7 +1403,7 @@ $.fn.ajaxSubmit = function(options) {
     var q = $.param(a, traditional);
     if (qx) {
         q = ( q ? (q + '&' + qx) : qx );
-    }    
+    }
     if (options.type.toUpperCase() == 'GET') {
         options.url += (options.url.indexOf('?') >= 0 ? '&' : '?') + q;
         options.data = null;  // data is null for 'get'
@@ -1433,7 +1433,7 @@ $.fn.ajaxSubmit = function(options) {
     }
 
     options.success = function(data, status, xhr) { // jQuery 1.4+ passes xhr as 3rd arg
-        var context = options.context || options;    // jQuery 1.4+ supports scope context 
+        var context = options.context || options;    // jQuery 1.4+ supports scope context
         for (var i=0, max=callbacks.length; i < max; i++) {
             callbacks[i].apply(context, [data, status, xhr || $form, $form]);
         }
@@ -1500,7 +1500,7 @@ $.fn.ajaxSubmit = function(options) {
             cache: false,
             type: 'POST'
         });
-        
+
         if (options.uploadProgress) {
             // workaround because jqXHR does not expose upload property
             s.xhr = function() {
@@ -1541,7 +1541,7 @@ $.fn.ajaxSubmit = function(options) {
             alert('Error: Form elements must not have name or id of "submit".');
             return;
         }
-        
+
         if (a) {
             // ensure that every serialized input is still enabled
             for (i=0; i < elements.length; i++) {
@@ -1627,7 +1627,7 @@ $.fn.ajaxSubmit = function(options) {
                 }
             }
         }
-        
+
         var CLIENT_TIMEOUT_ABORT = 1;
         var SERVER_ABORT = 2;
 
@@ -1635,7 +1635,7 @@ $.fn.ajaxSubmit = function(options) {
             var doc = frame.contentWindow ? frame.contentWindow.document : frame.contentDocument ? frame.contentDocument : frame.document;
             return doc;
         }
-        
+
         // Rails CSRF hack (thanks to Yvan Barthelemy)
         var csrf_token = $('meta[name=csrf-token]').attr('content');
         var csrf_param = $('meta[name=csrf-param]').attr('content');
@@ -1670,7 +1670,7 @@ $.fn.ajaxSubmit = function(options) {
             if (s.timeout) {
                 timeoutHandle = setTimeout(function() { timedOut = true; cb(CLIENT_TIMEOUT_ABORT); }, s.timeout);
             }
-            
+
             // look for server aborts
             function checkState() {
                 try {
@@ -1760,7 +1760,7 @@ $.fn.ajaxSubmit = function(options) {
             }
             if (io.detachEvent)
                 io.detachEvent('onload', cb);
-            else    
+            else
                 io.removeEventListener('load', cb, false);
 
             var status = 'success', errMsg;
@@ -1947,7 +1947,7 @@ $.fn.ajaxSubmit = function(options) {
 $.fn.ajaxForm = function(options) {
     options = options || {};
     options.delegation = options.delegation && $.isFunction($.fn.on);
-    
+
     // in jQuery 1.3+ we can fix mistakes with the ready state
     if (!options.delegation && this.length === 0) {
         var o = { s: this.selector, c: this.context };
@@ -1977,7 +1977,7 @@ $.fn.ajaxForm = function(options) {
         .bind('click.form-plugin', options, captureSubmittingElement);
 };
 
-// private event handlers    
+// private event handlers
 function doAjaxSubmit(e) {
     /*jshint validthis:true */
     var options = e.data;
@@ -1986,7 +1986,7 @@ function doAjaxSubmit(e) {
         $(this).ajaxSubmit(options);
     }
 }
-    
+
 function captureSubmittingElement(e) {
     /*jshint validthis:true */
     var target = e.target;
@@ -2066,14 +2066,14 @@ $.fn.formToArray = function(semantic, elements) {
 
         v = $.fieldValue(el, true);
         if (v && v.constructor == Array) {
-            if (elements) 
+            if (elements)
                 elements.push(el);
             for(j=0, jmax=v.length; j < jmax; j++) {
                 a.push({name: n, value: v[j]});
             }
         }
         else if (feature.fileapi && el.type == 'file' && !el.disabled) {
-            if (elements) 
+            if (elements)
                 elements.push(el);
             var files = el.files;
             if (files.length) {
@@ -2087,7 +2087,7 @@ $.fn.formToArray = function(semantic, elements) {
             }
         }
         else if (v !== null && typeof v != 'undefined') {
-            if (elements) 
+            if (elements)
                 elements.push(el);
             a.push({name: n, value: v, type: el.type, required: el.required});
         }
@@ -2330,7 +2330,7 @@ $.fn.ajaxSubmit.debug = false;
 
 // helper fn for console logging
 function log() {
-    if (!$.fn.ajaxSubmit.debug) 
+    if (!$.fn.ajaxSubmit.debug)
         return;
     var msg = '[jquery.form] ' + Array.prototype.join.call(arguments,'');
     if (window.console && window.console.log) {
@@ -2360,452 +2360,452 @@ function log() {
 
 
 (function($){
-	$.widget("ui.formwizard", {
+    $.widget("ui.formwizard", {
 
-		_init: function() {
+        _init: function() {
 
-			var wizard = this;
-			var formOptionsSuccess = this.options.formOptions.success;
-			var formOptionsComplete = this.options.formOptions.complete;
-			var formOptionsBeforeSend = this.options.formOptions.beforeSend;
-			var formOptionsBeforeSubmit = this.options.formOptions.beforeSubmit;
-			var formOptionsBeforeSerialize = this.options.formOptions.beforeSerialize;
-			this.options.formOptions = $.extend(this.options.formOptions,{
-				success	: function(responseText, textStatus, xhr){
-					if(formOptionsSuccess){
-						formOptionsSuccess(responseText, textStatus, xhr);
-					}
-					if(wizard.options.formOptions && wizard.options.formOptions.resetForm || !wizard.options.formOptions){
-						wizard._reset();
-					}
-				},
-				complete : function(xhr, textStatus){
-					if(formOptionsComplete){
-						formOptionsComplete(xhr, textStatus);
-					}
-					wizard._enableNavigation();
-				},
-				beforeSubmit : function(arr, theForm, options) {
-					if(formOptionsBeforeSubmit){
-						var shouldSubmit = formOptionsBeforeSubmit(arr, theForm, options);
-						if(!shouldSubmit)
-							wizard._enableNavigation();
-						return shouldSubmit;
-					}
-				},
-				beforeSend : function(xhr) {
-					if(formOptionsBeforeSend){
-						var shouldSubmit = formOptionsBeforeSend(xhr);
-						if(!shouldSubmit)
-							wizard._enableNavigation();
-						return shouldSubmit;
-					}
-				},
-				beforeSerialize: function(form, options) {
-					if(formOptionsBeforeSerialize){
-						var shouldSubmit = formOptionsBeforeSerialize(form, options);
-						if(!shouldSubmit)
-							wizard._enableNavigation();
-						return shouldSubmit;
-					}
-				}
-			});
-			
-			if (this.options.historyEnabled) {
-				$.bbq.removeState("_" + $(this.element).attr('id'));
-			}
+            var wizard = this;
+            var formOptionsSuccess = this.options.formOptions.success;
+            var formOptionsComplete = this.options.formOptions.complete;
+            var formOptionsBeforeSend = this.options.formOptions.beforeSend;
+            var formOptionsBeforeSubmit = this.options.formOptions.beforeSubmit;
+            var formOptionsBeforeSerialize = this.options.formOptions.beforeSerialize;
+            this.options.formOptions = $.extend(this.options.formOptions,{
+                success	: function(responseText, textStatus, xhr){
+                    if(formOptionsSuccess){
+                        formOptionsSuccess(responseText, textStatus, xhr);
+                    }
+                    if(wizard.options.formOptions && wizard.options.formOptions.resetForm || !wizard.options.formOptions){
+                        wizard._reset();
+                    }
+                },
+                complete : function(xhr, textStatus){
+                    if(formOptionsComplete){
+                        formOptionsComplete(xhr, textStatus);
+                    }
+                    wizard._enableNavigation();
+                },
+                beforeSubmit : function(arr, theForm, options) {
+                    if(formOptionsBeforeSubmit){
+                        var shouldSubmit = formOptionsBeforeSubmit(arr, theForm, options);
+                        if(!shouldSubmit)
+                            wizard._enableNavigation();
+                        return shouldSubmit;
+                    }
+                },
+                beforeSend : function(xhr) {
+                    if(formOptionsBeforeSend){
+                        var shouldSubmit = formOptionsBeforeSend(xhr);
+                        if(!shouldSubmit)
+                            wizard._enableNavigation();
+                        return shouldSubmit;
+                    }
+                },
+                beforeSerialize: function(form, options) {
+                    if(formOptionsBeforeSerialize){
+                        var shouldSubmit = formOptionsBeforeSerialize(form, options);
+                        if(!shouldSubmit)
+                            wizard._enableNavigation();
+                        return shouldSubmit;
+                    }
+                }
+            });
 
-			this.steps = this.element.find(".step").hide();
+            if (this.options.historyEnabled) {
+                $.bbq.removeState("_" + $(this.element).attr('id'));
+            }
 
-			this.firstStep = this.steps.eq(0).attr("id");
-			this.activatedSteps = new Array();
-			this.isLastStep = false;
-			this.previousStep = undefined;
-			this.currentStep = this.steps.eq(0).attr("id");
-			this.nextButton	= this.element.find(this.options.next)
-					.click(function() {
-						return wizard._next();
-					});
+            this.steps = this.element.find(".step").hide();
 
-			this.nextButtonInitinalValue = this.nextButton.val();
-			this.nextButton.val(this.options.textNext);
+            this.firstStep = this.steps.eq(0).attr("id");
+            this.activatedSteps = new Array();
+            this.isLastStep = false;
+            this.previousStep = undefined;
+            this.currentStep = this.steps.eq(0).attr("id");
+            this.nextButton	= this.element.find(this.options.next)
+                    .click(function() {
+                        return wizard._next();
+                    });
 
-				this.backButton	= this.element.find(this.options.back)
-					.click(function() {
-						wizard._back();return false;
-					});
+            this.nextButtonInitinalValue = this.nextButton.val();
+            this.nextButton.val(this.options.textNext);
 
-				this.backButtonInitinalValue = this.backButton.val();
-				this.backButton.val(this.options.textBack);
+                this.backButton	= this.element.find(this.options.back)
+                    .click(function() {
+                        wizard._back();return false;
+                    });
 
-			if(this.options.validationEnabled && jQuery().validate  == undefined){
-				this.options.validationEnabled = false;
-				if( (window['console'] !== undefined) ){
-					console.log("%s", "validationEnabled option set, but the validation plugin is not included");
-				}
-			}else if(this.options.validationEnabled){
-				this.element.validate(this.options.validationOptions);
-			}
-			if(this.options.formPluginEnabled && jQuery().ajaxSubmit == undefined){
-				this.options.formPluginEnabled = false;
-				if( (window['console'] !== undefined) ){
-					console.log("%s", "formPluginEnabled option set but the form plugin is not included");
-				}
-			}
+                this.backButtonInitinalValue = this.backButton.val();
+                this.backButton.val(this.options.textBack);
 
-			if(this.options.disableInputFields == true){
-				$(this.steps).find(":input:not('.wizard-ignore')").attr("disabled","disabled");
-			}
+            if(this.options.validationEnabled && jQuery().validate  == undefined){
+                this.options.validationEnabled = false;
+                if( (window['console'] !== undefined) ){
+                    console.log("%s", "validationEnabled option set, but the validation plugin is not included");
+                }
+            }else if(this.options.validationEnabled){
+                this.element.validate(this.options.validationOptions);
+            }
+            if(this.options.formPluginEnabled && jQuery().ajaxSubmit == undefined){
+                this.options.formPluginEnabled = false;
+                if( (window['console'] !== undefined) ){
+                    console.log("%s", "formPluginEnabled option set but the form plugin is not included");
+                }
+            }
 
-			if(this.options.historyEnabled){
-				$(window).bind('hashchange', undefined, function(event){
-					var hashStep = event.getState( "_" + $(wizard.element).attr( 'id' )) || wizard.firstStep;
-					if(hashStep !== wizard.currentStep){
-						if(wizard.options.validationEnabled && hashStep === wizard._navigate(wizard.currentStep)){
-							if(!wizard.element.valid()){
-								wizard._updateHistory(wizard.currentStep);
-								wizard.element.validate().focusInvalid();
+            if(this.options.disableInputFields == true){
+                $(this.steps).find(":input:not('.wizard-ignore')").attr("disabled","disabled");
+            }
 
-								return false;
-							}
-						}
-						if(hashStep !== wizard.currentStep)
-							wizard._show(hashStep);
-					}
-				});
-			}
+            if(this.options.historyEnabled){
+                $(window).bind('hashchange', undefined, function(event){
+                    var hashStep = event.getState( "_" + $(wizard.element).attr( 'id' )) || wizard.firstStep;
+                    if(hashStep !== wizard.currentStep){
+                        if(wizard.options.validationEnabled && hashStep === wizard._navigate(wizard.currentStep)){
+                            if(!wizard.element.valid()){
+                                wizard._updateHistory(wizard.currentStep);
+                                wizard.element.validate().focusInvalid();
 
-			this.element.addClass("ui-formwizard");
-			this.element.find(":input").addClass("ui-wizard-content");
-			this.steps.addClass("ui-formwizard-content");
-			this.backButton.addClass("ui-formwizard-button ui-wizard-content");
-			this.nextButton.addClass("ui-formwizard-button ui-wizard-content");
+                                return false;
+                            }
+                        }
+                        if(hashStep !== wizard.currentStep)
+                            wizard._show(hashStep);
+                    }
+                });
+            }
 
-			if(!this.options.disableUIStyles){
-				this.element.addClass("ui-helper-reset ui-widget ui-widget-content ui-helper-reset ui-corner-all");
-				this.element.find(":input").addClass("ui-helper-reset ui-state-default");
-				this.steps.addClass("ui-helper-reset ui-corner-all");
-				this.backButton.addClass("ui-helper-reset ui-state-default");
-				this.nextButton.addClass("ui-helper-reset ui-state-default");
-			}
-			this._show(undefined);
-			return $(this);
-		},
+            this.element.addClass("ui-formwizard");
+            this.element.find(":input").addClass("ui-wizard-content");
+            this.steps.addClass("ui-formwizard-content");
+            this.backButton.addClass("ui-formwizard-button ui-wizard-content");
+            this.nextButton.addClass("ui-formwizard-button ui-wizard-content");
 
-		_next : function(){
-			if(this.options.validationEnabled){
-				if(!this.element.valid()){
-					this.element.validate().focusInvalid();
-					return false;
-				}
-			}
+            if(!this.options.disableUIStyles){
+                this.element.addClass("ui-helper-reset ui-widget ui-widget-content ui-helper-reset ui-corner-all");
+                this.element.find(":input").addClass("ui-helper-reset ui-state-default");
+                this.steps.addClass("ui-helper-reset ui-corner-all");
+                this.backButton.addClass("ui-helper-reset ui-state-default");
+                this.nextButton.addClass("ui-helper-reset ui-state-default");
+            }
+            this._show(undefined);
+            return $(this);
+        },
 
-			if(this.options.remoteAjax != undefined){
-				var options = this.options.remoteAjax[this.currentStep];
-				var wizard = this;
-				if(options !== undefined){
-					var success = options.success;
-					var beforeSend = options.beforeSend;
-					var complete = options.complete;
+        _next : function(){
+            if(this.options.validationEnabled){
+                if(!this.element.valid()){
+                    this.element.validate().focusInvalid();
+                    return false;
+                }
+            }
 
-					options = $.extend({},options,{
-						success: function(data, statusText){
-							if((success !== undefined && success(data, statusText)) || (success == undefined)){
-								wizard._continueToNextStep();
-							}
-						},
-						beforeSend : function(xhr){
-							wizard._disableNavigation();
-							if(beforeSend !== undefined)
-								beforeSend(xhr);
-							$(wizard.element).trigger('before_remote_ajax', {"currentStep" : wizard.currentStep});
-						},
-						complete : function(xhr, statusText){
-							if(complete !== undefined)
-								complete(xhr, statusText);
-							$(wizard.element).trigger('after_remote_ajax', {"currentStep" : wizard.currentStep});
-							wizard._enableNavigation();
-						}
-					})
-					this.element.ajaxSubmit(options);
-					return false;
-				}
-			}
+            if(this.options.remoteAjax != undefined){
+                var options = this.options.remoteAjax[this.currentStep];
+                var wizard = this;
+                if(options !== undefined){
+                    var success = options.success;
+                    var beforeSend = options.beforeSend;
+                    var complete = options.complete;
 
-			return this._continueToNextStep();
-		},
+                    options = $.extend({},options,{
+                        success: function(data, statusText){
+                            if((success !== undefined && success(data, statusText)) || (success == undefined)){
+                                wizard._continueToNextStep();
+                            }
+                        },
+                        beforeSend : function(xhr){
+                            wizard._disableNavigation();
+                            if(beforeSend !== undefined)
+                                beforeSend(xhr);
+                            $(wizard.element).trigger('before_remote_ajax', {"currentStep" : wizard.currentStep});
+                        },
+                        complete : function(xhr, statusText){
+                            if(complete !== undefined)
+                                complete(xhr, statusText);
+                            $(wizard.element).trigger('after_remote_ajax', {"currentStep" : wizard.currentStep});
+                            wizard._enableNavigation();
+                        }
+                    })
+                    this.element.ajaxSubmit(options);
+                    return false;
+                }
+            }
 
-		_back : function(){
-			if(this.activatedSteps.length > 0){
-				if(this.options.historyEnabled){
-					this._updateHistory(this.activatedSteps[this.activatedSteps.length - 2]);
-				}else{
-					this._show(this.activatedSteps[this.activatedSteps.length - 2], true);
-				}
-			}
-			return false;
-		},
+            return this._continueToNextStep();
+        },
 
-		_continueToNextStep : function(){
-			if(this.isLastStep){
-				for(var i = 0; i < this.activatedSteps.length; i++){
-					this.steps.filter("#" + this.activatedSteps[i]).find(":input").not(".wizard-ignore").removeAttr("disabled");
-				}
-				if(!this.options.formPluginEnabled){
-					return true;
-				}else{
-					this._disableNavigation();
-					this.element.ajaxSubmit(this.options.formOptions);
-					return false;
-				}
-			}
+        _back : function(){
+            if(this.activatedSteps.length > 0){
+                if(this.options.historyEnabled){
+                    this._updateHistory(this.activatedSteps[this.activatedSteps.length - 2]);
+                }else{
+                    this._show(this.activatedSteps[this.activatedSteps.length - 2], true);
+                }
+            }
+            return false;
+        },
 
-			var step = this._navigate(this.currentStep);
-			if(step == this.currentStep){
-				return false;
-			}
-			if(this.options.historyEnabled){
-				this._updateHistory(step);
-			}else{
-				this._show(step, true);
-			}
-			return false;
-		},
+        _continueToNextStep : function(){
+            if(this.isLastStep){
+                for(var i = 0; i < this.activatedSteps.length; i++){
+                    this.steps.filter("#" + this.activatedSteps[i]).find(":input").not(".wizard-ignore").removeAttr("disabled");
+                }
+                if(!this.options.formPluginEnabled){
+                    return true;
+                }else{
+                    this._disableNavigation();
+                    this.element.ajaxSubmit(this.options.formOptions);
+                    return false;
+                }
+            }
 
-		_updateHistory : function(step){
-			var state = {};
-			state["_" + $(this.element).attr('id')] = step;
-			$.bbq.pushState(state);
-		},
+            var step = this._navigate(this.currentStep);
+            if(step == this.currentStep){
+                return false;
+            }
+            if(this.options.historyEnabled){
+                this._updateHistory(step);
+            }else{
+                this._show(step, true);
+            }
+            return false;
+        },
 
-		_disableNavigation : function(){
-			this.nextButton.attr("disabled","disabled");
-			this.backButton.attr("disabled","disabled");
-			if(!this.options.disableUIStyles){
-				this.nextButton.removeClass("ui-state-active").addClass("ui-state-disabled");
-				this.backButton.removeClass("ui-state-active").addClass("ui-state-disabled");
-			}
-		},
+        _updateHistory : function(step){
+            var state = {};
+            state["_" + $(this.element).attr('id')] = step;
+            $.bbq.pushState(state);
+        },
 
-		_enableNavigation : function(){
-			if(this.isLastStep){
-				this.nextButton.val(this.options.textSubmit);
-			}else{
-				this.nextButton.val(this.options.textNext);
-			}
+        _disableNavigation : function(){
+            this.nextButton.attr("disabled","disabled");
+            this.backButton.attr("disabled","disabled");
+            if(!this.options.disableUIStyles){
+                this.nextButton.removeClass("ui-state-active").addClass("ui-state-disabled");
+                this.backButton.removeClass("ui-state-active").addClass("ui-state-disabled");
+            }
+        },
 
-			if($.trim(this.currentStep) !== this.steps.eq(0).attr("id")){
-				this.backButton.removeAttr("disabled");
-				if(!this.options.disableUIStyles){
-					this.backButton.removeClass("ui-state-disabled").addClass("ui-state-active");
-				}
-			}
+        _enableNavigation : function(){
+            if(this.isLastStep){
+                this.nextButton.val(this.options.textSubmit);
+            }else{
+                this.nextButton.val(this.options.textNext);
+            }
 
-			this.nextButton.removeAttr("disabled");
-			if(!this.options.disableUIStyles){
-				this.nextButton.removeClass("ui-state-disabled").addClass("ui-state-active");
-			}
-		},
+            if($.trim(this.currentStep) !== this.steps.eq(0).attr("id")){
+                this.backButton.removeAttr("disabled");
+                if(!this.options.disableUIStyles){
+                    this.backButton.removeClass("ui-state-disabled").addClass("ui-state-active");
+                }
+            }
 
-		_animate : function(oldStep, newStep, stepShownCallback){
-			this._disableNavigation();
-			var old = this.steps.filter("#" + oldStep);
-			var current = this.steps.filter("#" + newStep);
-			old.find(":input").not(".wizard-ignore").attr("disabled","disabled");
-			current.find(":input").not(".wizard-ignore").removeAttr("disabled");
-			var wizard = this;
-			old.animate(wizard.options.outAnimation, wizard.options.outDuration, wizard.options.easing, function(){
-				current.animate(wizard.options.inAnimation, wizard.options.inDuration, wizard.options.easing, function(){
-					if(wizard.options.focusFirstInput)
-						current.find(":input:first").focus();
-					wizard._enableNavigation();
+            this.nextButton.removeAttr("disabled");
+            if(!this.options.disableUIStyles){
+                this.nextButton.removeClass("ui-state-disabled").addClass("ui-state-active");
+            }
+        },
 
-					stepShownCallback.apply(wizard);
-				});
-				return;
-			});
-		},
+        _animate : function(oldStep, newStep, stepShownCallback){
+            this._disableNavigation();
+            var old = this.steps.filter("#" + oldStep);
+            var current = this.steps.filter("#" + newStep);
+            old.find(":input").not(".wizard-ignore").attr("disabled","disabled");
+            current.find(":input").not(".wizard-ignore").removeAttr("disabled");
+            var wizard = this;
+            old.animate(wizard.options.outAnimation, wizard.options.outDuration, wizard.options.easing, function(){
+                current.animate(wizard.options.inAnimation, wizard.options.inDuration, wizard.options.easing, function(){
+                    if(wizard.options.focusFirstInput)
+                        current.find(":input:first").focus();
+                    wizard._enableNavigation();
 
-		_checkIflastStep : function(step){
-			this.isLastStep = false;
-			if($("#" + step).hasClass(this.options.submitStepClass) || this.steps.filter(":last").attr("id") == step){
-				this.isLastStep = true;
-			}
-		},
+                    stepShownCallback.apply(wizard);
+                });
+                return;
+            });
+        },
 
-		_getLink : function(step){
-			var link = undefined;
-			var links = this.steps.filter("#" + step).find(this.options.linkClass);
+        _checkIflastStep : function(step){
+            this.isLastStep = false;
+            if($("#" + step).hasClass(this.options.submitStepClass) || this.steps.filter(":last").attr("id") == step){
+                this.isLastStep = true;
+            }
+        },
 
-			if(links != undefined){
-				if(links.filter(":radio,:checkbox").size() > 0){
-					link = links.filter(this.options.linkClass + ":checked").val();
-				}else{
-					link = $(links).val();
-				}
-			}
-			return link;
-		},
+        _getLink : function(step){
+            var link = undefined;
+            var links = this.steps.filter("#" + step).find(this.options.linkClass);
 
-		_navigate : function(step){
-			var link = this._getLink(step);
-			if(link != undefined){
-				if((link != "" && link != null && link != undefined) && this.steps.filter("#" + link).attr("id") != undefined){
-					return link;
-				}
-				return this.currentStep;
-			}else if(link == undefined && !this.isLastStep){
-				var step1 =  this.steps.filter("#" + step).next().attr("id");
-				return step1;
-			}
-		},
+            if(links != undefined){
+                if(links.filter(":radio,:checkbox").size() > 0){
+                    link = links.filter(this.options.linkClass + ":checked").val();
+                }else{
+                    link = $(links).val();
+                }
+            }
+            return link;
+        },
 
-		_show : function(step){
-			var backwards = false;
-			var triggerStepShown = step !== undefined;
-			if(step == undefined || step == ""){
-					this.activatedSteps.pop();
-					step = this.firstStep;
-					this.activatedSteps.push(step);
-			}else{
-				if($.inArray(step, this.activatedSteps) > -1){
-					backwards = true;
-					this.activatedSteps.pop();
-				}else {
-					this.activatedSteps.push(step);
-				}
-			}
+        _navigate : function(step){
+            var link = this._getLink(step);
+            if(link != undefined){
+                if((link != "" && link != null && link != undefined) && this.steps.filter("#" + link).attr("id") != undefined){
+                    return link;
+                }
+                return this.currentStep;
+            }else if(link == undefined && !this.isLastStep){
+                var step1 =  this.steps.filter("#" + step).next().attr("id");
+                return step1;
+            }
+        },
 
-			if(this.currentStep !== step || step === this.firstStep){
-				this.previousStep = this.currentStep;
-				this._checkIflastStep(step);
-				this.currentStep = step;
-				var stepShownCallback = function(){if(triggerStepShown){$(this.element).trigger('step_shown', $.extend({"isBackNavigation" : backwards},this._state()));}}
-				if(triggerStepShown){
-					$(this.element).trigger('before_step_shown', $.extend({"isBackNavigation" : backwards},this._state()));
-				}
-				this._animate(this.previousStep, step, stepShownCallback);
-			};
+        _show : function(step){
+            var backwards = false;
+            var triggerStepShown = step !== undefined;
+            if(step == undefined || step == ""){
+                    this.activatedSteps.pop();
+                    step = this.firstStep;
+                    this.activatedSteps.push(step);
+            }else{
+                if($.inArray(step, this.activatedSteps) > -1){
+                    backwards = true;
+                    this.activatedSteps.pop();
+                }else {
+                    this.activatedSteps.push(step);
+                }
+            }
+
+            if(this.currentStep !== step || step === this.firstStep){
+                this.previousStep = this.currentStep;
+                this._checkIflastStep(step);
+                this.currentStep = step;
+                var stepShownCallback = function(){if(triggerStepShown){$(this.element).trigger('step_shown', $.extend({"isBackNavigation" : backwards},this._state()));}}
+                if(triggerStepShown){
+                    $(this.element).trigger('before_step_shown', $.extend({"isBackNavigation" : backwards},this._state()));
+                }
+                this._animate(this.previousStep, step, stepShownCallback);
+            };
 
 
-		},
+        },
 
-	   _reset : function(){
-			this.element.resetForm()
-			$("label,:input,textarea",this).removeClass("error");
-			for(var i = 0; i < this.activatedSteps.length; i++){
-				this.steps.filter("#" + this.activatedSteps[i]).hide().find(":input").attr("disabled","disabled");
-			}
-			this.activatedSteps = new Array();
-			this.previousStep = undefined;
-			this.isLastStep = false;
-			if(this.options.historyEnabled){
-				this._updateHistory(this.firstStep);
-			}else{
-				this._show(this.firstStep);
-			}
+       _reset : function(){
+            this.element.resetForm()
+            $("label,:input,textarea",this).removeClass("error");
+            for(var i = 0; i < this.activatedSteps.length; i++){
+                this.steps.filter("#" + this.activatedSteps[i]).hide().find(":input").attr("disabled","disabled");
+            }
+            this.activatedSteps = new Array();
+            this.previousStep = undefined;
+            this.isLastStep = false;
+            if(this.options.historyEnabled){
+                this._updateHistory(this.firstStep);
+            }else{
+                this._show(this.firstStep);
+            }
 
-		},
+        },
 
-		_state : function(state){
-			var currentState = { "settings" : this.options,
-				"activatedSteps" : this.activatedSteps,
-				"isLastStep" : this.isLastStep,
-				"isFirstStep" : this.currentStep === this.firstStep,
-				"previousStep" : this.previousStep,
-				"currentStep" : this.currentStep,
-				"backButton" : this.backButton,
-				"nextButton" : this.nextButton,
-				"steps" : this.steps,
-				"firstStep" : this.firstStep
-			}
+        _state : function(state){
+            var currentState = { "settings" : this.options,
+                "activatedSteps" : this.activatedSteps,
+                "isLastStep" : this.isLastStep,
+                "isFirstStep" : this.currentStep === this.firstStep,
+                "previousStep" : this.previousStep,
+                "currentStep" : this.currentStep,
+                "backButton" : this.backButton,
+                "nextButton" : this.nextButton,
+                "steps" : this.steps,
+                "firstStep" : this.firstStep
+            }
 
-			if(state !== undefined)
-				return currentState[state];
+            if(state !== undefined)
+                return currentState[state];
 
-			return currentState;
-		},
+            return currentState;
+        },
 
-	  /*Methods*/
+      /*Methods*/
 
-		show : function(step){
-			if(this.options.historyEnabled){
-				this._updateHistory(step);
-			}else{
-				this._show(step);
-			}
-		},
+        show : function(step){
+            if(this.options.historyEnabled){
+                this._updateHistory(step);
+            }else{
+                this._show(step);
+            }
+        },
 
-		state : function(state){
-			return this._state(state);
-		},
+        state : function(state){
+            return this._state(state);
+        },
 
-		reset : function(){
-			this._reset();
-		},
+        reset : function(){
+            this._reset();
+        },
 
-		next : function(){
-			this._next();
-		},
+        next : function(){
+            this._next();
+        },
 
-		back : function(){
-			this._back();
-		},
+        back : function(){
+            this._back();
+        },
 
-		destroy: function() {
-			this.element.find("*").removeAttr("disabled").show();
-			this.nextButton.unbind("click").val(this.nextButtonInitinalValue).removeClass("ui-state-disabled").addClass("ui-state-active");
-			this.backButton.unbind("click").val(this.backButtonInitinalValue).removeClass("ui-state-disabled").addClass("ui-state-active");
-			this.backButtonInitinalValue = undefined;
-			this.nextButtonInitinalValue = undefined;
-			this.activatedSteps = undefined;
-			this.previousStep = undefined;
-			this.currentStep = undefined;
-			this.isLastStep = undefined;
-			this.options = undefined;
-			this.nextButton = undefined;
-			this.backButton = undefined;
-			this.formwizard = undefined;
-			this.element = undefined;
-			this.steps = undefined;
-			this.firstStep = undefined;
-		},
+        destroy: function() {
+            this.element.find("*").removeAttr("disabled").show();
+            this.nextButton.unbind("click").val(this.nextButtonInitinalValue).removeClass("ui-state-disabled").addClass("ui-state-active");
+            this.backButton.unbind("click").val(this.backButtonInitinalValue).removeClass("ui-state-disabled").addClass("ui-state-active");
+            this.backButtonInitinalValue = undefined;
+            this.nextButtonInitinalValue = undefined;
+            this.activatedSteps = undefined;
+            this.previousStep = undefined;
+            this.currentStep = undefined;
+            this.isLastStep = undefined;
+            this.options = undefined;
+            this.nextButton = undefined;
+            this.backButton = undefined;
+            this.formwizard = undefined;
+            this.element = undefined;
+            this.steps = undefined;
+            this.firstStep = undefined;
+        },
 
-		update_steps : function(){
-			this.steps = this.element.find(".step").addClass("ui-formwizard-content");
-			this.firstStep = this.steps.eq(0).attr("id");
-			this.steps.not("#" + this.currentStep).hide().find(":input").addClass("ui-wizard-content").attr("disabled","disabled");
-			this._checkIflastStep(this.currentStep);
-			this._enableNavigation();
-			if(!this.options.disableUIStyles){
-				this.steps.addClass("ui-helper-reset ui-corner-all");
-				this.steps.find(":input").addClass("ui-helper-reset ui-state-default");
-			}
-		},
+        update_steps : function(){
+            this.steps = this.element.find(".step").addClass("ui-formwizard-content");
+            this.firstStep = this.steps.eq(0).attr("id");
+            this.steps.not("#" + this.currentStep).hide().find(":input").addClass("ui-wizard-content").attr("disabled","disabled");
+            this._checkIflastStep(this.currentStep);
+            this._enableNavigation();
+            if(!this.options.disableUIStyles){
+                this.steps.addClass("ui-helper-reset ui-corner-all");
+                this.steps.find(":input").addClass("ui-helper-reset ui-state-default");
+            }
+        },
 
-		options: {
-	   		historyEnabled	: false,
-			validationEnabled : false,
-			validationOptions : undefined,
-			formPluginEnabled : false,
-			linkClass	: ".link",
-			submitStepClass : "submit_step",
-			back : ":reset",
-			next : ":submit",
-			textSubmit : 'Finish Survey',
-			textNext : 'Next',
-			textBack : 'Back',
-			remoteAjax : undefined,
-			inAnimation : {opacity: 'show'},
-			outAnimation: {opacity: 'hide'},
-			inDuration : 400,
-			outDuration: 400,
-			easing: 'swing',
-			focusFirstInput : false,
-			disableInputFields : true,
-			formOptions : { reset: true, success: function(data) { if( (window['console'] !== undefined) ){console.log("%s", "form submit successful");}},
-			disableUIStyles : false
-		}
+        options: {
+       		historyEnabled	: false,
+            validationEnabled : false,
+            validationOptions : undefined,
+            formPluginEnabled : false,
+            linkClass	: ".link",
+            submitStepClass : "submit_step",
+            back : ":reset",
+            next : ":submit",
+            textSubmit : 'Finish Survey',
+            textNext : 'Next',
+            textBack : 'Back',
+            remoteAjax : undefined,
+            inAnimation : {opacity: 'show'},
+            outAnimation: {opacity: 'hide'},
+            inDuration : 400,
+            outDuration: 400,
+            easing: 'swing',
+            focusFirstInput : false,
+            disableInputFields : true,
+            formOptions : { reset: true, success: function(data) { if( (window['console'] !== undefined) ){console.log("%s", "form submit successful");}},
+            disableUIStyles : false
+        }
    }
  });
 })(jQuery);
@@ -2816,7 +2816,7 @@ function log() {
 /*!
  * jQuery BBQ: Back Button & Query Library - v1.2.1 - 2/17/2010
  * http://benalman.com/projects/jquery-bbq-plugin/
- * 
+ *
  * Copyright (c) 2010 "Cowboy" Ben Alman
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
@@ -2825,41 +2825,41 @@ function log() {
 // Script: jQuery BBQ: Back Button & Query Library
 //
 // *Version: 1.2.1, Last updated: 2/17/2010*
-// 
+//
 // Project Home - http://benalman.com/projects/jquery-bbq-plugin/
 // GitHub       - http://github.com/cowboy/jquery-bbq/
 // Source       - http://github.com/cowboy/jquery-bbq/raw/master/jquery.ba-bbq.js
 // (Minified)   - http://github.com/cowboy/jquery-bbq/raw/master/jquery.ba-bbq.min.js (4.0kb)
-// 
+//
 // About: License
-// 
+//
 // Copyright (c) 2010 "Cowboy" Ben Alman,
 // Dual licensed under the MIT and GPL licenses.
 // http://benalman.com/about/license/
-// 
+//
 // About: Examples
-// 
+//
 // These working examples, complete with fully commented code, illustrate a few
 // ways in which this plugin can be used.
-// 
+//
 // Basic AJAX     - http://benalman.com/code/projects/jquery-bbq/examples/fragment-basic/
 // Advanced AJAX  - http://benalman.com/code/projects/jquery-bbq/examples/fragment-advanced/
 // jQuery UI Tabs - http://benalman.com/code/projects/jquery-bbq/examples/fragment-jquery-ui-tabs/
 // Deparam        - http://benalman.com/code/projects/jquery-bbq/examples/deparam/
-// 
+//
 // About: Support and Testing
-// 
+//
 // Information about what version or versions of jQuery this plugin has been
 // tested with, what browsers it has been tested in, and where the unit tests
 // reside (so you can test it yourself).
-// 
+//
 // jQuery Versions - 1.3.2, 1.4.1, 1.4.2
 // Browsers Tested - Internet Explorer 6-8, Firefox 2-3.7, Safari 3-4,
 //                   Chrome 4-5, Opera 9.6-10.1.
 // Unit Tests      - http://benalman.com/code/projects/jquery-bbq/unit/
-// 
+//
 // About: Release History
-// 
+//
 // 1.2.1 - (2/17/2010) Actually fixed the stale window.location Safari bug from
 //         <jQuery hashchange event> in BBQ, which was the main reason for the
 //         previous release!
@@ -2894,12 +2894,12 @@ function log() {
 
 (function($,window){
   '$:nomunge'; // Used by YUI compressor.
-  
+
   // Some convenient shortcuts.
   var undefined,
     aps = Array.prototype.slice,
     decode = decodeURIComponent,
-    
+
     // Method / object references.
     jq_param = $.param,
     jq_param_fragment,
@@ -2910,7 +2910,7 @@ function log() {
     jq_bbq_getState,
     jq_elemUrlAttr,
     jq_event_special = $.event.special,
-    
+
     // Reused strings.
     str_hashchange = 'hashchange',
     str_querystring = 'querystring',
@@ -2919,75 +2919,75 @@ function log() {
     str_location = 'location',
     str_href = 'href',
     str_src = 'src',
-    
+
     // Reused RegExp.
     re_trim_querystring = /^.*\?|#.*$/g,
     re_trim_fragment = /^.*\#/,
     re_no_escape,
-    
+
     // Used by jQuery.elemUrlAttr.
     elemUrlAttr_cache = {};
-  
+
   // A few commonly used bits, broken out to help reduce minified file size.
-  
+
   function is_string( arg ) {
     return typeof arg === 'string';
   };
-  
+
   // Why write the same function twice? Let's curry! Mmmm, curry..
-  
+
   function curry( func ) {
     var args = aps.call( arguments, 1 );
-    
+
     return function() {
       return func.apply( this, args.concat( aps.call( arguments ) ) );
     };
   };
-  
+
   // Get location.hash (or what you'd expect location.hash to be) sans any
   // leading #. Thanks for making this necessary, Firefox!
   function get_fragment( url ) {
     return url.replace( /^[^#]*#?(.*)$/, '$1' );
   };
-  
+
   // Get location.search (or what you'd expect location.search to be) sans any
   // leading #. Thanks for making this necessary, IE6!
   function get_querystring( url ) {
     return url.replace( /(?:^[^?#]*\?([^#]*).*$)?.*/, '$1' );
   };
-  
+
   // Section: Param (to string)
-  // 
+  //
   // Method: jQuery.param.querystring
-  // 
+  //
   // Retrieve the query string from a URL or if no arguments are passed, the
   // current window.location.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.param.querystring( [ url ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) A URL containing query string params to be parsed. If url
   //    is not passed, the current window.location is used.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (String) The parsed query string, with any leading "?" removed.
   //
-  
+
   // Method: jQuery.param.querystring (build url)
-  // 
+  //
   // Merge a URL, with or without pre-existing query string params, plus any
   // object, params string or URL containing query string params into a new URL.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.param.querystring( url, params [, merge_mode ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) A valid URL for params to be merged into. This URL may
   //    contain a query string and/or fragment (hash).
   //  params - (String) A params string or URL containing query string params to
@@ -2995,48 +2995,48 @@ function log() {
   //  params - (Object) A params object to be merged into url.
   //  merge_mode - (Number) Merge behavior defaults to 0 if merge_mode is not
   //    specified, and is as-follows:
-  // 
+  //
   //    * 0: params in the params argument will override any query string
   //         params in url.
   //    * 1: any query string params in url will override params in the params
   //         argument.
   //    * 2: params argument will completely replace any query string in url.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (String) Either a params string with urlencoded data or a URL with a
   //    urlencoded query string in the format 'a=b&c=d&e=f'.
-  
+
   // Method: jQuery.param.fragment
-  // 
+  //
   // Retrieve the fragment (hash) from a URL or if no arguments are passed, the
   // current window.location.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.param.fragment( [ url ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) A URL containing fragment (hash) params to be parsed. If
   //    url is not passed, the current window.location is used.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (String) The parsed fragment (hash) string, with any leading "#" removed.
-  
+
   // Method: jQuery.param.fragment (build url)
-  // 
+  //
   // Merge a URL, with or without pre-existing fragment (hash) params, plus any
   // object, params string or URL containing fragment (hash) params into a new
   // URL.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.param.fragment( url, params [, merge_mode ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) A valid URL for params to be merged into. This URL may
   //    contain a query string and/or fragment (hash).
   //  params - (String) A params string or URL containing fragment (hash) params
@@ -3044,60 +3044,60 @@ function log() {
   //  params - (Object) A params object to be merged into url.
   //  merge_mode - (Number) Merge behavior defaults to 0 if merge_mode is not
   //    specified, and is as-follows:
-  // 
+  //
   //    * 0: params in the params argument will override any fragment (hash)
   //         params in url.
   //    * 1: any fragment (hash) params in url will override params in the
   //         params argument.
   //    * 2: params argument will completely replace any query string in url.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (String) Either a params string with urlencoded data or a URL with a
   //    urlencoded fragment (hash) in the format 'a=b&c=d&e=f'.
-  
+
   function jq_param_sub( is_fragment, get_func, url, params, merge_mode ) {
     var result,
       qs,
       matches,
       url_params,
       hash;
-    
+
     if ( params !== undefined ) {
       // Build URL by merging params into url string.
-      
+
       // matches[1] = url part that precedes params, not including trailing ?/#
       // matches[2] = params, not including leading ?/#
       // matches[3] = if in 'querystring' mode, hash including leading #, otherwise ''
       matches = url.match( is_fragment ? /^([^#]*)\#?(.*)$/ : /^([^#?]*)\??([^#]*)(#?.*)/ );
-      
+
       // Get the hash if in 'querystring' mode, and it exists.
       hash = matches[3] || '';
-      
+
       if ( merge_mode === 2 && is_string( params ) ) {
         // If merge_mode is 2 and params is a string, merge the fragment / query
         // string into the URL wholesale, without converting it into an object.
         qs = params.replace( is_fragment ? re_trim_fragment : re_trim_querystring, '' );
-        
+
       } else {
         // Convert relevant params in url to object.
         url_params = jq_deparam( matches[2] );
-        
+
         params = is_string( params )
-          
+
           // Convert passed params string into object.
           ? jq_deparam[ is_fragment ? str_fragment : str_querystring ]( params )
-          
+
           // Passed params object.
           : params;
-        
+
         qs = merge_mode === 2 ? params                              // passed params replace url params
           : merge_mode === 1  ? $.extend( {}, params, url_params )  // url params override passed params
           : $.extend( {}, url_params, params );                     // passed params override url params
-        
+
         // Convert params object to a string.
         qs = jq_param( qs );
-        
+
         // Unescape characters specified via $.param.noEscape. Since only hash-
         // history users have requested this feature, it's only enabled for
         // fragment-related params strings.
@@ -3105,88 +3105,88 @@ function log() {
           qs = qs.replace( re_no_escape, decode );
         }
       }
-      
+
       // Build URL from the base url, querystring and hash. In 'querystring'
       // mode, ? is only added if a query string exists. In 'fragment' mode, #
       // is always added.
       result = matches[1] + ( is_fragment ? '#' : qs || !matches[1] ? '?' : '' ) + qs + hash;
-      
+
     } else {
       // If URL was passed in, parse params from URL string, otherwise parse
       // params from window.location.
       result = get_func( url !== undefined ? url : window[ str_location ][ str_href ] );
     }
-    
+
     return result;
   };
-  
+
   jq_param[ str_querystring ]                  = curry( jq_param_sub, 0, get_querystring );
   jq_param[ str_fragment ] = jq_param_fragment = curry( jq_param_sub, 1, get_fragment );
-  
+
   // Method: jQuery.param.fragment.noEscape
-  // 
+  //
   // Specify characters that will be left unescaped when fragments are created
   // or merged using <jQuery.param.fragment>, or when the fragment is modified
   // using <jQuery.bbq.pushState>. This option only applies to serialized data
   // object fragments, and not set-as-string fragments. Does not affect the
   // query string. Defaults to ",/" (comma, forward slash).
-  // 
+  //
   // Note that this is considered a purely aesthetic option, and will help to
   // create URLs that "look pretty" in the address bar or bookmarks, without
   // affecting functionality in any way. That being said, be careful to not
   // unescape characters that are used as delimiters or serve a special
   // purpose, such as the "#?&=+" (octothorpe, question mark, ampersand,
   // equals, plus) characters.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.param.fragment.noEscape( [ chars ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  chars - (String) The characters to not escape in the fragment. If
   //    unspecified, defaults to empty string (escape all characters).
-  // 
+  //
   // Returns:
-  // 
+  //
   //  Nothing.
-  
+
   jq_param_fragment.noEscape = function( chars ) {
     chars = chars || '';
     var arr = $.map( chars.split(''), encodeURIComponent );
     re_no_escape = new RegExp( arr.join('|'), 'g' );
   };
-  
+
   // A sensible default. These are the characters people seem to complain about
   // "uglifying up the URL" the most.
   jq_param_fragment.noEscape( ',/' );
-  
+
   // Section: Deparam (from string)
-  // 
+  //
   // Method: jQuery.deparam
-  // 
+  //
   // Deserialize a params string into an object, optionally coercing numbers,
   // booleans, null and undefined values; this method is the counterpart to the
   // internal jQuery.param method.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.deparam( params [, coerce ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  params - (String) A params string to be parsed.
   //  coerce - (Boolean) If true, coerces any numbers or true, false, null, and
   //    undefined to their actual value. Defaults to false if omitted.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (Object) An object representing the deserialized params string.
-  
+
   $.deparam = jq_deparam = function( params, coerce ) {
     var obj = {},
       coerce_types = { 'true': !0, 'false': !1, 'null': null };
-    
+
     // Iterate over all name=value pairs.
     $.each( params.replace( /\+/g, ' ' ).split( '&' ), function(j,v){
       var param = v.split( '=' ),
@@ -3194,32 +3194,32 @@ function log() {
         val,
         cur = obj,
         i = 0,
-        
+
         // If key is more complex than 'foo', like 'a[]' or 'a[b][c]', split it
         // into its component parts.
         keys = key.split( '][' ),
         keys_last = keys.length - 1;
-      
+
       // If the first keys part contains [ and the last ends with ], then []
       // are correctly balanced.
       if ( /\[/.test( keys[0] ) && /\]$/.test( keys[ keys_last ] ) ) {
         // Remove the trailing ] from the last keys part.
         keys[ keys_last ] = keys[ keys_last ].replace( /\]$/, '' );
-        
+
         // Split first keys part into two parts on the [ and add them back onto
         // the beginning of the keys array.
         keys = keys.shift().split('[').concat( keys );
-        
+
         keys_last = keys.length - 1;
       } else {
         // Basic 'foo' style key.
         keys_last = 0;
       }
-      
+
       // Are we dealing with a name=value pair, or just a name?
       if ( param.length === 2 ) {
         val = decode( param[1] );
-        
+
         // Coerce values.
         if ( coerce ) {
           val = val && !isNaN(val)            ? +val              // number
@@ -3227,11 +3227,11 @@ function log() {
             : coerce_types[val] !== undefined ? coerce_types[val] // true, false, null
             : val;                                                // string
         }
-        
+
         if ( keys_last ) {
           // Complex key, build deep object structure based on a few rules:
           // * The 'cur' pointer starts at the object top-level.
-          // * [] = array push (n is set to array length), [n] = array if n is 
+          // * [] = array push (n is set to array length), [n] = array if n is
           //   numeric, otherwise object.
           // * If at the last keys part, set the value.
           // * For each keys part, if the current level is undefined create an
@@ -3244,26 +3244,26 @@ function log() {
               ? cur[key] || ( keys[i+1] && isNaN( keys[i+1] ) ? {} : [] )
               : val;
           }
-          
+
         } else {
           // Simple key, even simpler rules, since only scalars and shallow
           // arrays are allowed.
-          
+
           if ( $.isArray( obj[key] ) ) {
             // val is already an array, so push on the next value.
             obj[key].push( val );
-            
+
           } else if ( obj[key] !== undefined ) {
             // val isn't an array, but since a second value has been specified,
             // convert val into an array.
             obj[key] = [ obj[key], val ];
-            
+
           } else {
             // val is a scalar.
             obj[key] = val;
           }
         }
-        
+
       } else if ( key ) {
         // No value was defined, so set something meaningful.
         obj[key] = coerce
@@ -3271,54 +3271,54 @@ function log() {
           : '';
       }
     });
-    
+
     return obj;
   };
-  
+
   // Method: jQuery.deparam.querystring
-  // 
+  //
   // Parse the query string from a URL or the current window.location,
   // deserializing it into an object, optionally coercing numbers, booleans,
   // null and undefined values.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.deparam.querystring( [ url ] [, coerce ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) An optional params string or URL containing query string
   //    params to be parsed. If url is omitted, the current window.location
   //    is used.
   //  coerce - (Boolean) If true, coerces any numbers or true, false, null, and
   //    undefined to their actual value. Defaults to false if omitted.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (Object) An object representing the deserialized params string.
-  
+
   // Method: jQuery.deparam.fragment
-  // 
+  //
   // Parse the fragment (hash) from a URL or the current window.location,
   // deserializing it into an object, optionally coercing numbers, booleans,
   // null and undefined values.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.deparam.fragment( [ url ] [, coerce ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  url - (String) An optional params string or URL containing fragment (hash)
   //    params to be parsed. If url is omitted, the current window.location
   //    is used.
   //  coerce - (Boolean) If true, coerces any numbers or true, false, null, and
   //    undefined to their actual value. Defaults to false if omitted.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (Object) An object representing the deserialized params string.
-  
+
   function jq_deparam_sub( is_fragment, url_or_params, coerce ) {
     if ( url_or_params === undefined || typeof url_or_params === 'boolean' ) {
       // url_or_params not specified.
@@ -3329,26 +3329,26 @@ function log() {
         ? url_or_params.replace( is_fragment ? re_trim_fragment : re_trim_querystring, '' )
         : url_or_params;
     }
-    
+
     return jq_deparam( url_or_params, coerce );
   };
-  
+
   jq_deparam[ str_querystring ]                    = curry( jq_deparam_sub, 0 );
   jq_deparam[ str_fragment ] = jq_deparam_fragment = curry( jq_deparam_sub, 1 );
-  
+
   // Section: Element manipulation
-  // 
+  //
   // Method: jQuery.elemUrlAttr
-  // 
+  //
   // Get the internal "Default URL attribute per tag" list, or augment the list
   // with additional tag-attribute pairs, in case the defaults are insufficient.
-  // 
+  //
   // In the <jQuery.fn.querystring> and <jQuery.fn.fragment> methods, this list
   // is used to determine which attribute contains the URL to be modified, if
   // an "attr" param is not specified.
-  // 
+  //
   // Default Tag-Attribute List:
-  // 
+  //
   //  a      - href
   //  base   - href
   //  iframe - src
@@ -3357,21 +3357,21 @@ function log() {
   //  form   - action
   //  link   - href
   //  script - src
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.elemUrlAttr( [ tag_attr ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  tag_attr - (Object) An object containing a list of tag names and their
   //    associated default attribute names in the format { tag: 'attr', ... } to
   //    be merged into the internal tag-attribute list.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (Object) An object containing all stored tag-attribute values.
-  
+
   // Only define function and set defaults if function doesn't already exist, as
   // the urlInternal plugin will provide this method as well.
   $[ str_elemUrlAttr ] || ($[ str_elemUrlAttr ] = function( obj ) {
@@ -3386,23 +3386,23 @@ function log() {
     link: str_href,
     script: str_src
   });
-  
+
   jq_elemUrlAttr = $[ str_elemUrlAttr ];
-  
+
   // Method: jQuery.fn.querystring
-  // 
+  //
   // Update URL attribute in one or more elements, merging the current URL (with
   // or without pre-existing query string params) plus any params object or
   // string into a new URL, which is then set into that attribute. Like
   // <jQuery.param.querystring (build url)>, but for all elements in a jQuery
   // collection.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery('selector').querystring( [ attr, ] params [, merge_mode ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  attr - (String) Optional name of an attribute that will contain a URL to
   //    merge params or url into. See <jQuery.elemUrlAttr> for a list of default
   //    attributes.
@@ -3411,31 +3411,31 @@ function log() {
   //    to be merged into the URL attribute.
   //  merge_mode - (Number) Merge behavior defaults to 0 if merge_mode is not
   //    specified, and is as-follows:
-  //    
+  //
   //    * 0: params in the params argument will override any params in attr URL.
   //    * 1: any params in attr URL will override params in the params argument.
   //    * 2: params argument will completely replace any query string in attr
   //         URL.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (jQuery) The initial jQuery collection of elements, but with modified URL
   //  attribute values.
-  
+
   // Method: jQuery.fn.fragment
-  // 
+  //
   // Update URL attribute in one or more elements, merging the current URL (with
   // or without pre-existing fragment/hash params) plus any params object or
   // string into a new URL, which is then set into that attribute. Like
   // <jQuery.param.fragment (build url)>, but for all elements in a jQuery
   // collection.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery('selector').fragment( [ attr, ] params [, merge_mode ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  attr - (String) Optional name of an attribute that will contain a URL to
   //    merge params into. See <jQuery.elemUrlAttr> for a list of default
   //    attributes.
@@ -3444,17 +3444,17 @@ function log() {
   //    string to be merged into the URL attribute.
   //  merge_mode - (Number) Merge behavior defaults to 0 if merge_mode is not
   //    specified, and is as-follows:
-  //    
+  //
   //    * 0: params in the params argument will override any params in attr URL.
   //    * 1: any params in attr URL will override params in the params argument.
   //    * 2: params argument will completely replace any fragment (hash) in attr
   //         URL.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (jQuery) The initial jQuery collection of elements, but with modified URL
   //  attribute values.
-  
+
   function jq_fn_sub( mode, force_attr, params, merge_mode ) {
     if ( !is_string( params ) && typeof params !== 'object' ) {
       // force_attr not specified.
@@ -3462,181 +3462,181 @@ function log() {
       params = force_attr;
       force_attr = undefined;
     }
-    
+
     return this.each(function(){
       var that = $(this),
-        
+
         // Get attribute specified, or default specified via $.elemUrlAttr.
         attr = force_attr || jq_elemUrlAttr()[ ( this.nodeName || '' ).toLowerCase() ] || '',
-        
+
         // Get URL value.
         url = attr && that.attr( attr ) || '';
-      
+
       // Update attribute with new URL.
       that.attr( attr, jq_param[ mode ]( url, params, merge_mode ) );
     });
-    
+
   };
-  
+
   $.fn[ str_querystring ] = curry( jq_fn_sub, str_querystring );
   $.fn[ str_fragment ]    = curry( jq_fn_sub, str_fragment );
-  
+
   // Section: History, hashchange event
-  // 
+  //
   // Method: jQuery.bbq.pushState
-  // 
+  //
   // Adds a 'state' into the browser history at the current position, setting
   // location.hash and triggering any bound <hashchange event> callbacks
   // (provided the new state is different than the previous state).
-  // 
+  //
   // If no arguments are passed, an empty state is created, which is just a
   // shortcut for jQuery.bbq.pushState( {}, 2 ).
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.bbq.pushState( [ params [, merge_mode ] ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  params - (String) A serialized params string or a hash string beginning
   //    with # to merge into location.hash.
   //  params - (Object) A params object to merge into location.hash.
   //  merge_mode - (Number) Merge behavior defaults to 0 if merge_mode is not
   //    specified (unless a hash string beginning with # is specified, in which
   //    case merge behavior defaults to 2), and is as-follows:
-  // 
+  //
   //    * 0: params in the params argument will override any params in the
   //         current state.
   //    * 1: any params in the current state will override params in the params
   //         argument.
   //    * 2: params argument will completely replace current state.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  Nothing.
-  // 
+  //
   // Additional Notes:
-  // 
+  //
   //  * Setting an empty state may cause the browser to scroll.
   //  * Unlike the fragment and querystring methods, if a hash string beginning
   //    with # is specified as the params agrument, merge_mode defaults to 2.
-  
+
   jq_bbq.pushState = jq_bbq_pushState = function( params, merge_mode ) {
     if ( is_string( params ) && /^#/.test( params ) && merge_mode === undefined ) {
       // Params string begins with # and merge_mode not specified, so completely
       // overwrite window.location.hash.
       merge_mode = 2;
     }
-    
+
     var has_args = params !== undefined,
       // Merge params into window.location using $.param.fragment.
       url = jq_param_fragment( window[ str_location ][ str_href ],
         has_args ? params : {}, has_args ? merge_mode : 2 );
-    
+
     // Set new window.location.href. If hash is empty, use just # to prevent
     // browser from reloading the page. Note that Safari 3 & Chrome barf on
     // location.hash = '#'.
     window[ str_location ][ str_href ] = url + ( /#/.test( url ) ? '' : '#' );
   };
-  
+
   // Method: jQuery.bbq.getState
-  // 
+  //
   // Retrieves the current 'state' from the browser history, parsing
   // location.hash for a specific key or returning an object containing the
   // entire state, optionally coercing numbers, booleans, null and undefined
   // values.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.bbq.getState( [ key ] [, coerce ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  key - (String) An optional state key for which to return a value.
   //  coerce - (Boolean) If true, coerces any numbers or true, false, null, and
   //    undefined to their actual value. Defaults to false.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  (Anything) If key is passed, returns the value corresponding with that key
   //    in the location.hash 'state', or undefined. If not, an object
   //    representing the entire 'state' is returned.
-  
+
   jq_bbq.getState = jq_bbq_getState = function( key, coerce ) {
     return key === undefined || typeof key === 'boolean'
       ? jq_deparam_fragment( key ) // 'key' really means 'coerce' here
       : jq_deparam_fragment( coerce )[ key ];
   };
-  
+
   // Method: jQuery.bbq.removeState
-  // 
+  //
   // Remove one or more keys from the current browser history 'state', creating
   // a new state, setting location.hash and triggering any bound
   // <hashchange event> callbacks (provided the new state is different than
   // the previous state).
-  // 
+  //
   // If no arguments are passed, an empty state is created, which is just a
   // shortcut for jQuery.bbq.pushState( {}, 2 ).
-  // 
+  //
   // Usage:
-  // 
+  //
   // > jQuery.bbq.removeState( [ key [, key ... ] ] );
-  // 
+  //
   // Arguments:
-  // 
+  //
   //  key - (String) One or more key values to remove from the current state,
   //    passed as individual arguments.
   //  key - (Array) A single array argument that contains a list of key values
   //    to remove from the current state.
-  // 
+  //
   // Returns:
-  // 
+  //
   //  Nothing.
-  // 
+  //
   // Additional Notes:
-  // 
+  //
   //  * Setting an empty state may cause the browser to scroll.
-  
+
   jq_bbq.removeState = function( arr ) {
     var state = {};
-    
+
     // If one or more arguments is passed..
     if ( arr !== undefined ) {
-      
+
       // Get the current state.
       state = jq_bbq_getState();
-      
+
       // For each passed key, delete the corresponding property from the current
       // state.
       $.each( $.isArray( arr ) ? arr : arguments, function(i,v){
         delete state[ v ];
       });
     }
-    
+
     // Set the state, completely overriding any existing state.
     jq_bbq_pushState( state, 2 );
   };
-  
+
   // Event: hashchange event (BBQ)
-  // 
+  //
   // Usage in jQuery 1.4 and newer:
-  // 
+  //
   // In jQuery 1.4 and newer, the event object passed into any hashchange event
   // callback is augmented with a copy of the location.hash fragment at the time
   // the event was triggered as its event.fragment property. In addition, the
   // event.getState method operates on this property (instead of location.hash)
   // which allows this fragment-as-a-state to be referenced later, even after
   // window.location may have changed.
-  // 
+  //
   // Note that event.fragment and event.getState are not defined according to
   // W3C (or any other) specification, but will still be available whether or
   // not the hashchange event exists natively in the browser, because of the
   // utility they provide.
-  // 
+  //
   // The event.fragment property contains the output of <jQuery.param.fragment>
   // and the event.getState method is equivalent to the <jQuery.bbq.getState>
   // method.
-  // 
+  //
   // > $(window).bind( 'hashchange', function( event ) {
   // >   var hash_str = event.fragment,
   // >     param_obj = event.getState(),
@@ -3644,13 +3644,13 @@ function log() {
   // >     param_val_coerced = event.getState( 'param_name', true );
   // >   ...
   // > });
-  // 
+  //
   // Usage in jQuery 1.3.2:
-  // 
+  //
   // In jQuery 1.3.2, the event object cannot to be augmented as in jQuery 1.4+,
   // so the fragment state isn't bound to the event object and must instead be
   // parsed using the <jQuery.param.fragment> and <jQuery.bbq.getState> methods.
-  // 
+  //
   // > $(window).bind( 'hashchange', function( event ) {
   // >   var hash_str = $.param.fragment(),
   // >     param_obj = $.bbq.getState(),
@@ -3658,26 +3658,26 @@ function log() {
   // >     param_val_coerced = $.bbq.getState( 'param_name', true );
   // >   ...
   // > });
-  // 
+  //
   // Additional Notes:
-  // 
+  //
   // * Due to changes in the special events API, jQuery BBQ v1.2 or newer is
   //   required to enable the augmented event object in jQuery 1.4.2 and newer.
   // * See <jQuery hashchange event> for more detailed information.
-  
+
   jq_event_special[ str_hashchange ] = $.extend( jq_event_special[ str_hashchange ], {
-    
+
     // Augmenting the event object with the .fragment property and .getState
     // method requires jQuery 1.4 or newer. Note: with 1.3.2, everything will
     // work, but the event won't be augmented)
     add: function( handleObj ) {
       var old_handler;
-      
+
       function new_handler(e) {
         // e.fragment is set to the value of location.hash (with any leading #
         // removed) at the time the event is triggered.
         var hash = e[ str_fragment ] = jq_param_fragment();
-        
+
         // e.getState() works just like $.bbq.getState(), but uses the
         // e.fragment property stored on the event object.
         e.getState = function( key, coerce ) {
@@ -3685,10 +3685,10 @@ function log() {
             ? jq_deparam( hash, key ) // 'key' really means 'coerce' here
             : jq_deparam( hash, coerce )[ key ];
         };
-        
+
         old_handler.apply( this, arguments );
       };
-      
+
       // This may seem a little complicated, but it normalizes the special event
       // .add method between jQuery 1.4/1.4.1 and 1.4.2+
       if ( $.isFunction( handleObj ) ) {
@@ -3701,15 +3701,15 @@ function log() {
         handleObj.handler = new_handler;
       }
     }
-    
+
   });
-  
+
 })(jQuery,this);
 
 /*!
  * jQuery hashchange event - v1.2 - 2/11/2010
  * http://benalman.com/projects/jquery-hashchange-plugin/
- * 
+ *
  * Copyright (c) 2010 "Cowboy" Ben Alman
  * Dual licensed under the MIT and GPL licenses.
  * http://benalman.com/about/license/
@@ -3718,49 +3718,49 @@ function log() {
 // Script: jQuery hashchange event
 //
 // *Version: 1.2, Last updated: 2/11/2010*
-// 
+//
 // Project Home - http://benalman.com/projects/jquery-hashchange-plugin/
 // GitHub       - http://github.com/cowboy/jquery-hashchange/
 // Source       - http://github.com/cowboy/jquery-hashchange/raw/master/jquery.ba-hashchange.js
 // (Minified)   - http://github.com/cowboy/jquery-hashchange/raw/master/jquery.ba-hashchange.min.js (1.1kb)
-// 
+//
 // About: License
-// 
+//
 // Copyright (c) 2010 "Cowboy" Ben Alman,
 // Dual licensed under the MIT and GPL licenses.
 // http://benalman.com/about/license/
-// 
+//
 // About: Examples
-// 
+//
 // This working example, complete with fully commented code, illustrate one way
 // in which this plugin can be used.
-// 
+//
 // hashchange event - http://benalman.com/code/projects/jquery-hashchange/examples/hashchange/
-// 
+//
 // About: Support and Testing
-// 
+//
 // Information about what version or versions of jQuery this plugin has been
 // tested with, what browsers it has been tested in, and where the unit tests
 // reside (so you can test it yourself).
-// 
+//
 // jQuery Versions - 1.3.2, 1.4.1, 1.4.2
 // Browsers Tested - Internet Explorer 6-8, Firefox 2-3.7, Safari 3-4, Chrome, Opera 9.6-10.1.
 // Unit Tests      - http://benalman.com/code/projects/jquery-hashchange/unit/
-// 
+//
 // About: Known issues
-// 
+//
 // While this jQuery hashchange event implementation is quite stable and robust,
 // there are a few unfortunate browser bugs surrounding expected hashchange
 // event-based behaviors, independent of any JavaScript window.onhashchange
 // abstraction. See the following examples for more information:
-// 
+//
 // Chrome: Back Button - http://benalman.com/code/projects/jquery-hashchange/examples/bug-chrome-back-button/
 // Firefox: Remote XMLHttpRequest - http://benalman.com/code/projects/jquery-hashchange/examples/bug-firefox-remote-xhr/
 // WebKit: Back Button in an Iframe - http://benalman.com/code/projects/jquery-hashchange/examples/bug-webkit-hash-iframe/
 // Safari: Back Button from a different domain - http://benalman.com/code/projects/jquery-hashchange/examples/bug-safari-back-from-diff-domain/
-// 
+//
 // About: Release History
-// 
+//
 // 1.2   - (2/11/2010) Fixed a bug where coming back to a page using this plugin
 //         from a page on another domain would cause an error in Safari 4. Also,
 //         IE6/7 Iframe is now inserted after the body (this actually works),
@@ -3778,57 +3778,57 @@ function log() {
 
 (function($,window,undefined){
   '$:nomunge'; // Used by YUI compressor.
-  
+
   // Method / object references.
   var fake_onhashchange,
     jq_event_special = $.event.special,
-    
+
     // Reused strings.
     str_location = 'location',
     str_hashchange = 'hashchange',
     str_href = 'href',
-    
+
     // IE6/7 specifically need some special love when it comes to back-button
     // support, so let's do a little browser sniffing..
     browser = $.browser,
     mode = document.documentMode,
     is_old_ie = browser.msie && ( mode === undefined || mode < 8 ),
-    
+
     // Does the browser support window.onhashchange? Test for IE version, since
     // IE8 incorrectly reports this when in "IE7" or "IE8 Compatibility View"!
     supports_onhashchange = 'on' + str_hashchange in window && !is_old_ie;
-  
+
   // Get location.hash (or what you'd expect location.hash to be) sans any
   // leading #. Thanks for making this necessary, Firefox!
   function get_fragment( url ) {
     url = url || window[ str_location ][ str_href ];
     return url.replace( /^[^#]*#?(.*)$/, '$1' );
   };
-  
+
   // Property: jQuery.hashchangeDelay
-  // 
+  //
   // The numeric interval (in milliseconds) at which the <hashchange event>
   // polling loop executes. Defaults to 100.
-  
+
   $[ str_hashchange + 'Delay' ] = 100;
-  
+
   // Event: hashchange event
-  // 
+  //
   // Fired when location.hash changes. In browsers that support it, the native
   // window.onhashchange event is used (IE8, FF3.6), otherwise a polling loop is
   // initialized, running every <jQuery.hashchangeDelay> milliseconds to see if
   // the hash has changed. In IE 6 and 7, a hidden Iframe is created to allow
   // the back button and hash-based history to work.
-  // 
+  //
   // Usage:
-  // 
+  //
   // > $(window).bind( 'hashchange', function(e) {
   // >   var hash = location.hash;
   // >   ...
   // > });
-  // 
+  //
   // Additional Notes:
-  // 
+  //
   // * The polling loop and Iframe are not created until at least one callback
   //   is actually bound to 'hashchange'.
   // * If you need the bound callback(s) to execute immediately, in cases where
@@ -3837,31 +3837,31 @@ function log() {
   // * The event can be bound before DOM ready, but since it won't be usable
   //   before then in IE6/7 (due to the necessary Iframe), recommended usage is
   //   to bind it inside a $(document).ready() callback.
-  
+
   jq_event_special[ str_hashchange ] = $.extend( jq_event_special[ str_hashchange ], {
-    
+
     // Called only when the first 'hashchange' event is bound to window.
     setup: function() {
       // If window.onhashchange is supported natively, there's nothing to do..
       if ( supports_onhashchange ) { return false; }
-      
+
       // Otherwise, we need to create our own. And we don't want to call this
       // until the user binds to the event, just in case they never do, since it
       // will create a polling loop and possibly even a hidden Iframe.
       $( fake_onhashchange.start );
     },
-    
+
     // Called only when the last 'hashchange' event is unbound from window.
     teardown: function() {
       // If window.onhashchange is supported natively, there's nothing to do..
       if ( supports_onhashchange ) { return false; }
-      
+
       // Otherwise, we need to stop ours (if possible).
       $( fake_onhashchange.stop );
     }
-    
+
   });
-  
+
   // fake_onhashchange does all the work of triggering the window.onhashchange
   // event for browsers that don't natively support it, including creating a
   // polling loop to watch for hash changes and in IE 6/7 creating a hidden
@@ -3872,24 +3872,24 @@ function log() {
       iframe,
       set_history,
       get_history;
-    
+
     // Initialize. In IE 6/7, creates a hidden Iframe for history handling.
     function init(){
       // Most browsers don't need special methods here..
       set_history = get_history = function(val){ return val; };
-      
+
       // But IE6/7 do!
       if ( is_old_ie ) {
-        
+
         // Create hidden Iframe after the end of the body to prevent initial
         // page load from scrolling unnecessarily.
         iframe = $('<iframe src="javascript:0"/>').hide().insertAfter( 'body' )[0].contentWindow;
-        
+
         // Get history by looking at the hidden Iframe's location.hash.
         get_history = function() {
           return get_fragment( iframe.document[ str_location ][ str_href ] );
         };
-        
+
         // Set a new history item by opening and then closing the Iframe
         // document, *then* setting its location.hash.
         set_history = function( hash, history_hash ) {
@@ -3899,43 +3899,43 @@ function log() {
             doc[ str_location ].hash = '#' + hash;
           }
         };
-        
+
         // Set initial history.
         set_history( get_fragment() );
       }
     };
-    
+
     // Start the polling loop.
     self.start = function() {
       // Polling loop is already running!
       if ( timeout_id ) { return; }
-      
+
       // Remember the initial hash so it doesn't get triggered immediately.
       var last_hash = get_fragment();
-      
+
       // Initialize if not yet initialized.
       set_history || init();
-      
+
       // This polling loop checks every $.hashchangeDelay milliseconds to see if
       // location.hash has changed, and triggers the 'hashchange' event on
       // window when necessary.
       (function loopy(){
         var hash = get_fragment(),
           history_hash = get_history( last_hash );
-        
+
         if ( hash !== last_hash ) {
           set_history( last_hash = hash, history_hash );
-          
+
           $(window).trigger( str_hashchange );
-          
+
         } else if ( history_hash !== last_hash ) {
           window[ str_location ][ str_href ] = window[ str_location ][ str_href ].replace( /#.*/, '' ) + '#' + history_hash;
         }
-        
+
         timeout_id = setTimeout( loopy, $[ str_hashchange + 'Delay' ] );
       })();
     };
-    
+
     // Stop the polling loop, but only if an IE6/7 Iframe wasn't created. In
     // that case, even if there are no longer any bound event handlers, the
     // polling loop is still necessary for back/next to work at all!
@@ -3945,10 +3945,10 @@ function log() {
         timeout_id = 0;
       }
     };
-    
+
     return self;
   })();
-  
+
 })(jQuery,this);
 
 /*--------------------------end of jquery.bbq.js----------------------------------------------------------------------------------------------------------------*/
@@ -3984,11 +3984,11 @@ function log() {
     $.fn.orbit = function(options) {
 
         //Defaults to extend options
-        var defaults = {  
+        var defaults = {
             animation: 'horizontal-push', 		// fade, horizontal-slide, vertical-slide, horizontal-push
             animationSpeed: 600, 				// how fast animtions are
             timer: true, 						// true or false to have the timer
-            advanceSpeed: 4000, 				// if timer is enabled, time between transitions 
+            advanceSpeed: 4000, 				// if timer is enabled, time between transitions
             pauseOnHover: false, 				// if you hover pauses the slider
             startClockOnMouseOut: false, 		// if clock should start on MouseOut
             startClockOnMouseOutAfter: 1000, 	// how long after MouseOut should the timer start again
@@ -3999,30 +3999,30 @@ function log() {
             bullets: false,						// true or false to activate the bullet navigation
             bulletThumbs: false,				// thumbnails for the bullets
             bulletThumbLocation: '',			// location from this file where thumbs will be
-            afterSlideChange: function(){} 		// empty function 
-     	};  
-        
+            afterSlideChange: function(){} 		// empty function
+     	};
+
         //Extend those options
-        var options = $.extend(defaults, options); 
-	
+        var options = $.extend(defaults, options);
+
         return this.each(function() {
-        
+
 // ==============
-// ! SETUP   
+// ! SETUP
 // ==============
-        
+
             //Global Variables
             var activeSlide = 0,
             	numberSlides = 0,
             	orbitWidth,
             	orbitHeight,
             	locked;
-            
+
             //Initialize
-            var orbit = $(this).addClass('orbit'),         
+            var orbit = $(this).addClass('orbit'),
             	orbitWrapper = orbit.wrap('<div class="orbit-wrapper" />').parent();
             orbit.add(orbitWidth).width('1px').height('1px');
-	    	            
+
             //Collect all slides and set slider size of largest image
             var slides = orbit.children('img, a, div');
             slides.each(function() {
@@ -4030,31 +4030,31 @@ function log() {
                 	_slideWidth = _slide.width(),
                 	_slideHeight = _slide.height();
                 if(_slideWidth > orbit.width()) {
-	                orbit.add(orbitWrapper).width(_slideWidth);
-	                orbitWidth = orbit.width();	       			
-	            }
-	            if(_slideHeight > orbit.height()) {
-	                orbit.add(orbitWrapper).height(_slideHeight);
-	                orbitHeight = orbit.height();
-				}
+                    orbit.add(orbitWrapper).width(_slideWidth);
+                    orbitWidth = orbit.width();
+                }
+                if(_slideHeight > orbit.height()) {
+                    orbit.add(orbitWrapper).height(_slideHeight);
+                    orbitHeight = orbit.height();
+                }
                 numberSlides++;
             });
-            
+
             //Animation locking functions
             function unlock() {
                 locked = false;
             }
-            function lock() { 
+            function lock() {
                 locked = true;
             }
-            
+
             //If there is only a single slide remove nav, timer and bullets
             if(slides.length == 1) {
             	options.directionalNav = false;
             	options.timer = false;
             	options.bullets = false;
             }
-            
+
             //Set initial front photo z-index and fades it in
             slides.eq(activeSlide)
             	.css({"z-index" : 3})
@@ -4062,55 +4062,55 @@ function log() {
             		//brings in all other slides IF css declares a display: none
             		slides.css({"display":"block"})
             	});
-            
+
 // ==============
-// ! TIMER   
+// ! TIMER
 // ==============
 
             //Timer Execution
             function startClock() {
-            	if(!options.timer  || options.timer == 'false') { 
+            	if(!options.timer  || options.timer == 'false') {
             		return false;
             	//if timer is hidden, don't need to do crazy calculations
             	} else if(timer.is(':hidden')) {
-		            clock = setInterval(function(e){
-						shift("next");  
-		            }, options.advanceSpeed);            		
-		        //if timer is visible and working, let's do some math
+                    clock = setInterval(function(e){
+                        shift("next");
+                    }, options.advanceSpeed);
+                //if timer is visible and working, let's do some math
             	} else {
-		            timerRunning = true;
-		            pause.removeClass('active')
-		            clock = setInterval(function(e){
-		                var degreeCSS = "rotate("+degrees+"deg)"
-		                degrees += 2
-		                rotator.css({ 
-		                    "-webkit-transform": degreeCSS,
-		                    "-moz-transform": degreeCSS,
-		                    "-o-transform": degreeCSS
-		                });
-		                if(degrees > 180) {
-		                    rotator.addClass('move');
-		                    mask.addClass('move');
-		                }
-		                if(degrees > 360) {
-		                    rotator.removeClass('move');
-		                    mask.removeClass('move');
-		                    degrees = 0;
-		                    shift("next");
-		                }
-		            }, options.advanceSpeed/180);
-				}
-	        }
-	        function stopClock() {
-	        	if(!options.timer || options.timer == 'false') { return false; } else {
-		            timerRunning = false;
-		            clearInterval(clock);
-		            pause.addClass('active');
-				}
-	        }  
-            
+                    timerRunning = true;
+                    pause.removeClass('active')
+                    clock = setInterval(function(e){
+                        var degreeCSS = "rotate("+degrees+"deg)"
+                        degrees += 2
+                        rotator.css({
+                            "-webkit-transform": degreeCSS,
+                            "-moz-transform": degreeCSS,
+                            "-o-transform": degreeCSS
+                        });
+                        if(degrees > 180) {
+                            rotator.addClass('move');
+                            mask.addClass('move');
+                        }
+                        if(degrees > 360) {
+                            rotator.removeClass('move');
+                            mask.removeClass('move');
+                            degrees = 0;
+                            shift("next");
+                        }
+                    }, options.advanceSpeed/180);
+                }
+            }
+            function stopClock() {
+            	if(!options.timer || options.timer == 'false') { return false; } else {
+                    timerRunning = false;
+                    clearInterval(clock);
+                    pause.addClass('active');
+                }
+            }
+
             //Timer Setup
-            if(options.timer) {         	
+            if(options.timer) {
                 var timerHTML = '<div class="timer"><span class="mask"><span class="rotator"></span></span><span class="pause"></span></div>'
                 orbitWrapper.append(timerHTML);
                 var timer = $('div.timer'),
@@ -4120,12 +4120,12 @@ function log() {
                     	mask = $('div.timer span.mask'),
                     	pause = $('div.timer span.pause'),
                     	degrees = 0,
-                    	clock; 
+                    	clock;
                     startClock();
                     timer.click(function() {
                         if(!timerRunning) {
                             startClock();
-                        } else { 
+                        } else {
                             stopClock();
                         }
                     });
@@ -4143,19 +4143,19 @@ function log() {
                         })
                     }
                 }
-            }  
-	        
-	        //Pause Timer on hover
-	        if(options.pauseOnHover) {
-		        orbitWrapper.mouseenter(function() {
-		        	stopClock(); 
-		        });
-		   	}
-            
+            }
+
+            //Pause Timer on hover
+            if(options.pauseOnHover) {
+                orbitWrapper.mouseenter(function() {
+                	stopClock();
+                });
+           	}
+
 // ==============
-// ! CAPTIONS   
+// ! CAPTIONS
 // ==============
-                     
+
             //Caption Setup
             if(options.captions) {
                 var captionHTML = '<div class="orbit-caption"></div>';
@@ -4163,46 +4163,46 @@ function log() {
                 var caption = orbitWrapper.children('.orbit-caption');
             	setCaption();
             }
-			
-			//Caption Execution
+
+            //Caption Execution
             function setCaption() {
             	if(!options.captions || options.captions =="false") {
-            		return false; 
+            		return false;
             	} else {
-	            	var _captionLocation = slides.eq(activeSlide).data('caption'); //get ID from rel tag on image
-	            		_captionHTML = $(_captionLocation).html(); //get HTML from the matching HTML entity            		
-	            	//Set HTML for the caption if it exists
-	            	if(_captionHTML) {
-	            		caption
-		            		.attr('id',_captionLocation) // Add ID caption
-		                	.html(_captionHTML); // Change HTML in Caption 
-		                //Animations for Caption entrances
-		             	if(options.captionAnimation == 'none') {
-		             		caption.show();
-		             	}
-		             	if(options.captionAnimation == 'fade') {
-		             		caption.fadeIn(options.captionAnimationSpeed);
-		             	}
-		             	if(options.captionAnimation == 'slideOpen') {
-		             		caption.slideDown(options.captionAnimationSpeed);
-		             	}
-	            	} else {
-	            		//Animations for Caption exits
-	            		if(options.captionAnimation == 'none') {
-		             		caption.hide();
-		             	}
-		             	if(options.captionAnimation == 'fade') {
-		             		caption.fadeOut(options.captionAnimationSpeed);
-		             	}
-		             	if(options.captionAnimation == 'slideOpen') {
-		             		caption.slideUp(options.captionAnimationSpeed);
-		             	}
-	            	}
-				}
+                	var _captionLocation = slides.eq(activeSlide).data('caption'); //get ID from rel tag on image
+                		_captionHTML = $(_captionLocation).html(); //get HTML from the matching HTML entity
+                	//Set HTML for the caption if it exists
+                	if(_captionHTML) {
+                		caption
+                    		.attr('id',_captionLocation) // Add ID caption
+                        	.html(_captionHTML); // Change HTML in Caption
+                        //Animations for Caption entrances
+                     	if(options.captionAnimation == 'none') {
+                     		caption.show();
+                     	}
+                     	if(options.captionAnimation == 'fade') {
+                     		caption.fadeIn(options.captionAnimationSpeed);
+                     	}
+                     	if(options.captionAnimation == 'slideOpen') {
+                     		caption.slideDown(options.captionAnimationSpeed);
+                     	}
+                	} else {
+                		//Animations for Caption exits
+                		if(options.captionAnimation == 'none') {
+                     		caption.hide();
+                     	}
+                     	if(options.captionAnimation == 'fade') {
+                     		caption.fadeOut(options.captionAnimationSpeed);
+                     	}
+                     	if(options.captionAnimation == 'slideOpen') {
+                     		caption.slideUp(options.captionAnimationSpeed);
+                     	}
+                	}
+                }
             }
-            
+
 // ==================
-// ! DIRECTIONAL NAV   
+// ! DIRECTIONAL NAV
 // ==================
 
             //DirectionalNav { rightButton --> shift("next"), leftButton --> shift("prev");
@@ -4212,7 +4212,7 @@ function log() {
                 orbitWrapper.append(directionalNavHTML);
                 var leftBtn = orbitWrapper.children('div.slider-nav').children('span.left'),
                 	rightBtn = orbitWrapper.children('div.slider-nav').children('span.right');
-                leftBtn.click(function() { 
+                leftBtn.click(function() {
                     stopClock();
                     shift("prev");
                 });
@@ -4221,14 +4221,14 @@ function log() {
                     shift("next")
                 });
             }
-            
+
 // ==================
-// ! BULLET NAV   
+// ! BULLET NAV
 // ==================
-            
+
             //Bullet Nav Setup
-            if(options.bullets) { 
-            	var bulletHTML = '<ul class="orbit-bullets"></ul>';            	
+            if(options.bullets) {
+            	var bulletHTML = '<ul class="orbit-bullets"></ul>';
             	orbitWrapper.append(bulletHTML);
             	var bullets = $('ul.orbit-bullets');
             	for(i=0; i<numberSlides; i++) {
@@ -4239,7 +4239,7 @@ function log() {
             				var liMarkup = $('<li class="has-thumb">'+i+'</li>')
             				liMarkup.css({"background" : "url("+options.bulletThumbLocation+thumbName+") no-repeat"});
             			}
-            		} 
+            		}
             		$('ul.orbit-bullets').append(liMarkup);
             		liMarkup.data('index',i);
             		liMarkup.click(function() {
@@ -4249,18 +4249,18 @@ function log() {
             	}
             	setActiveBullet();
             }
-            
+
             //Bullet Nav Execution
-        	function setActiveBullet() { 
+        	function setActiveBullet() {
         		if(!options.bullets) { return false; } else {
-	        		bullets.children('li').removeClass('active').eq(activeSlide).addClass('active');
-	        	}
+            		bullets.children('li').removeClass('active').eq(activeSlide).addClass('active');
+            	}
         	}
-        	
+
 // ====================
-// ! SHIFT ANIMATIONS   
+// ! SHIFT ANIMATIONS
 // ====================
-            
+
             //Animating the shift!
             function shift(direction) {
         	    //remember previous activeSlide
@@ -4279,7 +4279,7 @@ function log() {
                 if(slides.length == "1") { return false; }
                 if(!locked) {
                     lock();
-					 //deduce the proper activeImage
+                     //deduce the proper activeImage
                     if(direction == "next") {
                         activeSlide++
                         if(activeSlide == numberSlides) {
@@ -4292,20 +4292,20 @@ function log() {
                         }
                     } else {
                         activeSlide = direction;
-                        if (prevActiveSlide < activeSlide) { 
+                        if (prevActiveSlide < activeSlide) {
                             slideDirection = "next";
-                        } else if (prevActiveSlide > activeSlide) { 
+                        } else if (prevActiveSlide > activeSlide) {
                             slideDirection = "prev"
                         }
                     }
                     //set to correct bullet
-                     setActiveBullet();  
-                     
+                     setActiveBullet();
+
                     //set previous slide z-index to one below what new activeSlide will be
                     slides
                     	.eq(prevActiveSlide)
-                    	.css({"z-index" : 2});    
-                    
+                    	.css({"z-index" : 2});
+
                     //fade
                     if(options.animation == "fade") {
                         slides
@@ -4329,7 +4329,7 @@ function log() {
                         }
                     }
                     //vertical-slide
-                    if(options.animation == "vertical-slide") { 
+                    if(options.animation == "vertical-slide") {
                         if(slideDirection == "prev") {
                             slides
                             	.eq(activeSlide)
@@ -4359,7 +4359,7 @@ function log() {
                             	.eq(activeSlide)
                             	.css({"left": -orbitWidth, "z-index" : 3})
                             	.animate({"left" : 0}, options.animationSpeed, resetAndUnlock);
-							slides
+                            slides
                             	.eq(prevActiveSlide)
                             	.animate({"left" : orbitWidth}, options.animationSpeed);
                         }
@@ -4370,7 +4370,7 @@ function log() {
         });//each call
     }//orbit plugin call
 })(jQuery);
-        
+
 /*---------------------------end of jquery.orbit.js------------------------------------------------------------------------------------------------------------------*/
 
 /*validation.js was here----------*/
@@ -4391,148 +4391,148 @@ function log() {
 /*---------------------------
  Defaults for Reveal
 ----------------------------*/
-	 
+
 /*---------------------------
  Listener for data-reveal-id attributes
 ----------------------------*/
 
-	$('a[data-reveal-id]').live('click', function(e) {
-		e.preventDefault();
-		var modalLocation = $(this).attr('data-reveal-id');
-		$('#'+modalLocation).reveal($(this).data());
-	});
+    $('a[data-reveal-id]').live('click', function(e) {
+        e.preventDefault();
+        var modalLocation = $(this).attr('data-reveal-id');
+        $('#'+modalLocation).reveal($(this).data());
+    });
 
 /*---------------------------
  Extend and Execute
 ----------------------------*/
 
     $.fn.reveal = function(options) {
-        
-        
-        var defaults = {  
-	    	animation: 'fadeAndPop', //fade, fadeAndPop, none
-		    animationspeed: 300, //how fast animtions are
-		    closeonbackgroundclick: true, //if you click background will modal close?
-		    dismissmodalclass: 'close-reveal-modal' //the class of a button or element that will close an open modal
-    	}; 
-    	
+
+
+        var defaults = {
+        	animation: 'fadeAndPop', //fade, fadeAndPop, none
+            animationspeed: 300, //how fast animtions are
+            closeonbackgroundclick: true, //if you click background will modal close?
+            dismissmodalclass: 'close-reveal-modal' //the class of a button or element that will close an open modal
+    	};
+
         //Extend dem' options
-        var options = $.extend({}, defaults, options); 
-	
+        var options = $.extend({}, defaults, options);
+
         return this.each(function() {
-        
+
 /*---------------------------
  Global Variables
 ----------------------------*/
         	var modal = $(this),
         		topMeasure  = parseInt(modal.css('top')),
-				topOffset = modal.height() + topMeasure,
+                topOffset = modal.height() + topMeasure,
           		locked = false,
-				modalBG = $('.reveal-modal-bg');
+                modalBG = $('.reveal-modal-bg');
 
 /*---------------------------
  Create Modal BG
 ----------------------------*/
-			if(modalBG.length == 0) {
-				modalBG = $('<div class="reveal-modal-bg" />').insertAfter(modal);
-			}		    
-     
+            if(modalBG.length == 0) {
+                modalBG = $('<div class="reveal-modal-bg" />').insertAfter(modal);
+            }
+
 /*---------------------------
  Open & Close Animations
 ----------------------------*/
-			//Entrance Animations
-			modal.bind('reveal:open', function () {
-			  modalBG.unbind('click.modalEvent');
-				$('.' + options.dismissmodalclass).unbind('click.modalEvent');
-				if(!locked) {
-					lockModal();
-					if(options.animation == "fadeAndPop") {
-						modal.css({'top': $(document).scrollTop()-topOffset, 'opacity' : 0, 'visibility' : 'visible'});
-						modalBG.fadeIn(options.animationspeed/2);
-						modal.delay(options.animationspeed/2).animate({
-							"top": $(document).scrollTop()+topMeasure + 'px',
-							"opacity" : 1
-						}, options.animationspeed,unlockModal());					
-					}
-					if(options.animation == "fade") {
-						modal.css({'opacity' : 0, 'visibility' : 'visible', 'top': $(document).scrollTop()+topMeasure});
-						modalBG.fadeIn(options.animationspeed/2);
-						modal.delay(options.animationspeed/2).animate({
-							"opacity" : 1
-						}, options.animationspeed,unlockModal());					
-					} 
-					if(options.animation == "none") {
-						modal.css({'visibility' : 'visible', 'top':$(document).scrollTop()+topMeasure});
-						modalBG.css({"display":"block"});	
-						unlockModal()				
-					}
-				}
-				modal.unbind('reveal:open');
-			}); 	
+            //Entrance Animations
+            modal.bind('reveal:open', function () {
+              modalBG.unbind('click.modalEvent');
+                $('.' + options.dismissmodalclass).unbind('click.modalEvent');
+                if(!locked) {
+                    lockModal();
+                    if(options.animation == "fadeAndPop") {
+                        modal.css({'top': $(document).scrollTop()-topOffset, 'opacity' : 0, 'visibility' : 'visible'});
+                        modalBG.fadeIn(options.animationspeed/2);
+                        modal.delay(options.animationspeed/2).animate({
+                            "top": $(document).scrollTop()+topMeasure + 'px',
+                            "opacity" : 1
+                        }, options.animationspeed,unlockModal());
+                    }
+                    if(options.animation == "fade") {
+                        modal.css({'opacity' : 0, 'visibility' : 'visible', 'top': $(document).scrollTop()+topMeasure});
+                        modalBG.fadeIn(options.animationspeed/2);
+                        modal.delay(options.animationspeed/2).animate({
+                            "opacity" : 1
+                        }, options.animationspeed,unlockModal());
+                    }
+                    if(options.animation == "none") {
+                        modal.css({'visibility' : 'visible', 'top':$(document).scrollTop()+topMeasure});
+                        modalBG.css({"display":"block"});
+                        unlockModal()
+                    }
+                }
+                modal.unbind('reveal:open');
+            });
 
-			//Closing Animation
-			modal.bind('reveal:close', function () {
-			  if(!locked) {
-					lockModal();
-					if(options.animation == "fadeAndPop") {
-						modalBG.delay(options.animationspeed).fadeOut(options.animationspeed);
-						modal.animate({
-							"top":  $(document).scrollTop()-topOffset + 'px',
-							"opacity" : 0
-						}, options.animationspeed/2, function() {
-							modal.css({'top':topMeasure, 'opacity' : 1, 'visibility' : 'hidden'});
-							unlockModal();
-						});					
-					}  	
-					if(options.animation == "fade") {
-						modalBG.delay(options.animationspeed).fadeOut(options.animationspeed);
-						modal.animate({
-							"opacity" : 0
-						}, options.animationspeed, function() {
-							modal.css({'opacity' : 1, 'visibility' : 'hidden', 'top' : topMeasure});
-							unlockModal();
-						});					
-					}  	
-					if(options.animation == "none") {
-						modal.css({'visibility' : 'hidden', 'top' : topMeasure});
-						modalBG.css({'display' : 'none'});	
-					}		
-				}
-				modal.unbind('reveal:close');
-			});     
-   	
+            //Closing Animation
+            modal.bind('reveal:close', function () {
+              if(!locked) {
+                    lockModal();
+                    if(options.animation == "fadeAndPop") {
+                        modalBG.delay(options.animationspeed).fadeOut(options.animationspeed);
+                        modal.animate({
+                            "top":  $(document).scrollTop()-topOffset + 'px',
+                            "opacity" : 0
+                        }, options.animationspeed/2, function() {
+                            modal.css({'top':topMeasure, 'opacity' : 1, 'visibility' : 'hidden'});
+                            unlockModal();
+                        });
+                    }
+                    if(options.animation == "fade") {
+                        modalBG.delay(options.animationspeed).fadeOut(options.animationspeed);
+                        modal.animate({
+                            "opacity" : 0
+                        }, options.animationspeed, function() {
+                            modal.css({'opacity' : 1, 'visibility' : 'hidden', 'top' : topMeasure});
+                            unlockModal();
+                        });
+                    }
+                    if(options.animation == "none") {
+                        modal.css({'visibility' : 'hidden', 'top' : topMeasure});
+                        modalBG.css({'display' : 'none'});
+                    }
+                }
+                modal.unbind('reveal:close');
+            });
+
 /*---------------------------
  Open and add Closing Listeners
 ----------------------------*/
         	//Open Modal Immediately
     	modal.trigger('reveal:open')
-			
-			//Close Modal Listeners
-			var closeButton = $('.' + options.dismissmodalclass).bind('click.modalEvent', function () {
-			  modal.trigger('reveal:close')
-			});
-			
-			if(options.closeonbackgroundclick) {
-				modalBG.css({"cursor":"pointer"})
-				modalBG.bind('click.modalEvent', function () {
-				  modal.trigger('reveal:close')
-				});
-			}
-			$('body').keyup(function(e) {
+
+            //Close Modal Listeners
+            var closeButton = $('.' + options.dismissmodalclass).bind('click.modalEvent', function () {
+              modal.trigger('reveal:close')
+            });
+
+            if(options.closeonbackgroundclick) {
+                modalBG.css({"cursor":"pointer"})
+                modalBG.bind('click.modalEvent', function () {
+                  modal.trigger('reveal:close')
+                });
+            }
+            $('body').keyup(function(e) {
         		if(e.which===27){ modal.trigger('reveal:close'); } // 27 is the keycode for the Escape key
-			});
-			
-			
+            });
+
+
 /*---------------------------
  Animations Locks
 ----------------------------*/
-			function unlockModal() { 
-				locked = false;
-			}
-			function lockModal() {
-				locked = true;
-			}	
-			
+            function unlockModal() {
+                locked = false;
+            }
+            function lockModal() {
+                locked = true;
+            }
+
         });//each call
     }//orbit plugin call
 })(jQuery);

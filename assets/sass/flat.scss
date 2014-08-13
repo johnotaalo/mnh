@@ -59,7 +59,7 @@ body{
 }
 .login-container{
     background:#ecf0f1;
-    padding:10% 10%;
+    padding:5% 10%;
     #form-description,#form-login{
         @extend .col-md-6;
     }
@@ -582,4 +582,56 @@ li.selected{
     i{
         padding-right:5px;
     }
+}
+
+//Select
+.select2-container{
+    width:100%;
+}
+//Datatables Overrides
+.paging_full_numbers{
+    padding-left:60%;
+}
+a.paginate_button{
+    border:1px solid #ddd !important;
+    padding:5px 10px;
+    min-width:90px;
+    font-size:12px;
+    color:#333 !important;
+    cursor:pointer;
+}
+a.paginate_button:hover{
+    background:#e7e7e7;
+    text-decoration: none;
+    cursor: hand;
+}
+a.disabled{
+    background:#666;
+    color:white;
+}
+a.disabled:hover{
+    background:#666;
+}
+.dataTables_length{
+    width:200px;
+    float:left;
+select{
+    display:inherit;
+width:50px !important;
+        @extend .form-control;
+    }
+}
+.datatables_filter{
+    label{
+        float:right;
+         padding-right:5%;
+         input{
+             display: initial;
+width:200px;
+
+        @extend .form-control;
+    }
+    }
+
+
 }
