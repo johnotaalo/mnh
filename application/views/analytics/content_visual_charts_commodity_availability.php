@@ -350,7 +350,15 @@
         </div>
     </div>
 
-
+	<div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+			<div class="chart" id="ch_suppliers">
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -373,6 +381,16 @@
         <div class="portlet-body">
 
             <div class="chart" id="resource_location">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="resource_suppliers">
             </div>
         </div>
     </div>

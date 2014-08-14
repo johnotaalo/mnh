@@ -1082,15 +1082,22 @@ ORDER BY fac_level;");
 
 
     }
+	public function getCHresourcesAvailability($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
+	}
+	public function getCHresourcesLocation($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'location');
+	}
+	public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
+	}
     public function getresourcesFrequencyCH($criteria, $value, $survey, $survey_category) {
         $value = urldecode($value);
-
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'availability');
-
-        //echo "<pre>"; print_r($results);echo "</pre>";die;
-
-
-    }
+		 $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'availability');
+	}
 
     public function getCountyReportingSummary($survey, $survey_category) {
         $results = $this->m_analytics->getCountyReportingSummary($survey, $survey_category);

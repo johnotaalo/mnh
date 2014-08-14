@@ -1869,11 +1869,9 @@ ORDER BY oa.question_code ASC";
             
             // Dump the extra resultset.
             $queryData->free_result();
-            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+               //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('frequency', $value)) {
                         $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
@@ -2110,13 +2108,15 @@ LIMIT 0 , 1000
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('frequency', $value)) {
-                        $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                        $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
                     } else if (array_key_exists('location', $value)) {
                         $location = explode(',', $value['location']);
                         foreach ($location as $place) {
-                            $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                            $data[$value['resource_name']][$place]+= (int)$value['total_response'];
                         }
-                    }
+                    }else if (array_key_exists('suppliers', $value)) {
+                        $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
+					}
                 }
                 //echo "<pre>";print_r($data);echo "</pre>";die;
                 /**
@@ -2147,7 +2147,7 @@ LIMIT 0 , 1000
                     }
                     $data = $newData;
                 }
-                echo "<pre>";print_r($data);echo "</pre>";die;
+                //echo "<pre>";print_r($data);echo "</pre>";die;
             } else {
             }
         }
