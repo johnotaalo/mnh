@@ -3953,6 +3953,7 @@ ORDER BY question_code";
                     $burning= $value_['burning_values'];
                     $other = $value_['other_values'];
 
+
                     //1. collect the categories
                     $data[$question]['waste'] = $waste;
                     $data[$question]['placenta'] = $placenta;
