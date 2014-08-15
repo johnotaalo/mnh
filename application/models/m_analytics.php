@@ -1725,7 +1725,7 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                        
+                        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1737,13 +1737,12 @@ ORDER BY oa.question_code ASC";
                             $data[$value['commodity_name']][$value['reason']] = (int)$value['total_response'];
                         } else if (array_key_exists('unit', $value)) {
                             $data[$value['commodity_name']][$value['unit']] = (int)$value['total_response'];
+                        }else if (array_key_exists('supplier_code', $value)) {
+                            $data[$value['commodity_name']][$value['supplier_code']] = (int)$value['supplier_name'];
                         }
                     }
                     
                     //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    
-                    
-                    
                     /**
                      * Fix Data
                      */
@@ -3892,8 +3891,8 @@ ORDER BY question_code";
             $queryData->free_result();
             
             foreach ($this->dataSet as $value_) {
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                $question = $this->getQuestionName($value_['question_code']);
+               //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+               $question = $this->getQuestionName($value_['question_code']);
                 
                 $question = trim($question, 'Does this facility have an updated');
                 $question = trim($question, '?');
@@ -3905,9 +3904,7 @@ ORDER BY question_code";
                 } else {
                     
                     //$question = trim($question, 'National Guidelines for ');
-                    
-                    
-                }
+                 }
                 if ($question == 'Does this Facility have a designated location for oral rehydration?') {
                 }
                 
@@ -3917,9 +3914,9 @@ ORDER BY question_code";
                 //1. collect the categories
                 $data[$question]['yes'] = $yes;
                 $data[$question]['no'] = $no;
-            	
+            	}
             }
-            }
+            
             //die(var_dump($this->dataSet));
           
         catch(exception $ex) {

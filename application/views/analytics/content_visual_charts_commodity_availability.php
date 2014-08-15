@@ -217,6 +217,16 @@
             </div>
         </div>
     </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="commodity_supplier">
+            </div>
+        </div>
+    </div>
     <!-- Bundling -->
     <div class="portlet md box ">
         <div class="portlet-title">
@@ -664,6 +674,16 @@
         <div class="portlet-body">
 
             <div class="chart"id="MNHcommodity_location">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="MNHcommodity_supplier">
             </div>
         </div>
     </div>

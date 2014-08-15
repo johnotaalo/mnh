@@ -668,6 +668,9 @@ ORDER BY fac_level;");
     public function getMNHCommodityAvailabilityQuantities($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'quantity');
     }
+	public function getMNHCommoditySupplier($criteria, $value, $survey, $survey_category) {
+        $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'supplier');
+    }
     public function getCHCommodityAvailabilityFrequency($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'availability');
     }
@@ -679,7 +682,9 @@ ORDER BY fac_level;");
     public function getCHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
     }
-
+	public function getCHCommoditySuppliers($criteria, $value, $survey, $survey_category) {
+        $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'supplier');
+    }
     public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'quantity');
     }
@@ -911,14 +916,8 @@ ORDER BY fac_level;");
 
     public function getCommodityStatistics($criteria, $value, $survey, $survey_category, $for, $statistic) {
         $results = $this->m_analytics->getCommodityStatistics($criteria, $value, $survey, $survey_category, $for, $statistic);
-
-        //echo "<pre>"; print_r($results);echo "</pre>";die;
-
-        //echo '<pre>';print_r($results);'</pre>';die;
-
-        foreach ($results as $key => $result) {
-
-            $key = str_replace('_', ' ', $key);
+			foreach ($results as $key => $result) {
+			$key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
