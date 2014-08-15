@@ -75,6 +75,7 @@
         var selectClicked2;
         var selectValue2;
         var selectLink;
+        base_url = '<?php echo base_url();?>'
         //$('.select2').select2();
         $('.level2').click(function(){
             selectClicked2  = $(this).attr('id');
@@ -98,6 +99,16 @@
         $('#ch-btn').click(function(){
             //$('body').load(selectLink);
         });
+        $('#master_list').click(function(){
+
+            $('#masterFacilityList').modal('show');
+            $('#masterFacilityList').delay(4000,function(nxt){
+                loadMasterFacilityList(base_url,'#masterFacilityList .modal-body');
+                nxt();
+            });
+
+        });
+
 
         var s = skrollr.init(/*other stuff*/);
 

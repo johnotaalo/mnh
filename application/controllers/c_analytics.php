@@ -133,7 +133,7 @@ ORDER BY fac_level;");
         $this->getReportingCounties();
         $this->county = $this->session->userdata('county_analytics');
 
-        redirect($survey . '/analytics');
+        redirect('analytics');
     }
 
     public function getFacilityProgress($survey, $survey_category) {
@@ -310,35 +310,35 @@ ORDER BY fac_level;");
 
         switch ($percentage) {
             case ($percentage == 0):
-                $status = 'transparent';
-                break;
+            $status = 'transparent';
+            break;
 
             case ($percentage < 20):
-                $status = '#e93939';
-                break;
+            $status = '#e93939';
+            break;
 
             case ($percentage < 40):
-                $status = '#da8a33';
-                break;
+            $status = '#da8a33';
+            break;
 
             case ($percentage < 60):
-                $status = '#dad833';
-                break;
+            $status = '#dad833';
+            break;
 
             case ($percentage < 80):
-                $status = '#91da33';
-                break;
+            $status = '#91da33';
+            break;
 
             case ($percentage < 100):
-                $status = '#7ada33';
-                break;
+            $status = '#7ada33';
+            break;
 
-                /**case ($percentage == 100):
+            /**case ($percentage == 100):
                 $status = '#13b00b';
                 break;*/
             default:
-                $status = 'transparent';
-                break;
+            $status = 'transparent';
+            break;
         }
         $progress = '<div class="progressRow"><label>' . $countyName . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div><div style="float:right">' . $reported . ' / ' . $actual . '</div></div></div>';
 
@@ -626,16 +626,16 @@ ORDER BY fac_level;");
             foreach ($result as $name => $data) {
                 switch ($count) {
                     case 0:
-                        $resultArray[] = array('name' => $name, 'data' => array(NULL, NULL, $data), 'stack' => $stack);
-                        break;
+                    $resultArray[] = array('name' => $name, 'data' => array(NULL, NULL, $data), 'stack' => $stack);
+                    break;
 
                     case 1:
-                        $resultArray[] = array('name' => $name, 'data' => array(NULL, $data, NULL), 'stack' => $stack);
-                        break;
+                    $resultArray[] = array('name' => $name, 'data' => array(NULL, $data, NULL), 'stack' => $stack);
+                    break;
 
                     case 2:
-                        $resultArray[] = array('name' => $name, 'data' => array($data, NULL, NULL), 'stack' => $stack);
-                        break;
+                    $resultArray[] = array('name' => $name, 'data' => array($data, NULL, NULL), 'stack' => $stack);
+                    break;
                 }
             }
             $count++;
@@ -947,61 +947,61 @@ ORDER BY fac_level;");
 
         switch ($statistic) {
             case 'consumption':
-                foreach ($results['data'] as $result) {
-                    $category[] = $result['comm_name'];
-                    $gData[] = (int)$result['consumption'];
-                }
-                $resultArray[] = array('name' => 'Commodity Usage', 'data' => $gData);
+            foreach ($results['data'] as $result) {
+                $category[] = $result['comm_name'];
+                $gData[] = (int)$result['consumption'];
+            }
+            $resultArray[] = array('name' => 'Commodity Usage', 'data' => $gData);
 
-                $this->populateGraph($resultArray, '', $category, $criteria, '', 130, 'column', (int)sizeof($category));
-                break;
+            $this->populateGraph($resultArray, '', $category, $criteria, '', 130, 'column', (int)sizeof($category));
+            break;
 
             case 'unavailability':
-                foreach ($results['data'] as $drug => $result) {
+            foreach ($results['data'] as $drug => $result) {
 
-                    //$category[] = $drug;
-                    $gData[$result['unavailable_times']][$result['commodity_name']] = (int)$result['frequency'];
-                }
+                //$category[] = $drug;
+                $gData[$result['unavailable_times']][$result['commodity_name']] = (int)$result['frequency'];
+            }
 
-                $colors = array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
+            $colors = array('#2f7ed8', '#0d233a', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
 
-                //echo '<pre>';print_r($gData);echo '</pre>'; exit;
-                //$color = $colors[$colorCount];
-                //$colorCount = 0;
-                foreach ($gData as $stack => $data) {
-                    foreach ($commodities as $drug) {
-                        if (array_key_exists($drug, $data)) {
-                            $fData[$stack][] = $data[$drug];
-                        } else {
-                            $fData[$stack][] = 0;
-                        }
+            //echo '<pre>';print_r($gData);echo '</pre>'; exit;
+            //$color = $colors[$colorCount];
+            //$colorCount = 0;
+            foreach ($gData as $stack => $data) {
+                foreach ($commodities as $drug) {
+                    if (array_key_exists($drug, $data)) {
+                        $fData[$stack][] = $data[$drug];
+                    } else {
+                        $fData[$stack][] = 0;
                     }
-
-                    //$colorCount++;
-
-
                 }
 
-                foreach ($fData as $key => $value) {
-                    $resultArray[] = array('name' => $key, 'data' => $value);
-                }
+                //$colorCount++;
 
-                $this->populateGraph($resultArray, '', $commodities, $criteria, 'percent', 130, 'column', (int)sizeof($commodities));
-                break;
+
+            }
+
+            foreach ($fData as $key => $value) {
+                $resultArray[] = array('name' => $key, 'data' => $value);
+            }
+
+            $this->populateGraph($resultArray, '', $commodities, $criteria, 'percent', 130, 'column', (int)sizeof($commodities));
+            break;
 
             case 'reason':
-                foreach ($results['data'] as $result) {
-                    $chosenOptions = explode(',', $result['lcso_option_on_outage']);
-                    foreach ($chosenOptions as $chosen) {
-                        $gData[$results['commodity_options'][$chosen]][] = $result['comm_name'];
-                    }
+            foreach ($results['data'] as $result) {
+                $chosenOptions = explode(',', $result['lcso_option_on_outage']);
+                foreach ($chosenOptions as $chosen) {
+                    $gData[$results['commodity_options'][$chosen]][] = $result['comm_name'];
                 }
-                foreach($gData as $key=>$data){
-                    $fData[]=array('name'=>$key,'y'=>(int)sizeof($data));
-                }
-                $resultArray[]=array('name'=>'Reasons','data'=>$fData);
-                $this->populateGraph($resultArray, '', $category, $criteria, '', 130, 'pie');
-                break;
+            }
+            foreach($gData as $key=>$data){
+                $fData[]=array('name'=>$key,'y'=>(int)sizeof($data));
+            }
+            $resultArray[]=array('name'=>'Reasons','data'=>$fData);
+            $this->populateGraph($resultArray, '', $category, $criteria, '', 130, 'pie');
+            break;
         }
 
         //echo sizeof($category);
@@ -1119,21 +1119,21 @@ ORDER BY fac_level;");
     public function getSectionsChosen($survey) {
         switch ($survey) {
             case 'mnh':
-                $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality', 'Supplies', 'Resources');
-                $sections = 8;
-                break;
+            $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality', 'Supplies', 'Resources');
+            $sections = 8;
+            break;
 
             case 'ch':
-                $sectionNames = array('Facility Information', 'Guidelines,Job Aids and Tools', 'Assessment', 'Commodity & Bundling', 'On-Site Rehydration', 'Equipment', 'Supplies', 'Resources', 'Community Strategy');
-                $sections = 9;
-                break;
+            $sectionNames = array('Facility Information', 'Guidelines,Job Aids and Tools', 'Assessment', 'Commodity & Bundling', 'On-Site Rehydration', 'Equipment', 'Supplies', 'Resources', 'Community Strategy');
+            $sections = 9;
+            break;
 
             case 'hcw':
-                $sections = 5;
-                break;
+            $sections = 5;
+            break;
 
             default:
-                break;
+            break;
         }
         for ($x = 1; $x <= $sections; $x++) {
             $sectionList.= '<li><a href="#section-' . $x . '">Section ' . $x . ' : ' . $sectionNames[$x - 1] . '</a></li>';
@@ -1342,10 +1342,10 @@ ORDER BY fac_level;");
             //echo "<pre>";print_r($results);echo "</pre>";die;
             if ($count == 2):
 
-                //var_dump($value);
-                foreach ($value as $location => $val) {
-                    $gData[] = array(ucwords($location), (int)$val);
-                }
+            //var_dump($value);
+            foreach ($value as $location => $val) {
+                $gData[] = array(ucwords($location), (int)$val);
+            }
             endif;
             $count++;
         }
@@ -1427,9 +1427,9 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
 
             if ($count == 0):
-                $q[] = $key;
-                $yes[] = (int)$value['yes'];
-                $no[] = (int)$value['no'];
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
             endif;
             $count++;
         }
@@ -1460,9 +1460,9 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
 
             if ($count == 1):
-                $q[] = $key;
-                $yes = (int)$value['yes'];
-                $no = (int)$value['no'];
+            $q[] = $key;
+            $yes = (int)$value['yes'];
+            $no = (int)$value['no'];
             endif;
             $count++;
         }
@@ -1946,24 +1946,24 @@ ORDER BY fac_level;");
         }
         switch ($filter) {
             case 'SevereDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $severe_dehydration);
+            break;
 
             case 'SomeDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $some_dehydration);
+            break;
 
             case 'NoDehydration':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_dehydration);
+            break;
 
             case 'Dysentry':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $dysentry);
+            break;
 
             case 'NoClassification':
-                $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
-                break;
+            $resultArray[] = array('type' => 'pie', 'name' => 'Case Treatment', 'data' => $no_classification);
+            break;
         }
 
         $resultArray = json_encode($resultArray);
@@ -2330,9 +2330,34 @@ ORDER BY fac_level;");
         $options = '';
         $results = $this->m_analytics->getReportingCounties();
         foreach($results as $result){
-             $data[]=array('id'=>ucwords($result['county']),'text'=>ucwords($result['county']));
+            $data[]=array('id'=>ucwords($result['county']),'text'=>ucwords($result['county']));
         }
         echo json_encode($data);
+    }
+    public function getMasterFacilityList(){
+        $this->db->select('*')->from('facilities')->order_by('fac_county ASC')->order_by('fac_district ASC');
+        $results = $this->db->get();
+        //var_dump($results->result_array());
+        $tmpl = array('table_open' => '<div class="table-container"><table border="0" cellpadding="4" cellspacing="0" class="table table-condensed table-striped table-bordered table-hover dataTable">', 'heading_row_start' => '<tr>', 'heading_row_end' => '</tr>', 'heading_cell_start' => '<th>', 'heading_cell_end' => '</th>', 'row_start' => '<tr>', 'row_end' => '</tr>', 'cell_start' => '<td>', 'cell_end' => '</td>', 'row_alt_start' => '<tr>', 'row_alt_end' => '</tr>', 'cell_alt_start' => '<td>', 'cell_alt_end' => '</td>', 'table_close' => '</table></div>');
+
+        $this->table->set_template($tmpl);
+
+        //set table headers
+        $this->table->set_heading('Facility Name','Facility Level','Facility Type','District','County', 'Action');
+        foreach ($results->result_array() as $result) {
+            $facilityName=$result['fac_name'];
+            $facilityLevel=$result['fac_level'];
+            $facilityType=$result['fac_type'];
+            $facilityDistrict=$result['fac_district'];
+            $facilityCounty=$result['fac_county'];
+
+
+            $activity_action = "<a href='#' class='btn-xs btn-primary'>Edit</a>
+            <a href='#' class='btn-xs  imci_activity_source' id='" . $activity->activity_id . "' >View Source Data</a>";
+            $this->table->add_row($facilityName,$facilityLevel,$facilityType,$facilityDistrict,$facilityCounty, $activity_action);
+        }
+        $activity_table = $this->table->generate();
+        echo $activity_table;
     }
     //Get Facilities per County
     public function getCountyFacilities($criteria) {
@@ -2387,27 +2412,27 @@ ORDER BY fac_level;");
         switch ($choice) {
             case 'Cases':
 
-                //group cases
-                foreach ($results as $result) {
-                    $severe_dehydration[] = (int)$result[0]['severe_dehydration'];
-                    $some_dehydration[] = (int)$result[0]['some_dehydration'];
-                    $no_dehydration[] = (int)$result[0]['no_dehydration'];
-                    $dysentry[] = (int)$result[0]['dysentry'];
-                    $no_classification[] = (int)$result[0]['no_classification'];
-                }
-                $resultArray = array(array('name' => 'Severe Dehydration', 'data' => $severe_dehydration), array('name' => 'Some Dehydration', 'data' => $some_dehydration), array('name' => 'No Dehydration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
-                break;
+            //group cases
+            foreach ($results as $result) {
+                $severe_dehydration[] = (int)$result[0]['severe_dehydration'];
+                $some_dehydration[] = (int)$result[0]['some_dehydration'];
+                $no_dehydration[] = (int)$result[0]['no_dehydration'];
+                $dysentry[] = (int)$result[0]['dysentry'];
+                $no_classification[] = (int)$result[0]['no_classification'];
+            }
+            $resultArray = array(array('name' => 'Severe Dehydration', 'data' => $severe_dehydration), array('name' => 'Some Dehydration', 'data' => $some_dehydration), array('name' => 'No Dehydration', 'data' => $no_dehydration), array('name' => 'Dysentry', 'data' => $dysentry), array('name' => 'No Classification', 'data' => $no_classification));
+            break;
 
             case 'Classification':
-                foreach ($results as $value) {
-                    foreach ($value as $key => $val) {
-                        $formattedArray[$key][] = (int)$val[0]['total'];
-                    }
+            foreach ($results as $value) {
+                foreach ($value as $key => $val) {
+                    $formattedArray[$key][] = (int)$val[0]['total'];
                 }
-                foreach ($formattedArray as $key => $arr) {
-                    $resultArray[] = array('name' => $key, 'data' => $arr);
-                }
-                break;
+            }
+            foreach ($formattedArray as $key => $arr) {
+                $resultArray[] = array('name' => $key, 'data' => $arr);
+            }
+            break;
         }
 
         $this->populateGraph($resultArray, '', $categories, $criteria, 'percent', 70, 'bar', sizeof($categories));
@@ -2814,9 +2839,9 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
 
             if ($count == 0):
-                $q[] = $key;
-                $yes[] = (int)$value['yes'];
-                $no[] = (int)$value['no'];
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
             endif;
             $count++;
         }
@@ -2840,9 +2865,9 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
 
             if ($count == 1):
-                $q[] = $key;
-                $yes[] = (int)$value['yes'];
-                $no[] = (int)$value['no'];
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
             endif;
             $count++;
         }
@@ -3081,18 +3106,18 @@ ORDER BY fac_level;");
         switch ($type) {
             case 'line':
             case 'column':
-                $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
-                $datas['chart_length'] = 300;
-                $datas['chart_label_rotation']=(int)-45;
-                $datas['chart_legend_floating']=true;
-                break;
+            $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
+            $datas['chart_length'] = 300;
+            $datas['chart_label_rotation']=(int)-45;
+            $datas['chart_legend_floating']=true;
+            break;
 
             default:
-                $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
-                 $datas['chart_label_rotation']=(int)0;
-                 $datas['chart_legend_floating']=false;
-                //$datas['chart_width'] = 100;
-                break;
+            $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+            $datas['chart_label_rotation']=(int)0;
+            $datas['chart_legend_floating']=false;
+            //$datas['chart_width'] = 100;
+            break;
         }
         $datas['chart_stacking'] = $stacking;
         $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');

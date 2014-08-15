@@ -310,7 +310,9 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#started .digit').text(obj[0].unfinished);
             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
-            $('#load_analytics').attr('data-url', url)
+            $('#load_analytics').attr('data-url', url);
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
+            $('#load_county_summary').attr('data-url',new_url);
         }
     });
 }
@@ -339,7 +341,28 @@ function loadData(base_url,function_url,value,container,placeholder_text){
     });
 }
 
+function loadMasterFacilityList(base_url,container){
+    $.ajax({
+        url: base_url+'c_analytics/getMasterFacilityList' ,
+        async:false,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
+            $(container).empty();
+        },
+        success: function(data) {
+            $(container.empty);
+            $(container).append(data);
+                $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
+})
+
+        }
+    });
+}
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -389,4 +412,5 @@ $(document).ready(function() {
                 "sPaginationType": "full_numbers"
             });
 
-});});
+});
+});
