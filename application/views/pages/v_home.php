@@ -44,13 +44,14 @@
                                 </ul>
                             </div>
 
-                            <h6 id="current-map">Current Map : None Chosen</h6>
+                            <h6 id="current-map">Please Choose an Assessment Above</h6>
 
                         </div>
 
                         <div class="post" id="map">
 
                         </div><!--./kenya_county_map-->
+                        <h6>Click a county to see county data</h6>
 
                     </div>
 
@@ -69,7 +70,7 @@
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
 
                         <button id="load_analytics"><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
-                        <button id="load_county_summary"><i class="fa fa-bar-chart-o"></i>Click to View Reporting Summary</button>
+                        <button id="load_county_summary"><i class="fa fa-bar-chart-o"></i>Click to Download Excel Summary</button>
                     </div>
                 </div>
 
@@ -136,7 +137,7 @@
                 $('#mnh-map').css(styles2);
                 $('#ch-map').css(styles2);
             });
-            runMap('county','empty');
+            runMap('mnh','end-term');
             $('.dropdown-menu li a').click(function(){
                 survey=$(this).attr('data-survey');
                 survey_category=$(this).attr('data-survey-category');
