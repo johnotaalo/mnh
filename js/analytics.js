@@ -353,6 +353,7 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     //Section 9 MNH
     loadGraph(base_url, 'c_analytics/getresourcesFrequencyMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_availability');
     loadGraph(base_url, 'c_analytics/getresourcesLocationMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_location');
+    loadGraph(base_url, 'c_analytics/getWasteStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_wasteDisposal');
     
     //Section 10 MNH
     loadGraph(base_url, 'c_analytics/getCommunityStrategyMNH/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#community_units');
