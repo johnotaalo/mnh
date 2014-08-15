@@ -4,6 +4,70 @@
 		"selected_items":
 		[
 			[
+				"survey_ca",
+				"survey_category"
+			],
+			[
+				"surv",
+				"survey_categories"
+			],
+			[
+				"sc_",
+				"sc_name"
+			],
+			[
+				"retrie",
+				"retrieveData"
+			],
+			[
+				"m_ret",
+				"m_retrieve"
+			],
+			[
+				"non",
+				"non_functioning"
+			],
+			[
+				"ava",
+				"availabilityRow"
+			],
+			[
+				"quan",
+				"quantityRow"
+			],
+			[
+				"locat",
+				"locationRow"
+			],
+			[
+				"reason",
+				"reasonUnavailable"
+			],
+			[
+				"indicatorHC",
+				"indicatorHCWFindings"
+			],
+			[
+				"indicatorA",
+				"indicatorAssessorFindings"
+			],
+			[
+				"response",
+				"responseHCWRow"
+			],
+			[
+				"res",
+				"responseAssessorRow"
+			],
+			[
+				"retr",
+				"retrieveData"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
 				"project",
 				"project_url"
 			],
@@ -112,10 +176,6 @@
 				"indicator_name"
 			],
 			[
-				"res",
-				"response"
-			],
-			[
 				"cat",
 				"categories"
 			],
@@ -216,50 +276,18 @@
 	"buffers":
 	[
 		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/js/analytics.js",
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_admin.php",
 			"settings":
 			{
-				"buffer_size": 9425,
+				"buffer_size": 19734,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/pages/v_analytics.php",
+			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/js/core.js",
 			"settings":
 			{
-				"buffer_size": 3881,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Controller.php",
-			"settings":
-			{
-				"buffer_size": 194640,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Model.php",
-			"settings":
-			{
-				"buffer_size": 35567,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_analytics.php",
-			"settings":
-			{
-				"buffer_size": 89042,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_analytics.php",
-			"settings":
-			{
-				"buffer_size": 175598,
+				"buffer_size": 8913,
 				"line_ending": "Unix"
 			}
 		}
@@ -271,11 +299,7 @@
 		"selected_items":
 		[
 			[
-				"fo",
-				"Format Code"
-			],
-			[
-				"for",
+				"f",
 				"Format Code"
 			],
 			[
@@ -283,7 +307,11 @@
 				"Format Code"
 			],
 			[
-				"f",
+				"fo",
+				"Format Code"
+			],
+			[
+				"for",
 				"Format Code"
 			],
 			[
@@ -327,7 +355,7 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 467.0
 	},
 	"console":
 	{
@@ -348,53 +376,75 @@
 	},
 	"file_history":
 	[
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/survey/v_survey_main.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Controller.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_analytics.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/admin_head.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/analytics.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/css/style.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/search/models/search_model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/jquery-slimscroll/slimScroll.jquery.json",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Controller.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_front.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_analytics.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/pages/v_analytics.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/survey/v_survey_main.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_load.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/metro.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Exceptions_.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/head.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/sass/flat.scss",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_retrieve.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_mnh_survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Model.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/core.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_mch_survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/config/globals.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/FusionMaps/firebug-lite.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/data/facilities.json",
+		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/user_guide/database/queries.html",
+		"/Users/rufusmbugua/Library/Caches/com.binarynights.ForkLift2/#0/v_survey_main.php",
+		"/Volumes/41.89.6.215/mnch/application/views/survey/v_survey_main.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/scripts/core.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/data/countries.json",
+		"/Volumes/41.89.6.215/mnch/application/models/m_mch_survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_hcw_survey.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/.gitignore",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/search_autocomplete.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/components/bootstrap/less/component-animations.less",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/libraries/mpdf/examples/example39_PDFA_compliance.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mnh/composer.json",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/scripts/run_animate.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/sass-assets/sass/styles.scss",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/components/bootstrap/less/responsive-utilities.less",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/README.txt",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/css/style.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/template/views/header.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/nav-public.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/pages/v_home.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_analytics.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/template/views/head.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/libraries/Doctrine/DBAL/Schema/Synchronizer/SchemaSynchronizer.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/dbv/data/schema/survey_categories.sql",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/config/globals.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/top-logged-in.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/top-public.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/sass-assets/.sass-cache/c3d78e6e58e1f792879f92139243f6796662b721/_text-overflow.scssc",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/views/test.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/head.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/header.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/scripts/core.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/config/globals.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/loading/css/animation.css",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/analytics.js",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/core.js",
 		"/private/var/folders/rl/ppd00fpd61z2hwyxtp3q6gnr0000gn/T/fz3temp-1/v_survey_main.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/models/Entities/AccessChallenges.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/models/Entities/AssessmentTracker.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/models/Entities/AvailableCommodities.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_load.php",
 		"/Volumes/0722761980/styles-rules.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_statistics.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/vendor/kriswallsmith/assetic/src/Assetic/Util/CssUtils.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/sass/styles.scss",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/admin/home.php",
 		"/Users/rufusmbugua/dumps/Dump20140619_sanitized.sql",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/search_autocomplete.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/themes/sand-signika.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/dbv/public/stylesheets/bootstrap-sass/test/sass_test.rb",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/imci/controllers/imci.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/iccm/models/iccm_model.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/index.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/admin/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/admin_head.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/stylesheets/styles.css",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_admin.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/ckeditor/styles.js",
@@ -407,19 +457,13 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/libraries/Doctrine.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/js/deprecated.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/Deliveries.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/data/facilities.json",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/scripts/additional-methods.js",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_admin.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_mch_survey.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/analytics/content_visual_charts_commodity_availability.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/CommodityOutageOptions.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/Commodities.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/system/core/Common.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/composer.json",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_front.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Model.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/sass-assets/.sass-cache/120e7f19478df87d757ad54dd773e4716f26e513/_responsive-embed.scssc",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/user_guide/database/queries.html",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/Indicators.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/search/controllers/search.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/data/districts.json",
@@ -445,10 +489,7 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/license.txt",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/vendor/composer/ClassLoader.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/dbv/data/revisions/9/import_data.sql",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_mnh_survey.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_hcw_survey.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/libraries/Doctrine/ORM/Mapping/DefaultQuoteStrategy.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/pages/v_analytics.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/template.php",
 		"/Users/rufusmbugua/Library/Containers/com.apple.mail/Data/Library/Mail Downloads/E650B67F-1ACC-43A8-A0C2-AF39E75A6387/work_profile.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/Entities/Questions.php",
@@ -462,20 +503,7 @@
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/segments/analytics_header.php",
 		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/assets/sass-assets/config.rb",
 		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/config/database.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/county_profile/views/index.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/county_profile/controllers/county_profile.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/system/database/drivers/mysqli/mysqli_result.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/system/database/drivers/mysqli/mysqli_driver.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/system/database/drivers/mysql/mysql_driver.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/libraries/mpdf/examples/example39_PDFA_compliance.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_pdf.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/send_email.bat",
-		"/Volumes/ZERO/indicators.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/vendor/kriswallsmith/assetic/src/Assetic/Filter/ScssphpFilter.php",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/assets/stylesheets/foundation/icons/svgs/fi-social-xbox.svg",
-		"/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_dashboard.php",
-		"/Users/rufusmbugua/Library/Application Support/Sublime Text 3/Packages/Emmet/Default (OSX).sublime-keymap",
-		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/test.csv"
+		"/Applications/XAMPP/xamppfiles/htdocs/program-monitor/application/modules/county_profile/views/index.php"
 	],
 	"find":
 	{
@@ -483,9 +511,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 301.0,
+		"height": 235.0,
 		"where_history":
 		[
+			"<open files>",
 			"",
 			"<open files>",
 			"",
@@ -503,6 +532,32 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"notify",
+			"MAC",
+			"getReportingCounties",
+			"getFacilityOwnerPerCounty",
+			"selectReportingCounties",
+			"'/baseline'",
+			"/baseline",
+			"selectMCHOtherSuppliersPDF",
+			"form",
+			"selectMCHOtherSuppliers",
+			"suppliesMCHSection",
+			"button",
+			"ac_",
+			"commodityUsageAndOutageSection",
+			"form",
+			"addMchCommunityStrategyInfo",
+			"addition",
+			"complete",
+			"<<",
+			"merge",
+			">>",
+			"<<",
+			"section-",
+			"createQues",
+			"create",
+			"<<",
 			"selectReportingCounties",
 			"la-animate",
 			"mid-term",
@@ -604,33 +659,7 @@
 			"PDF",
 			"mid-term",
 			"baseline",
-			"$categories",
-			"sizeof($category)",
-			"$resultArray = json_encode($resultArray);\n        $resultArraySize = count($categories);\n        \n        //$resultArraySize =  5;\n        $datas['resultArraySize'] = $resultArraySize;\n        $datas['container'] = 'chart_' . $training . rand(1, 10000);\n        $datas['chartType'] = 'bar';\n        $datas['chartMargin'] = 100;\n        $datas['title'] = 'Chart';\n        $datas['chart_stacking'] = '';\n        $datas['chartTitle'] = ' ';\n        \n        //$datas['chartTitle'] = 'Facilities per County';\n        $datas['categories'] = json_encode($categories);\n        $datas['yAxis'] = 'Occurence';\n        $datas['resultArray'] = $resultArray;\n        $this->load->view('charts/chart_v', $datas);",
-			"normal",
-			"appendToTitle",
-			"graph",
-			"<",
-			"of 7",
-			"tool",
-			"mnhJobAidsAspectsSectionPDF",
-			"of 7:",
-			"mnhCEOCAspectsSectionPDF",
-			"cemonc",
-			"signalFunctionsSectionPDF",
-			"mchS",
-			" <td>Who is the Main Supplier of the following Commodities<strong>Below</strong>?</td>",
-			"selectMCHCommoditySuppliersPDF",
-			"<td colspan=\"5\">Treatments<textarea style=\"width:200px;height:200px\"></textarea></td>",
-			"<td colspan=\"2\">Treatments<textarea style=\"width:100%\"></textarea></td>",
-			"mchGuidelineAvailabilitySectionPDF",
-			"treatment",
-			"<tr>\n    	<td>\n    		Does the child have the symptom below?\n    	</td>\n    	<td colspan=\"4\">\n    	Yes <input type=\"radio\">No <input type=\"radio\">\n    	</td>\n    </tr>",
-			"<p style=\"margin-top:10px\"></p>",
-			"<p style=\"margin-top:10px;text-transform:uppercase;padding:5px\"></p>",
-			"<p style=\"margin-top:50px\"></p>",
-			"mchmalaria",
-			"<th width=\"100px\">Response</th>\n        	<th width=\"200px\">Findings</th>\n        	<th width=\"100\">Response</th>\n        	<th width=\"200px\">Findings</th>"
+			"$categories"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -638,6 +667,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"'/'+survey_category",
+			"/'+survey_category",
 			"(indicators.indicator_code = il.indicator_code AND indicators.indicator_for = indicatorfor)",
 			"il.li_response!='' AND",
 			"JOIN indicators ON (indicators.indicator_code = il.indicator_code AND indicators.indicator_for = indicatorfor",
@@ -708,10 +739,6 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core"
-		},
-		{
-			"follow_symlinks": true,
 			"path": "/Applications/XAMPP/xamppfiles/htdocs/mnh"
 		},
 		{
@@ -722,24 +749,54 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/js/analytics.js",
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_admin.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 9425,
+						"buffer_size": 19734,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								13828,
+								13828
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 740.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/js/core.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8913,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4510,
+								3943
 							]
 						],
 						"settings":
@@ -749,160 +806,17 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1474.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/views/pages/v_analytics.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3881,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2630,
-								2653
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 101.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Controller.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 194640,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13467,
-								13467
-							]
-						],
-						"settings":
-						{
-							"SideBarAutoAddFoldersForOpenedFiles": 1,
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2945.0,
+						"translation.y": 1716.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/core/MY_Model.php",
+					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/images/logo_combined.png",
 					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 35567,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								104,
-								60
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/controllers/c_analytics.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 89042,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4566,
-								4588
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1325.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/Applications/XAMPP/xamppfiles/htdocs/mnh/application/models/m_analytics.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 175598,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								102442,
-								102462
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 38757.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
+					"type": "image"
 				}
 			]
 		}
@@ -958,7 +872,19 @@
 		"selected_items":
 		[
 			[
-				"mycp",
+				"core",
+				"mnh/js/core.js"
+			],
+			[
+				"admin",
+				"mnh/application/controllers/c_admin.php"
+			],
+			[
+				"mana",
+				"mnh/application/models/m_analytics.php"
+			],
+			[
+				"myc",
 				"mnh/application/core/MY_Controller.php"
 			],
 			[
@@ -966,8 +892,88 @@
 				"mnh/application/views/pages/v_analytics.php"
 			],
 			[
-				"mana",
-				"mnh/application/models/m_analytics.php"
+				"cana",
+				"mnh/application/controllers/c_analytics.php"
+			],
+			[
+				"cfro",
+				"mnh/application/controllers/c_front.php"
+			],
+			[
+				"an",
+				"mnh/js/analytics.js"
+			],
+			[
+				"cfron",
+				"mnh/application/controllers/c_front.php"
+			],
+			[
+				"clo",
+				"mnh/application/controllers/c_load.php"
+			],
+			[
+				"head",
+				"mnh/application/views/segments/head.php"
+			],
+			[
+				"mym",
+				"mnh/application/core/MY_Model.php"
+			],
+			[
+				"mnhsu",
+				"mnh/application/models/m_mnh_survey.php"
+			],
+			[
+				"flat",
+				"mnh/assets/sass/flat.scss"
+			],
+			[
+				"cload",
+				"mnh/application/controllers/c_load.php"
+			],
+			[
+				"myco",
+				"mnh/application/core/MY_Controller.php"
+			],
+			[
+				"mch",
+				"mnh/application/models/m_mch_survey.php"
+			],
+			[
+				"mret",
+				"mnh/application/models/m_retrieve.php"
+			],
+			[
+				"my",
+				"mnh/application/core/MY_Controller.php"
+			],
+			[
+				"vs",
+				"mnh/application/views/survey/v_survey_main.php"
+			],
+			[
+				"cloa",
+				"mnh/application/controllers/c_load.php"
+			],
+			[
+				"vsu",
+				"mnh/application/views/survey/v_survey_main.php"
+			],
+			[
+				"c_lo",
+				"mnh/application/controllers/c_load.php"
+			],
+			[
+				"vsur",
+				"mnh/application/views/survey/v_survey_main.php"
+			],
+			[
+				"mhcw",
+				"mnh/application/models/m_hcw_survey.php"
+			],
+			[
+				"mycp",
+				"mnh/application/core/MY_Controller.php"
 			],
 			[
 				"canaly",
@@ -980,10 +986,6 @@
 			[
 				"run",
 				"program-monitor/assets/scripts/run_animate.js"
-			],
-			[
-				"cana",
-				"mnh/application/controllers/c_analytics.php"
 			],
 			[
 				"man",
@@ -1006,36 +1008,12 @@
 				"program-monitor/assets/scripts/run_animate.js"
 			],
 			[
-				"core",
-				"program-monitor/assets/scripts/core.js"
-			],
-			[
 				"",
 				"mnh/css/style.css"
 			],
 			[
-				"clo",
-				"mnh/application/controllers/c_load.php"
-			],
-			[
 				"sty",
 				"mnh/css/style.css"
-			],
-			[
-				"myc",
-				"mnh/application/core/MY_Controller.php"
-			],
-			[
-				"vsu",
-				"mnh/application/views/survey/v_survey_main.php"
-			],
-			[
-				"myco",
-				"mnh/application/core/MY_Controller.php"
-			],
-			[
-				"cload",
-				"mnh/application/controllers/c_load.php"
 			],
 			[
 				"styles.css",
@@ -1048,10 +1026,6 @@
 			[
 				"ana",
 				"mnh/js/analytics.js"
-			],
-			[
-				"my",
-				"mnh/application/core/MY_Controller.php"
 			],
 			[
 				"ca",
@@ -1068,10 +1042,6 @@
 			[
 				"mymo",
 				"mnh/application/core/MY_Model.php"
-			],
-			[
-				"cloa",
-				"mnh/application/controllers/c_load.php"
 			],
 			[
 				"analyt",
@@ -1110,24 +1080,12 @@
 				"mnh/application/models/Entities/LogTreatments.php"
 			],
 			[
-				"mhcw",
-				"mnh/application/models/m_hcw_survey.php"
-			],
-			[
 				"mnh",
 				"mnh/application/models/m_mnh_survey.php"
 			],
 			[
-				"vs",
-				"mnh/application/views/survey/v_survey_main.php"
-			],
-			[
 				"mnhs",
 				"mnh/application/models/m_mnh_survey.php"
-			],
-			[
-				"vsur",
-				"mnh/application/views/survey/v_survey_main.php"
 			],
 			[
 				"manaly",
@@ -1138,24 +1096,12 @@
 				"mnh/application/views/pages/v_analytics.php"
 			],
 			[
-				"cfro",
-				"mnh/application/controllers/c_front.php"
-			],
-			[
 				"templa",
 				"mnh/application/views/template.php"
 			],
 			[
-				"mch",
-				"mnh/application/models/m_mch_survey.php"
-			],
-			[
 				"logi",
 				"mnh/application/models/Entities/LogIndicators.php"
-			],
-			[
-				"head",
-				"mnh/application/views/segments/head.php"
 			],
 			[
 				"analyr",
@@ -1214,16 +1160,8 @@
 				"mnh/application/controllers/c_pdf.php"
 			],
 			[
-				"c_lo",
-				"mnh/application/controllers/c_load.php"
-			],
-			[
 				"c_load",
 				"mnh/application/controllers/c_load.php"
-			],
-			[
-				"mym",
-				"mnh/application/core/MY_Model.php"
 			],
 			[
 				"vsurvey",
@@ -1262,10 +1200,6 @@
 				"mnh/js/deprecated.js"
 			],
 			[
-				"an",
-				"mnh/js/analytics.js"
-			],
-			[
 				"chart",
 				"mnh/application/views/charts/chart_v.php"
 			],
@@ -1288,10 +1222,6 @@
 			[
 				"style",
 				"mnh/css/style.css"
-			],
-			[
-				"admin",
-				"mnh/application/views/segments/admin_head.php"
 			],
 			[
 				"facilityw",
