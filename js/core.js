@@ -339,7 +339,28 @@ function loadData(base_url,function_url,value,container,placeholder_text){
     });
 }
 
+function loadMasterFacilityList(base_url,container){
+    $.ajax({
+        url: base_url+'c_analytics/getMasterFacilityList' ,
+        async:false,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
+            $(container).empty();
+        },
+        success: function(data) {
+            $(container.empty);
+            $(container).append(data);
+                $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
+})
+
+        }
+    });
+}
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -389,4 +410,5 @@ $(document).ready(function() {
                 "sPaginationType": "full_numbers"
             });
 
-});});
+});
+});
