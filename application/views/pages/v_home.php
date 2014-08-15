@@ -69,6 +69,7 @@
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
 
                         <button id="load_analytics"><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
+                        <button id="load_county_summary"><i class="fa fa-bar-chart-o"></i>Click to View Reporting Summary</button>
                     </div>
                 </div>
 
@@ -146,6 +147,10 @@
 
             });
             $('#load_analytics').click(function(){
+                url = $(this).attr('data-url');
+                window.open(url);
+            });
+            $('#load_county_summary').click(function(){
                 url = $(this).attr('data-url');
                 window.open(url);
             });

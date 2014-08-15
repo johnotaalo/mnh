@@ -310,7 +310,9 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#started .digit').text(obj[0].unfinished);
             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
-            $('#load_analytics').attr('data-url', url)
+            $('#load_analytics').attr('data-url', url);
+            url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
+            $('#load_county_summary').attr('data-url',url);
         }
     });
 }
