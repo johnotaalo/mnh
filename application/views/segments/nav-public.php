@@ -52,9 +52,11 @@
                                 </li>
                             </ul>
                         </li-->
+<!--
                         <li>
                             <a href="<?php echo $this -> config -> item('legacy_url'); ?>">Old System</a>
                         </li>
+-->
                         <li>
                             <a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
                         </li>
