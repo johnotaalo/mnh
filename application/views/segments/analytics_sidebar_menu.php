@@ -35,6 +35,7 @@ switch($this->session->userdata('survey')) {
         <div id="facility_statistics" class="panel-collapse collapse">
             <div class="panel-body">
                 <ul class="sub">
+
                     <li id="nursesDeployed">
                         <a href="#" >Nurses Deployed</a>
                     </li>
@@ -71,6 +72,7 @@ switch($this->session->userdata('survey')) {
                     <li id="TrainedStaffMnh">
                         <a href="#" >Staff Training</a>
                     </li>
+
 
                 </ul>
             </div>
@@ -466,6 +468,43 @@ switch($this->session->userdata('survey')) {
     break;
     case 'hcw':
     ?>
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#facility">
+                    Facility Statistics <i class="fa fa-chevron-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="facility" class="panel-collapse collapse">
+            <div class="panel-body">
+                <ul class="sub">
+                    <li id="IMCIConsultation">
+                        <a href="#" >Consultation</a>
+                    </li>
+                    <li id="IMCIInterview">
+                        <a href="#">Interview</a>
+                    </li>
+                    <li id="IMCICertificate">
+                        <a href="#">Certificate</a>
+                    </li>
+                    <li id="IMCICertificateA">
+                        <a href="#">Certificate A</a>
+                    </li>
+                    <li id="IMCICertificateB">
+                        <a href="#">Certificate B</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
     <?php
     break;
 }

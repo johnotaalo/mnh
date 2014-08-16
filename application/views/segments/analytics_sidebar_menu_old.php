@@ -354,5 +354,40 @@ case 'mnh' :
 </div>
 <?php
 break;
+
+case 'hcw' :
+?>
+<div class="page-sidebar nav-collapse collapse">
+	<!-- BEGIN SIDEBAR MENU -->
+	<ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+	<li class="sidebar-toggler-wrapper">
+					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+					<div class="sidebar-toggler">
+					</div>
+					<!-- END SIDEBAR TOGGLER BUTTON -->
+				</li>
+		<li id="home-parent" class="has-sub start">
+			<a href="#"> <i class="fa fa-home"></i> <span class="title"> Analytics Summary</span> </a>
+		</li>
+		
+		<li id="facility-statistics-parent" class="has-sub start">
+			<a href="javascript:;"> <i class="fa fa-building"></i> <span class="title">Facility Statistics</span><span class="arrow "></span> </a>
+			<ul class="sub">
+				<li id="IMCIConsultation">
+					<a href="#" >Consultation</a>
+				</li>
+				
+
+			</ul>
+		</li>
+
+		
+		
+	</ul>
+	<!-- END SIDEBAR MENU -->
+</div>
+<?php
+break;
 }
 ?>
+

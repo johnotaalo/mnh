@@ -84,7 +84,7 @@ class C_Load extends MY_Controller {
         $result =$this->db->get_where('survey_status',array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl));
         $result = $result->result_array();
         $ss_id  =$result[0]['ss_id'];
-        $data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl,'survey_category'=>'mid-term');
+        $data = array('survey_status'=>$ss_id,'facilityMFL'=>$fac_mfl);
         $this->session->set_userdata($data);
 
         $result =$this->db->get_where('facilities',array('fac_mfl'=>$fac_mfl));
@@ -613,9 +613,9 @@ class C_Load extends MY_Controller {
         </table>
     <table  class="centre persist-area" >
     <thead>
-        
+
             <th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
-      
+
         </thead>
         <tr>
             <th rowspan="2">Commodity Name</th>
@@ -628,7 +628,7 @@ class C_Load extends MY_Controller {
             </th>
             <th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
             <th colspan="2">Available Quantities</th>
-            
+
 
         </tr>
         <tr >
@@ -1530,9 +1530,9 @@ Indicate the total # of children that received the following treatment. </br>
     </table>
      <table  class="centre persist-area" >
     <thead>
-        
+
             <th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
-      
+
         </thead>
         <tr>
             <th rowspan="2" >Commodity Name</th>
@@ -1664,7 +1664,7 @@ Indicate the total # of children that received the following treatment. </br>
                     <th>Fully-Functional</th>
                     <th>Non-Functional</th>
                 </tr>
-            
+
             ' . $this -> equipmentsSection['ort'] . '
 
         </table>
@@ -2509,17 +2509,19 @@ If YES to all, consider HCW for TOT and Mentorship Training
 
     public function get_facility_list() {
 
-        $this -> facilityList .= '<table class="centre">
-        <thead>
+        $this -> facilityList .= '
+        <p class="message success">
             <th colspan="22" >' . strtoupper($this -> session -> userdata('dName')) . ' DISTRICT/SUB-COUNTY FACILITIES</th>
-        </thead>
+            <p>
+        <table class="centre dataTable">
 
+<thead>
             <th>#</th>
             <th>MFL CODE</th>
             <th> FACILITY NAME </th>
             <th>SURVEY STATUS</th>
             <th>ACTION</th>
-
+</thead>
         </tr>' . $this -> districtFacilityListSection . '
         </table>';
         $data['form'] = $this -> facilityList;

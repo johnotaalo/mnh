@@ -1,6 +1,6 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 <meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	<!-- Force Latest IE rendering engine -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  <!-- Force Latest IE rendering engine -->
 <meta name="description" content="Online Data Management Tool for the Ministry of Health, Governent of Kenya <?php echo date('Y')?>">
 <meta name="keywords" content="Kenya,MNH,commodity assessment,Nairobi,eHealth,ministry of health,GoK,government,survey,health analytics,mfl,maternal health,new born health care" />
 <meta name="author" content="Ministry of Health, Government of Kenya">
@@ -23,8 +23,12 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/intro.js/introjs.css">
 
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2-bootstrap.css">
+<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/select2/select2.css">
+<!--
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.css">
 <link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.css">
+-->
+<!--<link rel="stylesheet" href="<?php echo base_url();?>assets/bower_components/datatables/media/css/jquery.dataTables.css">-->
 
 
 
@@ -32,8 +36,11 @@
 
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery-ui-1.10.3.custom.min.js"></script>
 =============================-->
-<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>
-<script src="<?php echo base_url();?>components/jquery/jquery.js"></script>
+<script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
+<script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
+<!--<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>-->
+<script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
+
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
@@ -46,7 +53,7 @@
 <script src="<?php echo base_url();?>assets/bower_components/qunit/qunit/qunit.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
+
 <script src="<?php echo base_url();?>assets/bower_components/skrollr/dist//skrollr.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist//skrollr.menu.min.js"></script>
 
@@ -56,7 +63,7 @@
 
 <script src="<?php echo base_url()?>js/highcharts.js"></script>
 <script src="<?php echo base_url()?>js/exporting.js"></script>
-<script src="<?php echo base_url()?>js/Merged-JS.js"></script>
+<!--<script src="<?php echo base_url()?>js/Merged-JS.js"></script>-->
 <script src="<?php echo base_url()?>js/FusionMaps/FusionCharts.js"></script>
 
 
@@ -68,7 +75,8 @@
         var selectClicked2;
         var selectValue2;
         var selectLink;
-        $('.select2').select2();
+        base_url = '<?php echo base_url();?>'
+        //$('.select2').select2();
         $('.level2').click(function(){
             selectClicked2  = $(this).attr('id');
             selectValue2 = $('#'+selectClicked2).attr('value');
@@ -91,6 +99,16 @@
         $('#ch-btn').click(function(){
             //$('body').load(selectLink);
         });
+        $('#master_list').click(function(){
+
+            $('#masterFacilityList').modal('show');
+            $('#masterFacilityList').delay(4000,function(nxt){
+                loadMasterFacilityList(base_url,'#masterFacilityList .modal-body');
+                nxt();
+            });
+
+        });
+
 
         var s = skrollr.init(/*other stuff*/);
 
@@ -136,4 +154,3 @@
 <!-- Download from http://www.firepad.io/firepad.zip -->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/third-party/firepad/firepad.css" />
 <script src="<?php echo base_url(); ?>assets/third-party/firepad/firepad.js"></script>
-

@@ -20,33 +20,11 @@
                         <li>
                             <a href="<?php echo base_url(); ?>">Home</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Surveys <b class="caret"></b> </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="<?php echo base_url(); ?>mnh/takesurvey"> 1. Maternal Neonatal Health - Emergency Obstetric Care Assessment </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>ch/takesurvey"> 2. Child Health - Diarrhoea, Treatment Scale Up Assessment </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>hcw/takesurvey"> 3. IMCI Follow-Up Tool </a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="<?php echo base_url('takesurvey'); ?>">Take Survey</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Analytics <b class="caret"></b> </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="<?php echo base_url(); ?>mnh/analytics" id="mnh_analytics"> 1. Maternal Neonatal Health - Emergency Obstetric Care Analysis </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>ch/analytics" id="mch_analytics"> 2. Child Health - Diarrhoea, Treatment Scale Up Analysis </a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo base_url(); ?>hcw/analytics" id="mch_analytics"> 3. IMCI Follow-Up Tool Analysis </a>
-                                </li>
-                            </ul>
+                        <li>
+                            <a href="<?php echo base_url('analytics'); ?>">View Analytics</a>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Offline Forms <b class="caret"></b> </a>
@@ -62,7 +40,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li><a href="#" id="master_list">Master Facility List</a></li>
+                        <!--li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown"> MNH Reporting Facilities (Baseline) <b class="caret"></b> </a>
                             <ul class="dropdown-menu">
                                 <li id="mnh-completed">
@@ -72,7 +51,12 @@
                                     <a href="#"> 2. List of Partially Completed facilities </a>
                                 </li>
                             </ul>
+                        </li-->
+<!--
+                        <li>
+                            <a href="<?php echo $this -> config -> item('legacy_url'); ?>">Old System</a>
                         </li>
+-->
                         <li>
                             <a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
                         </li>
