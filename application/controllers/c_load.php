@@ -206,36 +206,33 @@ class C_Load extends MY_Controller {
             <th >EMAIL</th>
         </tr>'.$this -> facilitycontactinformation .'
         </table>
-                <table>
-        <tr>
-            <td>
+        <table>
+            <tr>
                 <th> DOES THIS FACILITY CONDUCT DELIVERIES?</th>
-            </td>
+            </tr>
                 <tr><th colspan ="8"><select name="DeliveriesDone" id="DeliveriesDone" class="cloned">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option></th></tr>
-                </tr>
-
+            </tr>
         </table>
         <table>
-
-                <thead>
-                <tr>
-                    <th colspan ="12">IF NO, WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th>
+        <thead>
+            <tr>
+                <th colspan ="12">IF NO, WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th>
             </tr>
-                <tr>
-                    <th colspan ="2">Inadequate skill</th>
-                    <th colspan ="2">Inadequate staff</th>
-                    <th colspan ="2"> Inadequate infrastructure </th>
-                    <th colspan="2">Inadequate Equipment</th>
-                    <th colspan ="2"> Inadequate commodities and supplies</th>
-                    <th colspan ="2"> Other (Please specify)</th>
-                </tr>
-    </thead>
+            <tr>
+                <th colspan ="2">Inadequate skill</th>
+                <th colspan ="2">Inadequate staff</th>
+                <th colspan ="2"> Inadequate infrastructure </th>
+                <th colspan="2">Inadequate Equipment</th>
+                <th colspan ="2"> Inadequate commodities and supplies</th>
+                <th colspan ="2"> Other (Please specify)</th>
+            </tr>
+         </thead>
                 <tr>'.$this -> deliveriessection.'</tr>
             </table>
-<table>
+        <table>
             <thead>
                     <th colspan="2" >PROVISION OF Nurses</th>
                 </thead>
