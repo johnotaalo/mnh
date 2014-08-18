@@ -217,6 +217,16 @@
             </div>
         </div>
     </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="commodity_supplier">
+            </div>
+        </div>
+    </div>
     <!-- Bundling -->
     <div class="portlet md box ">
         <div class="portlet-title">
@@ -350,7 +360,15 @@
         </div>
     </div>
 
-
+	<div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+			<div class="chart" id="ch_suppliers">
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -373,6 +391,16 @@
         <div class="portlet-body">
 
             <div class="chart" id="resource_location">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="resource_suppliers">
             </div>
         </div>
     </div>
@@ -649,6 +677,16 @@
             </div>
         </div>
     </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="MNHcommodity_supplier">
+            </div>
+        </div>
+    </div>
 
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-6">
@@ -737,7 +775,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <!--<div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
         </div>
@@ -746,7 +784,7 @@
             <div class="chart" id="MNHsupplies_functionality">
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Location</h6>
