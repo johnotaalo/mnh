@@ -3812,13 +3812,13 @@ ORDER BY question_code";
          * @param  [type] $for      [description]
          * @return [type]           [description]
          */
-        public function getQuestionStatistics($criteria, $value, $survey,$survey_category, $for) {
+        public function getQuestionStatistics($criteria, $value, $survey,$survey_category, $for,$statistics) {
             
             /*using CI Database Active Record*/
             $value = urldecode($value);
             $data = array();
             
-            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "','" . $statistics . "');";
             try {
                 $queryData = $this->db->query($query, array($value));
                 $this->dataSet = $queryData->result_array();

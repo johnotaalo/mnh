@@ -1295,7 +1295,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getORTOne($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort');
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort','response');
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
@@ -1356,7 +1356,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getORTTwo($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort');
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort','response');
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
@@ -1375,7 +1375,7 @@ ORDER BY fac_level;");
         
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-        
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         // $this->getQuestionStatistics($criteria, $value, $survey, 'ort');
         
         

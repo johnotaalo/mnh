@@ -281,7 +281,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="ort_reason">
+            <div class="chart" id="ort_nonfunctional">
             </div>
         </div>
     </div>

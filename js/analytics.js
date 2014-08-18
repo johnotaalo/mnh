@@ -281,15 +281,15 @@ function statisticsHandler(criteria, value, survey, survey_category,indicator_ty
     //Section 5 MNH
     loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
     loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
-    loadGraph(base_url, 'c_analytics/getORTReason/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
+    loadGraph(base_url, 'c_analytics/getORTTwo/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_nonfunctional');
       
 
     //Section 6 CH
     loadGraph(base_url, 'c_analytics/getCHEquipmentFrequency/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#equipment_availability');
     loadGraph(base_url, 'c_analytics/getCHEquipmentLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#equipment_location');
     loadGraph(base_url, 'c_analytics/getCHEquipmentFunctionality/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#equipment_functionality');
-    loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
-    loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category+'/ort', '#ort_location');
+    //loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
+    //loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category+'/ort', '#ort_location');
 
     //Section 7 CH
     loadGraph(base_url, 'c_analytics/getCHSuppliesAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#supplies_availability');
