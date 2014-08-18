@@ -1385,65 +1385,146 @@ class C_Pdf extends MY_Controller {
 		</table-->
 
 	<p style="margin-top:300px"> </p>
-	<table class="centre">
-	<tr>
-            <th colspan="10" >TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH <input type="text"></th>
-        </tr>
-    <thead>
-        
-        <tr>
-            <th colspan="10" style="text-align:center"> Classification</th>
-        </tr>
-    </thead>
-    <tr >
-        <th colspan="1">Diarrhoea Total:</th><th colspan="9"><input type = "text", name= "diarrhoeaTotal"></th>
-    </tr>
-    <tr>
-        <td>Severe Dehydation:</td><td><input type="text" name="severedehydration"></td>
-        <td>Some Dehydation:</td><td><input type="text" name="somedehydration"></td>
-        <td>No Dehydation:</td><td><input type="text" name="nodehydration"></td>
-        <td>Dysentry:</td><td><input type="text" name="dysentry"></td>
-        <td>No Classification:</td><td><input type="text" name="noclassification"></td>
-    </tr>
-    <tr>
-		<td colspan="2">Treatment<textarea style="width:200px;height:200px"></textarea></td>
-		<td colspan="2">Treatment<textarea style="width:200px;height:200px"></textarea></td>
-		<td colspan="2">Treatment<textarea style="width:200px;height:200px"></textarea></td>
-		<td colspan="2">Treatment<textarea style="width:200px;height:200px"></textarea></td>
-		<td colspan="2">Treatment<textarea style="width:200px;height:200px"></textarea></td>
-    </tr>
-    <tr>
-        <th >Pneumonia Total:</th><th colspan="9"><input type="text"name="pneumoniaTotal"></th>
-    </tr>
-    <tr >
-        
-        <td>Severe Pneumonia:</td><td colspan="4"><input type="text" name="severepneumonia"></td>
-        <td>Pneumonia:</td><td colspan="4"><input type="text" name="pneumonia"></td>
-    </tr>
-     <tr>
-		<td colspan="5">Treatment<textarea style="width:500px;height:200px"></textarea></td>
-		<td colspan="5">Treatment<textarea style="width:500px;height:200px"></textarea></td>
-    </tr>
-    <tr>
-    	<td colspan="10" style="height:30px">
-    	</td>
-    </tr>
-    <tr>
-         <th>Malaria Total:</th><th colspan="9"><input type="text", name = "malariaTotal"></th>
-    </tr>
-    <tr >
-       
-        <td>Confirmed:</td><td colspan="4"><input type="text" name="pneumonia"></td>
-        <td>Not Confirmed(Include Clinical Malaria):</td><td colspan="4"><input type="text" name="nopneumonia"></td>
-    </tr>
-     <tr>
-		<td colspan="5">Treatment<textarea style="width:500px;height:200px"></textarea></td>
-		<td colspan="5">Treatment<textarea style="width:500px;height:200px"></textarea></td>
-    </tr>
-    <tr>
-         <th>Others Total:</th><th colspan="9"><input type="text", name = "othersTotal"></th>
-    </tr>
-</table>
+
+	 <table class="centre">
+            <tbody>
+                <th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>                
+                    <th><input type = "number" id = "totalu5" name = "mchtotalTreatment[totalu5]"/></th>
+             <th colspan = "2"></th>
+
+            <tr>
+                <th colspan = "5">Classification</th>
+            </tr>
+            <tr>
+                <th colspan="2">Diarrhoea Total</th>
+                    <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
+
+                <th colspan = "2"></th>
+            </tr>
+            </tbody>
+            <tr>
+                        <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
+            <td>Some Dehydration: <input type = "number" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
+            <td>No Dehydration: <input type = "number" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
+            <td>Dysentry: <input type = "number" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
+            <td>No Classification: <input type = "number" id = "malnoclass" name = "mchtotalTreatment[NoClassification]" onkeyup = "additionfunction()"></td>
+</tr>
+            <tr>
+                <td>
+                    <style type = "text/css">
+                        .treatment
+                        {
+                            cursor: pointer;
+                        }
+                    </style>
+                    <div class = "treatmentdropdownarea" id ="treat">
+                   Treatment
+                   <textarea style="width:200px;height:200px"></textarea>'
+                    .$this ->treatments['dia'].'
+                    </div>
+                </td>
+                <td>
+                    <div class = "treatmentdropdownarea" id ="treat">
+                    Treatment
+                    <textarea style="width:200px;height:200px"></textarea>'
+                    .$this ->treatments['dia'].'
+                    </div>
+                </td>
+                <td>
+                    <div class = "treatmentdropdownarea" id ="treat">
+                    Treatment
+                    <textarea style="width:200px;height:200px"></textarea>'
+                    .$this ->treatments['dia'].'
+                    </div>
+                </td>
+                <td>
+                    <div class = "treatmentdropdownarea" id ="treat">
+                    Treatment
+                    <textarea style="width:200px;height:200px"></textarea>'
+                    .$this ->treatments['dia'].'
+                    </div>
+                </td>
+                <td>
+                    <div class = "treatmentdropdownarea" id ="treat">
+                    Treatment
+                    <textarea style="width:200px;height:200px"></textarea>'
+                    .$this ->treatments['dia'].'
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table class="centre">
+                <tbody>
+
+                    <tr>
+                    <th colspan = "2">Pneumonia Total: </th>
+                                        <th><input type = "number" id = "pnetotal" name = "mchtotalTreatment[pnetotal]"></th>
+
+                    <th colspan = "3"></th>
+                    </tr>
+                </tbody>
+                <tr>
+                                       <td colspan = "3">Severe Pneumonia: <input type = "number" name = "mchtotalTreatment[SeverePneumonia]" id = "severepne" onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Pneumonia: <input type = "number" name = "mchtotalTreatment[Pneumonia]" id = "pne" onkeyup = "additionfunction()"></td>
+</tr>
+                <tr>
+                <td colspan = "3">
+                <div class = "treatmentdropdownarea">
+                Treatment
+                <textarea style="width:500px;height:200px"></textarea>'
+            .$this ->treatments['pne'].
+            '</div>
+                </td>
+                <td colspan = "3">
+                <div class = "treatmentdropdownarea">
+                Treatment
+                <textarea style="width:500px;height:200px"></textarea>'
+            .$this ->treatments['pne'].
+            '</div>
+                </td>
+                </tr>
+
+        </table>
+        <table class="centre">
+            <tbody>
+                    <tr>
+                    <th colspan = "2">Malaria Total: </th>
+                                       <th><input type = "number" id = "malariatotal" name = "mchtotalTreatment[malariatotal]"></th>
+
+                    <th colspan = "3"></th>
+                    </tr>
+                </tbody>
+                <tr>
+                                       <td colspan = "3">Confirmed: <input type = "number" name = "mchtotalTreatment[ConfirmedMalaria]" id = "malconfirmed"  onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "number" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
+<tr>
+                <td colspan = "3">
+                <div class = "treatmentdropdownarea">
+                <span id = "malTreatmentSection">&nbsp</span>'
+            .$this ->treatments['fev'].
+            '</div>
+                </td>
+                <td colspan = "3">
+                <div class = "treatmentdropdownarea" >
+                <span id = "malTreatmentSection_2">&nbsp</span>'
+            .$this ->treatments['fev'].
+            '</div>
+                </td>
+                </tr>
+        </table>
+
+
+        <table class="centre">
+
+            <tbody>
+            <tr>
+                <th colspan="2" >Others Total:</th>
+                                <th><input type = "number" name = "mchtotalTreatment[OtherTotal]"></th>
+
+            </tr>
+
+            </tbody>
+        </table>
 <table class="centre">
     <thead>
         <tr>
@@ -2271,6 +2352,18 @@ class C_Pdf extends MY_Controller {
 </p>
 <table class="centre">
     <thead>
+    <tr>
+		<th colspan="6">CHILD PROFILE</th>
+    </tr>
+    </thead>
+        <tr>
+            <td>Gender (M or F)</td><td><input type="text"></td>
+            <td>Age (In Months)</td><td><input type="text"></td>
+            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
+        </tr>
+</table>
+<table class="centre">
+    <thead>
         <tr>
             <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
         </tr>
@@ -2293,18 +2386,8 @@ class C_Pdf extends MY_Controller {
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
 </table>
-<table class="centre">
-    <thead>
-    <tr>
-		<th colspan="6">CHILD PROFILE</th>
-    </tr>
-    </thead>
-        <tr>
-            <td>Gender (M or F)</td><td><input type="text"></td>
-            <td>Age (In Months)</td><td><input type="text"></td>
-            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
-        </tr>
-</table>
+
+<p class="message success">SECTION 2A: ASSESSMENT OF THE SICK CHILD AGE 2 MONTHS UP TO 5 YEARS</p>
 <table class="centre">
 
     <tr>
@@ -2407,7 +2490,6 @@ class C_Pdf extends MY_Controller {
 			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
 			</tr>
 </table>
-<p style="margin-top:10px"></p>
 <table class="centre">
      <tr>
     	<th>
@@ -2506,7 +2588,7 @@ class C_Pdf extends MY_Controller {
 			</tr>
 </table>
 
-<p class="message success">ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
+<p class="message success" style="margin-top:200px">SECTION 2B: ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
 <table class="centre">
  <tr>
     	<th>
@@ -2526,7 +2608,7 @@ class C_Pdf extends MY_Controller {
     	</td>
     <tr>
         <tr>
-            <th width="500px" rowspan="2">Very Severe Disease</th>
+            <th width="500px" rowspan="2">1. Very Severe Disease</th>
 
                <th colspan="2">HCW Response</th>
             <th colspan="2">Assessor Response</th>
@@ -2574,7 +2656,7 @@ class C_Pdf extends MY_Controller {
     	</td>
     <tr>
         <tr>
-            <th width="500px" rowspan="2">Jaundice</th>
+            <th width="500px" rowspan="2">2. Jaundice</th>
 
                <th colspan="2">HCW Response</th>
             <th colspan="2">Assessor Response</th>
@@ -2621,7 +2703,7 @@ class C_Pdf extends MY_Controller {
     	</td>
     <tr>
         <tr>
-            <th width="500px" rowspan="2">Eye Infection</th>
+            <th width="500px" rowspan="2">3. Eye Infection</th>
 
                <th colspan="2">HCW Response</th>
             <th colspan="2">Assessor Response</th>
@@ -2651,10 +2733,58 @@ class C_Pdf extends MY_Controller {
 			</tr>
 </table>
 <table class="centre">
+   
+     <tr>
+    	<th>
+    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
+    	</th>
+    	<td colspan="4">
+    	Yes <input type="radio">No <input type="radio">
+    	</td>
+    </tr>
+    <tr>
+    	<td colspan="5" style="background:#ffffff">
+			<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+			</p>
+    	</td>
+    <tr>
+     <thead>
+        <tr>
+            <th width="500px">Symptom</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            <th>4. Diarrhoea</th>
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+     <tr>
+		<th colspan="5">Treatment</th>
+	</tr>
+	<tr>
+
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
+			</td>
+			</tr>
+				
+			<tr>
+			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+			</tr>
+</table>
+<table class="centre">
  
     <thead>
         <tr>
-            <th width="500px" rowspan="2">Assess Breastfeeding</th>
+            <th width="500px" rowspan="2">5A: Feeding Problem</th>
 
                <th colspan="2">HCW Response</th>
             <th colspan="2">Assessor Response</th>
@@ -2668,7 +2798,51 @@ class C_Pdf extends MY_Controller {
         	<th width="200px">Findings</th>
         </tr>
     </thead>
-     ' . $this -> mchIndicatorsSectionPDF['brf'] . '
+     ' . $this -> mchIndicatorsSectionPDF['fed'] . '
+    
+</table>
+<p class="message success" style="margin-top:200px">IF INFANT IS LESS THAN ONE WEEK</p>
+
+<table class="centre">
+ 
+    <thead>
+        <tr>
+            <th width="500px" rowspan="2">5B: Weight</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['wgt'] . '
+    
+</table>
+<table class="centre">
+ 
+    <thead>
+        <tr>
+            <th width="500px" rowspan="2">6: Special treatment Needs</th>
+
+               <th colspan="2">HCW Response</th>
+            <th colspan="2">Assessor Response</th>
+        </tr>
+        <tr>
+            
+       
+        	<th width="100px">Response</th>
+        	<th width="200px">Findings</th>
+        	<th width="100">Response</th>
+        	<th width="200px">Findings</th>
+        </tr>
+    </thead>
+     ' . $this -> mchIndicatorsSectionPDF['stn'] . '
     
 </table>
 
@@ -2777,35 +2951,32 @@ class C_Pdf extends MY_Controller {
     </tbody>
     <tfoot></tfoot>
 </table>
-<p class="message success">SECTION 5: ASSESSMENT OUTCOME</p>
-
 <table>
-<thead>
-	<tr>
-		<th colspan="2">ASSESSMENT OUTCOME</th>
-	</tr>
-</thead>
+    <tr>
+        <th colspan="2">ASSESSMENT OUTCOME</th>
+    </tr>
+
     <tr>
         <td>
-            <input type="radio">	Fully Practicing IMCI
+            <input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
         </td>
         <td>
         </td>
     </tr>
     <tr>
         <td>
-            <input type="radio">	Practicing with gaps
+            <input name="questionResponse_1000" type="radio">	Practicing with gaps
         </td>
         <td>
-            Reason <input type="text" size="100">
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
         </td>
     </tr>
     <tr>
         <td>
-           	<input type="radio">	Not practicing at all
+           	<input name="questionResponse_1000" type="radio">	Not practicing at all
         </td>
          <td>
-            Reason <input type="text" size="100">
+            Reason <input name="questionResponseOther_1000" type="text" size="100">
         </td>
     </tr>
     <tr>
@@ -2831,55 +3002,62 @@ A participant MUST correctly identify all the above in section <strong>A</strong
 </tr>
 
 '.$this->questionPDF['certb'].'
+
+
 <tr>
-<td colspan="2" style="background:#ffffff">
-<p class="instruction">
-	Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
+</table>
+
+<p class="instruction" style="margin-top:400px">
+    Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
 <br/>
 If YES to all, consider HCW for TOT and Mentorship Training
 <br/>
 (NOTE: IF THE HEALTHCARE WORKER FAILS TO ATTAIN ALLTHE POINTS IN SECTION A, THE PARTICIPANT SHOULD BE GIVEN A SECOND CHANCE. IF THE PARTICIPANT FAILS IN THE SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT)
 </p>
-</td>
-</tr>
+
+
+<table>
+<thead>
 <tr>
 <th colspan="2">CERTIFICATION</td>
 </tr>
+</thead>
 
 '.$this->questionPDF['out'].'
 </table>
 <table>
-	<thead>
-		<tr>
-			<th colspan="2">Share your findings from observational sessions with provider. 
-			Praise for the things done well and discuss on the identified weakness, show how it could be done. 
-			<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly. 
-			Note down the decisions which have been taken to improve the skills and continue the practices</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Action/s taken by supervisor:</td>
-			<td>Action/s taken by supervisee:</td>
-		</tr>
-		<tr>
-			<td><textarea style="width:400px;height:100px"></textarea></td>
-			<td><textarea style="width:400px;height:100px"></textarea></td>
-		</tr>
-		<tr>
-			<td>Supervisor Signature<input type="text" style="width:500px;padding:10px"></td>
-			<td>Supervisee Signature<input type="text" style="width:500px;padding:10px"></td>
-		</tr>
-		<tr>
-			<td>Date	<input type="text" style="width:500px;padding:10px"></td>
-			<td>Date	<input type="text" style="width:500px;padding:10px"></td>
-		</tr>
-	</tbody>
+    <thead>
+        <tr>
+            <th colspan="2">Share your findings from observational sessions with provider.
+            Praise for the things done well and discuss on the identified weakness, show how it could be done.
+            <p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly.
+            Note down the decisions which have been taken to improve the skills and continue the practices</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Action/s taken by supervisor:</td>
+            <td>Action/s taken by supervisee:</td>
+        </tr>
+        <tr>
+            <td><textarea name="hcwConclusionActionSupervisor_1" style="width:400px;height:100px"></textarea></td>
+            <td><textarea name="hcwConclusionActionSupervisee_1" style="width:400px;height:100px"></textarea></td>
+        </tr>
+        <tr>
+            <td>Supervisor Signature<input name="hcwConclusionSignatureSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+            <td>Supervisee Signature<input name="hcwConclusionSignatureSupervisee_1" type="text" style="width:500px;padding:10px"></td>
+        </tr>
+        <tr>
+            <td>Date	<input name="hcwConclusionDateSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+            <td>Date	<input name="hcwConclusionDateSupervisee_1" type="text" style="width:500px;padding:10px"></td>
+        </tr>
+    </tbody>
 </table>
+
 <p style="margin-top:0.5px"></p>
 <table style="border:2px solid #666">
     <tr>
-        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to County Office within 7 days of visit </i></td>
+        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
     </tr>
 </table>
 
