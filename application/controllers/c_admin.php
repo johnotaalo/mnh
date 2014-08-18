@@ -39,16 +39,18 @@ class C_Admin extends MY_Controller
      * @return [type]          [description]
      */
     private function create_mail($message) {
-
-      $message = json_decode(urldecode($message));
-      //var_dump($message);die;
-
-      $time = $message[0];
-      $person= $message[1];
-      //var_dump($message[2]);die;
-      $actual_message=$message[2];
-
-      $content = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        
+        $message = json_decode(urldecode($message));
+        
+        //var_dump($message);die;
+        
+        $time = $message[0];
+        $person = $message[1];
+        
+        //var_dump($message[2]);die;
+        $actual_message = $message[2];
+        
+        $content = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -76,7 +78,7 @@ class C_Admin extends MY_Controller
                         <table class="twelve columns">
                           <tr>
                             <td class="six sub-columns">
-                              <img src="'.base_url().'images/logo_combined.png">
+                              <img src="' . base_url() . 'images/logo_combined.png">
                             </td>
                             <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
                               <span class="template-label">REPORTING MEMO</span>
@@ -105,8 +107,8 @@ class C_Admin extends MY_Controller
                       <table class="twelve columns">
                         <tr>
                           <td>
-                            <h1>'.$time.', '.$person.'</h1>
-                            <p class="lead">'.$actual_message.'</p>
+                            <h1>' . $time . ', ' . $person . '</h1>
+                            <p class="lead">' . $actual_message . '</p>
                            </td>
                           <td class="expander"></td>
                         </tr>
@@ -170,29 +172,43 @@ class C_Admin extends MY_Controller
 </html>';
         return $content;
     }
+    
     /**
      * [send_email description]
      * @param  [type] $message [description]
      * @return [type]          [description]
      */
-    public function send_email($email,$message) {
-
-
-
-
-
-        $config['protocol'] = 'smtp';
-        $config['smtp_host'] = 'mail.mnchkenya.or.ke';
-        $config['smtp_port'] = '25';
-        $config['smtp_timeout'] = '7';
-        $config['smtp_user'] = 'info@mnchkenya.or.ke';
-        $config['smtp_pass'] = 'MNCH2014!!';
-        $config['charset'] = 'utf-8';
-        $config['newline'] = "\r\n";
-        $config['mailtype'] = 'html';
+    public function send_email($email, $message, $using = 'gmail') {
         
-        // or html
-        $config['validation'] = TRUE;
+        if ($using == 'gmail') {
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'smtp.gmail.com';
+            $config['smtp_port'] = '465';
+            $config['smtp_timeout'] = '7';
+            $config['smtp_user'] = 'mnchkenya@gmail.com';
+            $config['smtp_pass'] = 'mnch2014';
+            $config['charset'] = 'utf-8';
+            $config['newline'] = "\r\n";
+            $config['mailtype'] = 'html';
+            
+            // or html
+            $config['validation'] = TRUE;
+            $email = 'mnchkenya@gmail.com';
+        } else {
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'mail.mnchkenya.or.ke';
+            $config['smtp_port'] = '25';
+            $config['smtp_timeout'] = '7';
+            $config['smtp_user'] = 'info@mnchkenya.or.ke';
+            $config['smtp_pass'] = 'MNCH2014!!';
+            $config['charset'] = 'utf-8';
+            $config['newline'] = "\r\n";
+            $config['mailtype'] = 'html';
+            
+            // or html
+            $config['validation'] = TRUE;
+            $email = 'info@mnchkenya.or.ke';
+        }
         
         // bool whether to validate email or not
         $this->load->library('email', $config);
@@ -200,7 +216,7 @@ class C_Admin extends MY_Controller
         $this->email->initialize($config);
         
         $this->email->set_newline("\r\n");
-        $this->email->from('info@mnchkenya.or.ke', 'Matenal Newborn and Child Healthcare - Reporting');
+        $this->email->from($email, 'Matenal Newborn and Child Healthcare - Reporting');
         
         // change it to yours
         $this->email->to($email);
@@ -231,11 +247,12 @@ class C_Admin extends MY_Controller
      * @param  [type] $message     [description]
      * @return [type]              [description]
      */
-    public function send_sms($phoneNumber,$message) {
+    public function send_sms($phoneNumber, $message) {
         $message = urlencode($message);
         file("http://41.57.109.242:13000/cgi-bin/sendsms?username=clinton&password=ch41sms&to=$phoneNumber&text=$message");
         echo 'sent';
     }
+    
     /**
      * [getContacts description]
      * @return [type] [description]
@@ -254,15 +271,15 @@ class C_Admin extends MY_Controller
      * @return [type]           [description]
      */
     public function notify($type, $contact, $message = '') {
-      $contact = urldecode($contact);
+        $contact = urldecode($contact);
         $message = urldecode($message);
         switch ($type) {
             case 'sms':
-                $this->send_sms($contact,$message);
+                $this->send_sms($contact, $message);
                 break;
 
             case 'email':
-                $this->send_email($contact,$message);
+                $this->send_email($contact, $message);
                 break;
 
             case 'note':

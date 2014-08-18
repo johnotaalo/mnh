@@ -7,8 +7,8 @@
 
     <div class="breadcrumb">
     <li><a id="li_survey"href="<?php echo base_url() ?>home">Home</a></li>
-    <li><a id="li_facilities" href="<?php echo base_url().$this -> session -> userdata('survey').'/assessment';?>"> <?php echo $this -> session -> userdata('dName');?> Facilities</a></li-->
+    <li><a id="li_facilities" href="<?php echo base_url().'assessment';?>"> <?php echo $this -> session -> userdata('dName');?> Facilities</a></li>
 
-    </ul>
+
 </div>
 </div>

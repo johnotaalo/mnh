@@ -81,10 +81,10 @@
                                     <option data-scope="national" >All Facilities Selected</option>
 
                                 </select>
-                            <a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
+                            <!--<a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
                 <i class="fa fa-chevron-up title="Top""></i>
                 &nbsp; Move to Top
-            </a>
+            </a>*/-->
                                
                            
 
@@ -109,7 +109,10 @@
     <!-- BEGIN FOOTER -->
     <div id="footer">
         &copy; <?php echo date('Y');?> Ministry of Health, Government of Kenya
-       
+            <a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
+                <i class="fa fa-chevron-up title="Top""></i>
+                &nbsp; Move to Top
+            </a>
     </div>
     <!-- END FOOTER -->
     <!-- BEGIN JAVASCRIPTS -->

@@ -127,7 +127,7 @@ class MY_Controller extends CI_Controller
 
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
-        
+
         $this->createSuppliesSectionPDF();
 
         //new functions
@@ -257,7 +257,7 @@ class MY_Controller extends CI_Controller
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
 
-        $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
+        $this->data_found = $this->m_analytics->getReportingCounties();
 
         //echo "<pre>";print_r($this->data_found);echo "</pre>";die;
         foreach ($this->data_found as $value) {
@@ -618,7 +618,7 @@ class MY_Controller extends CI_Controller
     </tr>';
         }
 //echo $this->commodityAvailabilitySection['bun'];die;
-       
+
         return $this->commodityAvailabilitySection;
     }
 
@@ -1081,7 +1081,7 @@ class MY_Controller extends CI_Controller
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
        </tr>' . $ort_functional;
-                } 
+                }
                 else {
 
                     $this->ortCornerAspectsSection.= '<tr>
@@ -4134,6 +4134,7 @@ GROUP BY st_name,sc_name,facilityCode;";
                 $counter++;
                 $fac_mfl = $value['facMfl'];
                 $survey = $this->session->userdata('survey');
+                $survey_category = $this->session->userdata('survey_category');
                 if ($survey == 'mnh') {
                     $total = 8;
                 } else if ($survey == 'ch') {
@@ -4141,7 +4142,7 @@ GROUP BY st_name,sc_name,facilityCode;";
                 } else {
                     $total = 5;
                 }
-                $current = $this->getSection($survey, $fac_mfl, 'mid-term');
+                $current = $this->getSection($survey, $fac_mfl, $survey_category);
                 $progress = round(($current / $total) * 100);
                 if ($progress == 0) {
                     $linkText = 'Begin Survey';
