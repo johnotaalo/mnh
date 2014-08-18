@@ -2053,7 +2053,7 @@ LIMIT 0 , 1000
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('challenge', $value)) {
-                        $data[$value['ch_name']][$value['challenge']] = (int)$value['total_response'];
+                        $data[$value['ch_name']][$value['ch_name']] = (int)$value['total_response'];
                     }
                 }
                 
@@ -3780,7 +3780,8 @@ ORDER BY question_code";
                     //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('challenge', $value)) {
-                            $data[$value['flevel']][$value['challenge']] = (int)$value['total_response'];
+
+                            $data['Level '.$value['flevel']][$value['challenge']] = (int)$value['total_response'];
                         } 
                         }
                     }
@@ -3938,9 +3939,9 @@ ORDER BY question_code";
 
                 // Dump the extra resultset.
                 $queryData->free_result();
-
+// echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value_) {
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    
                     $question = $this->getQuestionName($value_['question_code']);
                     
 

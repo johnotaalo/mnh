@@ -479,19 +479,7 @@
             <div class="chart" id="MNHdeliveries">
             </div>
         </div>
-    </div>
-    
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="BEmONC">
-            </div>
-        </div>
-       </div>
-       
+    </div> 
         <div class="portlet md box ">
            <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>CEmONC</h6>
@@ -516,7 +504,7 @@
     <div class="portlet md box ">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed not performed</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Reason not performed</h6>
 
         </div>
         <div class="portlet-body">
@@ -578,7 +566,16 @@
             </div>
         </div>
     </div>
+<div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Questions</h6>
+        </div>
+        <div class="portlet-body">
 
+            <div class="chart" id="BEMONCQuestions">
+            </div>
+        </div>
+    </div>
     <div class="portlet md box ">
          <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons</h6>

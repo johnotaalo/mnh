@@ -1320,13 +1320,11 @@ ORDER BY fac_level;");
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
-            $resultArray[] = array('name' => $key, 'data' => $val);
-
-            //echo "<pre>"; print_r($results);echo "</pre>";die;
-
-
+            $gData[] = array('name' => $key, 'y' => $val[0]);
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+         $resultArray[] = array('name' => 'Challenges', 'data' => $gData);
+        // echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
 
     /**
@@ -1338,9 +1336,9 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, $for);
+        $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, 'ort');
 
-        //echo "<pre>";print_r($results);echo "</pre>";die;
+        echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $mch = $ward = $other = $opd = $uc = array();
         $count = 0;
@@ -1458,8 +1456,8 @@ ORDER BY fac_level;");
     }
 
 
-    public function getWasteStatistics($criteria, $value, $survey,$survey_category, $for) {
-        $results = $this->m_analytics->getWasteStatistics($criteria, $value, $survey,$survey_category, $for);
+    public function getWasteStatistics($criteria, $value, $survey,$survey_category) {
+        $results = $this->m_analytics->getWasteStatistics($criteria, $value, $survey,$survey_category, 'waste');
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
@@ -2794,7 +2792,7 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
 
-        $resultArray[] = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
 
         //print_r($resultArray);die;
@@ -2825,7 +2823,7 @@ ORDER BY fac_level;");
         }
 
         //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 120, 'bar');
     }
 
     public function getSignalFunction($criteria, $value, $survey, $survey_category, $function) {
