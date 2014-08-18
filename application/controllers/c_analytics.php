@@ -863,7 +863,7 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
             
-            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+            echo "<pre>"; print_r($key);echo "</pre>";die;
             
             
         }
@@ -1173,27 +1173,31 @@ ORDER BY fac_level;");
     public function getChallengeStatistics($criteria, $value, $survey, $survey_category) {
         $results = $this->m_analytics->getChallengeStatistics($criteria, $value, $survey, $survey_category);
         
-        // echo "<pre>";print_r($results);echo "</pre>";die;
-        foreach ($results as $key => $result) {
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+       /* foreach ($results as $key => $result) {
             
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
             foreach ($result as $name => $value) {
-                if ($name != 'NULL') {
+                if ($name != '') {
                     $data[$name][] = (int)$value;
                 }
             }
-        }
-        foreach ($data as $key => $val) {
+        }*/
+        foreach ($results as $key => $data) {
+            //echo "<pre>"; print_r($key);echo "</pre>";die;
+            foreach($data as $code => $val){
+                 //echo "<pre>"; print_r($data);echo "</pre>";die;
+            $category[] = $key;
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
             
-            //echo "<pre>"; print_r($results);echo "</pre>";die;
+            //echo "<pre>"; print_r($);echo "</pre>";die;
             
-            
+            }
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
