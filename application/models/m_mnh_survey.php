@@ -4957,18 +4957,13 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
-<<<<<<< HEAD
 
-                        if ($this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true 
-                        && $this->addDiarrhoeaByMonthInfo() == true && $this->addBemoncSignalFunctionsInfo() == true) {
-
-=======
                         
                         /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
                          $this -> writeAssessmentTrackerLog();*/
                         if ($this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addBemoncSignalFunctionsInfo() == true) {
                             
->>>>>>> fa9f6801ff390bb128e723865402c7c0ccb54037
+
                             //} == true  && $this->addDiarrhoeaByMonthInfo() == true
                             //) {
                             //defined in this model

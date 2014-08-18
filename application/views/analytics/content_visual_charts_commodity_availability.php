@@ -502,7 +502,31 @@
             </div>
         </div>
         </div>
-        <div class="portlet md box ">
+
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="CEOCB">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+         <div class="portlet-title">
+
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed not performed</h6>
+
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="CEOCA">
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet md box ">
          <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
         </div>
@@ -551,6 +575,17 @@
         <div class="portlet-body">
 
             <div class="chart" id="delivery_preparedness">
+            </div>
+        </div>
+    </div>
+
+    <div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="BEMONCReasons">
             </div>
         </div>
     </div>
