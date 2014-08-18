@@ -437,42 +437,85 @@ class MY_Controller extends CI_Controller
 
     public function createfacilitycontactinformation()
     {
-        // $retrieved = $this->m_mch_survey->retrieveData('hr_information');
+        $retrieved = $this->m_mch_survey->retrieveData('hr_information', 'facility_mfl');
 
-        $this->facilitycontactinformation = '';
-        $this->facilitycontactinformation .= '
-        <tr>
-            <TD  colspan="2">Incharge </TD><td>
-            <input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <TD  colspan="2">MCH Incharge</TD><td>
-            <input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <TD  colspan="2">Maternity Incharge</TD><td>
-            <input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
-            </td>
-        </tr>';
+        $fac_mfl = $this->session->userdata('facilityMFL');
 
+        // echo "<pre>";print_r($retrieved[$fac_mfl]);echo "</pre>";die;
+
+        if(isset($retrieved[$fac_mfl]))
+        {
+            $this->facilitycontactinformation .= '
+            <tr>
+                <TD  colspan="2">Incharge </TD><td>
+                <input type="text" id="facilityInchargename" name="contactfacilityInchargename"  value = "'.$retrieved[$fac_mfl]['facility_incharge_name'].'" class="cloned" size="40"/>
+                </td>
+                <td>
+                <input type="text" id="facilityInchargemobile" name="contactfacilityInchargemobile" class="phone" size="40" value = "'.$retrieved[$fac_mfl]['facility_incharge_mobile'].'"/>
+                </td>
+                <td>
+                <input type="text" id="facilityInchargeemail" name="contactfacilityInchargeemail" class="cloned mail" size="40" value = "'.$retrieved[$fac_mfl]['facility_incharge_emailAddress'].'"/>
+                </td>
+            </tr>
+            <tr>
+                <TD  colspan="2">MCH Incharge</TD><td>
+                <input type="text" id="facilityMchname" name="contactfacilityMchname" class="cloned" size="40" value = "'.$retrieved[$fac_mfl]['mch_incharge_name'].'"/>
+                </td><td>
+                <input type="text" id="facilityMchmobile" name="contactfacilityMchmobile" class="phone" size="40" value = "'.$retrieved[$fac_mfl]['mch_incharge_mobile'].'"/>
+                </td>
+                <td>
+                <input type="text" id="facilityMchemail" name="contactfacilityMchemail" class="cloned mail" size="40" value = "'.$retrieved[$fac_mfl]['mch_incharge_emailAddress'].'"/>
+                </td>
+            </tr>
+            <tr>
+                <TD  colspan="2">Maternity Incharge</TD><td>
+                <input type="text" id="facilityMaternityname" name="contactfacilityMaternityname" class="cloned" size="40" value = "'.$retrieved[$fac_mfl]['maternity_incharge_name'].'"/>
+                </td>
+                <td>
+                <input type="text" id="facilityMaternitymobile" name="contactfacilityMaternitymobile" class="phone" size="40" value = "'.$retrieved[$fac_mfl]['maternity_incharge_mobile'].'"/>
+                </td>
+                <td>
+                <input type="text" id="facilityMaternityemail" name="contactfacilityMaternityemail" class="cloned mail" size="40" value = "'.$retrieved[$fac_mfl]['maternity_incharge_emailAddress'].'"/>
+                </td>
+            </tr>';
+        }
+
+        else
+        {
+            $this->facilitycontactinformation .= '
+            <tr>
+                <TD  colspan="2">Incharge </TD><td>
+                <input type="text" id="facilityInchargename" name="contactfacilityInchargename" class="cloned" size="40"/>
+                </td>
+                <td>
+                <input type="text" id="facilityInchargemobile" name="contactfacilityInchargemobile" class="phone" size="40"/>
+                </td>
+                <td>
+                <input type="text" id="facilityInchargeemail" name="contactfacilityInchargeemail" class="cloned mail" size="40" />
+                </td>
+            </tr>
+            <tr>
+                <TD  colspan="2">MCH Incharge</TD><td>
+                <input type="text" id="facilityMchname" name="contactfacilityMchname" class="cloned" size="40" />
+                </td><td>
+                <input type="text" id="facilityMchmobile" name="contactfacilityMchmobile" class="phone" size="40" />
+                </td>
+                <td>
+                <input type="text" id="facilityMchemail" name="contactfacilityMchemail" class="cloned mail" size="40" />
+                </td>
+            </tr>
+            <tr>
+                <TD  colspan="2">Maternity Incharge</TD><td>
+                <input type="text" id="facilityMaternityname" name="contactfacilityMaternityname" class="cloned" size="40"/>
+                </td>
+                <td>
+                <input type="text" id="facilityMaternitymobile" name="contactfacilityMaternitymobile" class="phone" size="40"/>
+                </td>
+                <td>
+                <input type="text" id="facilityMaternityemail" name="contactfacilityMaternityemail" class="cloned mail" size="40"/>
+                </td>
+            </tr>';
+        }
         return $this->facilitycontactinformation;
     }
     /**Function to create the section: STATE THE AVAILABILITY & QUANTITIES OF THE FOLLOWING COMMODITIES.
@@ -1852,25 +1895,53 @@ class MY_Controller extends CI_Controller
 
     public function createMNHCommitteeAspectsSection() {
         $this->data_found = $this->m_mnh_survey->getMnhCommitteeAspectQuestions();
-
-        //var_dump($this->data_found);die;
+        $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
         $counter = 0;
         $aspect = '';
         foreach ($this->data_found as $value) {
             $counter++;
+            if (array_key_exists($value['questionCode'], $retrieved)) {
+                $this->mnhCommitteeAspectSection.= '<tr>
+                <td colspan="7">' . $value['questionName'] . '</td>
+                <td colspan="5">
+                <select name="committeeAspectResponse_' . $counter . '" id="committeeAspectResponse_' . $counter . '" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>';
+                    if($retrieved[$value['questionCode']]['lq_response'] == "Yes")
+                    {
+                        $this->mnhCommitteeAspectSection.= '<option value="Yes" selected>Yes</option>
+                        <option value = "No">No</option>';
+                    }
+                    else if($retrieved[$value['questionCode']]['lq_response'] == "No")
+                    {
+                        $this->mnhCommitteeAspectSection.= '<option value="Yes">Yes</option>
+                        <option value = "No" selected>No</option>';
+                    }
+                    else
+                    {
+                        $this->mnhCommitteeAspectSection.= '<option value="Yes">Yes</option>
+                        <option value="No">No</option>';
+                    }
 
-            $this->mnhCommitteeAspectSection.= '<tr>
-            <td colspan="7">' . $value['questionName'] . '</td>
-            <td colspan="5">
-            <select name="committeeAspectResponse_' . $counter . '" id="committeeAspectResponse_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                $this->mnhCommitteeAspectSection.= '</select>
+                </td>
+                <input type="hidden"  name="committeeAspectCode_' . $counter . '" id="committeeAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            </tr>';
+            }
+            else
+            {
+                $this->mnhCommitteeAspectSection.= '<tr>
+                <td colspan="7">' . $value['questionName'] . '</td>
+                <td colspan="5">
+                <select name="committeeAspectResponse_' . $counter . '" id="committeeAspectResponse_' . $counter . '" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
 
-            </select>
-            </td>
-            <input type="hidden"  name="committeeAspectCode_' . $counter . '" id="committeeAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
+                </select>
+                </td>
+                <input type="hidden"  name="committeeAspectCode_' . $counter . '" id="committeeAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
         }
 
         //echo $this->mnhCEOCAspectsSection;die;
@@ -2139,7 +2210,7 @@ class MY_Controller extends CI_Controller
                  break;
          }
          $this->deliveriessection = "";
-         if($retrieved)
+         if($retrieved['QMNH200'])
          {
             //echo "<pre>";print_r($retrieved); echo "</pre>";die;
              foreach ($retrieved as $key => $deliveries) {
@@ -2167,7 +2238,7 @@ class MY_Controller extends CI_Controller
          }
          else
          {
-            // echo "Not Found....";die;
+            //echo "Not Found....";die;
              foreach ($reasons as $reason) {
                 $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2" ><input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/></td>';
 
@@ -2282,22 +2353,53 @@ class MY_Controller extends CI_Controller
      * */
     public function createServices() {
         $this->data_found = $this->m_mnh_survey->getMnhServicesAspectQuestions();
+        $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
 
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->services.= '<tr>
-            <td colspan="1">' . $value['questionName'] . '</td>
-            <td colspan="1">
-            <select name="serviceAspect_' . $counter . '" id="serviceAspect_' . $counter . '" class="cloned is-guideline">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
 
-            </select>
-            <input type="hidden"  name="serviceAspectCode_' . $counter . '" id="serviceAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
+            if (array_key_exists($value['questionCode'], $retrieved)) {
+                $this->services.= '<tr>
+                <td colspan="1">' . $value['questionName'] . '</td>
+                <td colspan="1">
+                <select name="serviceAspect_' . $counter . '" id="serviceAspect_' . $counter . '" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>';
+                    if($retrieved[$value['questionCode']]['lq_response'] == "Yes")
+                    {
+                        $this->services.= '<option value="Yes" selected>Yes</option>
+                        <option value="No">No</option>';
+                    }
+                    else if($retrieved[$value['questionCode']]['lq_response'] == "No")
+                    {
+                        $this->services.= '<option value="Yes">Yes</option>
+                        <option value="No" selected>No</option>';
+                    }
+                    else
+                    {
+                        $this->services.= '<option value="Yes">Yes</option>
+                        <option value = "No">No</option>';
+                    }
+
+                $this->services.=  '</select>
+                <input type="hidden"  name="serviceAspectCode_' . $counter . '" id="serviceAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            </tr>';
+            }
+            else
+            {
+                $this->services.= '<tr>
+                <td colspan="1">' . $value['questionName'] . '</td>
+                <td colspan="1">
+                <select name="serviceAspect_' . $counter . '" id="serviceAspect_' . $counter . '" class="cloned is-guideline">
+                    <option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                </select>
+                <input type="hidden"  name="serviceAspectCode_' . $counter . '" id="serviceAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
         }
         return $this->services;
     }
@@ -2326,16 +2428,29 @@ class MY_Controller extends CI_Controller
     public function createBeds() {
         $this->data_found = $this->m_mnh_survey->getMnhBedsAspectQuestions();
 
+        $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
+        //echo "<pre>";print_r($retrieved);echo "</pre>";die;
         //var_dump($this->data_found);die;
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->beds.= '<tr>
-            <td colspan="1">' . $value['questionName'] . '</td>
-
-            <td colspan="1"><input style="width:200px" type="text" name="bedCount_' . $counter . '" id="bedCount_' . $counter . '"  class="numbers" disabled/></td>
-            <input type="hidden"  name="bedAspectCode_' . $counter . '" id="bedAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
+            if (array_key_exists($value['questionCode'], $retrieved)) {
+                $this->beds.= '<tr>
+                    <td colspan="1">' . $value['questionName'] . '</td>
+    
+                    <td colspan="1"><input style="width:200px" type="text" name="bedCount_' . $counter . '" id="bedCount_' . $counter . '"  class="numbers" value = "'.$retrieved[$value['questionCode']]['lq_response_count'].'" dissabled/></td>
+                    <input type="hidden"  name="bedAspectCode_' . $counter . '" id="bedAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
+            else
+            {
+                $this->beds.= '<tr>
+                    <td colspan="1">' . $value['questionName'] . '</td>
+    
+                    <td colspan="1"><input style="width:200px" type="text" name="bedCount_' . $counter . '" id="bedCount_' . $counter . '"  class="numbers" disabled/></td>
+                    <input type="hidden"  name="bedAspectCode_' . $counter . '" id="bedAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
         }
         return $this->beds;
     }
