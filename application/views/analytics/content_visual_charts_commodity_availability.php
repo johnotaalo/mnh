@@ -217,6 +217,16 @@
             </div>
         </div>
     </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="commodity_supplier">
+            </div>
+        </div>
+    </div>
     <!-- Bundling -->
     <div class="portlet md box ">
         <div class="portlet-title">
@@ -350,7 +360,15 @@
         </div>
     </div>
 
-
+	<div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+			<div class="chart" id="ch_suppliers">
+            </div>
+        </div>
+    </div>
 
 
 </div>
@@ -373,6 +391,16 @@
         <div class="portlet-body">
 
             <div class="chart" id="resource_location">
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="resource_suppliers">
             </div>
         </div>
     </div>
@@ -451,19 +479,7 @@
             <div class="chart" id="MNHdeliveries">
             </div>
         </div>
-    </div>
-    
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="BEmONC">
-            </div>
-        </div>
-       </div>
-       
+    </div> 
         <div class="portlet md box ">
            <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>CEmONC</h6>
@@ -488,7 +504,7 @@
     <div class="portlet md box ">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed not performed</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Reason not performed</h6>
 
         </div>
         <div class="portlet-body">
@@ -500,7 +516,7 @@
 
     <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting Caesarian Section</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
         </div>
         <div class="portlet-body">
 
@@ -550,7 +566,16 @@
             </div>
         </div>
     </div>
+<div class="portlet md box ">
+         <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Questions</h6>
+        </div>
+        <div class="portlet-body">
 
+            <div class="chart" id="BEMONCQuestions">
+            </div>
+        </div>
+    </div>
     <div class="portlet md box ">
          <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons</h6>
@@ -684,6 +709,16 @@
             </div>
         </div>
     </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart"id="MNHcommodity_supplier">
+            </div>
+        </div>
+    </div>
 
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-6">
@@ -772,7 +807,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <!--<div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
         </div>
@@ -781,7 +816,7 @@
             <div class="chart" id="MNHsupplies_functionality">
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Supplies Location</h6>

@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
 
     //new sections
 
-    public $sectionList,$sectionLinks,$facilitycontactinformation, $treatments,$question,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
+    public $sectionList,$sectionLinks,$facilitycontactinformation, $deliveriessection, $treatments,$question,$questionPDF,$hcwInterviewAspectsSectionPDF,$hcwInterviewAspectsSection,$hcwConsultingAspectsSection,$selectAccessChallenges, $beds, $mnhCommitteeAspectSection, $mnhWasteDisposalAspectsSection, $mnhNewbornCareAspectsSection, $mnhPostNatalCareAspectsSection, $nurses, $hardwareSources, $hardwareSourcesPDF, $hardwareMNHSection, $mnhJobAidsAspectsSection, $mnhGuidelinesAspectsSection, $mnhPreparednessAspectsSection, $mnhHIVTestingAspectsSection, $mchmalariaconfrimedtreatment, $mchmalarianotconfrimedtreatment, $mchmalarianotconfrimedtreatmentSection, $mchpneumoniaTreatmentSection, $mchpneumoniaTreatment, $somedehydrationdiaTreatment, $somedehydrationdiaTreatmentMCHSection, $nodehydrationdiaTreatment, $nodehydrationdiaTreatmentMCHSection, $dysentrydiaTreatment, $dysentrydiaTreatmentMCHSection, $noclassificationdiaTreatment, $noclassificationdiaTreatmentMCHSection, $othertreatmentsection, $diaresponsetreatmentsection, $fevresponsetreatmentsection, $earresponsetreatmentsection;
 
 
     //pdf variables
@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller
         $this->load->model('m_mch_survey');
         $this->load->model('m_hcw_survey');
         $this->load->model('m_analytics');
-        $this->load->model('m_retrieve');
+        // $this->load->model('m_mch_survey');
         $this->response = $this->theForm = $this->data = $this->facilityInDistrict = '';
         $this->question=$this->sectionList=$this->sectionLinks= $this->selectReportingCounties = $this->selectCounties = $this->selectDistricts = $selectFacilityType = $selectFacilityLevel = $selectProvince = $selectFacilityOwner = $selectFacility = $this->selectMCHCommoditySuppliers = $this->selectCommoditySuppliers = '';
 
@@ -77,6 +77,8 @@ class MY_Controller extends CI_Controller
         $this->createDeliveryEquipmentSection();
         $this->createCommodityUsageAndOutageSection();
         $this->createSuppliesUsageAndOutageSection();
+        $this->createfacilitycontactinformation();
+        $this->createmnhdeliveriessection();
 
         //$this->createTreatmentsMCHSection();
         $this->createFacilitiesListSection();
@@ -125,7 +127,7 @@ class MY_Controller extends CI_Controller
 
         //---------------------/
         $this->createMCHGuidelineAvailabilitySectionforPDF();
-        
+
         $this->createSuppliesSectionPDF();
 
         //new functions
@@ -140,8 +142,7 @@ class MY_Controller extends CI_Controller
         $this->createMNHJobAidsAspectsSectionforPDF();
         $this->createHardwareResourcesMNHSection();
         $this->createHardwareResourcesMNHSectionforPDF();
-        $this->createNurses();
-        $this->createfacilitycontactinformtion();
+        // $this->createNurses();
 
         $this->createMNHNewbornCareAspectsSection();
         $this->createMNHNewbornCareAspectsSectionforPDF();
@@ -256,7 +257,7 @@ class MY_Controller extends CI_Controller
         $this->selectReportingCounties = '';
         $survey = $this->session->userdata('survey');
 
-        $this->data_found = $this->m_analytics->getReportingCounties($survey,$this->session_survey_category);
+        $this->data_found = $this->m_analytics->getReportingCounties();
 
         //echo "<pre>";print_r($this->data_found);echo "</pre>";die;
         foreach ($this->data_found as $value) {
@@ -434,11 +435,12 @@ class MY_Controller extends CI_Controller
         }
     }
 
-    public function createfacilitycontactinformtion()
+    public function createfacilitycontactinformation()
     {
-        // $retrieved = $this->m_retrieve->retrieveData('hr_information');
-        $facilitycontactinformation = '';
-        $facilitycontactinformation .= '
+        // $retrieved = $this->m_mch_survey->retrieveData('hr_information');
+
+        $this->facilitycontactinformation = '';
+        $this->facilitycontactinformation .= '
         <tr>
             <TD  colspan="2">Incharge </TD><td>
             <input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
@@ -477,7 +479,7 @@ class MY_Controller extends CI_Controller
      * */
     public function createCommodityAvailabilitySection() {
         $this->data_found = $this->m_mnh_survey->getCommodityNames();
-        $retrieved = $this->m_retrieve->retrieveData('available_commodities', 'comm_code');
+        $retrieved = $this->m_mch_survey->retrieveData('available_commodities', 'comm_code');
 
         //var_dump($this->data_found);die;
         $counter = 0;
@@ -573,7 +575,7 @@ class MY_Controller extends CI_Controller
     </tr>';
         }
 //echo $this->commodityAvailabilitySection['bun'];die;
-       
+
         return $this->commodityAvailabilitySection;
     }
 
@@ -1036,7 +1038,7 @@ class MY_Controller extends CI_Controller
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
        </tr>' . $ort_functional;
-                } 
+                }
                 else {
 
                     $this->ortCornerAspectsSection.= '<tr>
@@ -2124,6 +2126,58 @@ class MY_Controller extends CI_Controller
         }
     }
 
+    public function createmnhdeliveriessection()
+ {
+     $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
+
+ 
+    //echo "<pre>"; print_r($retrieved); echo "</pre>";
+     $survey = $this->session->userdata('survey');
+         switch ($survey) {
+             case 'mnh':
+                 $reasons = array('Inadequate skill','Inadequate staff','Inadequate infrastructure','Inadequate Equipment','Inadequate commodities and supplies','others');
+                 break;
+         }
+         $this->deliveriessection = "";
+         if($retrieved)
+         {
+            //echo "<pre>";print_r($retrieved); echo "</pre>";die;
+             foreach ($retrieved as $key => $deliveries) {
+                 if($key == 'QMNH200')
+                 {
+                     if(!$deliveries[''])
+                     {
+                         $lq_reasons = explode(',', $deliveries['lq_reason']);
+                         foreach ($reasons as $reason) {
+                             $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2">';
+                             if(in_array($reason, $lq_reasons))
+                             {
+                                 $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned" checked/>';
+                             }
+                             else
+                             {
+                                $this->deliveriessection .= '<input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/>';
+                             }
+
+                            $this->deliveriessection .= '</td>';
+                         }
+                     }
+                 }
+             }
+         }
+         else
+         {
+            // echo "Not Found....";die;
+             foreach ($reasons as $reason) {
+                $this->deliveriessection .= '<td style ="text-align:center;" colspan ="2" ><input type="checkbox" name="facRsnNoDeliveries[]" id="rsnDeliveriesSkill" value="'.$reason.'" class="cloned"/></td>';
+
+             }
+         }
+         $this->deliveriessection .= '<input type="hidden"  name="facRsnNoDeliveriesCode" id="facRsnCode" value="QMNH200" />';
+         
+         return $this->deliveriessection;
+ }
+
     /**Function to create the section: CH Guideline Availability
      * */
     public function createMCHGuidelineAvailabilitySectionforPDF() {
@@ -2147,22 +2201,39 @@ class MY_Controller extends CI_Controller
 
     /**Function to create the section: CH Guideline Availability
      * */
-    public function createNurses() {
-        $this->data_found = $this->m_mnh_survey->getNursesAspectQuestions();
+    // public function createNurses() {
+    //     $this->data_found = $this->m_mnh_survey->getNursesAspectQuestions();
 
-        //var_dump($this->data_found);die;
-        $counter = 0;
-        foreach ($this->data_found as $value) {
-            $counter++;
-            $this->nurses.= '<tr>
-            <td colspan="1">' . $value['questionName'] . '</td>
+    //     $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
 
-            <td colspan="1"><input type="text" name="nurseCount_' . $counter . '" id="nurseCount_' . $counter . '" style="width:200px" class="numbers" disabled/></td>
-            <input type="hidden"  name="nurseAspectCode_' . $counter . '" id="nurseAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
-        }
-        return $this->nurses;
-    }
+    //     if($retrieved)
+    //     {
+    //         foreach ($retrieved as $key => $value) {
+    //             if($key == 'QMNH32')
+    //             {
+    //                 echo "<pre>";print_r($key);echo "</pre>";die;
+    //             }
+    //        }
+    //     }
+    //     else
+    //     {
+    //         echo "Nothing";die;
+    //     }
+
+    //     // echo "<pre>";var_dump($this->data_found);echo "</pre>";die;
+    //     $counter = 0;
+    //     foreach ($this->data_found as $value) {
+    //         $counter++;
+    //         $this->nurses.= '<tr>
+    //         <td colspan="1">' . $value['questionName'] . '</td>
+
+    //         <td colspan="1"><input type="text" name="nurseCount_' . $counter . '" id="nurseCount_' . $counter . '" style="width:200px" class="numbers" disabled/></td>
+    //         <input type="hidden"  name="nurseAspectCode_' . $counter . '" id="nurseAspectCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+    //     </tr>';
+    //     }
+
+    //     return $this->nurses;
+    // }
 
     /**Function to create the section: CH Guideline Availability
      * */
@@ -2271,7 +2342,7 @@ class MY_Controller extends CI_Controller
 
     public function createMCHIndicatorsSection() {
         $this->data_found = $this->m_mch_survey->getIndicatorNames();
-        $retrieved = $this->m_retrieve->retrieveData('log_indicators', 'indicator_code');
+        $retrieved = $this->m_mch_survey->retrieveData('log_indicators', 'indicator_code');
         $counter = 0;
         $countme = 0;
         $section = '';
@@ -2554,7 +2625,7 @@ class MY_Controller extends CI_Controller
 
     public function createQuestionsSection() {
         $this->data_found = $this->m_mch_survey->getAllQuestions();
-        $retrieved = $this->m_retrieve->retrieveData('log_questions', 'question_code');
+        $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
 
         //var_dump($this->data_found);die;
         $counter = 0;
@@ -2571,33 +2642,44 @@ class MY_Controller extends CI_Controller
 
             if (array_key_exists($value['questionCode'], $retrieved)) {
                 $questionResponse = ($retrieved[$value['questionCode']]['lq_response'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_response'] : '';
-                $questionCount = ($retrieved[$value['questionCode']]['lq_question_count'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_count'] : '';
-                $questionReason = ($retrieved[$value['questionCode']]['lq_question_reason'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_question_reason'] : '';
+                $questionCount = ($retrieved[$value['questionCode']]['lq_response_count'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_response_count'] : '';
+                $questionReason = ($retrieved[$value['questionCode']]['lq_reason'] != 'n/a') ? $retrieved[$value['questionCode']]['lq_reason'] : '';
             }
-
             $base++;
-            if ($value['questionName'] == 'Document cases seen over 3 months') {
+            if($section == 'nur')
+            {
                 $data[$section][] = '
                 <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-         <td>March <input name="questionResponse_' . $counter . '[]"  type="text">  April <input name="questionResponse_' . $counter . '[]"  type="text">
-            May <input name="questionResponse_' . $counter . '[]"  type="text"></td>
-            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
-            } else {
-                if ($questionResponse == 'Yes') {
-                    $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" checked="checked" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
-                } else if ($questionResponse == 'No') {
-                    $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" checked="checked" name="questionResponse_' . $counter . '"  type="radio"></td>';
-                } else {
-                    $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
-                }
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-                ' . $questionRow . '
-            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>';
+                <td colspan = "1"<strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+                <td><input type = "text" name = "questionCount_' . $counter . '" value = "'.$questionCount.'"></td>
+                <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                </tr>';
+            }
+            else
+            {
+                if ($value['questionName'] == 'Document cases seen over 3 months') {
+                            $data[$section][] = '
+                            <tr>
+                        <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+                     <td>March <input name="questionResponse_' . $counter . '[]"  type="text">  April <input name="questionResponse_' . $counter . '[]"  type="text">
+                        May <input name="questionResponse_' . $counter . '[]"  type="text"></td>
+                        <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                    </tr>';
+                        } else {
+                            if ($questionResponse == 'Yes') {
+                                $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" checked="checked" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
+                            } else if ($questionResponse == 'No') {
+                                $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" checked="checked" name="questionResponse_' . $counter . '"  type="radio"></td>';
+                            } else {
+                                $questionRow = '<td>Yes <input name="questionResponse_' . $counter . '" value="Yes" type="radio"> No <input value="No" name="questionResponse_' . $counter . '"  type="radio"></td>';
+                            }
+                            $data[$section][] = '
+                            <tr>
+                        <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
+                            ' . $questionRow . '
+                        <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+                    </tr>';
+                        }
             }
         }
 
@@ -3443,7 +3525,7 @@ class MY_Controller extends CI_Controller
 
     public function createEquipmentSection() {
         $this->data_found = $this->m_mnh_survey->getEquipmentNames();
-        $retrieved = $this->m_retrieve->retrieveData('available_equipments', 'eq_code');
+        $retrieved = $this->m_mch_survey->retrieveData('available_equipments', 'eq_code');
 
         //var_dump($this->data_found);die;
         $unit = "";
@@ -3937,6 +4019,7 @@ GROUP BY st_name,sc_name,facilityCode;";
                 $counter++;
                 $fac_mfl = $value['facMfl'];
                 $survey = $this->session->userdata('survey');
+                $survey_category = $this->session->userdata('survey_category');
                 if ($survey == 'mnh') {
                     $total = 8;
                 } else if ($survey == 'ch') {
@@ -3944,7 +4027,7 @@ GROUP BY st_name,sc_name,facilityCode;";
                 } else {
                     $total = 5;
                 }
-                $current = $this->getSection($survey, $fac_mfl, 'mid-term');
+                $current = $this->getSection($survey, $fac_mfl, $survey_category);
                 $progress = round(($current / $total) * 100);
                 if ($progress == 0) {
                     $linkText = 'Begin Survey';

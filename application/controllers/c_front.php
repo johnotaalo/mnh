@@ -92,16 +92,14 @@ class C_Front extends MY_Controller
     public function active_survey() {
 
         /**/
-        $this->survey = $this->uri->segment(1);
-        $new_data = array('survey' => $this->survey);
-        $this->session->set_userdata($new_data);
+
         if (!$this->session->userdata('dCode')) {
 
             // $data['facility']=$this ->selectFacility;
             $this->data['title'] = 'MoH Data Management Tool::Authentication';
             $this->data['form'] = '<p>User Login<p>';
             $this->data['login_response'] = '';
-            $this->data['login_message'] = 'Login to Take ' . strtoupper($this->survey) . ' Survey';
+            $this->data['login_message'] = 'Login to Take Survey';
             $this->data['survey'] = strtoupper($this->survey);
             $this->data['content'] = 'pages/v_login';
 

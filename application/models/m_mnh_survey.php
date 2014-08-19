@@ -525,12 +525,7 @@ class M_MNH_Survey extends MY_Model
     }
     
     //close addDiarrhoeaCasesByMonthInfo()
-    
 
-    private function editQuestions()
-    {
-
-    }
     //close editQuestions
     private function addMnhCommunityStrategyInfo() {
         $this->elements = array();
@@ -602,9 +597,16 @@ class M_MNH_Survey extends MY_Model
         
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
             
+            $this->theForm = $this->getvalueby('models\Entities\LogQuestions', array('ssId' => $this->session->userdata('survey_status'), 'questionCode' => $this->elements[$i]['questionCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\LogQuestions();
+            }
+
+            //echo "<pre>";print_r($this->theForm);echo "</pre>";die;
             //echo $this -> elements[$i]['mnhCommunityStrategyQCode'];
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\LogQuestions();
             
             //create an object of the model
             
@@ -3238,9 +3240,13 @@ class M_MNH_Survey extends MY_Model
         //  print 'Found :'.$this->noOfInsertsBatch;die;
         
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
-            
-            //go ahead and persist data posted
-            $this->theForm = new \models\Entities\AvailableCommodities();
+            $this->theForm = $this->getvalueby('models\Entities\AvailableCommodities', array('ssId' => $this->session->userdata('survey_status'), 'commCode' => $this->elements[$i]['cqCommCode']));
+            // print_r($this->theForm);
+            if($this->theForm == NULL)
+            {
+                //go ahead and persist data posted
+                $this->theForm = new \models\Entities\AvailableCommodities();
+            }
             
             //create an object of the model
             
@@ -4082,6 +4088,8 @@ class M_MNH_Survey extends MY_Model
     //close addCommodityUsageAndStockOutageInfo
     private function addNoReasonForDeliveries() {
         $count = $finalCount = 1;
+
+        // echo "<pre>";print_r($this->input->post());echo "</pre>";die;
         foreach ($this->input->post() as $key => $val) {
             
             //For every posted values
@@ -4106,7 +4114,6 @@ class M_MNH_Survey extends MY_Model
                 if (is_array($val)) {
                     $val = implode(',', $val);
                 }
-                
                 // print $key.' ='.$val.' <br />';
                 //print 'ids: '.$this->id.'<br />';
                 
@@ -4154,7 +4161,12 @@ class M_MNH_Survey extends MY_Model
             
             //echo $this -> elements[$i]['mnhceocReason'];exit;
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\logQuestions();
+            $this->theForm = $this->getvalueby('models\Entities\LogQuestions', array('ssId' => $this->session->userdata('survey_status'), 'questionCode' => $this->elements[$i]['facRsnNoDeliveriesCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\LogQuestions();
+            }
             
             //create an object of the model
             
@@ -4656,8 +4668,15 @@ class M_MNH_Survey extends MY_Model
 
         for ($i = 1; $i <= $this->noOfInsertsBatch; ++$i) {
 
+            $this->theForm = $this->getvalueby('models\Entities\LogQuestions', array('ssId' => $this->session->userdata('survey_status'), 'questionCode' => $this->elements[$i]['questionCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\LogQuestions();
+            }
+
+            //echo "<pre>";print_r($this->theForm);echo "</pre>";die;
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\LogQuestions();
 
             //create an object of the model
 
@@ -4938,11 +4957,13 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
+
                         
                         /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
                          $this -> writeAssessmentTrackerLog();*/
                         if ($this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addBemoncSignalFunctionsInfo() == true) {
                             
+
                             //} == true  && $this->addDiarrhoeaByMonthInfo() == true
                             //) {
                             //defined in this model

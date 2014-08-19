@@ -2370,6 +2370,7 @@ class C_Pdf extends MY_Controller {
         <tr>
             <th  width="500px">SERVICE</th>
             <th> RESPONSE </th>
+            <th> FINDINGS </th>
         </tr>
     </thead>
     ' . $this -> mchIndicatorsSectionPDF['svc'] . '
@@ -2388,6 +2389,10 @@ class C_Pdf extends MY_Controller {
 </table>
 
 <p class="message success">SECTION 2A: ASSESSMENT OF THE SICK CHILD AGE 2 MONTHS UP TO 5 YEARS</p>
+<p class="instruction" style="width:1000px">
+	* If child is less than two months, move to section 2B.
+</p>
+			
 <table class="centre">
 
     <tr>
@@ -2489,6 +2494,10 @@ class C_Pdf extends MY_Controller {
 			<tr>
 			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
 			</tr>
+			
+			<p class="instruction" >Move to Section 3</p>
+
+			
 </table>
 <table class="centre">
      <tr>
@@ -2981,7 +2990,7 @@ class C_Pdf extends MY_Controller {
     </tr>
     <tr>
 
-<th colspan="2">CRITERIA FOR CERTIFICATION: SECTION A</td>
+<th colspan="2">Criteria for Certification: SECTION A</td>
 </tr>
 
 '.$this->questionPDF['certa'].'
@@ -2998,7 +3007,7 @@ A participant MUST correctly identify all the above in section <strong>A</strong
 
 <tr>
 
-<th colspan="2">CHECKED  FOR THE FOLLOWING:    SECTION B</td>
+<th colspan="2">Checked  for the Following: SECTION B</td>
 </tr>
 
 '.$this->questionPDF['certb'].'

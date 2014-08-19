@@ -1340,51 +1340,8 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
 
-    
-     /**
-     * [getSuppliesLocation description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @param  [type] $for      [description]
-     * @return [type]           [description]
-     */
-    public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
-         $results = $this->m_analytics->getSupplyLocation($criteria, $value, $survey, $survey_category, 'mnh');
-        
-        //echo "<pre>";print_r($results);echo "</pre>";die;
-         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
-        $number = $resultArray = $q = array();
-        $count = 0;
-        
-        foreach ($results as $key => $value) {
-            
-            //echo "<pre>";print_r($results);echo "</pre>";die;
-       
-                
-                //var_dump($value);
-                foreach ($value as $location => $val) {
-                    $gData[] = array(ucwords($location), (int)$val);
-                }
-           
-        }
-        $category[] = "Location";
-        
-        //echo "<pre>";print_r($gData);echo "</pre>";die;
-        $resultArray[] = array('name' => 'Supply Location', 'data' => $gData);
-        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
-        $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
-    }
-
-    /**$pharmacy = $value_['phar_values'];
-                $store = $value_['sto_values'];
-                $delivery = $value_['del_values'];
-                $other = $value_['ot_values'];
-
 
     /**
->>>>>>> f66ef9f5bec3b175d0e8cc5cf5c52aebbea1cac8
      * [getLocationStatistics description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
@@ -1392,18 +1349,20 @@ ORDER BY fac_level;");
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
 
+    public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, 'ort');
 
-        //echo "<pre>";print_r($results);echo "</pre>";die;
 
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
         $number = $resultArray = $q = array();
         $count = 0;
 
         foreach ($results as $key => $value) {
 
             //echo "<pre>";print_r($results);echo "</pre>";die;
+
             if ($count == 2):
 
             //var_dump($value);
@@ -1432,8 +1391,16 @@ ORDER BY fac_level;");
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getSuppliesLocation($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getSuppliesLocation($criteria, $value, $survey, $survey_category, 'mnh');
+    /**
+     * [getSuppliesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+     */
+    public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getSupplyLocation($criteria, $value, $survey, $survey_category, 'mnh');
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
@@ -1459,6 +1426,7 @@ ORDER BY fac_level;");
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
+
 
     /**
      * [getQuestionStatistics description]
