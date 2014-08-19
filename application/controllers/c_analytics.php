@@ -2371,21 +2371,27 @@ ORDER BY fac_level;");
         }
         echo json_encode($data);
     }
-    public function edit_facility_info($table, $column, $value, $primary_key, $pk_value){
-        $table='facilities';
+    public function edit_facility_info($table, $primary_key) {
+        $table = 'facilities';
+        $primary_key = 'fac_id';
         $column = $this->input->post('name');
+        $value = $this->input->post('value');
+        $pk_value = $this->input->post('pk');
         
-        echo '<pre>';print_r($this->input->post());echo '</pre>';
+        //echo '<pre>';print_r($this->input->post());echo '</pre>';
         $this->m_analytics->universalEditor($table, $column, $value, $primary_key, $pk_value);
     }
     public function getMasterFacilityList() {
         $this->db->select('fac_id,fac_name,fac_level,fac_ownership,fac_county,fac_district')->from('facilities')->order_by('fac_county ASC')->order_by('fac_district ASC');
+        
         $results = $this->db->get();
         
-        $data = $this->generateData($results->result_array(),'Master List','editable');
-
+        $data = $this->generateData($results->result_array(), 'Master List', 'table');
+        
         echo $data;
+        
         //die;
+        
     }
     
     //Get Facilities per County

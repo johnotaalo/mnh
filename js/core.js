@@ -413,6 +413,9 @@ $(document).ready(function() {
     //         });
     //     });
 $.fn.editable.defaults.mode = 'inline';
+$.fn.editableform.buttons = 
+  '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
+ '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>'; 
 
     
 

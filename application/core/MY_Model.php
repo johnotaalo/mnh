@@ -1372,7 +1372,7 @@ class MY_Model extends CI_Model
         return $data;
     }
     public function universalEditor($table, $column, $value, $primary_key, $pk_value) {
-        $query = "UPDATE $table SET $column = $value WHERE $primary_key=$pk_value";
+        $query = "UPDATE $table SET $column = '$value' WHERE $primary_key=$pk_value";
         try {
            $this->dataSet = $this->db->query($query);
             $this->dataSet = $this->dataSet->result_array();
@@ -1381,10 +1381,10 @@ class MY_Model extends CI_Model
             } else {
                 return $this->dataSet = false;
             }
-            
-            //var_dump($this->dataSet);die;
-            
-            
+        }
+         catch(Exception $ex) {
+            echo $ex->getMessage();
         }
     }
+}
     
