@@ -296,7 +296,7 @@
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="ort_reason">
+            <div class="chart" id="ort_nonfunctional">
             </div>
         </div>
     </div>
@@ -399,16 +399,6 @@
         <div class="portlet-body">
 
             <div class="chart" id="CHresource_suppliers">
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="resource_suppliers">
             </div>
         </div>
     </div>

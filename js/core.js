@@ -293,7 +293,7 @@ function notify_email(email, message) {
     });
 }
 
-function getCountyData(base_url, county, survey_type, survey_category) {
+function getCountyData(base_url,county, survey_type, survey_category) {
     $.ajax({
         url: base_url + 'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
         beforeSend: function(xhr) {
