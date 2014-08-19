@@ -359,17 +359,12 @@ switch(survey){
     loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
     loadGraph(base_url, 'c_analytics/getORTReason/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
     
-<<<<<<< HEAD
-    //Section 5 MNH
-    loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
-    loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
-    loadGraph(base_url, 'c_analytics/getORTTwo/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_nonfunctional');
-=======
+
     // //Section 5 MNH
     // loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
     // loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
     // loadGraph(base_url, 'c_analytics/getORTReason/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
->>>>>>> e18fe418d8186d36c01369039a15fb0e1b813b80
+
       
 
     //Section 6 CH
