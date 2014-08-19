@@ -354,13 +354,12 @@ function loadMasterFacilityList(base_url,container){
         success: function(data) {
             $(container.empty);
             $(container).append(data);
-                $('.dataTable').on('load',function(){
-        $('.dataTable').dataTable({
-                "sPaginationType": "full_numbers"
+            $(container).delay(2000,function(nxt){
+                $('.editable').editable({
+                    url:base_url+'c_analytics/edit_facility_info'
+                });
+nxt();
             });
-
-})
-
         }
     });
 }
@@ -408,10 +407,13 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
-    $('.dataTable').on('load',function(){
-        $('.dataTable').dataTable({
-                "sPaginationType": "full_numbers"
-            });
+    // $('.dataTable').on('load',function(){
+    //     $('.dataTable').dataTable({
+    //             "sPaginationType": "full_numbers"
+    //         });
+    //     });
+$.fn.editable.defaults.mode = 'inline';
 
-});
+    
+
 });

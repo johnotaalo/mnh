@@ -9138,3 +9138,8 @@ a.disabled:hover {
 .dataTables_info {
   font-size: 14px;
 }
+
+/* line 642, ../sass/flat.scss */
+.editable-click:hover {
+  cursor: hand !important;
+}

@@ -98,6 +98,11 @@ function startAnalytics(base_url, county, survey, survey_category) {
         loadFacilities(base_url, district, survey, survey_category);
         variableHandler('district',county,district,facility, survey, survey_category,indicator_type);
     });
+$('select#facility_select').change(function() {
+        facility = $('select#facility_select option:selected').text();
+        facility = encodeURIComponent(facility);
+        variableHandler('facility',county,district,facility, survey, survey_category,indicator_type);
+    });
 
     $('select#indicator_types').change(function() {
         indicator_type = $('select#indicator_types option:selected').attr('value');
