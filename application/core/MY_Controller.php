@@ -4676,7 +4676,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             //set table headers
             foreach ($data[0] as $title => $column) {
                 if ($pk != 0) {
-                    $titles[] = ucwords(str_replace('facility', 'fac', str_replace('_', ' ', $title)));
+                    $titles[] = ucwords(str_replace('fac', 'facility', str_replace('_', ' ', $title)));
                 } else {
                     $primary_key = $title;
                 }
