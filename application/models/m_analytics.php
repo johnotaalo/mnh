@@ -26,7 +26,7 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
     
-    public function getCountyReportingSummary($survey, $survey_category) {
+    public function getCountyReportingSummary($county,$survey, $survey_category) {
         
         /* using CI database active record*/
         try {
@@ -35,7 +35,7 @@ class M_Analytics extends MY_Model
                         FROM
                         assessment_tracker ast
                             JOIN
-                        facilities f ON ast.facilityCode = f.fac_mfl
+                        facilities f ON ast.facilityCode = f.fac_mfl AND f.fac_county = '".$county."'
                             JOIN
                         survey_status ss ON ss.fac_id = f.fac_mfl
                             JOIN
