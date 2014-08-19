@@ -3874,6 +3874,65 @@ ORDER BY question_code";
             return $data;
         }
 
+
+   public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
+        $value = urldecode($value);
+            
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_supplies_location('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                  foreach ($this->dataSet as $value_) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                   $question = $this->getSupplyName($value_['supply_code'],$survey);
+                
+                $pharmacy = $value_['phar_values'];
+                $store = $value_['sto_values'];
+                $delivery = $value_['del_values'];
+                $other = $value_['ot_values'];
+                
+                
+                //1. collect the categories
+                $data[$question]['pharmacy'] = $pharmacy;
+                $data[$question]['store'] = $store;
+                $data[$question]['delivery room'] = $delivery;
+                $data[$question]['other'] = $other;
+                    
+                }
+                    
+                    
+                } else {
+                    return null;
+                }
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                
+                
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+    }
+
         public function getLocationStatistics($criteria, $value, $survey,$survey_category, $for) {
 
             /*using CI Database Active Record*/

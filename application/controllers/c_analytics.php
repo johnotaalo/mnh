@@ -1202,7 +1202,46 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
-    /**
+     /**
+     * [getSuppliesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $for      [description]
+     * @return [type]           [description]
+     */
+    public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
+         $results = $this->m_analytics->getSupplyLocation($criteria, $value, $survey, $survey_category, 'mnh');
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
+        $number = $resultArray = $q = array();
+        $count = 0;
+        
+        foreach ($results as $key => $value) {
+            
+            //echo "<pre>";print_r($results);echo "</pre>";die;
+       
+                
+                //var_dump($value);
+                foreach ($value as $location => $val) {
+                    $gData[] = array(ucwords($location), (int)$val);
+                }
+           
+        }
+        $category[] = "Location";
+        
+        //echo "<pre>";print_r($gData);echo "</pre>";die;
+        $resultArray[] = array('name' => 'Supply Location', 'data' => $gData);
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
+    }
+
+    /**$pharmacy = $value_['phar_values'];
+                $store = $value_['sto_values'];
+                $delivery = $value_['del_values'];
+                $other = $value_['ot_values'];
      * [getLocationStatistics description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
@@ -1213,7 +1252,7 @@ ORDER BY fac_level;");
     public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, $for);
         
-        //echo "<pre>";print_r($results);echo "</pre>";die;
+       // echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $count = 0;
         
@@ -1233,7 +1272,7 @@ ORDER BY fac_level;");
         
         //echo "<pre>";print_r($gData);echo "</pre>";die;
         $resultArray[] = array('name' => 'ORT Location', 'data' => $gData);
-        
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
