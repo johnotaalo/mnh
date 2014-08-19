@@ -863,7 +863,7 @@ ORDER BY fac_level;");
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
             
-            echo "<pre>"; print_r($key);echo "</pre>";die;
+            //echo "<pre>"; print_r($key);echo "</pre>";die;
             
             
         }
@@ -1215,7 +1215,6 @@ ORDER BY fac_level;");
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
-        $number = $resultArray = $q = $mch = $ward = $other = $opd = $uc = array();
         $count = 0;
         
         foreach ($results as $key => $value) {
@@ -2774,21 +2773,31 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getCommunityStrategyMNH($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey, $survey_category);
-        
-        //echo '<pre>';
-        //print_r($results);
-        //echo '</pre>';die;
-        $number = $resultArray = $q = $yes = $no = array();
-        foreach ($results as $key => $value) {
-            $key = trim($key, 'Total number of ');
+        $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey, $survey_category,'cms');
+        foreach ($results as $key => $result) {
+            //echo "<pre>"; print_r($results);echo "</pre>";die;
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
             $category[] = $key;
-            $number[] = (int)$value[0];
+            foreach ($result as $name => $value) {
+                //if ($name != 'Sometimes Available') {
+                //echo "<pre>"; print_r($name);echo "</pre>";die;
+                if ($name = 'QUC07' || $name = 'QUC08' || $name = 'QUC10') {
+                    $data[$name][] = (int)$value;
+                }
+            }
         }
-        
-        $resultArray[] = array('name' => 'Numbers', 'data' => $number);
-        $resultArray = json_encode($resultArray);
-        
+        foreach ($data as $key => $val) {
+            //echo "<pre>"; print_r($data);echo "</pre>";die;
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            
+            //echo "<pre>"; print_r($key);echo "</pre>";die;
+            
+            
+        }
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
