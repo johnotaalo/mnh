@@ -12,7 +12,7 @@
  * @param  {[type]} color_scheme     [description]
  * @return {[type]}                  [description]
  */
-function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme) {
+function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme,chart_label_rotation,chart_legend_floating) {
     file_name = container.replace('#', '');
     file_name = file_name.replace('_', ' ');
     $('#' + container).highcharts({
@@ -39,7 +39,10 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             text: ''
         },
         xAxis: {
-            categories: chart_categories
+            categories: chart_categories,
+            labels: {
+                rotation:chart_label_rotation
+            }
         },
         yAxis: {
             min: 0,
@@ -62,7 +65,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
                 }
-/**
+                /**
  * else if(typeof this.point.category != 'undefined' && this.point.category.length>0) {
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
@@ -113,7 +116,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
                         return false; // <== returning false will cancel the default action
                     }
                 }
-            }
+            },
         },
         legend: {
             layout: 'horizontal',
@@ -154,7 +157,7 @@ function loadGraph(base_url, function_url, graph_section) {
             $(graph_section).empty();
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
-                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme);
+                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme,obj.chart_label_rotation,obj.chart_legend_floating);
             } else {
                 $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
             }
@@ -307,11 +310,59 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#started .digit').text(obj[0].unfinished);
             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
-            $('#load_analytics').attr('data-url', url)
+            $('#load_analytics').attr('data-url', url);
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
+            $('#load_county_summary').attr('data-url',new_url);
         }
     });
 }
 
+
+function loadData(base_url,function_url,value,container,placeholder_text){
+    if(value!==''){
+       ajax_url= base_url + 'c_analytics/' + function_url + '/' + value
+    }
+    else{
+        ajax_url= base_url + 'c_analytics/' + function_url
+    }
+    $.ajax({
+        url: ajax_url ,
+        async:false,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+
+            $(container).empty();
+        },
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            $(container).select2({ placeholder:placeholder_text, data: obj});
+
+        }
+    });
+}
+
+function loadMasterFacilityList(base_url,container){
+    $.ajax({
+        url: base_url+'c_analytics/getMasterFacilityList' ,
+        async:false,
+        beforeSend: function(xhr) {
+            xhr.overrideMimeType("text/plain; charset=x-user-defined");
+
+            $(container).empty();
+        },
+        success: function(data) {
+            $(container.empty);
+            $(container).append(data);
+                $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
+})
+
+        }
+    });
+}
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -356,5 +407,10 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
+    $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
 
+});
 });

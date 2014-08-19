@@ -3469,7 +3469,7 @@ output {
 }
 
 /* line 115, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-.form-control, form input, form select {
+.form-control, form input, form select, .dataTables_length label select, .datatables_filter label input {
   display: block;
   width: 100%;
   height: 34px;
@@ -3488,27 +3488,27 @@ output {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 /* line 53, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.form-control:focus, form input:focus, form select:focus {
+.form-control:focus, form input:focus, form select:focus, .dataTables_length label select:focus, .datatables_filter label input:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 /* line 102, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
-.form-control::-moz-placeholder, form input::-moz-placeholder, form select::-moz-placeholder {
+.form-control::-moz-placeholder, form input::-moz-placeholder, form select::-moz-placeholder, .dataTables_length label select::-moz-placeholder, .datatables_filter label input::-moz-placeholder {
   color: #999999;
   opacity: 1;
 }
 /* line 104, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
-.form-control:-ms-input-placeholder, form input:-ms-input-placeholder, form select:-ms-input-placeholder {
+.form-control:-ms-input-placeholder, form input:-ms-input-placeholder, form select:-ms-input-placeholder, .dataTables_length label select:-ms-input-placeholder, .datatables_filter label input:-ms-input-placeholder {
   color: #999999;
 }
 /* line 105, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_vendor-prefixes.scss */
-.form-control::-webkit-input-placeholder, form input::-webkit-input-placeholder, form select::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder, form input::-webkit-input-placeholder, form select::-webkit-input-placeholder, .dataTables_length label select::-webkit-input-placeholder, .datatables_filter label input::-webkit-input-placeholder {
   color: #999999;
 }
 /* line 143, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-.form-control[disabled], form input[disabled], form select[disabled], .form-control[readonly], form input[readonly], form select[readonly], fieldset[disabled] .form-control, fieldset[disabled] form input, form fieldset[disabled] input, fieldset[disabled] form select, form fieldset[disabled] select {
+.form-control[disabled], form input[disabled], form select[disabled], .dataTables_length label select[disabled], .datatables_filter label input[disabled], .form-control[readonly], form input[readonly], form select[readonly], .dataTables_length label select[readonly], .datatables_filter label input[readonly], fieldset[disabled] .form-control, fieldset[disabled] form input, form fieldset[disabled] input, fieldset[disabled] form select, form fieldset[disabled] select, fieldset[disabled] .dataTables_length label select, .dataTables_length label fieldset[disabled] select, fieldset[disabled] .datatables_filter label input, .datatables_filter label fieldset[disabled] input {
   cursor: not-allowed;
   background-color: #eeeeee;
   opacity: 1;
@@ -3533,7 +3533,7 @@ input[type="month"] {
   line-height: 1.428571429 \0;
 }
 /* line 184, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control, form .input-group-sm > input[type="date"],
+input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control, form .input-group-sm > input[type="date"], .datatables_filter label .input-group-sm > input[type="date"],
 .input-group-sm > input[type="date"].input-group-addon,
 .input-group-sm > .input-group-btn > input[type="date"].btn,
 .input-group-sm > .input-group-btn > input[type="date"]#logout,
@@ -3541,6 +3541,7 @@ input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control, 
 input[type="time"].input-sm,
 .input-group-sm > input[type="time"].form-control,
 form .input-group-sm > input[type="time"],
+.datatables_filter label .input-group-sm > input[type="time"],
 .input-group-sm > input[type="time"].input-group-addon,
 .input-group-sm > .input-group-btn > input[type="time"].btn,
 .input-group-sm > .input-group-btn > input[type="time"]#logout,
@@ -3548,6 +3549,7 @@ form .input-group-sm > input[type="time"],
 input[type="datetime-local"].input-sm,
 .input-group-sm > input[type="datetime-local"].form-control,
 form .input-group-sm > input[type="datetime-local"],
+.datatables_filter label .input-group-sm > input[type="datetime-local"],
 .input-group-sm > input[type="datetime-local"].input-group-addon,
 .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
 .input-group-sm > .input-group-btn > input[type="datetime-local"]#logout,
@@ -3555,6 +3557,7 @@ form .input-group-sm > input[type="datetime-local"],
 input[type="month"].input-sm,
 .input-group-sm > input[type="month"].form-control,
 form .input-group-sm > input[type="month"],
+.datatables_filter label .input-group-sm > input[type="month"],
 .input-group-sm > input[type="month"].input-group-addon,
 .input-group-sm > .input-group-btn > input[type="month"].btn,
 .input-group-sm > .input-group-btn > input[type="month"]#logout,
@@ -3562,7 +3565,7 @@ form .input-group-sm > input[type="month"],
   line-height: 30px;
 }
 /* line 187, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, form .input-group-lg > input[type="date"],
+input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, form .input-group-lg > input[type="date"], .datatables_filter label .input-group-lg > input[type="date"],
 .input-group-lg > input[type="date"].input-group-addon,
 .input-group-lg > .input-group-btn > input[type="date"].btn,
 .input-group-lg > .input-group-btn > input[type="date"]#logout,
@@ -3570,6 +3573,7 @@ input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, 
 input[type="time"].input-lg,
 .input-group-lg > input[type="time"].form-control,
 form .input-group-lg > input[type="time"],
+.datatables_filter label .input-group-lg > input[type="time"],
 .input-group-lg > input[type="time"].input-group-addon,
 .input-group-lg > .input-group-btn > input[type="time"].btn,
 .input-group-lg > .input-group-btn > input[type="time"]#logout,
@@ -3577,6 +3581,7 @@ form .input-group-lg > input[type="time"],
 input[type="datetime-local"].input-lg,
 .input-group-lg > input[type="datetime-local"].form-control,
 form .input-group-lg > input[type="datetime-local"],
+.datatables_filter label .input-group-lg > input[type="datetime-local"],
 .input-group-lg > input[type="datetime-local"].input-group-addon,
 .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
 .input-group-lg > .input-group-btn > input[type="datetime-local"]#logout,
@@ -3584,6 +3589,7 @@ form .input-group-lg > input[type="datetime-local"],
 input[type="month"].input-lg,
 .input-group-lg > input[type="month"].form-control,
 form .input-group-lg > input[type="month"],
+.datatables_filter label .input-group-lg > input[type="month"],
 .input-group-lg > input[type="month"].input-group-addon,
 .input-group-lg > .input-group-btn > input[type="month"].btn,
 .input-group-lg > .input-group-btn > input[type="month"]#logout,
@@ -3662,7 +3668,7 @@ input[type="checkbox"],
 }
 
 /* line 67, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.input-sm, .input-group-sm > .form-control, form .input-group-sm > input, form .input-group-sm > select,
+.input-sm, .input-group-sm > .form-control, form .input-group-sm > input, form .input-group-sm > select, .dataTables_length label .input-group-sm > select, .datatables_filter label .input-group-sm > input,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
 .map-header .btn-group .input-group-sm > .input-group-btn > button,
@@ -3678,7 +3684,7 @@ form .input-group-sm > .input-group-btn > button,
 }
 
 /* line 75, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-select.input-sm, .input-group-sm > select.form-control, form .input-group-sm > select,
+select.input-sm, .input-group-sm > select.form-control, form .input-group-sm > select, .dataTables_length label .input-group-sm > select,
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn,
 .input-group-sm > .input-group-btn > select#logout {
@@ -3694,6 +3700,7 @@ textarea.input-sm, .input-group-sm > textarea.form-control,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
 form .input-group-sm > select[multiple],
+.dataTables_length label .input-group-sm > select[multiple],
 .input-group-sm > select[multiple].input-group-addon,
 .input-group-sm > .input-group-btn > select[multiple].btn,
 .input-group-sm > .input-group-btn > select[multiple]#logout {
@@ -3701,7 +3708,7 @@ form .input-group-sm > select[multiple],
 }
 
 /* line 67, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.input-lg, .input-group-lg > .form-control, form .input-group-lg > input, form .input-group-lg > select,
+.input-lg, .input-group-lg > .form-control, form .input-group-lg > input, form .input-group-lg > select, .dataTables_length label .input-group-lg > select, .datatables_filter label .input-group-lg > input,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
 .map-header .btn-group .input-group-lg > .input-group-btn > button,
@@ -3717,7 +3724,7 @@ form .input-group-lg > .input-group-btn > button,
 }
 
 /* line 75, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-select.input-lg, .input-group-lg > select.form-control, form .input-group-lg > select,
+select.input-lg, .input-group-lg > select.form-control, form .input-group-lg > select, .dataTables_length label .input-group-lg > select,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn,
 .input-group-lg > .input-group-btn > select#logout {
@@ -3733,6 +3740,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
 form .input-group-lg > select[multiple],
+.dataTables_length label .input-group-lg > select[multiple],
 .input-group-lg > select[multiple].input-group-addon,
 .input-group-lg > .input-group-btn > select[multiple].btn,
 .input-group-lg > .input-group-btn > select[multiple]#logout {
@@ -3744,7 +3752,7 @@ form .input-group-lg > select[multiple],
   position: relative;
 }
 /* line 284, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-.has-feedback .form-control, .has-feedback form input, form .has-feedback input, .has-feedback form select, form .has-feedback select {
+.has-feedback .form-control, .has-feedback form input, form .has-feedback input, .has-feedback form select, form .has-feedback select, .has-feedback .dataTables_length label select, .dataTables_length label .has-feedback select, .has-feedback .datatables_filter label input, .datatables_filter label .has-feedback input {
   padding-right: 42.5px;
 }
 
@@ -3762,7 +3770,7 @@ form .input-group-lg > select[multiple],
 }
 
 /* line 300, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-.input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback, form .input-group-lg > input + .form-control-feedback, form .input-group-lg > select + .form-control-feedback,
+.input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback, form .input-group-lg > input + .form-control-feedback, form .input-group-lg > select + .form-control-feedback, .dataTables_length label .input-group-lg > select + .form-control-feedback, .datatables_filter label .input-group-lg > input + .form-control-feedback,
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .map-header .btn-group .input-group-lg > .input-group-btn > button + .form-control-feedback,
@@ -3776,7 +3784,7 @@ form .input-group-lg > .input-group-btn > button + .form-control-feedback,
 }
 
 /* line 305, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-.input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback, form .input-group-sm > input + .form-control-feedback, form .input-group-sm > select + .form-control-feedback,
+.input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback, form .input-group-sm > input + .form-control-feedback, form .input-group-sm > select + .form-control-feedback, .dataTables_length label .input-group-sm > select + .form-control-feedback, .datatables_filter label .input-group-sm > input + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .map-header .btn-group .input-group-sm > .input-group-btn > button + .form-control-feedback,
@@ -3799,13 +3807,13 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
   color: #3c763d;
 }
 /* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .form-control, .has-success form input, form .has-success input, .has-success form select, form .has-success select {
+.has-success .form-control, .has-success form input, form .has-success input, .has-success form select, form .has-success select, .has-success .dataTables_length label select, .dataTables_length label .has-success select, .has-success .datatables_filter label input, .datatables_filter label .has-success input {
   border-color: #3c763d;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-success .form-control:focus, .has-success form input:focus, form .has-success input:focus, .has-success form select:focus, form .has-success select:focus {
+.has-success .form-control:focus, .has-success form input:focus, form .has-success input:focus, .has-success form select:focus, form .has-success select:focus, .has-success .dataTables_length label select:focus, .dataTables_length label .has-success select:focus, .has-success .datatables_filter label input:focus, .datatables_filter label .has-success input:focus {
   border-color: #2b542c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
@@ -3831,13 +3839,13 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
   color: #8a6d3b;
 }
 /* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-warning .form-control, .has-warning form input, form .has-warning input, .has-warning form select, form .has-warning select {
+.has-warning .form-control, .has-warning form input, form .has-warning input, .has-warning form select, form .has-warning select, .has-warning .dataTables_length label select, .dataTables_length label .has-warning select, .has-warning .datatables_filter label input, .datatables_filter label .has-warning input {
   border-color: #8a6d3b;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-warning .form-control:focus, .has-warning form input:focus, form .has-warning input:focus, .has-warning form select:focus, form .has-warning select:focus {
+.has-warning .form-control:focus, .has-warning form input:focus, form .has-warning input:focus, .has-warning form select:focus, form .has-warning select:focus, .has-warning .dataTables_length label select:focus, .dataTables_length label .has-warning select:focus, .has-warning .datatables_filter label input:focus, .datatables_filter label .has-warning input:focus {
   border-color: #66512c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
@@ -3863,13 +3871,13 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
   color: #a94442;
 }
 /* line 17, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-error .form-control, .has-error form input, form .has-error input, .has-error form select, form .has-error select {
+.has-error .form-control, .has-error form input, form .has-error input, .has-error form select, form .has-error select, .has-error .dataTables_length label select, .dataTables_length label .has-error select, .has-error .datatables_filter label input, .datatables_filter label .has-error input {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 /* line 20, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_forms.scss */
-.has-error .form-control:focus, .has-error form input:focus, form .has-error input:focus, .has-error form select:focus, form .has-error select:focus {
+.has-error .form-control:focus, .has-error form input:focus, form .has-error input:focus, .has-error form select:focus, form .has-error select:focus, .has-error .dataTables_length label select:focus, .dataTables_length label .has-error select:focus, .has-error .datatables_filter label input:focus, .datatables_filter label .has-error input:focus {
   border-color: #843534;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
@@ -3906,7 +3914,7 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
     vertical-align: middle;
   }
   /* line 370, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-  .form-inline .form-control, .navbar-form .form-control, .form-inline form input, form .form-inline input, .navbar-form form input, form .navbar-form input, .form-inline form select, form .form-inline select, .navbar-form form select, form .navbar-form select {
+  .form-inline .form-control, .navbar-form .form-control, .form-inline form input, form .form-inline input, .navbar-form form input, form .navbar-form input, .form-inline form select, form .form-inline select, .navbar-form form select, form .navbar-form select, .form-inline .dataTables_length label select, .dataTables_length label .form-inline select, .navbar-form .dataTables_length label select, .dataTables_length label .navbar-form select, .form-inline .datatables_filter label input, .datatables_filter label .form-inline input, .navbar-form .datatables_filter label input, .datatables_filter label .navbar-form input {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -3929,11 +3937,19 @@ form .input-group-sm > .input-group-btn > button + .form-control-feedback,
   .form-inline .input-group form select,
   form .form-inline .input-group select,
   .navbar-form .input-group form select,
-  form .navbar-form .input-group select {
+  form .navbar-form .input-group select,
+  .form-inline .input-group .dataTables_length label select,
+  .dataTables_length label .form-inline .input-group select,
+  .navbar-form .input-group .dataTables_length label select,
+  .dataTables_length label .navbar-form .input-group select,
+  .form-inline .input-group .datatables_filter label input,
+  .datatables_filter label .form-inline .input-group input,
+  .navbar-form .input-group .datatables_filter label input,
+  .datatables_filter label .navbar-form .input-group input {
     width: auto;
   }
   /* line 388, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
-  .form-inline .input-group > .form-control, .navbar-form .input-group > .form-control, .form-inline form .input-group > input, form .form-inline .input-group > input, .navbar-form form .input-group > input, form .navbar-form .input-group > input, .form-inline form .input-group > select, form .form-inline .input-group > select, .navbar-form form .input-group > select, form .navbar-form .input-group > select {
+  .form-inline .input-group > .form-control, .navbar-form .input-group > .form-control, .form-inline form .input-group > input, form .form-inline .input-group > input, .navbar-form form .input-group > input, form .navbar-form .input-group > input, .form-inline form .input-group > select, form .form-inline .input-group > select, .navbar-form form .input-group > select, form .navbar-form .input-group > select, .form-inline .dataTables_length label .input-group > select, .dataTables_length label .form-inline .input-group > select, .navbar-form .dataTables_length label .input-group > select, .dataTables_length label .navbar-form .input-group > select, .form-inline .datatables_filter label .input-group > input, .datatables_filter label .form-inline .input-group > input, .navbar-form .datatables_filter label .input-group > input, .datatables_filter label .navbar-form .input-group > input {
     width: 100%;
   }
   /* line 392, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_forms.scss */
@@ -4826,7 +4842,7 @@ form [data-toggle="buttons"] > button > input[type="checkbox"],
   padding-right: 0;
 }
 /* line 19, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group .form-control, .input-group form input, form .input-group input, .input-group form select, form .input-group select {
+.input-group .form-control, .input-group form input, form .input-group input, .input-group form select, form .input-group select, .input-group .dataTables_length label select, .dataTables_length label .input-group select, .input-group .datatables_filter label input, .datatables_filter label .input-group input {
   position: relative;
   z-index: 2;
   float: left;
@@ -4841,7 +4857,11 @@ form [data-toggle="buttons"] > button > input[type="checkbox"],
 .input-group form input,
 form .input-group input,
 .input-group form select,
-form .input-group select {
+form .input-group select,
+.input-group .dataTables_length label select,
+.dataTables_length label .input-group select,
+.input-group .datatables_filter label input,
+.datatables_filter label .input-group input {
   display: table-cell;
 }
 /* line 55, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
@@ -4851,7 +4871,11 @@ form .input-group select {
 .input-group form input:not(:first-child):not(:last-child),
 form .input-group input:not(:first-child):not(:last-child),
 .input-group form select:not(:first-child):not(:last-child),
-form .input-group select:not(:first-child):not(:last-child) {
+form .input-group select:not(:first-child):not(:last-child),
+.input-group .dataTables_length label select:not(:first-child):not(:last-child),
+.dataTables_length label .input-group select:not(:first-child):not(:last-child),
+.input-group .datatables_filter label input:not(:first-child):not(:last-child),
+.datatables_filter label .input-group input:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 
@@ -4908,7 +4932,7 @@ form .input-group-lg > .input-group-btn > button.input-group-addon,
 }
 
 /* line 106, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group .form-control:first-child, .input-group form input:first-child, form .input-group input:first-child, .input-group form select:first-child, form .input-group select:first-child,
+.input-group .form-control:first-child, .input-group form input:first-child, form .input-group input:first-child, .input-group form select:first-child, form .input-group select:first-child, .input-group .dataTables_length label select:first-child, .dataTables_length label .input-group select:first-child, .input-group .datatables_filter label input:first-child, .datatables_filter label .input-group input:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .map-header .btn-group .input-group-btn:first-child > button,
@@ -4945,7 +4969,7 @@ form .input-group-btn:last-child > .btn-group:not(:last-child) > button,
 }
 
 /* line 118, ../../../../../../../Library/Ruby/Gems/2.0.0/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group .form-control:last-child, .input-group form input:last-child, form .input-group input:last-child, .input-group form select:last-child, form .input-group select:last-child,
+.input-group .form-control:last-child, .input-group form input:last-child, form .input-group input:last-child, .input-group form select:last-child, form .input-group select:last-child, .input-group .dataTables_length label select:last-child, .dataTables_length label .input-group select:last-child, .input-group .datatables_filter label input:last-child, .datatables_filter label .input-group input:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .map-header .btn-group .input-group-btn:last-child > button,
@@ -8506,7 +8530,7 @@ body {
 /* line 60, ../sass/flat.scss */
 .login-container {
   background: #ecf0f1;
-  padding: 10% 10%;
+  padding: 5% 10%;
 }
 
 /* line 67, ../sass/flat.scss */
@@ -8738,93 +8762,81 @@ table td {
   padding: 10px;
 }
 
-/* line 309, ../sass/flat.scss */
-.reporting label, .reportingBar label {
-  vertical-align: top;
-  display: inline-block;
-  width: 40%;
-}
-
-/* line 314, ../sass/flat.scss */
-.reporting .progress, .reportingBar .progress {
-  display: inline-block;
-  width: 55%;
-  margin-bottom: 0;
-}
-
-/* line 319, ../sass/flat.scss */
+/* line 310, ../sass/flat.scss */
 #countyHeader {
   width: 35%;
 }
 
-/* line 322, ../sass/flat.scss */
+/* line 313, ../sass/flat.scss */
 #countyHeader, #progressHeader {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 326, ../sass/flat.scss */
+/* line 317, ../sass/flat.scss */
 #progressHeader {
   width: 64%;
 }
 
-/* line 329, ../sass/flat.scss */
+/* line 320, ../sass/flat.scss */
 .progressRow {
   padding-top: 10px;
   border-bottom: 1px solid #ddd;
 }
-/* line 332, ../sass/flat.scss */
+/* line 323, ../sass/flat.scss */
 .progressRow label, .progressRow div {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: top;
 }
-/* line 336, ../sass/flat.scss */
+/* line 327, ../sass/flat.scss */
 .progressRow label {
   width: 40%;
+  line-height: 10px;
+  margin-bottom: 5px;
 }
-/* line 339, ../sass/flat.scss */
+/* line 332, ../sass/flat.scss */
 .progressRow .progress {
   margin-bottom: 0;
   width: 55%;
 }
 
-/* line 345, ../sass/flat.scss */
+/* line 338, ../sass/flat.scss */
 #reportingLabel {
   width: 30%;
   margin-bottom: 0 !important;
 }
 
-/* line 349, ../sass/flat.scss */
+/* line 342, ../sass/flat.scss */
 #reportingLabel #reportingBar {
   width: 60%;
   margin-bottom: 0 !important;
 }
 
-/* line 353, ../sass/flat.scss */
+/* line 346, ../sass/flat.scss */
 #reportingLabel #reportingBar .progressRow {
   border-bottom: none;
 }
 
-/* line 357, ../sass/flat.scss */
+/* line 350, ../sass/flat.scss */
 #county_select_label select {
   max-width: 55% !important;
   height: auto;
   margin-bottom: 0 !important;
 }
 
-/* line 363, ../sass/flat.scss */
+/* line 356, ../sass/flat.scss */
 #reportingBar {
   display: inline-block;
   max-width: 70% !important;
   margin-bottom: 0 !important;
 }
 
-/* line 369, ../sass/flat.scss */
+/* line 362, ../sass/flat.scss */
 .statistic {
   display: block;
   margin-bottom: 5px;
 }
-/* line 372, ../sass/flat.scss */
+/* line 365, ../sass/flat.scss */
 .statistic .icon {
   vertical-align: top;
   display: inline-block;
@@ -8832,7 +8844,7 @@ table td {
   background: #16a085;
   color: white;
 }
-/* line 380, ../sass/flat.scss */
+/* line 373, ../sass/flat.scss */
 .statistic .icon span {
   display: table-cell;
   width: 50px;
@@ -8840,145 +8852,145 @@ table td {
   vertical-align: middle;
   text-align: center;
 }
-/* line 385, ../sass/flat.scss */
+/* line 378, ../sass/flat.scss */
 .statistic .icon span i {
   font-size: 1.5em;
 }
-/* line 391, ../sass/flat.scss */
+/* line 384, ../sass/flat.scss */
 .statistic .data {
   margin-left: 10px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 394, ../sass/flat.scss */
+/* line 387, ../sass/flat.scss */
 .statistic .data .text, .statistic .data .data {
   display: block;
   text-align: center;
 }
-/* line 401, ../sass/flat.scss */
+/* line 394, ../sass/flat.scss */
 .statistic #county_name {
   margin-top: 10%;
 }
 
-/* line 407, ../sass/flat.scss */
+/* line 400, ../sass/flat.scss */
 h4.page-title {
   padding-left: 15px;
 }
 
-/* line 411, ../sass/flat.scss */
+/* line 404, ../sass/flat.scss */
 h4 {
   padding-left: 15px;
 }
 
-/* line 415, ../sass/flat.scss */
+/* line 408, ../sass/flat.scss */
 .breadcrumb, #network {
   border-color: #e7e7e7 !important;
 }
 
-/* line 419, ../sass/flat.scss */
+/* line 412, ../sass/flat.scss */
 #page_sidebar {
   border-right: 1px solid #e7e7e7;
   height: 100%;
   padding: 0;
   padding-left: 15px;
 }
-/* line 425, ../sass/flat.scss */
+/* line 418, ../sass/flat.scss */
 #page_sidebar h6 {
   padding: 10px 15px;
   background: #e7e7e7;
   margin-bottom: 0;
 }
 
-/* line 431, ../sass/flat.scss */
+/* line 424, ../sass/flat.scss */
 .analytics_row {
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid #ddd;
 }
 
-/* line 437, ../sass/flat.scss */
+/* line 430, ../sass/flat.scss */
 .container-fluid {
   padding: 0 !important;
 }
 
-/* line 444, ../sass/flat.scss */
+/* line 437, ../sass/flat.scss */
 .panel {
   border: none !important;
 }
 
-/* line 452, ../sass/flat.scss */
+/* line 445, ../sass/flat.scss */
 ul.sub li a {
   border-radius: 0 !important;
 }
-/* line 457, ../sass/flat.scss */
+/* line 450, ../sass/flat.scss */
 ul.sub li.active a {
   background: whitesmoke !important;
   color: #333;
 }
 
-/* line 467, ../sass/flat.scss */
+/* line 460, ../sass/flat.scss */
 .panel-heading h4 a i {
   float: right;
   color: #333;
 }
 
-/* line 474, ../sass/flat.scss */
+/* line 467, ../sass/flat.scss */
 .panel-heading.active {
   background-color: #16a085;
   color: white;
 }
-/* line 477, ../sass/flat.scss */
+/* line 470, ../sass/flat.scss */
 .panel-heading.active i {
   color: white;
 }
 
-/* line 482, ../sass/flat.scss */
+/* line 475, ../sass/flat.scss */
 .panel-body {
   padding: 0 !important;
 }
-/* line 485, ../sass/flat.scss */
+/* line 478, ../sass/flat.scss */
 .panel-body li a {
   color: #16a085 !important;
 }
-/* line 487, ../sass/flat.scss */
+/* line 480, ../sass/flat.scss */
 .panel-body li a i {
   float: right;
   color: #999;
 }
 
-/* line 503, ../sass/flat.scss */
+/* line 496, ../sass/flat.scss */
 .btn-primary, .map-info button, #sectionNavigation input {
   background: #16a085 !important;
   border-color: #27ae60 !important;
 }
 
-/* line 507, ../sass/flat.scss */
+/* line 500, ../sass/flat.scss */
 .select .btn .filter-option, .select .map-header .btn-group button .filter-option, .map-header .btn-group .select button .filter-option, .select .map-info button .filter-option, .map-info .select button .filter-option, .select form button .filter-option, form .select button .filter-option, .select #logout .filter-option, .select #sectionNavigation input .filter-option, #sectionNavigation .select input .filter-option {
   top: 5px !important;
 }
 
-/* line 510, ../sass/flat.scss */
+/* line 503, ../sass/flat.scss */
 .open > .dropdown-arrow {
   display: none !important;
 }
 
-/* line 514, ../sass/flat.scss */
+/* line 507, ../sass/flat.scss */
 .breadcrumb .dropdown-menu, #network .dropdown-menu {
   width: 100% !important;
   top: 100% !important;
   font-size: 14px !important;
 }
-/* line 519, ../sass/flat.scss */
+/* line 512, ../sass/flat.scss */
 .breadcrumb .dropdown-toggle, #network .dropdown-toggle {
   font-size: 14px;
   width: 200px !important;
 }
-/* line 523, ../sass/flat.scss */
+/* line 516, ../sass/flat.scss */
 .breadcrumb li.selected, #network li.selected {
   color: white !important;
 }
 
-/* line 530, ../sass/flat.scss */
+/* line 523, ../sass/flat.scss */
 .loader,
 .loader:before,
 .loader:after {
@@ -8989,7 +9001,7 @@ ul.sub li.active a {
   height: 4em;
 }
 
-/* line 538, ../sass/flat.scss */
+/* line 531, ../sass/flat.scss */
 .loader:before,
 .loader:after {
   position: absolute;
@@ -8997,12 +9009,12 @@ ul.sub li.active a {
   content: '';
 }
 
-/* line 543, ../sass/flat.scss */
+/* line 536, ../sass/flat.scss */
 .loader:before {
   left: -1.5em;
 }
 
-/* line 546, ../sass/flat.scss */
+/* line 539, ../sass/flat.scss */
 .loader {
   text-indent: -9999em;
   margin: 8em auto;
@@ -9012,7 +9024,7 @@ ul.sub li.active a {
   animation-delay: -0.16s;
 }
 
-/* line 554, ../sass/flat.scss */
+/* line 547, ../sass/flat.scss */
 .loader:after {
   left: 1.5em;
   -webkit-animation-delay: -0.32s;
@@ -9020,7 +9032,7 @@ ul.sub li.active a {
 }
 
 @-webkit-keyframes load1 {
-  /* line 562, ../sass/flat.scss */
+  /* line 555, ../sass/flat.scss */
   0%,
   80%,
   100% {
@@ -9028,7 +9040,7 @@ ul.sub li.active a {
     height: 4em;
   }
 
-  /* line 566, ../sass/flat.scss */
+  /* line 559, ../sass/flat.scss */
   40% {
     box-shadow: 0 -2em #ddd;
     height: 5em;
@@ -9036,7 +9048,7 @@ ul.sub li.active a {
 }
 
 @keyframes load1 {
-  /* line 574, ../sass/flat.scss */
+  /* line 567, ../sass/flat.scss */
   0%,
   80%,
   100% {
@@ -9044,20 +9056,85 @@ ul.sub li.active a {
     height: 4em;
   }
 
-  /* line 578, ../sass/flat.scss */
+  /* line 571, ../sass/flat.scss */
   40% {
     box-shadow: 0 -2em #ddd;
     height: 5em;
   }
 }
 
-/* line 585, ../sass/flat.scss */
+/* line 578, ../sass/flat.scss */
 .null_message {
   line-height: 200px;
   text-align: center;
   color: crimson;
 }
-/* line 589, ../sass/flat.scss */
+/* line 582, ../sass/flat.scss */
 .null_message i {
   padding-right: 5px;
+}
+
+/* line 588, ../sass/flat.scss */
+.select2-container {
+  width: 100%;
+}
+
+/* line 592, ../sass/flat.scss */
+.paging_full_numbers {
+  padding-left: 60%;
+}
+
+/* line 595, ../sass/flat.scss */
+a.paginate_button {
+  border: 1px solid #ddd !important;
+  padding: 5px 10px;
+  min-width: 90px;
+  font-size: 12px;
+  color: #333 !important;
+  cursor: pointer;
+}
+
+/* line 603, ../sass/flat.scss */
+a.paginate_button:hover {
+  background: #e7e7e7;
+  text-decoration: none;
+  cursor: hand;
+}
+
+/* line 608, ../sass/flat.scss */
+a.disabled {
+  background: #666;
+  color: white;
+}
+
+/* line 612, ../sass/flat.scss */
+a.disabled:hover {
+  background: #666;
+}
+
+/* line 615, ../sass/flat.scss */
+.dataTables_length {
+  width: 200px;
+  float: left;
+}
+/* line 619, ../sass/flat.scss */
+.dataTables_length label select {
+  display: inherit;
+  width: 50px !important;
+}
+
+/* line 627, ../sass/flat.scss */
+.datatables_filter label {
+  float: right;
+  padding-right: 5%;
+}
+/* line 630, ../sass/flat.scss */
+.datatables_filter label input {
+  display: initial;
+  width: 200px;
+}
+
+/* line 638, ../sass/flat.scss */
+.dataTables_info {
+  font-size: 14px;
 }
