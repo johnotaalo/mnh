@@ -377,10 +377,85 @@ function loadHelpForm() {
         '</form>';
     $('#universalModal .modal-body').empty();
     $('#universalModal .modal-body').append(helpform);
-    $('#county').select2(){
-        placeholder='Please Select Your County';
-        data=countyData;
-    }
+    $('#county').select2({
+        placeholder: 'Please Select Your County',
+        data: getCountyData()
+    });
+    $('#county').change(function() {
+        county = $(this).val();
+        $('#district').select2({
+            placeholder: 'Please Select Your District',
+            data: getSpecificDistrictData(county)
+        });
+    });
+    $('#district').change(function() {
+        district = $(this).val();
+        $('#facility').select2({
+            placeholder: 'Please Select Your District',
+            data: getSpecificDistrictData(district)
+        });
+    });
+}
+/**
+ * [getFacilityData description]
+ * @return {[type]} [description]
+ */
+function getFacilityData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_name.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+/**
+ * [getCountyData description]
+ * @return {[type]} [description]
+ */
+function getCountyData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_county.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+/**
+ * [getDistrictData description]
+ * @return {[type]} [description]
+ */
+function getAllDistrictData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_district.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+
+function getSpecificDistrictData(county) {
+    var result;
+    $.ajax({
+        url: base_url + 'c_analytics/getDistrictNamesJSON/' + county,
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
 }
 
 function showMasterFacilityList(base_url, form) {
@@ -468,6 +543,10 @@ $(document).ready(function() {
     });
     cheet('ctrl h e l p', function() {
         showHelp();
+    });
+
+    cheet('← → ↑ ↓ w e w e', function() {
+        alert('KAMNINJA!! Fanya Kazi');
     });
 
 
