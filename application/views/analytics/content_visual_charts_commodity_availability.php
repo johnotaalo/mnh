@@ -133,14 +133,7 @@
             </div>
         </div>
     </div>
-
-
-
-
-</div>
-<div class="analytics_row section" data-survey='ch' id="section-3">
-    <h4>Section 3 : Assessment</h4>
-    <div class="portlet md box ">
+	<div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register</h6>
         </div>
@@ -150,7 +143,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+	<div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
         </div>
@@ -160,6 +153,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="analytics_row section" data-survey='ch' id="section-3">
+    <h4>Section 3 : Case Management</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
@@ -269,10 +265,10 @@
     </div>
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-5">
-    <h4>Section 5 : On-Site Rehydration</h4>
+    <h4>Section 5 : ORT Corner Assessment</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Availability</h6>
         </div>
         <div class="portlet-body">
 
@@ -282,7 +278,7 @@
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Location</h6>
         </div>
         <div class="portlet-body">
 
@@ -514,7 +510,7 @@
 
     <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting Caeserian Section</h6>
         </div>
         <div class="portlet-body">
 

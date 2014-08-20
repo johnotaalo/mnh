@@ -10,8 +10,6 @@ class C_Analytics extends MY_Controller
         $this->load->library('PHPExcel');
 
         //$this -> county = $this -> session -> userdata('county_analytics');
-
-
     }
 
     /**
@@ -247,14 +245,88 @@ ORDER BY fac_level;");
         }
         echo $allProgress;
     }
+public function getSelectedReportedCounty($survey, $survey_category,$county) {
+	//$county = urldecode($county);
+	//echo $survey_category;die;
+        $reportingCounties = $this->m_analytics->getReportingRatio($survey, $survey_category,$county);
 
+        //echo "<pre>";print_r($reportingCounties);echo "</pre>";die;
+        $counter = 0;
+        $allProgress = '';
+        
+            $allProgress.= $this->getSelectedCounty($reportingCounties,$county);
+		
+        echo $allProgress;die;
+    }
+   public function getSelectedCounty($reportingCounties,$county) {
+        $progress = "";
+
+        //var_dump($reportingCounties);die;
+        //die ;
+
+        //$countyName = $key;
+        $percentage = (int)$reportingCounties[0]['percentage'];
+        $reported = (int)$reportingCounties[0]['reported'];
+        $actual = (int)$reportingCounties[0]['actual'];
+
+        /**
+         * Check status
+         *
+         * Different Colors for Different LEVELS
+         */
+
+        switch ($percentage) {
+            case ($percentage == 0):
+            $status = 'transparent';
+            break;
+
+            case ($percentage < 20):
+            $status = '#e93939';
+            break;
+
+            case ($percentage < 40):
+            $status = '#da8a33';
+            break;
+
+            case ($percentage < 60):
+            $status = '#dad833';
+            break;
+
+            case ($percentage < 80):
+            $status = '#91da33';
+            break;
+
+            case ($percentage < 100):
+            $status = '#7ada33';
+            break;
+
+            /**case ($percentage == 100):
+                $status = '#13b00b';
+                break;*/
+            default:
+            $status = 'transparent';
+            break;
+        }
+        $progress = '<div class="progressRow"><label>' . $county . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div><div style="float:right">' . $reported . ' / ' . $actual . '</div></div></div>';
+
+        //$progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
+        return $progress;
+
+        //echo($progress);
+
+
+    }
+	/*
+	 * get selected county reporting ratio
+	 * */
     public function getOneReportingCounty($county, $survey_category) {
         $county = urldecode($county);
         $survey = $this->session->userdata('survey');
 
         //$nowCounty = $this->uri->segment(3);
         //echo $nowCounty;
-        $reportingCounty = $this->m_analytics->getReportingRatio($county, $survey, $survey_category);
+        $reportingCounty = $this->m_analytics->getReportingRatio( $survey, $survey_category,$county);
+		//print_r($reportingCounty);die;
         $oneProgress = $this->getReportedCounty($reportingCounty, $county);
         echo ($oneProgress);
     }
@@ -790,6 +862,9 @@ ORDER BY fac_level;");
      */
     public function getMNHSuppliesLocation($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
+	}
+	public function getMNHSupplierLocation($criteria, $value, $survey, $survey_category) {
+        $this->getMNHSuppliesLocation($criteria, $value, $survey, $survey_category, 'mnh', 'location');
     }
 	public function getMNHSupplier($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'supplier');
@@ -931,10 +1006,11 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
+			//print_r($resultArray);die;
         }
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'column',(int)sizeof($category));
-    }
-
+		//print_r($resultArray);die;
+		$this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'column',(int)sizeof($category));
+		}
     public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
         $results = $this->m_analytics->getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic);
         $commodities = $results['commodities'];
@@ -1094,13 +1170,35 @@ ORDER BY fac_level;");
 		$value = urldecode($value);
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
 	}
+	public function getMNHresourcesAvailability($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
+	}
+	public function getMNHresourcesLocation($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'location');
+	}
+	public function getMNHresourcesSupplier($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
+	}
     public function getresourcesFrequencyCH($criteria, $value, $survey, $survey_category) {
 		$this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'availability');
      }
-    public function getCountyReportingSummary($survey, $survey_category,$county) {
+    /*public function getCountyReportingSummary($survey, $survey_category,$county) {
     	 $county = urldecode($county);
 		 //echo $county;die;
     	$results = $this->m_analytics->getCountyReportingSummary($survey, $survey_category,$county);
+	// $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'availability');
+//         
+        // //echo "<pre>"; print_r($results);echo "</pre>";die;
+//         
+//         
+    // }*/
+//     
+     public function getCountyReportingSummary($county,$survey, $survey_category) {
+         $county = urldecode($county);
+         $results = $this->m_analytics->getCountyReportingSummary($county,$survey, $survey_category);
         $data['title'] = array('Facility MFL', 'Facility Name', 'Facility Ownership', 'Facility Type', 'Facility Level', 'Facility District', 'Facility County');
 
         //echo "<pre>"; print_r($titles);echo "</pre>";
@@ -1326,7 +1424,7 @@ ORDER BY fac_level;");
     public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, 'ort');
 
-        echo "<pre>";print_r($results);echo "</pre>";die;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $mch = $ward = $other = $opd = $uc = array();
         $count = 0;
@@ -1364,7 +1462,7 @@ ORDER BY fac_level;");
     public function getQuestionStatistics($criteria, $value, $survey, $survey_category, $for,$statistics) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, $for,$statistics);
 
-        echo "<pre>";print_r($results);echo "</pre>";die;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
         foreach ($results as $key => $value) {
@@ -3198,6 +3296,7 @@ ORDER BY fac_level;");
         $county = urldecode($county);
 		//echo $county;die;
         $results = $this->m_analytics->getReportingRatio($county, $survey_type, $survey_category);
+		//echo "<pre>";print_r($results);echo "</pre>";die;
         echo json_encode($results);
     }
 }

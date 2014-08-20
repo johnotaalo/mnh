@@ -26,16 +26,17 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
     
-    public function getCountyReportingSummary($survey, $survey_category) {
+    public function getCountyReportingSummary($county,$survey, $survey_category) {
         
         /* using CI database active record*/
         try {
             $query = "SELECT 
-                        f.fac_county AS county, f.fac_district AS district, f.fac_name AS facility
+                        f.fac_mfl AS facility_mfl,f.fac_name AS Name,f.fac_ownership AS onwership,f.fac_type AS type,f.fac_level AS level,
+                        f.fac_district AS district,f.fac_county AS county
                         FROM
                         assessment_tracker ast
                             JOIN
-                        facilities f ON ast.facilityCode = f.fac_mfl
+                        facilities f ON ast.facilityCode = f.fac_mfl AND f.fac_county = '".$county."'
                             JOIN
                         survey_status ss ON ss.fac_id = f.fac_mfl
                             JOIN
@@ -1740,7 +1741,7 @@ ORDER BY oa.question_code ASC";
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['commodity_name']][$place]+= (int)$value['total_response'];
+                                $data[$value['location']][$place]+= (int)$value['total_response'];
                             }
                         } else if (array_key_exists('reason', $value)) {
                             $data[$value['commodity_name']][$value['reason']] = (int)$value['total_response'];
@@ -2468,8 +2469,7 @@ ORDER BY f.fac_county ASC;";
             //var_dump($allData);
             return $allData;
         }
-        
-        function getReportingRatio($county, $survey, $survey_category) {
+        function getReportingRatio($survey, $survey_category,$county) {
             
             /*using DQL*/
             
