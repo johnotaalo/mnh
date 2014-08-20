@@ -317,7 +317,7 @@ switch(survey){
     //Section 9 MNH
 
     loadGraph(base_url, 'c_analytics/getresourcesFrequencyMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_availability');
-    loadGraph(base_url, 'c_analytics/getresourcesLocationMnh/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_location');
+    loadGraph(base_url, 'c_analytics/getResourcesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_location');
     loadGraph(base_url, 'c_analytics/getWasteStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_wasteDisposal');
 
     
@@ -381,7 +381,7 @@ switch(survey){
     
     //Section 8 CH
     loadGraph(base_url, 'c_analytics/getCHresourcesAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_availability');
-    loadGraph(base_url, 'c_analytics/getCHresourcesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_location');
+    loadGraph(base_url, 'c_analytics/getResourcesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_location');
     loadGraph(base_url, 'c_analytics/getCHresourcesSupplier/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#resource_suppliers');
     
     break;

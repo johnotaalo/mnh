@@ -3959,7 +3959,80 @@ ORDER BY question_code";
 
             return $data;
     }
+    
+    public function getResorceLocation($criteria, $value, $survey, $survey_category, $for) {
+        $value = urldecode($value);
+            
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_resource_location('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                // Dump the extra resultset.
+                $queryData->free_result();
+                $pharmacyvalue = 0;
+             if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $key => $value) {
+                    
+                    if( array_key_exists('opd_values', $value))
+                    {
+                        $opdvalue += $value['opd_values'];
+                    }
 
+                    if( array_key_exists('mch_values', $value))
+                    {
+                        $mchvalue += $value['mch_values'];
+                    }
+                    if( array_key_exists('clinic_values', $value))
+                    {
+                        $clinicvalue += $value['clinic_values'];
+                    }
+                    if( array_key_exists('ward_values', $value))
+                    {
+                        $wardvalue += $value['ward_values'];
+                        
+                    }
+                    if( array_key_exists('other_values', $value))
+                    {
+                        $othervalue += $value['other_values'];
+                        
+                    }
+
+                }
+            
+    
+                //1. collect the categories
+                $data[$question]['opd'] = $opdvalue;
+                $data[$question]['mch'] = $mchvalue;
+                $data[$question]['clinic'] = $clinicvalue;
+                $data[$question]['ward'] = $wardvalue;
+                $data[$question]['other'] = $othervalue;
+       
+                 }else {
+                    return null;
+                }
+                
+                //echo "<pre>";print_r($other);echo "</pre>";die;
+   
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            //echo "<pre>";print_r($data);echo "</pre>";die;
+
+            return $data;
+    }
 
     public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
         $value = urldecode($value);
@@ -4003,36 +4076,19 @@ ORDER BY question_code";
 
                 }
             
-            /*
-                //echo "<pre>";print_r($othervalue);echo "</pre>";die;
-                //echo($this->db->last_query());die;
-                if ($this->dataSet !== NULL) {
-                  foreach ($this->dataSet as $value_) {
-                    // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                   $question = $this->getSupplyName($value_['supply_code'],$survey);
-                
-                $pharmacy += $value_['phar_values'];
-                $store += $value_['sto_values'];
-                $delivery += $value_['del_values'];
-                $other += $value_['ot_values'];
-                */
-                
+    
                 //1. collect the categories
                 $data[$question]['pharmacy'] = $pharmacyvalue;
                 $data[$question]['store'] = $storevalue;
                 $data[$question]['delivery room'] = $deliveryvalue;
                 $data[$question]['other'] = $othervalue;
-                    
-                
-                    
-                    
+       
                  }else {
                     return null;
                 }
                 
                 //echo "<pre>";print_r($other);echo "</pre>";die;
-                
-                
+   
             }
             catch(exception $ex) {
                 
