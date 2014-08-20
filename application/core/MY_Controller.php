@@ -2421,61 +2421,7 @@ $this->write_counties();
                     }
                 }
             }
-<<<<<<< HEAD
-            if ($section != 'svc' && $section != 'ror' && $section != 'tl') {
-                
-                if ($value['indicatorName'] == 'Correct Classification') {
-                    $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            <td></td><td></td>
-            ' . $responseAssessorRow . '<td></td>
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-                } else if ($section == 'sgn') {
-                    $data[$section][] = '
-                                    <tr>
-                                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-                                ' . $responseHCWRow . '
-                                <td>' . $findingHCWRow . '</td>
-                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-                            </tr>';
-                } else {
-                    if ($value['indicatorCode'] == 'CHI105') {
-                        $data[$section][] = '<tr><th colspan="5"><strong>(' . $numbering[$base - 1] . ')</strong>Breathing</th></tr>';
-                    }
-                    if (($value['indicatorCode'] >= 'CHI105') && ($value['indicatorCode'] <= 'CHI110')) {
-                        $countme++;
-                        $data[$section][] = '
-                                     <tr>
-                                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-                                ' . $responseHCWRow . '
-                                <td>' . $findingHCWRow . '</td>
-                                ' . $responseAssessorRow . '
-                                <td>' . $findingAssessorRow . '</td>
-                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-                            </tr>';
-                    } else {
-                        $data[$section][] = '
-                                    <tr>
-                                <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-                                ' . $responseHCWRow . '
-                                <td>' . $findingHCWRow . '</td>
-                                ' . $responseAssessorRow . '
-                                <td>' . $findingAssessorRow . '</td>
-                                <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-                            </tr>';
-                    }
-                }
-            } else {
-                
-                $data[$section][] = '
-                <tr>
-            <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['indicatorName'] . '</td>
-            ' . $responseHCWRow . '
-            <input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
-        </tr>';
-=======
+
 			if ($section != 'svc' && $section != 'ror' && $section != 'tl') {
 				if ($value['indicatorName'] == 'Correct Classification') {
 					$data[$section][] = '
@@ -2530,7 +2476,6 @@ $this->write_counties();
 					<td>' . $findingHCWRow . '</td>
 					<input type="hidden"  name="indicatorCode_' . $counter . '" id="indicatorCode_' . $counter . '" value="' . $value['indicatorCode'] . '" />
 				</tr>';
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
             }
         }
         
