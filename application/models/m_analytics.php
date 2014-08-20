@@ -4032,7 +4032,7 @@ ORDER BY question_code";
             return $data;
     }
     
-    public function getResorceLocation($criteria, $value, $survey, $survey_category, $for) {
+    public function getResourceLocation($criteria, $value, $survey, $survey_category, $for) {
         $value = urldecode($value);
             
             
@@ -4101,7 +4101,7 @@ ORDER BY question_code";
                 
                 
             }
-            //echo "<pre>";print_r($data);echo "</pre>";die;
+            echo "<pre>";print_r($data);echo "</pre>";die;
 
             return $data;
     }
