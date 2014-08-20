@@ -2381,12 +2381,12 @@ ORDER BY fac_level;");
         //echo '<pre>';print_r($this->input->post());echo '</pre>';
         $this->m_analytics->universalEditor($table, $column, $value, $primary_key, $pk_value);
     }
-    public function getMasterFacilityList() {
+    public function getMasterFacilityList($form) {
         $this->db->select('fac_id,fac_name,fac_level,fac_ownership,fac_county,fac_district')->from('facilities')->order_by('fac_county ASC')->order_by('fac_district ASC');
         
         $results = $this->db->get();
         
-        $data = $this->generateData($results->result_array(), 'Master List', 'table');
+        $data = $this->generateData($results->result_array(), 'Master List', $form);
         
         echo $data;
         
