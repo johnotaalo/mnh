@@ -26,7 +26,7 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
     
-    public function getCountyReportingSummary($survey, $survey_category) {
+    public function getCountyReportingSummary($county,$survey, $survey_category) {
         
         /* using CI database active record*/
         try {
@@ -35,7 +35,7 @@ class M_Analytics extends MY_Model
                         FROM
                         assessment_tracker ast
                             JOIN
-                        facilities f ON ast.facilityCode = f.fac_mfl
+                        facilities f ON ast.facilityCode = f.fac_mfl AND f.fac_county = '".$county."'
                             JOIN
                         survey_status ss ON ss.fac_id = f.fac_mfl
                             JOIN
@@ -1166,11 +1166,10 @@ WHERE
                     
                     //var_dump($this->dataSet);
                     foreach ($this->dataSet as $value) {
+                    	//echo "<pre>"; print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('response', $value)) {
-                            $data[$value['indicator_name']][$value['frequency']] = (int)$value['total_response'];
+                            $data[$value['indicator_name']][$value['response']] = (int)$value['total_response'];
                         }
-                    }
-                    
                     /*foreach ($this->dataSet as $value) {
                         
                         $indicator = $value['indicator_name'];
@@ -1181,23 +1180,22 @@ WHERE
                         $data['categories'] = array_keys($data['response']);
                     }*/
                     $this->dataSet = $data;
+                    //return $this->dataSet;
+					}
+                }else {
                     
-                    return $this->dataSet;
-                } else {
-                    
-                    return $this->dataSet = null;
+                    //return $this->dataSet = null;
                 }
                 
-                die(var_dump($this->dataSet));
+                //die(var_dump($this->dataSet));
+            
             }
             catch(exception $ex) {
                 
                 //ignore
                 //die($ex->getMessage());//exit;
-                
-                
-            }
-            
+                }
+            //var_dump($this->dataSet);die;
             return $this->dataSet;
         }
         public function getIndicatorComparison($criteria, $value, $survey, $survey_category, $for) {
@@ -1727,7 +1725,7 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                        
+                        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1739,13 +1737,12 @@ ORDER BY oa.question_code ASC";
                             $data[$value['commodity_name']][$value['reason']] = (int)$value['total_response'];
                         } else if (array_key_exists('unit', $value)) {
                             $data[$value['commodity_name']][$value['unit']] = (int)$value['total_response'];
+                        }else if (array_key_exists('supplier_code', $value)) {
+                            $data[$value['commodity_name']][$value['supplier_code']] = (int)$value['supplier_name'];
                         }
                     }
                     
                     //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                    
-                    
-                    
                     /**
                      * Fix Data
                      */
@@ -1871,11 +1868,9 @@ ORDER BY oa.question_code ASC";
             
             // Dump the extra resultset.
             $queryData->free_result();
-            
             //echo($this->db->last_query());die;
             if ($this->dataSet !== NULL) {
-                
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+               //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('frequency', $value)) {
                         $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
@@ -1887,6 +1882,8 @@ ORDER BY oa.question_code ASC";
                     } else if (array_key_exists('total_functional', $value)) {
                         $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
                         $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
+                    }else if (array_key_exists('supplier_code', $value)) {
+                        $data[$value['supply_name']][$value['supplier_code']]= (int)$value['total_response'];
                     }
                 }
                 
@@ -2056,7 +2053,7 @@ LIMIT 0 , 1000
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('challenge', $value)) {
-                        $data[$value['ch_name']][$value['challenge']] = (int)$value['total_response'];
+                        $data[$value['ch_name']][$value['ch_name']] = (int)$value['total_response'];
                     }
                 }
                 
@@ -2110,13 +2107,15 @@ LIMIT 0 , 1000
                 //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 foreach ($this->dataSet as $value) {
                     if (array_key_exists('frequency', $value)) {
-                        $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
+                        $data[$value['resource_name']][$value['frequency']] = (int)$value['total_response'];
                     } else if (array_key_exists('location', $value)) {
                         $location = explode(',', $value['location']);
                         foreach ($location as $place) {
-                            $data[$value['equipment_name']][$place]+= (int)$value['total_response'];
+                            $data[$value['resource_name']][$place]+= (int)$value['total_response'];
                         }
-                    }
+                    }else if (array_key_exists('suppliers', $value)) {
+                        $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
+					}
                 }
                 //echo "<pre>";print_r($data);echo "</pre>";die;
                 /**
@@ -2147,7 +2146,7 @@ LIMIT 0 , 1000
                     }
                     $data = $newData;
                 }
-                echo "<pre>";print_r($data);echo "</pre>";die;
+                //echo "<pre>";print_r($data);echo "</pre>";die;
             } else {
             }
         }
@@ -3754,61 +3753,41 @@ ORDER BY question_code";
         return $data;
     }
     
-    public function getBemONCReason($criteria, $value, $survey, $survey_category) {
-        
-        /*using CI Database Active Record*/
-        $value = urldecode($value);
-        $data = array();
-        
-        $query = "CALL get_bemonc_reason('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "');";
-        try {
-            $queryData = $this->db->query($query, array($value));
-            $this->dataSet = $queryData->result_array();
-            $queryData->next_result();
+        /**
+         * Signal Functions
+         * Options:
+         *      .bemonc
+         *      .cemonc
+         */
+                public function getBemONCReason($criteria, $value, $survey,$survey_category){
+           $value = urldecode($value);
+            $newData = array();
             
-            // Dump the extra resultset.
-            $queryData->free_result();
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
             
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
-                foreach ($this->dataSet as $value) {
-                    if (array_key_exists('challenge', $value)) {
-                        $data[$value['flevel']][$value['challenge']] = (int)$value['total_response'];
+            $query = "CALL get_bemonc_reason('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "');";
+             try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        if (array_key_exists('challenge', $value)) {
+
+                            $data['Level '.$value['flevel']][$value['challenge']] = (int)$value['total_response'];
+                        } 
+                        }
                     }
-                }
-            }
-            
-            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            
-            
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
-        
-        return $data;
-    }
-    
-    public function getSignalFunction($criteria, $value, $survey, $survey_category, $function) {
-        
-        /*using CI Database Active Record*/
-        $value = urldecode($value);
-        
-        /*using CI Database Active Record*/
-        $data = array();
-        
-        $query = "CALL get_bemonc_question('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "');";
-        
-        try {
-            $this->dataSet = $this->db->query($query, array($value));
-            $this->dataSet = $this->dataSet->result_array();
-            
-            // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            foreach ($this->dataSet as $value_) {
+ 
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+
                 
                 $question = $this->getSignalName($value_['sf_code']);
                 $yes = $value_['yes_values'];
@@ -3823,40 +3802,9 @@ ORDER BY question_code";
             //die(var_dump($this->dataSet));
             
             
-        }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
-        }
-        return $data;
-        break;
         
-        //case 'reason':
-        try {
-            $queryData = $this->db->query($query, array($value));
-            $this->dataSet = $queryData->result_array();
-            $queryData->next_result();
-            
-            // Dump the extra resultset.
-            $queryData->free_result();
-            
-            //echo($this->db->last_query());die;
-            if ($this->dataSet !== NULL) {
-                foreach ($this->dataSet as $value) {
-                    if (array_key_exists('challenge', $value)) {
-                        $data[$value['flevel']][$value['challenge']] = (int)$value['total_response'];
-                    }
-                }
-            }
-            
-            //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-            
-            
-        }
         catch(exception $ex) {
+            
             
             //ignore
             //die($ex->getMessage());//exit;
@@ -3865,7 +3813,6 @@ ORDER BY question_code";
         }
         
         return $data;
-        break;
     }
     
     /**
@@ -3876,13 +3823,13 @@ ORDER BY question_code";
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getQuestionStatistics($criteria, $value, $survey, $survey_category, $for) {
+    public function getQuestionStatistics($criteria, $value, $survey, $survey_category, $for,$statistics) {
         
         /*using CI Database Active Record*/
         $value = urldecode($value);
         $data = array();
         
-        $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+        $query = "CALL get_question_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "', '".$statistics."');";
         try {
             $queryData = $this->db->query($query, array($value));
             $this->dataSet = $queryData->result_array();
@@ -3892,9 +3839,8 @@ ORDER BY question_code";
             $queryData->free_result();
             
             foreach ($this->dataSet as $value_) {
-                
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
-                $question = $this->getQuestionName($value_['question_code']);
+               //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+               $question = $this->getQuestionName($value_['question_code']);
                 
                 $question = trim($question, 'Does this facility have an updated');
                 $question = trim($question, '?');
@@ -3906,9 +3852,7 @@ ORDER BY question_code";
                 } else {
                     
                     //$question = trim($question, 'National Guidelines for ');
-                    
-                    
-                }
+                 }
                 if ($question == 'Does this Facility have a designated location for oral rehydration?') {
                 }
                 
@@ -3918,12 +3862,11 @@ ORDER BY question_code";
                 //1. collect the categories
                 $data[$question]['yes'] = $yes;
                 $data[$question]['no'] = $no;
+            	}
             }
             
             //die(var_dump($this->dataSet));
-            
-            
-        }
+          
         catch(exception $ex) {
             
             //ignore
@@ -3976,19 +3919,64 @@ ORDER BY question_code";
             
             
         }
-        catch(exception $ex) {
-            
-            //ignore
-            //die($ex->getMessage());//exit;
-            
-            
+        catch(exception $ex){
+
+        }
+    }
+
+
+        public function getWasteStatistics($criteria, $value, $survey,$survey_category, $for) {
+
+            /*using CI Database Active Record*/
+            $value = urldecode($value);
+            $data = array();
+
+            $query = "CALL get_waste_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+
+                // Dump the extra resultset.
+                $queryData->free_result();
+// echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                foreach ($this->dataSet as $value_) {
+                    
+                    $question = $this->getQuestionName($value_['question_code']);
+                    
+
+
+                    $waste = $value_['waste_values'];
+                    $placenta = $value_['placenta_values'];
+                    $inci = $value_['inci_values'];
+                    $burning= $value_['burning_values'];
+                    $other = $value_['other_values'];
+
+
+                    //1. collect the categories
+                    $data[$question]['waste'] = $waste;
+                    $data[$question]['placenta'] = $placenta;
+                    $data[$question]['inci'] = $inci;
+                    $data[$question]['burning'] = $burning;
+                    $data[$question]['other'] = $other;
+                    
+                }
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //die(var_dump($this->dataSet));
+
+            }
+            catch(exception $ex) {
+
+                //ignore
+                //die($ex->getMessage());//exit;
+
+
+            }
+           // var_dump($data);die;
+
+            return $data;
         }
         
-        // var_dump($data);die;
-        
-        return $data;
-    }
-    
     /**
      * Community Strategy
      */
@@ -4048,7 +4036,8 @@ ORDER BY question_code";
             $this->dataSet = $this->db->query($query, array($value));
             $this->dataSet = $this->dataSet->result_array();
             foreach ($this->dataSet as $value_) {
-                $question = $this->getQuestionName($value_['question_code']);
+            	//print_r($this->dataSet);die;
+            	$question = $this->getQuestionName($value_['question_code']);
                 $response = $value_['response'];
                 
                 //1. collect the categories

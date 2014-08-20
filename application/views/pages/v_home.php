@@ -139,6 +139,7 @@
             });
             runMap('mnh','end-term');
             $('.dropdown-menu li a').click(function(){
+                alert('clicked');
                 survey=$(this).attr('data-survey');
                 survey_category=$(this).attr('data-survey-category');
                 survey_in_full=$(this).parent().parent().parent().find('.dropdown-toggle').text();

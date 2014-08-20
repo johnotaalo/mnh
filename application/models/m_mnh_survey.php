@@ -263,7 +263,7 @@ class M_MNH_Survey extends MY_Model
             
             //Working with an object of the entity
             try {
-                $this->district = $this->em->getRepository('models\Entities\Districts')->findOneBy(array('districtId' => $this->input->post('username', TRUE), 'districtAccessCode' => md5($this->input->post('usercode', TRUE))));
+                $this->district = $this->em->getRepository('models\Entities\Districts')->findOneBy(array('districtName' => $this->input->post('district', TRUE), 'districtAccessCode' => md5($this->input->post('usercode', TRUE))));
                 
                 if ($this->district) {
                     return $this->isDistrict = 'true';
@@ -5140,11 +5140,13 @@ class M_MNH_Survey extends MY_Model
                     
                     //insert log entry if new, else update the existing one
                     if ($this->sectionExists == false) {
+
                         
                         /* if ($this -> addBemoncSignalFunctionsInfo() == true ) {//defined in this model
                          $this -> writeAssessmentTrackerLog();*/
                         if ($this->addKangarooInfo() == true && $this->addNewbornInfo() == true && $this->addHIVTestingInfo() == true && $this->addPreparednessInfo() == true && $this->addCEOCServicesInfo() == true && $this->addDiarrhoeaByMonthInfo() == true && $this->addBemoncSignalFunctionsInfo() == true) {
                             
+
                             //} == true  && $this->addDiarrhoeaByMonthInfo() == true
                             //) {
                             //defined in this model
