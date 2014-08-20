@@ -671,19 +671,12 @@ ORDER BY fac_level;");
     public function getCHCommodityAvailabilityUnavailability($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'unavailability');
     }
-<<<<<<< HEAD
-    
-    public function getCHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category) {
-        $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
-    }
-    public function getCHCommoditySuppliers($criteria, $value, $survey, $survey_category) {
-=======
+
 /*
     public function getCHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
     }*/
 	public function getCHCommoditySuppliers($criteria, $value, $survey, $survey_category) {
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'supplier');
     }
     public function getCHCommodityAvailabilityQuantities($criteria, $value, $survey, $survey_category) {
@@ -816,13 +809,9 @@ ORDER BY fac_level;");
      /*
     public function getCHSuppliesLocation($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
-<<<<<<< HEAD
-    }
-    public function getCHSuppliers($criteria, $value, $survey, $survey_category) {
-=======
+
     }*/
 	public function getCHSuppliers($criteria, $value, $survey, $survey_category) {
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'ch', 'supplier');
     }
     
@@ -916,19 +905,7 @@ ORDER BY fac_level;");
             $key = ucwords($key);
             $key = str_replace(' ', '-', $key);
             $resultArray[] = array('name' => $key, 'data' => $val);
-<<<<<<< HEAD
-            
-            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
-            
-            
-=======
 
-
-            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
-
-
-
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'column', (int)sizeof($category));
     }
@@ -1215,13 +1192,9 @@ ORDER BY fac_level;");
      */
    /* public function getMNHEquipmentLocation($criteria, $value, $survey, $survey_category) {
         $this->getEquipmentStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
-<<<<<<< HEAD
-    }
-    
-=======
+
     }*/
 
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
     /**
      * [getMNHEquipmentFunctionality description]
      * @param  [type] $criteria [description]
@@ -1328,18 +1301,11 @@ ORDER BY fac_level;");
     
     public function getChallengeStatistics($criteria, $value, $survey, $survey_category) {
         $results = $this->m_analytics->getChallengeStatistics($criteria, $value, $survey, $survey_category);
-<<<<<<< HEAD
-        
-        // echo "<pre>";print_r($results);echo "</pre>";die;
-        foreach ($results as $key => $result) {
-            
-=======
+
 
         //echo "<pre>"; print_r($results);echo "</pre>";die;
        /* foreach ($results as $key => $result) {
             
-
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
             $category[] = $key;
@@ -1370,12 +1336,7 @@ ORDER BY fac_level;");
         // echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
-<<<<<<< HEAD
-    
-=======
 
-
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
     /**
      * [getLocationStatistics description]
      * @param  [type] $criteria [description]
@@ -1387,18 +1348,13 @@ ORDER BY fac_level;");
 
     public function getLocationStatistics($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getLocationStatistics($criteria, $value, $survey, $survey_category, 'ort');
-<<<<<<< HEAD
+
         
         echo "<pre>";
         print_r($results);
         echo "</pre>";
         die;
-=======
 
-
-        //echo "<pre>";print_r($results);echo "</pre>";die;
-         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
         $number = $resultArray = $q = array();
         $count = 0;
         
@@ -1419,13 +1375,7 @@ ORDER BY fac_level;");
         
         //echo "<pre>";print_r($gData);echo "</pre>";die;
         $resultArray[] = array('name' => 'ORT Location', 'data' => $gData);
-<<<<<<< HEAD
-        
-        $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
-    }
-    
-=======
+
 
 
 
@@ -1575,8 +1525,6 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
 
-
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
     /**
      * [getQuestionStatistics description]
      * @param  [type] $criteria [description]
@@ -3201,13 +3149,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getCommunityStrategyMNH($criteria, $value, $survey, $survey_category) {
-<<<<<<< HEAD
-        $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey, $survey_category);
-        
-        $number = $resultArray = $q = $yes = $no = array();
-        foreach ($results as $key => $value) {
-            $key = trim($key, 'Total number of ');
-=======
+
 
         $results = $this->m_analytics->getCommunityStrategyMNH($criteria, $value, $survey, $survey_category,'cms');
         foreach ($results as $key => $result) {
@@ -3215,7 +3157,6 @@ ORDER BY fac_level;");
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
 
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
             $category[] = $key;
             foreach ($result as $name => $value) {
                 //if ($name != 'Sometimes Available') {
@@ -3236,19 +3177,11 @@ ORDER BY fac_level;");
             
             
         }
-<<<<<<< HEAD
-        
-        $resultArray[] = array('name' => $value[''], 'data' => $number);
-        $resultArray = json_encode($resultArray);
-        
-=======
-
 
         $resultArray[] = array('name' =>$value[''], 'data' => $number);	
         $resultArray = json_encode($resultArray);
 
 
->>>>>>> 60d049dc79229eefd5bda8cfe1cd9e286dcc926e
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
