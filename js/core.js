@@ -545,9 +545,5 @@ $(document).ready(function() {
         showHelp();
     });
 
-    cheet('← → ↑ ↓ w e w e', function() {
-        alert('KAMNINJA!! Fanya Kazi');
-    });
-
 
 });
