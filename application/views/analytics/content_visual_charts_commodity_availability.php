@@ -21,7 +21,7 @@
     <div class="portlet box ">
         <div class="portlet-title">
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
-            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
+            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>National Reporting Progress</h6>
         </div>
         <div class="reporting"></div>
     </div>
@@ -125,7 +125,7 @@
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register</h6>
         </div>
         <div class="portlet-body">
 
@@ -135,7 +135,7 @@
     </div>
 	<div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data From Under 5 Register</h6>
         </div>
         <div class="portlet-body">
 
@@ -168,7 +168,7 @@
     </div>
      <div class="portlet box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Health Care Worker Response <span><select id="indicator_types"></select></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -449,13 +449,49 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+   <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
         </div>
         <div class="portlet-body">
 
             <div class="chart" id="MNHfacility_type">
+
+
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Total Number of Beds</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhBeds">
+
+
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Operation</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhOperation">
+
+
+            </div>
+        </div>
+    </div>
+    <div class="portlet md box ">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Health Facility Management</h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhHFM">
 
 
             </div>
@@ -532,7 +568,7 @@
     </div>
     <div class="portlet md box ">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>New Born</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Adimission of New Borns</h6>
         </div>
         <div class="portlet-body">
 

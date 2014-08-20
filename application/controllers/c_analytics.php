@@ -316,9 +316,7 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
 
 
     }
-	/*
-	 * get selected county reporting ratio
-	 * */
+////////////////////////////////////////////////////////////////////////////////
     public function getOneReportingCounty($county, $survey_category) {
         $county = urldecode($county);
         $survey = $this->session->userdata('survey');
@@ -862,9 +860,6 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
      */
     public function getMNHSuppliesLocation($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
-	}
-	public function getMNHSupplierLocation($criteria, $value, $survey, $survey_category) {
-        $this->getMNHSuppliesLocation($criteria, $value, $survey, $survey_category, 'mnh', 'location');
     }
 	public function getMNHSupplier($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'supplier');
@@ -1167,18 +1162,6 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'location');
 	}
 	public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
-		$value = urldecode($value);
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
-	}
-	public function getMNHresourcesAvailability($criteria, $value, $survey, $survey_category) {
-		$value = urldecode($value);
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
-	}
-	public function getMNHresourcesLocation($criteria, $value, $survey, $survey_category) {
-		$value = urldecode($value);
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'location');
-	}
-	public function getMNHresourcesSupplier($criteria, $value, $survey, $survey_category) {
 		$value = urldecode($value);
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
 	}
@@ -2805,7 +2788,9 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
 
         $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
     }
-
+public function getTotalBeds($criteria,$value,$survey,$survey_category){
+		$this->getBeds($criteria, $value, $survey, $survey_category, 'bed');
+	}
     /**
      * 24 Hour Service
      */
@@ -2818,9 +2803,14 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
         }
 
         $category[] = 'Numbers';
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
-
+	public function getServiceOperation($criteria,$value,$survey,$survey_category){
+		$this->getServices($criteria, $value, $survey, $survey_category, 'serv');
+	}
+	public function getTotalHFM($criteria,$value,$survey,$survey_category){
+		$this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'commi', 'response');
+	}
     /**
      * Health Facility Management
      */
@@ -2839,7 +2829,6 @@ public function getSelectedReportedCounty($survey, $survey_category,$county) {
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
-
     /**
      * Deliveries
      */
