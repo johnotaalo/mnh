@@ -1431,8 +1431,8 @@ ORDER BY fac_level;");
     }
 
 
-    public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getCommodityLocation($criteria, $value, $survey, $survey_category, 'mnh');
+    public function getCHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getCommodityLocation($criteria, $value, $survey, $survey_category, 'ch');
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
          $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
