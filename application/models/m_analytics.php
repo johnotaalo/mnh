@@ -3959,6 +3959,78 @@ ORDER BY question_code";
 
             return $data;
     }
+
+    public function getEquipmentLocation($criteria, $value, $survey, $survey_category, $for) {
+        $value = urldecode($value);
+            
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_equipment_location('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                $pharmacyvalue = 0;
+             if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $key => $value) {
+                    
+                    if( array_key_exists('del_values', $value))
+                    {
+                        $pharmacyvalue += $value['del_values'];
+                    }
+
+                    if( array_key_exists('phar_values', $value))
+                    {
+                        $storevalue += $value['phar_values'];
+                    }
+                    if( array_key_exists('sto_values', $value))
+                    {
+                        $deliveryvalue += $value['sto_values'];
+                    }
+                    if( array_key_exists('ot_values', $value))
+                    {
+                        $othervalue += $value['ot_values'];
+                        
+                    }
+
+                }
+          
+                
+                //1. collect the categories
+                $data[$question]['delivery room'] = $deliveryvalue;
+                $data[$question]['pharmacy'] = $pharmacyvalue;
+                $data[$question]['store'] = $storevalue;
+                $data[$question]['other'] = $othervalue;
+                    
+                
+                    
+                    
+                 }else {
+                    return null;
+                }
+                
+                //echo "<pre>";print_r($other);echo "</pre>";die;
+                
+                
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            //echo "<pre>";print_r($data);echo "</pre>";die;
+
+            return $data;
+    }
     
     public function getResorceLocation($criteria, $value, $survey, $survey_category, $for) {
         $value = urldecode($value);
