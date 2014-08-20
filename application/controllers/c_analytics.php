@@ -1402,7 +1402,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getCHSuppliesLocation($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getSupplyLocation($criteria, $value, $survey, $survey_category, 'mnh');
+        $results = $this->m_analytics->getSupplyLocation($criteria, $value, $survey, $survey_category, 'ch');
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
          $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();

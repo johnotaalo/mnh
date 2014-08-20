@@ -3892,33 +3892,59 @@ ORDER BY question_code";
                 
                 // Dump the extra resultset.
                 $queryData->free_result();
-                
+                $pharmacyvalue = 0;
+             if ($this->dataSet !== NULL) {
+                foreach ($this->dataSet as $key => $value) {
+                    
+                    if( array_key_exists('phar_values', $value))
+                    {
+                        $pharmacyvalue += $value['phar_values'];
+                    }
+
+                    if( array_key_exists('sto_values', $value))
+                    {
+                        $storevalue += $value['sto_values'];
+                    }
+                    if( array_key_exists('del_values', $value))
+                    {
+                        $deliveryvalue += $value['del_values'];
+                    }
+                    if( array_key_exists('ot_values', $value))
+                    {
+                        $othervalue += $value['ot_values'];
+                        
+                    }
+
+                }
+            
+            /*
+                //echo "<pre>";print_r($othervalue);echo "</pre>";die;
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                   foreach ($this->dataSet as $value_) {
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                    $question = $this->getSupplyName($value_['supply_code'],$survey);
                 
-                $pharmacy = $value_['phar_values'];
-                $store = $value_['sto_values'];
-                $delivery = $value_['del_values'];
-                $other = $value_['ot_values'];
-                
+                $pharmacy += $value_['phar_values'];
+                $store += $value_['sto_values'];
+                $delivery += $value_['del_values'];
+                $other += $value_['ot_values'];
+                */
                 
                 //1. collect the categories
-                $data[$question]['pharmacy'] = $pharmacy;
-                $data[$question]['store'] = $store;
-                $data[$question]['delivery room'] = $delivery;
-                $data[$question]['other'] = $other;
+                $data[$question]['pharmacy'] = $pharmacyvalue;
+                $data[$question]['store'] = $storevalue;
+                $data[$question]['delivery room'] = $deliveryvalue;
+                $data[$question]['other'] = $othervalue;
                     
-                }
+                
                     
                     
-                } else {
+                 }else {
                     return null;
                 }
                 
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo "<pre>";print_r($other);echo "</pre>";die;
                 
                 
             }
@@ -3929,7 +3955,7 @@ ORDER BY question_code";
                 
                 
             }
-            
+            //echo "<pre>";print_r($data);echo "</pre>";die;
 
             return $data;
     }
