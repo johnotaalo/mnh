@@ -1734,7 +1734,7 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                        
+                        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['commodity_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -1746,6 +1746,8 @@ ORDER BY oa.question_code ASC";
                             $data[$value['commodity_name']][$value['reason']] = (int)$value['total_response'];
                         } else if (array_key_exists('unit', $value)) {
                             $data[$value['commodity_name']][$value['unit']] = (int)$value['total_response'];
+                        }else if (array_key_exists('supplier_code', $value)) {
+                            $data[$value['commodity_name']][$value['supplier_code']] = (int)$value['supplier_name'];
                         }
                     }
                     
@@ -1839,7 +1841,9 @@ ORDER BY oa.question_code ASC";
                         } else if (array_key_exists('total_functional', $value)) {
                             $data[$value['supply_name']]['functional']+= (int)$value['total_functional'];
                             $data[$value['supply_name']]['non_functional']+= (int)$value['total_non_functional'];
-                        }
+                        }else if (array_key_exists('supplier_code', $value)) {
+                            $data[$value['supply_name']][$value['supplier_code']] = (int)$value['total_response'];
+                        } 
                     }
                     
                     /**
@@ -2072,6 +2076,8 @@ LIMIT 0 , 1000
                                 $data[$value['resource_name']][$place]+= (int)$value['total_response'];
 
                             }
+                        }if (array_key_exists('suppliers', $value)) {
+                            $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
                         }
                     }
                     

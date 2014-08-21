@@ -103,7 +103,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+   <!-- <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
         </div>
@@ -112,7 +112,7 @@
             <div class="chart" id="job_aids">
             </div>
         </div>
-    </div>
+   </div>-->
     <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
