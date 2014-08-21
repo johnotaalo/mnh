@@ -5,7 +5,7 @@
 </style>
 <!-- BEGIN CHART PORTLET 1-->
 <div class="analytics_row" data-survey='ch' id="reporting-parent">
-   <div class="portlet box ">
+   <div class="semi-large-graph">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
         </div>
@@ -18,10 +18,10 @@
             </div>
         </div>
     </div>
-    <div class="portlet box ">
+    <div class="semi-large-graph">
         <div class="portlet-title">
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
-            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>National Reporting Progress</h6>
+            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
         </div>
         <div class="reporting"></div>
     </div>
@@ -30,9 +30,9 @@
 
 <div class="analytics_row section" data-survey='ch' id="section-1">
     <h4>Section 1 : Facility Information</h4>
-    <div class="portlet md box " >
+    <div class="small-graph" >
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Ownership<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -40,9 +40,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -50,9 +50,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Type<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -60,9 +60,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -70,9 +70,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -80,9 +80,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training & Retention in CH Unit</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training & Retention in CH Unit<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -93,9 +93,9 @@
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-2">
     <h4>Section 2 : Guidelines, Job Aids and Tools</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Guidelines<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -103,9 +103,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Job Aids<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -113,9 +113,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Tools<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -123,9 +123,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -133,9 +133,16 @@
             </div>
         </div>
     </div>
-	<div class="portlet md box ">
+
+
+
+
+</div>
+<div class="analytics_row section" data-survey='ch' id="section-3">
+    <h4>Section 3 : Assessment</h4>
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data From Under 5 Register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -143,9 +150,9 @@
             </div>
         </div>
     </div>
-	<div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -153,12 +160,9 @@
             </div>
         </div>
     </div>
-</div>
-<div class="analytics_row section" data-survey='ch' id="section-3">
-    <h4>Section 3 : Case Management</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -166,9 +170,9 @@
             </div>
         </div>
     </div>
-     <div class="portlet box ">
+     <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Health Care Worker Response <span><select id="indicator_types"></select></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span><span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -183,9 +187,9 @@
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-4">
     <h4>Section 4 : Commodity & Bundling</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -193,9 +197,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -203,9 +207,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -213,9 +217,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -224,9 +228,9 @@
         </div>
     </div>
     <!-- Bundling -->
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -234,9 +238,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Unavailability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Unavailability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -244,9 +248,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Bundling Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -254,21 +258,16 @@
             </div>
         </div>
     </div>
-	<div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier</h6>
-        </div>
-        <div class="portlet-body"
-            <div class="chart" id="CHcommodity_supplier">
-            </div>
-        </div>
-    </div>
+
+
+
+
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-5">
-    <h4>Section 5 : ORT Corner Assessment</h4>
-    <div class="portlet md box ">
+    <h4>Section 5 : On-Site Rehydration</h4>
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -276,9 +275,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -286,9 +285,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons for Non-Functionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons for Non-Functionality<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -303,9 +302,9 @@
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-6">
     <h4>Section 6 :Equipment</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -313,9 +312,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Functionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Functionality<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -323,9 +322,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -333,12 +332,16 @@
             </div>
         </div>
     </div>
+
+
+
+
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-7">
     <h4>Section 7 : Supplies</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -346,9 +349,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -356,45 +359,48 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+
+	<div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
-            <div class="chart" id="supplies_supplier">
+			<div class="chart" id="ch_suppliers">
             </div>
         </div>
     </div>
+
+
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-8">
     <h4>Section 8 : Resources</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Resource Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="CHresource_availability">
+            <div class="chart" id="resource_availability">
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Resource Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="CHresource_location">
+            <div class="chart" id="resource_location">
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Suppliers</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="CHresource_suppliers">
+            <div class="chart" id="resource_suppliers">
             </div>
         </div>
     </div>
@@ -402,7 +408,7 @@
 <!--   MNH   -->
 
 <div class="analytics_row" data-survey='mnh' id="reporting-parent">
-   <div class="portlet box ">
+   <div class="semi-large-graph">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
         </div>
@@ -415,7 +421,7 @@
             </div>
         </div>
     </div>
-    <div class="portlet box ">
+    <div class="semi-large-graph">
         <div class="portlet-title">
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
@@ -427,9 +433,9 @@
 <!-- MNH Analytics Section-->
 <div class="analytics_row section" data-survey='mnh' id="section-1">
     <h4>Section 1 : Facility Information</h4>
-    <div class="portlet md box " >
+    <div class="small-graph" >
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Ownership</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Ownership<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -439,9 +445,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -449,9 +455,9 @@
             </div>
         </div>
     </div>
-   <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Type<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -461,48 +467,12 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Total Number of Beds</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="mnhBeds">
-
-
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Operation</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="mnhOperation">
-
-
-            </div>
-        </div>
-    </div>
-    <div class="portlet md box ">
-        <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Health Facility Management</h6>
-        </div>
-        <div class="portlet-body">
-
-            <div class="chart" id="mnhHFM">
-
-
-            </div>
-        </div>
-    </div>
     
 <div class="analytics_row section" data-survey='mnh' id="section-2">
     <h4>Section 2 : Facility Data And Maternal And Neotanal Service Delivery</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data Deliveries</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data Deliveries<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -510,9 +480,9 @@
             </div>
         </div>
     </div> 
-        <div class="portlet md box ">
+        <div class="small-graph">
            <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>CEmONC</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>CEmONC<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -521,9 +491,9 @@
         </div>
         </div>
 
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Performed<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -531,10 +501,10 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Reason not performed</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Reason not performed<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
 
         </div>
         <div class="portlet-body">
@@ -544,9 +514,9 @@
         </div>
     </div>
 
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting Caeserian Section</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -554,10 +524,10 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and Counselling</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and Counselling<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
 
         </div>
         <div class="portlet-body">
@@ -566,9 +536,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Adimission of New Borns</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>New Born<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -576,9 +546,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Kangaroo Mother Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Kangaroo Mother Care<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -586,9 +556,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Delivery Preparedness</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Delivery Preparedness<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -596,9 +566,9 @@
             </div>
         </div>
     </div>
-<div class="portlet md box ">
+<div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Questions</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Questions<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -606,9 +576,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -618,9 +588,9 @@
     </div>
     </div>
 
-    <div class="portlet md box ">
+    <!--<div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Tools<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -628,22 +598,22 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
             <div class="chart" id="challenge">
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-3">
     <h4>Section 3 : Guidelines, Job Aid and Tools Availability</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines and Job Aids</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Guidelines<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -651,9 +621,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Job Aids<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -661,9 +631,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Tools Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -675,9 +645,9 @@
 
 <div class="analytics_row section" data-survey='mnh' id="section-4">
     <h4>Section 4: Staff Training</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -685,9 +655,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Retention</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Retention<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -695,9 +665,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Staff Training<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -709,9 +679,9 @@
 
 <div class="analytics_row section" data-survey='mnh' id="section-5">
     <h4>Section 5 : Commodity Availability </h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -719,9 +689,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -729,9 +699,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -739,9 +709,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -753,9 +723,9 @@
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-6">
     <h4>Section 6 : Commodity  Usage</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Consumption</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Commodity Consumption<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -763,9 +733,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Duration Of Unavailability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Duration Of Unavailability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -773,9 +743,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>What Happened when commodity was Unavailable</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>What Happened when commodity was Unavailable<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -783,12 +753,16 @@
             </div>
         </div>
     </div>
+
+
+
+
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-7">
     <h4>Section 7 :Equipment Availability and Functionality</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -796,9 +770,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Functionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Functionality<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -806,9 +780,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Equipment Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -816,12 +790,16 @@
             </div>
         </div>
     </div>
-  </div>  
+
+
+
+
+</div>
 <div class="analytics_row section" data-survey='mnh' id="section-8">
     <h4>Section 8: Supplies</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -829,9 +807,9 @@
             </div>
         </div>
     </div>
-    <!--<div class="portlet md box ">
+    <!--<div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -839,20 +817,22 @@
             </div>
         </div>
     </div>-->
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Supplies Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
+
             <div class="chart" id="MNHsupplies_location">
             </div>
         </div>
     </div>
-	<div class="portlet md box ">
+	<div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
+
             <div class="chart" id="MNHsupplies_supplier">
             </div>
         </div>
@@ -861,9 +841,9 @@
 
 <div class="analytics_row section" data-survey='mnh' id="section-9">
     <h4>Section 9 : Resources</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -871,9 +851,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -881,9 +861,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Storage</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Storage<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -891,9 +871,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Waste Disposal</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Waste Disposal<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -901,9 +881,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Source</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Source<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -912,9 +892,9 @@
         </div>
     </div>
 </div>
-    <!--div class="portlet md box ">
+    <!--div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Suppliers<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -929,9 +909,9 @@
 <!--</div>-->
 <div class="analytics_row section" data-survey='mnh' id="section-10">
     <h4>Section 10 : Community Strategy</h4>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Community Units</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Community Units<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -939,9 +919,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Referred Cases</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Referred Cases<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -949,9 +929,9 @@
             </div>
         </div>
     </div>
-    <div class="portlet md box ">
+    <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>IMCI Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>IMCI Training<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -962,9 +942,9 @@
 </div>
 
 <!--<div class="analytics_row" data-survey='mnh' id="reporting-parent">
-    <div class="portlet box ">
+    <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Sections</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Sections<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -975,10 +955,10 @@
             </div>
         </div>
     </div>
-    <div class="portlet box ">
+    <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
-            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
+            <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
 
 
         </div>
