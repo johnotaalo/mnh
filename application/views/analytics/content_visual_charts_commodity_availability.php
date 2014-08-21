@@ -618,7 +618,7 @@
     </div>
     </div>
 
-    <!--<div class="portlet md box ">
+    <div class="portlet md box ">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
         </div>
@@ -630,20 +630,20 @@
     </div>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register</h6>
         </div>
         <div class="portlet-body">
 
             <div class="chart" id="challenge">
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
 <div class="analytics_row section" data-survey='mnh' id="section-3">
     <h4>Section 3 : Guidelines, Job Aid and Tools Availability</h4>
     <div class="portlet md box ">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Guidelines and Job Aids</h6>
         </div>
         <div class="portlet-body">
 
