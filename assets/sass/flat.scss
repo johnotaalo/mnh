@@ -264,13 +264,20 @@ table{
 .portlet.md.box{
     @extend .col-md-4;
 }
+.portlet.sm.box{
+    @extend .col-md-3;
+    .portlet-body{
+        height:200px;
+        overflow:hidden;
+    }
+}
 .portlet.box{
     @extend .col-md-6;
     .portlet-title{
         h6{
             margin-bottom:0;
 
-            padding: 10px 15px;
+            padding: 5px 7.5px;
             color: #333333;
             background-color: whitesmoke;
             border-color: #e7e7e7;

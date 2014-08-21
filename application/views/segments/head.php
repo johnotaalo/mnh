@@ -58,6 +58,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/skrollr/dist/skrollr.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist/skrollr.menu.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/cheet.js/cheet.js"></script>
+
+<script src="<?php echo base_url()?>js/jquery.quickfit.js"></script>
 <!-- <script> Scripts for Editable and Searchable Tables </script> -->
 <script src="<?php echo base_url();?>assets/bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/list.js/dist/list.js"></script>
@@ -68,6 +70,7 @@
 
 <script src="<?php echo base_url()?>js/highcharts.js"></script>
 <script src="<?php echo base_url()?>js/exporting.js"></script>
+
 <!--<script src="<?php echo base_url()?>js/Merged-JS.js"></script>-->
 <script src="<?php echo base_url()?>js/FusionMaps/FusionCharts.js"></script>
 
