@@ -850,19 +850,21 @@ ORDER BY fac_level;");
      * @return [type]            [description]
      */
     public function getNonFunctional($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ortf','response');
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort','response');
         $count=0;
         //echo "<pre>";print_r($results);echo "</pre>";die;
         $number = $resultArray = $q = array();
         $number = $resultArray = $q = $yes = $no = array();
-        if ($count == 1):
+        
         foreach ($results as $key => $value) {
+            if ($count == 1):
             $q[] = $key;
             $yes[] = (int)$value['yes'];
             $no[] = (int)$value['no'];
+            endif;
+            $count++;
         }
-        endif;
-        $count++;
+        
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
 
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;

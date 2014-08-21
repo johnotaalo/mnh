@@ -4101,7 +4101,7 @@ ORDER BY question_code";
                 
                 
             }
-            echo "<pre>";print_r($data);echo "</pre>";die;
+            //echo "<pre>";print_r($data);echo "</pre>";die;
 
             return $data;
     }
