@@ -186,5 +186,80 @@ class C_Front extends MY_Controller
         echo '<pre>';print_r($data);echo '</pre>';
     }
 
+    public function getAllReportedCounties($survey, $survey_category, $county) {
+        $county = urldecode($county);
+        $reportingCounties = $this->m_analytics->getAllReportingRatio($survey, $survey_category, $county);
+        
+        // var_dump($reportingCounties);die;
+        $counter = 0;
+        $allProgress = '';
+        foreach ($reportingCounties as $key => $allcounty) {
+            if($key == $county)
+            {
+                $allProgress.= $this->getReportedCounty($allcounty, $key);
+            }
+            $counter++;
+        }
+        echo $allProgress;
+    }
+
+    public function getReportedCounty($allcounty, $key) {
+        $progress = "";
+        
+        //var_dump($reportingCounties);
+        //die ;
+        
+        $countyName = $key;
+        $percentage = (int)$allcounty[0]['percentage'];
+        $reported = (int)$allcounty[0]['reported'];
+        $actual = (int)$allcounty[0]['actual'];
+        
+        /**
+         * Check status
+         *
+         * Different Colors for Different LEVELS
+         */
+        
+        switch ($percentage) {
+            case ($percentage == 0):
+                $status = 'transparent';
+                break;
+
+            case ($percentage < 20):
+                $status = '#e93939';
+                break;
+
+            case ($percentage < 40):
+                $status = '#da8a33';
+                break;
+
+            case ($percentage < 60):
+                $status = '#dad833';
+                break;
+
+            case ($percentage < 80):
+                $status = '#91da33';
+                break;
+
+            case ($percentage < 100):
+                $status = '#7ada33';
+                break;
+                
+                /**case ($percentage == 100):
+                $status = '#13b00b';
+                break;*/
+            default:
+                $status = 'transparent';
+                break;
+        }
+        $progress = '<div class="progressRow"><label>' . $countyName . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div><div style="float:right">' . $reported . ' / ' . $actual . '</div></div></div>';
+        
+        //$progress = ' <div class="progressRow"><label>' . $countyName . '</label><div class="progress">  <div class="bar" style="width: ' . $percentage . '%;background:' . $status . '">' . $percentage . '%</div>      <div style="float:right">' . $reported . ' / ' . $actual . '</div> </div></div>';
+        return $progress;
+        
+        //echo($progress);
+        
+        
+    }
 
 }

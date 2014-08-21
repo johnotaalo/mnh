@@ -2108,961 +2108,982 @@ class C_Pdf extends MY_Controller {
 	}
 	public function get_hcw_form(){
 		$this -> combined_form='
-	<p class="message success">SECTION 1 : FACILITY,HCW and WORK STATION INFORMATION</p>	
-	<table border="2">
+			<p class="message success">SECTION 1 : FACILITY,HCW and WORK STATION INFORMATION</p>	
+			<table border="2">
+				<thead>
+					<tr>
+						<th colspan="9">FACILITY INFORMATION</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Facility Name </td>
+						<td>
+						<input type="text" size="40">
+						</td>
+						<td>Facility Tier </td>
+						<td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
+						<input type="text" size="40" >
+						</td>
+						<td>County </td>
+						<td>
+							<input type="text" size="40" >
+						</td>
+					</tr>
+					<tr>
+					<td>Facility Type </td>
+					<td>
+					<input type="text" size="40" >
+					</td>
+					<td>Owned By </td>
+					<td>
+					<input type="text" size="40" >
+					</td>
 
-	<thead>
-	<tr>
-		<th colspan="9">FACILITY INFORMATION</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Facility Name </td><td>
-			<input type="text" size="40">
-			</td><td>Facility Tier </td><td><!--input type="text" id="facilityLevel" name="facilityLevel" class="cloned"  size="40"/-->
-			<input type="text" size="40" >
-			</td><td>County </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-		</tr>
-		<tr>
-			<td>Facility Type </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-			<td>Owned By </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
+					<td>District/Sub County </td>
+					<td>
+					<input type="text" size="40" >
+					</td>
+					</tr>
+				</tbody>
+			</table>
+				<table>
+				<thead>
+				<tr>
+				<th colspan="4" >FACILITY CONTACT INFORMATION</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr >
+				<th >CADRE</th>
+				<th>NAME</th>
+				<th >MOBILE</th>
+				<th >EMAIL</th>
+				</tr>
+				<tr>
+				<td>Incharge </td><td>
+				<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
+				</td><td>
+				<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
+				</td>
+				</tr>
+				<tr>
+				<td>MCH Incharge</td><td>
+				<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
+				</td><td>
+				<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
+				</td>
+				</tr>
+				<tr>
+				<td>Maternity Incharge </td><td>
+				<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+				</td>
+				</tr>
+				<tr>
+				<td>Team Lead </td><td>
+				<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
+				</td>
+				<td>
+				<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
+				</td>
+				</tr>
 
-			<td>District/Sub County </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<thead>
-	<tr>
-		<th colspan="4" >FACILITY CONTACT INFORMATION</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr >
-			<th >CADRE</th>
-			<th>NAME</th>
-			<th >MOBILE</th>
-			<th >EMAIL</th>
-		</tr>
-		<tr>
-			<td>Incharge </td><td>
-			<input type="text" id="facilityInchargename" name="facilityInchargename" class="cloned" size="40"/>
-			</td><td>
-			<input type="text" id="facilityInchargemobile" name="facilityInchargemobile" class="phone" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityInchargeemail" name="facilityInchargeemail" class="cloned mail" size="40"/>
-			</td>
-		</tr>
-		<tr>
-			<td>MCH Incharge</td><td>
-			<input type="text" id="facilityMchname" name="facilityMchname" class="cloned" size="40"/>
-			</td><td>
-			<input type="text" id="facilityMchmobile" name="facilityMchmobile" class="phone" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMchemail" name="facilityMchemail" class="cloned mail" size="40"/>
-			</td>
-		</tr>
-		<tr>
-			<td>Maternity Incharge </td><td>
-			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
-			</td>
-		</tr>
-		<tr>
-			<td>Team Lead </td><td>
-			<input type="text" id="facilityMaternityname" name="facilityMaternityname" class="cloned" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile" class="phone" size="40"/>
-			</td>
-			<td>
-			<input type="text" id="facilityMaternityemail" name="facilityMaternityemail" class="cloned mail" size="40"/>
-			</td>
-		</tr>
-		
-	</tbody>
-</table>
-<table>
-	<thead>
-		<tr>
-		<th colspan="8">ASSESSOR INFORMATION </th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Name </td>
-			<td>
-			<input type="text" size="40">
-			</td>
-			<td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
-			<input type="text" size="40" >
-			</td>
-			<td>Email </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-			</td><td>Phone Number </td>
-			<td>
-			<input type="text" size="40" >
-			</td>
-		</tr>
-	</tbody>
-</table>
-<p class="instruction">
-		* For Facility Type(Dispensary, Health Centre etc.)
-		* For Owned By (Public/Private/FBO/MOH/NGO)
-</p>
-<table>
-    <thead>
-        <tr>
-            <th colspan="4">HCW Profile </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td colspan="4">Name of Provider</td>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td><input type="text"></td>
-            <td>Surname</td>
-            <td><input type="text"></td>
-        </tr>
-        <tr>
-            <td>National ID</td>
-            <td><input type="text"></td>
-            <td>Phone Number</td>
-            <td><input type="text"></td>
-        </tr><tr>
-            <td>Personal Number</td>
-            <td colspan="3"><input type="text"></td>
-        </tr>
-        <tr>
-            <td colspan="1">Year, Month when trained in IMCI <input type="text"></td>
-            <td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
-                <p><input type="radio">MOH/KPA/CHAI</p>
-                <p><input type="radio">MOH only</p>
-                <p><input type="radio">Other</p>
-                <p>(If other, indicate the name of the coordinator/partner)<input type="text"></p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="1"><label for="">Designation</label></td>
-            <td colspan="3"><input type="text"></td>
-        </tr>
-        '. $this -> hcwProfileSection . '
-    </tbody>
-    <tfoot></tfoot>
-</table>
-<table>
-<thead>
- <tr>
-            <th colspan="2">Work Station Profile </th>
-        </tr>
-</thead>
-    <tbody>
-        <tr>
-            <td>Current Service Unit</td>
-            <td><input type="text"></td>
-        </tr>
+				</tbody>
+				</table>
+				<table>
+				<thead>
+				<tr>
+				<th colspan="8">ASSESSOR INFORMATION </th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td>Name </td>
+				<td>
+				<input type="text" size="40">
+				</td>
+				<td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
+				<input type="text" size="40" >
+				</td>
+				<td>Email </td>
+				<td>
+				<input type="text" size="40" >
+				</td>
+				</td><td>Phone Number </td>
+				<td>
+				<input type="text" size="40" >
+				</td>
+				</tr>
+				</tbody>
+				</table>
+				<p class="instruction">
+				* For Facility Type(Dispensary, Health Centre etc.)
+				* For Owned By (Public/Private/FBO/MOH/NGO)
+				</p>
+				<table>
+				<thead>
+				<tr>
+				<th colspan="4">HCW Profile </th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td colspan="4">Name of Provider</td>
+				</tr>
+				<tr>
+				<td>First Name</td>
+				<td><input type="text"></td>
+				<td>Surname</td>
+				<td><input type="text"></td>
+				</tr>
+				<tr>
+				<td>National ID</td>
+				<td><input type="text"></td>
+				<td>Phone Number</td>
+				<td><input type="text"></td>
+				</tr><tr>
+				<td>Personal Number</td>
+				<td colspan="3"><input type="text"></td>
+				</tr>
+				<tr>
+				<td colspan="1">Year, Month when trained in IMCI <input type="text"></td>
+				<td colspan="3"><p><b>Key coordinator of the training(Select one)</b></p>
+				<p><input type="radio">MOH/KPA/CHAI</p>
+				<p><input type="radio">MOH only</p>
+				<p><input type="radio">Other</p>
+				<p>(If other, indicate the name of the coordinator/partner)<input type="text"></p>
+				</td>
+				</tr>
+				<tr>
+				<td colspan="1"><label for="">Designation</label></td>
+				<td colspan="3"><input type="text"></td>
+				</tr>
+				'. $this -> hcwProfileSection . '
+				</tbody>
+				<tfoot></tfoot>
+				</table>
+				<table>
+				<thead>
+				<tr>
+				<th colspan="2">Work Station Profile </th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td>Current Service Unit</td>
+				<td><input type="text"></td>
+				</tr>
 
-    </tbody>
-</table>
-<p class="instruction">
-		* If healthcare worker works in many departments, write ALL
-</p>
-<table>
-    <thead>
-        <tr>
-            <th>Question</th>
-            <th>Yes</th>
-            <th>No</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                1.	Is the HCW still working in the original facility they were when they got trained?
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                If No to question 1 indicate whether the HCW:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in the same county
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If Yes, indicate name of the facility <input type="text"> </td>
-        </tr>
-        <tr>
-            <td>
-                Transferred to another facility in another county
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-            <td>
-                <input type="radio">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">If  Yes, indicate the name of the county <input type="text"> and facility <input type="text"> </td>
-        </tr>
-    </tbody>
-</table>
-<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
-<p class="instruction">
-		* Assessor should indicate findings alongside Healthcare Worker findings.
-</p>
-<table class="centre">
-    <thead>
-    <tr>
-		<th colspan="6">CHILD PROFILE</th>
-    </tr>
-    </thead>
-        <tr>
-            <td>Gender (M or F)</td><td><input type="text"></td>
-            <td>Age (In Months)</td><td><input type="text"></td>
-            <td>Presenting complaints?</td><td><input size="100" type="text"></td>            
-        </tr>
-</table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
-        </tr>
-        <tr>
-            <th  width="500px">SERVICE</th>
-            <th> RESPONSE </th>
-        </tr>
-    </thead>
-    ' . $this -> mchIndicatorsSectionPDF['svc'] . '
-</table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th colspan="3" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
-        </tr>
-        <tr>
-            <th width="500px" >SERVICE</th>
-            <th colspan="2"> RESPONSE </th>
-        </tr>
-    </thead>
-    ' . $this -> mchIndicatorsSectionPDF['sgn'] . '
-</table>
+				</tbody>
+				</table>
+				<p class="instruction">
+				* If healthcare worker works in many departments, write ALL
+				</p>
+				<table>
+				<thead>
+				<tr>
+				<th>Question</th>
+				<th>Yes</th>
+				<th>No</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td>
+				1.	Is the HCW still working in the original facility they were when they got trained?
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="3">
+				If No to question 1 indicate whether the HCW:
+				</td>
+				</tr>
+				<tr>
+				<td>
+				Transferred to another facility in the same county
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="3">If Yes, indicate name of the facility <input type="text"> </td>
+				</tr>
+				<tr>
+				<td>
+				Transferred to another facility in another county
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				<td>
+				<input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="3">If  Yes, indicate the name of the county <input type="text"> and facility <input type="text"> </td>
+				</tr>
+				</tbody>
+				</table>
+				
+				<p class="message success">SECTION 2: OBSERVATION OF CASE MANAGEMENT: ONE CASE PER HCW</p>
+				<p class="instruction">
+					* Assessor should indicate findings alongside Healthcare Worker findings.
+				</p>
+				<table class="centre">
+					<thead>
+						<tr>
+						<th colspan="6">CHILD PROFILE</th>
+						</tr>
+					</thead>
+					<tr>
+					<td>Gender (M or F)</td><td><input type="text"></td>
+					<td>Age (In Months)</td><td><input type="text"></td>
+					<td>Presenting complaints?</td><td><input size="100" type="text"></td>            
+					</tr>
+				</table>
+				
+				<table class="centre">
+					<thead>
+						<tr>
+							<th colspan="2" >ARE THE FOLLOWING SERVICES OFFERED TO A CHILD</th>
+						</tr>
+						<tr>
+							<th  width="500px">SERVICE</th>
+							<th> RESPONSE </th>
+							<th> FINDINGS </th>
+						</tr>
+					</thead>
+					' . $this -> mchIndicatorsSectionPDF['svc'] . '
+				</table>
+				
+				<table class="centre">
+				<thead>
+				<tr>
+				<th colspan="3" >ARE THE FOLLOWING DANGER SIGNS ASSESSED IN ONGOING SESSION FOR A CHILD</th>
+				</tr>
+				<tr>
+				<th width="500px" >SERVICE</th>
+				<th colspan="2"> RESPONSE </th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['sgn'] . '
+				</table>
 
-<p class="message success">SECTION 2A: ASSESSMENT OF THE SICK CHILD AGE 2 MONTHS UP TO 5 YEARS</p>
-<table class="centre">
+				<p class="message success">SECTION 2A: ASSESSMENT OF THE SICK CHILD AGE 2 MONTHS UP TO 5 YEARS</p>
+				<p class="instruction" style="width:1000px">
+				* If child is less than two months, move to section 2B.
+				</p>
 
-    <tr>
-		<th colspan="5">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
-    </tr>
-    <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
+				<table class="centre">
+
+				<tr>
+				<th colspan="5">ASSESSMENT FOR THE MAIN SYMPTOMS IN AN ONGOING SESSION FOR A CHILD</th>
+				</tr>
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
 				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-        <thead>
-        <tr>
-            <th width="500px">Symptom</th>
+				</p>
+				</td>
+				<tr>
+				<thead>
+				<tr>
+				<th width="500px">Symptom</th>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>1. Cough / Difficulty Breathing</th>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-    
-     ' . $this -> mchIndicatorsSectionPDF['pne'] . '
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th>1. Cough / Difficulty Breathing</th>
 
-	<tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+
+				' . $this -> mchIndicatorsSectionPDF['pne'] . '
+
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<p style="margin-top:10px"></p>
-<table class="centre">
-   
-     <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-     <thead>
-        <tr>
-            <th width="500px">Symptom</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>2. Diarrhoea</th>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<p style="margin-top:10px"></p>
+				<table class="centre">
+
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<thead>
+				<tr>
+				<th width="500px">Symptom</th>
+
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th>2. Diarrhoea</th>
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<table class="centre">
-     <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-     <thead>
-       <tr>
-            <th width="500px">Symptom</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>3. Fever</th>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['fev'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+
+				<p class="instruction" >Move to Section 3</p>
+
+
+				</table>
+				<table class="centre">
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<thead>
+				<tr>
+				<th width="500px">Symptom</th>
+
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th>3. Fever</th>
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['fev'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<p style="margin-top:5px"></p>
-<table class="centre">
- <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <thead>
-    
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-        <tr>
-            <th width="500px">Symptom</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>4. Ear Infection</th>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['ear'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<p style="margin-top:5px"></p>
+				<table class="centre">
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<thead>
+
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<tr>
+				<th width="500px">Symptom</th>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th>4. Ear Infection</th>
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['ear'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
+				</td>
+				</tr>
 
-<p class="message success" style="margin-top:200px">SECTION 2B: ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
-<table class="centre">
- <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <thead>
-    
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				MOVE TO SECTION 3
+				</p>
+				</td>
+				<tr>
+				</table>
+
+				<p class="message success" style="margin-top:200px">SECTION 2B: ASSESMENT FOR THE SICK YOUNG INFANT AGE UPTO 2 MONTHS( IF APPLICABLE)</p>
+				<table class="centre">
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<thead>
+
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
 				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-        <tr>
-            <th width="500px" rowspan="2">1. Very Severe Disease</th>
+				</p>
+				</td>
+				<tr>
+				<tr>
+				<th width="500px" rowspan="2">1. Very Severe Disease</th>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['svd'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['svd'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<table class="centre">
- <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <thead>
-    
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-        <tr>
-            <th width="500px" rowspan="2">2. Jaundice</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['jau'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<table class="centre">
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<thead>
+
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<tr>
+				<th width="500px" rowspan="2">2. Jaundice</th>
+
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['jau'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<table class="centre">
- <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <thead>
-    
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-        <tr>
-            <th width="500px" rowspan="2">3. Eye Infection</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-          
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['eye'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<table class="centre">
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<thead>
+
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<tr>
+				<th width="500px" rowspan="2">3. Eye Infection</th>
+
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['eye'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<table class="centre">
-   
-     <tr>
-    	<th>
-    		DOES THE CHILD HAVE THE SYMPTOM BELOW?
-    	</th>
-    	<td colspan="4">
-    	Yes <input type="radio">No <input type="radio">
-    	</td>
-    </tr>
-    <tr>
-    	<td colspan="5" style="background:#ffffff">
-			<p class="instruction" style="width:1000px">
-				* If NO proceed to the next symptom.
-			</p>
-    	</td>
-    <tr>
-     <thead>
-        <tr>
-            <th width="500px">Symptom</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            <th>4. Diarrhoea</th>
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['dgn'] . '
-     <tr>
-		<th colspan="5">Treatment</th>
-	</tr>
-	<tr>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<table class="centre">
+
+				<tr>
+				<th>
+				DOES THE CHILD HAVE THE SYMPTOM BELOW?
+				</th>
+				<td colspan="4">
+				Yes <input type="radio">No <input type="radio">
+				</td>
+				</tr>
+				<tr>
+				<td colspan="5" style="background:#ffffff">
+				<p class="instruction" style="width:1000px">
+				* If NO proceed to the next symptom.
+				</p>
+				</td>
+				<tr>
+				<thead>
+				<tr>
+				<th width="500px">Symptom</th>
+
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th>4. Diarrhoea</th>
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['dgn'] . '
+				<tr>
+				<th colspan="5">Treatment</th>
+				</tr>
+				<tr>
 
 				<td colspan="5" style="background:#ffffff">
 				<p class="instruction" >* Include all treatments used comma separated without regarding the dosages</p>
-			</td>
-			</tr>
-				
-			<tr>
-			<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
-			</tr>
-</table>
-<table class="centre">
- 
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">5A: Feeding Problem</th>
+				</td>
+				</tr>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['fed'] . '
-    
-</table>
-<p class="message success" style="margin-top:200px">IF INFANT IS LESS THAN ONE WEEK</p>
+				<tr>
+				<td colspan="5"><textarea style="width:1000px;height:100px"></textarea></td>
+				</tr>
+				</table>
+				<table class="centre">
 
-<table class="centre">
- 
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">5B: Weight</th>
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">5A: Feeding Problem</th>
 
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['wgt'] . '
-    
-</table>
-<table class="centre">
- 
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">6: Special treatment Needs</th>
-
-               <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-            
-       
-        	<th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        </tr>
-    </thead>
-     ' . $this -> mchIndicatorsSectionPDF['stn'] . '
-    
-</table>
-
-<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING CONDITIONS</p>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">Malnutrition</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-        <th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        	</tr>
-    </thead>
-    <tbody>
-     ' . $this -> mchIndicatorsSectionPDF['mal'] . '
-    </tbody>
-</table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">Anaemia</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-        <th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        	</tr>
-    </thead>
-    <tbody>
-     ' . $this -> mchIndicatorsSectionPDF['anm'] . '
-    </tbody>
-</table>
-<table class="centre">
-    <thead>
-        <tr>
-            <th width="500px" rowspan="2">Condition</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-        <th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        	</tr>
-    </thead>
-    <tbody>
-     ' . $this -> mchIndicatorsSectionPDF['con'] . '
-    </tbody>
-</table>
-<table class="centre">
-    <thead>
-    <tr>
-            <th width="500px" rowspan="2">Treatment and Counselling</th>
-            <th colspan="2">HCW Response</th>
-            <th colspan="2">Assessor Response</th>
-        </tr>
-        <tr>
-        <th width="100px">Response</th>
-        	<th width="200px">Findings</th>
-        	<th width="100">Response</th>
-        	<th width="200px">Findings</th>
-        	</tr>
-        
-    </thead>
-    <tbody>
-        ' . $this -> mchIndicatorsSectionPDF['cnl'] . '
-    </tbody>
-</table>
-<p class="message success">SECTION 4: CONSULTATION AND EXIT INTERVIEWS</p>
-<table>
-    <thead>
-     	<tr>
-            <th width="500px">4.1 Consultation observation</th>
-        	<th>Case 1</th>
-        </tr>
-        
-       
-    </thead>
-    <tbody>
-       ' . $this -> hcwConsultingAspectsSectionPDF . '
-        
-    </tbody>
-    <tfoot></tfoot>
-</table>
-<table>
-    <thead>
-     	<tr>
-            <th width="500px">4.2 Exit Interview With The Caregiver</th>
-        	<th>Case 1</th>
-        </tr>
-        
-       
-    </thead>
-    <tbody>
-       ' . $this -> hcwInterviewAspectsSectionPDF . '
-        
-    </tbody>
-    <tfoot></tfoot>
-</table>
-<table>
-    <tr>
-        <th colspan="2">ASSESSMENT OUTCOME</th>
-    </tr>
-
-    <tr>
-        <td>
-            <input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
-        </td>
-        <td>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input name="questionResponse_1000" type="radio">	Practicing with gaps
-        </td>
-        <td>
-            Reason <input name="questionResponseOther_1000" type="text" size="100">
-        </td>
-    </tr>
-    <tr>
-        <td>
-           	<input name="questionResponse_1000" type="radio">	Not practicing at all
-        </td>
-         <td>
-            Reason <input name="questionResponseOther_1000" type="text" size="100">
-        </td>
-    </tr>
-    <tr>
-
-<th colspan="2">CRITERIA FOR CERTIFICATION: SECTION A</td>
-</tr>
-
-'.$this->questionPDF['certa'].'
-
-<tr>
-<td colspan="2">
-<p class="instruction">
-A participant MUST correctly identify all the above in section <strong>A</strong> to be CERTIFIED
-</p>
-</td>
-
-</tr>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
 
 
-<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['fed'] . '
 
-<th colspan="2">CHECKED  FOR THE FOLLOWING:    SECTION B</td>
-</tr>
+				</table>
+				<p class="message success" style="margin-top:200px">IF INFANT IS LESS THAN ONE WEEK</p>
 
-'.$this->questionPDF['certb'].'
+				<table class="centre">
 
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">5B: Weight</th>
 
-<tr>
-</table>
-
-<p class="instruction" style="margin-top:400px">
-    Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
-<br/>
-If YES to all, consider HCW for TOT and Mentorship Training
-<br/>
-(NOTE: IF THE HEALTHCARE WORKER FAILS TO ATTAIN ALLTHE POINTS IN SECTION A, THE PARTICIPANT SHOULD BE GIVEN A SECOND CHANCE. IF THE PARTICIPANT FAILS IN THE SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT)
-</p>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
 
 
-<table>
-<thead>
-<tr>
-<th colspan="2">CERTIFICATION</td>
-</tr>
-</thead>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['wgt'] . '
 
-'.$this->questionPDF['out'].'
-</table>
-<table>
-    <thead>
-        <tr>
-            <th colspan="2">Share your findings from observational sessions with provider.
-            Praise for the things done well and discuss on the identified weakness, show how it could be done.
-            <p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly.
-            Note down the decisions which have been taken to improve the skills and continue the practices</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Action/s taken by supervisor:</td>
-            <td>Action/s taken by supervisee:</td>
-        </tr>
-        <tr>
-            <td><textarea name="hcwConclusionActionSupervisor_1" style="width:400px;height:100px"></textarea></td>
-            <td><textarea name="hcwConclusionActionSupervisee_1" style="width:400px;height:100px"></textarea></td>
-        </tr>
-        <tr>
-            <td>Supervisor Signature<input name="hcwConclusionSignatureSupervisor_1" type="text" style="width:500px;padding:10px"></td>
-            <td>Supervisee Signature<input name="hcwConclusionSignatureSupervisee_1" type="text" style="width:500px;padding:10px"></td>
-        </tr>
-        <tr>
-            <td>Date	<input name="hcwConclusionDateSupervisor_1" type="text" style="width:500px;padding:10px"></td>
-            <td>Date	<input name="hcwConclusionDateSupervisee_1" type="text" style="width:500px;padding:10px"></td>
-        </tr>
-    </tbody>
-</table>
+				</table>
+				<table class="centre">
 
-<p style="margin-top:0.5px"></p>
-<table style="border:2px solid #666">
-    <tr>
-        <td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
-    </tr>
-</table>
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">6: Special treatment Needs</th>
 
-';
-return $this -> combined_form;
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+
+
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				' . $this -> mchIndicatorsSectionPDF['stn'] . '
+
+				</table>
+
+				<p class="message success">SECTION 3: DOES THE HCW CHECK FOR THE FOLLOWING CONDITIONS</p>
+				<table class="centre">
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">Malnutrition</th>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				<tbody>
+				' . $this -> mchIndicatorsSectionPDF['mal'] . '
+				</tbody>
+				</table>
+				<table class="centre">
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">Anaemia</th>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				<tbody>
+				' . $this -> mchIndicatorsSectionPDF['anm'] . '
+				</tbody>
+				</table>
+				<table class="centre">
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">Condition</th>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+				</thead>
+				<tbody>
+				' . $this -> mchIndicatorsSectionPDF['con'] . '
+				</tbody>
+				</table>
+				<table class="centre">
+				<thead>
+				<tr>
+				<th width="500px" rowspan="2">Treatment and Counselling</th>
+				<th colspan="2">HCW Response</th>
+				<th colspan="2">Assessor Response</th>
+				</tr>
+				<tr>
+				<th width="100px">Response</th>
+				<th width="200px">Findings</th>
+				<th width="100">Response</th>
+				<th width="200px">Findings</th>
+				</tr>
+
+				</thead>
+				<tbody>
+				' . $this -> mchIndicatorsSectionPDF['cnl'] . '
+				</tbody>
+				</table>
+				<p class="message success">SECTION 4: CONSULTATION AND EXIT INTERVIEWS</p>
+				<table>
+				<thead>
+				<tr>
+				<th width="500px">4.1 Consultation observation</th>
+				<th>Case 1</th>
+				</tr>
+
+
+				</thead>
+				<tbody>
+				' . $this -> hcwConsultingAspectsSectionPDF . '
+
+				</tbody>
+				<tfoot></tfoot>
+				</table>
+				<table>
+				<thead>
+				<tr>
+				<th width="500px">4.2 Exit Interview With The Caregiver</th>
+				<th>Case 1</th>
+				</tr>
+
+
+				</thead>
+				<tbody>
+				' . $this -> hcwInterviewAspectsSectionPDF . '
+
+				</tbody>
+				<tfoot></tfoot>
+				</table>
+				<table>
+				<tr>
+				<th colspan="2">ASSESSMENT OUTCOME</th>
+				</tr>
+
+				<tr>
+				<td>
+				<input name="questionResponse_1000" type="radio">	Fully Practicing IMCI
+				</td>
+				<td>
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<input name="questionResponse_1000" type="radio">	Practicing with gaps
+				</td>
+				<td>
+				Reason <input name="questionResponseOther_1000" type="text" size="100">
+				</td>
+				</tr>
+				<tr>
+				<td>
+				<input name="questionResponse_1000" type="radio">	Not practicing at all
+				</td>
+				<td>
+				Reason <input name="questionResponseOther_1000" type="text" size="100">
+				</td>
+				</tr>
+				<tr>
+
+				<th colspan="2">Criteria for Certification: SECTION A</td>
+				</tr>
+
+				'.$this->questionPDF['certa'].'
+
+				<tr>
+				<td colspan="2">
+				<p class="instruction">
+				A participant MUST correctly identify all the above in section <strong>A</strong> to be CERTIFIED
+				</p>
+				</td>
+
+				</tr>
+
+
+				<tr>
+
+				<th colspan="2">Checked  for the Following: SECTION B</td>
+				</tr>
+
+				'.$this->questionPDF['certb'].'
+
+
+				<tr>
+				</table>
+
+				<p class="instruction" style="margin-top:400px">
+				Where NO, these are gaps identified and the HCW will need mentorship to incorporate these in routine care for the child
+				<br/>
+				If YES to all, consider HCW for TOT and Mentorship Training
+				<br/>
+				(NOTE: IF THE HEALTHCARE WORKER FAILS TO ATTAIN ALLTHE POINTS IN SECTION A, THE PARTICIPANT SHOULD BE GIVEN A SECOND CHANCE. IF THE PARTICIPANT FAILS IN THE SECOND ATTEMPT, MENTORSHIP IS RECOMMENDED BEFORE FURTHER ASSESMENT)
+				</p>
+
+
+				<table>
+				<thead>
+				<tr>
+				<th colspan="2">CERTIFICATION</td>
+				</tr>
+				</thead>
+
+				'.$this->questionPDF['out'].'
+				</table>
+				<table>
+				<thead>
+				<tr>
+				<th colspan="2">Share your findings from observational sessions with provider.
+				Praise for the things done well and discuss on the identified weakness, show how it could be done.
+				<p></p>Ask provdier, for any problems regarding assessment, classification, treatment, counselling, follow up etc and solve the problem instantly.
+				Note down the decisions which have been taken to improve the skills and continue the practices</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td>Action/s taken by supervisor:</td>
+				<td>Action/s taken by supervisee:</td>
+				</tr>
+				<tr>
+				<td><textarea name="hcwConclusionActionSupervisor_1" style="width:400px;height:100px"></textarea></td>
+				<td><textarea name="hcwConclusionActionSupervisee_1" style="width:400px;height:100px"></textarea></td>
+				</tr>
+				<tr>
+				<td>Supervisor Signature<input name="hcwConclusionSignatureSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+				<td>Supervisee Signature<input name="hcwConclusionSignatureSupervisee_1" type="text" style="width:500px;padding:10px"></td>
+				</tr>
+				<tr>
+				<td>Date	<input name="hcwConclusionDateSupervisor_1" type="text" style="width:500px;padding:10px"></td>
+				<td>Date	<input name="hcwConclusionDateSupervisee_1" type="text" style="width:500px;padding:10px"></td>
+				</tr>
+				</tbody>
+				</table>
+
+				<p style="margin-top:0.5px"></p>
+				<table style="border:2px solid #666">
+				<tr>
+				<td><i>Please leave a copy of signed report to respective facility before leaving and send one copy to district within 7 days of visit </i></td>
+				</tr>
+			</table>
+
+		';
+		return $this -> combined_form;
 	}
 
 	public function loadPDF($survey) {
