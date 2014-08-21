@@ -14,6 +14,9 @@ class C_Analytics extends MY_Controller
         
     }
     
+    public function submit_help(){
+        var_dump($this->input->post());
+    }
     /**
      * [setActive description]
      * @param [type] $county
@@ -2519,6 +2522,16 @@ ORDER BY fac_level;");
         $results = $this->m_analytics->getSpecificDistrictNames($county);
         foreach ($results as $result) {
             $data[] = array('id' => ucwords($result['facDistrict']), 'text' => ucwords($result['facDistrict']));
+        }
+        echo json_encode($data);
+    }
+
+    public function getFacilityNamesJSON($district) {
+        $district = urldecode($district);
+        $options = '';
+        $results = $this->m_analytics->getSpecificFacilityNames($district);
+        foreach ($results as $result) {
+            $data[] = array('id' => ucwords($result['facName']), 'text' => ucwords($result['facName']));
         }
         echo json_encode($data);
     }

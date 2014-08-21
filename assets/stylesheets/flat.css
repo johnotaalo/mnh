@@ -9155,8 +9155,3 @@ a.disabled:hover {
 .editable-click:hover {
   cursor: hand !important;
 }
-
-/* line 648, ../sass/flat.scss */
-.modal {
-  z-index: 2000000000000000000000000;
-}

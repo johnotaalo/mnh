@@ -110,6 +110,10 @@
 
         });
 
+        // $('.modal-footer .btn-primary').click(function()){
+            
+        // }
+
 
         var s = skrollr.init(/*other stuff*/);
 
