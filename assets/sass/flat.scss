@@ -273,13 +273,17 @@ table{
 .medium-graph{
     @extend .col-md-4;
     @extend .standard-graph;
+    .portlet-body{
+        height:300px;
+        overflow-y:auto;
+    }
 }
 .small-graph{
     @extend .standard-graph;
     @extend .col-md-3;
     .portlet-body{
-        height:200px;
-        overflow-y:auto;
+        height:300px;
+
     }
 }
 .semi-large-graph{
@@ -319,7 +323,6 @@ table{
         }
     }
     .portlet-body{
-        height:200px;
         overflow-y:auto;
     }
 }

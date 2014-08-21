@@ -64,7 +64,11 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             formatter: function() {
                 if (typeof this.series.options.stack != 'undefined') {
                     return this.series.name + '<i>(' + this.series.options.stack + ')</i><br/>' + this.point.category + ' : <b>' + this.y + '</b>';
-                } else {
+                }
+                else if(typeof this.point.category =='undefined'){
+return this.point.name + ' : ' + this.y 
+                }
+                 else {
                     return this.point.category + '<br/>' + this.series.name + ' : <b>' + this.y + '</b>';
 
                 }
@@ -242,11 +246,11 @@ function runNotification(base_url, function_url, messsage) {
                     period = '';
                 }
 
-                newMessage = period + ' ' + v.cl_name + ',  ' + message;
-                var emailmessage = [period, v.cl_name, message];
-                emailmessage = JSON.stringify(emailmessage);
-                console.log(emailmessage);
-                notify_email(email, emailmessage);
+                // newMessage = period + ' ' + v.cl_name + ',  ' + message;
+                // var emailmessage = [period, v.cl_name, message];
+                // emailmessage = JSON.stringify(emailmessage);
+                // console.log(emailmessage);
+                // notify_email(email, emailmessage);
                 //notify_sms(phoneNumber, newMessage);
 
             });
@@ -295,15 +299,9 @@ function notify_email(email, message) {
         }
     });
 }
-/**
- * [getCountyData description]
- * @param  {[type]} base_url        [description]
- * @param  {[type]} county          [description]
- * @param  {[type]} survey_type     [description]
- * @param  {[type]} survey_category [description]
- * @return {[type]}                 [description]
- */
-function getCountyData(base_url, county, survey_type, survey_category) {
+
+
+function getCountyData(base_url,county, survey_type, survey_category){
     $.ajax({
         url: base_url + 'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
         beforeSend: function(xhr) {
