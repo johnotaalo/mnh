@@ -125,7 +125,7 @@
     </div>
     <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -139,10 +139,10 @@
 
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-3">
-    <h4>Section 3 : Assessment</h4>
+    <h4>Section 3 : Case Management</h4>
     <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data From Under5 register<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Data From Under 5 Register<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -172,7 +172,7 @@
     </div>
      <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Answer Comparison <span><select id="indicator_types"></select></span><span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>Health Care Worker Response <span><select id="indicator_types"></select></span><span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -264,10 +264,10 @@
 
 </div>
 <div class="analytics_row section" data-survey='ch' id="section-5">
-    <h4>Section 5 : On-Site Rehydration</h4>
+    <h4>Section 5 : ORT Corner Assessment</h4>
     <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Availability<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
@@ -277,7 +277,7 @@
     </div>
     <div class="small-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Location<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
         </div>
         <div class="portlet-body">
 
