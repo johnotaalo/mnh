@@ -12,7 +12,7 @@
  * @param  {[type]} color_scheme     [description]
  * @return {[type]}                  [description]
  */
-function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme,chart_label_rotation,chart_legend_floating) {
+function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme, chart_label_rotation, chart_legend_floating) {
     file_name = container.replace('#', '');
     file_name = file_name.replace('_', ' ');
     $('#' + container).highcharts({
@@ -41,7 +41,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
         xAxis: {
             categories: chart_categories,
             labels: {
-                rotation:chart_label_rotation
+                rotation: chart_label_rotation
             }
         },
         yAxis: {
@@ -157,7 +157,7 @@ function loadGraph(base_url, function_url, graph_section) {
             $(graph_section).empty();
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
-                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme,obj.chart_label_rotation,obj.chart_legend_floating);
+                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme, obj.chart_label_rotation, obj.chart_legend_floating);
             } else {
                 $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
             }
@@ -301,6 +301,7 @@ function getCountyData(base_url, county, survey_type, survey_category) {
         },
         success: function(data) {
             obj = jQuery.parseJSON(data);
+            // var county_progress = '<div class="progressRow"><label>' . $county . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . obj[0].reported/obj[0].actual * 100 . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . obj[0].reported/obj[0].actual * 100 . '%;">' . obj[0].reported/obj[0].actual * 100 . '%</div><div style="float:right">' . obj[0].reported . ' / ' . obj[0].actual * 100 . '</div></div></div>';
             console.log(obj);
             $('#county_name').text(county);
             $('#survey_type').text(survey_type.toUpperCase());
@@ -308,26 +309,40 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
-            $('#not_started .digit').text(obj[0].notstarted);
+            county = encodeURIComponent(county);
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
-            new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
-            $('#load_county_summary').attr('data-url',new_url);
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/' + county + '/' + survey + '/' + survey_category;
+            $('#load_county_summary').attr('data-url', new_url);
         }
     });
 }
 
 
-function loadData(base_url,function_url,value,container,placeholder_text){
-    if(value!==''){
-       ajax_url= base_url + 'c_analytics/' + function_url + '/' + value
-    }
-    else{
-        ajax_url= base_url + 'c_analytics/' + function_url
+function loadCountyProgress(survey,survey_category) {
+    var county_progress = '<div class="progressRow"><label>' . $county . '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . obj[0].reported/obj[0].actual * 100 . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . obj[0].reported/obj[0].actual * 100 . '%;">' . obj[0].reported/obj[0].actual * 100 . '%</div><div style="float:right">' . obj[0].reported . ' / ' . obj[0].actual * 100 . '</div></div></div>';
+    $.ajax({
+        url: base_url + 'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category,
+        beforeSend: function(xhr) {
+            $('#not_started .digit').empty();
+            $('#not_started .digit').append('<div class="loader" >Loading...</div>');
+        },
+        success: function(data) {
+            $('#not_started .digit').empty();
+            $('#not_started .digit').append(county_progress);
+        }
+    });
+}
+
+function loadData(base_url, function_url, value, container, placeholder_text) {
+    if (value !== '') {
+        ajax_url = base_url + 'c_analytics/' + function_url + '/' + value
+    } else {
+        ajax_url = base_url + 'c_analytics/' + function_url
     }
     $.ajax({
-        url: ajax_url ,
-        async:false,
+        url: ajax_url,
+        async: false,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
@@ -335,16 +350,19 @@ function loadData(base_url,function_url,value,container,placeholder_text){
         },
         success: function(data) {
             obj = jQuery.parseJSON(data);
-            $(container).select2({ placeholder:placeholder_text, data: obj});
+            $(container).select2({
+                placeholder: placeholder_text,
+                data: obj
+            });
 
         }
     });
 }
 
-function loadMasterFacilityList(base_url,container){
+function loadMasterFacilityList(base_url, container, form) {
     $.ajax({
-        url: base_url+'c_analytics/getMasterFacilityList' ,
-        async:false,
+        url: base_url + 'c_analytics/getMasterFacilityList/' + form,
+        async: false,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
@@ -353,16 +371,130 @@ function loadMasterFacilityList(base_url,container){
         success: function(data) {
             $(container.empty);
             $(container).append(data);
-                $('.dataTable').on('load',function(){
-        $('.dataTable').dataTable({
-                "sPaginationType": "full_numbers"
+            $(container).delay(2000, function(nxt) {
+                $('.editable').editable({
+                    url: base_url + 'c_analytics/edit_facility_info'
+                });
+                nxt();
             });
-
-})
-
         }
     });
 }
+
+function loadHelpForm() {
+    $('#universalModal .modal-title').text('Help');
+    $('#universalModal .modal-dialog').css('width', '50%');
+    helpform = '<form> <label>Email Address</label> <input type="email" placeholder="Please Enter Email Address Here...">' +
+        '<label>County</label><input type="text" id="county">' +
+        '<label>District</label><input type="text" id="district">' +
+        '<label>Facility</label><input type="text" id="facility">' +
+        '<label>Question / Complaint</label><textarea rows="4" placeholder="Please Enter Query Here..."></textarea>' +
+        '</form>';
+    $('#universalModal .modal-body').empty();
+    $('#universalModal .modal-body').append(helpform);
+    $('#county').select2({
+        placeholder: 'Please Select Your County',
+        data: getCountyData()
+    });
+    $('#county').change(function() {
+        county = $(this).val();
+        $('#district').select2({
+            placeholder: 'Please Select Your District',
+            data: getSpecificDistrictData(county)
+        });
+    });
+    $('#district').change(function() {
+        district = $(this).val();
+        $('#facility').select2({
+            placeholder: 'Please Select Your District',
+            data: getSpecificDistrictData(district)
+        });
+    });
+}
+/**
+ * [getFacilityData description]
+ * @return {[type]} [description]
+ */
+function getFacilityData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_name.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+/**
+ * [getCountyData description]
+ * @return {[type]} [description]
+ */
+function getCountyData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_county.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+/**
+ * [getDistrictData description]
+ * @return {[type]} [description]
+ */
+function getAllDistrictData() {
+    var result;
+    $.ajax({
+        url: base_url + 'assets/data/fac_district.json',
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+
+function getSpecificDistrictData(county) {
+    var result;
+    $.ajax({
+        url: base_url + 'c_analytics/getDistrictNamesJSON/' + county,
+        async: false,
+        success: function(data) {
+            obj = jQuery.parseJSON(data);
+            result = obj;
+        }
+    });
+    return result;
+}
+
+function showMasterFacilityList(base_url, form) {
+    $('#universalModal').modal('show');
+    $('#universalModal').delay(2000, function(nxt) {
+        $('#universalModal .modal-title').text('Master Facility List');
+        loadMasterFacilityList(base_url, '#universalModal .modal-body', form);
+        $('.dataTable').dataTable();
+        nxt();
+    });
+}
+
+function showHelp(base_url, form) {
+    $('#universalModal').modal('show');
+    $('#universalModal').delay(2000, function(nxt) {
+        loadHelpForm();
+        nxt();
+    });
+}
+
+function showAnalytics() {
+
+}
+
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -407,10 +539,26 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
-    $('.dataTable').on('load',function(){
-        $('.dataTable').dataTable({
-                "sPaginationType": "full_numbers"
-            });
+    // $('.dataTable').on('load',function(){
+    //     $('.dataTable').dataTable({
+    //             "sPaginationType": "full_numbers"
+    //         });
+    //     });
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editableform.buttons =
+        '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
+        '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>';
 
-});
+    cheet('ctrl m f l', function() {
+        showMasterFacilityList(base_url, 'table');
+    });
+
+    cheet('ctrl e d i t m f l', function() {
+        showMasterFacilityList(base_url, 'editable');
+    });
+    cheet('ctrl h e l p', function() {
+        showHelp();
+    });
+
+
 });

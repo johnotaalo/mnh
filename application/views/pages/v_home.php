@@ -68,6 +68,7 @@
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="finished"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="started"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
+                        <div class = "statistic"><div class = "icon"><span><i class = "fa fa-hospital-o"></i></span></div><div class="data" id="county_progress"><span class="digit"></span></div></div>
 
                         <button id="load_analytics"><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
                         <button id="load_county_summary"><i class="fa fa-bar-chart-o"></i>Click to Download Excel Summary</button>
@@ -139,6 +140,7 @@
             });
             runMap('mnh','end-term');
             $('.dropdown-menu li a').click(function(){
+                alert('clicked');
                 survey=$(this).attr('data-survey');
                 survey_category=$(this).attr('data-survey-category');
                 survey_in_full=$(this).parent().parent().parent().find('.dropdown-toggle').text();
