@@ -395,35 +395,44 @@ ORDER BY fac_level;");
     }
     
     /**
-     * [getCommunityStrategy description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @return [type]           [description]
+     * [getCommunityStrategyCH description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $option          [description]
+     * @return [type]                  [description]
      */
-    public function getCommunityStrategy($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
-        $results = array();
-        $results = $this->m_analytics->getCommunityStrategy($criteria, $value, $survey, $survey_category);
+       public function getCommunityStrategyCH($criteria, $value, $survey, $survey_category, $option) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'cms', 'total');
+        ksort($results);
         
-        //echo '<pre>';print_r($results);echo '</pre>';
-        $resultArray = array();
-        $datas = array();
-        
-        //$value=urldecode($value);$results = $this -> m_analytics -> getCommunityStrategy('facility', '17052', 'complete', 'ch');
-        
-        if ($results != "") {
-            foreach ($results as $result) {
-                $category[] = $result[0];
-                $resultData[] = (int)$result[1];
+        echo "<pre>";
+        print_r($results);
+        echo "</pre>";
+        die;
+        $count = 0;
+        foreach ($results as $key => $result) {
+            if ($count < 3) {
+                $data['trained'][$key] = $result;
+            } elseif ($count < 4) {
+                $data['referral'][$key] = $result;
+            } else {
+                $data['community'][$key] = $result;
             }
-        } else {
-            $category = "";
-            $resultData = 0;
+            $count++;
         }
         
-        $resultArray[] = array('name' => 'Quantity', 'data' => $resultData);
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+        // die;
         
+        foreach ($data[$option] as $key => $value) {
+            $category[] = $key;
+            $gData[] = $value;
+        }
+        $resultArray[] = array('name' => 'Numbers', 'data' => $gData);
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
     
