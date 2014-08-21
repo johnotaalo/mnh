@@ -657,10 +657,7 @@ ORDER BY fac_level;");
     public function getMNHCommodityAvailabilityUnavailability($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'unavailability');
     }
-    public function getMNHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category) {
-        $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
-    }
-    
+
     public function getMNHCommodityAvailabilityQuantities($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'quantity');
     }
@@ -675,10 +672,6 @@ ORDER BY fac_level;");
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'unavailability');
     }
 
-/*
-    public function getCHCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category) {
-        $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
-    }*/
 	public function getCHCommoditySuppliers($criteria, $value, $survey, $survey_category) {
         $this->getCommodityStatistics($criteria, $value, $survey, $survey_category, 'ch', 'supplier');
     }
@@ -784,7 +777,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getMNHSuppliesLocation($criteria, $value, $survey, $survey_category) {
-        $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
+        $this->getSuppliesLocation($criteria, $value, $survey, $survey_category, 'mnh');
     }
     public function getMNHSuppliers($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'supplier');
@@ -809,11 +802,12 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
 
-     /*
+     
     public function getCHSuppliesLocation($criteria, $value, $survey, $survey_category) {
-        $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'ch', 'location');
 
-    }*/
+        $this->getSuppliesLocation($criteria, $value, $survey, $survey_category, 'ch');
+    }
+
 	public function getCHSuppliers($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'ch', 'supplier');
     }
@@ -1086,16 +1080,18 @@ ORDER BY fac_level;");
         
         
     }
-    public function getCHresourcesAvailability($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
+
+	public function getCHresourcesAvailability($criteria, $value, $survey, $survey_category) {
+		
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
-    }
-    public function getCHresourcesLocation($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'location');
-    }
-    public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
+	}
+	public function getCHResourcesLocation($criteria, $value, $survey, $survey_category) {
+		
+        $this->getResourcesLocation($criteria, $value, $survey, $survey_category, 'mch');
+	}
+	public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
+		$value = urldecode($value);
+
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
     }
     public function getresourcesFrequencyCH($criteria, $value, $survey, $survey_category) {
@@ -1150,31 +1146,58 @@ ORDER BY fac_level;");
     }
     
     /**
-     * [getResourcesLocationmnh description]
+     * [getMNHCommodityLocation description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
      * @param  [type] $choice   [description]
      * @return [type]           [description]
      */
-    public function getresourcesLocationMnh($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
-        
+
+    public function getMNHCommodityLocation($criteria, $value, $survey, $survey_category) {
+  
+        $this->getCommodityLocation($criteria, $value, $survey, $survey_category, 'mnh');
+
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+
+
+    }/**
+     * [getCHCommodityLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getCHCommodityLocation($criteria, $value, $survey, $survey_category) {
+  
+        $this->getCommodityLocation($criteria, $value, $survey, $survey_category, 'ch');
+
+
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
         
     }
-    public function getresourcesLocationCH($criteria, $value, $survey, $survey_category) {
-        $value = urldecode($value);
-        
-        $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'mhw', 'location');
-        
+
+
+    /**
+     * [getMNHResourcesLocation description]
+     * @param  [type] $criteria [description]
+     * @param  [type] $value    [description]
+     * @param  [type] $survey   [description]
+     * @param  [type] $choice   [description]
+     * @return [type]           [description]
+     */
+    public function getMNHResourcesLocation($criteria, $value, $survey, $survey_category) {
+  
+        $this->getResourcesLocation($criteria, $value, $survey, $survey_category, 'mnh');
+
+
         //echo "<pre>"; print_r($results);echo "</pre>";die;
         
         
     }
-    
+
     /**
      * [getMNHEquipmentFrequency description]
      * @param  [type] $criteria [description]
@@ -1193,10 +1216,11 @@ ORDER BY fac_level;");
      * @param  [type] $survey   [description]
      * @return [type]           [description]
      */
-   /* public function getMNHEquipmentLocation($criteria, $value, $survey, $survey_category) {
-        $this->getEquipmentStatistics($criteria, $value, $survey, $survey_category, 'mnh', 'location');
 
-    }*/
+    public function getMNHEquipmentLocation($criteria, $value, $survey, $survey_category) {
+        $this->getEquipmentLocation($criteria, $value, $survey, $survey_category, 'mnh');
+    }
+
 
     /**
      * [getMNHEquipmentFunctionality description]
@@ -1228,7 +1252,7 @@ ORDER BY fac_level;");
      * @return [type]           [description]
      */
     public function getCHEquipmentLocation($criteria, $value, $survey, $survey_category) {
-        $this->getEquipmentStatistics($criteria, $value, $survey, $survey_category, 'ort', 'location');
+        $this->getEquipmentLocation($criteria, $value, $survey, $survey_category, 'ch');
     }
     
     /**
@@ -1425,14 +1449,14 @@ ORDER BY fac_level;");
     }
     
      /**
-     * [getSuppliesLocation description]
+     * [getEquipmentLocation description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getMNHEquipmentLocation($criteria, $value, $survey, $survey_category, $for) {
+    public function getEquipmentLocation($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getEquipmentLocation($criteria, $value, $survey, $survey_category, $for);
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
@@ -1462,15 +1486,15 @@ ORDER BY fac_level;");
     }
 
      /**
-     * [getSuppliesLocation description]
+     * [getResourceLocation description]
      * @param  [type] $criteria [description]
      * @param  [type] $value    [description]
      * @param  [type] $survey   [description]
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getResourceLocation($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getResorceLocation($criteria, $value, $survey, $survey_category, $for);
+    public function getResourcesLocation($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getResourceLocation($criteria, $value, $survey, $survey_category, $for);
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
          $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
@@ -1499,7 +1523,7 @@ ORDER BY fac_level;");
     }
 
 
-    public function getCommodityAvailabilityLocation($criteria, $value, $survey, $survey_category, $for) {
+    public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getCommodityLocation($criteria, $value, $survey, $survey_category, $for);
 
         //echo "<pre>";print_r($results);echo "</pre>";die;
