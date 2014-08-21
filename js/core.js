@@ -15,7 +15,7 @@
  * @param  {[type]} chart_legend_floating [description]
  * @return {[type]}                       [description]
  */
-function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme, chart_label_rotation, chart_legend_floating) {
+function runGraph(container, chart_title, chart_stacking, chart_type, chart_categories, chart_series, chart_drilldown, chart_length, chart_width, chart_margin, color_scheme,chart_label_rotation,chart_legend_floating) {
     file_name = container.replace('#', '');
     file_name = file_name.replace('_', ' ');
     $('#' + container).highcharts({
@@ -44,7 +44,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
         xAxis: {
             categories: chart_categories,
             labels: {
-                rotation: chart_label_rotation
+                rotation:chart_label_rotation
             }
         },
         yAxis: {
@@ -164,7 +164,7 @@ function loadGraph(base_url, function_url, graph_section) {
             $(graph_section).empty();
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
-                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme, obj.chart_label_rotation, obj.chart_legend_floating);
+                runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme,obj.chart_label_rotation,obj.chart_legend_floating);
             } else {
                 $(graph_section).append('<div class="null_message"><i class="fa fa-exclamation-triangle"></i>No Data Found</div>');
             }
@@ -316,18 +316,24 @@ function getCountyData(base_url,county, survey_type, survey_category){
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
+<<<<<<< HEAD
             // <<<<<<< HEAD
             //             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
             //             county = encodeURIComponent(county);
             // =======
             $('#not_started .digit').text(obj[0].notstarted);
+=======
+            $('#not_started .digit').text(obj[0].notstarted);
+            $('#county_progress').text((obj[0].reported / obj[0].actual * 100) + ' %');
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
-            new_url = base_url + 'c_analytics/getCountyReportingSummary/' + county + '/' + survey + '/' + survey_category;
-            $('#load_county_summary').attr('data-url', new_url);
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
+            $('#load_county_summary').attr('data-url',new_url);
         }
     });
 }
+<<<<<<< HEAD
 /**
  * [loadData description]
  * @param  {[type]} base_url         [description]
@@ -342,10 +348,20 @@ function loadData(base_url, function_url, value, container, placeholder_text) {
         ajax_url = base_url + 'c_analytics/' + function_url + '/' + value
     } else {
         ajax_url = base_url + 'c_analytics/' + function_url
+=======
+
+
+function loadData(base_url,function_url,value,container,placeholder_text){
+    if(value!==''){
+       ajax_url= base_url + 'c_analytics/' + function_url + '/' + value
+    }
+    else{
+        ajax_url= base_url + 'c_analytics/' + function_url
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
     }
     $.ajax({
-        url: ajax_url,
-        async: false,
+        url: ajax_url ,
+        async:false,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
@@ -353,14 +369,12 @@ function loadData(base_url, function_url, value, container, placeholder_text) {
         },
         success: function(data) {
             obj = jQuery.parseJSON(data);
-            $(container).select2({
-                placeholder: placeholder_text,
-                data: obj
-            });
+            $(container).select2({ placeholder:placeholder_text, data: obj});
 
         }
     });
 }
+<<<<<<< HEAD
 /**
  * [loadMasterFacilityList description]
  * @param  {[type]} base_url  [description]
@@ -369,9 +383,13 @@ function loadData(base_url, function_url, value, container, placeholder_text) {
  * @return {[type]}           [description]
  */
 function loadMasterFacilityList(base_url, container, form) {
+=======
+
+function loadMasterFacilityList(base_url,container){
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
     $.ajax({
-        url: base_url + 'c_analytics/getMasterFacilityList/' + form,
-        async: false,
+        url: base_url+'c_analytics/getMasterFacilityList' ,
+        async:false,
         beforeSend: function(xhr) {
             xhr.overrideMimeType("text/plain; charset=x-user-defined");
 
@@ -380,12 +398,11 @@ function loadMasterFacilityList(base_url, container, form) {
         success: function(data) {
             $(container.empty);
             $(container).append(data);
-            $(container).delay(2000, function(nxt) {
-                $('.editable').editable({
-                    url: base_url + 'c_analytics/edit_facility_info'
-                });
-                nxt();
+                $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
             });
+<<<<<<< HEAD
         }
     });
 }
@@ -579,6 +596,14 @@ function showAnalytics(base_url) {
  * [startIntro description]
  * @return {[type]} [description]
  */
+=======
+
+})
+
+        }
+    });
+}
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -624,6 +649,7 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
+<<<<<<< HEAD
     // $('.dataTable').on('load',function(){
     //     $('.dataTable').dataTable({
     //             "sPaginationType": "full_numbers"
@@ -648,6 +674,12 @@ $(document).ready(function() {
         showAnalytics(base_url);
     });
 
+=======
+    $('.dataTable').on('load',function(){
+        $('.dataTable').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
 
     $('.fa-expand').click(function() {
         theclass = $(this).parent().parent().parent().parent().attr('class');
@@ -668,4 +700,5 @@ $(document).ready(function() {
         $('.fa-compress').hide();
         $('.fa-expand').show();
     });
+});
 });

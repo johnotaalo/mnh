@@ -179,12 +179,45 @@ class C_Front extends MY_Controller
 
     }
 
+    
+        function getReportingRatio($survey, $survey_category, $county) {
+            
+            /*using DQL*/
+            
+            $finalData = array();
+            
+            try {
+                
+                $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
+                $myData = $this->db->query($query);
+                $finalData = $myData->result_array();
+                
+                $myData->next_result();
+                
+                // Dump the extra resultset.
+                $myData->free_result();
+                
+                // Does what it says.
+                
+                
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //echo($ex -> getMessage());
+                
+                
+            }
+            print_r($finalData);die;
+            return $finalData;
+        }
+
+
     public function retrieveData($table_name,$identifier){
         echo $this->session->userdata('survey_status');
         $this->load->model('m_retrieve');
         $data = $this->m_retrieve->retrieveData($table_name,$identifier);
         echo '<pre>';print_r($data);echo '</pre>';
     }
-
 
 }

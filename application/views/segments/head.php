@@ -41,7 +41,7 @@
 <script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
 <!--<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>-->
 <script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
-
+<script src="<?php echo base_url();?>js/core.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/jquery.ui.touch-punch.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/flat-ui-official/js/bootstrap-select.js"></script>
@@ -57,14 +57,18 @@
 <script src="<?php echo base_url();?>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/skrollr/dist/skrollr.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist/skrollr.menu.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/bower_components/cheet.js/cheet.js"></script>
 
+<<<<<<< HEAD
 <script src="<?php echo base_url()?>js/jquery.quickfit.js"></script>
+=======
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
 <!-- <script> Scripts for Editable and Searchable Tables </script> -->
 <script src="<?php echo base_url();?>assets/bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/list.js/dist/list.js"></script>
 
-<script src="<?php echo base_url();?>js/core.js"></script>
+
 <!--script src="<?php echo base_url();?>assets/bower_components/"></script-->
 
 

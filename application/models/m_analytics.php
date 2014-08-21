@@ -2115,7 +2115,11 @@ LIMIT 0 , 1000
                             foreach ($location as $place) {
                                 $data[$value['resource_name']][$place]+= (int)$value['total_response'];
                             }
+<<<<<<< HEAD
                         } else if (array_key_exists('suppliers', $value)) {
+=======
+                        }if (array_key_exists('suppliers', $value)) {
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
                             $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
                         }
                     }
@@ -4231,10 +4235,20 @@ ORDER BY question_code";
                 
                 
             }
+<<<<<<< HEAD
             echo "<pre>";
             print_r($data);
             echo "</pre>";
             die;
+=======
+            //echo "<pre>";print_r($data);echo "</pre>";die;
+
+            return $data;
+    }
+
+    public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
+        $value = urldecode($value);
+>>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
             
             return $data;
         }
