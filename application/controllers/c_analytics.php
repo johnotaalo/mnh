@@ -1127,8 +1127,8 @@ ORDER BY fac_level;");
     public function getSectionsChosen($survey) {
         switch ($survey) {
             case 'mnh':
-                $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality', 'Supplies', 'Resources');
-                $sections = 8;
+                $sectionNames = array('Facility Information', 'Facility Data And Maternal And Neotanal Service Delivery', 'Guidelines, Job Aid and Tools Availability', 'Staff Training', 'Commodity Availability', 'Commodity  Usage', 'Equipment Availability and Functionality', 'Supplies', 'Resources','Community Strategy');
+                $sections = 10;
                 break;
 
             case 'ch':
@@ -2971,7 +2971,7 @@ ORDER BY fac_level;");
             
             $key = str_replace('_', ' ', $key);
             $key = ucwords($key);
-            $category[] = $key;
+            $category[] = 'Level '.$key;
             foreach ($result as $name => $value) {
                 if ($name != 'n/a' && $name != '') {
                     $data[$name][] = (int)$value;

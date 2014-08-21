@@ -26,6 +26,7 @@ $stat-color:#16a085;
 //Body
 body{
     font-family:Lato !important;
+    height:auto !important;
     // @extend .zeta;
 }
 #menu{
@@ -268,7 +269,7 @@ table{
     @extend .col-md-3;
     .portlet-body{
         height:200px;
-        overflow:hidden;
+        overflow-y:auto;
     }
 }
 .portlet.box{
@@ -276,7 +277,6 @@ table{
     .portlet-title{
         h6{
             margin-bottom:0;
-
             padding: 5px 7.5px;
             color: #333333;
             background-color: whitesmoke;
@@ -309,7 +309,13 @@ table{
         overflow-y:auto;
     }
 }
-
+.sectionList{
+     li{
+        a{
+         padding:5px 7.5px !important;
+        }
+     }
+}
 .reporting {
     overflow-y: auto;
     height: 300px;
@@ -441,7 +447,7 @@ h4{
     padding:0 !important;
 }
 h6{
-    @extend .epsilon;
+    font-size:16px;
 }
 //SideBar
 .panel{

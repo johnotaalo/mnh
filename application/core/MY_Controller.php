@@ -4645,14 +4645,14 @@ GROUP BY st_name,sc_name,facilityCode;";
         switch ($type) {
             case 'line':
             case 'column':
-                $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
-                $datas['chart_length'] = 300;
+                $datas['chart_width'] = ($resultSize != '') ? $given_size * 40 : $chart_size * 40;
+                $datas['chart_length'] = 200;
                 $datas['chart_label_rotation'] = (int) - 45;
                 $datas['chart_legend_floating'] = true;
                 break;
 
             default:
-                $datas['chart_length'] = ($resultSize != '') ? $given_size * 60 : $chart_size * 60;
+                $datas['chart_length'] = ($resultSize != '') ? $given_size * 40 : $chart_size * 40;
                 $datas['chart_label_rotation'] = (int)0;
                 $datas['chart_legend_floating'] = false;
                 
