@@ -262,18 +262,32 @@ table{
         display: inline-block;
     }
 }
-.portlet.md.box{
-    @extend .col-md-4;
+.large-graph{
+    @extend .col-md-12;
+    @extend .standard-graph;
+    .portlet-body{
+        height:500px;
+        overflow-y:auto;
+    }
 }
-.portlet.sm.box{
+.medium-graph{
+    @extend .col-md-4;
+    @extend .standard-graph;
+}
+.small-graph{
+    @extend .standard-graph;
     @extend .col-md-3;
     .portlet-body{
         height:200px;
         overflow-y:auto;
     }
 }
-.portlet.box{
+.semi-large-graph{
+    @extend .standard-graph;
     @extend .col-md-6;
+}
+
+.standard-graph{
     .portlet-title{
         h6{
             margin-bottom:0;
@@ -305,7 +319,7 @@ table{
         }
     }
     .portlet-body{
-        height:300px;
+        height:200px;
         overflow-y:auto;
     }
 }
@@ -660,4 +674,16 @@ a.disabled:hover{
 }
 .modal{
     z-index:2000000000000000000000000;
+}
+//Resize Icons
+.sizer{
+    float:right;
+    i{
+        color:#ccc;
+        cursor:pointer;
+    }
+    i:hover{
+       color:#333;
+        cursor:hand;
+    }
 }

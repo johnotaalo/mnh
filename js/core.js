@@ -509,6 +509,7 @@ function startIntro() {
     intro.start();
 }
 $(document).ready(function() {
+    var theclass;
     //startIntro();
     $('.panel-collapse.collapse.in').parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-down');
     //Handling Collapses
@@ -545,5 +546,22 @@ $(document).ready(function() {
         showHelp();
     });
 
+$('.fa-expand').click(function () {
+        theclass = $(this).parent().parent().parent().parent().attr('class');
+$('.fa-expand').hide();
+        $('.' + theclass).hide();
 
+        $('.fa-compress').show();
+        $(this).parent().parent().parent().parent().show();
+        $(this).parent().parent().parent().parent().removeClass('small-graph');
+        $(this).parent().parent().parent().parent().addClass('large-graph');
+    });
+    $('.fa-compress').click(function () {
+        $('.' + theclass).show();
+        $(this).parent().parent().parent().parent().removeClass('large-graph');
+        $(this).parent().parent().parent().parent().addClass('small-graph');
+        $('.' + theclass).show();
+        $('.fa-compress').hide();
+        $('.fa-expand').show();
+    });
 });
