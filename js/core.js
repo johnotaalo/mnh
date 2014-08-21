@@ -318,8 +318,11 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
-            $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
-            county = encodeURIComponent(county);
+            // <<<<<<< HEAD
+            //             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
+            //             county = encodeURIComponent(county);
+            // =======
+            $('#not_started .digit').text(obj[0].notstarted);
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
             new_url = base_url + 'c_analytics/getCountyReportingSummary/' + county + '/' + survey + '/' + survey_category;
@@ -646,21 +649,20 @@ $(document).ready(function() {
     cheet('g r a p h', function() {
         showAnalytics(base_url);
     });
-<<<<<<< HEAD
 
-$('.fa-expand').click(function () {
+
+    $('.fa-expand').click(function() {
         theclass = $(this).parent().parent().parent().parent().attr('class');
-$('.fa-expand').hide();
+        $('.fa-expand').hide();
         $('.' + theclass).hide();
-=======
->>>>>>> feature/Help_Form
+
 
         $('.fa-compress').show();
         $(this).parent().parent().parent().parent().show();
         $(this).parent().parent().parent().parent().removeClass('small-graph');
         $(this).parent().parent().parent().parent().addClass('large-graph');
     });
-    $('.fa-compress').click(function () {
+    $('.fa-compress').click(function() {
         $('.' + theclass).show();
         $(this).parent().parent().parent().parent().removeClass('large-graph');
         $(this).parent().parent().parent().parent().addClass('small-graph');
