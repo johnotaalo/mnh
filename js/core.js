@@ -308,7 +308,7 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
-            $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
+            $('#not_started .digit').text(obj[0].notstarted);
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
             new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;

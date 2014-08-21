@@ -357,7 +357,7 @@ switch(survey){
     //Section 5 CH
     loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
     loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
-    loadGraph(base_url, 'c_analytics/getORTReason/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
+    loadGraph(base_url, 'c_analytics/getNonFunctional/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
     
 
     // //Section 5 MNH

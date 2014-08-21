@@ -836,9 +836,9 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mh', 'location');
     }
 
-    public function getORTReason($criteria, $value, $survey, $survey_category) {
+    /*public function getORTReason($criteria, $value, $survey, $survey_category) {
         $this->getReasonStatistics($criteria, $value, $survey, $survey_category, 'ortf');
-    }
+    }*/
 
     /**
      * [getReasonStatistics description]
@@ -849,30 +849,25 @@ ORDER BY fac_level;");
      * @param  [type] $statistic [description]
      * @return [type]            [description]
      */
-    public function getReasonStatistics($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getReasonStatistics($criteria, $value, $survey, $survey_category, $for);
-
-        //echo "<pre>"; print_r($results);echo "</pre>";die;
-        foreach ($results as $key => $result) {
-
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $category[] = $key;
-            foreach ($result as $name => $value) {
-                if ($name != 'n/a') {
-                    $data[$name][] = (int)$value;
-                }
-            }
+    public function getNonFunctional($criteria, $value, $survey, $survey_category) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ortf','response');
+        $count=0;
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        $number = $resultArray = $q = array();
+        $number = $resultArray = $q = $yes = $no = array();
+        if ($count == 1):
+        foreach ($results as $key => $value) {
+            $q[] = $key;
+            $yes[] = (int)$value['yes'];
+            $no[] = (int)$value['no'];
         }
-        foreach ($data as $key => $val) {
-            $key = str_replace('_', ' ', $key);
-            $key = ucwords($key);
-            $key = str_replace(' ', '-', $key);
-            $resultArray[] = array('name' => $key, 'data' => $val);
-        }
+        endif;
+        $count++;
+        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
 
-        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'bar');
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $category = $q;
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
 
     /**
@@ -1093,7 +1088,7 @@ ORDER BY fac_level;");
         $this->getResourcesLocation($criteria, $value, $survey, $survey_category, 'mch');
 	}
 	public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
-		$value = urldecode($value);
+	
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'supplier');
 	}
     public function getresourcesFrequencyCH($criteria, $value, $survey, $survey_category) {
@@ -1352,13 +1347,14 @@ ORDER BY fac_level;");
 
             $resultArray[] = array('name' => $key, 'data' => $val);
             
-            //echo "<pre>"; print_r($);echo "</pre>";die;
+            
             
             }
 
         }
-         $resultArray[] = array('name' => 'Challenges', 'data' => $gData);
-        // echo "<pre>";print_r($resultArray);echo "</pre>";die;
+         $resultArray[] = array('name' => '
+            ', 'data' => $gData);
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
 
