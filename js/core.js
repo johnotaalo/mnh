@@ -316,16 +316,9 @@ function getCountyData(base_url,county, survey_type, survey_category){
             $('#targeted .digit').text(obj[0].actual);
             $('#finished .digit').text(obj[0].reported);
             $('#started .digit').text(obj[0].unfinished);
-<<<<<<< HEAD
-            // <<<<<<< HEAD
-            //             $('#not_started .digit').text((parseInt(obj[0].actual) - (parseInt(obj[0].reported) + parseInt(obj[0].unfinished))));
-            //             county = encodeURIComponent(county);
-            // =======
-            $('#not_started .digit').text(obj[0].notstarted);
-=======
+
             $('#not_started .digit').text(obj[0].notstarted);
             $('#county_progress').text((obj[0].reported / obj[0].actual * 100) + ' %');
->>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
             new_url = base_url + 'c_analytics/getCountyReportingSummary/'+survey + '/' + survey_category;
@@ -333,7 +326,8 @@ function getCountyData(base_url,county, survey_type, survey_category){
         }
     });
 }
-<<<<<<< HEAD
+
+
 /**
  * [loadData description]
  * @param  {[type]} base_url         [description]
@@ -343,21 +337,12 @@ function getCountyData(base_url,county, survey_type, survey_category){
  * @param  {[type]} placeholder_text [description]
  * @return {[type]}                  [description]
  */
-function loadData(base_url, function_url, value, container, placeholder_text) {
-    if (value !== '') {
-        ajax_url = base_url + 'c_analytics/' + function_url + '/' + value
-    } else {
-        ajax_url = base_url + 'c_analytics/' + function_url
-=======
-
-
 function loadData(base_url,function_url,value,container,placeholder_text){
     if(value!==''){
        ajax_url= base_url + 'c_analytics/' + function_url + '/' + value
     }
     else{
         ajax_url= base_url + 'c_analytics/' + function_url
->>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
     }
     $.ajax({
         url: ajax_url ,
@@ -374,7 +359,7 @@ function loadData(base_url,function_url,value,container,placeholder_text){
         }
     });
 }
-<<<<<<< HEAD
+
 /**
  * [loadMasterFacilityList description]
  * @param  {[type]} base_url  [description]
@@ -383,10 +368,6 @@ function loadData(base_url,function_url,value,container,placeholder_text){
  * @return {[type]}           [description]
  */
 function loadMasterFacilityList(base_url, container, form) {
-=======
-
-function loadMasterFacilityList(base_url,container){
->>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
     $.ajax({
         url: base_url+'c_analytics/getMasterFacilityList' ,
         async:false,
@@ -402,9 +383,10 @@ function loadMasterFacilityList(base_url,container){
         $('.dataTable').dataTable({
                 "sPaginationType": "full_numbers"
             });
-<<<<<<< HEAD
-        }
+        
     });
+}
+});
 }
 /**
  * [submitForm description]
@@ -596,14 +578,6 @@ function showAnalytics(base_url) {
  * [startIntro description]
  * @return {[type]} [description]
  */
-=======
-
-})
-
-        }
-    });
-}
->>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
 function startIntro() {
     var intro = introJs();
     intro.setOptions({
@@ -649,37 +623,35 @@ $(document).ready(function() {
         //$(this).collapse('show');
 
     })
-<<<<<<< HEAD
+
     // $('.dataTable').on('load',function(){
     //     $('.dataTable').dataTable({
     //             "sPaginationType": "full_numbers"
     //         });
     //     });
-    $.fn.editable.defaults.mode = 'inline';
-    $.fn.editableform.buttons =
-        '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
-        '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>';
+    // $.fn.editable.defaults.mode = 'inline';
+    // $.fn.editableform.buttons =
+    //     '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
+    //     '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>';
 
-    cheet('ctrl m f l', function() {
-        showMasterFacilityList(base_url, 'table');
-    });
+    // cheet('ctrl m f l', function() {
+    //     showMasterFacilityList(base_url, 'table');
+    // });
 
-    cheet('ctrl e d i t m f l', function() {
-        showMasterFacilityList(base_url, 'editable');
-    });
-    cheet('ctrl h e l p', function() {
-        showHelp(base_url);
-    });
-    cheet('g r a p h', function() {
-        showAnalytics(base_url);
-    });
+    // cheet('ctrl e d i t m f l', function() {
+    //     showMasterFacilityList(base_url, 'editable');
+    // });
+    // cheet('ctrl h e l p', function() {
+    //     showHelp(base_url);
+    // });
+    // cheet('g r a p h', function() {
+    //     showAnalytics(base_url);
+    // });
 
-=======
     $('.dataTable').on('load',function(){
         $('.dataTable').dataTable({
                 "sPaginationType": "full_numbers"
             });
->>>>>>> 4caf73ac03d80ce8af92bb17e0db844fa877de00
 
     $('.fa-expand').click(function() {
         theclass = $(this).parent().parent().parent().parent().attr('class');
