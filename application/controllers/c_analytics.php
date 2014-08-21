@@ -1354,10 +1354,9 @@ ORDER BY fac_level;");
             }
 
         }
-         $resultArray[] = array('name' => '
-            ', 'data' => $gData);
+      
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
 
 
