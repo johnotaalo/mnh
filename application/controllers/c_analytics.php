@@ -629,6 +629,34 @@ ORDER BY fac_level;");
         
         
     }
+	
+	public function getResourcesLocation($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getResourceLocation($criteria, $value, $survey, $survey_category, $for);
+
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
+        $number = $resultArray = $q = array();
+        $count = 0;
+
+        foreach ($results as $key => $value) {
+
+            //echo "<pre>";print_r($results);echo "</pre>";die;
+           
+
+            //var_dump($value);
+            foreach ($value as $location => $val) {
+                $gData[] = array(ucwords($location), (int)$val);
+            }
+            
+        }
+        $category[] = "Resources";
+
+       	$resultArray[] = array('name' => 'Resource Location', 'data' => $gData);
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $category = $q;
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
+    }
     public function getTreatmentStatistics($criteria, $value, $survey, $survey_category, $statistic) {
         $results = $this->m_analytics->getTreatmentStatistics($criteria, $value, $survey, $survey_category, $statistic);
         
@@ -1030,15 +1058,7 @@ ORDER BY fac_level;");
                 $this->populateGraph($resultArray, '', $category, $criteria, '', 130, 'pie');
                 break;
         }
-        
-        //echo sizeof($category);
-        //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
-        
-        //$this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'column', (int)sizeof($category));
-        
-        
-    }
-    
+     }
     /**
      * [getResourcesStatistics description]
      * @param  [type] $criteria  [description]
@@ -1116,7 +1136,6 @@ ORDER BY fac_level;");
         $this->getResourcesStatistics($criteria, $value, $survey, $survey_category, 'hwr', 'availability');
     }
     public function getCHResourcesLocation($criteria, $value, $survey, $survey_category) {
-        
         $this->getResourcesLocation($criteria, $value, $survey, $survey_category, 'mch');
     }
     public function getCHresourcesSupplier($criteria, $value, $survey, $survey_category) {
@@ -1538,7 +1557,35 @@ ORDER BY fac_level;");
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
-    
+    public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getCommodityLocation($criteria, $value, $survey, $survey_category, $for);
+
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+         $number = $resultArray = $q = $pharmacy = $store = $delivery = $other = array();
+        $number = $resultArray = $q = array();
+        $count = 0;
+
+        foreach ($results as $key => $value) {
+
+            //echo "<pre>";print_r($results);echo "</pre>";die;
+           
+
+            //var_dump($value);
+            foreach ($value as $location => $val) {
+                $gData[] = array(ucwords($location), (int)$val);
+            }
+            
+        }
+        $category[] = "Location";
+
+        //echo "<pre>";print_r($gData);echo "</pre>";die;
+        $resultArray[] = array('name' => 'Commodity Location', 'data' => $gData);
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $category = $q;
+        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
+    }
+	
     /**
      * [getQuestionStatistics description]
      * @param  [type] $criteria [description]
@@ -2265,7 +2312,9 @@ ORDER BY fac_level;");
     public function getCHSuppliesSupplier($criteria, $value, $survey, $survey_category) {
         $this->getSuppliesSupplier($criteria, $value, 'ch', $survey_category);
     }
-    
+    public function getCHSuppliesLocation($criteria, $value, $survey, $survey_category) {
+        $this->getSuppliesLocation($criteria, $value, 'ch', $survey_category, '');
+    }
     /**
      *
      */
@@ -2951,6 +3000,9 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
     }
     
+	public function getTotalBeds($criteria, $value, $survey, $survey_category, $for){
+		$this->getBeds($criteria, $value, $survey, $survey_category, 'bed');
+	}
     /**
      * 24 Hour Service
      */
@@ -2963,8 +3015,12 @@ ORDER BY fac_level;");
         }
         
         $category[] = 'Numbers';
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
+	
+	public function getServices($criteria, $value, $survey, $survey_category, $for){
+		$this->getServiceOperation($criteria, $value, $survey, $survey_category, 'serv');
+	}
     
     /**
      * Health Facility Management
@@ -2985,6 +3041,9 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
+	public function getTotalHFM($criteria, $value, $survey, $survey_category, $for, $statistics){
+		$this->getQuestionStatistics($criteria, $value, $survey, $survey_category,'commi','response');
+	}
     //Section 2
     //-----------------------------------------------------------------------------
     

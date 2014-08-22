@@ -472,9 +472,37 @@
         <div class="portlet-body">
 
             <div class="chart" id="MNHfacility_type">
+			</div>
+        </div>
+    </div>
+    <div class="medium-graph">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Total Beds<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+        </div>
+        <div class="portlet-body">
 
+            <div class="chart" id="mnhBeds">
+			</div>
+        </div>
+    </div>
+    <div class="medium-graph">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Facility Operation<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+        </div>
+        <div class="portlet-body">
 
-            </div>
+            <div class="chart" id="mnhOperation">
+			</div>
+        </div>
+    </div>
+	<div class="medium-graph">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i>Health Facility Managemnet<span class="sizer"><i class="fa fa-expand"></i><i class="fa fa-compress" style="display:none"></i></span></h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="mnhHFM">
+			</div>
         </div>
     </div>
     
