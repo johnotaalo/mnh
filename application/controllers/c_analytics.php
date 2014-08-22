@@ -3365,10 +3365,10 @@ ORDER BY fac_level;");
         $this->loadExcel($data, 'Commodity Supplies and Equipments for ' . $value);
     }
     
-    public function getCountyData($county, $survey_type, $survey_category) {
+    public function getCountyData($survey_type, $survey_category,$county) {
         
         $county = urldecode($county);
-        $results = $this->m_analytics->getReportingRatio($county, $survey_type, $survey_category);
+        $results = $this->m_analytics->getReportingRatio($survey_type, $survey_category, $county);
         echo json_encode($results);
     }
 }
