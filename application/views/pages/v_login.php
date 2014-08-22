@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input id="usercode" name="usercode" type="password"/>
+                    <input id="usercode" name="usercode" type="password" placeholder="Please Enter the Correct Password"/>
                 </div>
                 <label style="color: #e34848;display:none" for="buttonsPane" >Invalid District/Sub County and Password Combination!</label>
                 <div class="buttonsPane">
