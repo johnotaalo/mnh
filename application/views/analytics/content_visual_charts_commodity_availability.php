@@ -20,8 +20,8 @@
     </div>
     <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
-            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>Reporting Progress</h6>
+            <h6 id="countyHeader"><i class="fa fa-map-marker"></i>National County</h6>
+            <h6 id="progressHeader" ><i class="fa fa-tasks"></i>National Reporting Progress</h6>
         </div>
         <div class="reporting"></div>
     </div>

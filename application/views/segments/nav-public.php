@@ -61,7 +61,7 @@
                             <a href="<?php echo $this -> config -> item('project_url'); ?>">Program Monitoring Tool</a>
                         </li>
                         <li>
-                            <a href="<?php echo $this -> config -> item('hcmp_url'); ?>">HCMP</a>
+                            <a href="health-cmp.or.ke">HCMP</a>
                         </li>
                     </ul>
 

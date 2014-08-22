@@ -60,7 +60,7 @@
                                     <option>No Survey Type Selected</option>
                                     <option value="mnh">MNH</option>
                                     <option value="ch">CH</option>
-                                    <option value="hcw">HCW</option>
+                                    <option value="hcw">IMCI FOLLOW UP</option>
                                 </select>
                                 <select  name="survey_category" id="survey_category" class="input">
                                     <option>No Survey Category Selected</option>

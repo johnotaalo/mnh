@@ -7,10 +7,8 @@
 
 <div class="login-container">
     <div class="row">
-        <div id="form-description">
-
-        </div>
-        <div id="form-login">
+        
+		<div id="form-login" style = "width: 60%: margin: 0 auto;">
             <form id="authenticate" name="authenticate" action="<?php echo base_url().'session/new'?>" method="post" accept-charset="utf-8">
                 <h2><?php echo $login_message; ?></h2>
 
