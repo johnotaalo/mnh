@@ -103,7 +103,19 @@ function startAnalytics(base_url, county, survey, survey_category) {
     $('select#indicator_types').change(function() {
         indicator_type = $('select#indicator_types option:selected').attr('value');
         console.log(indicator_type);
-        subHandler('county', survey, survey_category,indicator_type);
+        if(county=='Unselected'){
+            subHandler('national',county,district,facility, survey, survey_category,indicator_type);
+        }
+        else{
+            if(district==NULL){
+subHandler('county',county,district,facility, survey, survey_category,indicator_type);
+            }
+            else{
+               subHandler('district',county,district,facility, survey, survey_category,indicator_type); 
+            }
+            
+        }
+        
     });
 
     //Change Event for District Select
@@ -236,7 +248,7 @@ function variableHandler(criteria,county,district,facility, survey, survey_categ
     }
 }
 function subHandler(criteria,county,district,facility, survey, survey_category,indicator_type) {
-    switch(parameter){
+    switch(criteria){
         case 'national':
             value='Aggegated';
             indicatorHandler(criteria, value, survey, survey_category,indicator_type);
@@ -345,8 +357,9 @@ switch(survey){
     loadGraph(base_url, 'c_analytics/getGuidelinesAvailabilityCH/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#guidelines');
     loadGraph(base_url, 'c_analytics/getTools/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#tools');
     loadGraph(base_url, 'c_analytics/getChallengeStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#challenge');
-	loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#u5_register');
+	loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+'/cases', '#u5_register');
     loadGraph(base_url, 'c_analytics/getDangerSigns/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#danger_signs');
+    loadGraph(base_url, 'c_analytics/getTreatmentStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+'/treatment', '#treatment_options');
     
     //Section 3 CH
     loadGraph(base_url, 'c_analytics/getIndicatorComparison/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/'+indicator_type, '#indicator_comparison');
