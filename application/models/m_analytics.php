@@ -493,6 +493,13 @@ ORDER BY lq.lq_response ASC";
                                 $data[$value['treatment_for']][$value['treatment']][$this->getCommodityNameById($treatment)]+= (int)$value['total_treatment'];
                             }
                             break;
+                             case 'other_treatment':
+                            $treatment_array = explode(',', $value['lt_other_treatments']);
+                            //var_dump($treatment_array);
+                            foreach ($treatment_array as $treatment) {
+                                $data[$value['treatment_for']][$value['treatment']][$this->getChildHealthTreatmentName($treatment)]+= (int)$value['total_treatment'];
+                            }
+                            break;
                     }
                 }
 

@@ -646,6 +646,7 @@ ORDER BY fac_level;");
                         break;
 
                     case 'treatment':
+                    case 'other_treatment':
                         $gData = array();
                         foreach ($data as $commodity => $numbers) {
                             $newdata[$commodity][$name] = $numbers;
@@ -662,15 +663,11 @@ ORDER BY fac_level;");
                         }
                         
                         break;
-
-                    case 'other_treatment':
-                        
-                        break;
                 }
                 $count++;
             }
         }
-        if ($statistic == 'treatment') {
+        if ($statistic == 'treatment' || $statistic == 'other_treatment' ) {
             foreach ($finalData as $key => $dat) {
                 foreach ($dat as $k => $v) {
                     $cleanData[$key][] = $v;
@@ -680,23 +677,6 @@ ORDER BY fac_level;");
                 $resultArray[] = array('name' => $comm, 'data' => $ndata);
             }
         }
-        
-        // echo "<pre>";
-        // print_r($resultArray);
-        // echo "</pre>";
-        // die;
-        
-        /*foreach ($results as $stack => $result) {
-            foreach ($result as $name => $data) {
-        
-                $resultArray[] = array('name' => $name, 'data' => array($data), 'stack' => $stack, 'category' => $stack);
-            }
-        }*/
-        
-        //echo "<pre>";
-        //print_r($resultArray);
-        //echo "</pre>";
-        //die;
         $this->populateGraph($resultArray, '', $category, $criteria, 'normal', 120, 'bar');
     }
     public function getMNHCommodityAvailabilityFrequency($criteria, $value, $survey, $survey_category) {
