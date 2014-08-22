@@ -1175,7 +1175,7 @@ ORDER BY fac_level;");
                 break;
 
             case 'ch':
-                $sectionNames = array('Facility Information', 'Guidelines,Job Aids and Tools', 'Assessment', 'Commodity & Bundling', 'On-Site Rehydration', 'Equipment', 'Supplies', 'Resources', 'Community Strategy');
+                $sectionNames = array('Facility Information', 'Guidelines,Job Aids and Tools', 'Case Management', 'Commodity & Bundling', 'ORT Corner Rehydration', 'Equipment', 'Supplies', 'Resources', 'Community Strategy');
                 $sections = 9;
                 break;
 
@@ -3452,7 +3452,7 @@ $results = $this->m_analytics->getDiarrhoeaStatistics($criteria, $value, $survey
     public function getCountyData($county, $survey_type, $survey_category) {
         
         $county = urldecode($county);
-        $results = $this->m_analytics->getReportingRatio($county, $survey_type, $survey_category);
+        $results = $this->m_analytics->getReportingRatio($survey_type, $survey_category,$county);
         echo json_encode($results);
     }
 }
