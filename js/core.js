@@ -312,7 +312,6 @@ function getCountyData(base_url,county, survey_type, survey_category){
         success: function(data) {
             obj = jQuery.parseJSON(data);
             console.log(obj);
-            county=
             $('#county_name').text(decodedCounty);
             $('#survey_type').text(survey_type.toUpperCase());
             $('#survey_category').text(survey_category.toUpperCase());
