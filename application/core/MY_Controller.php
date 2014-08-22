@@ -4769,7 +4769,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             case 'line':
             case 'column':
                 $datas['chart_width'] = ($resultSize != '') ? $given_size * 80 : $chart_size * 80;
-                $datas['chart_length'] = 300;
+                $datas['chart_length'] = 200;
                 $datas['chart_label_rotation'] = (int) - 45;
                 $datas['chart_legend_floating'] = true;
                 break;

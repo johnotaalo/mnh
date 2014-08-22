@@ -49,11 +49,12 @@
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                         <h4 class="page-title">
 
-                            <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>
+                            <?php echo $analytics_main_title; ?> 
+                            <!--for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>-->
 
                         </h4>
 
-                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
+                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
                          
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
