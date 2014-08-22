@@ -289,6 +289,10 @@ table{
 .semi-large-graph{
     @extend .standard-graph;
     @extend .col-md-6;
+    .portlet-body{
+        height:300px;
+
+    }
 }
 
 .standard-graph{
