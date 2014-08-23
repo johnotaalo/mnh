@@ -245,10 +245,11 @@ ORDER BY fac_level;");
         foreach ($reportingCounties as $key => $county) {
             
             //echo $key;
-            $allProgress.= $this->getReportedCounty($county, $key);
+            $allProgress[]= $this->getReportedCountyJSON($county, $key);
             $counter++;
         }
-        echo $allProgress;
+        //echo '<pre>';print_r($allProgress);echo '</pre>';
+        echo json_encode($allProgress);
     }
     
     public function getOneReportingCounty($county, $survey_category) {
@@ -352,7 +353,69 @@ ORDER BY fac_level;");
         
         
     }
-    
+    /**
+     * [getReportedCounty description]
+     * @param  [type] $county [description]
+     * @param  [type] $key    [description]
+     * @return [type]         [description]
+     */
+    public function getReportedCountyJSON($county, $key) {
+        $progress = "";
+        
+        //var_dump($reportingCounties);
+        //die ;
+        
+        $countyName = $key;
+        $percentage = (int)$county[0]['percentage'];
+        $reported = (int)$county[0]['reported'];
+        $actual = (int)$county[0]['actual'];
+        
+        /**
+         * Check status
+         *
+         * Different Colors for Different LEVELS
+         */
+        
+        switch ($percentage) {
+            case ($percentage == 0):
+                $status = 'transparent';
+                break;
+
+            case ($percentage < 20):
+                $status = '#e93939';
+                break;
+
+            case ($percentage < 40):
+                $status = '#da8a33';
+                break;
+
+            case ($percentage < 60):
+                $status = '#dad833';
+                break;
+
+            case ($percentage < 80):
+                $status = '#91da33';
+                break;
+
+            case ($percentage < 100):
+                $status = '#7ada33';
+                break;
+                
+                /**case ($percentage == 100):
+                $status = '#13b00b';
+                break;*/
+            default:
+                $status = 'transparent';
+                break;
+        }
+        $progress = array('county'=>$countyName,'percentage'=>$percentage,'color'=>$status,'actuals'=>$reported . ' / ' . $actual);
+        
+         return $progress;
+        
+        //echo($progress);
+        
+        
+    }
     public function test_query_2() {
         $results = $this->m_analytics->getSpecificDistrictNames('Nairobi');
         var_dump($results);

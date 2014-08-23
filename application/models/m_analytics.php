@@ -2566,10 +2566,10 @@ ORDER BY f.fac_county ASC;";
             
             //var_dump($reportingCounties);die;
             for ($x = 0; $x < sizeof($reportingCounties); $x++) {
-                $allData[$reportingCounties[$x]['county']] = $this->getReportingRatio($reportingCounties[$x]['county'], $survey, $survey_category);
+                $allData[$reportingCounties[$x]['county']] = $this->getReportingRatio($survey, $survey_category,$reportingCounties[$x]['county']);
             }
             
-            //var_dump($allData);
+            //echo '<pre>';print_r($allData);echo '</pre>';
             return $allData;
         }
         function getReportingRatio($survey, $survey_category, $county) {

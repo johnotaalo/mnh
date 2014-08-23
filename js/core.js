@@ -300,7 +300,14 @@ function notify_email(email, message) {
     });
 }
 
-
+/**
+ * [getCountyData description]
+ * @param  {[type]} base_url        [description]
+ * @param  {[type]} county          [description]
+ * @param  {[type]} survey_type     [description]
+ * @param  {[type]} survey_category [description]
+ * @return {[type]}                 [description]
+ */
 function getCountyData(base_url,county, survey_type, survey_category){
     decodedCounty=county;
     county = encodeURIComponent(county);
@@ -330,6 +337,7 @@ function getCountyData(base_url,county, survey_type, survey_category){
         }
     });
 }
+
 
 
 /**
