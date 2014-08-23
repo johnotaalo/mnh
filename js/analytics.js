@@ -278,9 +278,9 @@ switch(survey){
     loadGraph(base_url, 'c_analytics/getFacilityOwnerPerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHfacility_ownership');
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHfacility_levels');
     loadGraph(base_url, 'c_analytics/getFacilityTypePerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHfacility_type');
-    loadGraph(base_url, 'c_analytics/getTotalBeds/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhBeds');
-    loadGraph(base_url, 'c_analytics/getServiceOperation/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhOperation');
-	loadGraph(base_url, 'c_analytics/getTotalHFM/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhHFM');
+    loadGraph(base_url, 'c_analytics/getServices/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#24Hr');
+	loadGraph(base_url, 'c_analytics/getHFM/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#HFM');
+    loadGraph(base_url, 'c_analytics/getBedStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+'/total', '#NnB');
     
     //Message me when you're online
     
@@ -298,7 +298,7 @@ switch(survey){
 
     loadGraph(base_url, 'c_analytics/getNewborn/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHnewborn');
     loadGraph(base_url, 'c_analytics/getKangarooMotherCare/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHkmc');
-    loadGraph(base_url, 'c_analytics/getDeliveryStatistics/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+'/total', '#delivery_preparedness');
+    loadGraph(base_url, 'c_analytics/getDeliveries/' + criteria + '/' + value + '/' + survey+ '/' + survey_category+'/total', '#delivery_preparedness');
     loadGraph(base_url, 'c_analytics/getHIV/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#MNHhiv');
     //Section 3  MNH
     loadGraph(base_url, 'c_analytics/getGuidelinesAvailabilityMNH/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHguidelines');

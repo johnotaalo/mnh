@@ -1565,7 +1565,7 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
     
-    public function getDeliveryStatistics($criteria, $value, $survey, $survey_category, $statistics) {
+    public function getBedStatistics($criteria, $value, $survey, $survey_category, $statistics) {
         $nurse = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'nur', $statistics);
         $beds = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'bed', $statistics);
         $data = $nurse + $beds;
@@ -1579,7 +1579,18 @@ ORDER BY fac_level;");
     }
     
     public function getDeliveries($criteria, $value, $survey, $survey_category) {
-        $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'prep', 'response');
+        $this->getQuestionStatisticsSingle($criteria, $value, $survey, $survey_category, 'prep', 'response');
+    }
+    /**
+     * [getServices description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @return [type]                  [description]
+     */
+    public function getServices($criteria, $value, $survey, $survey_category) {
+         $this->getQuestionStatisticsSingle($criteria, $value, $survey, $survey_category, 'serv', 'response');
     }
     
     /**
@@ -1593,7 +1604,12 @@ ORDER BY fac_level;");
         
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'hiv', 'response');
     }
-    
+    /**
+     * Health Facility Management
+     */
+    public function getHFM($criteria, $value, $survey, $survey_category) {
+         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'commi', 'response');
+    }
     public function getCEOC($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ceoc', 'response');
     }
@@ -2951,39 +2967,9 @@ ORDER BY fac_level;");
         $this->populateGraph($resultArray, '', $category, $criteria, '', 120, 'bar');
     }
     
-    /**
-     * 24 Hour Service
-     */
-    public function getServices($criteria, $value, $survey, $survey_category, $for) {
-        $results = $this->m_analytics->getService($criteria, $value, $survey, $survey_category, $for);
-        $number = $resultArray = array();
-        foreach ($results as $key => $value) {
-            $number[] = (int)$value[0];
-            $resultArray[] = array('name' => $key, 'data' => $number);
-        }
-        
-        $category[] = 'Numbers';
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
-    }
     
-    /**
-     * Health Facility Management
-     */
-    public function getHFM($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getHFM($criteria, $value, $survey, $survey_category);
-        
-        //echo '<pre>';print_r($results);echo '</pre>';die;
-        foreach ($results as $key => $val) {
-            $yes[] = (int)$val['yes'];
-            $no[] = (int)$val['no'];
-            $committee = trim($key, 'Does this facility have a');
-            $committee = trim($committee, '?');
-            $category[] = $committee;
-        }
-        
-        $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
-    }
+    
+    
     
     //Section 2
     //-----------------------------------------------------------------------------
