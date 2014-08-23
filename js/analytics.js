@@ -279,7 +279,7 @@ switch(survey){
     loadGraph(base_url, 'c_analytics/getFacilityLevelPerCounty/' + criteria +'/'+ value + '/' + survey + '/' + survey_category, '#MNHfacility_levels');
     loadGraph(base_url, 'c_analytics/getFacilityTypePerCounty/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#MNHfacility_type');
     loadGraph(base_url, 'c_analytics/getTotalBeds/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhBeds');
-    loadGraph(base_url, 'c_analytics/getServiceOperation/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhOperation');
+    //loadGraph(base_url, 'c_analytics/getOperationServices/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhOperation');
 	loadGraph(base_url, 'c_analytics/getTotalHFM/' + criteria + '/' + value + '/' + survey+ '/' + survey_category, '#mnhHFM');
     
     //Message me when you're online

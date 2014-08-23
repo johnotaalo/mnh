@@ -1731,7 +1731,7 @@ ORDER BY oa.question_code ASC";
             
             return $data;
         }
-        public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
+        public function getCommodityUsageOptions($criteria, $value, $survey, $survey_category, $for, $statistic) {
             $value = urldecode($value);
             $newData = array();
             
@@ -4073,6 +4073,32 @@ ORDER BY question_code";
             // var_dump($data);die;
             return $data;
         }
+		public function getWaterStorage($criteria, $value, $survey, $survey_category,$for){
+			$value = urldecode($value);
+            $data = array();
+			$query = "CALL get_storage_statistics('".$criteria."', '".$value."','". $survey."', '".$survey_category."', '".$for."');";
+			try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                $pharmacyvalue = 0;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as  $value) {
+                    	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    	$storage = $value['lq_specified_or_follow_up'];
+						$response = $value['[total_response'];
+						$data[$storage][]=$response;
+					}
+				}
+			}
+					catch(exception $ex){
+						
+					}
+					return $data;
+		}
         public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
             $value = urldecode($value);
             
@@ -4147,7 +4173,60 @@ ORDER BY question_code";
             
             return $data;
         }
+               public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_commodity_usage('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        $data['data'][] = $value;
+                    }
+                    $commodities = $this->getAllCommodityNames();
+                    foreach ($commodities as $commodity) {
+                        if ($commodity['commFor'] == $for) {
+                            $data['commodities'][] = $commodity['commName'];
+                        }
+                    }
+                    $commodityOptions = $this->getCommodityUsageOptions();
+                    foreach ($commodityOptions as $option) {
+                         $data['commodity_options'][$option['cooId']] = $option['cooDescription'];
+                    }
+                   
+                }
+                
+                //echo "<pre>";print_r($commodityOptions);echo "</pre>";die;
+                
+            }
         
+        
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $data;
+    }
         public function getEquipmentLocation($criteria, $value, $survey, $survey_category, $for) {
             $value = urldecode($value);
             
