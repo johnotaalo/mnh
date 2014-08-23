@@ -336,7 +336,7 @@ switch(survey){
     loadGraph(base_url, 'c_analytics/getMNHresourcesSupplier/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_mainSource');
 	loadGraph(base_url, 'c_analytics/getMNHResourcesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_location');
 	loadGraph(base_url, 'c_analytics/getWasteStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#mnhresource_wasteDisposal');
-
+	loadGraph(base_url, 'c_analytics/getStorageStatistics/' +criteria + '/' + value + '/' + survey + '/' + survey_category,'#mnhresource_storage');
     
     //Section 10 MNH
    loadGraph(base_url, 'c_analytics/getCommunityStrategyMNH/' + criteria + '/' + value + '/' + survey + '/' + survey_category+ '/community' , '#community_units');
@@ -377,7 +377,8 @@ switch(survey){
     //Section 5 CH
     loadGraph(base_url, 'c_analytics/getORTOne/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_availability');
     loadGraph(base_url, 'c_analytics/getLocationStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_location');
-    loadGraph(base_url, 'c_analytics/getNonFunctional/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
+    loadGraph(base_url, 'c_analytics/getORTFunctionality/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
+    //loadGraph(base_url, 'c_analytics/getORTCornerFunctionality/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#ort_reason');
    
     //Section 6 CH
     loadGraph(base_url, 'c_analytics/getCHEquipmentFrequency/' + criteria + '/' + value + '/' + survey + '/' + survey_category , '#equipment_availability');

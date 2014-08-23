@@ -908,8 +908,8 @@ ORDER BY fac_level;");
      * @return [type]            [description]
      */
     
-    public function getNonFunctional($criteria, $value, $survey, $survey_category) {
-        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'ort', 'response');
+    public function getORTCornerFunctionality($criteria, $value, $survey, $survey_category,$for, $statistic) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, $for, $statistic);
         $count = 0;
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
@@ -919,7 +919,7 @@ ORDER BY fac_level;");
         foreach ($results as $key => $value) {
             if ($count == 1):
                 $q[] = $key;
-                $yes[] = (int)$value['yes'];
+               	$yes[] = (int)$value['yes'];
                 $no[] = (int)$value['no'];
             endif;
             $count++;
@@ -927,11 +927,13 @@ ORDER BY fac_level;");
         
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
         
-        //echo "<pre>";print_r($resultArray);echo "</pre>";die;
+       //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     }
-    
+    public function getORTFunctionality($criteria, $value, $survey, $survey_category, $for, $statistic){
+    	$this->getORTCornerFunctionality($criteria, $value, $survey, $survey_category,'ort','response');
+    }
     /**
      * [getEquipmentStatistics description]
      * @param  [type] $criteria  [description]
@@ -1017,14 +1019,22 @@ ORDER BY fac_level;");
         }
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'column', (int)sizeof($category));
     }
-    public function getWaterStorage($criteria, $value, $survey, $survey_category,$for){
-    	$results = $this->m_analytics->getWaterStorage($criteria, $value, $survey, $survey_category,$for);
-		print_r($results);die;
-		foreach ($results as $key => $value) {
-			
-		}
-        $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
-    }
+   /* public function getStorageStatistics($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getStorageStatistics($criteria, $value, $survey, $survey_category, $for);
+        
+        //echo "<pre>"; print_r($results);echo "</pre>";die;
+       
+        foreach ($results as $key => $val) {
+            //echo "<pre>"; print_r($val);echo "</pre>";die;
+            $key = str_replace('_', ' ', $key);
+            $key = ucwords($key);
+            $key = str_replace(' ', '-', $key);
+            $resultArray[] = array('name' => $key, 'data' => $val);
+            
+            //echo "<pre>"; print_r($resultArray);echo "</pre>";die;
+         }
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 130, 'column');
+    }*/
     
     /**
      * [getResourcesStatistics description]
@@ -1117,7 +1127,7 @@ ORDER BY fac_level;");
         $this->getSuppliesStatistics($criteria, $value, $survey, $survey_category, 'mh', 'supplier');
     }
 	public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
-        $results = $this->m_analytics->getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic);
+		$results = $this->m_analytics->getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic);
         $commodities = $results['commodities'];
         switch ($statistic) {
             case 'consumption':
