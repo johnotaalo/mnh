@@ -69,7 +69,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
             district = encodeURIComponent(district);
             loadFacilities(base_url, district, survey, survey_category);
         }
-        getReportingData(base_url, survey, survey_category, '.reporting');
+        getReportingData(base_url, survey, survey_category, '#reporting');
         variableHandler('national', county, district, facility, survey, survey_category, indicator_type);
 
     });
@@ -183,6 +183,7 @@ function startAnalytics(base_url, county, survey, survey_category) {
 
 function loadSurvey(survey) {
     $('.analytics_row').hide();
+    $('#reporting-parent').show();
     $('.analytics_row[data-survey="' + survey + '"]').show();
 
     $.ajax({
@@ -193,8 +194,8 @@ function loadSurvey(survey) {
         success: function(data) {
             obj = jQuery.parseJSON(data);
             console.log(obj);
-            $('.sectionList').empty();
-            $('.sectionList').append(obj);
+            $('#sectionList').empty();
+            $('#sectionList').append(obj);
         }
     });
 }

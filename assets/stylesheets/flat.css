@@ -8789,12 +8789,12 @@ table td {
 }
 
 /* line 335, ../sass/flat.scss */
-.sectionList li a {
+#sectionList li a {
   padding: 5px 7.5px !important;
 }
 
 /* line 340, ../sass/flat.scss */
-.reporting {
+#reporting {
   overflow-y: auto;
   height: 300px;
   width: 97%;

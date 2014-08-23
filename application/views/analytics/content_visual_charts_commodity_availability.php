@@ -4,7 +4,7 @@
     }
 </style>
 <!-- BEGIN CHART PORTLET 1-->
-<div class="analytics_row" data-survey='ch' id="reporting-parent">
+<div class="analytics_row" id="reporting-parent">
    <div class="semi-large-graph">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
@@ -12,7 +12,7 @@
         <div class="portlet-body">
 
             <div class="chart">
-                <ul class="sectionList" data-offset-top="-300" >
+                <ul id="sectionList" data-offset-top="-300" >
 
                 </ul>
             </div>
@@ -23,12 +23,12 @@
             <h6 id="countyHeader"><i class="fa fa-map-marker"></i>County</h6>
             <h6 id="progressHeader" ><i class="fa fa-tasks"></i>National Reporting Progress</h6>
         </div>
-        <div class="reporting"></div>
+        <div id="reporting"></div>
     </div>
 
 </div>
 
-<div class="analytics_row section" data-survey='ch' id="section-1">
+<div class="analytics_row section" data-survey='ch' id="ch-section-1">
     <h4>Section 1 : Facility Information</h4>
     <div class="medium-graph" >
         <div class="portlet-title">
@@ -91,7 +91,7 @@
         </div>
     </div>
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-2">
+<div class="analytics_row section" data-survey='ch' id="ch-section-2">
     <h4>Section 2 : Guidelines, Job Aids and Tools</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -138,7 +138,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-3">
+<div class="analytics_row section" data-survey='ch' id="ch-section-3">
     <h4>Section 3 : Case Management</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -195,7 +195,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-4">
+<div class="analytics_row section" data-survey='ch' id="ch-section-4">
     <h4>Section 4 : Commodity & Bundling</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -273,7 +273,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-5">
+<div class="analytics_row section" data-survey='ch' id="ch-section-5">
     <h4>Section 5 : ORT Corner Assessment</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -310,7 +310,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-6">
+<div class="analytics_row section" data-survey='ch' id="ch-section-6">
     <h4>Section 6 :Equipment</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -347,7 +347,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-7">
+<div class="analytics_row section" data-survey='ch' id="ch-section-7">
     <h4>Section 7 : Supplies</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -382,7 +382,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='ch' id="section-8">
+<div class="analytics_row section" data-survey='ch' id="ch-section-8">
     <h4>Section 8 : Resources</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -417,7 +417,7 @@
 </div>
 <!--   MNH   -->
 
-<div class="analytics_row" data-survey='mnh' id="reporting-parent">
+<!-- <div class="analytics_row" data-survey='mnh' id="reporting-parent">
    <div class="semi-large-graph">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
@@ -439,9 +439,9 @@
         <div class="reporting"></div>
     </div>
 
-</div>
+</div> -->
 <!-- MNH Analytics Section-->
-<div class="analytics_row section" data-survey='mnh' id="section-1">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-1">
     <h4>Section 1 : Facility Information</h4>
     <div class="medium-graph" >
         <div class="portlet-title">
@@ -508,7 +508,7 @@
         </div>
         </div>
     </div>
-<div class="analytics_row section" data-survey='mnh' id="section-2">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-2">
     <h4>Section 2 : Facility Data And Maternal And Neotanal Service Delivery</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -639,7 +639,7 @@
         </div>
     </div>-->
 </div>
-<div class="analytics_row section" data-survey='mnh' id="section-3">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-3">
     <h4>Section 3 : Guidelines, Job Aid and Tools Availability</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -673,7 +673,7 @@
     </div>
 </div>
 
-<div class="analytics_row section" data-survey='mnh' id="section-4">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-4">
     <h4>Section 4: Staff Training</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -707,7 +707,7 @@
     </div>
 </div>
 
-<div class="analytics_row section" data-survey='mnh' id="section-5">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-5">
     <h4>Section 5 : Commodity Availability </h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -751,7 +751,7 @@
     </div>
 
 </div>
-<div class="analytics_row section" data-survey='mnh' id="section-6">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-6">
     <h4>Section 6 : Commodity  Usage</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -788,7 +788,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='mnh' id="section-7">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-7">
     <h4>Section 7 :Equipment Availability and Functionality</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -825,7 +825,7 @@
 
 
 </div>
-<div class="analytics_row section" data-survey='mnh' id="section-8">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-8">
     <h4>Section 8: Supplies</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -869,7 +869,7 @@
     </div>
 </div>
 
-<div class="analytics_row section" data-survey='mnh' id="section-9">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-9">
     <h4>Section 9 : Resources</h4>
     <div class="medium-graph">
         <div class="portlet-title">
@@ -937,7 +937,7 @@
 
 
 <!--</div>-->
-<div class="analytics_row section" data-survey='mnh' id="section-10">
+<div class="analytics_row section" data-survey='mnh' id="mnh-section-10">
     <h4>Section 10 : Community Strategy</h4>
     <div class="medium-graph">
         <div class="portlet-title">

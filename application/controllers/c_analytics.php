@@ -1232,7 +1232,7 @@ ORDER BY fac_level;");
                 break;
         }
         for ($x = 1; $x <= $sections; $x++) {
-            $sectionList.= '<li><a href="#section-' . $x . '">Section ' . $x . ' : ' . $sectionNames[$x - 1] . '</a></li>';
+            $sectionList.= '<li><a href="#'.$survey.'-section-' . $x . '">Section ' . $x . ' : ' . $sectionNames[$x - 1] . '</a></li>';
         }
         echo json_encode($sectionList);
     }
