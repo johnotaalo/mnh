@@ -9200,3 +9200,9 @@ a.disabled:hover {
   color: #333;
   cursor: hand;
 }
+
+/* line 696, ../sass/flat.scss */
+#graph {
+  height: 300px;
+  overflow: auto;
+}

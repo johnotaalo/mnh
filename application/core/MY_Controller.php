@@ -4756,7 +4756,7 @@ GROUP BY st_name,sc_name,facilityCode;";
      * @param  string  $type        [description]
      * @return [type]               [description]
      */
-    public function populateGraph($resultArray = '', $drilldown = '', $category = '', $criteria = '', $stacking = '', $margin = 0, $type = '', $resultSize = '') {
+    public function populateGraph($resultArray = '', $drilldown = '', $category = '', $criteria = '', $stacking = '', $margin = 0, $type = '', $resultSize = '',$stat='',$procedure='') {
         $datas = array();
         $chart_size = (count($category) < 5) ? 5 : count($category);
         $given_size = ($resultSize != '' && $resultSize < 5) ? 5 : $resultSize;
@@ -4782,6 +4782,8 @@ GROUP BY st_name,sc_name,facilityCode;";
                 //$datas['chart_width'] = 100;
                 break;
         }
+        $datas['statistic']=$stat;
+        $datas['procedure']=$procedure;
         $datas['chart_stacking'] = $stacking;
         $datas['color_scheme'] = ($stacking != '') ? array('#8bbc21', '#fb4347', '#92e18e', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a') : array('#66aaf7', '#f66c6f', '#8bbc21', '#910000', '#1aadce', '#492970', '#f28f43', '#77a1e5', '#c42525', '#a6c96a');
         $datas['chart_categories'] = $category;
@@ -4823,7 +4825,7 @@ GROUP BY st_name,sc_name,facilityCode;";
             //set table headers
             foreach ($data[0] as $title => $column) {
                 if ($pk != 0) {
-                    $titles[] = ucwords(str_replace('fac', 'facility', str_replace('_', ' ', $title)));
+                    $titles[] = ucwords(str_replace('lq','',str_replace('fac', 'facility', str_replace('_', ' ', $title))));
                 } else {
                     $primary_key = $title;
                 }

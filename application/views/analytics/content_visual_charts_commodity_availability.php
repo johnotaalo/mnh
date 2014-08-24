@@ -7,7 +7,7 @@
 <div class="analytics_row" id="reporting-parent">
    <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
+            <h6>Sections <i>(Click to Select a Section)</i></h6>
         </div>
         <div class="portlet-body">
 
@@ -32,7 +32,7 @@
     <h4>Section 1 : Facility Information</h4>
     <div class="medium-graph" >
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Ownership</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Ownership</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -42,7 +42,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Levels of Care</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -52,7 +52,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Facility Type</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -62,7 +62,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Training</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -72,7 +72,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -82,7 +82,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training & Retention in CH Unit</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Training & Retention in CH Unit</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -95,7 +95,7 @@
     <h4>Section 2 : Guidelines, Job Aids and Tools</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Guidelines</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -105,7 +105,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Job Aids</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -115,7 +115,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Tools</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -125,7 +125,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from Under 5 Register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Main Challenge in Accessing Data from Under 5 Register</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -142,7 +142,7 @@
     <h4>Section 3 : Case Management</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data From Under 5 Register</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Data From Under 5 Register</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -152,7 +152,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Treatment Options</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Treatment Options</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -162,7 +162,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Other Treatment Options</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Other Treatment Options</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -172,7 +172,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Danger Signs</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Danger Signs</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -199,7 +199,7 @@
     <h4>Section 4 : Commodity & Bundling</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -209,7 +209,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Unavailability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -219,7 +219,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -229,7 +229,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Supplier</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -240,7 +240,7 @@
     <!-- Bundling -->
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Bundling Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -250,7 +250,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Unavailability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Bundling Unavailability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -260,7 +260,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Bundling Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Bundling Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -277,7 +277,7 @@
     <h4>Section 5 : ORT Corner Assessment</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">ORT Corner Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -287,7 +287,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>ORT Corner Location</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">ORT Corner Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -297,7 +297,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons for Non-Functionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Reasons for Non-Functionality</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -314,7 +314,7 @@
     <h4>Section 6 :Equipment</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -324,7 +324,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Functionality<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Functionality</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -334,7 +334,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -351,7 +351,7 @@
     <h4>Section 7 : Supplies</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -361,7 +361,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -372,7 +372,7 @@
 
 	<div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Suppliers<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Suppliers</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 			<div class="chart" id="ch_suppliers">
@@ -386,7 +386,7 @@
     <h4>Section 8 : Resources</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -396,7 +396,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -406,7 +406,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Suppliers<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Suppliers</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -420,7 +420,7 @@
 <!-- <div class="analytics_row" data-survey='mnh' id="reporting-parent">
    <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Sections <i>(Click to Select a Section)</i></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Sections <i>(Click to Select a Section)</i></h6>
         </div>
         <div class="portlet-body">
 
@@ -445,7 +445,7 @@
     <h4>Section 1 : Facility Information</h4>
     <div class="medium-graph" >
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Ownership</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Facility Ownership</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -457,7 +457,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Levels of Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Levels of Care</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -467,7 +467,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Facility Type</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Facility Type</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -479,7 +479,7 @@
     </div>
      <div class="medium-graph">
            <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Health Facility Committees</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Health Facility Committees</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -489,7 +489,7 @@
         </div>
     <div class="medium-graph">
            <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Nurses and Beds</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Nurses and Beds</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -499,7 +499,7 @@
         </div>
         <div class="medium-graph">
            <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>24 Hour Service</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">24 Hour Service</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -512,7 +512,7 @@
     <h4>Section 2 : Facility Data And Maternal And Neotanal Service Delivery</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Data Deliveries</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Data Deliveries</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -522,7 +522,7 @@
     </div> 
         <div class="medium-graph">
            <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>CEmONC</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">CEmONC</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -534,7 +534,7 @@
     <div class="medium-graph">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>Blood Transfusion Reason not performed</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Blood Transfusion Reason not performed</span><span class="sizer">Click to Enlarge</span></h6>
 
         </div>
         <div class="portlet-body">
@@ -546,7 +546,7 @@
 
     <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Reasons For Not Conducting CS</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Reasons For Not Conducting CS</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -557,7 +557,7 @@
     <div class="medium-graph">
          <div class="portlet-title">
 
-            <h6><i class="fa fa-bar-chart-o"></i>HIV Testing and Counselling</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">HIV Testing and Counselling</span><span class="sizer">Click to Enlarge</span></h6>
 
         </div>
         <div class="portlet-body">
@@ -568,7 +568,7 @@
     </div>
     <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>New Born</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">New Born</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -578,7 +578,7 @@
     </div>
     <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Kangaroo Mother Care</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Kangaroo Mother Care</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -588,7 +588,7 @@
     </div>
     <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Delivery Preparedness</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Delivery Preparedness</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -598,7 +598,7 @@
     </div>
 <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Questions</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">BEmONC Questions</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -608,7 +608,7 @@
     </div>
     <div class="medium-graph">
          <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>BEmONC Reasons</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">BEmONC Reasons</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -620,7 +620,7 @@
 
     <!--<div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Tools</h6>
         </div>
         <div class="portlet-body">
 
@@ -630,7 +630,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Challenge in Accessing Data from u5 Region</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Main Challenge in Accessing Data from u5 Region</h6>
         </div>
         <div class="portlet-body">
 
@@ -643,7 +643,7 @@
     <h4>Section 3 : Guidelines, Job Aid and Tools Availability</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Guidelines</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Guidelines</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -653,7 +653,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Job Aids</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Job Aids</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -663,7 +663,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Tools Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Tools Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -677,7 +677,7 @@
     <h4>Section 4: Staff Training</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Availability</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -687,7 +687,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Retention</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Retention</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -697,7 +697,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Staff Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Staff Training</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -711,7 +711,7 @@
     <h4>Section 5 : Commodity Availability </h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -721,7 +721,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Unavailability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Unavailability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -731,7 +731,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -741,7 +741,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Supplier<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Supplier</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -755,7 +755,7 @@
     <h4>Section 6 : Commodity  Usage</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Commodity Consumption<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Commodity Consumption</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -765,7 +765,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Duration Of Unavailability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Duration Of Unavailability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -775,7 +775,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>What Happened when commodity was Unavailable<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">What Happened when commodity was Unavailable</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -792,7 +792,7 @@
     <h4>Section 7 :Equipment Availability and Functionality</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Equipment Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -802,7 +802,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Functionality<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Equipment Functionality</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -812,7 +812,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Equipment Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Equipment Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -829,7 +829,7 @@
     <h4>Section 8: Supplies</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Supplies Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -839,7 +839,7 @@
     </div>
     <!--<div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Fuctionality</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Supplies Fuctionality</h6>
         </div>
         <div class="portlet-body">
 
@@ -849,7 +849,7 @@
     </div>-->
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Supplies Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Supplies Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -859,7 +859,7 @@
     </div>
 	<div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Supplier<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Main Supplier</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -873,7 +873,7 @@
     <h4>Section 9 : Resources</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Availability<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Availability</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -883,7 +883,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Location<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Location</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -893,7 +893,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Storage<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Storage</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -903,7 +903,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Waste Disposal<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Waste Disposal</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -913,7 +913,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Main Source<span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Main Source</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -924,7 +924,7 @@
 </div>
     <!--div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Suppliers</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Suppliers</h6>
         </div>
         <div class="portlet-body">
 
@@ -941,7 +941,7 @@
     <h4>Section 10 : Community Strategy</h4>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Community Units</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Community Units</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -951,7 +951,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Referred Cases</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Referred Cases</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -961,7 +961,7 @@
     </div>
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>IMCI Training</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">IMCI Training</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
@@ -974,7 +974,7 @@
 <!--<div class="analytics_row" data-survey='mnh' id="reporting-parent">
     <div class="semi-large-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i>Sections</h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Sections</h6>
         </div>
         <div class="portlet-body">
 

@@ -10,7 +10,8 @@ function startAnalytics(base_url, county, survey, survey_category) {
     var extraStat;
     var criteria, value, stat_for, statistic, indicator_type;
     var countyClicked;
-
+    var rawUrl;
+    var procedure, statistic;
     criteria = value = stat_for = statistic = indicator_type = '';
     loadIndicatorTypes();
 
@@ -115,7 +116,29 @@ function startAnalytics(base_url, county, survey, survey_category) {
         }
 
     });
+    /**
+     * [description]
+     * @return {[type]} [description]
+     */
+    $('.sizer').click(function() {
+        graph_url = $(this).attr('data-url');
+        graph_text = $(this).attr('data-text');
+        procedure = $(this).attr('data-procedure');
 
+        statistic = $(this).attr('data-for');
+        if (county == 'Unselected') {
+            raw_url=setRawUrl('national',county, district, facility,survey, survey_category,statistic,procedure);
+        } else {
+            if (district == NULL) {
+                raw_url=setRawUrl('county',county, district, facility,survey, survey_category,statistic,procedure);
+            } else {
+                raw_url=setRawUrl('district',county, district, facility,survey, survey_category,statistic,procedure);
+            }
+
+        }
+        console.log(raw_url);
+        showEnlargedGraph(base_url, graph_url, graph_text, raw_url);
+    });
     //Change Event for District Select
     $('select#compare_1').change(function() {
         $("#graph_10").empty();
@@ -208,7 +231,7 @@ function loadSurvey(survey) {
  * @return {[type]}                 [description]
  */
 function getReportingData(base_url, survey_type, survey_category, container) {
-    progressRow='';
+    progressRow = '';
     $.ajax({
         url: base_url + 'c_analytics/getAllReportedCounties/' + survey_type + '/' + survey_category,
         beforeSend: function(xhr) {
@@ -222,9 +245,9 @@ function getReportingData(base_url, survey_type, survey_category, container) {
             $.each(obj, function(k, v) {
                 //alert(k);
                 county = '<label>' + v['county'] + '</label>';
-                progress = '<div class = "progress"><div class = "progress-bar" aria-valuenow = "' + v['percentage'] + '" aria-valuemax = "100" style="width:'+ v['percentage'] + '%;background:'+v['color']+'">' + v['percentage'] + '%</div></div>';
+                progress = '<div class = "progress"><div class = "progress-bar" aria-valuenow = "' + v['percentage'] + '" aria-valuemax = "100" style="width:' + v['percentage'] + '%;background:' + v['color'] + '">' + v['percentage'] + '%</div></div>';
                 progressRow += '<div class="progressRow">' + county + progress + '</div>';
-                alert (progressRow);
+                alert(progressRow);
             });
             $(container).empty();
             $(container).append(progressRow);
@@ -291,6 +314,46 @@ function indicatorHandler(criteria, value, survey, survey_category, indicator_ty
     loadGraph(base_url, 'c_analytics/getIndicatorComparison/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + indicator_type, '#indicator_comparison');
 }
 
+function setRawUrl(criteria,county, district, facility,survey, survey_category,statistic,procedure) {
+    alert(procedure);
+    var raw_url='';
+    switch (criteria) {
+        case 'national':
+            value = 'Aggegated';
+            break;
+        case 'county':
+            value = county;
+            break;
+        case 'district':
+            value = district;
+            break;
+        case 'facility':
+            value = facility;
+            break;
+
+    }
+    switch (procedure) {
+        case 'question':
+            raw_url = 'c_analytics/getQuestionRaw/' + criteria + '/' + value + '/' + survey + '/' + survey_category + '/' + statistic ;
+            break;
+    }
+    return raw_url;
+}
+
+// function setScope(criteria, county, district, facility, survey, survey_category) {
+
+// }
+
+function loadEnlargedGraph(base_url, graph_url, title, raw_url) {
+    contents = '<div class="row">' +
+        '<div class="semi-large-graph" id="graph"></div>' +
+        '<div class="semi-large-graph" id="table"></div>' +
+        '</div>';
+    loadModalForm(base_url, '', title, '80%', contents);
+    loadGraph(base_url, graph_url, '#graph');
+    loadFacilityRawData(base_url, raw_url, '#table');
+}
+
 function statisticsHandler(criteria, value, survey, survey_category, indicator_type) {
     switch (survey) {
         case 'mnh':
@@ -355,7 +418,7 @@ function statisticsHandler(criteria, value, survey, survey_category, indicator_t
 
             loadGraph(base_url, 'c_analytics/getMNHresourcesAvailability/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#mnhresource_availability');
             loadGraph(base_url, 'c_analytics/getMNHresourcesSupplier/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#mnhresource_mainSource');
-            loadGraph(base_url, 'c_analytics/getMNHResourcesLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#mnhresource_location');
+            loadGraph(base_url, 'c_analytics/getMNHResourceLocation/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#mnhresource_location');
             loadGraph(base_url, 'c_analytics/getWasteStatistics/' + criteria + '/' + value + '/' + survey + '/' + survey_category, '#mnhresource_wasteDisposal');
 
 

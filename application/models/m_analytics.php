@@ -4011,7 +4011,9 @@ ORDER BY question_code";
                             $data[$question][$value_['reason']] = $value_['total_response'];
                             break;
                             
-                            // $data[$question][]
+                        case 'response_raw':
+                            $data[]=$value_;
+                        break;
                             
                             
                     }
@@ -4208,7 +4210,7 @@ ORDER BY question_code";
             return $data;
         }
         
-        public function getResourceLocation($criteria, $value, $survey, $survey_category, $for) {
+        public function getResourcesLocation($criteria, $value, $survey, $survey_category, $for) {
             $value = urldecode($value);
             
             /*using CI Database Active Record*/

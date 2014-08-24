@@ -1544,7 +1544,7 @@ ORDER BY fac_level;");
      * @param  [type] $for      [description]
      * @return [type]           [description]
      */
-    public function getResourceLocation($criteria, $value, $survey, $survey_category, $for) {
+    public function getResourcesLocation($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getResorceLocation($criteria, $value, $survey, $survey_category, $for);
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
@@ -1622,10 +1622,15 @@ ORDER BY fac_level;");
             $no[] = (int)$value['no'];
         }
         $resultArray = array(array('name' => 'Yes', 'data' => $yes), array('name' => 'No', 'data' => $no));
-        
-        //print_r($resultArray);die;
         $category = $q;
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar','',$for,'question');
+    }
+    public function getQuestionRaw($criteria, $value, $survey, $survey_category, $for) {
+        $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, $for, 'response_raw');
+        
+        //echo "<pre>";print_r($results);echo "</pre>";die;
+        echo $this->generateData($results,'Question Statistics for'.ucwords($for).'('.$value.')','table');
+        
     }
     
     public function getBedStatistics($criteria, $value, $survey, $survey_category, $statistics) {
@@ -3254,7 +3259,7 @@ ORDER BY fac_level;");
             }
         }
         $resultArray[] = array('name' => 'Response', 'data' => $gData);
-        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 0, 'pie');
+        $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 0, 'pie','',$for,'question');
     }
     
     /**
