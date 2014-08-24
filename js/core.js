@@ -163,8 +163,9 @@ function loadGraph(base_url, function_url, graph_section) {
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-url', function_url);
-                $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-for', obj.statistic);
-                $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-procedure', obj.procedure);
+                $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-for', obj.data_for);
+                $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-parent', obj.data_parent);
+                $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-statistic', obj.statistics);
 graph_text=$(graph_section).parent().parent().find('.portlet-title h6 .graph-title').text();
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-text', graph_text);
                 runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme, obj.chart_label_rotation, obj.chart_legend_floating);
@@ -181,7 +182,7 @@ graph_text=$(graph_section).parent().parent().find('.portlet-title h6 .graph-tit
 }
 function loadFacilityRawData(base_url,function_url,container){
     $.ajax({
-        url: base_url + function_url,
+        url: base_url + function_url+'/table',
         beforeSend: function(xhr) {
            $(container).empty();
             $(container).append('<div class="loader" >Loading...</div>');
@@ -189,11 +190,18 @@ function loadFacilityRawData(base_url,function_url,container){
         success: function(data) {
              $(container).empty();
             $(container).append(data);
+            $(document).trigger('datatable_loaded');
+            $('#pdf').attr('data-url',base_url+function_url+'/pdf');
+            $('#excel').attr('data-url',base_url+function_url+'/excel');
         }
           
     });
-    
-        $('.dataTable').dataTable();
+$('h6.table-header > span > button').click(function(){
+        alert('clicked');
+        url = $(this).attr('data-url');
+        window.open(url);
+    });
+        
 }
 
 /**
@@ -613,11 +621,6 @@ function showEnlargedGraph(base_url,function_url,title,raw_url) {
         
         nxt();
     });
-    $('#universalModal').delay(4000, function(nxt) {
-         $('.dataTable').dataTable();
-        nxt();
-    });
-    
 }
 /**
  * [showAnalytics description]

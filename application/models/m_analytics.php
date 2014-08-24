@@ -488,25 +488,29 @@ ORDER BY lq.lq_response ASC";
 
                         case 'treatment':
                             $treatment_array = explode(',', $value['lt_treatments']);
+                            
                             //var_dump($treatment_array);
                             foreach ($treatment_array as $treatment) {
-                                $data[$value['treatment_for']][$value['treatment']][$this->getCommodityNameById($treatment)]+= (int)$value['total_treatment'];
+                                $data[$value['treatment_for']][$value['treatment']][$this->getCommodityNameById($treatment) ]+= (int)$value['total_treatment'];
                             }
                             break;
-                             case 'other_treatment':
+
+                        case 'other_treatment':
                             $treatment_array = explode(',', $value['lt_other_treatments']);
+                            
                             //var_dump($treatment_array);
                             foreach ($treatment_array as $treatment) {
-                                $data[$value['treatment_for']][$value['treatment']][$this->getChildHealthTreatmentName($treatment)]+= (int)$value['total_treatment'];
+                                $data[$value['treatment_for']][$value['treatment']][$this->getChildHealthTreatmentName($treatment) ]+= (int)$value['total_treatment'];
                             }
                             break;
                     }
                 }
-
+                
                 // echo "<pre>";
                 //             print_r($data);
                 //             echo "</pre>";
                 //             die;
+                
             }
         }
         catch(exception $ex) {
@@ -2566,7 +2570,7 @@ ORDER BY f.fac_county ASC;";
             
             //var_dump($reportingCounties);die;
             for ($x = 0; $x < sizeof($reportingCounties); $x++) {
-                $allData[$reportingCounties[$x]['county']] = $this->getReportingRatio($survey, $survey_category,$reportingCounties[$x]['county']);
+                $allData[$reportingCounties[$x]['county']] = $this->getReportingRatio($survey, $survey_category, $reportingCounties[$x]['county']);
             }
             
             //echo '<pre>';print_r($allData);echo '</pre>';
@@ -4010,12 +4014,12 @@ ORDER BY question_code";
                             $question = $this->getQuestionName($value_['questions']);
                             $data[$question][$value_['reason']] = $value_['total_response'];
                             break;
-                            
+
+                        case 'reason_raw':
                         case 'response_raw':
-                            $data[]=$value_;
-                        break;
-                            
-                            
+                        case 'total_raw':
+                            $data[] = $value_;
+                            break;
                     }
                 }
                 
@@ -4051,13 +4055,24 @@ ORDER BY question_code";
                 
                 foreach ($this->dataSet as $value_) {
                     
-                    //print_r($this->dataSet);die;
-                    $question = $this->getQuestionName($value_['question_code']);
-                    foreach ($value_ as $key => $v) {
-                        $data[$question][$key] = $v;
+                    switch ($statistics) {
+                        case 'response':
+                            $question = $this->getQuestionName($value_['question_code']);
+                            foreach ($value_ as $key => $v) {
+                                $data[$question][$key] = $v;
+                            }
+                            break;
+
+                        case 'reason':
+                            $question = $this->getQuestionName($value_['questions']);
+                            $data[$question][$value_['reason']] = $value_['total_response'];
+                            break;
                     }
+                    
                     unset($data[$question]['question_code']);
                 }
+                
+                //echo '<pre>';print_r($data);echo '</pre>';die;
                 
                 //die(var_dump($this->dataSet));
                 
