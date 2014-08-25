@@ -360,7 +360,7 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#county_progress .progress-bar').css('width', percentage + '%');
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
-            new_url = base_url + 'c_analytics/getCountyReportingSummary/' + survey + '/' + survey_category;
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/' +county+'/'+ survey + '/' + survey_category;
             $('#load_county_summary').attr('data-url', new_url);
         }
     });
