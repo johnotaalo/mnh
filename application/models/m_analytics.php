@@ -1675,7 +1675,6 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     foreach ($this->dataSet as $value) {
-                    	//echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['equipment_name']][$value['frequency']] = (int)$value['total_response'];
                         } else if (array_key_exists('location', $value)) {
@@ -2151,8 +2150,8 @@ LIMIT 0 , 1000
                             foreach ($location as $place) {
                                 $data[$value['resource_name']][$place]+= (int)$value['total_response'];
                             }
-
-                        }else if (array_key_exists('suppliers', $value)) {
+                        }
+                        if (array_key_exists('suppliers', $value)) {
                             $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
                         }
                     }
