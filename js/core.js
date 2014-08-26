@@ -160,13 +160,16 @@ function loadGraph(base_url, function_url, graph_section) {
             //console.log(data);
             obj = jQuery.parseJSON(data);
             $(graph_section).empty();
+            if (graph_section == '#MNHsupplies_location') {
+                console.log(obj.chart_series);
+            }
             if (obj.chart_series != null && obj.chart_series[0] != null) {
                 $(graph_section).append('<div id="' + obj.container + '" ></div>');
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-url', function_url);
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-for', obj.data_for);
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-parent', obj.data_parent);
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-statistic', obj.statistics);
-graph_text=$(graph_section).parent().parent().find('.portlet-title h6 .graph-title').text();
+                graph_text = $(graph_section).parent().parent().find('.portlet-title h6 .graph-title').text();
                 $(graph_section).parent().parent().find('.portlet-title h6 .sizer').attr('data-text', graph_text);
                 runGraph(obj.container, obj.chart_title, obj.chart_stacking, obj.chart_type, obj.chart_categories, obj.chart_series, obj.chart_drilldown, obj.chart_length, obj.chart_width, obj.chart_margin, obj.color_scheme, obj.chart_label_rotation, obj.chart_legend_floating);
             } else {
@@ -180,28 +183,29 @@ graph_text=$(graph_section).parent().parent().find('.portlet-title h6 .graph-tit
         }
     });
 }
-function loadFacilityRawData(base_url,function_url,container){
+
+function loadFacilityRawData(base_url, function_url, container) {
     $.ajax({
-        url: base_url + function_url+'/table',
+        url: base_url + function_url + '/table',
         beforeSend: function(xhr) {
-           $(container).empty();
+            $(container).empty();
             $(container).append('<div class="loader" >Loading...</div>');
         },
         success: function(data) {
-             $(container).empty();
+            $(container).empty();
             $(container).append(data);
             $(document).trigger('datatable_loaded');
-            $('#pdf').attr('data-url',base_url+function_url+'/pdf');
-            $('#excel').attr('data-url',base_url+function_url+'/excel');
+            $('#pdf').attr('data-url', base_url + function_url + '/pdf');
+            $('#excel').attr('data-url', base_url + function_url + '/excel');
         }
-          
+
     });
-$('h6.table-header > span > button').click(function(){
+    $('h6.table-header > span > button').click(function() {
         alert('clicked');
         url = $(this).attr('data-url');
         window.open(url);
     });
-        
+
 }
 
 /**
@@ -360,7 +364,7 @@ function getCountyData(base_url, county, survey_type, survey_category) {
             $('#county_progress .progress-bar').css('width', percentage + '%');
             url = base_url + 'c_analytics/setActive/' + county + '/' + survey_type + '/' + survey_category;
             $('#load_analytics').attr('data-url', url);
-            new_url = base_url + 'c_analytics/getCountyReportingSummary/' +county+'/'+ survey + '/' + survey_category;
+            new_url = base_url + 'c_analytics/getCountyReportingSummary/' + county + '/' + survey + '/' + survey_category;
             $('#load_county_summary').attr('data-url', new_url);
         }
     });
@@ -614,11 +618,11 @@ function showHelp(base_url) {
  * @param  {[type]} base_url [description]
  * @return {[type]}          [description]
  */
-function showEnlargedGraph(base_url,function_url,title,raw_url) {
+function showEnlargedGraph(base_url, function_url, title, raw_url) {
     $('#universalModal').modal('show');
     $('#universalModal').delay(2000, function(nxt) {
-        loadEnlargedGraph(base_url,function_url,title,raw_url);
-        
+        loadEnlargedGraph(base_url, function_url, title, raw_url);
+
         nxt();
     });
 }
@@ -665,7 +669,7 @@ function startIntro() {
 }
 $(document).ready(function() {
     var theclass;
-   
+
     //startIntro();
     $('.panel-collapse.collapse.in').parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-down');
     //Handling Collapses
@@ -711,6 +715,6 @@ $(document).ready(function() {
             "sPaginationType": "full_numbers"
         });
     });
-    
+
 
 });
