@@ -150,7 +150,7 @@
             </div>
         </div>
     </div>
-    <div class="medium-graph">
+   <!--  <div class="medium-graph">
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Treatment Options</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
@@ -159,14 +159,34 @@
             <div class="chart" id="treatment_options">
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="medium-graph">
         <div class="portlet-title">
-            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Other Treatment Options</span><span class="sizer">Click to Enlarge</span></h6>
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Diarrhoea</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
         <div class="portlet-body">
 
-            <div class="chart" id="other_treatment_options">
+            <div class="chart" id="other_treatment_options_dia">
+            </div>
+        </div>
+    </div>
+    <div class="medium-graph">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Pneumonia</span><span class="sizer">Click to Enlarge</span></h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="other_treatment_options_pne">
+            </div>
+        </div>
+    </div>
+    <div class="medium-graph">
+        <div class="portlet-title">
+            <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Malaria</span><span class="sizer">Click to Enlarge</span></h6>
+        </div>
+        <div class="portlet-body">
+
+            <div class="chart" id="other_treatment_options_fev">
             </div>
         </div>
     </div>
