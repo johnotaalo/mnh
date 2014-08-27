@@ -4,6 +4,7 @@
     }
 </style>
 <!-- BEGIN CHART PORTLET 1-->
+<div class="panel-group" id="accordion">
 <div class="analytics_row" id="reporting-parent">
    <div class="semi-large-graph">
         <div class="portlet-title">
@@ -28,9 +29,31 @@
 
 </div>
 
-<div class="analytics_row section" data-survey='ch' id="ch-section-1">
-    <h4>Section 1 : Facility Information</h4>
-    <div class="medium-graph" >
+
+  <!-- <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+          
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+           </div>
+    </div>
+  </div> -->
+  <div class="panel panel-default analytics_row section" data-survey='ch' id="ch-section-1">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+         Section 1 : Facility Information
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+<div class="medium-graph" >
         <div class="portlet-title">
             <h6><i class="fa fa-bar-chart-o"></i><span class="graph-title">Ownership</span><span class="sizer">Click to Enlarge</span></h6>
         </div>
@@ -90,7 +113,16 @@
             </div>
         </div>
     </div>
-</div>
+
+           </div>
+    </div>
+  </div>
+  
+
+<!-- <div class="analytics_row section" data-survey='ch' id="ch-section-1">
+    <h4>Section 1 : Facility Information</h4>
+    
+</div> -->
 <div class="analytics_row section" data-survey='ch' id="ch-section-2">
     <h4>Section 2 : Guidelines, Job Aids and Tools</h4>
     <div class="medium-graph">
@@ -434,6 +466,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--   MNH   -->
 

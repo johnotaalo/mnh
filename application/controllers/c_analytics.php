@@ -13,6 +13,9 @@ class C_Analytics extends MY_Controller
         
         
     }
+    public function index(){
+        redirect('analytics');
+    }
     public function submit_help() {
         var_dump($this->input->post());
     }

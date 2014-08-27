@@ -720,3 +720,25 @@ h6.table-header{
         }
     }
 }
+//Hijacking Panels
+.analytics_row{
+    border-top: 1px solid #ddd !important;
+    box-shadow: none !important;
+    .panel-heading{
+        border-top:1px solid #ddd;
+        background-color: #fff !important;
+        border:none;
+        h4.panel-title{
+            padding-left:0;
+            @extend .epsilon;
+            margin-bottom:5px !important;
+        }
+    }
+    .panel-collapse{
+        .panel-body{
+            border:none !important;
+            box-shadow: 0;
+        }
+    }
+
+}
