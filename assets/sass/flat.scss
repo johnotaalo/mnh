@@ -692,12 +692,12 @@ a.disabled:hover{
     //z-index:2000000000000000000000000;
 }
 //Resize Icons
-.sizer{
+.sizer, .show-collapse{
     float:right;
     color:#ccc;
     cursor:pointer;
 }
-.sizer:hover{
+.sizer:hover, .show-collapse:hover{
     color:#333;
     cursor:hand;
 }
@@ -719,4 +719,29 @@ h6.table-header{
             @extend .btn-xs;
         }
     }
+}
+//Hijacking Panels
+.analytics_row{
+    border-top: 1px solid #ddd !important;
+    box-shadow: none !important;
+    .panel-heading{
+        border-top:1px solid #ddd;
+        background-color: #fff !important;
+        border:none;
+        h4.panel-title{
+            padding-left:0;
+            @extend .epsilon;
+            margin-bottom:5px !important;
+            a{
+                text-decoration: none !important;
+            }
+        }
+    }
+    .panel-collapse{
+        .panel-body{
+            border:none !important;
+            box-shadow: 0;
+        }
+    }
+
 }

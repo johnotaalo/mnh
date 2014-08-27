@@ -8265,7 +8265,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* line 584, ../sass/typeplate/_typeplate.scss */
-.epsilon, h5, .statistic #county_name, h4 {
+.epsilon, h5, .statistic #county_name, h4, .analytics_row .panel-heading h4.panel-title {
   font-size: 21px;
   font-size: 1.1666666667rem;
   margin-bottom: 25.4571428571px;
@@ -9224,14 +9224,14 @@ a.disabled:hover {
 }
 
 /* line 695, ../sass/flat.scss */
-.sizer {
+.sizer, .show-collapse {
   float: right;
   color: #ccc;
   cursor: pointer;
 }
 
 /* line 700, ../sass/flat.scss */
-.sizer:hover {
+.sizer:hover, .show-collapse:hover {
   color: #333;
   cursor: hand;
 }
@@ -9255,4 +9255,30 @@ h6.table-header span {
 /* line 715, ../sass/flat.scss */
 h6.table-header span button {
   margin-left: 5px;
+}
+
+/* line 724, ../sass/flat.scss */
+.analytics_row {
+  border-top: 1px solid #ddd !important;
+  box-shadow: none !important;
+}
+/* line 727, ../sass/flat.scss */
+.analytics_row .panel-heading {
+  border-top: 1px solid #ddd;
+  background-color: #fff !important;
+  border: none;
+}
+/* line 731, ../sass/flat.scss */
+.analytics_row .panel-heading h4.panel-title {
+  padding-left: 0;
+  margin-bottom: 5px !important;
+}
+/* line 735, ../sass/flat.scss */
+.analytics_row .panel-heading h4.panel-title a {
+  text-decoration: none !important;
+}
+/* line 741, ../sass/flat.scss */
+.analytics_row .panel-collapse .panel-body {
+  border: none !important;
+  box-shadow: 0;
 }

@@ -1734,7 +1734,9 @@ ORDER BY oa.question_code ASC";
             
             return $data;
         }
-        public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
+
+        public function getCommodityUsageOptions($criteria, $value, $survey, $survey_category, $for, $statistic) {
+        	
             $value = urldecode($value);
             $newData = array();
             
@@ -1744,8 +1746,9 @@ ORDER BY oa.question_code ASC";
             //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
             
             $query = "CALL get_commodity_usage('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "','" . $statistic . "');";
+            //echo $query;die;
             try {
-                $queryData = $this->db->query($query, array($value));
+                $queryData = $this->db->query($query);
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
                 
@@ -1766,13 +1769,15 @@ ORDER BY oa.question_code ASC";
                             $data['commodities'][] = $commodity['commName'];
                         }
                     }
-                    $commodityOptions = $this->getCommodityUsageOptions();
+
+                    $commodityOptions = $this->getCommodityUsageOptionsList();
                     foreach ($commodityOptions as $option) {
                         $data['commodity_options'][$option['cooId']] = $option['cooDescription'];
                     }
+                     //echo "<pre>";print_r($data);echo "</pre>";die;
                 }
                 
-                //echo "<pre>";print_r($commodityOptions);echo "</pre>";die;
+                //echo "<pre>";print_r($data);echo "</pre>";die;
                 
                 
             }
@@ -1906,7 +1911,7 @@ ORDER BY oa.question_code ASC";
                 //echo($this->db->last_query());die;
                 if ($this->dataSet !== NULL) {
                     
-                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    // echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                     foreach ($this->dataSet as $value) {
                         if (array_key_exists('frequency', $value)) {
                             $data[$value['supply_name']][$value['frequency']] = (int)$value['total_response'];
@@ -1922,35 +1927,36 @@ ORDER BY oa.question_code ASC";
                             $data[$value['supply_name']][$value['supplier_code']] = (int)$value['total_response'];
                         }
                     }
-                    
+                     //echo "<pre>";print_r($data);echo "</pre>";die;
                     /**
                      * Fix Data
                      */
-                    switch ($survey) {
-                        case 'mnh':
-                            $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
-                            break;
+                    // switch ($survey) {
+                    //     case 'mnh':
+                    //         $location = array('Delivery room', 'Store', 'Pharmacy', 'Other');
+                    //         break;
 
-                        case 'ch':
-                            $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
-                            break;
+                    //     case 'ch':
+                    //         $location = array('MCH', 'OPD', 'Ward', 'Other', 'U5 Clinic');
+                    //         break;
 
-                        default:
-                            $location = array();
-                            break;
-                    }
-                    if ($statistic == 'location') {
-                        foreach ($data as $key => $value) {
-                            foreach ($location as $place) {
-                                if (array_key_exists($place, $value) == false) {
-                                    $newData[$key][$place] = 0;
-                                } else {
-                                    $newData[$key][$place] = $value[$place];
-                                }
-                            }
-                        }
-                        $data = $newData;
-                    }
+                    //     default:
+                    //         $location = array();
+                    //         break;
+                    // }
+                    // if ($statistic == 'location') {
+                    //     foreach ($data as $key => $value) {
+                    //         foreach ($location as $place) {
+                    //             if (array_key_exists($place, $value) == false) {
+                    //                 $newData[$key][$place] = 0;
+                    //             } else {
+                    //                 $newData[$key][$place] += $value[$place];
+                    //             }
+                    //         }
+                    //     }
+                    //     $data = $newData;
+                    // }
+                     //echo "<pre>";print_r($data);echo "</pre>";die;
                 }
             }
             catch(exception $ex) {
@@ -2146,13 +2152,14 @@ LIMIT 0 , 1000
                         } else if (array_key_exists('location', $value)) {
                             $location = explode(',', $value['location']);
                             foreach ($location as $place) {
-                                $data[$value['resource_name']][$place]+= (int)$value['total_response'];
+                                $data[$this->getCHEquipmentName($value['equipment'])][$place]+= (int)$value['total_response'];
                             }
                         }
                         if (array_key_exists('suppliers', $value)) {
                             $data[$value['resource_name']][$value['suppliers']] = (int)$value['total_response'];
                         }
                     }
+                    echo "<pre>";print_r($data);echo "</pre>";die;
                     
                     /**
                      * Fix Data
@@ -4089,6 +4096,57 @@ ORDER BY question_code";
             // var_dump($data);die;
             return $data;
         }
+	/*	public function getStorageStatistics($criteria, $value, $survey, $survey_category) {
+            
+        $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+          /*  $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_storage_statistics('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','mnhw');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    foreach ($this->dataSet as $value) {
+                        //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                        if (array_key_exists('lq_specified_or_follow_up', $value)) {
+                            $data[$value['lq_specified_or_follow_up']] = (int)$value['total_response'];
+                        }
+                    }
+                    
+                    /**
+                     * Fix Data
+                     */
+                    
+                    
+              /*  } else {
+                    return null;
+                }
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                
+                
+            }
+            catch(exception $ex) {
+                
+                //ignore
+                //die($ex->getMessage());//exit;
+                
+                
+            }
+            
+            return $data;
+        }*/
         public function getSupplyLocation($criteria, $value, $survey, $survey_category, $for) {
             $value = urldecode($value);
             
@@ -4163,7 +4221,60 @@ ORDER BY question_code";
             
             return $data;
         }
+            public function getCommodityUsage($criteria, $value, $survey, $survey_category, $for, $statistic) {
+            $value = urldecode($value);
+            $newData = array();
+            
+            /*using CI Database Active Record*/
+            $data = $data_set = $data_series = $analytic_var = $data_categories = array();
+            
+            //data to hold the final data to relayed to the view,data_set to hold sets of data, analytic_var to hold the analytic variables to be used in the data_series,data_series to hold the title and the json encoded sets of the data_set
+            
+            $query = "CALL get_commodity_usage('" . $criteria . "','" . $value . "','" . $survey . "','" . $survey_category . "','" . $for . "','" . $statistic . "');";
+            try {
+                $queryData = $this->db->query($query, array($value));
+                $this->dataSet = $queryData->result_array();
+                $queryData->next_result();
+                
+                // Dump the extra resultset.
+                $queryData->free_result();
+                
+                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                //echo($this->db->last_query());die;
+                if ($this->dataSet !== NULL) {
+                    
+                    //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                    foreach ($this->dataSet as $value) {
+                        $data['data'][] = $value;
+                    }
+                    $commodities = $this->getAllCommodityNames();
+                    foreach ($commodities as $commodity) {
+                        if ($commodity['commFor'] == $for) {
+                            $data['commodities'][] = $commodity['commName'];
+                        }
+                    }
+                    $commodityOptions = $this->getCommodityUsageOptions();
+                    foreach ($commodityOptions as $option) {
+                         $data['commodity_options'][$option['cooId']] = $option['cooDescription'];
+                    }
+                   
+                }
+                
+                //echo "<pre>";print_r($commodityOptions);echo "</pre>";die;
+                
+            }
         
+        
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        return $data;
+    }
         public function getEquipmentLocation($criteria, $value, $survey, $survey_category, $for) {
             $value = urldecode($value);
             
@@ -4239,7 +4350,7 @@ ORDER BY question_code";
                 $this->dataSet = $queryData->result_array();
                 $queryData->next_result();
                 
-                //echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
+                echo "<pre>";print_r($this->dataSet);echo "</pre>";die;
                 // Dump the extra resultset.
                 $queryData->free_result();
                 $pharmacyvalue = 0;
