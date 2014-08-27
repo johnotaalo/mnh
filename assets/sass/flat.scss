@@ -692,12 +692,12 @@ a.disabled:hover{
     //z-index:2000000000000000000000000;
 }
 //Resize Icons
-.sizer{
+.sizer, .show-collapse{
     float:right;
     color:#ccc;
     cursor:pointer;
 }
-.sizer:hover{
+.sizer:hover, .show-collapse:hover{
     color:#333;
     cursor:hand;
 }
@@ -732,6 +732,9 @@ h6.table-header{
             padding-left:0;
             @extend .epsilon;
             margin-bottom:5px !important;
+            a{
+                text-decoration: none !important;
+            }
         }
     }
     .panel-collapse{

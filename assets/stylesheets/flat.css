@@ -9224,14 +9224,14 @@ a.disabled:hover {
 }
 
 /* line 695, ../sass/flat.scss */
-.sizer {
+.sizer, .show-collapse {
   float: right;
   color: #ccc;
   cursor: pointer;
 }
 
 /* line 700, ../sass/flat.scss */
-.sizer:hover {
+.sizer:hover, .show-collapse:hover {
   color: #333;
   cursor: hand;
 }
@@ -9273,7 +9273,11 @@ h6.table-header span button {
   padding-left: 0;
   margin-bottom: 5px !important;
 }
-/* line 738, ../sass/flat.scss */
+/* line 735, ../sass/flat.scss */
+.analytics_row .panel-heading h4.panel-title a {
+  text-decoration: none !important;
+}
+/* line 741, ../sass/flat.scss */
 .analytics_row .panel-collapse .panel-body {
   border: none !important;
   box-shadow: 0;
