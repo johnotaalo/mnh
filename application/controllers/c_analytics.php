@@ -1088,8 +1088,36 @@ ORDER BY fac_level;");
 
     }
 
-    public function getCountyReportingSummary($survey, $survey_category) {
-        $results = $this->m_analytics->getCountyReportingSummary($survey, $survey_category);
+    public function getTargetedFacilityList($survey, $survey_category, $county)
+    {
+        $county = urldecode($county);
+        $this->db->select('*')->from('facilities');
+        $this->db->where('fac_county = "'.$county.'"');
+        $this->db->order_by('fac_county ASC')->order_by('fac_district ASC');
+        $results = $this->db->get();
+        //var_dump($results->result_array());
+        $tmpl = array('table_open' => '<div class="table-container"><table border="0" cellpadding="4" cellspacing="0" class="table table-condensed table-striped table-bordered table-hover dataTable">', 'heading_row_start' => '<tr>', 'heading_row_end' => '</tr>', 'heading_cell_start' => '<th>', 'heading_cell_end' => '</th>', 'row_start' => '<tr>', 'row_end' => '</tr>', 'cell_start' => '<td>', 'cell_end' => '</td>', 'row_alt_start' => '<tr>', 'row_alt_end' => '</tr>', 'cell_alt_start' => '<td>', 'cell_alt_end' => '</td>', 'table_close' => '</table></div>');
+
+        $this->table->set_template($tmpl);
+
+        //set table headers
+        $this->table->set_heading('Facility Name','Facility Level','Facility Type','District','County');
+        foreach ($results->result_array() as $result) {
+            $facilityName=$result['fac_name'];
+            $facilityLevel=$result['fac_level'];
+            $facilityType=$result['fac_type'];
+            $facilityDistrict=$result['fac_district'];
+            $facilityCounty=$result['fac_county'];
+
+            $this->table->add_row($facilityName,$facilityLevel,$facilityType,$facilityDistrict,$facilityCounty);
+        }
+        $activity_table = $this->table->generate();
+        echo $activity_table;
+     }
+
+    public function getCountyReportingSummary($survey, $survey_category, $county) {
+        $county = urldecode($county);
+        $results = $this->m_analytics->getCountyReportingSummary($survey, $survey_category, $county);
         $data['title'] = array('Facility MFL', 'Facility Name', 'Facility Ownership', 'Facility Type', 'Facility Level', 'Facility District', 'Facility County');
 
         //echo "<pre>"; print_r($titles);echo "</pre>";
@@ -3116,10 +3144,133 @@ ORDER BY fac_level;");
         echo json_encode($datas);
     }
 
-    public function getCountyData($county, $survey_type, $survey_category) {
-
+    public function getCountyData($county, $survey_type, $survey_category, $toggle) {
         $county = urldecode($county);
-        $results = $this->m_analytics->getReportingRatio($county, $survey_type, $survey_category);
+        $results = $this->m_analytics->getReportingRatio($county, $survey_type, $survey_category, $toggle);
         echo json_encode($results);
     }
+
+    public function getFacilityListing($survey_type, $survey_category, $county, $datasort)
+    {
+        $data = array();
+        $county = urldecode($county);
+        $facilities = $this->m_analytics->getSelectedCountyFacilities($county);
+        $results = $this->m_analytics->getFacilityListing($survey_type, $survey_category, $county);
+        // echo "<pre>";print_r($results);echo "</pre>";die;
+        $counter = 0;
+        if($datasort == 'not-started')
+        {
+            $data = $facilities;
+        }
+        else
+        {
+        foreach ($results as $key => $value) {
+                if($datasort == 'finished'){        
+                        if($survey_category == "baseline")
+                        {
+                            $current_section = $value['current_section'];
+                            if ($survey_type == "mnh" && $current_section == 'section-7') {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "ch" && $current_section == 'section-9')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "hcw" && $current_section == 'section-4')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+                        }
+                        else if($survey_category == "mid-term")
+                        {
+                            $current_section = $value['current_section'];
+                            if ($survey_type == "mnh" && $current_section == 'section-8') {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "ch" && $current_section == 'section-9')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "hcw" && $current_section == 'section-4')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+                        }
+
+                        else if($survey_category == "end-term")
+                        {
+                            $current_section = $value['current_section'];
+                            if ($survey_type == "mnh" && $current_section == 'section-8') {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "ch" && $current_section == 'section-9')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+
+                            else if($survey_type == "hcw" && $current_section == 'section-4')
+                            {
+                                $data[$value['Facility MFL']] = $value;
+                                $counter++;
+                            }
+                        }
+                }
+
+                else if ($datasort == 'not-finished') {
+                    if($survey_category == "baseline")
+                    {
+                        $current_section = $value['current_section'];
+                        if ($survey_type == "mnh" && $current_section != 'section-8') {
+                            $data[$value['Facility MFL']] = $value;
+                            $counter++;
+                        }
+
+                        else if($survey_type == "ch" && $current_section != 'section-9')
+                        {
+                            $data[$value['Facility MFL']] = $value;
+                            $counter++;
+                        }
+
+                        else if($survey_type == "hcw" && $current_section != 'section-4')
+                        {
+                            $data[$value['Facility MFL']] = $value;
+                            $counter++;
+                        }
+                    }
+                }
+            }
+        }
+        $tmpl = array('table_open' => '<div class="table-container"><table border="0" cellpadding="4" cellspacing="0" class="table table-condensed table-striped table-bordered table-hover dataTable">', 'heading_row_start' => '<tr>', 'heading_row_end' => '</tr>', 'heading_cell_start' => '<th>', 'heading_cell_end' => '</th>', 'row_start' => '<tr>', 'row_end' => '</tr>', 'cell_start' => '<td>', 'cell_end' => '</td>', 'row_alt_start' => '<tr>', 'row_alt_end' => '</tr>', 'cell_alt_start' => '<td>', 'cell_alt_end' => '</td>', 'table_close' => '</table></div>');
+
+        $this->table->set_template($tmpl);
+
+        //set table headers
+        $this->table->set_heading('Facility Name','Facility Level','Facility Type','District','County');
+
+        foreach ($data as $key => $value) {
+            $facilityName=$value['Facility Name'];
+            $facilityLevel=$value['Facility Level'];
+            $facilityType=$value['Facility Type'];
+            $facilityDistrict=$value['Facility District'];
+            $facilityCounty=$value['Facility County'];
+
+            $this->table->add_row($facilityName,$facilityLevel,$facilityType,$facilityDistrict,$facilityCounty);            
+        }
+        $activity_table = $this->table->generate();
+        echo $activity_table;
+    }
+
 }

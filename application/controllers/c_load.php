@@ -5,6 +5,7 @@ class C_Load extends MY_Controller {
     public function __construct() {
         parent::__construct();
         //print var_dump($this->tValue); exit;
+        // var_dump($this->session->userdata);die;
         $this -> rows = '';
         $this -> combined_form;
 
@@ -2516,7 +2517,8 @@ If YES to all, consider HCW for TOT and Mentorship Training
         <p class="message success">
             <th colspan="22" >' . strtoupper($this -> session -> userdata('dName')) . ' DISTRICT/SUB-COUNTY FACILITIES</th>
             <p>
-        <table class="centre dataTable">
+            <table class = "center"><tr><th>Targeted Facilities</th><th>Finished Reporting</th><th>Started but not finished</th><th>Not Started At All</th><th>Reporting Progress</th></tr><tr><td><span id = "targeted"></span></td><td><span id = "finished"></span></td><td><span id = "not-finished"></span></td><td><span id = "not-started"></span></td><td><span id = "county_progress"><div class = "progress" style = "width: 300px;"><div class = "progress-bar" aria-valuenow = "0" aria-valuemax = "100" >0%</div></div></span></td></tr>';
+        $this -> facilityList .= '</table><table class="centre dataTable">
 
 <thead>
             <th>#</th>

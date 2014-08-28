@@ -21,8 +21,12 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
         var devices='';
         var fac_mfl = fac_county = fac_district = '';
         var base_url = '<?php echo base_url(); ?>';
+        var survey = '<?php echo $this->session->userdata("survey"); ?>';
+        var survey_category = '<?php echo $this->session->userdata("survey_category"); ?>';
+        var county = '<?php echo $this->session->userdata("county"); ?>';
+        var district = '<?php echo $this->session->userdata("district"); ?>';
 
-
+        getDistrictData(base_url, district, survey, survey_category);
         //start of close_opened_form click event
         $("#close_opened_form").click(function() {
 
@@ -34,7 +38,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
             });
         });/*end of close_opened_form click event
 
-                    /*----------------------------------------------------------------------------------------------------------------*/
+        
+        /*----------------------------------------------------------------------------------------------------------------*/
 
         /*start of loadGlobalJS*/
         var onload_queue = [];
@@ -1077,8 +1082,26 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                       );
 
             }//--end of function break_form_to_steps(form_id)
-
-
+            function getDistrictData(base_url, county, survey_type, survey_category) {
+            $.ajax({
+                url: base_url + 'c_analytics/getCountyData/' + county + '/' + survey_type + '/' + survey_category + '/table',
+                beforeSend: function(xhr) {
+                    xhr.overrideMimeType("text/plain; charset=x-user-defined");
+                },
+                success: function(data) {
+                    obj = jQuery.parseJSON(data);
+                    console.log(obj);
+                    $('#targeted').text(obj[0].actual);
+                    $('#finished').text(obj[0].reported);
+                    $('#not-finished').text((obj[0].actual)-(obj[0].reported));
+                    $('#not-started').text(obj[0].notstarted);
+                    var percentage = Math.round((obj[0].reported / obj[0].actual * 100), 2);
+                    $('#county_progress .progress-bar').text(percentage + '%');
+                    $('#county_progress .progress-bar').attr('aria-valuenow', percentage);
+                    $('#county_progress .progress-bar').css('width', percentage + '%');
+                }
+            });
+        }
 
             function check(el)
             {

@@ -271,8 +271,6 @@ class M_MNH_Survey extends MY_Model
 
         //$this->getAllGovernmentOwnedFacilitiesByDistrict($district);
         $options = $this->getAllFacilitiesByDistrictOptions($district);
-
-        //var_dump($options);
         foreach ($options as $option) {
             $myOptions.= '<option value=' . $option['fac_mfl'] . '>' . $option['fac_name'] . '</option>';
         }

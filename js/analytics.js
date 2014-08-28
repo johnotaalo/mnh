@@ -188,7 +188,6 @@ function loadSurvey(survey) {
     });
 }
 function loadProgress(survey,survey_category) {
-
     $.ajax({
         url: base_url + 'c_analytics/getAllReportedCounties/' +survey+'/'+survey_category,
         beforeSend: function(xhr) {

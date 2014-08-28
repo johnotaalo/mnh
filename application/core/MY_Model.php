@@ -86,7 +86,6 @@ $this->session->set_userdata($data);
             $this -> districtFacilities -> setParameter('district', $districtName);
 
             $this -> districtFacilities = $this -> districtFacilities -> getArrayResult();
-            //var_dump($this -> districtFacilities);die;
         } catch(exception $ex) {
             //ignore
             //die($ex->getMessage());

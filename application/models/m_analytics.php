@@ -26,8 +26,8 @@ class M_Analytics extends MY_Model
         $this->dataSet = $this->query = null;
     }
     
-    public function getCountyReportingSummary($survey, $survey_category) {
-        
+    public function getCountyReportingSummary($survey, $survey_category, $county) {
+        $county = urldecode($county);
         /* using CI database active record*/
         try {
             $query = "SELECT 
@@ -42,7 +42,7 @@ class M_Analytics extends MY_Model
                         survey_types st ON st.st_id = ss.st_id AND st.st_name = '" . $survey . "'
                            JOIN
                         survey_categories sc ON sc.sc_id = ss.sc_id AND sc.sc_name = '" . $survey_category . "'
-                        WHERE ast.ast_section = 'section-6'
+                        WHERE ast.ast_section = 'section-6' AND f.fac_county = '". $county ."'
                     ORDER BY f.fac_county , f.fac_district";
             
             $this->dataSet = $this->db->query($query, array($survey));
@@ -2511,7 +2511,7 @@ ORDER BY f.fac_county ASC;";
         return $allData;
     }
     
-    function getReportingRatio($county, $survey, $survey_category) {
+    function getReportingRatio($county, $survey, $survey_category, $toggle) {
         
         /*using DQL*/
         
@@ -2519,7 +2519,7 @@ ORDER BY f.fac_county ASC;";
         
         try {
             
-            $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '");';
+            $query = 'CALL get_reporting_ratio("' . $survey . '","' . $survey_category . '","' . $county . '", "'.$toggle.'");';
             $myData = $this->db->query($query);
             $finalData = $myData->result_array();
             
@@ -2619,9 +2619,8 @@ ORDER BY f.fac_county ASC;";
             $countyName = $county['countyName'];
             
             //$countyName=str_replace("'","", $countyName);
-            $myData[$countyName] = array($this->getReportingRatio($countyName, $survey, $survey_category), $county['countyFusionMapId'], $countyName);
+            $myData[$countyName] = array($this->getReportingRatio($countyName, $survey, $survey_category, 'list'), $county['countyFusionMapId'], $countyName);
         }
-        
         return $myData;
     }
     
@@ -4495,5 +4494,63 @@ ORDER BY fac_county , fac_district , fac_name;";
         }
         return $this->dataSet;
     }
+
+    public function getSelectedCountyFacilities($county)
+    {
+        $query = "CALL get_county_facilities('".$county."');";
+
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            foreach ($this->dataSet as $value_) {
+                $data[$value_['Facility MFL']] = $value_;
+            }
+            
+            // echo '<pre>';print_r($this->dataSet);echo '</pre>';die;
+            //echo($this->db->last_query());die;
+        }
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        // echo '<pre>';print_r($data);echo '</pre>';die;
+        return $data;
+    } 
+
+    public function getFacilityListing($survey, $survey_category, $county)
+    {
+        $query = "CALL get_facility_listing('" . $survey . "', '" . $survey_category . "', '" . $county . "');";
+        
+        try {
+            $queryData = $this->db->query($query, array($value));
+            $this->dataSet = $queryData->result_array();
+            $queryData->next_result();
+            
+            // Dump the extra resultset.
+            $queryData->free_result();
+            $category = array();
+            
+            // echo '<pre>';print_r($this->dataSet);echo '</pre>';die;
+            //echo($this->db->last_query());die;
+            $data = $this->dataset;
+        }
+        catch(exception $ex) {
+            
+            //ignore
+            //die($ex->getMessage());//exit;
+            
+            
+        }
+        
+        // echo '<pre>';print_r($this->dataSet);echo '</pre>';die;
+        return $this->dataSet;
+    } 
 }
 
