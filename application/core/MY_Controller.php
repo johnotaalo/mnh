@@ -534,7 +534,7 @@ $this->write_counties();
         $survey = $this->session->userdata('survey');
         switch ($survey) {
             case 'mnh':
-                $locations = array('Delivery room', 'Pharmacy', 'Store', 'Other');
+                $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Pharmacy', 'Store', 'Other');
                 break;
 
             case 'ch':
@@ -622,7 +622,7 @@ $this->write_counties();
     </tr>';
         }
         
-        //echo $this->commodityAvailabilitySection['bun'];die;
+       // echo $this->commodityAvailabilitySection['mnh'];die;
         
         return $this->commodityAvailabilitySection;
     }
@@ -3100,7 +3100,7 @@ $this->write_counties();
             } else {
                 $unit = '';
             }
-            $this->commodityUsageAndOutageSection.= '<tr>
+            $this->commodityUsageAndOutageSection[$value["commFor"]].= '<tr>
             <td style="width:200px;">' . $value['commName'] . ' </td><td >' . $unit . ' </td>
             <td >
             <input name="usocUsage_' . $counter . '" type="text" size="5" class="cloned numbers"/>
@@ -3108,10 +3108,10 @@ $this->write_counties();
             <td>
             <select name="usocTimesUnavailable_' . $counter . '" id="usocTimesUnavailable_' . $counter . '" class="cloned">
                 <option value="" selected="selected">Select One</option>
-                <option value="Once">a. Once</option>
-                <option value="2-3">b. 2-3 </option>
-                <option value="5-5">c. 4-5 </option>
-                <option value="more than 5">d. more than 5 </option>
+                <option value="Once">a. 1 week</option>
+                <option value="2-3">b. 2 weeks</option>
+                <option value="5-5">c. 1 month</option>
+                <option value="more than 5">d. more than 1 month</option>
 
             </select></td>
 
@@ -3136,7 +3136,7 @@ $this->write_counties();
         </tr>';
         }
         
-        //echo $this->commodityUsageAndOutageSection;die;
+        // echo $this->commodityUsageAndOutageSection['mnh'];die;
         return $this->commodityUsageAndOutageSection;
     }
     
@@ -3765,7 +3765,7 @@ $this->write_counties();
             $this->global_counter = $counter;
         }
         
-        //echo $this->commodityUsageAndOutageSection;die;
+        //print_r ($this->equipmentsSection);die;
         return $this->equipmentsSection;
     }
     
