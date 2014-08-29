@@ -2988,7 +2988,7 @@ $this->write_counties();
             }
         }
         
-        // var_dump($this->mchSupplies['ch']);die;
+        // var_dump($this->mchSupplies);die;
         return $this->mchSupplies;
     }
     
