@@ -64,6 +64,7 @@ class C_Load extends MY_Controller {
      * @return [type]                  [description]
      */
     public function startSurvey($survey_type,$survey_category,$fac_mfl,$survey_year){
+
         $result          =$this->db->get_where('survey_types',array('st_name'=>$survey_type));
         $result          =$result->result_array();
         $survey_type     =$result[0]['st_id'];
@@ -73,7 +74,7 @@ class C_Load extends MY_Controller {
         $survey_category =$result[0]['sc_id'];
 
         $data  =array('ss_year'=>$survey_year,'st_id'=>$survey_type,'sc_id'=>$survey_category,'fac_id'=>$fac_mfl);
-
+//echo '<pre>';print_r($data);echo '</pre>';die;
         $count =$this->checkifExists($data,'survey_status');
         if($count==0){
             $this->db->insert('survey_status',$data);
@@ -573,7 +574,7 @@ class C_Load extends MY_Controller {
     <table  class="centre persist-area" >
     <thead>
 
-            <th colspan="13">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+            <th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 
         </thead>
         <tr>
@@ -585,7 +586,7 @@ class C_Load extends MY_Controller {
             <th rowspan="2">
                 Main Reason For  Unavailability
             </th>
-            <th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+            <th colspan="6" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
             <th colspan="2">Available Quantities</th>
 
 
@@ -593,9 +594,11 @@ class C_Load extends MY_Controller {
         <tr >
             <th >Available</th>
             <th>Not Available</th>
-            <th>Delivery room</th>
+            <th>OPD</th>
+            <th>MCH</th>
+            <th>U5 Clinic</th>
+            <th>Ward</th>
             <th>Pharmacy</th>
-            <th>Store</th>
             <th>Other</th>
             <th>Not Applicable</th>
             <th><div style="width:100px">No. of Units</div></th>
@@ -656,7 +659,7 @@ class C_Load extends MY_Controller {
             </div></th>
 
         </tr>
-        ' . $this -> commodityUsageAndOutageSection . '
+        ' . $this -> commodityUsageAndOutageSection['mnh'] . '
         </table>
     </div><!--\.section-5-->
 
@@ -695,7 +698,7 @@ class C_Load extends MY_Controller {
             <!--td>Partially Functional</td-->
             <td>Non-Functional</td>
             </tr>
-            ' . $this -> equipmentsSection .'
+            ' . $this -> equipmentsSection['mnh'] .'
 
             </table>
             <table  class="centre" >
@@ -745,7 +748,7 @@ class C_Load extends MY_Controller {
                 <th>Non-Functional</th>
             </tr>
             </thead>
-            ' . $this -> deliveryEquipmentSection . '
+            ' . $this -> equipmentsSection['dke'] . '
 
         </table>
         <p style="margin-top:100px"></p>
