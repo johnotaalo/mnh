@@ -574,7 +574,7 @@ class C_Load extends MY_Controller {
     <table  class="centre persist-area" >
     <thead>
 
-            <th colspan="14">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
+            <th colspan="15">INDICATE THE AVAILABILITY, LOCATION, SUPPLIER AND QUANTITIES ON HAND OF THE FOLLOWING COMMODITIES.INCLUDE REASON FOR UNAVAILABILITY. </th>
 
         </thead>
         <tr>
@@ -586,7 +586,7 @@ class C_Load extends MY_Controller {
             <th rowspan="2">
                 Main Reason For  Unavailability
             </th>
-            <th colspan="6" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+            <th colspan="7" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
             <th colspan="2">Available Quantities</th>
 
 
