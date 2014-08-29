@@ -117,7 +117,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                 //linkSub=$(link_id).attr('class');
                 //linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));
                 facilityMFL=link_id;
-                the_url='<?php echo base_url();?>c_load/startSurvey/<?php echo $this->session->userdata("survey");?>/mid-term/'+facilityMFL+'/2013-2014';
+                the_url='<?php echo base_url();?>c_load/startSurvey/<?php echo $this->session->userdata("survey");?>/<?php echo $this->session->userdata("survey_category");?>/'+facilityMFL+'/2013-2014';
                 $.ajax({
                     type:'POST',
                     data: '',
@@ -1056,7 +1056,7 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
                                   */
                 //$(form_id).formwizard('show','section-2');
 
-                the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL+'/mid-term';
+                the_url='<?php echo base_url();?>c_load/getFacilitySection/<?php echo $this->session->userdata("survey");?>/'+facilityMFL+'/<?php echo $this->session->userdata("survey_category");?>';
                 $.ajax({
                     type:'GET',
                     url:the_url,
