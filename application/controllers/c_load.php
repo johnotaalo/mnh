@@ -207,36 +207,33 @@ class C_Load extends MY_Controller {
             <th >EMAIL</th>
         </tr>'.$this -> facilitycontactinformation .'
         </table>
-                <table>
-        <tr>
-            <td>
+        <table>
+            <tr>
                 <th> DOES THIS FACILITY CONDUCT DELIVERIES?</th>
-            </td>
+            </tr>
                 <tr><th colspan ="8"><select name="DeliveriesDone" id="DeliveriesDone" class="cloned">
                 <option value="" selected="selected">Select One</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option></th></tr>
-                </tr>
-
+            </tr>
         </table>
         <table>
-
-                <thead>
-                <tr>
-                    <th colspan ="12">IF NO, WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th>
+        <thead>
+            <tr>
+                <th colspan ="12">IF NO, WHAT ARE THE MAIN REASONS FOR NOT CONDUCTING DELIVERIES? </br>(multiple selections allowed)</th>
             </tr>
-                <tr>
-                    <th colspan ="2">Inadequate skill</th>
-                    <th colspan ="2">Inadequate staff</th>
-                    <th colspan ="2"> Inadequate infrastructure </th>
-                    <th colspan="2">Inadequate Equipment</th>
-                    <th colspan ="2"> Inadequate commodities and supplies</th>
-                    <th colspan ="2"> Other (Please specify)</th>
-                </tr>
-    </thead>
+            <tr>
+                <th colspan ="2">Inadequate skill</th>
+                <th colspan ="2">Inadequate staff</th>
+                <th colspan ="2"> Inadequate infrastructure </th>
+                <th colspan="2">Inadequate Equipment</th>
+                <th colspan ="2"> Inadequate commodities and supplies</th>
+                <th colspan ="2"> Other (Please specify)</th>
+            </tr>
+         </thead>
                 <tr>'.$this -> deliveriessection.'</tr>
             </table>
-<table>
+        <table>
             <thead>
                     <th colspan="2" >PROVISION OF Nurses</th>
                 </thead>
@@ -302,48 +299,6 @@ class C_Load extends MY_Controller {
     <thead>
     <th colspan="7" >INDICATE THE NUMBER OF DELIVERIES CONDUCTED IN THE FOLLOWING PERIODS </th></thead>
         <th> MONTH</th><th><div style="width: 50px"> JANUARY</div></th> <th>FEBRUARY</th><th>MARCH</th><th> APRIL</th><th> MAY</th><th>JUNE</th>
-
-         <!--tr>
-            <td>' . (date('Y') - 1) . '</td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnjanuary_12" name="january"  size="8" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnfebruary_12" name="february" size="8" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnmarch_12" size="8" name="march" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnapril_12" size="8" name="april" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnmay_12" size="8" name="may" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnjune_12" size="8" name="june" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnjuly_12" size="8" name="july]" class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnaugust_12" size="8" name="august]" class="cloned numbers"/>
-            </td>
-            <td  style ="text-align:center;">
-            <input type="text" id="dnseptember_12" size="8" name="september"] class="cloned numbers"/>
-            </td>
-            <td style ="text-align:center;">
-            <input type="text" id="dnoctober_12" size="8" name="october]" class="cloned numbers"/></td>
-            <td style ="text-align:center;" width="15">
-            <input type="text" id="dnnovember_12" size="8" name="november]" class="cloned numbers"/></td>
-
-            <td style ="text-align:center;">
-            <input type="text" id="dndecember_12" size="8" name="december]" class="cloned numbers"/>
-            </td>
-
-
-        </tr-->
-
         <tr>
             <td>' . date("Y") . '</td>
             <td style ="text-align:center;">

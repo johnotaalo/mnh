@@ -41,7 +41,7 @@
             </div>
             <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
             <!-- BEGIN PAGE CONTAINER-->
-            <div class="container-fluid" data-spy="scroll" data-target=".sectionList">
+            <div class="container-fluid" data-spy="scroll" data-target="#sectionList">
                 <!-- BEGIN PAGE HEADER-->
                 <div class="row-fluid">
                     <div class="span12">
@@ -49,17 +49,18 @@
                         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                         <h4 class="page-title">
 
-                            <?php echo $analytics_main_title; ?> for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>
+                            <?php echo $analytics_main_title; ?> 
+                            <!--for <?php echo $this->session->userdata('county_analytics')." County:"?> <?php echo strtoupper($this->session->userdata('survey')) ?> <small><?php echo $analytics_mini_title; ?></small>-->
 
                         </h4>
 
-                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
+                        <ul class="breadcrumb" data-start="border-bottom:0;opacity:1;position:relative" data-top="opacity:0.9;z-index:1000;position:fixed;top:0;width:100%;border-bottom:1px solid #ddd">
                          
                                 <select name="survey_type" id="survey_type" class="input">
                                     <option>No Survey Type Selected</option>
                                     <option value="mnh">MNH</option>
                                     <option value="ch">CH</option>
-                                    <option value="hcw">HCW</option>
+                                    <option value="hcw">IMCI FOLLOW UP</option>
                                 </select>
                                 <select  name="survey_category" id="survey_category" class="input">
                                     <option>No Survey Category Selected</option>
@@ -77,10 +78,10 @@
                                     <option data-scope="county" >All Sub-Counties Selected</option>
 
                                 </select>
-                                <select name="facility_select" id="facility_select" class="input">
+                                <!-- <select name="facility_select" id="facility_select" class="input">
                                     <option data-scope="national" >All Facilities Selected</option>
 
-                                </select>
+                                </select> -->
                             <!--<a data-start="display:none" data-top="display:inline-block" href="" class="go-top">
                 <i class="fa fa-chevron-up title="Top""></i>
                 &nbsp; Move to Top

@@ -26,6 +26,7 @@ $stat-color:#16a085;
 //Body
 body{
     font-family:Lato !important;
+    height:auto !important;
     // @extend .zeta;
 }
 #menu{
@@ -144,7 +145,7 @@ button{
 
 }
 form{
-    input,select{
+    input,select,textarea{
         @extend .form-control;
     }
     button{
@@ -165,6 +166,9 @@ form{
     }
     input[type="radio"]{
         height:auto;
+    }
+    label{
+        float: left !important;
     }
 }
 .form-container{
@@ -258,16 +262,52 @@ table{
         display: inline-block;
     }
 }
-.portlet.md.box{
-    @extend .col-md-4;
+.x-large-graph{
+    @extend .col-md-12;
+    @extend .standard-graph;
+    .portlet-body{
+        height:500px;
+        overflow-y:auto;
+    }
 }
-.portlet.box{
+.large-graph{
+    @extend .col-md-8;
+    @extend .standard-graph;
+    .portlet-body{
+        height:500px;
+        overflow-y:auto;
+    }
+}
+.medium-graph{
+    @extend .col-md-4;
+    @extend .standard-graph;
+    .portlet-body{
+        height:300px;
+        overflow-y:auto;
+    }
+}
+.small-graph{
+    @extend .standard-graph;
+    @extend .col-md-3;
+    .portlet-body{
+        height:300px;
+
+    }
+}
+.semi-large-graph{
+    @extend .standard-graph;
     @extend .col-md-6;
+    .portlet-body{
+        height:300px;
+
+    }
+}
+
+.standard-graph{
     .portlet-title{
         h6{
             margin-bottom:0;
-
-            padding: 10px 15px;
+            padding: 5px 7.5px;
             color: #333333;
             background-color: whitesmoke;
             border-color: #e7e7e7;
@@ -292,15 +332,21 @@ table{
                 color: #333333;
                 cursor: hand;
             }
+
         }
     }
     .portlet-body{
-        height:300px;
         overflow-y:auto;
     }
 }
-
-.reporting {
+#sectionList{
+    li{
+        a{
+            padding:5px 7.5px !important;
+        }
+    }
+}
+#reporting {
     overflow-y: auto;
     height: 300px;
     width: 97%;
@@ -431,7 +477,7 @@ h4{
     padding:0 !important;
 }
 h6{
-    @extend .epsilon;
+    font-size:16px;
 }
 //SideBar
 .panel{
@@ -616,14 +662,14 @@ a.disabled:hover{
     width:200px;
     float:left;
     label{
-    select{
-        display:inherit;
-        width:50px !important;
-        @extend .form-control;
-    }
+        select{
+            display:inherit;
+            width:50px !important;
+            @extend .form-control;
+        }
     }
 }
-.datatables_filter{
+.dataTables_filter{
     label{
         float:right;
         padding-right:5%;
@@ -637,4 +683,65 @@ a.disabled:hover{
 }
 .dataTables_info{
     font-size:14px;
+}
+//X-editable
+.editable-click:hover{
+    cursor: hand !important;
+}
+.modal{
+    //z-index:2000000000000000000000000;
+}
+//Resize Icons
+.sizer, .show-collapse{
+    float:right;
+    color:#ccc;
+    cursor:pointer;
+}
+.sizer:hover, .show-collapse:hover{
+    color:#333;
+    cursor:hand;
+}
+//Enlarged Graphs
+#graph{
+    height:300px;
+    overflow:auto;
+}
+h6.table-header{
+    margin-bottom: 2px !important;
+    padding:5px 7.5px;
+    background:#e7e7e7;
+    span{
+        padding-left:30%;
+        button{
+            margin-left:5px;
+            @extend .btn;
+            @extend .btn-primary;
+            @extend .btn-xs;
+        }
+    }
+}
+//Hijacking Panels
+.analytics_row{
+    border-top: 1px solid #ddd !important;
+    box-shadow: none !important;
+    .panel-heading{
+        border-top:1px solid #ddd;
+        background-color: #fff !important;
+        border:none;
+        h4.panel-title{
+            padding-left:0;
+            @extend .epsilon;
+            margin-bottom:5px !important;
+            a{
+                text-decoration: none !important;
+            }
+        }
+    }
+    .panel-collapse{
+        .panel-body{
+            border:none !important;
+            box-shadow: 0;
+        }
+    }
+
 }

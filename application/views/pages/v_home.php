@@ -64,15 +64,16 @@
                        <div class="statistic"><div class="icon"><span><i class="fa fa-map-marker"></i></span></div><div class="data"><span class="text" id="county_name">No County Chosen</span></div></div>
                         <div class="statistic"><div class="icon"><span><i class="fa fa-pencil"></i></span></div><div class="data" id="survey"><span class="text" id="survey_type">No Survey Type Chosen</span><span class="text" id="survey_category">No Survey Category Chosen</span></div></div>
 
-                        <a href= "#" id = "targeted"><div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="targeted"><span class="text">Targeted Facilities</span><span class="digit">0</span></div></div></a>
-                        <a href = "#" id = "finished"><div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="finished"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div></a>
-                        <a href = "#" id = "not-finished"><div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="started"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div></a>
-                        <a href = "#" id = "not-started"><div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div></a>
-                        <div class="statistic"><div class="icon"><span><i class="fa fa-bar-chart-o"></i></span></div><div class="data" id="county_progress"><span class="text">Reporting Progress</span><span class="digit"><div id="c_progress"></div></div></span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="targeted"><span class="text">Targeted Facilities</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="finished"><span class="text">Facilities that have finished reporting</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="started"><span class="text">Facilities that have started but not finished</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-hospital-o"></i></span></div><div class="data" id="not_started"><span class="text">Facilities that have not started</span><span class="digit">0</span></div></div>
+                        <div class="statistic"><div class="icon"><span><i class="fa fa-bar-chart-o"></i></span></div><div class="data" id="county_progress"><span class="text">Reporting Progress</span><span class="digit"><div class = "progress" style = "width: 300px;"><div class = "progress-bar" aria-valuenow = "0" aria-valuemax = "100" >0%</div></div></span></div></div>
 
                         <button id="load_analytics"><i class="fa fa-bar-chart-o"></i>Click to View Analytics</button>
                         <button id="load_county_summary"><i class="fa fa-bar-chart-o"></i>Click to Download Excel Summary</button>
                     </div>
+                    
                 </div>
 
             </div>
@@ -156,49 +157,13 @@
                 url = $(this).attr('data-url');
                 window.open(url);
             });
-
-            $('#targeted').click(function(){
-                county = $(this).attr('data-county-name');
-                $('#TargetedFacilityList').modal('show');
-                $('#TargetedFacilityList').delay(4000,function(nxt){
-                    loadTargetedFacilityList(base_url,'#TargetedFacilityList .modal-body', survey, survey_category, county);
-                    nxt();
-                });
-            });
-
-            $('#finished').click(function(){
-                county = $(this).attr('data-county-name');
-                $('#FinishedFacilityList').modal('show');
-                $('#FinishedFacilityList').delay(4000,function(nxt){
-                    loadFinishedFacilityList(base_url,'#FinishedFacilityList .modal-body', survey, survey_category, county, 'finished');
-                    nxt();
-                });
-            });
-
-            $('#not-finished').click(function(){
-                county = $(this).attr('data-county-name');
-                $('#FinishedFacilityList').modal('show');
-                $('#FinishedFacilityList').delay(4000,function(nxt){
-                    loadFinishedFacilityList(base_url,'#FinishedFacilityList .modal-body', survey, survey_category, county, 'not-finished');
-                    nxt();
-                });
-            });
-
-            $('#not-started').click(function(){
-                county = $(this).attr('data-county-name');
-                $('#FinishedFacilityList').modal('show');
-                $('#FinishedFacilityList').delay(4000,function(nxt){
-                    loadFinishedFacilityList(base_url,'#FinishedFacilityList .modal-body', survey, survey_category, county, 'not-started');
-                    nxt();
-                });
-            });
         });
 
         function runCountyData(data){
             newData=data.split(',');
             //console.log(newData);
             base_url = '<?php echo base_url();?>';
-            getCountyData(base_url,newData[0],newData[1],newData[2],'list');
+            getCountyData(base_url,newData[0],newData[1],newData[2]);
         }
 
 
