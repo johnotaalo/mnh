@@ -720,7 +720,7 @@ class C_Load extends MY_Controller {
                     <th>Other</th>
                 </tr>
             </thead>
-            ' . $this -> mchSupplies['tst'] . '
+            ' . $this -> mchSupplies['tes'] . '
         </table>
         <p style="display:true" class="message success">
             SECTION 7 of 8: II. KITS/SETS AVAILABILITY

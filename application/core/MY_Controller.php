@@ -417,7 +417,7 @@ $this->write_counties();
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierName'] . '">' . $counter . '. ' . $value['supplierCode'] . '</option>' . '<br />';
+            $this->selectMNHOtherSuppliers.= '<option value="' . $value['supplierCode'] . '">' . $counter . '. ' . $value['supplierName'] . '</option>' . '<br />';
         }
     }
     
@@ -1348,6 +1348,7 @@ $this->write_counties();
         $counter = 0;
         $aspect = '';
         $mh_supplier_names = $this->selectMNHOtherSuppliers;
+        //echo $mh_supplier_names;
         foreach ($this->data_found as $value) {
             $counter++;
             $aspect_response_on_yes = '';
@@ -2906,7 +2907,7 @@ $this->write_counties();
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-            if ($section != 'tst') {
+            if ($section != 'tst' && $section != 'ch' && $section != 'tes') {
                 
                 $quantity = '<td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
