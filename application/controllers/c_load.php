@@ -1646,7 +1646,7 @@ Indicate the total # of children that received the following treatment. </br>
         </tr>
     </tr>
     </table>
-         <table  class="centre" >
+        <table  class="centre" >
         <thead>
             <th colspan="10">INDICATE THE AVAILABILITY, LOCATION AND SUPPLIER OF THE FOLLOWING.</th>
         </thead>
@@ -1664,7 +1664,32 @@ Indicate the total # of children that received the following treatment. </br>
 
         </tr>
         <tr >
-        <th >Available</th>
+            <th >Available</th>
+            <th>Not Available</th>
+            <th>OPD</th>
+            <th>MCH</th>
+            <th>U5 Clinic</th>
+            <th>Ward</th>
+            <th>Other</th>
+
+        </tr>' . $this -> mchSupplies['ch'] . '
+        </table>
+        <table  class="centre" >
+        <tr>
+            <th style="text-align:center" rowspan="2"> Testing Supplies </th>
+            <th colspan="2" style="text-align:center"> Availability
+             <strong></BR>
+            (One Selection Allowed) </strong></th>
+            <th colspan="5" style="text-align:center"> Location of Availability  </BR><strong> (Multiple Selections Allowed)</strong></th>
+            <!--th>Available Supplies</th-->
+            <!--th scope="col">
+            <div style="width: 100px" >
+                Main Reason For  Unavailability
+            </div></th-->
+
+        </tr>
+        <tr >
+            <th >Available</th>
             <th>Not Available</th>
             <th>OPD</th>
             <th>MCH</th>
@@ -1677,7 +1702,7 @@ Indicate the total # of children that received the following treatment. </br>
 
 
 
-        </tr>' . $this -> suppliesMCHSection . '
+        </tr>' . $this -> mchSupplies['tst'] . '
         </table>
         </div><!--\.section-7-->
 
@@ -1718,7 +1743,7 @@ Indicate the total # of children that received the following treatment. </br>
                     <th>Other</th>
                 </tr>
             </thead>
-            ' . $this -> hardwareMCHSectionPDF . '
+            ' . $this ->  equipmentsSection['hwr']. '
         </table>
         </div><!--\.section-8-->
     <div id="section-9" class="step">

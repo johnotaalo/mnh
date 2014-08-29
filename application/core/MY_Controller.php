@@ -2906,7 +2906,7 @@ $this->write_counties();
             $current = ($base == 0) ? $section : $current;
             
             $base++;
-            if ($section != 'tst') {
+            if ($section != 'tst' && $section != 'ch') {
                 
                 $quantity = '<td style ="text-align:center;">
             <input name="sqNumberOfUnits_' . $counter . '" type="text" size="10" class="cloned numbers"/>
@@ -2950,7 +2950,7 @@ $this->write_counties();
             }
         }
         
-        //var_dump($this->mchSuppliesPDF);die;
+        // var_dump($this->mchSupplies['ch']);die;
         return $this->mchSupplies;
     }
     
@@ -3678,6 +3678,7 @@ $this->write_counties();
         $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
         
         foreach ($this->data_found as $value) {
+            // echo "<pre>";print_r($value);
             $counter++;
             $availabilityRow = $locationRow = $expiryRow = $quantityRow = $reasonUnavailableRow = '';
             if (array_key_exists($value['eqCode'], $retrieved)) {
@@ -3729,24 +3730,43 @@ $this->write_counties();
                 $locationRow.= $temp;
             }
             
-            if ($fully_functioning != '') {
-                $fullyFunctioningRow = '<td style ="text-align:center;">
-                                        <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  value="' . $fully_functioning . '" size="8" class="numbers" />
-                                        </td>';
+            if($value['eqFor'] == 'hwr')
+            {
+                if ($value['eqUnit'] != null) {
+                $unit = '(' . $value['eqUnit'] . ')';
             } else {
-                $fullyFunctioningRow = '<td style ="text-align:center;">
-                                        <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  size="8" class="numbers" />
-                                        </td>';
+                $unit = '';
             }
-            if ($non_functioning != '') {
-                $nonFunctioningRow = '<td style ="text-align:center;">
-                                        <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" value="' . $non_functioning . '" type="text"  size="8" class="numbers"/>
-                                        </td>';
-            } else {
-                $nonFunctioningRow = '<td style ="text-align:center;">
-                                        <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" type="text"  size="8" class="numbers"/>
-                                        </td>';
+            
+            $this->equipmentsSection[$value['eqFor']].= '<tr>
+            <td >' . $value['eqName'] . ' ' . $unit . ' </td>
+            ' . $availabilityRow . '
+            ' . $locationRow . '
+            <input type="hidden"  name="eqCode_' . $counter . '" id="eqCode_' . $counter . '" value="' . $value['eqCode'] . '" />
+        </tr>';
+            $this->global_counter = $counter;
             }
+            else
+            {
+                if ($fully_functioning != '') {
+                    $fullyFunctioningRow = '<td style ="text-align:center;">
+                                            <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  value="' . $fully_functioning . '" size="8" class="numbers" />
+                                            </td>';
+                } else {
+                    $fullyFunctioningRow = '<td style ="text-align:center;">
+                                            <input name="eqQtyFullyFunctional_' . $counter . '" id="eqQtyFullyFunctional_' . $counter . '" type="text"  size="8" class="numbers" />
+                                            </td>';
+                }
+                if ($non_functioning != '') {
+                    $nonFunctioningRow = '<td style ="text-align:center;">
+                                            <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" value="' . $non_functioning . '" type="text"  size="8" class="numbers"/>
+                                            </td>';
+                } else {
+                    $nonFunctioningRow = '<td style ="text-align:center;">
+                                            <input name="eqQtyNonFunctional_' . $counter . '" id="eqQtyNonFunctional_' . $counter . '" type="text"  size="8" class="numbers"/>
+                                            </td>';
+                }
+            
             if ($value['eqUnit'] != null) {
                 $unit = '(' . $value['eqUnit'] . ')';
             } else {
@@ -3764,8 +3784,9 @@ $this->write_counties();
         </tr>';
             $this->global_counter = $counter;
         }
+        }
         
-        //print_r ($this->equipmentsSection);die;
+        // print_r ($this->equipmentsSection['hwr']);die;
         return $this->equipmentsSection;
     }
     
