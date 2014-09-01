@@ -721,7 +721,7 @@ class C_Load extends MY_Controller {
                     <th>Other</th>
                 </tr>
             </thead>
-            ' . $this -> mchSupplies['tst'] . '
+            ' . $this -> mchSupplies['tes'] . '
         </table>
         <p style="display:true" class="message success">
             SECTION 7 of 8: II. KITS/SETS AVAILABILITY
@@ -966,18 +966,7 @@ class C_Load extends MY_Controller {
     </thead>
     <tbody>
         <tr>
-            <td>Name </td><td>
-            <input type="text" size="40" name = "assesorname_1">
-            </td><td>Designation </td><td><!--input type="text" id="designation" name="designation" class="cloned"  size="40"/-->
-            <input type="text" size="40" name = "assesordesignation_1">
-            </td><td>Email </td>
-            <td>
-            <input type="text" size="40" name = "assesoremail_1">
-            </td>
-            </td><td>Phone Number </td>
-            <td>
-            <input type="text" size="40" name = "assesorphoneNumber_1">
-            </td>
+            '. $this -> mchassessorinfo .'
         </tr>
     </tbody>
 </table>
@@ -995,55 +984,7 @@ class C_Load extends MY_Controller {
             <th >MOBILE</th>
             <th >EMAIL</th>
         </tr>
-        <tr>
-
-            <td colspan = "2">Facility Incharge</td>
-
-            <td>
-            <input type="text" id="facilityInchargename" name="facilityInchargename_1" class="cloned" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityInchargemobile" name="facilityInchargemobile_1" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityInchargeemail" name="facilityInchargeemail_1" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2">MCH Incharge</td>
-            <td>
-            <input type="text" id="facilityMchname" name="facilityMchname_1" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityMchmobile" name="facilityMchmobile_1" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMchemail" name="facilityMchemail_1" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2">Maternity Incharge </td>
-
-            <td>
-            <input type="text" id="facilityMaternityname" name="facilityMaternityname_1" class="cloned" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternitymobile" name="facilityMaternitymobile_1" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMaternityemail" name="facilityMaternityemail_1" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-        <tr>
-            <td colspan = "2">OPD Incharge</td><td>
-            <input type="text" id="facilityMchname" name="facilityopdname_1" class="cloned" size="40"/>
-            </td><td>
-            <input type="text" id="facilityMchmobile" name="facilityopdmobile_1" class="phone" size="40"/>
-            </td>
-            <td>
-            <input type="text" id="facilityMchemail" name="facilityopdemail_1" class="cloned mail" size="40"/>
-            </td>
-        </tr>
-
+        '.$this -> facilitycontactinformation .'
     </table>
     <table class="centre">
         <thead>
@@ -1098,7 +1039,7 @@ class C_Load extends MY_Controller {
         <th colspan="12">Has IMCI consultation room been established?</th>
         </thead>
         <tr>
-        </tr>' . $this -> mchConsultationSection . '
+        </tr>' . $this -> question['imci'] . '
         </tbody>
        </table>
 
@@ -1154,7 +1095,7 @@ Indicate the total # of children that received the following treatment. </br>
         <table class="centre">
             <tbody>
                 <th colspan="2">TOTAL U5 CHILDREN SEEN IN THE LAST 1 MONTH</th>
-                <th><input type = "number" id = "totalu5" name = "mchtotalTreatment[totalu5]"/></th>
+                <td>'.$this -> totalsRows['totalu5'].'
                 <th colspan = "2"></th>
 
             <tr>
@@ -1162,16 +1103,16 @@ Indicate the total # of children that received the following treatment. </br>
             </tr>
             <tr>
                 <th colspan="2">Diarrhoea Total</th>
-                <th><input type = "number" id = "diatotal" name = "mchtotalTreatment[diatotal]"/></th>
+                <td>'.$this -> totalsRows['diatotal'].'
                 <th colspan = "2"></th>
             </tr>
             </tbody>
             <tr>
-            <td>Severe Dehydration: <input type = "number" id = "malsevere" name = "mchtotalTreatment[SevereDehydration]" onkeyup = "additionfunction()"></td>
-            <td>Some Dehydration: <input type = "number" id = "malsome" name = "mchtotalTreatment[SomeDehydration]" onkeyup = "additionfunction()"></td>
-            <td>No Dehydration: <input type = "number" id = "malnodehydration" name = "mchtotalTreatment[NoDehydration]" onkeyup = "additionfunction()"></td>
-            <td>Dysentry: <input type = "number" id = "maldysentry" name = "mchtotalTreatment[Dysentry]" onkeyup = "additionfunction()"></td>
-            <td>No Classification: <input type = "number" id = "malnoclass" name = "mchtotalTreatment[NoClassification]" onkeyup = "additionfunction()"></td>
+            <td>Severe Dehydration: '.$this -> totalsRows['SevereDehydration'].'
+            <td>Some Dehydration: '.$this -> totalsRows['SomeDehydration'].'
+            <td>No Dehydration: '.$this -> totalsRows['NoDehydration'].'
+            <td>Dysentry: '.$this -> totalsRows['Dysentry'].'
+            <td>No Classification: '.$this -> totalsRows['NoClassification'].'
             </tr>
             <tr>
                 <td>
@@ -1217,13 +1158,13 @@ Indicate the total # of children that received the following treatment. </br>
 
                     <tr>
                     <th colspan = "2">Pneumonia Total: </th>
-                    <th><input type = "number" id = "pnetotal" name = "mchtotalTreatment[pnetotal]"></th>
+                    <td>'.$this -> totalsRows['pnetotal'].'
                     <th colspan = "3"></th>
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan = "3">Severe Pneumonia: <input type = "number" name = "mchtotalTreatment[SeverePneumonia]" id = "severepne" onkeyup = "additionfunction()"></td>
-                    <td colspan = "3">Pneumonia: <input type = "number" name = "mchtotalTreatment[Pneumonia]" id = "pne" onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Severe Pneumonia: '.$this -> totalsRows['SeverePneumonia'].'
+                    <td colspan = "3">Pneumonia: '.$this -> totalsRows['Pneumonia'].'
                 </tr>
                 <tr>
                 <td colspan = "3">
@@ -1245,13 +1186,13 @@ Indicate the total # of children that received the following treatment. </br>
             <tbody>
                     <tr>
                     <th colspan = "2">Malaria Total: </th>
-                    <th><input type = "number" id = "malariatotal" name = "mchtotalTreatment[malariatotal]"></th>
+                    <td>'.$this -> totalsRows['malariatotal'].'
                     <th colspan = "3"></th>
                     </tr>
                 </tbody>
                 <tr>
-                    <td colspan = "3">Confirmed: <input type = "number" name = "mchtotalTreatment[ConfirmedMalaria]" id = "malconfirmed"  onkeyup = "additionfunction()"></td>
-                    <td colspan = "3">Not Confirmed(Include Clinical Malaria): <input type = "number" name = "mchtotalTreatment[NotConfirmedMalaria]" id = "malnotconfirmed"  onkeyup = "additionfunction()"></td>
+                    <td colspan = "3">Confirmed: '.$this -> totalsRows['ConfirmedMalaria'].'
+                    <td colspan = "3">Not Confirmed(Include Clinical Malaria):'.$this -> totalsRows['NotConfirmedMalaria'].'
                 <tr>
                 <td colspan = "3">
                 <div class = "treatmentdropdownarea">
@@ -1274,7 +1215,7 @@ Indicate the total # of children that received the following treatment. </br>
             <tbody>
             <tr>
                 <th colspan="2" >Others Total:</th>
-                <th><input type = "number" name = "mchtotalTreatment[OtherTotal]"></th>
+                <td>'.$this -> totalsRows['OtherTotal'].'
             </tr>
 
             </tbody>
@@ -1583,7 +1524,7 @@ Indicate the total # of children that received the following treatment. </br>
     </table>
     <table class="centre">
         <thead>
-            <th colspan="2" >0RAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
+            <th colspan="2" >ORAL REHYDRATION THERAPY CORNER ASSESSMENT </th>
         </thead>
 
 
