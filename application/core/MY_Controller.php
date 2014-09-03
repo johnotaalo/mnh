@@ -366,10 +366,18 @@ $this->write_counties();
     
     public function getAccessChallenges() {
         $this->data_found = $this->m_mch_survey->getAccessChallenges();
+        $retrieved = $this->m_mch_survey->retrieveData('log_challenges','ach_code');
         $counter = 0;
         foreach ($this->data_found as $value) {
             $counter++;
-            $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "" type="radio">' . $value['achName'] . '</td></tr>';
+            if(array_key_exists($value['achCode'], $retrieved))
+            {
+                $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "" type="radio" checked>' . $value['achName'] . '</td></tr>';
+            }
+            else
+            {
+                $this->selectAccessChallenges.= '<tr><td><input style="margin-right:20px"value="' . $value['achCode'] . '" name="achResponse_1" id= "" type="radio">' . $value['achName'] . '</td></tr>';
+            }
         }
     }
     
@@ -1036,7 +1044,6 @@ $this->write_counties();
         $this->data_found = $this->m_mch_survey->getOrtAspectQuestions('ort');
         $retrieved = $this->m_mch_survey->retrieveData('log_questions', 'question_code');
         $locations = array("MCH", "U5 Clinic", "OPD", "WARD", "OTHER" );
-        
         //var_dump( $this->question);
         // echo"<pre>";print_r($retrieved);die;
         
@@ -1087,35 +1094,27 @@ $this->write_counties();
                 if ($value['questionCode'] == 'QUC02b') {
                     // echo $questionResponse;die;
                     $retrievedTreat = explode(',', $questionResponse);
-                    foreach ($retrievedTreat as $treat) {
-                        if (in_array($treat, $locations)) {
-                            
+                    foreach ($locations as $location) {
+                        if (in_array($location, $retrievedTreat)) {
+                            $data .= '<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="'.$location.'" checked = "checked"/>
+                            <label for="" style="font-weight:normal">'.$location.'</label><br/>';
+                        }
+                        else
+                        {
+                            $data .= '<input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="'.$location.'"/>
+                            <label for="" style="font-weight:normal">'.$location.'</label><br/>';
+                        }
+
+                        if ($location == "OTHER") {
+                            $data .= '<input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
+';
                         }
                    } // die;
                     // echo $questionResponse;die;
                     $ort_location = '<tr id="ort_location" style="display:true">
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="2">
-            <label>Multiple Selections Allowed</label><br/>
-            <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="MCH"/>
-            <label for="" style="font-weight:normal">MCH</label><br/>
-
-            <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="U5 Clinic"/>
-            <label for="" style="font-weight:normal">U5 Clinic</label><br/>
-
-            <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="OPD"/>
-            <label for="" style="font-weight:normal">OPD</label><br/>
-
-
-            <input type="checkbox" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="WARD"/>
-            <label for="" style="font-weight:normal">WARD</label><br/>
-
-
-            <input type="checkbox" name="ortLocationOther_' . $counter . '[]" id="ortLocationOther_' . $counter . '"  value="OTHER"/>
-            <label for="" style="font-weight:normal">Other</label><br/>
-            <input type="text" name="questionLocResponse_' . $counter . '[]" id="questionLocResponse_' . $counter . '"  value="" maxlength="45" size="45" placeholder="please specify"/>
-
-
+            '.$data.'
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
         </tr>';
@@ -1128,12 +1127,25 @@ $this->write_counties();
                     $this->ortCornerAspectsSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
-            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
-                <option value="" selected="selected">Select One</option>
+            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">';
+            if ($questionResponse == "Yes") {
+                $this->ortCornerAspectsSection.= '<option value="">Select One</option>
+                <option value="Yes" selected="selected">Yes</option>
+                <option value="No">No</option>';
+            }
+            else if ($questionResponse == "No") {
+                $this->ortCornerAspectsSection.=  '<option value="">Select One</option>
                 <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value="No" selected="selected">No</option>';
+            }
+            else
+            {
+                $this->ortCornerAspectsSection.= '<option value="" selected="selected">Select One</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>';
+            }
 
-            </select>
+            $this->ortCornerAspectsSection.= '</select>
             </td>
             <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
        </tr>' . $ort_functional;
@@ -1142,22 +1154,34 @@ $this->write_counties();
                     $this->ortCornerAspectsSection.= '<tr>
             <td colspan="1">' . $value['questionName'] . '</td>
             <td colspan="1">
-            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">
-                <option value="" selected="selected">Select One</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+            <select name="questionResponse_' . $counter . '" id="questionResponse_' . $counter . '" class="cloned">';
+                if ($questionResponse == "Yes") {
+                $this->ortCornerAspectsSection.= '<option value="">Select One</option>
+                <option value="Yes" selected="selected">Yes</option>
+                <option value="No">No</option>';
+                }
+                else if ($questionResponse == "No") {
+                    $this->ortCornerAspectsSection.=  '<option value="">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No" selected="selected">No</option>';
+                }
+                else
+                {
+                    $this->ortCornerAspectsSection.= '<option value="" selected="selected">Select One</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>';
+                }
+                $this->ortCornerAspectsSection.= '</select>
+                </td>
+                <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
+            </tr>
 
-            </select>
-            </td>
-            <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
-        </tr>
-
-        ';
+            ';
                 }
             }
         }
         
-        //echo $this->ortCornerAspectsSection;die;
+        // echo $this->ortCornerAspectsSection;die;
         return $this->ortCornerAspectsSection;
     }
     
@@ -2906,11 +2930,12 @@ $this->write_counties();
             }
             else {
                 if ($value['questionName'] == 'Document cases seen over 3 months') {
+                    $numbers = explode(',', $questionResponse);
                     $data[$section][] = '
                             <tr>
                         <td colspan="1"><strong>(' . $numbering[$base - 1] . ')</strong> ' . $value['questionName'] . '</td>
-                     <td>March <input name="questionResponse_' . $counter . '[]"  type="text">  April <input name="questionResponse_' . $counter . '[]"  type="text">
-                        May <input name="questionResponse_' . $counter . '[]"  type="text"></td>
+                     <td>March <input name="questionResponse_' . $counter . '['.'March'.']"  type="number" value = "'.$numbers[0].'">  April <input name="questionResponse_' . $counter . '['.'April'.']"  type="number" value = "'.$numbers[1].'">
+                        May <input name="questionResponse_' . $counter . '['.'May'.']"  type="number" value = "'.$numbers[2].'"></td>
                         <input type="hidden"  name="questionCode_' . $counter . '" id="questionCode_' . $counter . '" value="' . $value['questionCode'] . '" />
                     </tr>';
                 } else {
@@ -2944,11 +2969,13 @@ $this->write_counties();
     }
     public function createSuppliesSectionPDF() {
         $this->data_found = $this->m_mch_survey->getEverySupplyName();
+        // echo "<pre>";print_r($retrieved);die;
         
         //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
         $counter = 0;
         $section = '';
         
+    $availability = array('Available', 'Never Available');
         $base = 0;
         $current = "";
         foreach ($this->data_found as $value) {
@@ -2957,9 +2984,8 @@ $this->write_counties();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
             $base++;
-            
+
             $data[$section][] = '<tr>
             <td  style="width:200px;">' . $value['supplyName'] . '</td>
             <td style="vertical-align: middle; margin: 0px;text-align:center;">
@@ -3004,7 +3030,9 @@ $this->write_counties();
         return $this->mchSuppliesPDF;
     }
     public function createSuppliesSection() {
-        $this->data_found = $this->m_mch_survey->getEverySupplyName();
+    $this->data_found = $this->m_mch_survey->getEverySupplyName();
+    $retrieved = $this->m_mch_survey->retrieveData('available_supplies', 'supply_code');
+    $locations = array('OPD', 'MCH', 'U5 Clinic', 'Ward', 'Other');
         
         //echo '<pre>';print_r($this->data_found);echo '</pre>';die;
         $counter = 0;
@@ -3018,8 +3046,14 @@ $this->write_counties();
             $current = ($base == 0) ? $section : $current;
             $base = ($current != $section) ? 0 : $base;
             $current = ($base == 0) ? $section : $current;
-            
             $base++;
+
+            $supplyLocation = '';
+            $supplyAvailability = '';
+            if (array_key_exists($value['supplyCode'], $retrieved)) {
+                $supplyLocation = $retrieved[$value['supplyCode']]['as_location'];
+                $supplyAvailability = $retrieved[$value['supplyCode']]['as_availability'];
+            }
 
             if ($section != 'tst' && $section != 'ch' && $section != 'tes') {
                 
@@ -3065,37 +3099,52 @@ $this->write_counties();
             <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
         </tr>';
             }else{
-                 $data[$section][] = '<tr>
-            <td  style="width:200px;">' . $value['supplyName'] . '</td>
-            <td style="vertical-align: middle; margin: 0px;text-align:center;">
-            <input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="OPD" class="cloned"/>
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="MCH" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="U5 Clinic" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" type="checkbox" value="Ward" />
-            </td>
-            <td style ="text-align:center;">
-            <input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other" />
-            </td>
-            ' . $quantity . '
-            <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
-        </tr>';
+                $suppliesRow = '<tr><td  style="width:200px;">' . $value['supplyName'] .'</td>';
+
+            if ($supplyAvailability == 'Available') {
+                 $suppliesRow .= '<td style="vertical-align: middle; margin: 0px;text-align:center;"><input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned" checked/></td>
+                 <td style ="text-align:center;"><input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" /></td>';
             }
-           
+            else if($supplyAvailability == 'Never Available')
+            {
+                $suppliesRow .= '<td style="vertical-align: middle; margin: 0px;text-align:center;"><input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/></td>
+                 <td style ="text-align:center;"><input name="sqAvailability_' . $counter . '" type="radio" value="Never Available" checked/></td>';
+            }
+            else
+            {
+                $suppliesRow .= '<td style="vertical-align: middle; margin: 0px;text-align:center;"><input name="sqAvailability_' . $counter . '" id="sqAvailability_' . $counter . '" type="radio" value="Available" style="vertical-align: middle; margin: 0px;" class="cloned"/></td>
+                 <td style ="text-align:center;"><input name="sqAvailability_' . $counter . '" type="radio" value="Never Available"/></td>';
+            }
+
+            $supplyLocation = explode(',', $supplyLocation);
+            // echo "<pre>";print_r($supplyLocation);
+            foreach ($locations as $locs) {
+                if (in_array($locs, $supplyLocation)) {
+                    if($locs != 'Other'){$suppliesRow .= '<td style ="text-align:center;"><input name="sqLocation_' . $counter . '[]" type="checkbox" value="'.$locs.'" class="cloned" checked/></td>';}
+                    else
+                    {
+                        $suppliesRow .= '<td style ="text-align:center;"><input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other" checked/></td>';
+                    }
+                }
+                else
+                {
+                    if($locs != 'Other'){
+                        $suppliesRow .= '<td style ="text-align:center;"><input name="sqLocation_' . $counter . '[]" type="checkbox" value="'.$locs.'" class="cloned"/></td>';
+                    }
+                    else{
+                        $suppliesRow .= '<td style ="text-align:center;"><input name="sqLocation_' . $counter . '[]" id="sqLocOther_' . $counter . '" type="checkbox" value="Other"/></td>';
+                    }
+                }
+            }
+            $suppliesRow .=  $quantity . '<input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" /></tr>';
+            $data[$section][] = $suppliesRow;
+        //     ' . $quantity . '
+        //     <input type="hidden"  name="sqsupplyCode_' . $counter . '" id="sqsupplyCode_' . $counter . '" value="' . $value['supplyCode'] . '" />
+        // </tr>';
+            }
         }
-        
-        //var_dump( $data);die;
+        // echo"<pre>";print_r($data['ch']);
+        // var_dump( $data['ch']);die;
         
         foreach ($data as $key => $value) {
             foreach ($value as $val) {
@@ -3817,8 +3866,9 @@ $this->write_counties();
     public function createEquipmentSection() {
         $this->data_found = $this->m_mnh_survey->getEquipmentNames();
         $retrieved = $this->m_mch_survey->retrieveData('available_equipments', 'eq_code');
+        // echo"<pre>";print_r($retrieved);die;
         
-        //var_dump($this->data_found);die;
+        // var_dump($this->data_found);die;
         $unit = "";
         $counter = 0;
         $survey = $this->session->userdata('survey');
@@ -3833,7 +3883,6 @@ $this->write_counties();
         }
         $availabilities = array('Available', 'Never Available');
         $reasons = array('Select One', '1. Not Ordered', '2. Ordered but not yet Received', '3. Expired');
-        
         foreach ($this->data_found as $value) {
             // echo "<pre>";print_r($value);
             $counter++;
@@ -3863,20 +3912,18 @@ $this->write_counties();
                 //Check if value retrieved is NOT NULL
                 if ($location != '') {
                     
-                    //Loop through values from database
-                    foreach ($location as $loco) {
-                        
-                        //Check if location in database (loco) is equal to value in preset Array (loc)
-                        if ($loco == $loc) {
+                    //Check whether the values from the locations array exist in the location array
+                        if (in_array($loc, $location)) {
                             $locationRowTemp[$loc] = '<td style ="text-align:center;">
-                                        <input checked="checked" name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
-                                        </td>';
-                        } else {
-                            $locationRowTemp[$loc] = '<td style ="text-align:center;">
-                                        <input name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
-                                        </td>';
+                            <input checked="checked" name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+                            </td>';
                         }
-                    }
+                        else
+                        {
+                            $locationRowTemp[$loc] = '<td style ="text-align:center;">
+                            <input name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>
+                            </td>';
+                        }
                 } else {
                     $locationRowTemp[$loc] = '<td style ="text-align:center;">
                                         <input name="eqLocation_' . $counter . '[]" type="checkbox" value="' . $loc . '" class="cloned"/>

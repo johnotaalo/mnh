@@ -390,9 +390,7 @@ class M_MCH_Survey extends MY_Model
             }
         }
          //close foreach ($this -> input -> post() as $key => $val)
-        //print var_dump($this->elements);
-
-        //exit;
+        // var_dump($this->elements);die;
 
         //get the highest value of the array that will control the number of inserts to be done
         $this->noOfInsertsBatch = $finalCount;
@@ -400,7 +398,12 @@ class M_MCH_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
 
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\CommunityStrategies();
+            $this->theForm = $this->getvalueby('models\Entities\CommunityStrategies', array('ssId' => $this->session->userdata('survey_status'), 'strategyCode' => $this->elements[$i]['mchCommunityStrategyQCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\CommunityStrategies();
+            }
 
            	//check if that key exists, else set it to some default value
             (isset($this->elements[$i]['mchCommunityStrategy']) && $this->elements[$i]['mchCommunityStrategy'] != '') ? $this->theForm->setCsResponse($this->elements[$i]['mchCommunityStrategy']) : $this->theForm->setCsResponse(-1);
@@ -2015,6 +2018,7 @@ class M_MCH_Survey extends MY_Model
      //close addMCHTreatmentInfo
     private function addMchOrtConerAssessmentInfo() {
         $count = $finalCount = 1;
+        // print_r($this->input->post());die;
         foreach ($this->input->post() as $key => $val) {
              //For every posted values
             if (strpos($key, 'ortc') !== FALSE) {
@@ -2241,7 +2245,12 @@ class M_MCH_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
 
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\AvailableEquipments();
+            $this->theForm = $this->getvalueby('models\Entities\AvailableEquipments', array('ssId' => $this->session->userdata('survey_status'), 'eqCode' => $this->elements[$i]['eqCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\AvailableEquipments();
+            }
 
             //create an object of the model
 
@@ -2408,7 +2417,12 @@ class M_MCH_Survey extends MY_Model
         for ($i = 1; $i <= $this->noOfInsertsBatch + 1; ++$i) {
 
             //go ahead and persist data posted
-            $this->theForm = new \models\Entities\AvailableSupplies();
+            $this->theForm = $this->getvalueby('models\Entities\AvailableSupplies', array('ssId' => $this->session->userdata('survey_status'), 'supplyCode' => $this->elements[$i]['sqsupplyCode']));
+
+            if($this->theForm == NULL)
+            {
+                $this->theForm = new \models\Entities\AvailableSupplies();
+            }
 
             //create an object of the model
 

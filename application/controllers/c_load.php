@@ -1050,7 +1050,7 @@ class C_Load extends MY_Controller {
     <div class="block">
             <p align="left" style="font-size:16px;color:#AA1317; font-weight:bold">Assessment Complete</p>
             <p id="data" class="message success">Thanks for your participation.<br></p><br>
-            <p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p>
+            <p class="message success">' . anchor(base_url() . '/assessment', 'Select another Facility') . '</p>
             </div>
     </div--><!--\.end of assessment message section-->
 
@@ -2427,7 +2427,7 @@ If YES to all, consider HCW for TOT and Mentorship Training
     <div class="block">
             <p align="left" style="font-size:20px;color:#AA1317; font-weight:bold">Assessment Complete</p>
             <p id="data" class="message success">Thanks for your participation.<br></p><br>
-            <!--p class="message success">' . anchor(base_url() . 'commodity/assessment', 'Select another Facility') . '</p-->
+            <!--p class="message success">' . anchor(base_url() . '/assessment', 'Select another Facility') . '</p-->
             </div>
     </div><!--\.end of assessment message section-->';
         $data['form'] = $this -> message;
