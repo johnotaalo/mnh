@@ -264,7 +264,7 @@ ORDER BY fac_level;");
         
         //$nowCounty = $this->uri->segment(3);
         //echo $nowCounty;
-        $reportingCounty = $this->m_analytics->getReportingRatio($survey, $survey_category, $county);
+        $reportingCounty = $this->m_analytics->getReportingRatio($survey, $survey_category, $county,'county');
         $oneProgress = $this->getReportedCounty($reportingCounty, $county);
         echo ($oneProgress);
     }
@@ -3573,7 +3573,13 @@ ORDER BY fac_level;");
     public function getCountyData($survey_type, $survey_category, $county) {
         
         $county = urldecode($county);
-        $results = $this->m_analytics->getReportingRatio($survey_type, $survey_category, $county);
+        $results = $this->m_analytics->getReportingRatio($survey_type, $survey_category, $county, 'county');
+        echo json_encode($results);
+    }
+    public function getDistrictData($survey_type, $survey_category, $county) {
+        
+        $county = urldecode($county);
+        $results = $this->m_analytics->getReportingRatio($survey_type, $survey_category, $county, 'district');
         echo json_encode($results);
     }
 }

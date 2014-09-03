@@ -784,7 +784,7 @@ $this->write_counties();
     
     public function createMCHOrtCommodityAvailabilitySectionforPDF() {
         $this->data_found = $this->m_mch_survey->getCommodityNames();
-        
+        //echo '<pre>';print_r($this->session->all_userdata());echo '</pre>';die;
         //var_dump($this->data_found);die;
         $counter = 0;
         $supplier_names = $this->selectMCHCommoditySuppliersPDF;
@@ -4395,16 +4395,19 @@ GROUP BY st_name,sc_name,facilityCode;";
                 if ($progress == 0) {
                     $linkText = 'Begin Survey';
                     $linkClass = 'action';
+                    $attr='begin';
                 } elseif ($progress == 100) {
-                    $linkText = 'Survey Completed';
-                    $linkClass = 'no-action';
+                    $linkText = 'Survey Completed : Review Entries';
+                    $linkClass = 'action';
+                    $attr='review';
                 } else {
                     $linkText = 'Continue Survey';
                     $linkClass = 'action';
+                    $attr='continue';
                 }
-                
-                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%;">' . $progress . '%</div></div></td>';
-                $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
+                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%;">' .$progress . '%</div></div></div></td>';
+                // $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%;">' . $progress . '%</div></div></td>';
+                $link.= '<td id="facility_1" class="' . $linkClass . '" data-action="'.$attr.'"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
                 
                 $this->districtFacilityListSection.= '<tr>
         <td >' . $counter . '</td>
