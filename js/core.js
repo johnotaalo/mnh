@@ -139,6 +139,7 @@ function runGraph(container, chart_title, chart_stacking, chart_type, chart_cate
             series: chart_drilldown
         }
     });
+
 }
 
 /**
@@ -675,12 +676,15 @@ $(document).ready(function() {
     //Handling Collapses
     $('.panel-collapse').on('show.bs.collapse', function() {
         $(this).parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-down');
+        $(this).parent().find('.panel-heading h4 a span .txt').text('Click to Mimimize');
+        $('.chart div').width( $('.chart div').parent().width());
         //$('.panel-collapse collapse in').collapse('hide');
         //$(this).collapse('show');
 
     })
     $('.panel-collapse').on('hide.bs.collapse', function() {
         $(this).parent().find('.panel-heading h4 a i').attr('class', 'fa fa-chevron-right');
+        $(this).parent().find('.panel-heading h4 a span .txt').text('Click to Expand');
         //$('.panel-collapse collapse in').collapse('hide');
         //$(this).collapse('show');
 

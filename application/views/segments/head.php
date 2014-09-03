@@ -55,8 +55,8 @@
 <script src="<?php echo base_url();?>assets/bower_components/tablesaw/dist/tablesaw.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/intro.js/intro.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-<!--script src="<?php echo base_url();?>assets/bower_components/skrollr/dist/skrollr.min.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist/skrollr.menu.min.js"></script-->
+<script src="<?php echo base_url();?>assets/bower_components/skrollr/dist/skrollr.min.js"></script>
+<script src="<?php echo base_url();?>assets/bower_components/skrollr-menu/dist/skrollr.menu.min.js"></script>
 
 <script src="<?php echo base_url();?>assets/bower_components/cheet.js/cheet.js"></script>
 

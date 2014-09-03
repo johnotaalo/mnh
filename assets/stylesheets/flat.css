@@ -9277,7 +9277,12 @@ h6.table-header span button {
 .analytics_row .panel-heading h4.panel-title a {
   text-decoration: none !important;
 }
-/* line 741, ../sass/flat.scss */
+/* line 738, ../sass/flat.scss */
+.analytics_row .panel-heading h4.panel-title i {
+  color: inherit;
+  padding-left: 10px;
+}
+/* line 745, ../sass/flat.scss */
 .analytics_row .panel-collapse .panel-body {
   border: none !important;
   box-shadow: 0;
