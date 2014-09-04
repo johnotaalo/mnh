@@ -688,31 +688,31 @@ $(document).ready(function() {
         //$('.panel-collapse collapse in').collapse('hide');
         //$(this).collapse('show');
 
-    })
+    });
 
-    // $('.dataTable').on('load',function(){
-    //     $('.dataTable').dataTable({
-    //             "sPaginationType": "full_numbers"
-    //         });
-    //     });
-    // $.fn.editable.defaults.mode = 'inline';
-    // $.fn.editableform.buttons =
-    //     '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
-    //     '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>';
 
-    // cheet('ctrl m f l', function() {
-    //     showMasterFacilityList(base_url, 'table');
-    // });
 
-    // cheet('ctrl e d i t m f l', function() {
-    //     showMasterFacilityList(base_url, 'editable');
-    // });
-    // cheet('ctrl h e l p', function() {
-    //     showHelp(base_url);
-    // });
-    // cheet('g r a p h', function() {
-    //     showAnalytics(base_url);
-    // });
+    
+
+
+    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editableform.buttons =
+        '<button type="submit" class="btn btn-success editable-submit btn-mini"><i class="fa fa-check-circle"></i></button>' +
+        '<button type="button" class="btn btn-danger editable-cancel btn-mini"><i class="fa fa-ban"></i></button>';
+
+    cheet('ctrl m f l', function() {
+        showMasterFacilityList(base_url, 'table');
+    });
+
+    cheet('ctrl e d i t m f l', function() {
+        showMasterFacilityList(base_url, 'editable');
+    });
+    cheet('ctrl h e l p', function() {
+        showHelp(base_url);
+    });
+    cheet('g r a p h', function() {
+        showAnalytics(base_url);
+    });
 
     $('.dataTable').on('load', function() {
         $('.dataTable').dataTable({

@@ -749,3 +749,12 @@ h6.table-header{
     }
 
 }
+//Activity
+.activity{
+    float:right;
+    font-size:12px !important;
+    .activity-text{
+        font-style: italic;
+        font-weight: bold;
+    }
+}

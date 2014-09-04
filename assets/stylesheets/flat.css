@@ -9287,3 +9287,14 @@ h6.table-header span button {
   border: none !important;
   box-shadow: 0;
 }
+
+/* line 753, ../sass/flat.scss */
+.activity {
+  float: right;
+  font-size: 12px !important;
+}
+/* line 756, ../sass/flat.scss */
+.activity .activity-text {
+  font-style: italic;
+  font-weight: bold;
+}

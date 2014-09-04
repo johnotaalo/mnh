@@ -41,6 +41,8 @@
 =============================-->
 <script src="<?php echo base_url(); ?>js/js_libraries.js"></script>
 <script src="<?php echo base_url(); ?>js/js_ajax_load.js"></script>
+
+<script src="<?php echo base_url();?>assets/bower_components/moment/moment.js"></script>
 <!--<script src="<?php echo base_url();?>assets/bower_components/jquery/dist/jquery.js"></script>-->
 <script src="<?php echo base_url();?>assets/bower_components/select2/select2.js"></script>
 <script src="<?php echo base_url();?>js/core.js"></script>
@@ -63,7 +65,6 @@
 
 <script src="<?php echo base_url();?>assets/bower_components/cheet.js/cheet.js"></script>
 <script src="<?php echo base_url();?>assets/bower_components/numeraljs/numeral.js"></script>
-<script src="<?php echo base_url();?>assets/bower_components/moment/moment.js"></script>
 <script src="<?php echo base_url()?>js/jquery.quickfit.js"></script>
 <!-- Semantic UI -->
 <script src="<?php echo base_url();?>assets/bower_components/semantic-ui/build/packaged/javascript/semantic.js"></script>
@@ -120,6 +121,15 @@
 
         });
 
+        $(document).on('load','.activity-text',function(){
+            alert('loaded');
+        });
+
+
+
+        
+        
+        // $('.activity').text(moment($('.activity').text()).fromNow()  );
         // $('.modal-footer .btn-primary').click(function()){
             
         // }

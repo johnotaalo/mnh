@@ -5,6 +5,8 @@ $mfacilityMFL = $this -> session -> userdata('facilityMFL');
 
 
 <script type="text/javascript" src="<?php echo base_url()?>js/style-table.js"></script>
+
+
 <script src="<?php echo base_url()?>js/survey.js"></script>
 
 <script>

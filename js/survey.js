@@ -14,6 +14,8 @@ function startSurvey(base_url, survey, survey_category, district) {
 
 	// Bound Events
 
+       
+   
 
 	//start of close_opened_form click event
 	$("#close_opened_form").click(function() {
@@ -115,10 +117,17 @@ function startSurvey(base_url, survey, survey_category, district) {
 		$('.dataTable').dataTable({
 			"sPaginationType": "full_numbers"
 		});
-
+  $('.activity-text').each(function(){
+  	time = $(this).text();
+  	if(time!='not started yet'){
+  	newTime=moment(time,'Y-m-d H:i:s').fromNow();
+  	$(this).text(newTime);
+  }
+  	//alert(moment().fromNow());
+  });
 		//so which link was clicked?
 		$('.action').live('click', function() {
-			link_id = '#' + $(this).find('a').attr('id');
+			link_id = '#' + $(this).attr('data-mfl');
 			link_id = link_id.substr(link_id.indexOf('#') + 1, link_id.length);
 			//linkSub=$(link_id).attr('class');
 			//linkIdUrl=link_id.substr(link_id.indexOf('#')+1,(link_id.indexOf('_li')-1));

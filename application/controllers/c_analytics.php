@@ -1534,7 +1534,15 @@ ORDER BY fac_level;");
     
     //     $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar');
     // }
-    
+    // 
+    /**
+     * [getChallengeStatistics description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @return [type]                  [description]
+     */
     public function getChallengeStatistics($criteria, $value, $survey, $survey_category) {
         $results = $this->m_analytics->getChallengeStatistics($criteria, $value, $survey, $survey_category);
         
@@ -1615,6 +1623,15 @@ ORDER BY fac_level;");
         //echo "<pre>";print_r($resultArray);echo "</pre>";die;
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'pie');
     }
+    /**
+     * [getCommodityLocation description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $for             [description]
+     * @return [type]                  [description]
+     */
     public function getCommodityLocation($criteria, $value, $survey, $survey_category, $for) {
         $results = $this->m_analytics->getCommodityLocation($criteria, $value, $survey, $survey_category, $for);
         
@@ -1724,11 +1741,13 @@ ORDER BY fac_level;");
     
     /**
      * [getQuestionStatistics description]
-     * @param  [type] $criteria [description]
-     * @param  [type] $value    [description]
-     * @param  [type] $survey   [description]
-     * @param  [type] $for      [description]
-     * @return [type]           [description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $for             [description]
+     * @param  [type] $statistics      [description]
+     * @return [type]                  [description]
      */
     public function getQuestionStatistics($criteria, $value, $survey, $survey_category, $for, $statistics) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, $for, $statistics);
@@ -1745,13 +1764,32 @@ ORDER BY fac_level;");
         $category = $q;
         $this->populateGraph($resultArray, '', $category, $criteria, 'percent', 70, 'bar', '', $for, 'question', $statistics);
     }
+    /**
+     * [getQuestionRaw description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $for             [description]
+     * @param  [type] $statistics      [description]
+     * @param  [type] $form            [description]
+     * @return [type]                  [description]
+     */
     public function getQuestionRaw($criteria, $value, $survey, $survey_category, $for, $statistics, $form) {
         $results = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, $for, $statistics);
         
         //echo "<pre>";print_r($results);echo "</pre>";die;
         echo $this->generateData($results, 'Question Statistics for' . ucwords($for) . '(' . $value . ')', $form);
     }
-    
+    /**
+     * [getBedStatistics description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @param  [type] $statistics      [description]
+     * @return [type]                  [description]
+     */
     public function getBedStatistics($criteria, $value, $survey, $survey_category, $statistics) {
         $nurse = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'nur', $statistics);
         $beds = $this->m_analytics->getQuestionStatistics($criteria, $value, $survey, $survey_category, 'bed', $statistics);
@@ -1764,7 +1802,14 @@ ORDER BY fac_level;");
         $resultArray[] = array('name' => 'Numbers', 'data' => $gData);
         $this->populateGraph($resultArray, '', $category, $criteria, '', 70, 'bar');
     }
-    
+    /**
+     * [getDeliveries description]
+     * @param  [type] $criteria        [description]
+     * @param  [type] $value           [description]
+     * @param  [type] $survey          [description]
+     * @param  [type] $survey_category [description]
+     * @return [type]                  [description]
+     */
     public function getDeliveries($criteria, $value, $survey, $survey_category) {
         $this->getQuestionStatisticsSingle($criteria, $value, $survey, $survey_category, 'prep', 'response');
     }
