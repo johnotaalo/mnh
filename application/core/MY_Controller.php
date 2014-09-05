@@ -242,8 +242,16 @@ $this->write_counties();
         
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getDistrictNames();
+        $district = $this->session->userdata('dName');
         foreach ($this->data_found as $value) {
-            $this->selectDistricts.= '<option value="' . $value['districtId'] . '">' . $value['districtName'] . '</option>' . '<br />';
+            if($value['districtName'] == $district)
+            {            
+                $this->selectDistricts.= '<option value="' . $value['districtId'] . '" selected = "selected">' . $value['districtName'] . '</option>' . '<br />';
+            }
+            else
+            {
+                $this->selectDistricts.= '<option value="' . $value['districtId'] . '">' . $value['districtName'] . '</option>' . '<br />';
+            }      
         }
         
         //var_dump($this -> session -> userdata('allDistricts')); exit;
@@ -254,11 +262,12 @@ $this->write_counties();
         
         /*obtained from the session data*/
         $this->data_found = $this->m_mnh_survey->getCountyNames();
+       // print_r($this->session->userdata);
         foreach ($this->data_found as $value) {
             $this->selectCounties.= '<option value="' . $value['countyId'] . '">' . $value['countyName'] . '</option>' . '<br />';
         }
         
-        //var_dump($this -> session -> userdata('allCounties')); exit;
+        // var_dump($this -> session -> userdata('allCounties')); exit;
         return $this->selectCounties;
     }
     
