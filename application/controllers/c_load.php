@@ -92,6 +92,8 @@ class C_Load extends MY_Controller {
         $result =$this->db->get_where('facilities',array('fac_mfl'=>$fac_mfl));
         $result = $result->result_array();
 
+        // print_r($result);die;
+
         echo json_encode($result);
 
     }
