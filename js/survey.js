@@ -14,8 +14,7 @@ function startSurvey(base_url, survey, survey_category, district) {
 
 	// Bound Events
 
-       
-   
+
 
 	//start of close_opened_form click event
 	$("#close_opened_form").click(function() {
@@ -117,14 +116,15 @@ function startSurvey(base_url, survey, survey_category, district) {
 		$('.dataTable').dataTable({
 			"sPaginationType": "full_numbers"
 		});
-  $('.activity-text').each(function(){
-  	time = $(this).text();
-  	if(time!='not started yet'){
-  	newTime=moment(time,'Y-m-d H:i:s').fromNow();
-  	$(this).text(newTime);
-  }
-  	//alert(moment().fromNow());
-  });
+		$('.activity-text').live
+		$('.activity-text').each(function() {
+			time = $(this).text();
+			if (time != 'not started yet') {
+				newTime = moment(time, 'Y-m-d H:i:s').fromNow();
+				$(this).text(newTime);
+			}
+			//alert(moment().fromNow());
+		});
 		//so which link was clicked?
 		$('.action').live('click', function() {
 			link_id = '#' + $(this).attr('data-mfl');
@@ -1121,14 +1121,14 @@ function startSurvey(base_url, survey, survey_category, district) {
 	function getDistrictData(base_url, district, survey_type, survey_category) {
 		//alert(county);
 		$.ajax({
-			url: base_url + 'c_analytics/getDistrictData/'  + survey_type + '/' + survey_category+ '/' + district,
+			url: base_url + 'c_analytics/getDistrictData/' + survey_type + '/' + survey_category + '/' + district,
 			beforeSend: function(xhr) {
 				xhr.overrideMimeType("text/plain; charset=x-user-defined");
 			},
 			success: function(data) {
 				obj = jQuery.parseJSON(data);
 				console.log(obj);
-				$('#current_survey').text(survey_type.toUpperCase() +' SURVEY');
+				$('#current_survey').text(survey_type.toUpperCase() + ' SURVEY');
 				$('#targeted').text(obj[0].actual);
 				$('#finished').text(obj[0].reported);
 				$('#not-finished').text();
