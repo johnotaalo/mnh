@@ -6,7 +6,7 @@ ini_set('memory_limit', '-1');
 
 class MY_Controller extends CI_Controller
 {
-    
+    public $facilityMFL;    
     public $em, $response, $theForm, $rowsInserted, $executionTime, $data, $data_found, $facilityInDistrict, $selectReportingCounties, $selectCommodityType, $facilities, $facility, $selectCounties, $global_counter, $selectDistricts, $selectFacilityType, $selectFacilityLevel, $selectFacilityOwner, $selectProvince, $selectCommoditySuppliers, $selectMCHOtherSuppliers, $selectMNHOtherSuppliers, $selectMCHCommoditySuppliers, $selectFacility, $commodityAvailabilitySection, $mchCommodityAvailabilitySection, $mchIndicatorsSection, $signalFunctionsSection, $ortCornerAspectsSection, $mchCommunityStrategySection, $mnhWaterAspectsSection, $mnhCEOCAspectsSection, $mchGuidelineAvailabilitySection, $trainingGuidelineSection, $mchTrainingGuidelineSection, $districtFacilityListSection, $suppliesUsageAndOutageSection, $commodityUsageAndOutageSection, $suppliesSection, $suppliesMCHSection, $suppliesMNHOtherSection, $equipmentsSection, $deliveryEquipmentSection, $hardwareMCHSection, $equipmentsMCHSection, $severediatreatmentMCHSection, $hcwProfileSection, $hcwCaseManagementSection, $mchConsultationSection, $totalsRows, $monthlydeliveries;
     
     //new sections
@@ -181,6 +181,7 @@ class MY_Controller extends CI_Controller
         
         //Define Survey Session Variables
         $this->session_survey_category = $this->session->userdata('survey_category');
+        $this->facilityMFL = $this->session->userdata('facilityMFL');
         
         $this->getTreatments();
         $this->getSections();
@@ -330,7 +331,15 @@ $this->write_counties();
         /*obtained from the session data*/
         
         $this->data_found = $this->m_mnh_survey->getFacilityOwnerNames();
+        $retrieved = $this->m_mch_survey->getFacilityInfo();
+        $owner = $retrieved[$this->session->userdata('facilityMFL')]['fac_ownership'];
+        // echo "<pre>";print_r($retrieved);die;
+        // print_r($this->data_found);
+        // echo $owner;die;
         foreach ($this->data_found as $value) {
+            if ($owner == $value['foName']) {
+                echo $value['foName'];
+            }
             $this->selectFacilityOwner.= '<option value="' . $value['foId'] . '">' . $value['foName'] . '</option>' . '<br />';
         }
         
@@ -4557,66 +4566,64 @@ GROUP BY st_name,sc_name,facilityCode;";
     }
     
     public function createFacilitiesListSection() {
-        
-        /*retrieve facility list*/
+    /*retrieve facility list*/
         $this->m_mnh_survey->getFacilitiesByDistrict($this->session->userdata('dName'));
         $counter = 0;
         $link = '';
         $surveyCompleteFlag = '';
         if (count($this->m_mnh_survey->districtFacilities) > 0) {
-            
-            //set session data
-            $this->session->set_userdata(array('fCount' => count($this->m_mnh_survey->districtFacilities)));
-            
-            //print 'true'; die;
-            foreach ($this->m_mnh_survey->districtFacilities as $value) {
-                $counter++;
-                $fac_mfl = $value['facMfl'];
-                $survey = $this->session->userdata('survey');
-                $survey_category = $this->session->userdata('survey_category');
-                if ($survey == 'mnh') {
-                    $total = 8;
-                } else if ($survey == 'ch') {
-                    $total = 9;
-                } else {
-                    $total = 5;
-                }
-                $current = $this->getSection($survey, $fac_mfl, $survey_category);
-                $progress = round(($current / $total) * 100);
-                if ($progress == 0) {
-                    $linkText = 'Begin Survey';
-                    $linkClass = 'action';
-                } elseif ($progress == 100) {
-                    $linkText = 'Survey Completed';
-                    $linkClass = 'no-action';
-                } else {
-                    $linkText = 'Continue Survey';
-                    $linkClass = 'action';
-                }
-                
-                $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%;">' . $progress . '%</div></div></td>';
-                $link.= '<td id="facility_1" class="' . $linkClass . '"><a id="' . $value['facMfl'] . '" class="begin">' . $linkText . '</a></td>';
-                
-                $this->districtFacilityListSection.= '<tr>
-        <td >' . $counter . '</td>
-            <td >' . $value['facMfl'] . '</td>
-            <td >' . $value['facName'] . '</td>
-
-
-            ' . $link . '
-            </tr>';
-            }
-            
-            //print 'fs: '.$this->districtFacilityListSection;die;
-            
-            
+        //set session data
+        $this->session->set_userdata(array('fCount' => count($this->m_mnh_survey->districtFacilities)));
+        //print 'true'; die;
+        foreach ($this->m_mnh_survey->districtFacilities as $value) {
+        $counter++;
+        $fac_mfl = $value['facMfl'];
+        $survey = $this->session->userdata('survey');
+        $survey_category = $this->session->userdata('survey_category');
+        if ($survey == 'mnh') {
+        $total = 8;
+        } else if ($survey == 'ch') {
+        $total = 9;
         } else {
-            
-            //print 'false'; die;
-            $this->districtFacilityListSection.= '<tr><td colspan="22">No Facilities Found</td></tr>';
+        $total = 5;
         }
-    }
-    
+        $dataFound = $this->m_analytics->get_survey_info($survey, $survey_category, $fac_mfl);
+        // print_r($dataFound);die;
+        $current = trim($dataFound[0]['section'], 'section-');
+        // echo $current;
+        $last_activity = $dataFound[0]['last_activity'];
+        $progress = round(($current / $total) * 100);
+        if ($progress == 0) {
+        $linkText = 'Begin Survey';
+        $linkClass = 'action';
+        $attr = 'begin';
+        } elseif ($progress == 100) {
+        $linkText = 'Review Entries';
+        $linkClass = 'action';
+        $attr = 'review';
+        } else {
+        $linkText = 'Continue Survey';
+        $linkClass = 'action';
+        $attr = 'continue';
+        }
+        $last_activity = ($last_activity != NULL) ? date('Y-m-d H:i:s',strtotime($last_activity)) : 'not started yet';
+        // echo $last_activity;
+        // Get Survey Information
+        $link = '<td><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' . $progress . '" aria-valuemin="0" aria-valuemax="100" style="width: ' . $progress . '%;">' . $progress . '%</div></div></div></td>';
+        $link.= '<td ><a class="' . $linkClass . '" id="facility_1" data-action="' . $attr . '" data-mfl ="' . $value['facMfl'] . '" >' . $linkText . '</a><div class="ui label activity"> Last Activity : <span class="activity-text">' . $last_activity . '</span></div></td>';
+        $this->districtFacilityListSection.= '<tr>
+        <td >' . $counter . '</td>
+        <td >' . $value['facMfl'] . '</td>
+        <td >' . $value['facName'] . '</td>
+        ' . $link . '
+        </tr>';
+        }
+        //print 'fs: '.$this->districtFacilityListSection;die;
+        } else {
+        //print 'false'; die;
+        $this->districtFacilityListSection.= '<tr><td colspan="22">No Facilities Found</td></tr>';
+        }
+}
     /**Function to create malaria treatment section**/
     public function createmalariaconfrimedtreatmentSection() {
         $this->data_found = $this->m_mch_survey->getTreatmentCommodities();
